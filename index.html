@@ -143,32 +143,17 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            padding: 30px;
+            border-left: 8px solid #8b5a2b;
         }
         .cover-page::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
             bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(0,0,0,0.03) 2px,
-                    rgba(0,0,0,0.03) 4px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(0,0,0,0.03) 2px,
-                    rgba(0,0,0,0.03) 4px
-                ),
-                radial-gradient(ellipse at 30% 20%, rgba(139,90,43,0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 80%, rgba(0,0,0,0.2) 0%, transparent 50%);
-            pointer-events: none;
+            width: 8px;
+            background: linear-gradient(to right, #6d4c2a, #8b5a2b);
         }
         .cover-page::after {
             content: '';
