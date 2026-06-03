@@ -249,7 +249,7 @@
                 
                 // 從 sample 目錄讀取
                 for (const path of sampleMaterials) {
-                    if (cat.name === '🎨 精選邊框' || cat.name === '💡 實用圖標') {
+                    if (cat.name === '🎨 精選邊框') {
                         try {
                             const response = await fetch(path);
                             if (response.ok) {
