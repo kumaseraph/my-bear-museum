@@ -249,8 +249,9 @@
         .page-indicator { font-size: 1.1rem; color: #8b5a2b; font-weight: bold; }
 
         /* Page flip animation */
-        .page.flipped { transform: rotateY(-180deg); pointer-events: none; }
-        .page.hidden { opacity: 0; pointer-events: none; }
+        .page.flipped, .page.hidden { pointer-events: none; }
+        .page.flipped { transform: rotateY(-180deg); }
+        .page.hidden { opacity: 0; }
         .page.current { z-index: 10; }
 
         /* Lightbox */
