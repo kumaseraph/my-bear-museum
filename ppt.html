@@ -198,6 +198,19 @@
         .lightbox-download:hover {
             background: #5d4037;
         }
+        .format-select {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .format-select option {
+            background: #5d4037;
+            color: white;
+        }
         footer {
             margin-top: 40px;
             padding: 20px;
@@ -214,6 +227,12 @@
         <div id="lightbox-nav">
             <button class="nav-btn" id="prev-btn" onclick="prevImage()">◀ 上一張</button>
             <button class="lightbox-download" onclick="downloadCurrent()">⬇ 直接下載</button>
+            <select class="format-select" id="format-select">
+                <option value="svg">SVG (原始)</option>
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="webp">WEBP</option>
+            </select>
             <button class="nav-btn" id="next-btn" onclick="nextImage()">下一張 ▶</button>
         </div>
     </div>
@@ -291,16 +310,52 @@
 
         function downloadCurrent() {
             const material = allMaterials[currentIndex];
-            downloadFile(material.src);
+            downloadFile(material.src, document.getElementById('format-select').value);
         }
 
-        function downloadFile(url) {
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = url.split('/').pop();
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+        async function downloadFile(url, format = 'svg') {
+            const filename = url.split('/').pop().replace('.svg', '');
+            
+            if (format === 'svg') {
+                // 原始 SVG 直接下載
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename + '.svg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                // 轉換格式需要用 Canvas
+                try {
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    img.src = url;
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = reject;
+                    });
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.naturalWidth || 1200;
+                    canvas.height = img.naturalHeight || 800;
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    
+                    canvas.toBlob(blob => {
+                        const a = document.createElement('a');
+                        a.href = URL.createObjectURL(blob);
+                        a.download = `${filename}.${format}`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(a.href);
+                    }, `image/${format}`, 0.95);
+                } catch (e) {
+                    alert('格式轉換失敗，請確認圖片已載入');
+                }
+            }
         }
 
         // 綁定點擊事件
