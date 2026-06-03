@@ -286,6 +286,11 @@
                 ]
             },
             {
+                name: '✨ 精選邊框',
+                folder: '',
+                files: ['20260603_精選邊框_01.svg', '20260603_精選邊框_02.svg', '20260603_精選邊框_03.svg', '20260603_精選邊框_04.svg', '20260603_精選邊框_05.svg']
+            },
+            {
                 name: '💡 實用圖標',
                 folder: 'icons',
                 files: ['20260603_圖標_團隊.svg', '20260603_圖標_創意.svg', '20260603_圖標_目標.svg', '20260603_圖標_文件.svg', '20260603_圖標_成長.svg', '20260603_圖標_成長02.jpg']
@@ -354,7 +359,8 @@
                     
                     let hasItems = false;
                     for (const file of cat.files) {
-                        const path = `materials/2026-06-03/${cat.folder}/${file}`;
+                        const folderPath = cat.folder ? `/${cat.folder}` : '';
+                        const path = `materials/2026-06-03${folderPath}/${file}`;
                         try {
                             const response = await fetch(path);
                             if (response.ok) {
