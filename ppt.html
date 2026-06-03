@@ -330,7 +330,7 @@
                         html += `<div class="border-group-items">`;
                         
                         for (const file of group.files) {
-                            const path = `materials/${cat.folder}/${file}`;
+                            const path = `materials/2026-06-03/${cat.folder}/${file}`;
                             try {
                                 const response = await fetch(path);
                                 if (response.ok) {
@@ -354,7 +354,7 @@
                     
                     let hasItems = false;
                     for (const file of cat.files) {
-                        const path = `materials/${cat.folder}/${file}`;
+                        const path = `materials/2026-06-03/${cat.folder}/${file}`;
                         try {
                             const response = await fetch(path);
                             if (response.ok) {
