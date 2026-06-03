@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 熊熊 PPT 素材庫</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fdf6e3;
+            color: #5d4037;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        nav {
+            background-color: #a1887f;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 15px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: #8d6e63;
+        }
+        nav a.active {
+            background-color: #5d4037;
+        }
+        header {
+            background-color: #5d4037;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 { margin: 0; font-size: 2.5rem; }
+        .subtitle { font-size: 1.1rem; margin-top: 0.5rem; opacity: 0.9; }
+        .container {
+            padding: 40px;
+            max-width: 1000px;
+            width: 90%;
+        }
+        .material-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            border: 4px solid #d7ccc8;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #795548;
+            border-bottom: 2px solid #d7ccc8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .material-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .material-item {
+            background: #fffbf0;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #e7d8c9;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .material-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+        .material-icon {
+            font-size: 2rem;
+        }
+        .material-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+        .download-btn {
+            background: #8d6e63;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            text-decoration: none;
+        }
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            color: #a1887f;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">🐻 熊熊博物館</a>
+        <a href="ppt.html" class="active">📊 PPT 素材庫</a>
+    </nav>
+    <header>
+        <h1>📊 熊熊 PPT 素材庫</h1>
+        <div class="subtitle">為你的工作報告注入可愛與專業 ✨</div>
+    </header>
+    <div class="container">
+        <!-- 素材將由自動化腳本動態更新或手動維護 -->
+        <div class="material-section">
+            <div class="section-title">🎨 精選邊框</div>
+            <div class="material-list">
+                <a href="materials/sample/工作報告_現代商務風邊框.svg" class="material-item" target="_blank">
+                    <span class="material-icon">🖼️</span>
+                    <span class="material-name">現代商務風邊框</span>
+                    <span class="download-btn">下載 SVG</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="material-section">
+            <div class="section-title">💡 實用圖標</div>
+            <div class="material-list">
+                <p style="color: #a1887f; font-style: italic;">目前還沒有圖標，熊熊正在努力準備中... ʕっ•ᴥ•ʔっ</p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ
+    </footer>
+</body>
+</html>

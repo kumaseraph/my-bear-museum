@@ -15,6 +15,29 @@
             flex-direction: column;
             align-items: center;
         }
+        nav {
+            background-color: #a1887f;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 15px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: #8d6e63;
+        }
+        nav a.active {
+            background-color: #5d4037;
+        }
         header {
             background-color: #8d6e63;
             color: white;
@@ -90,6 +113,10 @@
     </style>
 </head>
 <body>
+    <nav>
+        <a href="index.html" class="active">🐻 熊熊博物館</a>
+        <a href="ppt.html">📊 PPT 素材庫</a>
+    </nav>
     <header>
         <h1>🐻 熊熊線上博物館</h1>
         <div class="subtitle">記錄每天早晨出現的可愛熊熊們 ✨</div>
