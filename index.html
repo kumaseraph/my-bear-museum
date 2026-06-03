@@ -5,280 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🐻 熊熊線上博物館</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
             font-family: 'Segoe UI', 'Microsoft JhengHei', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #fdf6e3 0%, #f5e6d3 100%);
-            min-height: 100vh;
+            background-color: #fdf6e3;
+            color: #5d4037;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+        }
+        nav {
+            background-color: #a1887f;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 15px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background-color: #8d6e63;
+        }
+        nav a.active {
+            background-color: #5d4037;
         }
         header {
+            background-color: #8d6e63;
+            color: white;
+            width: 100%;
             text-align: center;
-            margin-bottom: 20px;
+            padding: 2rem 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        header h1 {
-            font-size: 2rem;
-            color: #5d4037;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        h1 { margin: 0; font-size: 2.5rem; }
+        .subtitle { font-size: 1.1rem; margin-top: 0.5rem; opacity: 0.9; }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 40px;
+            max-width: 1300px;
+            width: 90%;
         }
-        header .subtitle {
-            color: #8d6e63;
-            margin-top: 5px;
-        }
-
-        /* Book Container */
-        .book-container {
-            width: 100%;
-            max-width: 500px;
-            height: 650px;
-            position: relative;
+        .bear-card {
+            background: white;
+            border-radius: 20px;
             overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(139, 90, 43, 0.2);
-        }
-
-        /* Each page - fade transition */
-        .page {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, #fff 0%, #faf8f5 100%);
-            border-radius: 15px;
-            padding: 30px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border: 4px solid #d7ccc8;
             display: flex;
             flex-direction: column;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            border-left: 8px solid #8b5a2b;
-            overflow: hidden;
-            pointer-events: none;
         }
-        .page::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 8px;
-            background: linear-gradient(to right, #6d4c2a, #8b5a2b);
+        .bear-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
         }
-
-        /* Page number decoration */
-        .page-number {
-            position: absolute;
-            bottom: 20px;
-            right: 30px;
-            font-size: 1.2rem;
-            color: #d7ccc8;
-            font-style: italic;
+        .bear-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+            transition: opacity 0.3s;
         }
-
-        /* Bear content */
-        .bear-page-content {
+        .bear-card img:hover {
+            opacity: 0.8;
+        }
+        .bear-info {
+            padding: 20px;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            height: 100%;
-            text-align: center;
-        }
-        .bear-image-wrapper {
-            width: 100%;
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: zoom-in;
-        }
-        .bear-image-wrapper img {
-            max-width: 100%;
-            max-height: 380px;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .bear-image-wrapper img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            gap: 8px;
         }
         .bear-name {
-            font-size: 1.8rem;
-            color: #5d4037;
-            margin: 15px 0 10px;
             font-weight: bold;
+            font-size: 1.2rem;
+            color: #795548;
         }
         .bear-date {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #a1887f;
-            margin-bottom: 10px;
+            font-style: italic;
         }
         .bear-desc {
-            font-size: 1rem;
-            color: #6d4c41;
-            line-height: 1.8;
-            padding: 15px;
-            background: #fffbf5;
+            font-size: 0.95rem;
+            color: #8d6e63;
+            line-height: 1.5;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fffbf0;
             border-radius: 10px;
-            border: 2px solid #e8dcc8;
-            max-width: 100%;
+            border-left: 4px solid #d7ccc8;
+            text-align: left;
         }
-
-        /* Cover page */
-        .cover-page {
-            background: linear-gradient(135deg, #5c3d2e 0%, #4a3222 50%, #3d2817 100%);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            padding: 30px;
-            border-left: 8px solid #8b5a2b;
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            color: #a1887f;
+            font-size: 0.9rem;
         }
-        .cover-page::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 8px;
-            background: linear-gradient(to right, #6d4c2a, #8b5a2b);
-        }
-        .cover-page::after {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 3px dashed rgba(210,180,140,0.4);
-            border-radius: 8px;
-            pointer-events: none;
-        }
-        .cover-icon {
-            font-size: 5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(145deg, #d4a574 0%, #8b5a2b 50%, #5c3d2e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5)) 
-                    drop-shadow(-1px -1px 0 rgba(255,255,255,0.1))
-                    drop-shadow(0 4px 8px rgba(0,0,0,0.4));
-            animation: none;
-            position: relative;
-        }
-        .cover-icon-wrapper {
-            position: relative;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-        .cover-icon-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 4px solid #8b5a2b;
-            border-radius: 50%;
-            box-shadow: 
-                inset 2px 2px 4px rgba(0,0,0,0.4),
-                inset -2px -2px 4px rgba(255,255,255,0.1),
-                3px 3px 8px rgba(0,0,0,0.5),
-                -1px -1px 2px rgba(139,90,43,0.3);
-            background: radial-gradient(circle at 30% 30%, #6d4c2a 0%, #4a3222 100%);
-        }
-        .cover-icon {
-            position: relative;
-            z-index: 1;
-        }
-        .cover-page h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5), 1px 1px 2px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
-            background: linear-gradient(180deg, #d4a574 0%, #a0522d 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5));
-        }
-        .cover-page p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-        .cover-page .start-hint {
-            position: absolute;
-            bottom: 50px;
-            font-size: 1rem;
-            opacity: 0.7;
-            z-index: 1;
-        }
-
-        /* Navigation */
-        .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-        .nav-btn {
-            background: #8b5a2b;
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(139, 90, 43, 0.3);
-        }
-        .nav-btn:hover {
-            background: #6d4c2a;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 90, 43, 0.4);
-        }
-        .nav-btn:disabled {
-            background: #d7ccc8;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        .page-indicator {
-            font-size: 1.1rem;
-            color: #8b5a2b;
-            font-weight: bold;
-        }
-
-        /* Slide states - fade only */
-        .page.active {
-            opacity: 1;
-            z-index: 10;
-            pointer-events: auto;
-        }
-        .page.hidden {
-            opacity: 0;
-            z-index: 5;
-            pointer-events: none;
-        }
-
-        /* Lightbox */
+        /* Lightbox Styles */
         .lightbox {
             display: none;
             position: fixed;
@@ -296,64 +133,24 @@
             max-width: 90%;
             max-height: 90%;
             border-radius: 10px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-        }
-
-        /* Mobile responsive */
-        @media (max-width: 600px) {
-            .book-container {
-                height: 550px;
-            }
-            .page {
-                padding: 20px;
-            }
-            .bear-image-wrapper img {
-                max-height: 300px;
-            }
-            .bear-name {
-                font-size: 1.5rem;
-            }
-            .bear-desc {
-                font-size: 0.9rem;
-                padding: 10px;
-            }
-        }
-
-        footer {
-            margin-top: 30px;
-            color: #a1887f;
-            font-size: 0.9rem;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
+    <nav>
+        <a href="index.html" class="active">🐻 熊熊博物館</a>
+        <a href="ppt.html">📊 PPT 素材庫</a>
+    </nav>
     <header>
         <h1>🐻 熊熊線上博物館</h1>
-        <div class="subtitle">翻開每一頁，遇見一隻小熊 ✨</div>
+        <div class="subtitle">記錄每天早晨出現的可愛熊熊們 ✨</div>
     </header>
-
-    <div class="book-container">
-        <div class="book" id="book">
-            <!-- Pages will be inserted by JavaScript -->
-        </div>
-    </div>
-
-    <div class="nav-container">
-        <button class="nav-btn" id="prevBtn" onclick="prevPage()">◀ 上一頁</button>
-        <span class="page-indicator" id="pageIndicator">1 / 6</span>
-        <button class="nav-btn" id="nextBtn" onclick="nextPage()">下一頁 ▶</button>
+    <div class="gallery" id="gallery">
+        <!-- Bears will be loaded here by JavaScript -->
     </div>
 
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close" onclick="closeLightbox()">×</span>
         <img id="lightbox-img" src="" alt="放大檢視">
     </div>
 
@@ -362,14 +159,8 @@
     </footer>
 
     <script>
-        // Bear data - will be populated from the gallery
+        // Bear data
         const bears = [
-            {
-                name: "開館紀念熊",
-                date: "2026-06-03",
-                desc: "我是博物館的第一位居民！很高興能在這裡跟大家見面，希望以後每天都能看到很多很多好朋友來拜訪我喔 ʕっ•ᴥ•ʔっ",
-                img: "https://img.magnific.com/free-vector/adorable-baby-bear-illustration_1308-181868.jpg?semt=ais_test_b&w=740&q=80"
-            },
             {
                 name: "棉花糖雲",
                 date: "2026-06-02",
@@ -390,80 +181,18 @@
             }
         ];
 
-        let currentPage = 0;
-        const totalPages = bears.length + 1; // +1 for cover
-
-        function createPages() {
-            const book = document.getElementById('book');
-            
-            // Cover page
-            const coverPage = document.createElement('div');
-            coverPage.className = 'page cover-page active';
-            coverPage.innerHTML = `
-                <div class="cover-icon-wrapper">
-                    <div class="cover-icon">🐻</div>
-                </div>
-                <h2>熊熊博物館</h2>
-                <p>每一頁都是一個溫暖的故事</p>
-                <p class="start-hint">點擊「下一頁」開始翻閱 →</p>
-                <span class="page-number">Ⅰ</span>
-            `;
-            book.appendChild(coverPage);
-
-            // Bear pages
-            bears.forEach((bear, index) => {
-                const page = document.createElement('div');
-                page.className = 'page';
-                page.innerHTML = `
-                    <div class="bear-page-content">
-                        <div class="bear-image-wrapper" onclick="openLightbox('${bear.img}')">
-                            <img src="${bear.img}" alt="${bear.name}" onclick="event.stopPropagation()">
-                        </div>
+        function renderGallery() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = bears.map((bear, index) => `
+                <div class="bear-card">
+                    <img src="${bear.img}" alt="${bear.name}" onclick="openLightbox('${bear.img}')">
+                    <div class="bear-info">
                         <div class="bear-name">${bear.name}</div>
                         <div class="bear-date">${bear.date}</div>
                         <div class="bear-desc">${bear.desc}</div>
                     </div>
-                    <span class="page-number">${toRoman(index + 2)}</span>
-                `;
-                book.appendChild(page);
-            });
-
-            updateVisibility();
-        }
-
-        function toRoman(num) {
-            const romanNumerals = ['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ','Ⅷ','Ⅸ','Ⅹ'];
-            return romanNumerals[num - 1] || num;
-        }
-
-        function updateVisibility() {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach((page, index) => {
-                page.classList.remove('active', 'hidden');
-                if (index === currentPage) {
-                    page.classList.add('active');
-                } else {
-                    page.classList.add('hidden');
-                }
-            });
-
-            document.getElementById('pageIndicator').textContent = `${currentPage + 1} / ${totalPages}`;
-            document.getElementById('prevBtn').disabled = currentPage === 0;
-            document.getElementById('nextBtn').disabled = currentPage === totalPages - 1;
-        }
-
-        function nextPage() {
-            if (currentPage < totalPages - 1) {
-                currentPage++;
-                updateVisibility();
-            }
-        }
-
-        function prevPage() {
-            if (currentPage > 0) {
-                currentPage--;
-                updateVisibility();
-            }
+                </div>
+            `).join('');
         }
 
         function openLightbox(src) {
@@ -477,17 +206,13 @@
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                nextPage();
-            } else if (e.key === 'ArrowLeft') {
-                prevPage();
-            } else if (e.key === 'Escape') {
+            if (e.key === 'Escape') {
                 closeLightbox();
             }
         });
 
         // Initialize
-        createPages();
+        renderGallery();
     </script>
 </body>
 </html>
