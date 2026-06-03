@@ -397,6 +397,15 @@
             }
 
             container.innerHTML = html;
+            bindEvents();
+        }
+
+        function bindEvents() {
+            document.querySelectorAll('.material-item').forEach((item) => {
+                item.addEventListener('click', function() {
+                    openLightbox(parseInt(this.getAttribute('data-index')));
+                });
+            });
         }
 
         function openLightbox(index) {
