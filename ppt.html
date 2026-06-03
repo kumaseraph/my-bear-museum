@@ -260,6 +260,37 @@
         }
         .section-hidden { display: none; }
         .section-visible { display: block; }
+        /* 子分頁 tab 樣式 */
+        .sub-tab-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #faf6f1;
+            border-radius: 15px;
+        }
+        .sub-tab-btn {
+            padding: 8px 16px;
+            border: none;
+            background: #e7d8c9;
+            color: #5d4037;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .sub-tab-btn:hover { background: #d7ccc8; }
+        .sub-tab-btn.active {
+            background: #8d6e63;
+            color: white;
+        }
+        .sub-section-hidden { display: none; }
+        .sub-section-visible { display: block; }
+        .group-hidden { display: none; }
+        .group-visible { display: block; }
     </style>
 </head>
 <body>
@@ -417,11 +448,14 @@
 
             for (const cat of materialCategories) {
                 const sectionId = `section-${materialCategories.indexOf(cat)}`;
+                const catIndex = materialCategories.indexOf(cat);
                 if (cat.name === '🎨 邊框素材') {
                     // 邊框分類：使用群組顯示
                     html += `<div class="material-section section-visible" id="${sectionId}"><div class="section-title">${cat.name}</div>`;
-                    for (const group of cat.groups) {
-                        html += `<div class="border-group">`;
+                    html += `<div class="sub-tab-container" id="subtabs-${catIndex}"></div>`;
+                    for (let gi = 0; gi < cat.groups.length; gi++) {
+                        const group = cat.groups[gi];
+                        html += `<div class="border-group sub-section-visible" id="group-${catIndex}-${gi}">`;
                         html += `<div class="border-group-title">${group.title}</div>`;
                         html += `<div class="border-item-desc" style="text-align:center;color:#a1887f;font-size:0.85rem;margin-bottom:15px;">${group.desc}</div>`;
                         html += `<div class="border-group-items">`;
@@ -448,10 +482,12 @@
                 } else if (cat.groups) {
                     // 有 groups 的分類（用 border-group 樣式）
                     html += `<div class="material-section section-hidden" id="${sectionId}"><div class="section-title">${cat.name}${cat.subtitle ? `<span style="font-size:0.9rem;font-weight:normal;color:#a1887f;margin-left:10px;">— ${cat.subtitle}</span>` : ''}</div>`;
+                    html += `<div class="sub-tab-container" id="subtabs-${catIndex}"></div>`;
                     
-                    for (const group of cat.groups) {
+                    for (let gi = 0; gi < cat.groups.length; gi++) {
+                        const group = cat.groups[gi];
                         const hasFiles = group.files && group.files.length > 0;
-                        html += `<div class="border-group">`;
+                        html += `<div class="border-group sub-section-visible" id="group-${catIndex}-${gi}">`;
                         html += `<div class="border-group-title">${group.title}</div>`;
                         html += `<div class="border-item-desc" style="text-align:center;color:#a1887f;font-size:0.85rem;margin-bottom:15px;">${group.desc}</div>`;
                         html += `<div class="border-group-items">`;
@@ -635,10 +671,44 @@
                 sec.classList.toggle('section-hidden', i !== idx);
                 sec.classList.toggle('section-visible', i === idx);
             });
+            // 切換時渲染子分頁
+            renderSubTabs(idx);
+        }
+
+        function renderSubTabs(catIndex) {
+            const cat = materialCategories[catIndex];
+            if (!cat.groups || cat.groups.length <= 1) return;
+            
+            const subtabContainer = document.getElementById(`subtabs-${catIndex}`);
+            if (!subtabContainer) return;
+            
+            let subtabsHtml = '';
+            cat.groups.forEach((group, gi) => {
+                const activeClass = gi === 0 ? ' active' : '';
+                subtabsHtml += `<button class="sub-tab-btn${activeClass}" onclick="switchSubTab(${catIndex}, ${gi})">${group.title}</button>`;
+            });
+            subtabContainer.innerHTML = subtabsHtml;
+        }
+
+        function switchSubTab(catIndex, gi) {
+            // 更新子分頁按鈕狀態
+            document.querySelectorAll(`#subtabs-${catIndex} .sub-tab-btn`).forEach((btn, i) => {
+                btn.classList.toggle('active', i === gi);
+            });
+            // 切換 group 顯示
+            const cat = materialCategories[catIndex];
+            cat.groups.forEach((group, i) => {
+                const groupEl = document.getElementById(`group-${catIndex}-${i}`);
+                if (groupEl) {
+                    groupEl.classList.toggle('sub-section-hidden', i !== gi);
+                    groupEl.classList.toggle('sub-section-visible', i === gi);
+                }
+            });
         }
 
         loadMaterials();
         renderTabs();
+        renderSubTabs(0);
     </script>
 </body>
 </html>
