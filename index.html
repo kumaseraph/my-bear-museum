@@ -44,7 +44,7 @@
             box-shadow: 0 10px 40px rgba(139, 90, 43, 0.2);
         }
 
-        /* Each page - slides horizontally */
+        /* Each page - fade transition */
         .page {
             position: absolute;
             top: 0;
@@ -57,10 +57,10 @@
             display: flex;
             flex-direction: column;
             opacity: 0;
-            transform: translateX(100%);
-            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            transition: opacity 0.5s ease-in-out;
             border-left: 8px solid #8b5a2b;
             overflow: hidden;
+            pointer-events: none;
         }
         .page::before {
             content: '';
@@ -281,21 +281,16 @@
             font-weight: bold;
         }
 
-        /* Slide states */
+        /* Slide states - fade only */
         .page.active {
             opacity: 1;
-            transform: translateX(0);
             z-index: 10;
+            pointer-events: auto;
         }
-        .page.prev {
+        .page.hidden {
             opacity: 0;
-            transform: translateX(-100%);
             z-index: 5;
-        }
-        .page.next {
-            opacity: 0;
-            transform: translateX(100%);
-            z-index: 5;
+            pointer-events: none;
         }
 
         /* Lightbox */
@@ -459,13 +454,11 @@
         function updateVisibility() {
             const pages = document.querySelectorAll('.page');
             pages.forEach((page, index) => {
-                page.classList.remove('active', 'prev', 'next');
+                page.classList.remove('active', 'hidden');
                 if (index === currentPage) {
                     page.classList.add('active');
-                } else if (index < currentPage) {
-                    page.classList.add('prev');
                 } else {
-                    page.classList.add('next');
+                    page.classList.add('hidden');
                 }
             });
 
