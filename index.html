@@ -258,7 +258,7 @@
         .lightbox {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 9999;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.9);
@@ -266,6 +266,7 @@
             align-items: center;
             cursor: zoom-out;
         }
+        .lightbox.active { display: flex; }
         .lightbox img {
             max-width: 90%;
             max-height: 90%;
@@ -415,12 +416,13 @@
         }
 
         function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
             document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
+            lb.classList.add('active');
         }
 
         function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
+            document.getElementById('lightbox').classList.remove('active');
         }
 
         document.addEventListener('keydown', (e) => {
