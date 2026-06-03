@@ -84,20 +84,17 @@
             border: 1px solid #e7d8c9;
             text-align: center;
             transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
             color: inherit;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
         }
         .material-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 10px rgba(0,0,0,0.1);
             background: #fff;
-        }
-        .material-icon {
-            font-size: 2rem;
         }
         .material-name {
             font-weight: bold;
@@ -110,7 +107,11 @@
             padding: 5px 12px;
             border-radius: 10px;
             font-size: 0.8rem;
-            text-decoration: none;
+            cursor: pointer;
+            border: none;
+        }
+        .download-btn:hover {
+            background: #5d4037;
         }
         /* 圖片預覽燈箱效果 */
         .material-thumb {
@@ -131,17 +132,45 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             justify-content: center;
             align-items: center;
             z-index: 9999;
+            flex-direction: column;
         }
         #lightbox.active { display: flex; }
-        #lightbox img {
-            max-width: 95%;
-            max-height: 95%;
+        #lightbox-img {
+            max-width: 85%;
+            max-height: 75%;
             border-radius: 10px;
             box-shadow: 0 0 30px rgba(255,255,255,0.2);
+        }
+        #lightbox-info {
+            color: white;
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+        #lightbox-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.4);
+        }
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
         #lightbox-close {
             position: absolute;
@@ -150,6 +179,24 @@
             font-size: 2.5rem;
             cursor: pointer;
             line-height: 1;
+            background: none;
+            border: none;
+        }
+        #lightbox-close:hover {
+            color: #ff6b6b;
+        }
+        .lightbox-download {
+            background: #8d6e63;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            margin-top: 10px;
+        }
+        .lightbox-download:hover {
+            background: #5d4037;
         }
         footer {
             margin-top: 40px;
@@ -160,9 +207,15 @@
     </style>
 </head>
 <body>
-    <div id="lightbox" onclick="closeLightbox()">
-        <span id="lightbox-close">×</span>
+    <div id="lightbox">
+        <button id="lightbox-close" onclick="closeLightbox()">×</button>
         <img id="lightbox-img" src="" alt="預覽">
+        <div id="lightbox-info"></div>
+        <div id="lightbox-nav">
+            <button class="nav-btn" id="prev-btn" onclick="prevImage()">◀ 上一張</button>
+            <button class="lightbox-download" onclick="downloadCurrent()">⬇ 直接下載</button>
+            <button class="nav-btn" id="next-btn" onclick="nextImage()">下一張 ▶</button>
+        </div>
     </div>
     <nav>
         <a href="index.html">🐻 熊熊博物館</a>
@@ -177,10 +230,10 @@
         <div class="material-section">
             <div class="section-title">🎨 精選邊框</div>
             <div class="material-list">
-                <div class="material-item" onclick="openLightbox('materials/sample/工作報告_現代商務風邊框.svg')">
+                <div class="material-item" data-index="0">
                     <img class="material-thumb" src="materials/sample/工作報告_現代商務風邊框.svg" alt="現代商務風邊框">
                     <span class="material-name">現代商務風邊框</span>
-                    <a href="materials/sample/工作報告_現代商務風邊框.svg" class="download-btn" target="_blank">下載 SVG</a>
+                    <button class="download-btn" onclick="downloadFile('materials/sample/工作報告_現代商務風邊框.svg')">⬇ 下載 SVG</button>
                 </div>
             </div>
         </div>
@@ -196,15 +249,75 @@
         由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ
     </footer>
     <script>
-        function openLightbox(src) {
-            document.getElementById('lightbox-img').src = src;
+        // 收集所有素材圖片
+        const allMaterials = Array.from(document.querySelectorAll('.material-item[data-index]')).map(el => ({
+            src: el.querySelector('.material-thumb').src,
+            name: el.querySelector('.material-name').textContent
+        }));
+
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
             document.getElementById('lightbox').classList.add('active');
         }
+
+        function updateLightbox() {
+            const material = allMaterials[currentIndex];
+            document.getElementById('lightbox-img').src = material.src;
+            document.getElementById('lightbox-info').textContent = `${currentIndex + 1} / ${allMaterials.length} — ${material.name}`;
+            document.getElementById('prev-btn').disabled = currentIndex === 0;
+            document.getElementById('next-btn').disabled = currentIndex === allMaterials.length - 1;
+        }
+
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
         }
+
+        function prevImage() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateLightbox();
+            }
+        }
+
+        function nextImage() {
+            if (currentIndex < allMaterials.length - 1) {
+                currentIndex++;
+                updateLightbox();
+            }
+        }
+
+        function downloadCurrent() {
+            const material = allMaterials[currentIndex];
+            downloadFile(material.src);
+        }
+
+        function downloadFile(url) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = url.split('/').pop();
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // 綁定點擊事件
+        document.querySelectorAll('.material-item').forEach((item, index) => {
+            item.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('download-btn')) {
+                    openLightbox(index);
+                }
+            });
+        });
+
+        // 鍵盤支援
         document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
             if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
         });
     </script>
 </body>
