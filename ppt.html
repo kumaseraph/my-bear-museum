@@ -230,6 +230,36 @@
             margin-top: 8px;
             font-weight: bold;
         }
+        /* 分頁 tab 樣式 */
+        .tab-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: #e7d8c9;
+            color: #5d4037;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab-btn:hover { background: #d7ccc8; }
+        .tab-btn.active {
+            background: #5d4037;
+            color: white;
+        }
+        .section-hidden { display: none; }
+        .section-visible { display: block; }
     </style>
 </head>
 <body>
@@ -258,6 +288,7 @@
         <div class="subtitle">為你的工作報告注入可愛與專業 ✨</div>
     </header>
     <div class="container" id="materials-container">
+        <div class="tab-container" id="tab-container"></div>
         <p class="loading">熊熊正在準備素材中... ʕっ•ᴥ•ʔっ</p>
     </div>
     <footer>由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ</footer>
@@ -383,9 +414,10 @@
             let html = '';
 
             for (const cat of materialCategories) {
-                if (cat.groups) {
+                const sectionId = `section-${materialCategories.indexOf(cat)}`;
+                if (cat.name === '🎨 邊框素材') {
                     // 邊框分類：使用群組顯示
-                    html += `<div class="material-section"><div class="section-title">${cat.name}</div>`;
+                    html += `<div class="material-section section-visible" id="${sectionId}"><div class="section-title">${cat.name}</div>`;
                     for (const group of cat.groups) {
                         html += `<div class="border-group">`;
                         html += `<div class="border-group-title">${group.title}</div>`;
@@ -413,7 +445,7 @@
                     html += `</div>`;
                 } else if (cat.groups) {
                     // 有 groups 的分類（用 border-group 樣式）
-                    html += `<div class="material-section"><div class="section-title">${cat.name}${cat.subtitle ? `<span style="font-size:0.9rem;font-weight:normal;color:#a1887f;margin-left:10px;">— ${cat.subtitle}</span>` : ''}</div>`;
+                    html += `<div class="material-section section-hidden" id="${sectionId}"><div class="section-title">${cat.name}${cat.subtitle ? `<span style="font-size:0.9rem;font-weight:normal;color:#a1887f;margin-left:10px;">— ${cat.subtitle}</span>` : ''}</div>`;
                     
                     for (const group of cat.groups) {
                         const hasFiles = group.files && group.files.length > 0;
@@ -582,7 +614,29 @@
             if (e.key === 'ArrowRight') nextImage();
         });
 
+                // 生成分頁 tabs
+        function renderTabs() {
+            const tabContainer = document.getElementById('tab-container');
+            let tabsHtml = '';
+            materialCategories.forEach((cat, idx) => {
+                const activeClass = idx === 0 ? ' active' : '';
+                tabsHtml += `<button class="tab-btn${activeClass}" onclick="switchTab(${idx})">${cat.name}</button>`;
+            });
+            tabContainer.innerHTML = tabsHtml;
+        }
+
+        function switchTab(idx) {
+            document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === idx);
+            });
+            document.querySelectorAll('.material-section').forEach((sec, i) => {
+                sec.classList.toggle('section-hidden', i !== idx);
+                sec.classList.toggle('section-visible', i === idx);
+            });
+        }
+
         loadMaterials();
+        renderTabs();
     </script>
 </body>
 </html>
