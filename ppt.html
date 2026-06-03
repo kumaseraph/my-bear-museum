@@ -289,22 +289,84 @@
                 name: '💡 實用圖標',
                 subtitle: '工作報告必備素材',
                 folder: 'icons',
-                files: ['20260603_圖標_人員.svg', '20260603_圖標_報告.svg', '20260603_圖標_想法.svg', '20260603_圖標_成就.svg']
+                groups: [
+                    {
+                        title: '👥 人員相關',
+                        files: ['20260603_圖標_人員.svg'],
+                        desc: '團隊與人力資源'
+                    },
+                    {
+                        title: '📄 內容相關',
+                        files: ['20260603_圖標_報告.svg', '20260603_圖標_想法.svg', '20260603_圖標_成就.svg'],
+                        desc: '報告與創意內容'
+                    }
+                ]
             },
             {
                 name: '🖼️ 背景圖片',
+                subtitle: '版面裝飾素材',
                 folder: 'backgrounds',
-                files: ['20260603_背景_白.svg', '20260603_背景_藍.svg', '20260603_背景_抽象.jpg']
+                groups: [
+                    {
+                        title: '🎀 簡約背景',
+                        files: ['20260603_背景_白.svg', '20260603_背景_藍.svg'],
+                        desc: '清新簡潔版面'
+                    },
+                    {
+                        title: '🎨 藝術背景',
+                        files: ['20260603_背景_抽象.jpg'],
+                        desc: '創意視覺效果'
+                    }
+                ]
             },
             {
                 name: '📦 區塊設計',
+                subtitle: '版面區域裝飾',
                 folder: 'blocks',
-                files: ['20260603_區塊_卡片.jpg']
+                groups: [
+                    {
+                        title: '📋 卡片區塊',
+                        files: ['20260603_區塊_卡片.jpg'],
+                        desc: '資訊卡片設計'
+                    },
+                    {
+                        title: '⬆️ 預留：列表區塊',
+                        files: [],
+                        desc: '待新增素材'
+                    },
+                    {
+                        title: '⬆️ 預留：圖文區塊',
+                        files: [],
+                        desc: '待新增素材'
+                    }
+                ]
             },
             {
                 name: '🔀 流程圖',
+                subtitle: '流程與 step by step',
                 folder: 'flowcharts',
-                files: ['20260603_流程圖_步驟.jpg']
+                groups: [
+                    {
+                        title: '📊 步驟流程',
+                        files: ['20260603_流程圖_步驟.jpg'],
+                        desc: '流程順序展示'
+                    },
+                    {
+                        title: '⬆️ 預留：循環流程',
+                        files: [],
+                        desc: '待新增素材'
+                    },
+                    {
+                        title: '⬆️ 預留：決策流程',
+                        files: [],
+                        desc: '待新增素材'
+                    },
+                    {
+                        title: '⬆️ 預留：分支流程',
+                        files: [],
+                        desc: '待新增素材'
+                    }
+                ]
             }
         ];
 
@@ -344,6 +406,40 @@
                                     </div>`;
                                 }
                             } catch(e) {}
+                        }
+                        
+                        html += `</div></div>`;
+                    }
+                    html += `</div>`;
+                } else if (cat.groups) {
+                    // 有 groups 的分類（用 border-group 樣式）
+                    html += `<div class="material-section"><div class="section-title">${cat.name}${cat.subtitle ? `<span style="font-size:0.9rem;font-weight:normal;color:#a1887f;margin-left:10px;">— ${cat.subtitle}</span>` : ''}</div>`;
+                    
+                    for (const group of cat.groups) {
+                        const hasFiles = group.files && group.files.length > 0;
+                        html += `<div class="border-group">`;
+                        html += `<div class="border-group-title">${group.title}</div>`;
+                        html += `<div class="border-item-desc" style="text-align:center;color:#a1887f;font-size:0.85rem;margin-bottom:15px;">${group.desc}</div>`;
+                        html += `<div class="border-group-items">`;
+                        
+                        if (hasFiles) {
+                            for (const file of group.files) {
+                                const path = `materials/2026-06-03/${cat.folder}/${file}`;
+                                try {
+                                    const response = await fetch(path);
+                                    if (response.ok) {
+                                        const name = file.replace('.svg', '').replace('.jpg', '');
+                                        allMaterials.push({ src: path, name: name, category: cat.name });
+                                        const idx = allMaterials.length - 1;
+                                        html += `<div class="border-item" data-index="${idx}" onclick="openLightbox(${idx})">
+                                            <img src="${path}" alt="${name}">
+                                            <div class="border-item-name">${name}</div>
+                                        </div>`;
+                                    }
+                                } catch(e) {}
+                            }
+                        } else {
+                            html += `<div style="color:#ccc;font-style:italic;grid-column:1/-1;text-align:center;padding:20px;">此分類暂无素材</div>`;
                         }
                         
                         html += `</div></div>`;
