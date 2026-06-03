@@ -44,7 +44,7 @@
         }
         h1 { margin: 0; font-size: 2.5rem; }
         .subtitle { font-size: 1.1rem; margin-top: 0.5rem; opacity: 0.9; }
-        .container { padding: 40px; max-width: 1000px; width: 90%; }
+        .container { padding: 40px; max-width: 1200px; width: 95%; }
         .material-section {
             background: white;
             border-radius: 20px;
@@ -96,6 +96,7 @@
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             border: 2px solid #d7ccc8;
+            background: white;
         }
         .material-thumb:hover {
             transform: scale(1.05);
@@ -105,6 +106,11 @@
             font-weight: bold;
             font-size: 0.85rem;
             word-break: break-all;
+        }
+        .material-desc {
+            color: #a1887f;
+            font-size: 0.75rem;
+            margin-top: -5px;
         }
         /* 燈箱效果 */
         #lightbox {
@@ -172,6 +178,58 @@
         .format-select option { background: #5d4037; color: white; }
         .loading { color: #a1887f; font-style: italic; }
         footer { margin-top: 40px; padding: 20px; color: #a1887f; font-size: 0.9rem; }
+
+        /* 統一邊框預覽樣式 */
+        .borders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .border-group {
+            background: #faf6f1;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px dashed #d7ccc8;
+        }
+        .border-group-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #6d4c41;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .border-group-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
+        .border-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e7d8c9;
+        }
+        .border-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .border-item img {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 4px;
+            border: 1px solid #d7ccc8;
+            background: white;
+        }
+        .border-item-name {
+            font-size: 0.8rem;
+            color: #5d4037;
+            margin-top: 8px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -204,9 +262,29 @@
     </div>
     <footer>由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ</footer>
     <script>
-        // 素材分類定義（素材路徑、顯示名稱）
+        // 素材分類定義
         const materialCategories = [
-            { name: '🎨 精選邊框', folder: 'borders', files: ['border-top.svg', 'border-bottom.svg', 'corner-topleft.svg', 'corner-topright.svg', 'border-modern.jpg'] },
+            {
+                name: '🎨 邊框素材',
+                folder: 'borders',
+                groups: [
+                    {
+                        title: '📐 四角邊框 (角落裝飾)',
+                        files: ['corner-topleft.svg', 'corner-topright.svg', 'corner-bottomleft.svg', 'corner-bottomright.svg'],
+                        desc: '可自由組合，適用於四個角落'
+                    },
+                    {
+                        title: '➖ 單側邊框 (上下左右)',
+                        files: ['border-top.svg', 'border-bottom.svg', 'border-left.svg'],
+                        desc: '水平或垂直線條裝飾'
+                    },
+                    {
+                        title: '⬜ 全框邊框 (四邊組合)',
+                        files: ['border-fullframe.svg'],
+                        desc: '四面完整的邊框設計'
+                    }
+                ]
+            },
             { name: '💡 實用圖標', folder: 'icons', files: ['teamwork-icon.svg', 'idea-icon.svg', 'target-icon.svg', 'document-icon.svg', 'growth-icon.svg', 'icon-growth.jpg'] },
             { name: '🖼️ 背景圖片', folder: 'backgrounds', files: ['background-white.svg', 'background-blue.svg', 'background-abstract.jpg'] },
             { name: '📦 區塊設計', folder: 'blocks', files: ['block-card.jpg'] },
@@ -226,34 +304,50 @@
             let html = '';
 
             for (const cat of materialCategories) {
-                html += `<div class="material-section"><div class="section-title">${cat.name}</div><div class="material-list">`;
-                
-                let hasItems = false;
-                for (const file of cat.files) {
-                    const path = `materials/2026-06-03/${file}`;
-                    // 嘗試讀取，失敗則跳過
-                    try {
-                        const response = await fetch(path);
-                        if (response.ok) {
-                            const name = file.replace('.svg', '').replace(/-/g, ' ').replace(/_/g, ' ');
-                            allMaterials.push({ src: path, name: name, category: cat.name });
-                            html += `<div class="material-item" data-index="${allMaterials.length - 1}">
-                                <img class="material-thumb" src="${path}" alt="${name}">
-                                <span class="material-name">${name}</span>
-                                <span style="color: #a1887f; font-size: 0.8rem;">點擊預覽即可下載</span>
-                            </div>`;
-                            hasItems = true;
+                if (cat.groups) {
+                    // 邊框分類：使用群組顯示
+                    html += `<div class="material-section"><div class="section-title">${cat.name}</div>`;
+                    for (const group of cat.groups) {
+                        html += `<div class="border-group">`;
+                        html += `<div class="border-group-title">${group.title}</div>`;
+                        html += `<div class="border-item-desc" style="text-align:center;color:#a1887f;font-size:0.85rem;margin-bottom:15px;">${group.desc}</div>`;
+                        html += `<div class="border-group-items">`;
+                        
+                        for (const file of group.files) {
+                            const path = `materials/${cat.folder}/${file}`;
+                            try {
+                                const response = await fetch(path);
+                                if (response.ok) {
+                                    const name = file.replace('.svg', '').replace('.jpg', '')
+                                        .replace('corner-', '')
+                                        .replace('border-', '')
+                                        .replace('top', '上').replace('bottom', '下')
+                                        .replace('left', '左').replace('right', '右')
+                                        .replace('fullframe', '全框');
+                                    allMaterials.push({ src: path, name: name, category: cat.name });
+                                    const idx = allMaterials.length - 1;
+                                    html += `<div class="border-item" data-index="${idx}" onclick="openLightbox(${idx})">
+                                        <img src="${path}" alt="${name}">
+                                        <div class="border-item-name">${name}</div>
+                                    </div>`;
+                                }
+                            } catch(e) {}
                         }
-                    } catch(e) {}
-                }
-                
-                // 從 sample 目錄讀取
-                for (const path of sampleMaterials) {
-                    if (cat.name === '🎨 精選邊框') {
+                        
+                        html += `</div></div>`;
+                    }
+                    html += `</div>`;
+                } else {
+                    // 一般分類：使用原有網格顯示
+                    html += `<div class="material-section"><div class="section-title">${cat.name}</div><div class="material-list">`;
+                    
+                    let hasItems = false;
+                    for (const file of cat.files) {
+                        const path = `materials/${cat.folder}/${file}`;
                         try {
                             const response = await fetch(path);
                             if (response.ok) {
-                                const name = path.split('/').pop().replace('.svg', '');
+                                const name = file.replace('.svg', '').replace('.jpg', '').replace(/-/g, ' ').replace(/_/g, ' ');
                                 allMaterials.push({ src: path, name: name, category: cat.name });
                                 html += `<div class="material-item" data-index="${allMaterials.length - 1}">
                                     <img class="material-thumb" src="${path}" alt="${name}">
@@ -264,24 +358,34 @@
                             }
                         } catch(e) {}
                     }
+                    
+                    // 從 sample 目錄讀取
+                    for (const path of sampleMaterials) {
+                        if (cat.name === '🎨 邊框素材') {
+                            try {
+                                const response = await fetch(path);
+                                if (response.ok) {
+                                    const name = path.split('/').pop().replace('.svg', '');
+                                    allMaterials.push({ src: path, name: name, category: cat.name });
+                                    html += `<div class="material-item" data-index="${allMaterials.length - 1}">
+                                        <img class="material-thumb" src="${path}" alt="${name}">
+                                        <span class="material-name">${name}</span>
+                                        <span style="color: #a1887f; font-size: 0.8rem;">點擊預覽即可下載</span>
+                                    </div>`;
+                                    hasItems = true;
+                                }
+                            } catch(e) {}
+                        }
+                    }
+                    
+                    if (!hasItems) {
+                        html += `<p style="color: #a1887f; font-style: italic;">目前還沒有素材，熊熊正在努力準備中... ʕっ•ᴥ•ʔっ</p>`;
+                    }
+                    html += '</div></div>';
                 }
-                
-                if (!hasItems) {
-                    html += `<p style="color: #a1887f; font-style: italic;">目前還沒有素材，熊熊正在努力準備中... ʕっ•ᴥ•ʔっ</p>`;
-                }
-                html += '</div></div>';
             }
 
             container.innerHTML = html;
-            bindEvents();
-        }
-
-        function bindEvents() {
-            document.querySelectorAll('.material-item').forEach((item, index) => {
-                item.addEventListener('click', function(e) {
-                    openLightbox(index);
-                });
-            });
         }
 
         function openLightbox(index) {
@@ -316,7 +420,7 @@
         }
 
         async function downloadFile(url, format = 'svg') {
-            const filename = url.split('/').pop().replace('.svg', '');
+            const filename = url.split('/').pop().split('.')[0];
             if (format === 'svg') {
                 const a = document.createElement('a');
                 a.href = url;
