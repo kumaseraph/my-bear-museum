@@ -32,12 +32,8 @@
             border-radius: 15px;
             transition: background 0.3s;
         }
-        nav a:hover {
-            background-color: #8d6e63;
-        }
-        nav a.active {
-            background-color: #5d4037;
-        }
+        nav a:hover { background-color: #8d6e63; }
+        nav a.active { background-color: #5d4037; }
         header {
             background-color: #5d4037;
             color: white;
@@ -48,11 +44,7 @@
         }
         h1 { margin: 0; font-size: 2.5rem; }
         .subtitle { font-size: 1.1rem; margin-top: 0.5rem; opacity: 0.9; }
-        .container {
-            padding: 40px;
-            max-width: 1000px;
-            width: 90%;
-        }
+        .container { padding: 40px; max-width: 1000px; width: 90%; }
         .material-section {
             background: white;
             border-radius: 20px;
@@ -96,24 +88,6 @@
             box-shadow: 0 5px 10px rgba(0,0,0,0.1);
             background: #fff;
         }
-        .material-name {
-            font-weight: bold;
-            font-size: 0.9rem;
-            word-break: break-all;
-        }
-        .download-btn {
-            background: #8d6e63;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            border: none;
-        }
-        .download-btn:hover {
-            background: #5d4037;
-        }
-        /* 圖片預覽燈箱效果 */
         .material-thumb {
             width: 180px;
             height: 120px;
@@ -127,6 +101,12 @@
             transform: scale(1.05);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+        .material-name {
+            font-weight: bold;
+            font-size: 0.85rem;
+            word-break: break-all;
+        }
+        /* 燈箱效果 */
         #lightbox {
             display: none;
             position: fixed;
@@ -145,16 +125,8 @@
             border-radius: 10px;
             box-shadow: 0 0 30px rgba(255,255,255,0.2);
         }
-        #lightbox-info {
-            color: white;
-            margin: 15px 0;
-            font-size: 1.1rem;
-        }
-        #lightbox-nav {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+        #lightbox-info { color: white; margin: 15px 0; font-size: 1.1rem; }
+        #lightbox-nav { display: flex; gap: 20px; align-items: center; }
         .nav-btn {
             background: rgba(255,255,255,0.2);
             color: white;
@@ -165,26 +137,18 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-        .nav-btn:hover {
-            background: rgba(255,255,255,0.4);
-        }
-        .nav-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
+        .nav-btn:hover { background: rgba(255,255,255,0.4); }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
         #lightbox-close {
             position: absolute;
             top: 20px; right: 30px;
             color: white;
             font-size: 2.5rem;
             cursor: pointer;
-            line-height: 1;
             background: none;
             border: none;
         }
-        #lightbox-close:hover {
-            color: #ff6b6b;
-        }
+        #lightbox-close:hover { color: #ff6b6b; }
         .lightbox-download {
             background: #8d6e63;
             color: white;
@@ -195,9 +159,7 @@
             border: none;
             margin-top: 10px;
         }
-        .lightbox-download:hover {
-            background: #5d4037;
-        }
+        .lightbox-download:hover { background: #5d4037; }
         .format-select {
             background: rgba(255,255,255,0.15);
             color: white;
@@ -207,16 +169,9 @@
             font-size: 0.95rem;
             cursor: pointer;
         }
-        .format-select option {
-            background: #5d4037;
-            color: white;
-        }
-        footer {
-            margin-top: 40px;
-            padding: 20px;
-            color: #a1887f;
-            font-size: 0.9rem;
-        }
+        .format-select option { background: #5d4037; color: white; }
+        .loading { color: #a1887f; font-style: italic; }
+        footer { margin-top: 40px; padding: 20px; color: #a1887f; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -244,106 +199,90 @@
         <h1>📊 熊熊 PPT 素材庫</h1>
         <div class="subtitle">為你的工作報告注入可愛與專業 ✨</div>
     </header>
-    <div class="container">
-        <!-- 素材將由自動化腳本動態更新或手動維護 -->
-        <div class="material-section">
-            <div class="section-title">🎨 精選邊框</div>
-            <div class="material-list">
-                <div class="material-item" data-index="0">
-                    <img class="material-thumb" src="materials/sample/工作報告_現代商務風邊框.svg" alt="現代商務風邊框">
-                    <span class="material-name">現代商務風邊框</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">點擊預覽即可下載</span>
-                </div>
-                <div class="material-item" data-index="1">
-                    <img class="material-thumb" src="materials/2026-06-03/border-top.svg" alt="頂部裝飾邊框">
-                    <span class="material-name">頂部裝飾邊框</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">適用於投影片頂部</span>
-                </div>
-                <div class="material-item" data-index="2">
-                    <img class="material-thumb" src="materials/2026-06-03/border-bottom.svg" alt="底部裝飾邊框">
-                    <span class="material-name">底部裝飾邊框</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">適用於投影片底部</span>
-                </div>
-                <div class="material-item" data-index="3">
-                    <img class="material-thumb" src="materials/2026-06-03/corner-topleft.svg" alt="角落裝飾元素">
-                    <span class="material-name">角落裝飾元素</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">左上角優雅裝飾</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="material-section">
-            <div class="section-title">💡 實用圖標</div>
-            <div class="material-list">
-                <div class="material-item" data-index="4">
-                    <img class="material-thumb" src="materials/2026-06-03/growth-icon.svg" alt="成長趨勢圖標">
-                    <span class="material-name">成長趨勢圖標</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">展示成長與進步</span>
-                </div>
-                <div class="material-item" data-index="5">
-                    <img class="material-thumb" src="materials/2026-06-03/target-icon.svg" alt="目標達成圖標">
-                    <span class="material-name">目標達成圖標</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">象徵目標與成就</span>
-                </div>
-                <div class="material-item" data-index="6">
-                    <img class="material-thumb" src="materials/2026-06-03/teamwork-icon.svg" alt="團隊協作圖標">
-                    <span class="material-name">團隊協作圖標</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">代表合作與同心</span>
-                </div>
-                <div class="material-item" data-index="7">
-                    <img class="material-thumb" src="materials/2026-06-03/document-icon.svg" alt="工作報告圖標">
-                    <span class="material-name">工作報告圖標</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">文件與報告象徵</span>
-                </div>
-                <div class="material-item" data-index="8">
-                    <img class="material-thumb" src="materials/2026-06-03/idea-icon.svg" alt="創意靈感圖標">
-                    <span class="material-name">創意靈感圖標</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">灯泡代表新點子</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="material-section">
-            <div class="section-title">🖼️ 背景圖片</div>
-            <div class="material-list">
-                <div class="material-item" data-index="9">
-                    <img class="material-thumb" src="materials/2026-06-03/background-blue.svg" alt="專業藍色漸層背景">
-                    <span class="material-name">專業藍色漸層背景</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">柔和藍色過渡</span>
-                </div>
-                <div class="material-item" data-index="10">
-                    <img class="material-thumb" src="materials/2026-06-03/background-white.svg" alt="簡約白色背景">
-                    <span class="material-name">簡約白色背景</span>
-                    <span style="color: #a1887f; font-size: 0.8rem;">清新乾淨风格</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="material-section">
-            <div class="section-title">📦 區塊設計</div>
-            <div class="material-list">
-                <p style="color: #a1887f; font-style: italic;">目前還沒有區塊，熊熊正在努力準備中... ʕっ•ᴥ•ʔっ</p>
-            </div>
-        </div>
-
-        <div class="material-section">
-            <div class="section-title">🔀 流程圖</div>
-            <div class="material-list">
-                <p style="color: #a1887f; font-style: italic;">目前還沒有流程圖，熊熊正在努力準備中... ʕっ•ᴥ•ʔっ</p>
-            </div>
-        </div>
+    <div class="container" id="materials-container">
+        <p class="loading">熊熊正在準備素材中... ʕっ•ᴥ•ʔっ</p>
     </div>
-    <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ
-    </footer>
+    <footer>由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ</footer>
     <script>
-        // 收集所有素材圖片
-        const allMaterials = Array.from(document.querySelectorAll('.material-item[data-index]')).map(el => ({
-            src: el.querySelector('.material-thumb').src,
-            name: el.querySelector('.material-name').textContent
-        }));
+        // 素材分類定義（素材路徑、顯示名稱）
+        const materialCategories = [
+            { name: '🎨 精選邊框', folder: 'borders', files: ['border-top.svg', 'border-bottom.svg', 'corner-topleft.svg', 'corner-topright.svg', 'corner-bottomleft.svg', 'corner-bottomright.svg'] },
+            { name: '💡 實用圖標', folder: 'icons', files: ['teamwork-icon.svg', 'idea-icon.svg', 'target-icon.svg', 'document-icon.svg', 'growth-icon.svg'] },
+            { name: '🖼️ 背景圖片', folder: 'backgrounds', files: ['background-white.svg', 'background-blue.svg'] },
+            { name: '📦 區塊設計', folder: 'blocks', files: [] },
+            { name: '🔀 流程圖', folder: 'flowcharts', files: [] }
+        ];
 
+        // 從 sample 目錄讀取額外素材（示範用）
+        const sampleMaterials = [
+            'materials/sample/工作報告_現代商務風邊框.svg'
+        ];
+
+        let allMaterials = [];
         let currentIndex = 0;
+
+        async function loadMaterials() {
+            const container = document.getElementById('materials-container');
+            let html = '';
+
+            for (const cat of materialCategories) {
+                html += `<div class="material-section"><div class="section-title">${cat.name}</div><div class="material-list">`;
+                
+                let hasItems = false;
+                for (const file of cat.files) {
+                    const path = `materials/2026-06-03/${file}`;
+                    // 嘗試讀取，失敗則跳過
+                    try {
+                        const response = await fetch(path);
+                        if (response.ok) {
+                            const name = file.replace('.svg', '').replace(/-/g, ' ').replace(/_/g, ' ');
+                            allMaterials.push({ src: path, name: name, category: cat.name });
+                            html += `<div class="material-item" data-index="${allMaterials.length - 1}">
+                                <img class="material-thumb" src="${path}" alt="${name}">
+                                <span class="material-name">${name}</span>
+                                <span style="color: #a1887f; font-size: 0.8rem;">點擊預覽即可下載</span>
+                            </div>`;
+                            hasItems = true;
+                        }
+                    } catch(e) {}
+                }
+                
+                // 從 sample 目錄讀取
+                for (const path of sampleMaterials) {
+                    if (cat.name === '🎨 精選邊框' || cat.name === '💡 實用圖標') {
+                        try {
+                            const response = await fetch(path);
+                            if (response.ok) {
+                                const name = path.split('/').pop().replace('.svg', '');
+                                allMaterials.push({ src: path, name: name, category: cat.name });
+                                html += `<div class="material-item" data-index="${allMaterials.length - 1}">
+                                    <img class="material-thumb" src="${path}" alt="${name}">
+                                    <span class="material-name">${name}</span>
+                                    <span style="color: #a1887f; font-size: 0.8rem;">點擊預覽即可下載</span>
+                                </div>`;
+                                hasItems = true;
+                            }
+                        } catch(e) {}
+                    }
+                }
+                
+                if (!hasItems) {
+                    html += `<p style="color: #a1887f; font-style: italic;">目前還沒有素材，熊熊正在努力準備中... ʕっ•ᴥ•ʔっ</p>`;
+                }
+                html += '</div></div>';
+            }
+
+            container.innerHTML = html;
+            bindEvents();
+        }
+
+        function bindEvents() {
+            document.querySelectorAll('.material-item').forEach((item, index) => {
+                item.addEventListener('click', function(e) {
+                    openLightbox(index);
+                });
+            });
+        }
 
         function openLightbox(index) {
             currentIndex = index;
@@ -364,17 +303,11 @@
         }
 
         function prevImage() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateLightbox();
-            }
+            if (currentIndex > 0) { currentIndex--; updateLightbox(); }
         }
 
         function nextImage() {
-            if (currentIndex < allMaterials.length - 1) {
-                currentIndex++;
-                updateLightbox();
-            }
+            if (currentIndex < allMaterials.length - 1) { currentIndex++; updateLightbox(); }
         }
 
         function downloadCurrent() {
@@ -384,9 +317,7 @@
 
         async function downloadFile(url, format = 'svg') {
             const filename = url.split('/').pop().replace('.svg', '');
-            
             if (format === 'svg') {
-                // 原始 SVG 直接下載
                 const a = document.createElement('a');
                 a.href = url;
                 a.download = filename + '.svg';
@@ -394,7 +325,6 @@
                 a.click();
                 document.body.removeChild(a);
             } else {
-                // 轉換格式需要用 Canvas
                 try {
                     const img = new Image();
                     img.crossOrigin = 'anonymous';
@@ -403,15 +333,13 @@
                         img.onload = resolve;
                         img.onerror = reject;
                     });
-                    
                     const canvas = document.createElement('canvas');
                     canvas.width = img.naturalWidth || 1200;
                     canvas.height = img.naturalHeight || 800;
                     const ctx = canvas.getContext('2d');
                     ctx.fillStyle = '#ffffff';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    
+                    ctx.drawImage(img, 0, 0);
                     canvas.toBlob(blob => {
                         const a = document.createElement('a');
                         a.href = URL.createObjectURL(blob);
@@ -421,28 +349,18 @@
                         document.body.removeChild(a);
                         URL.revokeObjectURL(a.href);
                     }, `image/${format}`, 0.95);
-                } catch (e) {
-                    alert('格式轉換失敗，請確認圖片已載入');
-                }
+                } catch (e) { alert('格式轉換失敗'); }
             }
         }
 
-        // 綁定點擊事件
-        document.querySelectorAll('.material-item').forEach((item, index) => {
-            item.addEventListener('click', function(e) {
-                if (!e.target.classList.contains('download-btn')) {
-                    openLightbox(index);
-                }
-            });
-        });
-
-        // 鍵盤支援
         document.addEventListener('keydown', function(e) {
             if (!document.getElementById('lightbox').classList.contains('active')) return;
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowLeft') prevImage();
             if (e.key === 'ArrowRight') nextImage();
         });
+
+        loadMaterials();
     </script>
 </body>
 </html>
