@@ -270,17 +270,17 @@
                 groups: [
                     {
                         title: '📐 四角邊框 (角落裝飾)',
-                        files: ['2026-06-03_border-corner_01.svg', '2026-06-03_border-corner_02.svg', '2026-06-03_border-corner_03.svg', '2026-06-03_border-corner_04.svg'],
-                        desc: '可自由組合，適用於四個角落'
+                        files: ['20260603_四角邊框_01.svg'],
+                        desc: '單一角裝飾設計'
                     },
                     {
                         title: '➖ 單側邊框 (上下左右)',
-                        files: ['2026-06-03_border-edge_01.svg', '2026-06-03_border-edge_02.svg', '2026-06-03_border-edge_03.svg'],
+                        files: ['20260603_單側邊框_長.svg', '20260603_單側邊框_寬.svg'],
                         desc: '水平或垂直線條裝飾'
                     },
                     {
                         title: '⬜ 全框邊框 (四邊組合)',
-                        files: ['2026-06-03_border-frame_01.svg'],
+                        files: ['20260603_全框邊框_01.svg'],
                         desc: '四面完整的邊框設計'
                     }
                 ]
@@ -288,22 +288,22 @@
             {
                 name: '💡 實用圖標',
                 folder: 'icons',
-                files: ['2026-06-03_icon-teamwork_01.svg', '2026-06-03_icon-idea_02.svg', '2026-06-03_icon-target_03.svg', '2026-06-03_icon-document_04.svg', '2026-06-03_icon-growth_05.svg', '2026-06-03_icon-growth_06.jpg']
+                files: ['20260603_圖標_團隊.svg', '20260603_圖標_創意.svg', '20260603_圖標_目標.svg', '20260603_圖標_文件.svg', '20260603_圖標_成長.svg', '20260603_圖標_成長02.jpg']
             },
             {
                 name: '🖼️ 背景圖片',
                 folder: 'backgrounds',
-                files: ['2026-06-03_bg-white_01.svg', '2026-06-03_bg-blue_02.svg', '2026-06-03_bg-abstract_03.jpg']
+                files: ['20260603_背景_白.svg', '20260603_背景_藍.svg', '20260603_背景_抽象.jpg']
             },
             {
                 name: '📦 區塊設計',
                 folder: 'blocks',
-                files: ['2026-06-03_block-card_01.jpg']
+                files: ['20260603_區塊_卡片.jpg']
             },
             {
                 name: '🔀 流程圖',
                 folder: 'flowcharts',
-                files: ['2026-06-03_flowchart-steps_01.jpg']
+                files: ['20260603_流程圖_步驟.jpg']
             }
         ];
 
@@ -334,7 +334,7 @@
                             try {
                                 const response = await fetch(path);
                                 if (response.ok) {
-                                    const name = file.replace('.svg', '').replace('.jpg', '').replace('2026-06-03_', '').replace(/-/g, ' ').replace(/_/g, ' ');
+                                    const name = file.replace('.svg', '').replace('.jpg', '');
                                     allMaterials.push({ src: path, name: name, category: cat.name });
                                     const idx = allMaterials.length - 1;
                                     html += `<div class="border-item" data-index="${idx}" onclick="openLightbox(${idx})">
@@ -358,7 +358,7 @@
                         try {
                             const response = await fetch(path);
                             if (response.ok) {
-                                const name = file.replace('.svg', '').replace('.jpg', '').replace('2026-06-03_', '').replace(/-/g, ' ').replace(/_/g, ' ');
+                                const name = file.replace('.svg', '').replace('.jpg', '');
                                 allMaterials.push({ src: path, name: name, category: cat.name });
                                 html += `<div class="material-item" data-index="${allMaterials.length - 1}">
                                     <img class="material-thumb" src="${path}" alt="${name}">
