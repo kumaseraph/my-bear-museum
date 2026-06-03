@@ -75,6 +75,11 @@
             height: 280px;
             object-fit: cover;
             display: block;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .bear-card img:hover {
+            opacity: 0.8;
         }
         .bear-info {
             padding: 20px;
@@ -110,6 +115,26 @@
             color: #a1887f;
             font-size: 0.9rem;
         }
+        /* Lightbox Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 <body>
@@ -123,7 +148,7 @@
     </header>
     <div class="gallery" id="gallery">
         <div class="bear-card">
-            <img src="https://img.magnific.com/free-vector/adorable-baby-bear-illustration_1308-181868.jpg?semt=ais_test_b&w=740&q=80" alt="第一隻小熊">
+            <img src="https://img.magnific.com/free-vector/adorable-baby-bear-illustration_1308-181868.jpg?semt=ais_test_b&w=740&q=80" alt="第一隻小熊" onclick="openLightbox(this.src)">
             <div class="bear-info">
                 <div class="bear-name">開館紀念熊</div>
                 <div class="bear-date">2026-06-03</div>
@@ -132,7 +157,7 @@
         </div>
         <!-- ComfyUI Bears -->
         <div class="bear-card">
-            <img src="gallery/comfyui/Flux2-Klein_00002_.png" alt="AI 熊熊 2">
+            <img src="gallery/comfyui/Flux2-Klein_00002_.png" alt="AI 熊熊 2" onclick="openLightbox(this.src)">
             <div class="bear-info">
                 <div class="bear-name">AI 藝術熊 02</div>
                 <div class="bear-date">2026-06-02</div>
@@ -140,7 +165,7 @@
             </div>
         </div>
         <div class="bear-card">
-            <img src="gallery/comfyui/Flux2-Klein_00004_.png" alt="AI 熊熊 4">
+            <img src="gallery/comfyui/Flux2-Klein_00004_.png" alt="AI 熊熊 4" onclick="openLightbox(this.src)">
             <div class="bear-info">
                 <div class="bear-name">AI 藝術熊 04</div>
                 <div class="bear-date">2026-06-02</div>
@@ -148,7 +173,7 @@
             </div>
         </div>
         <div class="bear-card">
-            <img src="gallery/comfyui/Flux2-Klein_00005_.png" alt="AI 熊熊 5">
+            <img src="gallery/comfyui/Flux2-Klein_00005_.png" alt="AI 熊熊 5" onclick="openLightbox(this.src)">
             <div class="bear-info">
                 <div class="bear-name">AI 藝術熊 05</div>
                 <div class="bear-date">2026-06-02</div>
@@ -156,6 +181,20 @@
             </div>
         </div>
     </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt=" enlarged view">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
     <footer>
         由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ
     </footer>
