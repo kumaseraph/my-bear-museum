@@ -270,25 +270,41 @@
                 groups: [
                     {
                         title: '📐 四角邊框 (角落裝飾)',
-                        files: ['corner-topleft.svg', 'corner-topright.svg', 'corner-bottomleft.svg', 'corner-bottomright.svg'],
+                        files: ['2026-06-03_border-corner_01.svg', '2026-06-03_border-corner_02.svg', '2026-06-03_border-corner_03.svg', '2026-06-03_border-corner_04.svg'],
                         desc: '可自由組合，適用於四個角落'
                     },
                     {
                         title: '➖ 單側邊框 (上下左右)',
-                        files: ['border-top.svg', 'border-bottom.svg', 'border-left.svg'],
+                        files: ['2026-06-03_border-edge_01.svg', '2026-06-03_border-edge_02.svg', '2026-06-03_border-edge_03.svg'],
                         desc: '水平或垂直線條裝飾'
                     },
                     {
                         title: '⬜ 全框邊框 (四邊組合)',
-                        files: ['border-fullframe.svg'],
+                        files: ['2026-06-03_border-frame_01.svg'],
                         desc: '四面完整的邊框設計'
                     }
                 ]
             },
-            { name: '💡 實用圖標', folder: 'icons', files: ['teamwork-icon.svg', 'idea-icon.svg', 'target-icon.svg', 'document-icon.svg', 'growth-icon.svg', 'icon-growth.jpg'] },
-            { name: '🖼️ 背景圖片', folder: 'backgrounds', files: ['background-white.svg', 'background-blue.svg', 'background-abstract.jpg'] },
-            { name: '📦 區塊設計', folder: 'blocks', files: ['block-card.jpg'] },
-            { name: '🔀 流程圖', folder: 'flowcharts', files: ['flowchart-steps.jpg'] }
+            {
+                name: '💡 實用圖標',
+                folder: 'icons',
+                files: ['2026-06-03_icon-teamwork_01.svg', '2026-06-03_icon-idea_02.svg', '2026-06-03_icon-target_03.svg', '2026-06-03_icon-document_04.svg', '2026-06-03_icon-growth_05.svg', '2026-06-03_icon-growth_06.jpg']
+            },
+            {
+                name: '🖼️ 背景圖片',
+                folder: 'backgrounds',
+                files: ['2026-06-03_bg-white_01.svg', '2026-06-03_bg-blue_02.svg', '2026-06-03_bg-abstract_03.jpg']
+            },
+            {
+                name: '📦 區塊設計',
+                folder: 'blocks',
+                files: ['2026-06-03_block-card_01.jpg']
+            },
+            {
+                name: '🔀 流程圖',
+                folder: 'flowcharts',
+                files: ['2026-06-03_flowchart-steps_01.jpg']
+            }
         ];
 
         // 從 sample 目錄讀取額外素材（示範用）
@@ -318,12 +334,7 @@
                             try {
                                 const response = await fetch(path);
                                 if (response.ok) {
-                                    const name = file.replace('.svg', '').replace('.jpg', '')
-                                        .replace('corner-', '')
-                                        .replace('border-', '')
-                                        .replace('top', '上').replace('bottom', '下')
-                                        .replace('left', '左').replace('right', '右')
-                                        .replace('fullframe', '全框');
+                                    const name = file.replace('.svg', '').replace('.jpg', '').replace('2026-06-03_', '').replace(/-/g, ' ').replace(/_/g, ' ');
                                     allMaterials.push({ src: path, name: name, category: cat.name });
                                     const idx = allMaterials.length - 1;
                                     html += `<div class="border-item" data-index="${idx}" onclick="openLightbox(${idx})">
@@ -347,7 +358,7 @@
                         try {
                             const response = await fetch(path);
                             if (response.ok) {
-                                const name = file.replace('.svg', '').replace('.jpg', '').replace(/-/g, ' ').replace(/_/g, ' ');
+                                const name = file.replace('.svg', '').replace('.jpg', '').replace('2026-06-03_', '').replace(/-/g, ' ').replace(/_/g, ' ');
                                 allMaterials.push({ src: path, name: name, category: cat.name });
                                 html += `<div class="material-item" data-index="${allMaterials.length - 1}">
                                     <img class="material-thumb" src="${path}" alt="${name}">
