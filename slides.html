@@ -1,20 +1,20 @@
 <!--
     版號記錄 (Version History)
     ========================
-    v1.0 - 初始版本：熊熊簡報工具，可新增投影片、插入素材、全螢幕放映
+    v2.0 - 雙分頁：✏️ 製作簡報 + 📚 已完成簡報，localStorage 儲存，點擊播放
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📝 熊熊簡報 v1.0</title>
+    <title>📝 熊熊簡報 v2.0</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', 'Microsoft JhengHei', Tahoma, Geneva, Verdana, sans-serif;
             background:
-                radial-gradient(circle at 20% 30%, rgba(255,255,255,1) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,1.5px, transparent 1.5px),
                 radial-gradient(circle at 80% 20%, rgba(255,255,255,0.95) 1.5px, transparent 1.5px),
                 radial-gradient(circle at 40% 70%, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
                 radial-gradient(circle at 70% 80%, rgba(255,255,255,1) 1.5px, transparent 1.5px),
@@ -24,25 +24,9 @@
                 radial-gradient(circle at 60% 40%, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
                 radial-gradient(circle at 85% 90%, rgba(255,255,255,1) 1.5px, transparent 1.5px),
                 radial-gradient(circle at 15% 50%, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 50% 25%, rgba(255,255,255,1) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 75% 45%, rgba(255,255,255,0.95) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 25% 65%, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 95% 35%, rgba(255,255,255,1) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 5% 15%, rgba(255,255,255,0.85) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 55% 75%, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 35% 85%, rgba(255,255,255,0.95) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 65% 15%, rgba(255,255,255,0.85) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 45% 55%, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
-                radial-gradient(circle at 80% 50%, rgba(255,255,255,1) 1.5px, transparent 1.5px),
                 linear-gradient(135deg, #fdf6e3 0%, #f5e6d3 50%, #fdf6e3 100%);
-            background-size: 100% 100%, 500% 500%;
             min-height: 100vh;
-            animation: galaxy-shift 20s ease-in-out infinite;
             color: #5d4037;
-        }
-        @keyframes galaxy-shift {
-            0%, 100% { background-position: 0 0, 0% 50%; }
-            50% { background-position: 0 0, 100% 50%; }
         }
         nav {
             display: flex;
@@ -72,7 +56,36 @@
         h1 { font-size: 2rem; color: #5d4037; }
         .subtitle { color: #a1887f; margin-top: 5px; font-size: 1rem; }
 
-        /* === 編輯器整體 === */
+        /* ── 主分頁導航 ── */
+        .main-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .main-tab {
+            padding: 10px 28px;
+            border: 2px solid #d7ccc8;
+            background: rgba(255,255,255,0.85);
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #5d4037;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .main-tab:hover { background: #e7d8c9; border-color: #c8b8a8; }
+        .main-tab.active {
+            background: #8b5a2b;
+            color: white;
+            border-color: #8b5a2b;
+        }
+
+        /* ── 檢視切換 ── */
+        #view-create, #view-gallery { display: none; }
+        #view-create.active, #view-gallery.active { display: block; }
+
+        /* ── 編輯器容器 ── */
         .editor-container {
             display: flex;
             gap: 20px;
@@ -81,7 +94,7 @@
             padding: 0 20px;
         }
 
-        /* === 左側投影片列表 === */
+        /* 左側投影片列表 */
         .slides-panel {
             width: 200px;
             flex-shrink: 0;
@@ -141,7 +154,7 @@
         }
         .add-slide-btn:hover { background: #d7ccc8; }
 
-        /* === 中間投影片編輯區 === */
+        /* 中間投影片編輯區 */
         .canvas-area {
             flex: 1;
             display: flex;
@@ -159,11 +172,7 @@
             position: relative;
             overflow: hidden;
         }
-        #slide-canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
+        #slide-canvas { width: 100%; height: 100%; display: block; }
         .canvas-toolbar {
             display: flex;
             gap: 10px;
@@ -185,8 +194,10 @@
         .tool-btn.active { background: #8b5a2b; color: white; border-color: #8b5a2b; }
         .tool-btn.danger { color: #c62828; border-color: #c62828; }
         .tool-btn.danger:hover { background: #c62828; color: white; }
+        .tool-btn.primary { background: #8b5a2b; color: white; border-color: #8b5a2b; }
+        .tool-btn.primary:hover { background: #6d4520; }
 
-        /* === 右側屬性面板 === */
+        /* 右側屬性面板 */
         .props-panel {
             width: 240px;
             flex-shrink: 0;
@@ -202,14 +213,8 @@
             font-size: 0.95rem;
             text-align: center;
         }
-        .prop-group {
-            margin-bottom: 12px;
-        }
-        .prop-label {
-            font-size: 0.8rem;
-            color: #a1887f;
-            margin-bottom: 4px;
-        }
+        .prop-group { margin-bottom: 12px; }
+        .prop-label { font-size: 0.8rem; color: #a1887f; margin-bottom: 4px; }
         .prop-input {
             width: 100%;
             padding: 7px 10px;
@@ -221,17 +226,9 @@
             font-family: inherit;
         }
         .prop-input:focus { outline: none; border-color: #8b5a2b; }
-        .prop-row {
-            display: flex;
-            gap: 8px;
-        }
+        .prop-row { display: flex; gap: 8px; }
         .prop-row .prop-group { flex: 1; }
-        .color-swatches {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: 5px;
-        }
+        .color-swatches { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 5px; }
         .color-swatch {
             width: 28px;
             height: 28px;
@@ -243,7 +240,7 @@
         .color-swatch:hover { transform: scale(1.15); }
         .color-swatch.active { border-color: #5d4037; }
 
-        /* === 素材面板 (底部浮動) === */
+        /* 素材面板 */
         .materials-drawer {
             position: fixed;
             bottom: 0;
@@ -275,13 +272,7 @@
             transition: transform 0.3s;
         }
         .materials-drawer.open .drawer-handle::before { transform: rotate(180deg); }
-        .drawer-tabs {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-            justify-content: center;
-        }
+        .drawer-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; justify-content: center; }
         .drawer-tab {
             padding: 6px 14px;
             border: none;
@@ -310,7 +301,142 @@
         }
         .material-thumb-sm:hover { border-color: #8b5a2b; transform: scale(1.08); }
 
-        /* === 全螢幕放映模式 === */
+        /* ── 儲存彈窗 ── */
+        #save-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 88888;
+            align-items: center;
+            justify-content: center;
+        }
+        #save-modal.active { display: flex; }
+        .save-dialog {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            width: 360px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .save-dialog h3 { margin-bottom: 15px; color: #5d4037; }
+        .save-dialog input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #d7ccc8;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: #5d4037;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+        .save-dialog input:focus { outline: none; border-color: #8b5a2b; }
+        .save-dialog-btns { display: flex; gap: 10px; justify-content: flex-end; }
+        .save-dialog-btns button {
+            padding: 8px 20px;
+            border-radius: 15px;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-cancel { background: #e7d8c9; color: #5d4037; }
+        .btn-cancel:hover { background: #d7ccc8; }
+        .btn-confirm { background: #8b5a2b; color: white; }
+        .btn-confirm:hover { background: #6d4520; }
+
+        /* ── 簡報庫 ── */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        .gallery-title {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #a1887f;
+            margin-bottom: 20px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .pres-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .pres-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .pres-card-cover {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #f5e6d3;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .pres-card-cover canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .pres-card-cover .play-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.35);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 2.5rem;
+            color: white;
+        }
+        .pres-card:hover .play-overlay { opacity: 1; }
+        .pres-card-name {
+            font-weight: bold;
+            font-size: 1rem;
+            color: #5d4037;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .pres-card-meta {
+            font-size: 0.8rem;
+            color: #a1887f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pres-card-delete {
+            background: none;
+            border: none;
+            color: #c62828;
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .pres-card-delete:hover { background: #fdecea; }
+        .gallery-empty {
+            text-align: center;
+            color: #a1887f;
+            padding: 60px 20px;
+            font-size: 1.1rem;
+        }
+        .gallery-empty span { font-size: 3rem; display: block; margin-bottom: 15px; }
+
+        /* ── 全螢幕放映 ── */
         #presentation-mode {
             display: none;
             position: fixed;
@@ -397,65 +523,96 @@
         <div class="subtitle">用熊素材說故事，全螢幕放映你的作品 ✨</div>
     </header>
 
-    <div class="editor-container">
-        <!-- 左側：投影片列表 -->
-        <div class="slides-panel">
-            <div class="slides-panel-title">📋 投影片列表</div>
-            <div id="slides-list"></div>
-            <button class="add-slide-btn" onclick="addSlide()">＋ 新增投影片</button>
+    <!-- 主分頁 -->
+    <div class="main-tabs">
+        <button class="main-tab active" id="tab-create" onclick="switchMainTab('create')">✏️ 製作簡報</button>
+        <button class="main-tab" id="tab-gallery" onclick="switchMainTab('gallery')">📚 我的簡報</button>
+    </div>
+
+    <!-- ══════════════ 製作簡報 ══════════════ -->
+    <div id="view-create" class="active">
+        <div class="editor-container">
+            <!-- 左側：投影片列表 -->
+            <div class="slides-panel">
+                <div class="slides-panel-title">📋 投影片列表</div>
+                <div id="slides-list"></div>
+                <button class="add-slide-btn" onclick="addSlide()">＋ 新增投影片</button>
+            </div>
+
+            <!-- 中間：編輯區 -->
+            <div class="canvas-area">
+                <div class="slide-canvas-wrapper">
+                    <canvas id="slide-canvas" width="1600" height="900"></canvas>
+                </div>
+                <div class="canvas-toolbar">
+                    <button class="tool-btn active" id="select-tool" onclick="setTool('select')">🖱️ 選取</button>
+                    <button class="tool-btn" id="text-tool" onclick="setTool('text')">🔤 文字</button>
+                    <button class="tool-btn" id="shape-tool" onclick="setTool('shape')">🔷 形狀</button>
+                    <button class="tool-btn" id="img-tool" onclick="setTool('img')">🖼️ 素材</button>
+                    <span style="color:#a1887f;align-self:center;padding:0 10px;">|</span>
+                    <button class="tool-btn" onclick="setBgColor()">🎨 背景</button>
+                    <button class="tool-btn" onclick="duplicateSlide()">📑 複製</button>
+                    <button class="tool-btn danger" onclick="deleteSlide()">🗑️ 刪除</button>
+                    <button class="tool-btn primary" onclick="showSaveModal()">💾 儲存</button>
+                    <button class="tool-btn" onclick="togglePresentation()">▶ 放映</button>
+                </div>
+            </div>
+
+            <!-- 右側：屬性 -->
+            <div class="props-panel">
+                <div class="props-title">⚙️ 內容設定</div>
+                <div class="prop-group" id="text-props" style="display:none;">
+                    <div class="prop-label">文字內容</div>
+                    <textarea class="prop-input" id="prop-text" rows="3" placeholder="輸入文字..." oninput="updateSelectedText()"></textarea>
+                    <div class="prop-label" style="margin-top:8px;">文字大小</div>
+                    <input type="range" min="18" max="120" value="48" id="prop-fontsize" style="width:100%;" oninput="updateSelectedText()">
+                    <div class="prop-label">文字顏色</div>
+                    <div class="color-swatches" id="text-colors"></div>
+                </div>
+                <div class="prop-group">
+                    <div class="prop-label">投影片背景</div>
+                    <div class="color-swatches" id="bg-colors"></div>
+                </div>
+                <div class="prop-group">
+                    <div class="prop-label">投影片尺寸</div>
+                    <select class="prop-input" id="slide-size" onchange="resizeCanvas()">
+                        <option value="16:9">16:9（寬螢幕）</option>
+                        <option value="4:3">4:3（標準）</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <!-- 中間：編輯區 -->
-        <div class="canvas-area">
-            <div class="slide-canvas-wrapper">
-                <canvas id="slide-canvas" width="1600" height="900"></canvas>
-            </div>
-            <div class="canvas-toolbar">
-                <button class="tool-btn active" id="select-tool" onclick="setTool('select')">🖱️ 選取</button>
-                <button class="tool-btn" id="text-tool" onclick="setTool('text')">🔤 文字</button>
-                <button class="tool-btn" id="shape-tool" onclick="setTool('shape')">🔷 形狀</button>
-                <button class="tool-btn" id="img-tool" onclick="setTool('img')">🖼️ 素材</button>
-                <span style="color:#a1887f;align-self:center;padding:0 10px;">|</span>
-                <button class="tool-btn" onclick="setBgColor()">🎨 背景</button>
-                <button class="tool-btn" onclick="duplicateSlide()">📑 複製</button>
-                <button class="tool-btn danger" onclick="deleteSlide()">🗑️ 刪除</button>
-                <button class="tool-btn" onclick="togglePresentation()" style="background:#8b5a2b;color:white;border-color:#8b5a2b;">▶ 放映</button>
-            </div>
+        <!-- 素材抽屜 -->
+        <div class="materials-drawer" id="materials-drawer">
+            <div class="drawer-handle" onclick="toggleDrawer()">熊素材面板 ▼</div>
+            <div class="drawer-tabs" id="drawer-tabs"></div>
+            <div id="drawer-content"></div>
         </div>
+    </div>
 
-        <!-- 右側：屬性 -->
-        <div class="props-panel">
-            <div class="props-title">⚙️ 內容設定</div>
-
-            <div class="prop-group" id="text-props" style="display:none;">
-                <div class="prop-label">文字內容</div>
-                <textarea class="prop-input" id="prop-text" rows="3" placeholder="輸入文字..." oninput="updateSelectedText()"></textarea>
-                <div class="prop-label" style="margin-top:8px;">文字大小</div>
-                <input type="range" min="18" max="120" value="48" id="prop-fontsize" style="width:100%;" oninput="updateSelectedText()">
-                <div class="prop-label">文字顏色</div>
-                <div class="color-swatches" id="text-colors"></div>
-            </div>
-
-            <div class="prop-group">
-                <div class="prop-label">投影片背景</div>
-                <div class="color-swatches" id="bg-colors"></div>
-            </div>
-
-            <div class="prop-group">
-                <div class="prop-label">投影片尺寸</div>
-                <select class="prop-input" id="slide-size" onchange="resizeCanvas()">
-                    <option value="16:9">16:9（寬螢幕）</option>
-                    <option value="4:3">4:3（標準）</option>
-                </select>
+    <!-- ══════════════ 我的簡報（已完成） ══════════════ -->
+    <div id="view-gallery">
+        <div class="gallery-container">
+            <div class="gallery-title" id="gallery-count"></div>
+            <div class="gallery-grid" id="gallery-grid"></div>
+            <div class="gallery-empty" id="gallery-empty" style="display:none;">
+                <span>📭</span>
+                還沒有儲存過簡報<br>快去 ✏️ 製作簡報 創作第一份作品吧！
             </div>
         </div>
     </div>
 
-    <!-- 素材抽屜 -->
-    <div class="materials-drawer" id="materials-drawer">
-        <div class="drawer-handle" onclick="toggleDrawer()">熊素材面板 ▼</div>
-        <div class="drawer-tabs" id="drawer-tabs"></div>
-        <div id="drawer-content"></div>
+    <!-- 儲存彈窗 -->
+    <div id="save-modal">
+        <div class="save-dialog">
+            <h3>💾 儲存簡報</h3>
+            <input type="text" id="save-name" placeholder="幫簡報取個名字..." maxlength="40">
+            <div class="save-dialog-btns">
+                <button class="btn-cancel" onclick="hideSaveModal()">取消</button>
+                <button class="btn-confirm" onclick="confirmSave()">儲存</button>
+            </div>
+        </div>
     </div>
 
     <!-- 全螢幕放映 -->
@@ -471,7 +628,7 @@
 
 <script>
 // ============================================================
-// 熊熊簡報工具 v1.0
+// 熊熊簡報工具 v2.0
 // ============================================================
 
 const materialCategories = [
@@ -504,11 +661,12 @@ const textColors = ['#5d4037','#8b5a2b','#c62828','#1565c0','#2e7d32','#6a1b9a',
 const bgColors = ['#ffffff','#fdf6e3','#e8f5e9','#e3f2fd','#fff3e0','#fce4ec','#f3e5f5','#e0f7fa','#fff8e1','#efebe9'];
 
 // 狀態
-let slides = [];        // 每頁投影片的物件
+let slides = [];
 let currentSlide = 0;
 let currentTool = 'select';
-let selectedElement = null;  // 目前選取的元素
+let selectedElement = null;
 let presIndex = 0;
+let presSlides = []; // 放映用的投影片（從庫裡讀取時用）
 
 // DOM
 const canvas = document.getElementById('slide-canvas');
@@ -516,17 +674,14 @@ const ctx = canvas.getContext('2d');
 const presCanvas = document.getElementById('pres-canvas');
 const presCtx = presCanvas.getContext('2d');
 
-// 元素類型：{ type:'text'|'img'|'shape', x,y,w,h, content, color, fontSize, src, bgColor }
-// 每張投影片：{ elements:[], bgColor:'#ffffff' }
-
-// ── 初始化 ──────────────────────────────────────────────────
-function init() {
-    buildColorSwatches();
-    buildDrawerTabs();
-    loadDrawerMaterials();
-    addSlide(); // 第一張空白投影片
-    renderSlidesList();
-    setupCanvasEvents();
+// ── 主分頁切換 ─────────────────────────────────────────────
+function switchMainTab(tab) {
+    document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(`tab-${tab}`).classList.add('active');
+    document.getElementById('view-create').classList.remove('active');
+    document.getElementById('view-gallery').classList.remove('active');
+    document.getElementById(`view-${tab}`).classList.add('active');
+    if (tab === 'gallery') renderGallery();
 }
 
 // ── 色彩選擇器 ─────────────────────────────────────────────
@@ -600,14 +755,12 @@ function toggleDrawer() {
 }
 
 function insertMaterial(src) {
-    // 自動切換到素材工具
     setTool('img');
     const slide = getCurrentSlide();
-    // 把素材加入投影片中間
     slide.elements.push({
         type: 'img',
-        x: canvas.width/2 - 100,
-        y: canvas.height/2 - 75,
+        x: canvas.width / 2 - 100,
+        y: canvas.height / 2 - 75,
         w: 200, h: 150,
         src: src
     });
@@ -653,18 +806,16 @@ function renderSlidesList() {
         num.className = 'slide-num';
         num.textContent = i + 1;
         div.appendChild(num);
-        // 預覽小圖
         const thumbCanvas = document.createElement('canvas');
         thumbCanvas.width = 160; thumbCanvas.height = 90;
         div.appendChild(thumbCanvas);
         div.onclick = () => { currentSlide = i; renderSlidesList(); render(); };
         list.appendChild(div);
-        // 繪製縮圖
         setTimeout(() => drawSlideToContext(thumbCanvas.getContext('2d'), slide, 160, 90), 50);
     });
 }
 
-// ── 工具切換 ───────────────────────────────────────────────
+// ── 工具 ────────────────────────────────────────────────────
 function setTool(tool) {
     currentTool = tool;
     document.querySelectorAll('.tool-btn').forEach(b => {
@@ -687,7 +838,6 @@ function setupCanvasEvents() {
         const my = (e.clientY - rect.top) * scaleY;
 
         const slide = getCurrentSlide();
-        // 點選：從上層（最後加入的）往前找
         let found = null;
         for (let i = slide.elements.length - 1; i >= 0; i--) {
             const el = slide.elements[i];
@@ -705,46 +855,31 @@ function setupCanvasEvents() {
                 dragStartY = my - found.y;
                 dragEl = found;
             }
-            if (found.type === 'text') {
-                document.getElementById('text-props').style.display = 'block';
-                document.getElementById('prop-text').value = found.content || '';
-                document.getElementById('prop-fontsize').value = found.fontSize || 48;
-            }
+            render();
         } else {
-            selectedElement = null;
             if (currentTool === 'text') {
-                // 新增文字
-                const newText = {
+                slide.elements.push({
                     type: 'text',
-                    x: mx - 100, y: my - 30,
-                    w: 300, h: 60,
-                    content: '點擊編輯文字',
-                    color: '#5d4037',
+                    x: mx, y: my - 30,
+                    w: 300, h: 80,
+                    content: '雙擊編輯文字',
+                    color: textColors[0],
                     fontSize: 48
-                };
-                slide.elements.push(newText);
-                selectedElement = newText;
-                document.getElementById('text-props').style.display = 'block';
-                document.getElementById('prop-text').value = newText.content;
-                document.getElementById('prop-fontsize').value = newText.fontSize;
+                });
+                selectedElement = slide.elements[slide.elements.length - 1];
+                setTool('text');
+                render();
             } else if (currentTool === 'shape') {
-                // 新增方框
-                const newShape = {
+                slide.elements.push({
                     type: 'shape',
                     x: mx - 60, y: my - 40,
                     w: 120, h: 80,
                     bgColor: '#e7d8c9'
-                };
-                slide.elements.push(newShape);
-                selectedElement = newShape;
-            } else if (currentTool === 'img') {
-                // 提醒開素材抽屜
-                if (!document.getElementById('materials-drawer').classList.contains('open')) {
-                    toggleDrawer();
-                }
+                });
+                selectedElement = slide.elements[slide.elements.length - 1];
+                render();
             }
         }
-        render();
     });
 
     canvas.addEventListener('mousemove', e => {
@@ -752,88 +887,108 @@ function setupCanvasEvents() {
         const rect = canvas.getBoundingClientRect();
         const scaleX = canvas.width / rect.width;
         const scaleY = canvas.height / rect.height;
-        const mx = (e.clientX - rect.left) * scaleX;
-        const my = (e.clientY - rect.top) * scaleY;
-        dragEl.x = mx - dragStartX;
-        dragEl.y = my - dragStartY;
+        dragEl.x = (e.clientX - rect.left) * scaleX - dragStartX;
+        dragEl.y = (e.clientY - rect.top) * scaleY - dragStartY;
         render();
     });
 
     canvas.addEventListener('mouseup', () => { isDragging = false; dragEl = null; });
-    canvas.addEventListener('mouseleave', () => { isDragging = false; dragEl = null; });
 
     canvas.addEventListener('dblclick', e => {
         if (!selectedElement || selectedElement.type !== 'text') return;
-        const text = prompt('編輯文字內容：', selectedElement.content);
-        if (text !== null) {
-            selectedElement.content = text;
-            document.getElementById('prop-text').value = text;
-            render();
-        }
+        const newText = prompt('編輯文字：', selectedElement.content);
+        if (newText !== null) { selectedElement.content = newText; render(); }
     });
 }
 
-// ── 渲染 ──────────────────────────────────────────────────
+// ── 渲染 ────────────────────────────────────────────────────
 function render() {
     const slide = getCurrentSlide();
-    drawSlideToContext(ctx, slide, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = slide.bgColor || '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (!slide.elements) return;
+    slide.elements.forEach(el => drawElement(ctx, el));
     updatePropsPanel();
-    renderSlidesList();
+}
+
+function drawElement(ctx2d, el) {
+    if (el.type === 'text') {
+        ctx2d.fillStyle = el.color || '#5d4037';
+        ctx2d.font = `bold ${el.fontSize || 48}px 'Segoe UI', 'Microsoft JhengHei', sans-serif`;
+        const lines = (el.content || '').split('\n');
+        const lineH = (el.fontSize || 48) * 1.4;
+        lines.forEach((line, i) => {
+            ctx2d.fillText(line, el.x, el.y + (el.fontSize || 48) + i * lineH);
+        });
+        if (selectedElement === el) {
+            ctx2d.strokeStyle = '#8b5a2b';
+            ctx2d.lineWidth = 2;
+            ctx2d.setLineDash([6, 4]);
+            const lines2 = (el.content || '').split('\n');
+            const totalH = lines2.length * lineH;
+            ctx2d.strokeRect(el.x - 4, el.y - 8, ctx2d.measureText(lines2[0]).width + 8, totalH + 12);
+            ctx2d.setLineDash([]);
+        }
+    } else if (el.type === 'img') {
+        const img = imgCache[el.src];
+        if (img && img.complete) {
+            ctx2d.drawImage(img, el.x, el.y, el.w, el.h);
+        } else {
+            ctx2d.fillStyle = '#e7d8c9';
+            ctx2d.fillRect(el.x, el.y, el.w, el.h);
+            ctx2d.fillStyle = '#a1887f';
+            ctx2d.font = '14px sans-serif';
+            ctx2d.fillText('載入中...', el.x + 5, el.y + 20);
+        }
+        if (selectedElement === el) {
+            ctx2d.strokeStyle = '#8b5a2b';
+            ctx2d.lineWidth = 2;
+            ctx2d.setLineDash([6, 4]);
+            ctx2d.strokeRect(el.x, el.y, el.w, el.h);
+            ctx2d.setLineDash([]);
+        }
+    } else if (el.type === 'shape') {
+        ctx2d.fillStyle = el.bgColor || '#e7d8c9';
+        ctx2d.fillRect(el.x, el.y, el.w, el.h);
+        if (selectedElement === el) {
+            ctx2d.strokeStyle = '#8b5a2b';
+            ctx2d.lineWidth = 2;
+            ctx2d.setLineDash([6, 4]);
+            ctx2d.strokeRect(el.x, el.y, el.w, el.h);
+            ctx2d.setLineDash([]);
+        }
+    }
 }
 
 function drawSlideToContext(ctx2d, slide, w, h) {
-    ctx2d.clearRect(0, 0, w, h);
-    // 背景
     ctx2d.fillStyle = slide.bgColor || '#ffffff';
     ctx2d.fillRect(0, 0, w, h);
-    // 元素
     if (!slide.elements) return;
+    const scaleX = w / canvas.width;
+    const scaleY = h / canvas.height;
     slide.elements.forEach(el => {
         if (el.type === 'text') {
             ctx2d.fillStyle = el.color || '#5d4037';
-            ctx2d.font = `bold ${el.fontSize || 48}px 'Segoe UI', 'Microsoft JhengHei', sans-serif`;
-            ctx2d.fillText(el.content || '', el.x, el.y + (el.fontSize || 48));
-            // 選取框
-            if (selectedElement === el) {
-                ctx2d.strokeStyle = '#8b5a2b';
-                ctx2d.lineWidth = 2;
-                ctx2d.setLineDash([6, 4]);
-                ctx2d.strokeRect(el.x - 4, el.y - 8, ctx2d.measureText(el.content || '').width + 8, (el.fontSize || 48) + 12);
-                ctx2d.setLineDash([]);
-            }
+            ctx2d.font = `bold ${(el.fontSize || 48) * scaleX}px 'Segoe UI', 'Microsoft JhengHei', sans-serif`;
+            const lines = (el.content || '').split('\n');
+            const lineH = (el.fontSize || 48) * scaleY * 1.4;
+            lines.forEach((line, i) => {
+                ctx2d.fillText(line, el.x * scaleX, (el.y + (el.fontSize || 48)) * scaleY + i * lineH);
+            });
         } else if (el.type === 'img') {
             const img = imgCache[el.src];
             if (img && img.complete) {
-                ctx2d.drawImage(img, el.x, el.y, el.w, el.h);
-            } else {
-                ctx2d.fillStyle = '#e7d8c9';
-                ctx2d.fillRect(el.x, el.y, el.w, el.h);
-                ctx2d.fillStyle = '#a1887f';
-                ctx2d.font = '14px sans-serif';
-                ctx2d.fillText('載入中...', el.x + 5, el.y + 20);
-            }
-            if (selectedElement === el) {
-                ctx2d.strokeStyle = '#8b5a2b';
-                ctx2d.lineWidth = 2;
-                ctx2d.setLineDash([6, 4]);
-                ctx2d.strokeRect(el.x, el.y, el.w, el.h);
-                ctx2d.setLineDash([]);
+                ctx2d.drawImage(img, el.x * scaleX, el.y * scaleY, el.w * scaleX, el.h * scaleY);
             }
         } else if (el.type === 'shape') {
             ctx2d.fillStyle = el.bgColor || '#e7d8c9';
-            ctx2d.fillRect(el.x, el.y, el.w, el.h);
-            if (selectedElement === el) {
-                ctx2d.strokeStyle = '#8b5a2b';
-                ctx2d.lineWidth = 2;
-                ctx2d.setLineDash([6, 4]);
-                ctx2d.strokeRect(el.x, el.y, el.w, el.h);
-                ctx2d.setLineDash([]);
-            }
+            ctx2d.fillRect(el.x * scaleX, el.y * scaleY, el.w * scaleX, el.h * scaleY);
         }
     });
 }
 
-// 圖片快取
+// ── 圖片快取 ────────────────────────────────────────────────
 const imgCache = {};
 function preloadImages() {
     materialCategories.forEach(cat => {
@@ -851,11 +1006,13 @@ function preloadImages() {
     });
 }
 
-// ── 屬性面板更新 ────────────────────────────────────────────
+// ── 屬性面板 ────────────────────────────────────────────────
 function updatePropsPanel() {
     const textProps = document.getElementById('text-props');
     if (selectedElement && selectedElement.type === 'text') {
         textProps.style.display = 'block';
+        document.getElementById('prop-text').value = selectedElement.content;
+        document.getElementById('prop-fontsize').value = selectedElement.fontSize;
     } else {
         textProps.style.display = 'none';
     }
@@ -877,7 +1034,7 @@ function setBgColor() {
     }
 }
 
-// ── 投影片尺寸 ────────────────────────────────────────────
+// ── 尺寸 ────────────────────────────────────────────────────
 function resizeCanvas() {
     const ratio = document.getElementById('slide-size').value;
     if (ratio === '4:3') {
@@ -890,15 +1047,125 @@ function resizeCanvas() {
     render();
 }
 
-// ── 全螢幕放映 ─────────────────────────────────────────────
-let presInterval;
+// ── 儲存 ────────────────────────────────────────────────────
+function showSaveModal() {
+    document.getElementById('save-modal').classList.add('active');
+    document.getElementById('save-name').focus();
+}
 
+function hideSaveModal() {
+    document.getElementById('save-modal').classList.remove('active');
+    document.getElementById('save-name').value = '';
+}
+
+function confirmSave() {
+    const name = document.getElementById('save-name').value.trim();
+    if (!name) { alert('請輸入簡報名稱唷！'); return; }
+    const saved = JSON.parse(localStorage.getItem('kuma_slides_saved') || '[]');
+    const entry = {
+        id: Date.now(),
+        name: name,
+        createdAt: new Date().toLocaleString('zh-TW'),
+        slides: JSON.parse(JSON.stringify(slides))
+    };
+    saved.unshift(entry);
+    localStorage.setItem('kuma_slides_saved', JSON.stringify(saved));
+    hideSaveModal();
+    alert('💾 已儲存「' + name + '」！');
+}
+
+// ── 簡報庫 ──────────────────────────────────────────────────
+function renderGallery() {
+    const saved = JSON.parse(localStorage.getItem('kuma_slides_saved') || '[]');
+    const grid = document.getElementById('gallery-grid');
+    const empty = document.getElementById('gallery-empty');
+    const count = document.getElementById('gallery-count');
+
+    if (saved.length === 0) {
+        grid.style.display = 'none';
+        empty.style.display = 'block';
+        count.textContent = '';
+        return;
+    }
+
+    grid.style.display = 'grid';
+    empty.style.display = 'none';
+    count.textContent = `共 ${saved.length} 份簡報`;
+    grid.innerHTML = '';
+
+    saved.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'pres-card';
+        card.innerHTML = `
+            <div class="pres-card-cover">
+                <canvas id="cover-${item.id}" width="320" height="180"></canvas>
+                <div class="play-overlay">▶</div>
+            </div>
+            <div class="pres-card-name">${item.name}</div>
+            <div class="pres-card-meta">
+                <span>📅 ${item.createdAt}</span>
+                <button class="pres-card-delete" onclick="event.stopPropagation(); deletePresentation(${item.id})">🗑️</button>
+            </div>
+        `;
+        card.onclick = () => playPresentation(item);
+        grid.appendChild(card);
+
+        // 繪製封面
+        const coverCanvas = document.getElementById(`cover-${item.id}`);
+        if (item.slides && item.slides.length > 0) {
+            setTimeout(() => {
+                const coverSlide = item.slides[0];
+                const coverCtx = coverCanvas.getContext('2d');
+                coverCtx.fillStyle = coverSlide.bgColor || '#ffffff';
+                coverCtx.fillRect(0, 0, 320, 180);
+                const scaleX = 320 / canvas.width;
+                const scaleY = 180 / canvas.height;
+                (coverSlide.elements || []).forEach(el => {
+                    if (el.type === 'text') {
+                        coverCtx.fillStyle = el.color || '#5d4037';
+                        coverCtx.font = `bold ${(el.fontSize || 48) * scaleX}px 'Segoe UI', sans-serif`;
+                        const lines = (el.content || '').split('\n');
+                        const lineH = (el.fontSize || 48) * scaleY * 1.4;
+                        lines.forEach((line, i) => {
+                            coverCtx.fillText(line, el.x * scaleX, (el.y + (el.fontSize || 48)) * scaleY + i * lineH);
+                        });
+                    } else if (el.type === 'img') {
+                        const img = imgCache[el.src];
+                        if (img && img.complete) {
+                            coverCtx.drawImage(img, el.x * scaleX, el.y * scaleY, el.w * scaleX, el.h * scaleY);
+                        }
+                    } else if (el.type === 'shape') {
+                        coverCtx.fillStyle = el.bgColor || '#e7d8c9';
+                        coverCtx.fillRect(el.x * scaleX, el.y * scaleY, el.w * scaleX, el.h * scaleY);
+                    }
+                });
+            }, 80);
+        }
+    });
+}
+
+function playPresentation(item) {
+    presSlides = item.slides;
+    presIndex = 0;
+    document.getElementById('presentation-mode').classList.add('active');
+    drawPresSlide();
+}
+
+function deletePresentation(id) {
+    if (!confirm('確定要刪除這份簡報嗎？')) return;
+    const saved = JSON.parse(localStorage.getItem('kuma_slides_saved') || '[]');
+    const filtered = saved.filter(p => p.id !== id);
+    localStorage.setItem('kuma_slides_saved', JSON.stringify(filtered));
+    renderGallery();
+}
+
+// ── 放映 ────────────────────────────────────────────────────
 function togglePresentation() {
     const pres = document.getElementById('presentation-mode');
     if (pres.classList.contains('active')) {
         pres.classList.remove('active');
-        clearInterval(presInterval);
     } else {
+        presSlides = slides;
         presIndex = 0;
         pres.classList.add('active');
         drawPresSlide();
@@ -906,38 +1173,23 @@ function togglePresentation() {
 }
 
 function drawPresSlide() {
-    const slide = slides[presIndex];
+    const slide = presSlides[presIndex];
     if (!slide) return;
     presCtx.clearRect(0, 0, presCanvas.width, presCanvas.height);
     presCtx.fillStyle = slide.bgColor || '#ffffff';
     presCtx.fillRect(0, 0, presCanvas.width, presCanvas.height);
     if (!slide.elements) return;
-    slide.elements.forEach(el => {
-        if (el.type === 'text') {
-            presCtx.fillStyle = el.color || '#5d4037';
-            presCtx.font = `bold ${el.fontSize || 48}px 'Segoe UI', 'Microsoft JhengHei', sans-serif`;
-            presCtx.fillText(el.content || '', el.x, el.y + (el.fontSize || 48));
-        } else if (el.type === 'img') {
-            const img = imgCache[el.src];
-            if (img && img.complete) {
-                presCtx.drawImage(img, el.x, el.y, el.w, el.h);
-            }
-        } else if (el.type === 'shape') {
-            presCtx.fillStyle = el.bgColor || '#e7d8c9';
-            presCtx.fillRect(el.x, el.y, el.w, el.h);
-        }
-    });
-    document.getElementById('pres-counter').textContent = `${presIndex + 1} / ${slides.length}`;
+    slide.elements.forEach(el => drawElement(presCtx, el));
+    document.getElementById('pres-counter').textContent = `${presIndex + 1} / ${presSlides.length}`;
 }
 
 function presNext() {
-    if (presIndex < slides.length - 1) { presIndex++; drawPresSlide(); }
+    if (presIndex < presSlides.length - 1) { presIndex++; drawPresSlide(); }
 }
 function presPrev() {
     if (presIndex > 0) { presIndex--; drawPresSlide(); }
 }
 
-// 鍵盤快捷鍵（放映模式）
 document.addEventListener('keydown', e => {
     const pres = document.getElementById('presentation-mode');
     if (!pres.classList.contains('active')) return;
@@ -946,7 +1198,16 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') togglePresentation();
 });
 
-// ── 啟動 ───────────────────────────────────────────────────
+// ── 初始化 ──────────────────────────────────────────────────
+function init() {
+    buildColorSwatches();
+    buildDrawerTabs();
+    loadDrawerMaterials();
+    addSlide();
+    renderSlidesList();
+    setupCanvasEvents();
+}
+
 preloadImages();
 init();
 </script>
