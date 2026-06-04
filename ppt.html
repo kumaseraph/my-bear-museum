@@ -493,7 +493,7 @@
                         
                         if (hasFiles) {
                             for (const file of group.files) {
-                                materials/2026-06-04/${cat.folder}/${file}
+                                const path = `materials/2026-06-04/${cat.folder}/${file}`;
                                 try {
                                     const response = await fetch(path);
                                     if (response.ok) {
