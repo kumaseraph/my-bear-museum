@@ -313,6 +313,7 @@
     <nav>
         <a href="index.html">🐻 熊熊博物館</a>
         <a href="ppt.html" class="active">📊 PPT 素材庫</a>
+        <a href="video.html">🎬 熊熊短影音</a>
     </nav>
     <header>
         <h1>📊 熊熊 PPT 素材庫</h1>
@@ -334,17 +335,17 @@
                 groups: [
                     {
                         title: '📐 四角邊框 (角落裝飾)',
-                        files: ['20260603_四角邊框_01.svg'],
+                        files: ['20260604_四角邊框_01.svg'],
                         desc: '單一角裝飾設計'
                     },
                     {
                         title: '➖ 單側邊框 (上下左右)',
-                        files: ['20260603_單側邊框_長.svg', '20260603_單側邊框_寬.svg'],
+                        files: ['20260604_單側邊框_長.svg', '20260604_單側邊框_寬.svg'],
                         desc: '水平或垂直線條裝飾'
                     },
                     {
                         title: '⬜ 全框邊框 (四邊組合)',
-                        files: ['20260603_全框邊框_01.svg', '20260603_全框邊框_雙層虛線.svg', '20260603_全框邊框_三層古典.svg', '20260603_全框邊框_弧角.svg', '20260603_全框邊框_對角線.svg', '20260603_全框邊框_現代商務風.svg'],
+                        files: ['20260604_全框邊框_01.svg'],
                         desc: '四面完整的邊框設計'
                     }
                 ]
@@ -356,12 +357,12 @@
                 groups: [
                     {
                         title: '👥 人員相關',
-                        files: ['20260603_圖標_人員.svg'],
+                        files: ['20260604_圖標_團隊協作.svg'],
                         desc: '團隊與人力資源'
                     },
                     {
                         title: '📄 內容相關',
-                        files: ['20260603_圖標_報告.svg', '20260603_圖標_想法.svg', '20260603_圖標_成就.svg'],
+                        files: ['20260604_圖標_成長趨勢.svg', '20260604_圖標_目標達成.svg'],
                         desc: '報告與創意內容'
                     }
                 ]
@@ -373,12 +374,12 @@
                 groups: [
                     {
                         title: '🎀 簡約背景',
-                        files: ['20260603_背景_白.svg', '20260603_背景_藍.svg'],
+                        files: ['20260604_背景_白.svg', '20260604_背景_藍.svg'],
                         desc: '清新簡潔版面'
                     },
                     {
                         title: '🎨 藝術背景',
-                        files: ['20260603_背景_抽象.jpg'],
+                        files: ['20260604_背景_抽象.svg'],
                         desc: '創意視覺效果'
                     }
                 ]
@@ -390,7 +391,7 @@
                 groups: [
                     {
                         title: '📋 卡片區塊',
-                        files: ['20260603_區塊_卡片.jpg'],
+                        files: ['20260604_區塊_卡片.svg'],
                         desc: '資訊卡片設計'
                     },
                     {
@@ -412,7 +413,7 @@
                 groups: [
                     {
                         title: '📊 步驟流程',
-                        files: ['20260603_流程圖_步驟.jpg'],
+                        files: ['20260604_流程圖_步驟.svg'],
                         desc: '流程順序展示'
                     },
                     {
@@ -459,7 +460,7 @@
                         html += `<div class="border-group-items">`;
                         
                         for (const file of group.files) {
-                            const path = `materials/2026-06-03/${cat.folder}/${file}`;
+                            const path = `materials/2026-06-04/${cat.folder}/${file}`;
                             try {
                                 const response = await fetch(path);
                                 if (response.ok) {
@@ -492,7 +493,7 @@
                         
                         if (hasFiles) {
                             for (const file of group.files) {
-                                const path = `materials/2026-06-03/${cat.folder}/${file}`;
+                                materials/2026-06-04/${cat.folder}/${file}
                                 try {
                                     const response = await fetch(path);
                                     if (response.ok) {
@@ -520,7 +521,7 @@
                     let hasItems = false;
                     for (const file of cat.files) {
                         const folderPath = cat.folder ? `/${cat.folder}` : '';
-                        const path = `materials/2026-06-03${folderPath}/${file}`;
+                        const path = `materials/2026-06-04${folderPath}/${file}`;
                         try {
                             const response = await fetch(path);
                             if (response.ok) {
