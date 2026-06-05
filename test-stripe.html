@@ -22,13 +22,14 @@
       --success: #15be53;
       --ruby: #ea2261;
       --magenta: #f96bee;
+      --ghost-border: #b9b9f9;
 
       /* Shadows (blue-tinted) */
       --shadow-standard: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px;
       --shadow-elevated: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px;
       --shadow-ambient: rgba(23,23,23,0.08) 0px 15px 35px 0px;
 
-      /* Spacing */
+      /* Spacing (Stripe 8px baseline) */
       --space-xs: 4px;
       --space-sm: 8px;
       --space-md: 16px;
@@ -36,6 +37,18 @@
       --space-xl: 32px;
       --space-2xl: 48px;
       --space-3xl: 64px;
+      --space-4xl: 80px;
+    }
+
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Accessibility focus ring */
+    *:focus-visible {
+      outline: 2px solid #533afd;
+      outline-offset: 2px;
     }
 
     /* ========================================
@@ -105,6 +118,7 @@
       background: rgba(255,255,255,0.95);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-default);
+      border-radius: 6px;
     }
 
     nav .logo {
@@ -173,7 +187,7 @@
       padding: var(--space-sm) var(--space-md);
       background: transparent;
       color: var(--stripe-purple);
-      border: 1px solid var(--border-default);
+      border: 1px solid #b9b9f9;
       border-radius: 4px;
       font-size: 1rem;
       font-weight: 400;
@@ -184,33 +198,80 @@
 
     .btn-ghost:hover {
       background: rgba(83,58,253,0.05);
-      border-color: rgba(83,58,253,0.3);
+      border-color: #b9b9f9;
+    }
+
+    /* Focus ring for accessibility */
+    *:focus-visible {
+      outline: 2px solid #533afd;
+      outline-offset: 2px;
     }
 
     /* ========================================
        Hero Section
        ======================================== */
     .hero {
+      position: relative;
       padding: var(--space-3xl) var(--space-xl);
       text-align: center;
       background: linear-gradient(180deg, var(--white) 0%, #f8fafc 100%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, var(--ruby) 0%, var(--magenta) 100%);
+      border-radius: 50%;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -120px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, var(--magenta) 0%, var(--stripe-purple) 100%);
+      border-radius: 50%;
+      opacity: 0.06;
+      pointer-events: none;
     }
 
     .hero h1 {
+      position: relative;
+      z-index: 1;
       max-width: 700px;
       margin: 0 auto var(--space-lg);
     }
 
     .hero p {
+      position: relative;
+      z-index: 1;
       max-width: 500px;
       margin: 0 auto var(--space-xl);
     }
 
     .hero-buttons {
+      position: relative;
+      z-index: 1;
       display: flex;
       gap: var(--space-md);
       justify-content: center;
       flex-wrap: wrap;
+    }
+
+    .hero-back {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      margin-bottom: var(--space-lg);
     }
 
     /* ========================================
@@ -244,7 +305,7 @@
     .card {
       background: var(--white);
       border: 1px solid var(--border-default);
-      border-radius: 6px;
+      border-radius: 5px;
       padding: var(--space-xl);
       box-shadow: var(--shadow-standard);
       transition: box-shadow 0.3s, transform 0.3s;
@@ -318,16 +379,320 @@
 
     .code-block code {
       font-family: 'Source Code Pro', monospace;
-      font-size: 0.75rem;
+      font-size: 12px;
       font-weight: 500;
       color: rgba(255,255,255,0.9);
-      line-height: 2;
+      line-height: 2.0;
     }
 
     .code-block .keyword { color: #b9b9f9; }
     .code-block .string { color: #98fb98; }
     .code-block .comment { color: #64748d; }
     .code-block .function { color: #ffd1a4; }
+
+    /* ========================================
+       Accordion (折疊展開功能)
+       ======================================== */
+    .accordion {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .accordion-item {
+      border: 1px solid var(--border-default);
+      border-radius: 5px;
+      margin-bottom: var(--space-sm);
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    .accordion-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md) var(--space-lg);
+      background: var(--white);
+      border: none;
+      cursor: pointer;
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--deep-navy);
+      text-align: left;
+      transition: background 0.2s;
+      font-feature-settings: "ss01";
+    }
+
+    .accordion-header:hover {
+      background: rgba(83,58,253,0.03);
+    }
+
+    .accordion-header:focus-visible {
+      outline: 2px solid #533afd;
+      outline-offset: -2px;
+    }
+
+    .accordion-icon {
+      display: flex;
+      align-items: center;
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .accordion-item.open .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      background: #f8fafc;
+    }
+
+    .accordion-item.open .accordion-content {
+      max-height: 1000px;
+    }
+
+    .accordion-inner {
+      padding: var(--space-md) var(--space-lg) var(--space-lg);
+    }
+
+    /* 子分類（第二層）*/
+    .accordion-sub {
+      margin-top: var(--space-md);
+    }
+
+    .accordion-sub .accordion-item {
+      border-color: rgba(83,58,253,0.15);
+      margin-bottom: var(--space-xs);
+    }
+
+    .accordion-sub .accordion-header {
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.9rem;
+      color: var(--label-slate);
+      background: rgba(83,58,253,0.03);
+    }
+
+    .accordion-sub .accordion-header:hover {
+      background: rgba(83,58,253,0.06);
+    }
+
+    .accordion-sub .accordion-content {
+      background: var(--white);
+    }
+
+    .accordion-sub .accordion-inner {
+      padding: var(--space-sm) var(--space-md) var(--space-md);
+    }
+
+    /* 熊熊成員卡片（子分類內容）*/
+    .member-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-sm);
+      background: var(--white);
+      border: 1px solid var(--border-default);
+      border-radius: 4px;
+      margin-bottom: var(--space-xs);
+    }
+
+    .member-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .member-avatar {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .member-info h4 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--deep-navy);
+      margin-bottom: 2px;
+    }
+
+    .member-info p {
+      font-size: 0.8rem;
+      color: var(--body-slate);
+    }
+
+    .badge编号 {
+      font-size: 0.7rem;
+      padding: 1px 6px;
+      background: rgba(83,58,253,0.1);
+      color: var(--stripe-purple);
+      border-radius: 3px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    /* ========================================
+       Pinterest 風格瀑布流圖片牆
+       ======================================== */
+    .masonry-grid {
+      column-count: 4;
+      column-gap: var(--space-md);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+      .masonry-grid { column-count: 3; }
+    }
+    @media (max-width: 768px) {
+      .masonry-grid { column-count: 2; }
+    }
+    @media (max-width: 480px) {
+      .masonry-grid { column-count: 1; }
+    }
+
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: var(--space-md);
+    }
+
+    .masonry-card {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-default);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .masonry-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-standard);
+    }
+
+    .masonry-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .masonry-info {
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .masonry-info h4 {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--deep-navy);
+      margin-bottom: 2px;
+    }
+
+    .masonry-info p {
+      font-size: 0.75rem;
+      color: var(--body-slate);
+    }
+
+    /* Lightbox（點擊放大）*/
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 85vh;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-caption {
+      text-align: center;
+      color: white;
+      padding: var(--space-md);
+      font-size: 0.9rem;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2.5rem;
+      color: white;
+      cursor: pointer;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      padding: var(--space-md) var(--space-lg);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+
+    .load-more {
+      display: block;
+      margin: var(--space-xl) auto 0;
+      padding: var(--space-sm) var(--space-xl);
+      background: var(--stripe-purple);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .load-more:hover {
+      background: var(--stripe-purple-hover);
+    }
 
     /* ========================================
        Footer
@@ -404,7 +769,120 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-8px); }
     }
+
+    /* Accordion JavaScript 控制 */
+    .accordion-item.open .accordion-content {
+      max-height: 1000px;
+    }
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const accordionHeaders = document.querySelectorAll('.accordion-header');
+      
+      accordionHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+          const item = this.closest('.accordion-item');
+          const isOpen = item.classList.contains('open');
+          
+          // 關閉同層的其他項目（可選：註釋掉這段讓多個可以同時開啟）
+          const parent = item.closest('.accordion');
+          if (parent && !isOpen) {
+            parent.querySelectorAll('.accordion-item.open').forEach(openItem => {
+              if (openItem !== item) {
+                openItem.classList.remove('open');
+              }
+            });
+          }
+          
+          // 切換當前項目
+          item.classList.toggle('open', !isOpen);
+        });
+      });
+
+      // Lightbox 功能
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxCaption = document.getElementById('lightbox-caption');
+      const lightboxClose = document.getElementById('lightbox-close');
+      const lightboxPrev = document.getElementById('lightbox-prev');
+      const lightboxNext = document.getElementById('lightbox-next');
+      let currentIndex = 0;
+      const galleryImages = [];
+
+      // 收集所有可點擊的圖片
+      document.querySelectorAll('.masonry-card').forEach((card, index) => {
+        const img = card.querySelector('img');
+        const title = card.querySelector('h4')?.textContent || '';
+        const desc = card.querySelector('p')?.textContent || '';
+        
+        galleryImages.push({
+          src: img.src,
+          title: title,
+          desc: desc
+        });
+
+        card.addEventListener('click', () => {
+          currentIndex = index;
+          showLightbox(currentIndex);
+        });
+      });
+
+      function showLightbox(index) {
+        const image = galleryImages[index];
+        lightboxImg.src = image.src;
+        lightboxCaption.innerHTML = `<strong>${image.title}</strong><br><span style="opacity:0.7">${image.desc}</span>`;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function hideLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function showPrev() {
+        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        showLightbox(currentIndex);
+      }
+
+      function showNext() {
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        showLightbox(currentIndex);
+      }
+
+      lightboxClose.addEventListener('click', hideLightbox);
+      lightboxPrev.addEventListener('click', showPrev);
+      lightboxNext.addEventListener('click', showNext);
+
+      // 點擊背景關閉
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) hideLightbox();
+      });
+
+      // 鍵盤導航
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') hideLightbox();
+        if (e.key === 'ArrowLeft') showPrev();
+        if (e.key === 'ArrowRight') showNext();
+      });
+
+      // Lazy Loading（懶加載）
+      const lazyImages = document.querySelectorAll('.masonry-card img[data-src]');
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+            observer.unobserve(img);
+          }
+        });
+      }, { rootMargin: '100px' });
+
+      lazyImages.forEach(img => imageObserver.observe(img));
+    });
+  </script>
 </head>
 <body>
 
@@ -416,6 +894,8 @@
     </a>
     <div class="nav-links">
       <a href="#features">特色</a>
+      <a href="#members">熊熊分類</a>
+      <a href="#gallery">熊熊畫廊</a>
       <a href="#code">程式碼</a>
       <a href="#about">關於</a>
       <a href="https://my-bear-museum.pages.dev" target="_blank">
@@ -466,6 +946,146 @@
     </div>
   </section>
 
+  <!-- 多層折疊區塊 -->
+  <section class="section" id="members">
+    <h2 style="text-align:center; margin-bottom: var(--space-xl);">🐻 熊熊成員分類</h2>
+    <div class="accordion">
+      
+      <!-- 大分類：依風格 -->
+      <div class="accordion-item open">
+        <button class="accordion-header">
+          <span>🌈 按風格分類</span>
+          <span class="accordion-icon">▼</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <div class="accordion-sub">
+              
+              <!-- 小分類：棉花糖系 -->
+              <div class="accordion-item open">
+                <button class="accordion-header">
+                  <span>☁️ 棉花糖系</span>
+                  <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                  <div class="accordion-inner">
+                    <div class="member-card">
+                      <span class="member-avatar">🐻</span>
+                      <div class="member-info">
+                        <h4>館長熊熊</h4>
+                        <p>棉花糖雲 · 2026年6月3日入館</p>
+                      </div>
+                      <span class="badge编号">No.0001</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 小分類：自然系 -->
+              <div class="accordion-item">
+                <button class="accordion-header">
+                  <span>🌿 自然系</span>
+                  <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                  <div class="accordion-inner">
+                    <div class="member-card">
+                      <span class="member-avatar">🐼</span>
+                      <div class="member-info">
+                        <h4>熊二</h4>
+                        <p>雪地領袖棕 · 沙發悠閒熊</p>
+                      </div>
+                      <span class="badge编号">No.0002</span>
+                    </div>
+                    <div class="member-card">
+                      <span class="member-avatar">🧸</span>
+                      <div class="member-info">
+                        <h4>熊三</h4>
+                        <p>雲朵綿綿 · 蜜糖爪爪</p>
+                      </div>
+                      <span class="badge编号">No.0003</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 大分類：依入館日期 -->
+      <div class="accordion-item">
+        <button class="accordion-header">
+          <span>📅 按入館日期</span>
+          <span class="accordion-icon">▼</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <div class="accordion-sub">
+              
+              <div class="accordion-item">
+                <button class="accordion-header">
+                  <span>2026年6月</span>
+                  <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                  <div class="accordion-inner">
+                    <div class="member-card">
+                      <span class="member-avatar">🐻</span>
+                      <div class="member-info">
+                        <h4>館長熊熊</h4>
+                        <p>2026年6月3日 · 熊熊博物館開幕日</p>
+                      </div>
+                      <span class="badge编号">No.0001</span>
+                    </div>
+                    <div class="member-card">
+                      <span class="member-avatar">🐼</span>
+                      <div class="member-info">
+                        <h4>熊二</h4>
+                        <p>2026年6月3日 · 同日入館</p>
+                      </div>
+                      <span class="badge编号">No.0002</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 大分類：設計系統展示 -->
+      <div class="accordion-item">
+        <button class="accordion-header">
+          <span>🎨 Stripe 設計系統展示</span>
+          <span class="accordion-icon">▼</span>
+        </button>
+        <div class="accordion-content">
+          <div class="accordion-inner">
+            <p style="margin-bottom: var(--space-md);">這是第二層折疊，裡面可以放任何內容：</p>
+            <div class="cards-grid" style="grid-template-columns: repeat(3, 1fr);">
+              <div class="card" style="padding: var(--space-md); text-align:center;">
+                <div style="font-size:2rem;">🎨</div>
+                <h4 style="font-size:0.9rem; margin-top: var(--space-xs);">CSS Variables</h4>
+              </div>
+              <div class="card" style="padding: var(--space-md); text-align:center;">
+                <div style="font-size:2rem;">📱</div>
+                <h4 style="font-size:0.9rem; margin-top: var(--space-xs);">Responsive</h4>
+              </div>
+              <div class="card" style="padding: var(--space-md); text-align:center;">
+                <div style="font-size:2rem;">✨</div>
+                <h4 style="font-size:0.9rem; margin-top: var(--space-xs);">Animations</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
   <!-- Dark Section -->
   <section class="section section-dark">
     <h2 style="text-align:center; margin-bottom: var(--space-xl);">熊熊成員</h2>
@@ -487,6 +1107,487 @@
       </div>
     </div>
   </section>
+
+  <!-- Pinterest 風格瀑布流圖片牆 -->
+  <section class="section" id="gallery">
+    <h2 style="text-align:center; margin-bottom: var(--space-xl);">🖼️ 熊熊畫廊</h2>
+    <p style="text-align:center; color: var(--body-slate); margin-bottom: var(--space-xl); max-width: 600px; margin-left:auto; margin-right:auto;">
+      📸 50 張熊熊圖片展示 — Pinterest 風格瀑布流佈局，點擊可放大欣賞
+    </p>
+
+    <!-- 瀑布流網格 -->
+    <div class="masonry-grid" id="masonry-gallery">
+      <!-- 圖片 1-10（熊熊實際圖片） -->
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="/bears/2026-06-04/白熊_水彩_20260604_01.png" alt="白熊水彩" loading="lazy">
+          <div class="masonry-info">
+            <h4>白熊水彩</h4>
+            <p>2026-06-04 · 水彩風格</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="/bears/2026-06-04/棕熊_3D_20260604_02.png" alt="棕熊3D" loading="lazy">
+          <div class="masonry-info">
+            <h4>棕熊3D</h4>
+            <p>2026-06-04 · 3D風格</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="/bears/2026-06-04/灰熊_像素_20260604_05.png" alt="灰熊像素" loading="lazy">
+          <div class="masonry-info">
+            <h4>灰熊像素</h4>
+            <p>2026-06-04 · 像素風格</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="/bears/2026-06-04/粉熊_油畫_20260604_03.png" alt="粉熊油畫" loading="lazy">
+          <div class="masonry-info">
+            <h4>粉熊油畫</h4>
+            <p>2026-06-04 · 油畫風格</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="/bears/2026-06-04/藍熊_奇幻_20260604_04.png" alt="藍熊奇幻" loading="lazy">
+          <div class="masonry-info">
+            <h4>藍熊奇幻</h4>
+            <p>2026-06-04 · 奇幻風格</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="/bears/2026-06-05/橘熊_水彩_20260605_01.png" alt="橘熊水彩" loading="lazy">
+          <div class="masonry-info">
+            <h4>橘熊水彩</h4>
+            <p>2026-06-05 · 水彩風格</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="/bears/2026-06-05/藍熊_3D_20260605_02.png" alt="藍熊3D" loading="lazy">
+          <div class="masonry-info">
+            <h4>藍熊3D</h4>
+            <p>2026-06-05 · 3D風格</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="/bears/2026-06-05/粉熊_奇幻_20260605_03.png" alt="粉熊奇幻" loading="lazy">
+          <div class="masonry-info">
+            <h4>粉熊奇幻</h4>
+            <p>2026-06-05 · 奇幻風格</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="/bears/2026-06-05/白熊_油畫_20260605_04.png" alt="白熊油畫" loading="lazy">
+          <div class="masonry-info">
+            <h4>白熊油畫</h4>
+            <p>2026-06-05 · 油畫風格</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="/bears/2026-06-05/綠熊_像素_20260605_05.png" alt="綠熊像素" loading="lazy">
+          <div class="masonry-info">
+            <h4>綠熊像素</h4>
+            <p>2026-06-05 · 像素風格</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 模擬第 11-50 張圖片（演示用） -->
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear11/300/400" alt="熊熊 11" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #011</h4>
+            <p>棉花糖雲 · 3D渲染</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear12/300/300" alt="熊熊 12" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #012</h4>
+            <p>蜜糖爪爪 · 水彩</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear13/300/450" alt="熊熊 13" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #013</h4>
+            <p>雲朵綿綿 · 油畫</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear14/300/350" alt="熊熊 14" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #014</h4>
+            <p>雪地領袖棕 · 奇幻</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear15/300/380" alt="熊熊 15" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #015</h4>
+            <p>沙發悠閒熊 · 像素</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear16/300/420" alt="熊熊 16" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #016</h4>
+            <p>森林小熊 · 水彩</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear17/300/280" alt="熊熊 17" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #017</h4>
+            <p>星空夜熊 · 3D</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear18/300/360" alt="熊熊 18" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #018</h4>
+            <p>彩虹棉花糖 · 奇幻</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear19/300/320" alt="熊熊 19" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #019</h4>
+            <p>薄荷熊冰 · 油畫</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear20/300/400" alt="熊熊 20" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #020</h4>
+            <p>夕陽熊熊 · 水彩</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear21/300/340" alt="熊熊 21" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #021</h4>
+            <p>蜂蜜甜甜 · 3D</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear22/300/380" alt="熊熊 22" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #022</h4>
+            <p>櫻花飄落 · 奇幻</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear23/300/300" alt="熊熊 23" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #023</h4>
+            <p>奶油小熊 · 像素</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear24/300/420" alt="熊熊 24" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #024</h4>
+            <p>巧克力熊熊 · 水彩</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear25/300/360" alt="熊熊 25" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #025</h4>
+            <p>星光閃閃 · 油畫</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear26/300/340" alt="熊熊 26" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #026</h4>
+            <p>綠野仙蹤 · 奇幻</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear27/300/400" alt="熊熊 27" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #027</h4>
+            <p>草莓奶昔 · 3D</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear28/300/320" alt="熊熊 28" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #028</h4>
+            <p>藍天白雲 · 水彩</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear29/300/380" alt="熊熊 29" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #029</h4>
+            <p>紫色浪漫 · 油畫</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear30/300/350" alt="熊熊 30" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #030</h4>
+            <p>金色陽光 · 奇幻</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear31/300/400" alt="熊熊 31" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #031</h4>
+            <p>森林仙子 · 水彩</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear32/300/340" alt="熊熊 32" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #032</h4>
+            <p>冬季仙境 · 3D</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear33/300/380" alt="熊熊 33" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #033</h4>
+            <p>彩虹橋上 · 奇幻</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear34/300/300" alt="熊熊 34" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #034</h4>
+            <p>泡泡熊趣 · 像素</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear35/300/420" alt="熊熊 35" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #035</h4>
+            <p>月光小熊 · 水彩</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear36/300/360" alt="熊熊 36" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #036</h4>
+            <p>花園派對 · 油畫</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear37/300/340" alt="熊熊 37" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #037</h4>
+            <p>夢幻泡泡 · 奇幻</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear38/300/400" alt="熊熊 38" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #038</h4>
+            <p>露營熊熊 · 3D</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear39/300/320" alt="熊熊 39" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #039</h4>
+            <p>海邊夕陽 · 水彩</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear40/300/380" alt="熊熊 40" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #040</h4>
+            <p>糖果屋熊 · 奇幻</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear41/300/350" alt="熊熊 41" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #041</h4>
+            <p>魔法森林 · 3D</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear42/300/400" alt="熊熊 42" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #042</h4>
+            <p>童話小熊 · 油畫</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear43/300/340" alt="熊熊 43" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #043</h4>
+            <p>精靈熊熊 · 水彩</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear44/300/380" alt="熊熊 44" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #044</h4>
+            <p>寶石熊熊 · 奇幻</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear45/300/300" alt="熊熊 45" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #045</h4>
+            <p>天使熊熊 · 像素</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear46/300/420" alt="熊熊 46" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #046</h4>
+            <p>彩虹熊熊 · 3D</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear47/300/360" alt="熊熊 47" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #047</h4>
+            <p>夜空繁星 · 奇幻</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear48/300/340" alt="熊熊 48" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #048</h4>
+            <p>咖啡熊熊 · 水彩</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear49/300/400" alt="熊熊 49" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #049</h4>
+            <p>奶茶小熊 · 油畫</p>
+          </div>
+        </div>
+      </div>
+      <div class="masonry-item">
+        <div class="masonry-card">
+          <img src="https://picsum.photos/seed/bear50/300/380" alt="熊熊 50" loading="lazy">
+          <div class="masonry-info">
+            <h4>熊熊 #050</h4>
+            <p>熊熊博物館 · 終章</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 載入更多按鈕（可選功能）-->
+    <button class="load-more" onclick="alert('🚀 載入更多熊熊！\n\n實際應用中：\n• 無限滾動（Infinite Scroll）\n• 分頁載入\n• 懶加載更多')">
+      🐻 載入更多熊熊
+    </button>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">×</button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev">‹</button>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next">›</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Lightbox Image">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
 
   <!-- Code Section -->
   <section class="section" id="code">
