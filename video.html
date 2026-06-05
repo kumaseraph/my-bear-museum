@@ -184,10 +184,10 @@
         dummyVideos.forEach(vid => {
             const item = document.createElement('div');
             item.className = 'archive-item';
-            item.innerHTML = \`
-                <video src="\${vid.src}" muted onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"></video>
-                <p>\${vid.date} - \${vid.title}</p>
-            \`;
+            item.innerHTML = `
+                <video src="${vid.src}" muted onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"></video>
+                <p>${vid.date} - ${vid.title}</p>
+            `;
             archive.appendChild(item);
         });
     </script>

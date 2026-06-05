@@ -175,6 +175,8 @@
 <script>
 // 熊熊簡報展示列表
 const presentations = [
+    { name: '2026-06-04-mage-life.html', title: '🧙 魔法師的日常' },
+    { name: '2026-06-04-bear-happiness.html', title: '🐻 小熊的幸福旅程' },
     { name: 'slidestest.html', title: '小熊的一生（測試版）' },
     { name: 'slidestest_claudeM27.html', title: '小熊的一生（Claude版）' },
     { name: 'slidestest_cursorM27.html', title: '小熊的一生（Cursor M27版）' },
@@ -187,7 +189,7 @@ function renderHub() {
     presentations.forEach(pres => {
         const card = document.createElement('a');
         card.className = 'pres-btn-card';
-        card.href = 'slides/' + pres.name;
+        card.href = pres.name.startsWith('slides/') ? pres.name : 'slides/' + pres.name;
         card.target = '_blank';
         card.innerHTML = `
             <div class="pres-btn-icon">🐻</div>

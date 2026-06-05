@@ -9,13 +9,18 @@
     v4.1 - 加入燈箱放大功能 + 熊熊年鑑點擊可看當月館藏
     v4.2 - 今日主角支援單一/輪播模式
     v4.3 - 今日新入住顯示當日熊熊 + 年鑑按編號排序 + 熊熊名稱顯示
+    v4.4 - 導航列樣式更新：棕背景白文字 + hover/active 效果調整
+    v4.5 - 導航列移至頁面最上方，取代 header 成為第一順位
+    v4.7 - 重新調整館藏編號：2026-06-04 → No.0002-0006, 2026-06-05 → No.0007-0011
+    v4.8 - 星星按鈕+localStorage、手機漢堡選單、lazy loading、5秒自動輪播、資訊卡圓形設計、熊熊標題按鈕、金色質感紀念熊
+    v5.2 - 熊熊年鑑雙分類展開功能
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐻 熊熊線上博物館 v4.0</title>
+    <title>🐻 熊熊線上博物館 v5.1</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -45,64 +50,65 @@
 
         /* Navigation */
         nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            padding: 15px 20px;
-            margin-bottom: 30px;
+            background-color: #a1887f;
             width: 100%;
-            background: linear-gradient(135deg, #fdf6e3, #fff);
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.1);
-        }
-        nav a {
-            text-decoration: none;
-            color: #5d4037;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            background: #fff;
-            border: 2px solid #e8dcc8;
-        }
-        nav a:hover {
-            background: #d4a574;
-            color: white;
-            border-color: #d4a574;
-            transform: translateY(-2px);
-        }
-        nav a.active {
-            background: #d4a574;
-            color: white;
-            border-color: #d4a574;
-        }
-
-        /* Info Cards */
-        .info-cards {
             display: flex;
             justify-content: center;
             gap: 20px;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 15px;
+            transition: background 0.3s;
+        }
+        nav a:hover { background-color: #8d6e63; }
+        nav a.active { background-color: #5d4037; }
+
+        /* Info Cards - Circular Badge Style */
+        .info-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
             flex-wrap: wrap;
             margin-bottom: 30px;
         }
         .info-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 20px 30px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.1);
-            min-width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .info-card .circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d4a574, #c49a6c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.2);
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
         .info-card .label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #8b7355;
-            margin-bottom: 5px;
+            text-align: center;
         }
-        .info-card .value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #5d4037;
+        .info-footer {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #8b7355;
+            margin-bottom: 30px;
+            padding: 10px;
         }
 
         /* Section */
@@ -139,9 +145,60 @@
             cursor: pointer;
             transition: transform 0.3s;
             flex-shrink: 0;
+            position: relative;
+        }
+        .bear-thumb::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffb6c1, #add8e6, #e6e6fa, #ffd1a4, #98fb98);
+            background-size: 300% 300%;
+            z-index: 0;
+            animation: bubble-border 4s ease infinite;
+        }
+        @keyframes bubble-border {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         .bear-thumb:hover {
             transform: scale(1.1);
+        }
+        /* Star button (top-left of bear thumb) */
+        .star-btn {
+            position: absolute;
+            top: 0;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.85);
+            border: 2px solid #d4a574;
+            color: #d4a574;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .star-btn:hover {
+            background: #d4a574;
+            color: #fff;
+            transform: scale(1.15);
+        }
+        .star-btn.starred {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-color: #d4a574;
+            color: #fff;
+            box-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
+        }
+        .star-btn.starred:hover {
+            background: linear-gradient(135deg, #FFA500, #FF8C00);
         }
         .bear-thumb .thumb-circle {
             width: 70px;
@@ -152,6 +209,8 @@
             box-shadow: 0 4px 10px rgba(93, 64, 55, 0.15);
             background: #fff;
             flex-shrink: 0;
+            position: relative;
+            z-index: 1;
         }
         .bear-thumb img {
             width: 100%;
@@ -197,8 +256,15 @@
             border-radius: 50%;
             overflow: hidden;
             border: 4px solid #d4a574;
-            box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);
+            box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2), inset 0 0 20px rgba(255, 215, 0, 0.3);
             flex-shrink: 0;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            background-size: 200% 200%;
+            animation: gold-shimmer 3s ease infinite;
+        }
+        @keyframes gold-shimmer {
+            0%, 100% { background-position: 0% 50%; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2), inset 0 0 20px rgba(255, 215, 0, 0.3); }
+            50% { background-position: 100% 50%; box-shadow: 0 6px 20px rgba(255, 165, 0, 0.4), inset 0 0 30px rgba(255, 215, 0, 0.5); }
         }
         .featured-thumb img {
             width: 100%;
@@ -246,6 +312,151 @@
             font-weight: bold;
             color: #5d4037;
         }
+
+        /* Yearbook Dual Categories */
+        .yearbook-dual {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .yearbook-section {
+            text-align: center;
+        }
+        .yearbook-section-title {
+            font-size: 1rem;
+            color: #8b7355;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .yearbook-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .yearbook-item {
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px 25px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(93, 64, 55, 0.1);
+            transition: all 0.3s;
+            min-width: 120px;
+        }
+        .yearbook-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(93, 64, 55, 0.15);
+        }
+        .yearbook-item .label {
+            font-size: 0.9rem;
+            color: #8b7355;
+        }
+        .yearbook-item .count {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #5d4037;
+        }
+
+        /* Search Box */
+        .search-box {
+            max-width: 400px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #d7ccc8;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+            background: #fff;
+            color: #5d4037;
+            box-sizing: border-box;
+        }
+        .search-box input:focus {
+            border-color: #d4a574;
+        }
+        .search-box input::placeholder {
+            color: #a08060;
+        }
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.2);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+        .search-results.show {
+            display: block;
+        }
+        .search-result-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0ebe3;
+            transition: background 0.2s;
+        }
+        .search-result-item:hover {
+            background: #fdf6e3;
+        }
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .category-btn {
+            padding: 8px 16px;
+            border: 2px solid #d4a574;
+            border-radius: 20px;
+            background: #fff;
+            color: #8b7355;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .category-btn:hover {
+            background: #fdf6e3;
+            transform: translateY(-2px);
+        }
+        .category-btn.active {
+            background: linear-gradient(135deg, #d4a574, #c49a6c);
+            color: #fff;
+            border-color: #b8956a;
+            box-shadow: 0 3px 10px rgba(93, 64, 55, 0.2);
+        }
+        .category-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+        .category-badge.奇幻 { background: #e6e6fa; color: #6b5b95; }
+        .category-badge.悠閒 { background: #ffe4e1; color: #d87093; }
+        .category-badge.領袖 { background: #b0e0e6; color: #4682b4; }
+        .category-badge.水彩 { background: #ffd1dc; color: #db7093; }
+        .category-badge.3D { background: #98fb98; color: #228b22; }
+        .category-badge.油畫 { background: #ffdead; color: #daa520; }
+        .category-badge.像素 { background: #afeeee; color: #008b8b; }
+        .category-badge.紀念 { background: linear-gradient(135deg, #FFD700, #FFA500); color: #8b6914; }
 
         /* Carousel for featured bears */
         .carousel-container {
@@ -412,6 +623,39 @@
             box-shadow: 0 10px 40px rgba(93, 64, 55, 0.3);
             position: relative;
         }
+        /* Month Modal Navigation Buttons */
+        .month-modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d4a574, #c49a6c);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.3);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .month-modal-nav:hover {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .month-modal-nav.prev { left: 10px; }
+        .month-modal-nav.next { right: 10px; }
+        .month-modal-counter {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #8b7355;
+            margin-bottom: 15px;
+        }
+
         .month-modal-close {
             position: absolute;
             top: 15px;
@@ -496,12 +740,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <h1>🐻 熊熊線上博物館</h1>
-        <div class="subtitle">每一個卡片都是一個溫暖的故事 ✨</div>
-    </header>
-
     <!-- Navigation -->
     <nav>
         <a href="index.html" class="active">🏠 熊熊博物館</a>
@@ -510,25 +748,34 @@
         <a href="video.html">🎥 熊熊影片</a>
     </nav>
 
-    <!-- Info Cards -->
+    <!-- Header -->
+    <header>
+        <h1>🐻 熊熊線上博物館</h1>
+        <div class="subtitle">每一個卡片都是一個溫暖的故事 ✨</div>
+    </header>
+
+    <!-- Info Cards - Circular Badge Style -->
     <div class="info-cards">
         <div class="info-card">
+            <div class="circle" id="totalCount">14</div>
             <div class="label">館藏數量</div>
-            <div class="value" id="totalCount">0 隻</div>
         </div>
         <div class="info-card">
-            <div class="label">開館日期</div>
-            <div class="value" id="openDate">2026-06-03</div>
+            <div class="circle" id="museumAge">2日</div>
+            <div class="label">博物館年齡</div>
         </div>
         <div class="info-card">
-            <div class="label">今日新入住</div>
-            <div class="value" id="todayCount">0 隻</div>
+            <div class="circle" id="todayCount">+5</div>
+            <div class="label">今日主角</div>
         </div>
+    </div>
+    <div class="info-footer">
+        ✨ <span id="openDateFull">2026年6月3日</span> 熊熊博物館正式開幕！
     </div>
 
     <!-- Today's Featured Bear (Carousel Mode) -->
     <div class="section">
-        <div class="section-title">⭐ 今日主角</div>
+        <div class="section-title">🐻 ⭐ 今日主角</div>
         <div class="carousel-container" id="featuredCarousel">
             <div class="carousel-track" id="carouselTrack"></div>
             <div class="carousel-nav carousel-prev" id="carouselPrev">❮</div>
@@ -539,10 +786,10 @@
 
     <!-- Opening Commemorative Bear -->
     <div class="section featured-section" onclick="openBearModal(0)">
-        <div class="section-title">🏛 開館紀念熊</div>
+        <div class="section-title">🐻 🏛 開館紀念熊</div>
         <div class="featured-thumb">
             <div class="thumb-circle">
-                <img src="https://img.magnific.com/free-vector/adorable-baby-bear-illustration_1308-181868.jpg?semt=ais_test_b&w=740&q=80" alt="開館紀念熊">
+                <img src="https://img.magnific.com/free-vector/adorable-baby-bear-illustration_1308-181868.jpg?semt=ais_test_b&w=740&q=80" alt="開館紀念熊" loading="lazy">
             </div>
             <div class="thumb-no">No.0001</div>
         </div>
@@ -556,8 +803,29 @@
 
     <!-- Bear Yearbook -->
     <div class="section">
-        <div class="section-title">📅 熊熊年鑑</div>
-        <div class="yearbook-grid" id="yearbook"></div>
+        <div class="section-title">
+            <img src="images/icon-bear-calendar.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
+            熊熊年鑑
+        </div>
+        <!-- Search Box -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 搜尋編號、名字或日期..." oninput="handleSearch(this.value)">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+        <!-- Category Filter -->
+        <div class="category-filter" id="categoryFilter"></div>
+
+        <!-- Yearbook dual categories -->
+        <div class="yearbook-dual">
+            <div class="yearbook-section">
+                <div class="yearbook-section-title">📅 按月份</div>
+                <div class="yearbook-grid" id="yearbookMonths"></div>
+            </div>
+            <div class="yearbook-section">
+                <div class="yearbook-section-title">🎨 按類別</div>
+                <div class="yearbook-grid" id="yearbookCategories"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Bear Detail Modal -->
@@ -587,21 +855,98 @@
     <div class="month-modal" id="monthModal" onclick="closeMonthModal(event)">
         <div class="month-modal-content" onclick="event.stopPropagation()">
             <span class="month-modal-close" onclick="closeMonthModal(event)">×</span>
+            <button class="month-modal-nav prev" id="monthModalPrev" onclick="prevMonthBear()">❮</button>
+            <button class="month-modal-nav next" id="monthModalNext" onclick="nextMonthBear()">❯</button>
             <div class="month-modal-title" id="monthModalTitle"></div>
+            <div class="month-modal-counter" id="monthModalCounter"></div>
             <div class="month-modal-grid" id="monthModalGrid"></div>
         </div>
     </div>
 
-    <footer>由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v4.1</footer>
+    <footer>由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v5.1</footer>
 
     <script>
         // Bear data
         const bears = [
             {
+                name: "棉花糖雲",
+                date: "2026-06-02",
+                checkIn: "20260602-01",
+                collectionNo: 2,
+                category: "奇幻",
+                desc: "我是軟綿綿的棉花糖小熊，喜歡坐在雲朵上發呆，眨眨眼睛就會掉下甜甜的光芒喔～ ʕっ•ᴥ•ʔっ✨",
+                img: "gallery/comfyui/Flux2-Klein_00002_.png"
+            },
+            {
+                name: "沙發悠閒熊",
+                date: "2026-06-02",
+                checkIn: "20260602-02",
+                collectionNo: 3,
+                category: "悠閒",
+                desc: "我最喜歡窩在沙發上看電視了，悠閒的午後時光就是這麼美好～ 📺🛋️ ʕっ•ᴥ•ʔっ",
+                img: "gallery/comfyui/Flux2-Klein_00004_.png"
+            },
+            {
+                name: "雪地領袖棕",
+                date: "2026-06-02",
+                checkIn: "20260602-03",
+                collectionNo: 4,
+                category: "領袖",
+                desc: "我是雪地裡的霸氣領袖！大步走在銀白世界裡，寒風只是我的背景音樂，帥氣就是我的代名詞！❄️🐻ʕ •ᴥ•ʔ",
+                img: "gallery/comfyui/Flux2-Klein_00005_.png"
+            },
+
+            {
+                name: "雲朵綿綿",
+                date: "2026-06-04",
+                checkIn: "20260604-01",
+                collectionNo: 5,
+                category: "水彩",
+                desc: "今天發現了一朵好香的花，想分享給你！",
+                img: "bears/2026-06-04/白熊_水彩_20260604_01.png"
+            },
+            {
+                name: "蜜糖爪爪",
+                date: "2026-06-04",
+                checkIn: "20260604-02",
+                collectionNo: 6,
+                category: "3D",
+                desc: "這罐蜂蜜是特別留給好朋友的喔！",
+                img: "bears/2026-06-04/棕熊_3D_20260604_02.png"
+            },
+            {
+                name: "玫瑰糖糖",
+                date: "2026-06-04",
+                checkIn: "20260604-03",
+                collectionNo: 7,
+                category: "油畫",
+                desc: "今天的夕陽好美，想和你一起看～",
+                img: "bears/2026-06-04/粉熊_油畫_20260604_03.png"
+            },
+            {
+                name: "星海泡泡",
+                date: "2026-06-04",
+                checkIn: "20260604-04",
+                collectionNo: 8,
+                category: "奇幻",
+                desc: "我在星星堆裡找到了一顆最亮的寶石！",
+                img: "bears/2026-06-04/藍熊_奇幻_20260604_04.png"
+            },
+            {
+                name: "方塊糖糖",
+                date: "2026-06-04",
+                checkIn: "20260604-05",
+                collectionNo: 9,
+                category: "像素",
+                desc: "雖然我只是方方的，但我們的友誼是滿滿的！",
+                img: "bears/2026-06-04/灰熊_像素_20260604_05.png"
+            },
+            {
                 name: "波波主廚",
                 date: "2026-06-05",
                 checkIn: "20260605-01",
                 collectionNo: 10,
+                category: "水彩",
                 desc: "我是廚房裡的小魔法師！拿著木勺攪拌幸福的味道，今天的派餅特別香喔～ ʕっ•ᴥ•ʔっ🍰",
                 img: "bears/2026-06-05/橘熊_水彩_20260605_01.png"
             },
@@ -610,6 +955,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-02",
                 collectionNo: 11,
+                category: "3D",
                 desc: "我在紫色水晶星球上奔跑探險！頭盔裡閃爍的光芒是我對宇宙的好奇心～ ✨🚀ʕっ•ᴥ•ʔっ",
                 img: "bears/2026-06-05/藍熊_3D_20260605_02.png"
             },
@@ -618,6 +964,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-03",
                 collectionNo: 12,
+                category: "奇幻",
                 desc: "我是糖果王國的甜甜圈小熊！粉色的糖霜是我的甜蜜外套，五彩糖粒是閃閃發光的心情～ 🍩💖ʕっ•ᴥ•ʔっ",
                 img: "bears/2026-06-05/粉熊_奇幻_20260605_03.png"
             },
@@ -626,6 +973,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-04",
                 collectionNo: 13,
+                category: "油畫",
                 desc: "我是夕陽下的海洋勇者！騎著巨浪與海豚共舞，金色的毛髮在火燒雲中閃閃發光～ 🌊🐬ʕっ•ᴥ•ʔっ",
                 img: "bears/2026-06-05/白熊_油畫_20260605_04.png"
             },
@@ -634,73 +982,9 @@
                 date: "2026-06-05",
                 checkIn: "20260605-05",
                 collectionNo: 14,
+                category: "像素",
                 desc: "我是像素城市裡的小消防員！拿著水柱守護大家，綠色的毛皮是我的超能力象徵～ 🚒💚ʕっ•ᴥ•ʔっ",
                 img: "bears/2026-06-05/綠熊_像素_20260605_05.png"
-            },
-
-            {
-                name: "雲朵綿綿",
-                date: "2026-06-04",
-                checkIn: "20260604-01",
-                collectionNo: 2,
-                desc: "今天發現了一朵好香的花，想分享給你！",
-                img: "bears/2026-06-04/白熊_水彩_20260604_01.png"
-            },
-            {
-                name: "蜜糖爪爪",
-                date: "2026-06-04",
-                checkIn: "20260604-02",
-                collectionNo: 3,
-                desc: "這罐蜂蜜是特別留給好朋友的喔！",
-                img: "bears/2026-06-04/棕熊_3D_20260604_02.png"
-            },
-            {
-                name: "玫瑰糖糖",
-                date: "2026-06-04",
-                checkIn: "20260604-03",
-                collectionNo: 4,
-                desc: "今天的夕陽好美，想和你一起看～",
-                img: "bears/2026-06-04/粉熊_油畫_20260604_03.png"
-            },
-            {
-                name: "星海泡泡",
-                date: "2026-06-04",
-                checkIn: "20260604-04",
-                collectionNo: 5,
-                desc: "我在星星堆裡找到了一顆最亮的寶石！",
-                img: "bears/2026-06-04/藍熊_奇幻_20260604_04.png"
-            },
-            {
-                name: "方塊糖糖",
-                date: "2026-06-04",
-                checkIn: "20260604-05",
-                collectionNo: 6,
-                desc: "雖然我只是方方的，但我們的友誼是滿滿的！",
-                img: "bears/2026-06-04/灰熊_像素_20260604_05.png"
-            },
-            {
-                name: "棉花糖雲",
-                date: "2026-06-02",
-                checkIn: "20260602-01",
-                collectionNo: 7,
-                desc: "我是軟綿綿的棉花糖小熊，喜歡坐在雲朵上發呆，眨眨眼睛就會掉下甜甜的光芒喔～ ʕっ•ᴥ•ʔっ✨",
-                img: "gallery/comfyui/Flux2-Klein_00002_.png"
-            },
-            {
-                name: "沙發悠閒熊",
-                date: "2026-06-02",
-                checkIn: "20260602-02",
-                collectionNo: 8,
-                desc: "我最喜歡窩在沙發上看電視了，悠閒的午後時光就是這麼美好～ 📺🛋️ ʕっ•ᴥ•ʔっ",
-                img: "gallery/comfyui/Flux2-Klein_00004_.png"
-            },
-            {
-                name: "雪地領袖棕",
-                date: "2026-06-02",
-                checkIn: "20260602-03",
-                collectionNo: 9,
-                desc: "我是雪地裡的霸氣領袖！大步走在銀白世界裡，寒風只是我的背景音樂，帥氣就是我的代名詞！❄️🐻ʕ •ᴥ•ʔ",
-                img: "gallery/comfyui/Flux2-Klein_00005_.png"
             }
         ];
 
@@ -710,154 +994,194 @@
             date: openDate,
             checkIn: "20260603-01",
             collectionNo: 1,
+            category: "紀念",
             desc: "我是博物館的第一位居民！很高興能在這裡跟大家見面，希望以後每天都能看到很多很多好朋友來拜訪我喔 ʕっ•ᴥ•ʔっ",
             img: "https://img.magnific.com/free-vector/adorable-baby-bear-illustration_1308-181868.jpg?semt=ais_test_b&w=740&q=80"
         };
 
-        // 取得今天日期字串 (台灣時區)
-        function getTodayStr() {
-            const now = new Date();
-            const utc8 = new Date(now.getTime() + 8 * 60 * 60 * 1000);
-            return utc8.toISOString().split('T')[0];
+        // Star button state management
+        let starredBears = JSON.parse(localStorage.getItem('starredBears') || '[]');
+
+        function toggleStar(collectionNo, event) {
+            event.stopPropagation();
+            const idx = starredBears.indexOf(collectionNo);
+            if (idx > -1) {
+                starredBears.splice(idx, 1);
+            } else {
+                starredBears.push(collectionNo);
+            }
+            localStorage.setItem('starredBears', JSON.stringify(starredBears));
+            updateStarButtons();
+            updateFeaturedBears();
         }
 
-        // Render today's new bears
-        function renderTodayBears() {
-            const grid = document.getElementById('todayBears');
-            const today = getTodayStr();
-            const todayBearsList = bears.filter(b => b.date === today);
-            
-            document.getElementById('todayCount').textContent = todayBearsList.length + ' 隻';
-            document.getElementById('totalCount').textContent = (bears.length + 1) + ' 隻';
-            document.getElementById('openDate').textContent = openDate;
-
-            todayBearsList.forEach((bear) => {
-                const thumb = document.createElement('div');
-                thumb.className = 'bear-thumb';
-                thumb.onclick = () => openBearModalByBear(bear);
-                thumb.innerHTML = `
-                    <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}"></div>
-                    <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
-                    <div class="thumb-name">${bear.name}</div>
-                `;
-                grid.appendChild(thumb);
+        function updateStarButtons() {
+            document.querySelectorAll('.star-btn').forEach(btn => {
+                const no = parseInt(btn.dataset.no);
+                if (starredBears.includes(no)) {
+                    btn.innerHTML = '★';
+                    btn.classList.add('starred');
+                } else {
+                    btn.innerHTML = '☆';
+                    btn.classList.remove('starred');
+                }
             });
         }
 
-        // Render yearbook
+        function updateFeaturedBears() {
+                    // Add starred bears to featured carousel
+                    const carousel = document.getElementById('featuredCarousel');
+                    if (!carousel) return;
+                    carousel.innerHTML = '';
+                    const featured = bears.filter(b => b.collectionNo === 1 || starredBears.includes(b.collectionNo));
+                    featured.forEach((bear, idx) => {
+                        const div = document.createElement('div');
+                        div.className = 'carousel-item' + (idx === 0 ? ' active' : '');
+                        div.innerHTML = `<img src="${bear.img}" alt="${bear.name}">`;
+                        div.onclick = () => openBearModal(bear.collectionNo);
+                        carousel.appendChild(div);
+                    });
+                }
+
+                // Render today's new bears
+                function renderTodayBears() {
+                    updateTodayBearsDisplay();
+                }
+
+        // Render yearbook - dual categories (months + categories)
         function renderYearbook() {
-            const grid = document.getElementById('yearbook');
+            // Render months
+            const monthsGrid = document.getElementById('yearbookMonths');
+            monthsGrid.innerHTML = '';
             const monthCounts = {};
 
             bears.forEach(bear => {
                 const month = bear.date.substring(0, 7);
                 monthCounts[month] = (monthCounts[month] || 0) + 1;
             });
-
-            // Add opening month
             const openMonth = openDate.substring(0, 7);
             monthCounts[openMonth] = (monthCounts[openMonth] || 0) + 1;
-
-            // Add "全部" item first
-            const allItem = document.createElement('div');
-            allItem.className = 'yearbook-item';
-            allItem.innerHTML = `
-                <div class="month">全部</div>
-                <div class="count">（${bears.length + 1}）</div>
-            `;
-            allItem.onclick = () => openAllBearsModal();
-            grid.appendChild(allItem);
 
             Object.keys(monthCounts).sort().reverse().forEach(month => {
                 const item = document.createElement('div');
                 item.className = 'yearbook-item';
                 const [year, m] = month.split('-');
                 item.innerHTML = `
-                    <div class="month">${year}年${parseInt(m)}月</div>
+                    <div class="label">${year}年${parseInt(m)}月</div>
                     <div class="count">（${monthCounts[month]}）</div>
                 `;
                 item.onclick = () => openMonthModal(month);
-                grid.appendChild(item);
+                monthsGrid.appendChild(item);
+            });
+
+            // Render categories
+            const catsGrid = document.getElementById('yearbookCategories');
+            catsGrid.innerHTML = '';
+            const categoryCounts = {};
+            bears.forEach(bear => {
+                categoryCounts[bear.category] = (categoryCounts[bear.category] || 0) + 1;
+            });
+            categoryCounts[featuredBear.category] = (categoryCounts[featuredBear.category] || 0) + 1;
+
+            Object.keys(categoryCounts).sort().forEach(cat => {
+                const item = document.createElement('div');
+                item.className = 'yearbook-item';
+                item.innerHTML = `
+                    <div class="label">${cat}</div>
+                    <div class="count">（${categoryCounts[cat]}）</div>
+                `;
+                item.onclick = () => openCategoryModal(cat);
+                catsGrid.appendChild(item);
             });
         }
 
-        // Open all bears modal
-        function openAllBearsModal() {
-            document.getElementById('monthModalTitle').textContent = '全部館藏';
-
+        // Open category modal (for category filter in yearbook)
+        function openCategoryModal(category) {
             const grid = document.getElementById('monthModalGrid');
+            document.getElementById('monthModalTitle').textContent = `🎨 ${category} 分類`;
             grid.innerHTML = '';
 
-            // Add opening bear first
-            const openingThumb = document.createElement('div');
-            openingThumb.className = 'bear-thumb';
-            openingThumb.onclick = () => { closeMonthModal(); openBearModal(0); };
-            openingThumb.innerHTML = `
-                <div class="thumb-circle"><img src="${featuredBear.img}" alt="${featuredBear.name}"></div>
-                <div class="thumb-no">No.${String(featuredBear.collectionNo).padStart(4, '0')}</div>
-                <div class="thumb-name">${featuredBear.name}</div>
-            `;
-            grid.appendChild(openingThumb);
+            // Filter bears by category
+            let categoryBears = bears.filter(b => b.category === category);
+            categoryBears.sort((a, b) => a.collectionNo - b.collectionNo);
 
-            // Sort all bears by collectionNo ascending
-            const sortedBears = [...bears].sort((a, b) => a.collectionNo - b.collectionNo);
-
-            sortedBears.forEach((bear) => {
-                const thumb = document.createElement('div');
-                thumb.className = 'bear-thumb';
-                thumb.onclick = () => { closeMonthModal(); openBearModalByBear(bear); };
-                thumb.innerHTML = `
-                    <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}"></div>
-                    <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
-                    <div class="thumb-name">${bear.name}</div>
-                `;
-                grid.appendChild(thumb);
-            });
-
-            document.getElementById('monthModal').classList.add('active');
-        }
-
-        // Open month browser modal
-        function openMonthModal(month) {
-            const [year, m] = month.split('-');
-            document.getElementById('monthModalTitle').textContent = `${year}年${parseInt(m)}月 館藏`;
-            
-            const grid = document.getElementById('monthModalGrid');
-            grid.innerHTML = '';
-            
-            // Filter bears by month
-            const monthBears = bears.filter(b => b.date.substring(0, 7) === month);
-            
-            // Sort by collectionNo ascending
-            monthBears.sort((a, b) => a.collectionNo - b.collectionNo);
-            
-            // Add opening bear if it's the opening month
-            if (month === openDate.substring(0, 7)) {
-                const thumb = document.createElement('div');
-                thumb.className = 'bear-thumb';
-                thumb.onclick = () => { closeMonthModal(); openBearModal(0); };
-                thumb.innerHTML = `
-                    <div class="thumb-circle"><img src="${featuredBear.img}" alt="${featuredBear.name}"></div>
-                    <div class="thumb-no">No.${String(featuredBear.collectionNo).padStart(4, '0')}</div>
-                `;
-                grid.appendChild(thumb);
+            if (category === featuredBear.category) {
+                categoryBears.unshift(featuredBear);
             }
-            
-            // Add month bears
-            monthBears.forEach((bear) => {
+
+            currentMonthBears = categoryBears;
+            currentMonthIndex = 0;
+
+            renderMonthModalContent();
+            document.getElementById('monthModal').classList.add('active');
+        }
+
+        // Category filter functionality
+        let currentCategory = '全部';
+
+        function getAllCategories() {
+            const cats = new Set(['全部']);
+            cats.add(featuredBear.category);
+            bears.forEach(b => cats.add(b.category));
+            return Array.from(cats);
+        }
+
+        function renderCategoryFilter() {
+            const container = document.getElementById('categoryFilter');
+            container.innerHTML = '';
+            const categories = getAllCategories();
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'category-btn' + (cat === currentCategory ? ' active' : '');
+                btn.textContent = cat;
+                btn.onclick = () => filterByCategory(cat);
+                container.appendChild(btn);
+            });
+        }
+
+        function filterByCategory(cat) {
+            currentCategory = cat;
+            renderCategoryFilter();
+            updateTodayBearsDisplay();
+        }
+
+        function updateTodayBearsDisplay() {
+            const grid = document.getElementById('todayBears');
+            grid.innerHTML = '';
+            const today = new Date().toISOString().split('T')[0];
+            // Always show ALL today's bears regardless of category filter
+            let todayBearsList = bears.filter(b => b.date === today);
+
+            // Update counts - these should always reflect all bears
+            document.getElementById('todayCount').textContent = '+' + todayBearsList.length;
+            document.getElementById('totalCount').textContent = bears.length + 1;
+            // Calculate museum age
+            const now = new Date();
+            const [openY, openM, openD] = openDate.split('-').map(Number);
+            const openDateObj = new Date(openY, openM - 1, openD);
+            const diffTime = now - openDateObj;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('museumAge').textContent = diffDays + '日';
+
+            const od = openDate.split('-');
+            document.getElementById('openDateFull').textContent = `${od[0]}年${parseInt(od[1])}月${parseInt(od[2])}日`;
+
+            todayBearsList.forEach((bear) => {
                 const thumb = document.createElement('div');
                 thumb.className = 'bear-thumb';
-                thumb.onclick = () => { closeMonthModal(); openBearModalByBear(bear); };
+                thumb.onclick = () => openBearModalByBear(bear);
                 thumb.innerHTML = `
-                    <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}"></div>
+                    <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                    <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
                     <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                     <div class="thumb-name">${bear.name}</div>
+                    <span class="category-badge ${bear.category}">${bear.category}</span>
                 `;
                 grid.appendChild(thumb);
             });
-            
-            document.getElementById('monthModal').classList.add('active');
         }
+
+        // Open month browser modal (moved to bottom)
 
         // Close month modal
         function closeMonthModal(event) {
@@ -898,7 +1222,7 @@
             if (index === 0) {
                 bear = featuredBear;
             } else {
-                const today = getTodayStr();
+                const today = new Date().toISOString().split('T')[0];
                 const todayBearsList = bears.filter(b => b.date === today);
                 bear = todayBearsList[index - 1] || bears[index - 1];
             }
@@ -1030,6 +1354,128 @@
         renderFeaturedCarousel();
         renderTodayBears();
         renderYearbook();
+        renderCategoryFilter();
+
+        // Search functionality
+        function handleSearch(query) {
+            const resultsDiv = document.getElementById('searchResults');
+            if (!query || query.length < 1) {
+                resultsDiv.classList.remove('show');
+                return;
+            }
+            const lowerQuery = query.toLowerCase();
+            const results = bears.filter(b =>
+                String(b.collectionNo).padStart(4, '0').includes(query) ||
+                b.name.toLowerCase().includes(lowerQuery) ||
+                b.date.includes(query)
+            );
+            // Also include opening bear
+            if (String(featuredBear.collectionNo).padStart(4, '0').includes(query) ||
+                featuredBear.name.toLowerCase().includes(lowerQuery)) {
+                results.unshift(featuredBear);
+            }
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<div class="search-result-item">找不到符合的熊熊</div>';
+            } else {
+                resultsDiv.innerHTML = results.map(b => `
+                    <div class="search-result-item" onclick="openBearModalByRef('${b.collectionNo === featuredBear.collectionNo ? 'opening' : b.collectionNo}'); document.getElementById('searchResults').classList.remove('show'); document.getElementById('searchInput').value = '';">
+                        <strong>No.${String(b.collectionNo).padStart(4, '0')}</strong> ${b.name}
+                    </div>
+                `).join('');
+            }
+            resultsDiv.classList.add('show');
+        }
+
+        // Month modal navigation
+        let currentMonthBears = [];
+        let currentMonthIndex = 0;
+
+        function openMonthModal(month) {
+            const [year, m] = month.split('-');
+            document.getElementById('monthModalTitle').textContent = `${year}年${parseInt(m)}月 館藏`;
+            
+            const grid = document.getElementById('monthModalGrid');
+            grid.innerHTML = '';
+            
+            // Filter bears by month
+            currentMonthBears = bears.filter(b => b.date.substring(0, 7) === month);
+            
+            // Sort by collectionNo ascending
+            currentMonthBears.sort((a, b) => a.collectionNo - b.collectionNo);
+            
+            // Add opening bear if it's the opening month
+            if (month === openDate.substring(0, 7)) {
+                currentMonthBears.unshift(featuredBear);
+            }
+            currentMonthIndex = 0;
+            
+            renderMonthModalContent();
+            document.getElementById('monthModal').classList.add('active');
+        }
+
+        function renderMonthModalContent() {
+            const grid = document.getElementById('monthModalGrid');
+            grid.innerHTML = '';
+            const bear = currentMonthBears[currentMonthIndex];
+            if (!bear) return;
+            
+            const thumb = document.createElement('div');
+            thumb.className = 'bear-thumb featured-month-bear';
+            thumb.style.cssText = 'width: 150px; height: 180px;';
+            thumb.onclick = () => { closeMonthModal(); openBearModalByRef(bear.collectionNo === featuredBear.collectionNo ? 'opening' : bear.collectionNo); };
+            thumb.innerHTML = `
+                <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                <div class="thumb-circle" style="width: 120px; height: 120px;"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
+                <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
+                <div class="thumb-name">${bear.name}</div>
+            `;
+            grid.appendChild(thumb);
+            
+            // Update counter
+            const counter = document.getElementById('monthModalCounter');
+            if (counter) counter.textContent = `${currentMonthIndex + 1} / ${currentMonthBears.length}`;
+            
+            // Update nav buttons
+            updateMonthNavButtons();
+        }
+
+        function updateMonthNavButtons() {
+            const prevBtn = document.getElementById('monthModalPrev');
+            const nextBtn = document.getElementById('monthModalNext');
+            if (prevBtn) prevBtn.style.opacity = currentMonthIndex > 0 ? '1' : '0.3';
+            if (nextBtn) nextBtn.style.opacity = currentMonthIndex < currentMonthBears.length - 1 ? '1' : '0.3';
+        }
+
+        function prevMonthBear() {
+            if (currentMonthIndex > 0) {
+                currentMonthIndex--;
+                renderMonthModalContent();
+            }
+        }
+
+        function nextMonthBear() {
+            if (currentMonthIndex < currentMonthBears.length - 1) {
+                currentMonthIndex++;
+                renderMonthModalContent();
+            }
+        }
+
+        // Keyboard navigation for month modal
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('monthModal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') prevMonthBear();
+                if (e.key === 'ArrowRight') nextMonthBear();
+                if (e.key === 'Escape') closeMonthModal({target: document.getElementById('monthModal')});
+            }
+        });
+
+        // Close search when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-box')) {
+                document.getElementById('searchResults').classList.remove('show');
+            }
+        });
 
         // Carousel navigation
         document.getElementById('carouselPrev').addEventListener('click', (e) => {
@@ -1040,6 +1486,9 @@
             e.stopPropagation();
             nextSlide();
         });
+
+        // Auto slide every 5 seconds
+        let autoSlideInterval = setInterval(nextSlide, 5000);
 
         // Touch swipe support
         let touchStartX = 0;
