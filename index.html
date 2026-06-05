@@ -17,14 +17,15 @@
     v5.6 - 熊熊年鑑雙分類展開功能
     v5.7 - 修復「今日新入住」顯示問題、年鑑accordion改為可展開/收合、按月份/按類別按鈕改為圓角長條
     v5.8 - 移除熊熊年鑑「全部」分類按鈕（使用者不需要此功能）
-    v5.9 - 修復資訊卡標籤：「今日主角」→「今日新入住」
+    v5.11 - 今日主角：只有被點擊星星的熊熊才會出現在輪播區，開館紀念熊亦同
+    v5.12 - 修復輪播按鈕無法按、重新構建DOM元素確保事件監聽正確
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐻 熊熊線上博物館 v5.9</title>
+    <title>🐻 熊熊線上博物館 v5.12</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -838,7 +839,7 @@
         </div>
         <div class="info-card">
             <div class="circle" id="todayCount">+5</div>
-            <div class="label">今日新入住</div>
+            <div class="label">今日主角</div>
         </div>
     </div>
     <div class="info-footer">
@@ -937,7 +938,7 @@
         </div>
     </div>
 
-    <footer>由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v5.9</footer>
+    <footer>由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v5.12</footer>
 
     <script>
         // Bear data
@@ -1226,8 +1227,8 @@
             // Always show ALL today's bears regardless of category filter
             let todayBearsList = bears.filter(b => b.date === today);
 
-            // Update counts - these should always reflect all bears
-            document.getElementById('todayCount').textContent = '+' + todayBearsList.length;
+            // Update counts - starred bears (今日主角) for info card
+            document.getElementById('todayCount').textContent = '+' + starredBears.length;
             document.getElementById('totalCount').textContent = bears.length + 1;
             // Calculate museum age
             const now = new Date();
@@ -1331,42 +1332,98 @@
         // Featured bears for carousel - build dynamically from starredBears + featuredBear
         function getFeaturedBearsList() {
             const starred = bears.filter(b => starredBears.includes(b.collectionNo));
-            return [featuredBear, ...starred];
+            // Only include featuredBear if it's been starred (has a star)
+            if (starredBears.includes(featuredBear.collectionNo)) {
+                return [featuredBear, ...starred];
+            }
+            return starred;
         }
 
         let carouselIndex = 0;
         let carouselTotal = 0;
 
+        let autoSlideInterval = null;
+
+        function startAutoSlide() {
+            stopAutoSlide();
+            autoSlideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function stopAutoSlide() {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = null;
+            }
+        }
+
         function renderFeaturedCarousel() {
-            const track = document.getElementById('carouselTrack');
-            const dots = document.getElementById('carouselDots');
-            const prev = document.getElementById('carouselPrev');
-            const next = document.getElementById('carouselNext');
+            const container = document.getElementById('featuredCarousel');
             const featuredList = getFeaturedBearsList();
 
-            // Show single opening bear if no starred bears
-            if (featuredList.length <= 1) {
-                document.getElementById('featuredCarousel').innerHTML = `
-                    <div class="featured-thumb" onclick="openBearModal(0)" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; padding: 20px;">
+            // Reset carousel index when re-rendering
+            carouselIndex = 0;
+
+            // Show nothing if no bears are featured (no stars)
+            if (featuredList.length === 0) {
+                container.innerHTML = '';
+                stopAutoSlide();
+                return;
+            }
+
+            // Show single bear if only 1 featured bear
+            if (featuredList.length === 1) {
+                const bear = featuredList[0];
+                const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
+                container.innerHTML = `
+                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; padding: 20px;">
                         <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid #d4a574; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
-                            <img src="${featuredBear.img}" alt="${featuredBear.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
-                        <div class="thumb-no" style="margin-top: 10px; font-size: 1rem; font-weight: bold; color: #5d4037;">No.${String(featuredBear.collectionNo).padStart(4, '0')}</div>
+                        <div class="thumb-no" style="margin-top: 10px; font-size: 1rem; font-weight: bold; color: #5d4037;">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                     </div>
                 `;
+                stopAutoSlide();
                 return;
             }
 
             // Multi mode - render carousel with featuredList
             carouselTotal = featuredList.length;
-            track.innerHTML = '';
-            dots.innerHTML = '';
+            
+            // Clear container and rebuild
+            container.innerHTML = '';
+            
+            const track = document.createElement('div');
+            track.className = 'carousel-track';
+            track.id = 'carouselTrack';
+            
+            const prevBtn = document.createElement('div');
+            prevBtn.className = 'carousel-nav carousel-prev';
+            prevBtn.id = 'carouselPrev';
+            prevBtn.textContent = '❮';
+            prevBtn.onclick = (e) => {
+                e.stopPropagation();
+                prevSlide();
+            };
+            
+            const nextBtn = document.createElement('div');
+            nextBtn.className = 'carousel-nav carousel-next';
+            nextBtn.id = 'carouselNext';
+            nextBtn.textContent = '❯';
+            nextBtn.onclick = (e) => {
+                e.stopPropagation();
+                nextSlide();
+            };
+            
+            const dots = document.createElement('div');
+            dots.className = 'carousel-dots';
+            dots.id = 'carouselDots';
 
             featuredList.forEach((bear, i) => {
                 const slide = document.createElement('div');
                 slide.className = 'carousel-slide';
+                const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
                 slide.innerHTML = `
-                    <div class="featured-thumb" onclick="openBearModal(${bear.collectionNo})" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer;">
+                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer;">
                         <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid #d4a574; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
                             <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
@@ -1381,14 +1438,16 @@
                 dots.appendChild(dot);
             });
 
-            // Hide nav if only 1 item
-            if (carouselTotal <= 1) {
-                prev.style.display = 'none';
-                next.style.display = 'none';
-            } else {
-                prev.style.display = '';
-                next.style.display = '';
-            }
+            container.appendChild(track);
+            container.appendChild(prevBtn);
+            container.appendChild(nextBtn);
+            container.appendChild(dots);
+
+            // Re-attach touch swipe
+            setupCarouselSwipe();
+
+            // Start auto-slide
+            startAutoSlide();
         }
 
         function goToSlide(index) {
@@ -1557,24 +1616,12 @@
             }
         });
 
-        // Carousel navigation
-        document.getElementById('carouselPrev').addEventListener('click', (e) => {
-            e.stopPropagation();
-            prevSlide();
-        });
-        document.getElementById('carouselNext').addEventListener('click', (e) => {
-            e.stopPropagation();
-            nextSlide();
-        });
-
-        // Auto slide every 5 seconds
-        let autoSlideInterval = setInterval(nextSlide, 5000);
-
-        // Touch swipe support
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const carouselEl = document.getElementById('featuredCarousel');
-        if (carouselEl) {
+        // Touch swipe support for carousel
+        function setupCarouselSwipe() {
+            const carouselEl = document.getElementById('featuredCarousel');
+            if (!carouselEl) return;
+            let touchStartX = 0;
+            let touchEndX = 0;
             carouselEl.addEventListener('touchstart', (e) => {
                 touchStartX = e.changedTouches[0].screenX;
             }, { passive: true });
@@ -1584,6 +1631,9 @@
                 if (touchEndX - touchStartX > 50) prevSlide();
             }, { passive: true });
         }
+
+        // Initialize swipe on page load
+        setupCarouselSwipe();
     </script>
 </body>
 </html>
