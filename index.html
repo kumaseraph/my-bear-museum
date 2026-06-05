@@ -714,10 +714,17 @@
             img: "https://img.magnific.com/free-vector/adorable-baby-bear-illustration_1308-181868.jpg?semt=ais_test_b&w=740&q=80"
         };
 
+        // 取得今天日期字串 (台灣時區)
+        function getTodayStr() {
+            const now = new Date();
+            const utc8 = new Date(now.getTime() + 8 * 60 * 60 * 1000);
+            return utc8.toISOString().split('T')[0];
+        }
+
         // Render today's new bears
         function renderTodayBears() {
             const grid = document.getElementById('todayBears');
-            const today = new Date().toISOString().split('T')[0];
+            const today = getTodayStr();
             const todayBearsList = bears.filter(b => b.date === today);
             
             document.getElementById('todayCount').textContent = todayBearsList.length + ' 隻';
@@ -741,7 +748,7 @@
         function renderYearbook() {
             const grid = document.getElementById('yearbook');
             const monthCounts = {};
-            
+
             bears.forEach(bear => {
                 const month = bear.date.substring(0, 7);
                 monthCounts[month] = (monthCounts[month] || 0) + 1;
@@ -750,6 +757,16 @@
             // Add opening month
             const openMonth = openDate.substring(0, 7);
             monthCounts[openMonth] = (monthCounts[openMonth] || 0) + 1;
+
+            // Add "全部" item first
+            const allItem = document.createElement('div');
+            allItem.className = 'yearbook-item';
+            allItem.innerHTML = `
+                <div class="month">全部</div>
+                <div class="count">（${bears.length + 1}）</div>
+            `;
+            allItem.onclick = () => openAllBearsModal();
+            grid.appendChild(allItem);
 
             Object.keys(monthCounts).sort().reverse().forEach(month => {
                 const item = document.createElement('div');
@@ -762,6 +779,42 @@
                 item.onclick = () => openMonthModal(month);
                 grid.appendChild(item);
             });
+        }
+
+        // Open all bears modal
+        function openAllBearsModal() {
+            document.getElementById('monthModalTitle').textContent = '全部館藏';
+
+            const grid = document.getElementById('monthModalGrid');
+            grid.innerHTML = '';
+
+            // Add opening bear first
+            const openingThumb = document.createElement('div');
+            openingThumb.className = 'bear-thumb';
+            openingThumb.onclick = () => { closeMonthModal(); openBearModal(0); };
+            openingThumb.innerHTML = `
+                <div class="thumb-circle"><img src="${featuredBear.img}" alt="${featuredBear.name}"></div>
+                <div class="thumb-no">No.${String(featuredBear.collectionNo).padStart(4, '0')}</div>
+                <div class="thumb-name">${featuredBear.name}</div>
+            `;
+            grid.appendChild(openingThumb);
+
+            // Sort all bears by collectionNo ascending
+            const sortedBears = [...bears].sort((a, b) => a.collectionNo - b.collectionNo);
+
+            sortedBears.forEach((bear) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'bear-thumb';
+                thumb.onclick = () => { closeMonthModal(); openBearModalByBear(bear); };
+                thumb.innerHTML = `
+                    <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}"></div>
+                    <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
+                    <div class="thumb-name">${bear.name}</div>
+                `;
+                grid.appendChild(thumb);
+            });
+
+            document.getElementById('monthModal').classList.add('active');
         }
 
         // Open month browser modal
@@ -845,7 +898,7 @@
             if (index === 0) {
                 bear = featuredBear;
             } else {
-                const today = new Date().toISOString().split('T')[0];
+                const today = getTodayStr();
                 const todayBearsList = bears.filter(b => b.date === today);
                 bear = todayBearsList[index - 1] || bears[index - 1];
             }
