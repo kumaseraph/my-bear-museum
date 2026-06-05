@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>熊熊博物館 — 測試頁面</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================
+       CSS Variables (Stripe Design Tokens)
+       ======================================== */
+    :root {
+      /* Colors */
+      --stripe-purple: #533afd;
+      --stripe-purple-hover: #4434d4;
+      --deep-navy: #061b31;
+      --brand-dark: #1c1e54;
+      --body-slate: #64748d;
+      --label-slate: #273951;
+      --border-default: #e5edf5;
+      --white: #ffffff;
+      --success: #15be53;
+      --ruby: #ea2261;
+      --magenta: #f96bee;
+
+      /* Shadows (blue-tinted) */
+      --shadow-standard: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px;
+      --shadow-elevated: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px;
+      --shadow-ambient: rgba(23,23,23,0.08) 0px 15px 35px 0px;
+
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+    }
+
+    /* ========================================
+       Reset & Base
+       ======================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 300;
+      color: var(--body-slate);
+      background: var(--white);
+      line-height: 1.40;
+      font-feature-settings: "ss01";
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ========================================
+       Typography
+       ======================================== */
+    h1, h2, h3, h4 {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      font-weight: 300;
+      color: var(--deep-navy);
+      font-feature-settings: "ss01";
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.03;
+      letter-spacing: -1.4px;
+    }
+
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      line-height: 1.10;
+      letter-spacing: -0.64px;
+    }
+
+    h3 {
+      font-size: 1.63rem;
+      line-height: 1.12;
+      letter-spacing: -0.26px;
+    }
+
+    p {
+      font-size: 1.13rem;
+      font-weight: 300;
+      color: var(--body-slate);
+    }
+
+    /* ========================================
+       Navigation
+       ======================================== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-md) var(--space-xl);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    nav .logo {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--deep-navy);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    nav .logo-icon {
+      font-size: 1.5rem;
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+
+    nav a {
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--deep-navy);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--stripe-purple);
+    }
+
+    /* ========================================
+       Buttons
+       ======================================== */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--stripe-purple);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 400;
+      font-feature-settings: "ss01";
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover {
+      background: var(--stripe-purple-hover);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+      background: transparent;
+      color: var(--stripe-purple);
+      border: 1px solid var(--border-default);
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 400;
+      font-feature-settings: "ss01";
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(83,58,253,0.05);
+      border-color: rgba(83,58,253,0.3);
+    }
+
+    /* ========================================
+       Hero Section
+       ======================================== */
+    .hero {
+      padding: var(--space-3xl) var(--space-xl);
+      text-align: center;
+      background: linear-gradient(180deg, var(--white) 0%, #f8fafc 100%);
+    }
+
+    .hero h1 {
+      max-width: 700px;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .hero p {
+      max-width: 500px;
+      margin: 0 auto var(--space-xl);
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ========================================
+       Cards Grid
+       ======================================== */
+    .section {
+      padding: var(--space-3xl) var(--space-xl);
+    }
+
+    .section-dark {
+      background: var(--brand-dark);
+      color: var(--white);
+    }
+
+    .section-dark h2 {
+      color: var(--white);
+    }
+
+    .section-dark p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border-default);
+      border-radius: 6px;
+      padding: var(--space-xl);
+      box-shadow: var(--shadow-standard);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-elevated);
+      transform: translateY(-2px);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .card h3 {
+      margin-bottom: var(--space-sm);
+    }
+
+    .card p {
+      font-size: 1rem;
+    }
+
+    /* Dark card variant */
+    .card-dark {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card-dark h3 {
+      color: var(--white);
+    }
+
+    .card-dark p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ========================================
+       Badges
+       ======================================== */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 300;
+    }
+
+    .badge-success {
+      background: rgba(21,190,83,0.15);
+      color: #108c3d;
+      border: 1px solid rgba(21,190,83,0.3);
+    }
+
+    .badge-purple {
+      background: rgba(83,58,253,0.1);
+      color: var(--stripe-purple);
+      border: 1px solid rgba(83,58,253,0.2);
+    }
+
+    /* ========================================
+       Code Block
+       ======================================== */
+    .code-block {
+      background: #0d253d;
+      border-radius: 6px;
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+      overflow-x: auto;
+    }
+
+    .code-block code {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      line-height: 2;
+    }
+
+    .code-block .keyword { color: #b9b9f9; }
+    .code-block .string { color: #98fb98; }
+    .code-block .comment { color: #64748d; }
+    .code-block .function { color: #ffd1a4; }
+
+    /* ========================================
+       Footer
+       ======================================== */
+    footer {
+      padding: var(--space-xl);
+      text-align: center;
+      border-top: 1px solid var(--border-default);
+      font-size: 0.88rem;
+      color: var(--body-slate);
+    }
+
+    footer a {
+      color: var(--stripe-purple);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ========================================
+       Responsive
+       ======================================== */
+    @media (max-width: 640px) {
+      nav {
+        padding: var(--space-sm) var(--space-md);
+      }
+
+      nav .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: var(--space-2xl) var(--space-md);
+      }
+
+      .section {
+        padding: var(--space-2xl) var(--space-md);
+      }
+    }
+
+    /* ========================================
+       Animation
+       ======================================== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-in {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+
+    /* ========================================
+       Bear Emoji Treatment
+       ======================================== */
+    .bear-float {
+      display: inline-block;
+      animation: bearFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes bearFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="logo">
+      <span class="logo-icon">🐻</span>
+      <span>熊熊博物館</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">特色</a>
+      <a href="#code">程式碼</a>
+      <a href="#about">關於</a>
+      <a href="https://my-bear-museum.pages.dev" target="_blank">
+        <button class="btn-primary">前往博物館 →</button>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1 class="animate-in">用 Stripe 設計系統<br>打造的熊熊博物館</h1>
+    <p class="animate-in delay-1">
+      結合專業設計系統與可愛的熊熊元素，示範如何用現代 CSS 技術創造美觀的網頁。
+    </p>
+    <div class="hero-buttons animate-in delay-2">
+      <button class="btn-primary">
+        <span class="bear-float">🐻</span>
+        開始探索
+      </button>
+      <button class="btn-ghost">查看原始碼</button>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <h2 style="text-align:center; margin-bottom: var(--space-xl);">設計特色</h2>
+    <div class="cards-grid">
+      <div class="card animate-in delay-1">
+        <div class="card-icon">🎨</div>
+        <span class="badge badge-purple">CSS Variables</span>
+        <h3 style="margin-top: var(--space-sm);">設計系統 Tokens</h3>
+        <p>使用 Stripe 的色彩系統與陰影變數，維持一致的視覺風格。</p>
+      </div>
+
+      <div class="card animate-in delay-2">
+        <div class="card-icon">📱</div>
+        <span class="badge badge-success">響應式</span>
+        <h3 style="margin-top: var(--space-sm);">自適應佈局</h3>
+        <p>使用 clamp() 與 Grid 自動調整，在任何設備上都好看。</p>
+      </div>
+
+      <div class="card animate-in delay-3">
+        <div class="card-icon">✨</div>
+        <span class="badge badge-purple">微動畫</span>
+        <h3 style="margin-top: var(--space-sm);">流暢過渡</h3>
+        <p>hover 放大、卡片浮起、淡入滑動，讓介面更有生命力。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dark Section -->
+  <section class="section section-dark">
+    <h2 style="text-align:center; margin-bottom: var(--space-xl);">熊熊成員</h2>
+    <div class="cards-grid">
+      <div class="card card-dark animate-in delay-1">
+        <div class="card-icon">🐻</div>
+        <h3>館長熊熊</h3>
+        <p>No.0001 · 2026年6月3日入館 · 棉花糖雲</p>
+      </div>
+      <div class="card card-dark animate-in delay-2">
+        <div class="card-icon">🐼</div>
+        <h3>熊二</h3>
+        <p>No.0002 · 沙發悠閒熊 · 雪地領袖棕</p>
+      </div>
+      <div class="card card-dark animate-in delay-3">
+        <div class="card-icon">🧸</div>
+        <h3>熊三</h3>
+        <p>No.0003 · 雲朵綿綿 · 蜜糖爪爪</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Section -->
+  <section class="section" id="code">
+    <h2 style="text-align:center; margin-bottom: var(--space-xl);">CSS 範例</h2>
+    <div class="code-block">
+      <code><span class="comment">/* Stripe 風格陰影系統 */</span>
+<span class="keyword">:root</span> {
+  <span class="function">--shadow-standard</span>:
+    <span class="string">rgba(50,50,93,0.25) 0px 30px 45px -30px</span>,
+    <span class="string">rgba(0,0,0,0.1) 0px 18px 36px -18px</span>;
+}
+
+<span class="comment">/* 響應式文字大小 */</span>
+<span class="keyword">h1</span> {
+  <span class="function">font-size</span>: <span class="string">clamp(2rem, 5vw, 3.5rem)</span>;
+  <span class="function">letter-spacing</span>: <span class="string">-1.4px</span>;
+  <span class="function">font-weight</span>: <span class="string">300</span>; <span class="comment">/* Stripe 的輕盈優雅 */</span>
+}</code>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      熊熊博物館 v6.0 — 用 
+      <a href="https://developer.mozilla.org/zh-TW/" target="_blank">MDN</a> ×
+      <a href="https://web.dev/learn/css/" target="_blank">web.dev</a> ×
+      <a href="https://stripe.com/" target="_blank">Stripe Design</a>
+      打造 🐻
+    </p>
+  </footer>
+
+</body>
+</html>
