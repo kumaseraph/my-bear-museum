@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="gradBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5d4037;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8d6e63;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- 四角邊框 (組合法) -->
+  <!-- 左上角 -->
+  <path d="M 20 80 L 20 20 L 80 20" fill="none" stroke="url(#gradBorder)" stroke-width="4" stroke-linecap="round"/>
+  <!-- 右上角 -->
+  <path d="M 320 20 L 380 20 L 380 80" fill="none" stroke="url(#gradBorder)" stroke-width="4" stroke-linecap="round"/>
+  <!-- 左下角 -->
+  <path d="M 20 220 L 20 280 L 80 280" fill="none" stroke="url(#gradBorder)" stroke-width="4" stroke-linecap="round"/>
+  <!-- 右下角 -->
+  <path d="M 320 280 L 380 280 L 380 220" fill="none" stroke="url(#gradBorder)" stroke-width="4" stroke-linecap="round"/>
+  <!-- 四角圓點裝飾 -->
+  <circle cx="20" cy="20" r="4" fill="#6d4c41"/>
+  <circle cx="380" cy="20" r="4" fill="#6d4c41"/>
+  <circle cx="20" cy="280" r="4" fill="#6d4c41"/>
+  <circle cx="380" cy="280" r="4" fill="#6d4c41"/>
+  <!-- 頂部裝飾線 -->
+  <line x1="20" y1="40" x2="60" y2="20" stroke="#a1887f" stroke-width="1" stroke-dasharray="4,2"/>
+  <line x1="340" y1="20" x2="380" y2="40" stroke="#a1887f" stroke-width="1" stroke-dasharray="4,2"/>
+  <!-- 底部裝飾線 -->
+  <line x1="20" y1="260" x2="60" y2="280" stroke="#a1887f" stroke-width="1" stroke-dasharray="4,2"/>
+  <line x1="340" y1="280" x2="380" y2="260" stroke="#a1887f" stroke-width="1" stroke-dasharray="4,2"/>
+</svg>

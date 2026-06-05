@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- 全框邊框 - 四面組合邊框：工作報告主題完整邊框 -->
+  <!-- 比例：400x300 (長方形) -->
+  <!-- 風格：Monoline 線性風格、統一 2px 線寬、溫暖棕色調 -->
+  
+  <defs>
+    <!-- 邊框漸層 -->
+    <linearGradient id="frameGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#5d4037"/>
+      <stop offset="50%" style="stop-color:#8d6e63"/>
+      <stop offset="100%" style="stop-color:#5d4037"/>
+    </linearGradient>
+    
+    <linearGradient id="frameGradV" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#5d4037"/>
+      <stop offset="50%" style="stop-color:#8d6e63"/>
+      <stop offset="100%" style="stop-color:#5d4037"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 頂部邊框線 -->
+  <line x1="20" y1="20" x2="380" y2="20" stroke="url(#frameGrad)" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- 左側邊框線 -->
+  <line x1="20" y1="20" x2="20" y2="280" stroke="url(#frameGradV)" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- 右側邊框線 -->
+  <line x1="380" y1="20" x2="380" y2="280" stroke="url(#frameGradV)" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- 底部邊框線 -->
+  <line x1="20" y1="280" x2="380" y2="280" stroke="url(#frameGrad)" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- 四角裝飾 - 左上 -->
+  <rect x="10" y="10" width="20" height="20" fill="#5d4037" opacity="0.7"/>
+  
+  <!-- 四角裝飾 - 右上 -->
+  <rect x="370" y="10" width="20" height="20" fill="#5d4037" opacity="0.7"/>
+  
+  <!-- 四角裝飾 - 左下 -->
+  <rect x="10" y="270" width="20" height="20" fill="#5d4037" opacity="0.7"/>
+  
+  <!-- 四角裝飾 - 右下 -->
+  <rect x="370" y="270" width="20" height="20" fill="#5d4037" opacity="0.7"/>
+  
+  <!-- 頂部中央裝飾 -->
+  <rect x="180" y="15" width="40" height="10" fill="#8d6e63" opacity="0.5" rx="2"/>
+  
+  <!-- 底部中央裝飾 -->
+  <rect x="180" y="275" width="40" height="10" fill="#8d6e63" opacity="0.5" rx="2"/>
+  
+  <!-- 左側中央裝飾 -->
+  <rect x="15" y="135" width="10" height="30" fill="#8d6e63" opacity="0.5" rx="2"/>
+  
+  <!-- 右側中央裝飾 -->
+  <rect x="375" y="135" width="10" height="30" fill="#8d6e63" opacity="0.5" rx="2"/>
+</svg>

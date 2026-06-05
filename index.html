@@ -14,14 +14,14 @@
     v4.7 - 重新調整館藏編號：2026-06-04 → No.0002-0006, 2026-06-05 → No.0007-0011
     v4.8 - 星星按鈕+localStorage、手機漢堡選單、lazy loading、5秒自動輪播、資訊卡圓形設計、熊熊標題按鈕、金色質感紀念熊
     v5.2 - 熊熊年鑑雙分類展開功能
-    v5.3 - 修復星星按鈕狀態保存問題（輪播改為動態從localStorage讀取）
+    v5.5 - 修復熊熊年鑑點擊「全部」顯示不正確（category filter邏輯）
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐻 熊熊線上博物館 v5.3</title>
+    <title>🐻 熊熊線上博物館 v5.5</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -720,6 +720,17 @@
             background: #b8956a;
         }
 
+        /* Mobile Navigation - Hamburger Menu */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px 15px;
+        }
+        
         /* Responsive */
         @media (max-width: 600px) {
             header h1 { font-size: 1.5rem; }
@@ -729,6 +740,32 @@
             .bear-thumb .thumb-circle { width: 60px; height: 60px; }
             .featured-thumb { width: 100px; height: 130px; }
             .featured-thumb .thumb-circle { width: 80px; height: 80px; }
+            
+            /* Mobile nav - hamburger */
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                padding: 10px;
+            }
+            nav .nav-toggle {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+            }
+            nav a {
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                display: none;
+            }
+            nav.expanded a {
+                display: block;
+            }
+            nav.expanded .nav-toggle {
+                display: block;
+            }
         }
 
         footer {
@@ -742,7 +779,8 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
+    <nav id="mainNav">
+        <button class="nav-toggle" onclick="toggleNav()">☰ 選單</button>
         <a href="index.html" class="active">🏠 熊熊博物館</a>
         <a href="ppt.html">📊 PPT素材</a>
         <a href="slides.html">🎬 影片素材</a>
@@ -1133,7 +1171,42 @@
         function filterByCategory(cat) {
             currentCategory = cat;
             renderCategoryFilter();
-            updateTodayBearsDisplay();
+            // When "全部" is selected, show all bears regardless of date
+            // Otherwise filter by the selected category
+            const grid = document.getElementById('todayBears');
+            grid.innerHTML = '';
+            const today = new Date().toISOString().split('T')[0];
+            let displayBears = bears;
+            
+            if (cat !== '全部') {
+                displayBears = bears.filter(b => b.category === cat);
+            }
+            
+            document.getElementById('todayCount').textContent = '+' + displayBears.length;
+            document.getElementById('totalCount').textContent = bears.length + 1;
+            const now = new Date();
+            const [openY, openM, openD] = openDate.split('-').map(Number);
+            const openDateObj = new Date(openY, openM - 1, openD);
+            const diffTime = now - openDateObj;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('museumAge').textContent = diffDays + '日';
+
+            const od = openDate.split('-');
+            document.getElementById('openDateFull').textContent = `${od[0]}年${parseInt(od[1])}月${parseInt(od[2])}日`;
+
+            displayBears.forEach((bear) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'bear-thumb';
+                thumb.onclick = () => openBearModalByBear(bear);
+                thumb.innerHTML = `
+                    <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                    <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
+                    <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
+                    <div class="thumb-name">${bear.name}</div>
+                    <span class="category-badge ${bear.category}">${bear.category}</span>
+                `;
+                grid.appendChild(thumb);
+            });
         }
 
         function updateTodayBearsDisplay() {
@@ -1335,6 +1408,11 @@
                 const bear = bears.find(b => b.collectionNo === parseInt(ref));
                 if (bear) openBearModalByBear(bear);
             }
+        }
+
+        // Mobile nav toggle
+        function toggleNav() {
+            document.getElementById('mainNav').classList.toggle('expanded');
         }
 
         // Initialize

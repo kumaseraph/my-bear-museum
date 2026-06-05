@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 400" width="60" height="400">
+  <!-- 單側邊框 - 寬（垂直邊框）：工作報告主題裝飾線 -->
+  <!-- 比例：60x400 (垂直長條) -->
+  <!-- 風格：Monoline 線性風格、統一 2px 線寬、溫暖棕色調 -->
+  
+  <defs>
+    <!-- 線條漸層 -->
+    <linearGradient id="vLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#5d4037;stop-opacity:0.1"/>
+      <stop offset="20%" style="stop-color:#8d6e63;stop-opacity:0.6"/>
+      <stop offset="50%" style="stop-color:#5d4037;stop-opacity:0.9"/>
+      <stop offset="80%" style="stop-color:#8d6e63;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#5d4037;stop-opacity:0.1"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 主線條 -->
+  <line x1="30" y1="20" x2="30" y2="380" stroke="url(#vLineGrad)" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- 頂端裝飾 -->
+  <circle cx="30" cy="20" r="6" fill="#5d4037" opacity="0.7"/>
+  
+  <!-- 底端裝飾 -->
+  <circle cx="30" cy="380" r="6" fill="#5d4037" opacity="0.7"/>
+  
+  <!-- 頂部小裝飾 -->
+  <rect x="26" y="40" width="8" height="8" fill="#8d6e63" opacity="0.4" rx="1"/>
+  
+  <!-- 底部小裝飾 -->
+  <rect x="26" y="352" width="8" height="8" fill="#8d6e63" opacity="0.4" rx="1"/>
+</svg>
