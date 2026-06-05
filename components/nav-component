@@ -1,0 +1,81 @@
+<style>
+/* Navigation */
+nav {
+    background-color: #a1887f;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 15px;
+    transition: background 0.3s;
+}
+nav a:hover { background-color: #8d6e63; }
+nav a.active { background-color: var(--color-primary); }
+
+/* Mobile nav toggle */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 15px;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 10px;
+    }
+    nav .nav-toggle {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+    nav a {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        display: none;
+    }
+    nav.expanded a {
+        display: block;
+    }
+    nav.expanded .nav-toggle {
+        display: block;
+    }
+}
+</style>
+
+<!-- Navigation -->
+<nav id="mainNav">
+    <button class="nav-toggle" onclick="toggleNav()">☰ 選單</button>
+    <a href="index.html" class="active">🏠 熊熊博物館</a>
+    <a href="ppt.html">📊 PPT素材</a>
+    <a href="slides.html">🎬 影片素材</a>
+    <a href="video.html">🎥 熊熊影片</a>
+    <a href="test-gallery.html">📷 圖片瀏覽</a>
+    <a href="test-selection.html">✨ 圖片選擇</a>
+    <a href="test-stripe.html">🎨 設計系統</a>
+</nav>
+
+<script>
+// Mobile nav toggle
+function toggleNav() {
+    document.getElementById('mainNav').classList.toggle('expanded');
+}
+</script>

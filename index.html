@@ -13,26 +13,70 @@
     v4.5 - 導航列移至頁面最上方，取代 header 成為第一順位
     v4.7 - 重新調整館藏編號：2026-06-04 → No.0002-0006, 2026-06-05 → No.0007-0011
     v4.8 - 星星按鈕+localStorage、手機漢堡選單、lazy loading、5秒自動輪播、資訊卡圓形設計、熊熊標題按鈕、金色質感紀念熊
-    v5.2 - 熊熊年鑑雙分類展開功能
-    v5.6 - 熊熊年鑑雙分類展開功能
     v5.7 - 修復「今日新入住」顯示問題、年鑑accordion改為可展開/收合、按月份/按類別按鈕改為圓角長條
     v5.8 - 移除熊熊年鑑「全部」分類按鈕（使用者不需要此功能）
     v5.11 - 今日主角：只有被點擊星星的熊熊才會出現在輪播區，開館紀念熊亦同
     v5.12 - 修復輪播按鈕無法按、重新構建DOM元素確保事件監聽正確
+    v5.13 - 版本統一、加入鍵盤 / 搜尋快捷鍵
+    v6.0 - Google Fonts、視覺精緻化、夜間模式、OG Tag、燈箱zoom、PWA、導航抽出
+    v6.1 - 熊熊年鑑全面升級：月份+特性雙分組、Modal輪播、鍵盤/觸控導航、localStorage記憶
+    v6.2 - 新增沉浸式全螈幕模式（點擊⛶按鈕進入）
+    v6.5 - 熊熊年鑑月份/特性點擊改為兩層模式：先顯示熊熊縮圖列表，點縮圖再開資訊卡
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐻 熊熊線上博物館 v5.12</title>
+    <title>🐻 熊熊線上博物館 v6.5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <meta name="description" content="🐻 熊熊線上博物館 — 收藏來自 MiniMax AI 的可愛熊熊圖片，分享你的熊熊故事">
+    <meta property="og:title" content="🐻 熊熊線上博物館">
+    <meta property="og:description" content="來自 MiniMax AI 的可愛熊熊收藏，分享你的熊熊故事">
+    <meta property="og:image" content="https://kumaweb.pages.dev/images/og-image.jpg">
+    <meta property="og:url" content="https://kumaweb.pages.dev/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#5d4037">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/images/icon-192.png">
     <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            /* Colors */
+            --color-bg: #fdf8f3;
+            --color-primary: #5d4037;
+            --color-accent: #d4a574;
+            --color-card: #ffffff;
+            --color-border: #d7ccc8;
+            --color-text-muted: #8b7355;
+
+            /* Multi-layer shadows (Notion-style) */
+            --shadow-soft: 0 4px 18px rgba(93,64,55,0.04), 0 2px 7.8px rgba(93,64,55,0.027), 0 0.8px 2.9px rgba(93,64,55,0.02), 0 0.17px 1px rgba(93,64,55,0.01);
+            --shadow-medium: 0 6px 15px rgba(93,64,55,0.08), 0 2.5px 8px rgba(93,64,55,0.05), 0 0.8px 3px rgba(93,64,55,0.03);
+            --shadow-deep: 0 1px 3px rgba(93,64,55,0.01), 0 3px 7px rgba(93,64,55,0.02), 0 7px 15px rgba(93,64,55,0.04), 0 14px 28px rgba(93,64,55,0.05);
+            --shadow-card: 0 4px 18px rgba(93,64,55,0.04), 0 2.025px 7.84688px rgba(93,64,55,0.027), 0 0.8px 2.925px rgba(93,64,55,0.02), 0 0.175px 1.04062px rgba(93,64,55,0.01);
+            /* Thin border */
+            --border-thin: 1px solid rgba(93,64,55,0.1);
+        }
+
+        [data-theme="dark"] {
+            --color-bg: #1a1510;
+            --color-primary: #d4a574;
+            --color-accent: #FFD700;
+            --color-card: #2d2520;
+            --color-border: #4a3f35;
+            --color-text-muted: #a08060;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Segoe UI', 'Microsoft JhengHei', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fdf8f3;
-            color: #5d4037;
+            font-family: 'Noto Sans TC', 'Inter', 'Segoe UI', 'Microsoft JhengHei', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-primary);
             min-height: 100vh;
             padding: 20px;
         }
@@ -45,35 +89,13 @@
         }
         header h1 {
             font-size: 2rem;
-            color: #5d4037;
+            color: var(--color-primary);
             margin-bottom: 10px;
         }
         header .subtitle {
             font-size: 1rem;
-            color: #8b7355;
+            color: var(--color-text-muted);
         }
-
-        /* Navigation */
-        nav {
-            background-color: #a1887f;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            flex-wrap: wrap;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 5px 15px;
-            border-radius: 15px;
-            transition: background 0.3s;
-        }
-        nav a:hover { background-color: #8d6e63; }
-        nav a.active { background-color: #5d4037; }
 
         /* Info Cards - Circular Badge Style */
         .info-cards {
@@ -97,7 +119,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(93, 64, 55, 0.2);
+            box-shadow: var(--shadow-card);
             font-size: 1.4rem;
             font-weight: bold;
             color: white;
@@ -205,17 +227,37 @@
         .star-btn.starred:hover {
             background: linear-gradient(135deg, #FFA500, #FF8C00);
         }
+        .star-btn.popping {
+            animation: star-pop 0.3s ease;
+        }
+        @keyframes star-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); box-shadow: 0 0 15px rgba(255, 165, 0, 0.8); }
+            100% { transform: scale(1); }
+        }
         .bear-thumb .thumb-circle {
             width: 70px;
             height: 70px;
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid #e8dcc8;
-            box-shadow: 0 4px 10px rgba(93, 64, 55, 0.15);
-            background: #fff;
+            box-shadow: var(--shadow-soft);
             flex-shrink: 0;
             position: relative;
             z-index: 1;
+        }
+        .bear-thumb::before {
+            content: '';
+            position: absolute;
+            top: 11px;
+            left: 5px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffb6c1, #add8e6, #e6e6fa, #ffd1a4, #98fb98);
+            background-size: 300% 300%;
+            z-index: 0;
+            animation: bubble-border 4s ease infinite;
+            pointer-events: none;
         }
         .bear-thumb img {
             width: 100%;
@@ -235,12 +277,24 @@
 
         /* Featured Section */
         .featured-section {
-            background: linear-gradient(135deg, #fdf6e3, #fff);
+            background:
+                linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
+                url('images/featured-bg-2.jpg');
+            background-size: cover;
+            background-position: center;
             border-radius: 20px;
             padding: 30px;
             text-align: center;
-            box-shadow: 0 6px 20px rgba(93, 64, 55, 0.1);
+            box-shadow: var(--shadow-medium);
             margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .featured-section > * {
+            position: relative;
+            z-index: 1;
         }
         .featured-thumb {
             width: 120px;
@@ -297,16 +351,17 @@
         }
         .yearbook-item {
             background: #fff;
+            border: var(--border-thin);
             border-radius: 12px;
             padding: 15px 25px;
             text-align: center;
             cursor: pointer;
-            box-shadow: 0 3px 10px rgba(93, 64, 55, 0.1);
+            box-shadow: var(--shadow-soft);
             transition: all 0.3s;
         }
         .yearbook-item:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(93, 64, 55, 0.15);
+            box-shadow: var(--shadow-medium);
         }
         .yearbook-item .month {
             font-size: 0.9rem;
@@ -316,6 +371,35 @@
             font-size: 1.3rem;
             font-weight: bold;
             color: #5d4037;
+        }
+
+        /* Yearbook Tab Switch */
+        .yearbook-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .yearbook-tab {
+            padding: 10px 24px;
+            border: 2px solid #d4a574;
+            border-radius: 25px;
+            background: #fff;
+            color: #5d4037;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .yearbook-tab:hover {
+            background: #fdf6e3;
+            transform: translateY(-2px);
+        }
+        .yearbook-tab.active {
+            background: linear-gradient(135deg, #5d4037, #6d4c41);
+            color: #fff;
+            border-color: #5d4037;
+            box-shadow: 0 4px 12px rgba(93, 64, 55, 0.3);
         }
 
         /* Yearbook Accordion */
@@ -328,46 +412,109 @@
         .yearbook-section {
             text-align: center;
         }
-        .yearbook-section-toggle {
-            display: inline-flex;
+        .yearbook-year {
+            margin-bottom: 10px;
+        }
+        .yearbook-year-header {
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #d4a574, #c49a6c);
+            gap: 12px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #5d4037, #6d4c41);
             border: none;
-            border-radius: 25px;
+            border-radius: 12px;
             color: #fff;
-            font-size: 1rem;
-            font-weight: 500;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(93, 64, 55, 0.2);
-            transition: all 0.3s;
-            min-width: 200px;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto 8px;
         }
-        .yearbook-section-toggle:hover {
+        .yearbook-year-header:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(93, 64, 55, 0.3);
-            background: linear-gradient(135deg, #e0b085, #d4a574);
+            box-shadow: var(--shadow-deep);
+            background: linear-gradient(135deg, #6d4c41, #7d5c51);
         }
-        .yearbook-section-toggle .arrow {
-            transition: transform 0.3s;
-            font-size: 0.8rem;
+        .yearbook-year-header .year-count {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
         }
-        .yearbook-section-toggle.expanded .arrow {
+        .yearbook-year-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.75rem;
+        }
+        .yearbook-year-header.expanded .arrow {
             transform: rotate(180deg);
         }
-        .yearbook-items {
+        .yearbook-year-items {
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px 0;
+        }
+        .yearbook-year-items.show {
+            display: flex;
+        }
+        .yearbook-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #d4a574, #c49a6c);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+        .yearbook-bar:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            background: linear-gradient(135deg, #e0b085, #d4a574);
+        }
+        .yearbook-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .yearbook-bar .bar-arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.7rem;
+        }
+        .yearbook-bar.expanded .bar-arrow {
+            transform: rotate(90deg);
+        }
+        .yearbook-bar-count {
+            background: rgba(255,255,255,0.25);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+        .yearbook-bar-items {
             display: none;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 15px;
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 12px;
+            max-height: 500px;
+            overflow-y: auto;
         }
-        .yearbook-items.show {
+        .yearbook-bar-items.show {
             display: flex;
         }
         .yearbook-item {
@@ -376,13 +523,13 @@
             padding: 12px 20px;
             text-align: center;
             cursor: pointer;
-            box-shadow: 0 3px 10px rgba(93, 64, 55, 0.1);
+            box-shadow: var(--shadow-soft);
             transition: all 0.3s;
             min-width: 120px;
         }
         .yearbook-item:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(93, 64, 55, 0.15);
+            box-shadow: var(--shadow-medium);
         }
         .yearbook-item .label {
             font-size: 0.9rem;
@@ -394,6 +541,126 @@
             color: #5d4037;
         }
 
+        /* Yearbook v6.1 - New Structure */
+        .yearbook-year {
+            margin-bottom: 15px;
+        }
+        .yearbook-year-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #5d4037, #6d4c41);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto 10px;
+        }
+        .yearbook-year-header:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-deep);
+            background: linear-gradient(135deg, #6d4c41, #7d5c4f);
+        }
+        .yearbook-year-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+        .yearbook-year-header.expanded .arrow {
+            transform: rotate(180deg);
+        }
+        .yearbook-year-items {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 12px;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+        }
+        .yearbook-year-items.show {
+            display: flex;
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        /* Month/Category Bar */
+        .yearbook-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #d4a574, #c49a6c);
+            border: none;
+            border-radius: 10px;
+            color: #5d4037;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(93, 64, 55, 0.15);
+            transition: all 0.3s;
+            width: 100%;
+            text-align: left;
+        }
+        .yearbook-bar:hover {
+            background: linear-gradient(135deg, #c49a6c, #b8956a);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(93, 64, 55, 0.2);
+        }
+        .yearbook-bar .bar-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .yearbook-bar .bar-arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.7rem;
+            color: #5d4037;
+        }
+        .yearbook-bar.expanded .bar-arrow {
+            transform: rotate(180deg);
+        }
+        .yearbook-bar .bar-count {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #fff;
+            border: 1.5px solid #d4a574;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #8b7355;
+            margin-left: 8px;
+        }
+        .yearbook-bar-items {
+            display: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+        }
+        .yearbook-bar-items.show {
+            display: flex;
+            max-height: 2000px;
+            opacity: 1;
+        }
+
         /* Search Box */
         .search-box {
             max-width: 400px;
@@ -403,17 +670,19 @@
         .search-box input {
             width: 100%;
             padding: 12px 20px;
-            border: 2px solid #d7ccc8;
+            border: var(--border-thin);
             border-radius: 25px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
             background: #fff;
             color: #5d4037;
             box-sizing: border-box;
+            box-shadow: var(--shadow-soft);
         }
         .search-box input:focus {
             border-color: #d4a574;
+            box-shadow: var(--shadow-medium);
         }
         .search-box input::placeholder {
             color: #a08060;
@@ -502,7 +771,7 @@
         }
         .carousel-track {
             display: flex;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .carousel-slide {
             min-width: 100%;
@@ -554,44 +823,103 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(93, 64, 55, 0.5);
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
             z-index: 9999;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            transition: background 0.3s ease, backdrop-filter 0.3s ease;
         }
         .bear-modal.active {
             display: flex;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
         }
         .bear-modal-content {
-            background: #fff;
-            border-radius: 24px;
+            background: linear-gradient(145deg, #fdf8f3, #f5ede4);
+            border-radius: 20px;
             max-width: 500px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             padding: 30px;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.3);
+            box-shadow: 0 20px 60px rgba(93, 64, 55, 0.3);
             position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
         .bear-modal-close {
             position: absolute;
-            top: 15px;
-            right: 20px;
+            top: 12px;
+            right: 16px;
             font-size: 1.5rem;
             color: #8b7355;
             cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(93, 64, 55, 0.1);
+        }
+        .bear-modal-close:hover {
+            opacity: 1;
+            background: rgba(93, 64, 55, 0.2);
+        }
+        .bear-modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d4a574, #c49a6c);
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .bear-modal-nav:hover {
+            transform: translateY(-50%) scale(1.1);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            box-shadow: var(--shadow-deep);
+        }
+        .bear-modal-nav.prev { left: -22px; }
+        .bear-modal-nav.next { right: -22px; }
+        .bear-modal-position {
+            position: absolute;
+            top: 12px;
+            left: 16px;
+            background: rgba(93, 64, 55, 0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #8b7355;
         }
         .bear-modal-image {
             width: 200px;
             height: 200px;
             border-radius: 50%;
             overflow: hidden;
-            margin: 0 auto 20px;
+            margin: 15px auto 20px;
             border: 5px solid #e8dcc8;
             cursor: pointer;
             transition: transform 0.3s;
+            box-shadow: var(--shadow-deep);
         }
         .bear-modal-image:hover {
             transform: scale(1.05);
@@ -602,26 +930,198 @@
             object-fit: cover;
         }
 
+        /* Yearbook Grid Modal */
+        .yearbook-grid-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .yearbook-grid-modal.active { display: flex; }
+        .yearbook-grid-content {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 700px;
+            width: 95%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .yearbook-grid-close {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #8b5a2b;
+            line-height: 1;
+        }
+        .yearbook-grid-title {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #5d4037;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .yearbook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 12px;
+            justify-items: center;
+        }
+
+        /* Yearbook Slideshow Modal */
+        .slideshow-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 99998;
+            justify-content: center;
+            align-items: center;
+        }
+        .slideshow-modal.active {
+            display: flex;
+        }
+        .slideshow-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            position: relative;
+        }
+        .slideshow-close {
+            position: fixed;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .slideshow-close:hover {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        .slideshow-image-wrap {
+            width: min(80vw, 360px);
+            height: min(80vw, 360px);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .slideshow-image-wrap:hover {
+            transform: scale(1.03);
+        }
+        .slideshow-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .slideshow-info {
+            text-align: center;
+        }
+        .slideshow-name {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .slideshow-position {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+        .slideshow-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slideshow-nav:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .slideshow-nav.prev { left: 20px; }
+        .slideshow-nav.next { right: 20px; }
+        .slideshow-lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 999999;
+            justify-content: center;
+            align-items: center;
+        }
+        .slideshow-lightbox.active { display: flex; }
+        .slideshow-lightbox img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 12px;
+        }
         /* Lightbox for full image preview */
         .image-lightbox {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
             z-index: 99999;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            transition: background 0.3s ease, backdrop-filter 0.3s ease;
         }
         .image-lightbox.active {
             display: flex;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
         }
         .image-lightbox img {
             max-width: 95%;
             max-height: 95%;
             object-fit: contain;
             border-radius: 8px;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .image-lightbox.active img {
+            transform: scale(1);
+            opacity: 1;
         }
         .lightbox-close {
             position: absolute;
@@ -630,6 +1130,11 @@
             color: white;
             font-size: 2rem;
             cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .lightbox-close:hover {
+            opacity: 1;
         }
 
         /* Month Browser Modal */
@@ -754,6 +1259,112 @@
             background: #b8956a;
         }
 
+        /* Immersive Fullscreen Mode */
+        .bear-modal.immersive {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+        }
+        .bear-modal.immersive .bear-modal-content {
+            background: transparent;
+            box-shadow: none;
+            max-width: 100%;
+            max-height: 100%;
+            padding: 60px 40px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .bear-modal.immersive .bear-modal-close {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            top: 20px;
+            right: 20px;
+        }
+        .bear-modal.immersive .bear-modal-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .bear-modal.immersive .bear-modal-image {
+            width: min(85vh, 400px);
+            height: min(85vh, 400px);
+            border: 6px solid rgba(255,255,255,0.25);
+            flex-shrink: 0;
+        }
+        .bear-modal.immersive .bear-modal-name {
+            color: #fff;
+            font-size: 2rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+            margin-bottom: 0;
+        }
+        .bear-modal.immersive .bear-modal-meta {
+            color: rgba(255,255,255,0.8);
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+        .bear-modal.immersive .bear-modal-quote {
+            background: rgba(255,255,255,0.08);
+            max-width: 600px;
+            width: 100%;
+        }
+        .bear-modal.immersive .bear-modal-quote .quote-label {
+            color: rgba(255,255,255,0.5);
+        }
+        .bear-modal.immersive .bear-modal-quote .quote-text {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+        }
+        .bear-modal.immersive .bear-modal-position {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+            bottom: 20px;
+            top: auto;
+        }
+        .bear-modal.immersive .bear-modal-nav {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 52px;
+            height: 52px;
+        }
+        .bear-modal.immersive .bear-modal-nav:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .bear-modal.immersive .bear-modal-back {
+            display: none;
+        }
+        .immersive-toggle-btn {
+            position: absolute;
+            top: 15px;
+            right: 55px;
+            font-size: 1.2rem;
+            color: #8b7355;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(93, 64, 55, 0.1);
+            border: none;
+        }
+        .immersive-toggle-btn:hover {
+            opacity: 1;
+            background: rgba(93, 64, 55, 0.2);
+        }
+        .bear-modal.immersive .immersive-toggle-btn {
+            color: #fff;
+            background: rgba(255,255,255,0.15);
+            top: 20px;
+            right: 60px;
+        }
+        .bear-modal.immersive .immersive-toggle-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
         /* Mobile Navigation - Hamburger Menu */
         .nav-toggle {
             display: none;
@@ -767,6 +1378,22 @@
         
         /* Responsive */
         @media (max-width: 600px) {
+            /* Slideshow Mobile */
+            .slideshow-image-wrap {
+                width: min(75vw, 280px);
+                height: min(75vw, 280px);
+            }
+            .slideshow-name { font-size: 1.2rem; }
+            .slideshow-nav { width: 42px; height: 42px; font-size: 1.1rem; }
+            .slideshow-nav.prev { left: 10px; }
+            .slideshow-nav.next { right: 10px; }
+
+            /* Info Cards Mobile */
+            .info-cards { gap: 15px; }
+            .info-card .circle { width: 50px; height: 50px; font-size: 1.1rem; }
+            .info-card .label { font-size: 0.7rem; }
+
+            /* General Mobile */
             header h1 { font-size: 1.5rem; }
             .info-card { min-width: 120px; padding: 15px 20px; }
             .info-card .value { font-size: 1.2rem; }
@@ -774,7 +1401,62 @@
             .bear-thumb .thumb-circle { width: 60px; height: 60px; }
             .featured-thumb { width: 100px; height: 130px; }
             .featured-thumb .thumb-circle { width: 80px; height: 80px; }
-            
+
+            /* Yearbook Mobile Responsive */
+            .yearbook-tabs { gap: 8px; margin-bottom: 15px; }
+            .yearbook-tab { padding: 8px 18px; font-size: 0.85rem; border-radius: 20px; }
+            .yearbook-year-header {
+                font-size: 1rem;
+                padding: 12px 16px;
+                max-width: 100%;
+                gap: 8px;
+            }
+            .yearbook-year-header .year-count { font-size: 0.75rem; padding: 2px 8px; }
+            .yearbook-year-items { padding: 8px; gap: 8px; }
+            .yearbook-bar {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+                border-radius: 8px;
+            }
+            .yearbook-bar-left { gap: 6px; }
+            .yearbook-bar-count { font-size: 0.75rem; padding: 2px 6px; }
+            .yearbook-bar-items {
+                gap: 8px;
+                padding: 8px;
+                border-radius: 8px;
+            }
+            .yearbook-bar-items .bear-thumb {
+                width: 65px;
+                height: 85px;
+            }
+            .yearbook-bar-items .bear-thumb .thumb-circle {
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                overflow: hidden;
+                box-shadow: var(--shadow-soft);
+                position: relative;
+                z-index: 1;
+            }
+            .yearbook-bar-items .bear-thumb::before {
+                content: '';
+                position: absolute;
+                top: calc(11px + 7px);
+                left: calc(5px + 8px);
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #ffb6c1, #add8e6, #e6e6fa, #ffd1a4, #98fb98);
+                background-size: 300% 300%;
+                z-index: 0;
+                animation: bubble-border 4s ease infinite;
+                pointer-events: none;
+            }
+            .yearbook-bar-items .bear-thumb .thumb-no,
+            .yearbook-bar-items .bear-thumb .thumb-name {
+                font-size: 0.7rem;
+            }
+
             /* Mobile nav - hamburger */
             nav {
                 flex-direction: column;
@@ -806,23 +1488,57 @@
             text-align: center;
             margin-top: 40px;
             padding: 20px;
-            color: #8b7355;
+            color: var(--color-text-muted);
             font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        .theme-toggle {
+            background: none;
+            border: var(--border-thin);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-soft);
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-medium);
+        }
+        [data-theme="dark"] .theme-toggle {
+            background: var(--color-card);
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav id="mainNav">
-        <button class="nav-toggle" onclick="toggleNav()">☰ 選單</button>
-        <a href="index.html" class="active">🏠 熊熊博物館</a>
-        <a href="ppt.html">📊 PPT素材</a>
-        <a href="slides.html">🎬 影片素材</a>
-        <a href="video.html">🎥 熊熊影片</a>
-        <a href="test-gallery.html">📷 圖片瀏覽</a>
-        <a href="test-selection.html">✨ 圖片選擇</a>
-        <a href="test-stripe.html">🎨 設計系統</a>
-    </nav>
+    <!-- Navigation (loaded via component) -->
+    <div id="nav-container"></div>
+    <script>
+        // Load nav component
+        fetch('/components/nav-component')
+            .then(r => r.text())
+            .then(html => {
+                document.getElementById('nav-container').innerHTML = html;
+                // Update active nav link based on current page
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                document.querySelectorAll('nav a').forEach(a => {
+                    if (a.getAttribute('href') === currentPage) {
+                        a.classList.add('active');
+                    } else {
+                        a.classList.remove('active');
+                    }
+                });
+            })
+            .catch(err => console.log('Nav component load failed:', err));
+    </script>
 
     <!-- Header -->
     <header>
@@ -851,7 +1567,7 @@
 
     <!-- Today's Featured Bear (Carousel Mode) -->
     <div class="section">
-        <div class="section-title">🐻 ⭐ 今日主角</div>
+        <div class="section-title">⭐ 今日主角</div>
         <div class="carousel-container" id="featuredCarousel">
             <div class="carousel-track" id="carouselTrack"></div>
             <div class="carousel-nav carousel-prev" id="carouselPrev">❮</div>
@@ -862,7 +1578,7 @@
 
     <!-- Opening Commemorative Bear -->
     <div class="section featured-section" onclick="openBearModal(0)">
-        <div class="section-title">🐻 🏛 開館紀念熊</div>
+        <div class="section-title">🏛️ 開館紀念熊</div>
         <div class="featured-thumb">
             <div class="thumb-circle">
                 <img src="https://img.magnific.com/free-vector/adorable-baby-bear-illustration_1308-181868.jpg?semt=ais_test_b&w=740&q=80" alt="開館紀念熊" loading="lazy">
@@ -873,7 +1589,7 @@
 
     <!-- Today's New Arrivals -->
     <div class="section">
-        <div class="section-title">🐻 今日新入住</div>
+        <div class="section-title">🧸 新入住熊熊</div>
         <div class="bear-grid" id="todayBears"></div>
     </div>
 
@@ -881,7 +1597,7 @@
     <div class="section">
         <div class="section-title">
             <img src="images/icon-bear-calendar.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
-            熊熊年鑑
+            📖 熊熊年鑑
         </div>
         <!-- Search Box -->
         <div class="search-box">
@@ -889,27 +1605,33 @@
             <div class="search-results" id="searchResults"></div>
         </div>
 
+        <!-- Yearbook Tab Switch -->
+        <div class="yearbook-tabs">
+            <button class="yearbook-tab active" id="tabMonth" onclick="switchYearbookTab('month')">
+                📅 熊熊月份
+            </button>
+            <button class="yearbook-tab" id="tabCategory" onclick="switchYearbookTab('category')">
+                🎨 熊熊特質
+            </button>
+        </div>
+
         <!-- Yearbook Accordion -->
         <div class="yearbook-accordion">
-            <div class="yearbook-section">
-                <button class="yearbook-section-toggle" id="toggleMonths" onclick="toggleYearbookSection('Months')">
-                    📅 按月份 <span class="arrow">▼</span>
-                </button>
-                <div class="yearbook-items" id="yearbookMonthsItems"></div>
-            </div>
-            <div class="yearbook-section">
-                <button class="yearbook-section-toggle" id="toggleCategories" onclick="toggleYearbookSection('Categories')">
-                    🎨 按類別 <span class="arrow">▼</span>
-                </button>
-                <div class="yearbook-items" id="yearbookCategoriesItems"></div>
-            </div>
+            <!-- 月份模式容器 -->
+            <div id="yearbookMonthContainer"></div>
+            <!-- 特性模式容器 -->
+            <div id="yearbookCategoryContainer" style="display: none;"></div>
         </div>
     </div>
 
     <!-- Bear Detail Modal -->
-    <div class="bear-modal" id="bearModal" onclick="closeModal(event)">
+    <div class="bear-modal" id="bearModal" onclick="closeBearModalFromBackground(event)">
         <div class="bear-modal-content" onclick="event.stopPropagation()">
-            <span class="bear-modal-close" onclick="closeModal(event)">×</span>
+            <span class="bear-modal-close" onclick="closeBearModal()">×</span>
+            <button class="immersive-toggle-btn" onclick="toggleImmersiveMode()" title="全螢幕沉浸模式">⛶</button>
+            <button class="bear-modal-nav prev" id="modalPrevBtn" onclick="prevModalBear()">❮</button>
+            <button class="bear-modal-nav next" id="modalNextBtn" onclick="nextModalBear()">❯</button>
+            <div class="bear-modal-position" id="modalPosition"></div>
             <div class="bear-modal-image" onclick="openLightbox()">
                 <img id="modalImg" src="" alt="">
             </div>
@@ -919,8 +1641,39 @@
                 <div class="quote-label">今日語錄</div>
                 <div class="quote-text" id="modalQuote"></div>
             </div>
-            <button class="bear-modal-back" onclick="closeModal(event)">返回展廳</button>
+            <button class="bear-modal-back" onclick="closeBearModal()">返回展廳</button>
         </div>
+    </div>
+
+    <!-- Yearbook Grid Modal - show bear thumbs for a month/category -->
+    <div class="yearbook-grid-modal" id="yearbookGridModal" onclick="if(event.target===this)closeYearbookGrid()">
+        <div class="yearbook-grid-content">
+            <span class="yearbook-grid-close" onclick="closeYearbookGrid()">×</span>
+            <div class="yearbook-grid-title" id="yearbookGridTitle"></div>
+            <div class="yearbook-grid" id="yearbookGrid"></div>
+        </div>
+    </div>
+
+    <!-- Yearbook Slideshow Modal -->
+    <div class="slideshow-modal" id="slideshowModal" onclick="if(event.target===this)closeSlideshow()">
+        <div class="slideshow-content">
+            <span class="slideshow-close" onclick="closeSlideshow()">×</span>
+            <button class="slideshow-nav prev" id="slideshowPrevBtn" onclick="prevSlideshowBear()">❮</button>
+            <div class="slideshow-image-wrap">
+                <img id="slideshowImg" src="" alt="" onclick="document.getElementById('slideshowFullImg').src=this.src;document.getElementById('slideshowLightbox').classList.add('active')">
+            </div>
+            <div class="slideshow-info">
+                <div class="slideshow-name" id="slideshowName"></div>
+                <div class="slideshow-position" id="slideshowPosition"></div>
+            </div>
+            <button class="slideshow-nav next" id="slideshowNextBtn" onclick="nextSlideshowBear()">❯</button>
+        </div>
+    </div>
+
+    <!-- Slideshow Lightbox -->
+    <div class="slideshow-lightbox" id="slideshowLightbox" onclick="document.getElementById('slideshowLightbox').classList.remove('active')">
+        <span class="lightbox-close" onclick="document.getElementById('slideshowLightbox').classList.remove('active')">×</span>
+        <img id="slideshowFullImg" src="" alt="放大檢視">
     </div>
 
     <!-- Image Lightbox -->
@@ -941,7 +1694,10 @@
         </div>
     </div>
 
-    <footer>由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v5.12</footer>
+    <footer>
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.5
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="切換深色模式">🌙</button>
+    </footer>
 
     <script>
         // Bear data
@@ -1080,13 +1836,40 @@
         // Star button state management
         let starredBears = JSON.parse(localStorage.getItem('starredBears') || '[]');
 
+        // Theme management
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            if (next === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+            localStorage.setItem('theme', next);
+            document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
+        }
+        // Init theme button icon
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+        });
+
         function toggleStar(collectionNo, event) {
             event.stopPropagation();
             const idx = starredBears.indexOf(collectionNo);
+            const btn = event.currentTarget;
             if (idx > -1) {
                 starredBears.splice(idx, 1);
+                btn.classList.remove('starred');
             } else {
                 starredBears.push(collectionNo);
+                btn.classList.add('starred', 'popping');
+                setTimeout(() => btn.classList.remove('popping'), 300);
             }
             localStorage.setItem('starredBears', JSON.stringify(starredBears));
             updateStarButtons();
@@ -1107,8 +1890,9 @@
         }
 
         function updateFeaturedBears() {
-            // Re-render the featured carousel to include newly starred bears
             renderFeaturedCarousel();
+            updateStarButtons();
+            updateTodayBearsDisplay();
         }
 
                 // Render today's new bears
@@ -1116,51 +1900,320 @@
                     updateTodayBearsDisplay();
                 }
 
-        // Render yearbook - accordion categories (months + categories)
+        // Render yearbook v6.1 - Year > Month/Category > Bears
         function renderYearbook() {
-            // Render months accordion items
-            const monthsContainer = document.getElementById('yearbookMonthsItems');
-            monthsContainer.innerHTML = '';
-            const monthCounts = {};
+            renderYearbookMonth();
+            renderYearbookCategory();
+            restoreYearbookState();
+        }
 
+        // Render month mode: Year > Month > Bears
+        function renderYearbookMonth() {
+            const container = document.getElementById('yearbookMonthContainer');
+            container.innerHTML = '';
+
+            // Group bears by year and month
+            const yearMonthData = {};
             bears.forEach(bear => {
+                const year = bear.date.substring(0, 4);
                 const month = bear.date.substring(0, 7);
-                monthCounts[month] = (monthCounts[month] || 0) + 1;
+                if (!yearMonthData[year]) yearMonthData[year] = {};
+                if (!yearMonthData[year][month]) yearMonthData[year][month] = [];
+                yearMonthData[year][month].push(bear);
             });
+
+            // Add opening bear to its month
+            const openYear = openDate.substring(0, 4);
             const openMonth = openDate.substring(0, 7);
-            monthCounts[openMonth] = (monthCounts[openMonth] || 0) + 1;
+            if (!yearMonthData[openYear]) yearMonthData[openYear] = {};
+            if (!yearMonthData[openYear][openMonth]) yearMonthData[openYear][openMonth] = [];
+            yearMonthData[openYear][openMonth].unshift(featuredBear);
 
-            Object.keys(monthCounts).sort().reverse().forEach(month => {
-                const item = document.createElement('div');
-                item.className = 'yearbook-item';
-                const [year, m] = month.split('-');
-                item.innerHTML = `
-                    <div class="label">${year}年${parseInt(m)}月</div>
-                    <div class="count">（${monthCounts[month]}）</div>
+            // Sort years descending
+            const sortedYears = Object.keys(yearMonthData).sort().reverse();
+
+            sortedYears.forEach(year => {
+                const yearDiv = document.createElement('div');
+                yearDiv.className = 'yearbook-year';
+
+                const monthsInYear = yearMonthData[year];
+                const sortedMonths = Object.keys(monthsInYear).sort().reverse();
+                const totalBearsInYear = sortedMonths.reduce((sum, m) => sum + monthsInYear[m].length, 0);
+
+                // Year header
+                const yearHeader = document.createElement('button');
+                yearHeader.className = 'yearbook-year-header';
+                yearHeader.innerHTML = `
+                    <span>📅 ${year}年</span>
+                    <span class="year-count">${totalBearsInYear}隻</span>
+                    <span class="arrow">▼</span>
                 `;
-                item.onclick = () => openMonthModal(month);
-                monthsContainer.appendChild(item);
-            });
+                yearHeader.onclick = () => toggleYearbookYear(yearHeader, yearDiv);
+                yearDiv.appendChild(yearHeader);
 
-            // Render categories accordion items
-            const catsContainer = document.getElementById('yearbookCategoriesItems');
-            catsContainer.innerHTML = '';
-            const categoryCounts = {};
+                // Year items container
+                const yearItems = document.createElement('div');
+                yearItems.className = 'yearbook-year-items';
+
+                sortedMonths.forEach(month => {
+                    const [y, m] = month.split('-');
+                    const monthBears = monthsInYear[month];
+                    const monthBar = document.createElement('button');
+                    monthBar.className = 'yearbook-bar';
+                    monthBar.innerHTML = `
+                        <div class="yearbook-bar-left">
+                            <span class="bar-arrow">▶</span>
+                            <span>${parseInt(m)}月</span>
+                        </div>
+                        <span class="yearbook-bar-count">${monthBears.length}隻</span>
+                    `;
+                    monthBar.onclick = () => openYearbookGrid(monthBears, `${parseInt(m)}月`);
+                    yearItems.appendChild(monthBar);
+
+                    // Month content - bear thumbnails
+                    const monthContent = document.createElement('div');
+                    monthContent.className = 'yearbook-bar-items';
+
+                    monthBears.forEach(bear => {
+                        const thumb = createBearThumb(bear, monthBears);
+                        monthContent.appendChild(thumb);
+                    });
+
+                    yearItems.appendChild(monthContent);
+                });
+
+                yearDiv.appendChild(yearItems);
+                container.appendChild(yearDiv);
+            });
+        }
+
+        // Render category mode: Year > Category > Bears
+        function renderYearbookCategory() {
+            const container = document.getElementById('yearbookCategoryContainer');
+            container.innerHTML = '';
+
+            // Group bears by category (no year grouping)
+            const catData = {};
             bears.forEach(bear => {
-                categoryCounts[bear.category] = (categoryCounts[bear.category] || 0) + 1;
+                if (!catData[bear.category]) catData[bear.category] = [];
+                catData[bear.category].push(bear);
             });
-            categoryCounts[featuredBear.category] = (categoryCounts[featuredBear.category] || 0) + 1;
 
-            Object.keys(categoryCounts).sort().forEach(cat => {
-                const item = document.createElement('div');
-                item.className = 'yearbook-item';
-                item.innerHTML = `
-                    <div class="label">${cat}</div>
-                    <div class="count">（${categoryCounts[cat]}）</div>
+            // Add opening bear to its category
+            if (!catData[featuredBear.category]) catData[featuredBear.category] = [];
+            catData[featuredBear.category].unshift(featuredBear);
+
+            // Sort categories alphabetically
+            const sortedCats = Object.keys(catData).sort();
+
+            sortedCats.forEach(cat => {
+                const catBears = catData[cat];
+                catBears.sort((a, b) => a.collectionNo - b.collectionNo);
+
+                const catDiv = document.createElement('div');
+                catDiv.className = 'yearbook-year';
+
+                // Category header
+                const catHeader = document.createElement('button');
+                catHeader.className = 'yearbook-year-header';
+                catHeader.innerHTML = `
+                    <span>🎨 ${cat}</span>
+                    <span class="year-count">${catBears.length}隻</span>
+                    <span class="arrow">▼</span>
                 `;
-                item.onclick = () => openCategoryModal(cat);
-                catsContainer.appendChild(item);
+                catHeader.onclick = () => toggleYearbookYear(catHeader, catDiv);
+                catDiv.appendChild(catHeader);
+
+                // Category items container
+                const catItems = document.createElement('div');
+                catItems.className = 'yearbook-year-items';
+
+                // Single bar for this category showing all bears
+                const catBar = document.createElement('button');
+                catBar.className = 'yearbook-bar';
+                catBar.innerHTML = `
+                    <div class="yearbook-bar-left">
+                        <span class="bar-arrow">▶</span>
+                        <span>全部 ${cat}</span>
+                    </div>
+                    <span class="yearbook-bar-count">${catBears.length}隻</span>
+                `;
+                catBar.onclick = () => openYearbookGrid(catBears, cat);
+                catItems.appendChild(catBar);
+
+                // Category content - bear thumbnails
+                const catContent = document.createElement('div');
+                catContent.className = 'yearbook-bar-items';
+
+                catBears.forEach(bear => {
+                    const thumb = createBearThumb(bear, catBears);
+                    catContent.appendChild(thumb);
+                });
+
+                catItems.appendChild(catContent);
+                catDiv.appendChild(catItems);
+                container.appendChild(catDiv);
             });
+        }
+
+        // Open yearbook slideshow (fullscreen carousel for a month/category group)
+        let slideshowGroup = [];
+        let slideshowIndex = 0;
+
+        // Open yearbook grid modal (thumbnails list for a month/category)
+        let yearbookGridGroup = [];
+        function openYearbookGrid(group, label) {
+            yearbookGridGroup = group;
+            document.getElementById('yearbookGridTitle').textContent = label;
+            const grid = document.getElementById('yearbookGrid');
+            grid.innerHTML = '';
+            group.forEach(bear => {
+                const thumb = createBearThumb(bear, group);
+                grid.appendChild(thumb);
+            });
+            document.getElementById('yearbookGridModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeYearbookGrid() {
+            document.getElementById('yearbookGridModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function openYearbookSlideshow(group, label) {
+            slideshowGroup = group;
+            slideshowIndex = 0;
+            updateSlideshow();
+            document.getElementById('slideshowModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function updateSlideshow() {
+            const bear = slideshowGroup[slideshowIndex];
+            document.getElementById('slideshowImg').src = bear.img;
+            document.getElementById('slideshowName').textContent = bear.name;
+            document.getElementById('slideshowPosition').textContent = `${slideshowIndex + 1} / ${slideshowGroup.length}`;
+            document.getElementById('slideshowImg').onclick = () => {
+                document.getElementById('slideshowFullImg').src = bear.img;
+                document.getElementById('slideshowLightbox').classList.add('active');
+            };
+            const prevBtn = document.getElementById('slideshowPrevBtn');
+            const nextBtn = document.getElementById('slideshowNextBtn');
+            prevBtn.style.display = slideshowGroup.length === 1 ? 'none' : 'flex';
+            nextBtn.style.display = slideshowGroup.length === 1 ? 'none' : 'flex';
+        }
+        function prevSlideshowBear() {
+            slideshowIndex = (slideshowIndex - 1 + slideshowGroup.length) % slideshowGroup.length;
+            updateSlideshow();
+        }
+        function nextSlideshowBear() {
+            slideshowIndex = (slideshowIndex + 1) % slideshowGroup.length;
+            updateSlideshow();
+        }
+        function closeSlideshow() {
+            document.getElementById('slideshowModal').classList.remove('active');
+            document.getElementById('slideshowLightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        // Touch swipe for slideshow
+        let ssTouchStartX = 0;
+        let ssTouchEndX = 0;
+        document.getElementById('slideshowModal').addEventListener('touchstart', e => {
+            ssTouchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        document.getElementById('slideshowModal').addEventListener('touchend', e => {
+            ssTouchEndX = e.changedTouches[0].screenX;
+            const diff = ssTouchStartX - ssTouchEndX;
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? nextSlideshowBear() : prevSlideshowBear();
+            }
+        }, { passive: true });
+        // Keyboard navigation for slideshow
+        document.addEventListener('keydown', e => {
+            if (!document.getElementById('slideshowModal').classList.contains('active')) return;
+            if (e.key === 'ArrowLeft') prevSlideshowBear();
+            if (e.key === 'ArrowRight') nextSlideshowBear();
+            if (e.key === 'Escape') closeSlideshow();
+        });
+
+        // Toggle year header - expand/collapse all months in that year
+        function toggleYearbookYear(header, yearDiv) {
+            const items = yearDiv.querySelector('.yearbook-year-items');
+            header.classList.toggle('expanded');
+            items.classList.toggle('show');
+            saveYearbookState();
+        }
+
+        // Toggle month/category bar - expand to show bear thumbnails
+        function toggleYearbookBar(bar, content) {
+            bar.classList.toggle('expanded');
+            content.classList.toggle('show');
+            saveYearbookState();
+        }
+
+        // Save yearbook expanded state to localStorage
+        function saveYearbookState() {
+            const state = {
+                tab: currentYearbookTab,
+                expandedYears: [],
+                expandedBars: []
+            };
+            document.querySelectorAll('.yearbook-year-header.expanded').forEach(h => {
+                state.expandedYears.push(h.dataset.year);
+            });
+            document.querySelectorAll('.yearbook-bar.expanded').forEach(b => {
+                state.expandedBars.push(b.dataset.bar);
+            });
+            localStorage.setItem('kuma_yearbook_state', JSON.stringify(state));
+        }
+
+        // Restore yearbook state from localStorage
+        function restoreYearbookState() {
+            const saved = localStorage.getItem('kuma_yearbook_state');
+            if (!saved) return;
+            try {
+                const state = JSON.parse(saved);
+                // Restore tab
+                if (state.tab) {
+                    switchYearbookTab(state.tab);
+                }
+                // Restore expanded years
+                state.expandedYears?.forEach(year => {
+                    const header = document.querySelector(`.yearbook-year-header[data-year="${year}"]`);
+                    if (header) header.classList.add('expanded');
+                });
+                // Restore expanded bars
+                state.expandedBars?.forEach(barId => {
+                    const bar = document.querySelector(`.yearbook-bar[data-bar="${barId}"]`);
+                    if (bar) bar.classList.add('expanded');
+                });
+                // Apply show class to restored items
+                document.querySelectorAll('.yearbook-year-header.expanded + .yearbook-year-items').forEach(el => el.classList.add('show'));
+                document.querySelectorAll('.yearbook-bar.expanded + .yearbook-bar-items').forEach(el => el.classList.add('show'));
+            } catch (e) {}
+        }
+
+        // Add data-year and data-bar attributes for state restoration
+        function setupYearbookStateAttributes() {
+            document.querySelectorAll('.yearbook-year-header').forEach(h => {
+                h.dataset.year = h.querySelector('span').textContent.match(/\d+/)[0];
+            });
+            document.querySelectorAll('.yearbook-bar').forEach(b => {
+                const text = b.querySelector('.yearbook-bar-left span:last-child').textContent;
+                b.dataset.bar = currentYearbookTab + '-' + text;
+            });
+        }
+
+        // Create bear thumb element
+        function createBearThumb(bear, group = null) {
+            const thumb = document.createElement('div');
+            thumb.className = 'bear-thumb';
+            thumb.onclick = () => openBearModalByBear(bear, group);
+            thumb.innerHTML = `
+                <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
+                <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
+                <div class="thumb-name">${bear.name}</div>
+            `;
+            return thumb;
         }
 
         // Toggle yearbook section accordion
@@ -1169,6 +2222,28 @@
             const items = document.getElementById('yearbook' + section + 'Items');
             toggle.classList.toggle('expanded');
             items.classList.toggle('show');
+        }
+
+        // Switch yearbook tab (月份/特性)
+        let currentYearbookTab = 'month';
+        function switchYearbookTab(tab) {
+            currentYearbookTab = tab;
+            const tabMonth = document.getElementById('tabMonth');
+            const tabCategory = document.getElementById('tabCategory');
+            const monthContainer = document.getElementById('yearbookMonthContainer');
+            const categoryContainer = document.getElementById('yearbookCategoryContainer');
+
+            if (tab === 'month') {
+                tabMonth.classList.add('active');
+                tabCategory.classList.remove('active');
+                monthContainer.style.display = 'block';
+                categoryContainer.style.display = 'none';
+            } else {
+                tabMonth.classList.remove('active');
+                tabCategory.classList.add('active');
+                monthContainer.style.display = 'none';
+                categoryContainer.style.display = 'block';
+            }
         }
 
         // Open category modal (for category filter in yearbook)
@@ -1247,7 +2322,7 @@
             todayBearsList.forEach((bear) => {
                 const thumb = document.createElement('div');
                 thumb.className = 'bear-thumb';
-                thumb.onclick = () => openBearModalByBear(bear);
+                thumb.onclick = () => openBearModalByBear(bear, todayBearsList);
                 thumb.innerHTML = `
                     <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                     <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
@@ -1281,8 +2356,35 @@
             document.getElementById('imageLightbox').classList.remove('active');
         }
 
+        // Modal carousel state
+        let currentModalGroup = [];
+        let currentModalIndex = 0;
+
+        // Toggle immersive fullscreen mode
+        let isImmersive = false;
+        function toggleImmersiveMode() {
+            const modal = document.getElementById('bearModal');
+            isImmersive = !isImmersive;
+            if (isImmersive) {
+                modal.classList.add('immersive');
+            } else {
+                modal.classList.remove('immersive');
+            }
+        }
+
         // Open bear modal by bear object
-        function openBearModalByBear(bear) {
+        function openBearModalByBear(bear, group = null) {
+            currentModalGroup = group || [bear];
+            currentModalIndex = currentModalGroup.indexOf(bear);
+            updateModalBear();
+            document.getElementById('bearModal').classList.add('active');
+            // Prevent background scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Update modal content from current group
+        function updateModalBear() {
+            const bear = currentModalGroup[currentModalIndex];
             document.getElementById('modalImg').src = bear.img;
             document.getElementById('modalName').textContent = bear.name;
             document.getElementById('modalMeta').innerHTML = `
@@ -1291,50 +2393,113 @@
                 入住日期：${bear.date}
             `;
             document.getElementById('modalQuote').textContent = '「' + bear.desc + '」';
-            document.getElementById('bearModal').classList.add('active');
+            document.getElementById('modalPosition').textContent = `${currentModalIndex + 1}/${currentModalGroup.length}`;
+
+            // Hide navigation buttons when only one bear in group
+            const hideNav = currentModalGroup.length === 1;
+            document.getElementById('modalPrevBtn').style.display = hideNav ? 'none' : 'flex';
+            document.getElementById('modalNextBtn').style.display = hideNav ? 'none' : 'flex';
         }
 
-        // Open bear modal
+        // Touch swipe support for modal
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const bearModal = document.getElementById('bearModal');
+
+        bearModal.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        bearModal.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    nextModalBear();
+                } else {
+                    prevModalBear();
+                }
+            }
+        }
+
+        // Navigate to previous bear in modal
+        function prevModalBear() {
+            currentModalIndex = (currentModalIndex - 1 + currentModalGroup.length) % currentModalGroup.length;
+            updateModalBear();
+        }
+
+        // Navigate to next bear in modal
+        function nextModalBear() {
+            currentModalIndex = (currentModalIndex + 1) % currentModalGroup.length;
+            updateModalBear();
+        }
+
+        // Close bear modal
+        function closeBearModal() {
+            document.getElementById('bearModal').classList.remove('active', 'immersive');
+            isImmersive = false;
+            document.body.style.overflow = '';
+        }
+
+        // Close bear modal from background click
+        function closeBearModalFromBackground(event) {
+            if (event.target.classList.contains('bear-modal')) {
+                closeBearModal();
+            }
+        }
+
+        // Open bear modal (legacy - redirect to new function)
         function openBearModal(index) {
             let bear;
+            let group;
             if (index === 0) {
                 bear = featuredBear;
+                // 只有一張，傳入只有自己的群組，隱藏左右導航
+                group = [featuredBear];
             } else {
                 const today = new Date().toISOString().split('T')[0];
                 const todayBearsList = bears.filter(b => b.date === today);
                 bear = todayBearsList[index - 1] || bears[index - 1];
+                group = [featuredBear, ...bears];
             }
-            
-            document.getElementById('modalImg').src = bear.img;
-            document.getElementById('modalName').textContent = bear.name;
-            document.getElementById('modalMeta').innerHTML = `
-                館藏編號：No.${String(bear.collectionNo).padStart(4, '0')}<br>
-                入住編號：${bear.checkIn}<br>
-                入住日期：${bear.date}
-            `;
-            document.getElementById('modalQuote').textContent = '「' + bear.desc + '」';
-            document.getElementById('bearModal').classList.add('active');
+            openBearModalByBear(bear, group);
         }
 
-        // Close modal
+        // Close modal (legacy - redirect)
         function closeModal(event) {
-            if (event.target.classList.contains('bear-modal') || 
-                event.target.classList.contains('bear-modal-close') ||
-                event.target.classList.contains('bear-modal-back')) {
-                document.getElementById('bearModal').classList.remove('active');
-            }
+            closeBearModal();
         }
 
         // ESC to close
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                document.getElementById('bearModal').classList.remove('active');
+                closeBearModal();
+            }
+            // Modal left/right navigation
+            if (document.getElementById('bearModal').classList.contains('active')) {
+                if (e.key === 'ArrowLeft') {
+                    prevModalBear();
+                } else if (e.key === 'ArrowRight') {
+                    nextModalBear();
+                }
+            }
+            // / key to focus search
+            if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+                const target = e.target;
+                if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    document.getElementById('searchInput').focus();
+                }
             }
         });
 
         // Featured bears for carousel - build dynamically from starredBears + featuredBear
         function getFeaturedBearsList() {
-            const starred = bears.filter(b => starredBears.includes(b.collectionNo));
+            const starred = bears.filter(b => starredBears.includes(b.collectionNo) && b.collectionNo !== featuredBear.collectionNo);
             // Only include featuredBear if it's been starred (has a star)
             if (starredBears.includes(featuredBear.collectionNo)) {
                 return [featuredBear, ...starred];
@@ -1378,7 +2543,8 @@
                 const bear = featuredList[0];
                 const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
                 container.innerHTML = `
-                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; padding: 20px;">
+                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
+                        <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                         <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid #d4a574; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
                             <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
@@ -1426,7 +2592,8 @@
                 slide.className = 'carousel-slide';
                 const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
                 slide.innerHTML = `
-                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer;">
+                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
+                        <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                         <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid #d4a574; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
                             <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
@@ -1637,6 +2804,15 @@
 
         // Initialize swipe on page load
         setupCarouselSwipe();
+
+        // Register PWA service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registered:', reg.scope))
+                    .catch(err => console.log('SW registration failed:', err));
+            });
+        }
     </script>
 </body>
 </html>
