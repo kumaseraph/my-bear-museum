@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>熊熊博物館 —圖片瀏覽測試</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: #533afd;
+      --purple-hover: #4434d4;
+      --navy: #061b31;
+      --slate: #64748b;
+      --border: #e2e8f0;
+      --white: #ffffff;
+      --bg: #f8fafc;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', 'Noto Sans TC', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      height: 64px;
+    }
+    nav .logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--purple);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    nav .nav-links {
+      display: flex;
+      gap: 24px;
+      margin-left: auto;
+    }
+    nav .nav-links a {
+      color: var(--slate);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    nav .nav-links a:hover { color: var(--purple); }
+    nav .nav-links a.active { color: var(--purple); font-weight: 500; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--purple) 0%, #7c3aed 100%);
+      color: white;
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2.5rem; font-weight: 600; margin-bottom: 16px; }
+    .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+    }
+
+    /* Section */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+    .section h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section .desc {
+      color: var(--slate);
+      margin-bottom: 32px;
+    }
+
+    /* ========================================
+       PATTERN 1: Tabs + Masonry Grid
+       ======================================== */
+    .pattern-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .pattern-tab {
+      padding: 8px 20px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .pattern-tab:hover { border-color: var(--purple); color: var(--purple); }
+    .pattern-tab.active {
+      background: var(--purple);
+      color: white;
+      border-color: var(--purple);
+    }
+
+    /* Masonry Grid */
+    .masonry {
+      column-count: 4;
+      column-gap: 16px;
+    }
+    @media (max-width: 1024px) { .masonry { column-count: 3; } }
+    @media (max-width: 768px) { .masonry { column-count: 2; } }
+    @media (max-width: 480px) { .masonry { column-count: 1; } }
+
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+    }
+    .masonry-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .masonry-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .masonry-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .masonry-info {
+      padding: 12px 16px;
+    }
+    .masonry-info h4 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .masonry-info p {
+      font-size: 0.75rem;
+      color: var(--slate);
+    }
+
+    /* ========================================
+       PATTERN 2: Pagination
+       ======================================== */
+    .pagination {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 32px;
+    }
+    .pagination button {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .pagination button:hover:not(:disabled) {
+      border-color: var(--purple);
+      color: var(--purple);
+    }
+    .pagination button.active {
+      background: var(--purple);
+      color: white;
+      border-color: var(--purple);
+    }
+    .pagination button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .pagination .ellipsis {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--slate);
+    }
+
+    /* ========================================
+       PATTERN 3: Load More
+       ======================================== */
+    .load-more-btn {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 32px auto 0;
+      padding: 14px 24px;
+      background: var(--white);
+      border: 2px solid var(--purple);
+      color: var(--purple);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .load-more-btn:hover {
+      background: var(--purple);
+      color: white;
+    }
+    .load-more-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ========================================
+       PATTERN 4: Filmstrip (in Lightbox)
+       ======================================== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+
+    .lightbox-main {
+      position: relative;
+      max-width: 80vw;
+      max-height: 70vh;
+    }
+    .lightbox-main img {
+      max-width: 100%;
+      max-height: 70vh;
+      border-radius: 12px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+    .lightbox-filmstrip {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+      max-width: 80vw;
+      overflow-x: auto;
+      padding: 8px;
+    }
+    .lightbox-filmstrip::-webkit-scrollbar { height: 6px; }
+    .lightbox-filmstrip::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 3px; }
+    .lightbox-filmstrip::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 3px; }
+
+    .filmstrip-thumb {
+      flex-shrink: 0;
+      width: 80px;
+      height: 60px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, transform0.2s;
+    }
+    .filmstrip-thumb:hover { transform: scale(1.05); }
+    .filmstrip-thumb.active { border-color: var(--purple); }
+    .filmstrip-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      padding: 16px 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+
+    .lightbox-counter {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+      margin-top: 12px;
+    }
+
+    /* ========================================
+       PATTERN 5: Virtual Scroll (Simulated)
+       ======================================== */
+    .virtual-scroll-container {
+      height: 500px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--white);
+    }
+    .virtual-scroll-content {
+      position: relative;
+    }
+    .virtual-item {
+      position: absolute;
+      width: calc(25% - 12px);
+      margin-bottom: 16px;
+      transition: opacity 0.2s;
+    }
+    @media (max-width: 1024px) { .virtual-item { width: calc(33.33% - 11px); } }
+    @media (max-width: 768px) { .virtual-item { width: calc(50% - 8px); } }
+    @media (max-width: 480px) { .virtual-item { width: calc(100% - 0px); } }
+
+    /* ========================================
+       PATTERN 6: Category Filter
+       ======================================== */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .filter-chip {
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .filter-chip:hover { border-color: var(--purple); }
+    .filter-chip.active {
+      background: var(--purple);
+      color: white;
+      border-color: var(--purple);
+    }
+
+    /* ========================================
+       PATTERN 7: Horizontal Scroll Gallery
+       ======================================== */
+    .h-scroll-container {
+      overflow-x: auto;
+      padding-bottom: 16px;
+      scroll-snap-type: x mandatory;
+    }
+    .h-scroll-container::-webkit-scrollbar { height: 8px; }
+    .h-scroll-container::-webkit-scrollbar-track { background: var(--border); border-radius: 4px; }
+    .h-scroll-container::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 4px; }
+
+    .h-scroll-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+    }
+    .h-scroll-card {
+      flex-shrink: 0;
+      width: 280px;
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      scroll-snap-align: start;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .h-scroll-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .h-scroll-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .h-scroll-card .info {
+      padding: 16px;
+    }
+    .h-scroll-card h4 { font-size: 0.9rem; margin-bottom: 4px; }
+    .h-scroll-card p { font-size: 0.8rem; color: var(--slate); }
+
+    /* Demo indicator */
+    .demo-label {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--purple), #7c3aed);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-left: 12px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--slate);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">🐻 熊熊博物館</a>
+      <div class="nav-links">
+        <a href="#tabs">分頁標籤</a>
+        <a href="#pagination">分頁導航</a>
+        <a href="#loadmore">載入更多</a>
+        <a href="#filmstrip">幻燈片條</a>
+        <a href="#filter">分類篩選</a>
+        <a href="#hscroll">橫向滾動</a>
+        <a href="test-stripe.html">←設計測試</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="badge">🧪 圖片瀏覽測試</div>
+    <h1>大量圖片的收納與瀏覽方案</h1>
+    <p>整理了 7 種常見的 UI模式，適用於 50-1000+ 張圖片的瀏覽體驗優化</p>
+  </div>
+
+  <!-- ========================================
+       PATTERN 1: Tabs + Masonry Grid
+       ======================================== -->
+  <section class="section" id="tabs">
+    <h2>📑 分頁標籤 +瀑布流 <span class="demo-label">Pattern1</span></h2>
+    <p class="desc">按分類（風格）切換顯示，減少單頁載入量</p>
+
+    <div class="pattern-tabs">
+      <button class="pattern-tab active" data-filter="all">全部 🐻</button>
+      <button class="pattern-tab" data-filter="watercolor">水彩</button>
+      <button class="pattern-tab" data-filter="3d">3D</button>
+      <button class="pattern-tab" data-filter="pixel">像素</button>
+      <button class="pattern-tab" data-filter="fantasy">奇幻</button>
+      <button class="pattern-tab" data-filter="oil">油畫</button>
+    </div>
+
+    <div class="masonry" id="masonry-grid">
+      <!-- Generated by JS -->
+    </div>
+  </section>
+
+  <!-- ========================================
+       PATTERN 2: Pagination
+       ======================================== -->
+  <section class="section" id="pagination">
+    <h2>📄 分頁導航 <span class="demo-label">Pattern 2</span></h2>
+    <p class="desc">經典分頁，適合固定數量、可跳轉任一頁</p>
+
+    <div class="masonry" id="pagination-grid">
+      <!-- Generated by JS -->
+    </div>
+
+    <div class="pagination" id="pagination-controls">
+      <!-- Generated by JS -->
+    </div>
+  </section>
+
+  <!-- ========================================
+       PATTERN 3: Load More
+       ======================================== -->
+  <section class="section" id="loadmore">
+    <h2>⬇️ 載入更多 <span class="demo-label">Pattern 3</span></h2>
+    <p class="desc">用戶主動觸發載入，效能較好且有控制感</p>
+
+    <div class="masonry" id="loadmore-grid">
+      <!-- Generated by JS -->
+    </div>
+
+    <button class="load-more-btn" id="loadmore-btn">
+      🐻 載入更多熊熊（<span id="loadmore-count">0</span>）
+    </button>
+  </section>
+
+  <!-- ========================================
+       PATTERN 4: Filmstrip in Lightbox
+       ======================================== -->
+  <section class="section" id="filmstrip">
+    <h2>🎞️ 幻燈片條（Lightbox 內導航）<span class="demo-label">Pattern 4</span></h2>
+    <p class="desc">點擊圖片放大後，可用底部縮圖條快速切換</p>
+
+    <div class="masonry" id="filmstrip-grid">
+      <!-- Generated by JS -->
+    </div>
+  </section>
+
+  <!-- ========================================
+       PATTERN 5: Category Filter
+       ======================================== -->
+  <section class="section" id="filter">
+    <h2>🏷️ 分類篩選器 <span class="demo-label">Pattern 5</span></h2>
+    <p class="desc">可依顏色、風格即時篩選，不需要換頁</p>
+
+    <div class="filter-bar">
+      <button class="filter-chip active" data-style="all">全部</button>
+      <button class="filter-chip" data-style="pink">🌸 粉色系</button>
+      <button class="filter-chip" data-style="blue">💙 藍色系</button>
+      <button class="filter-chip" data-style="white">🤍 白色系</button>
+      <button class="filter-chip" data-style="brown">🟤 棕色系</button>
+      <button class="filter-chip" data-style="green">💚 綠色系</button>
+    </div>
+
+    <div class="masonry" id="filter-grid">
+      <!-- Generated by JS -->
+    </div>
+  </section>
+
+  <!-- ========================================
+       PATTERN 6: Horizontal Scroll
+       ======================================== -->
+  <section class="section" id="hscroll">
+    <h2>➡️ 橫向滾動 <span class="demo-label">Pattern 6</span></h2>
+    <p class="desc">適合展示精選或横式介面，滑鼠滾輪即可滑動</p>
+
+    <div class="h-scroll-container">
+      <div class="h-scroll-track" id="hscroll-track">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">×</button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev">‹</button>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next">›</button>
+    <div class="lightbox-main">
+      <img id="lightbox-img" src="" alt="">
+    </div>
+    <div class="lightbox-filmstrip" id="lightbox-filmstrip">
+      <!-- Generated by JS -->
+    </div>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>熊熊博物館 v6.0 — 圖片瀏覽測試頁面 🐻</p>
+  </footer>
+
+  <script>
+    // ========================================
+    // Sample Data (50 bears)
+    // ========================================
+    const bears = [
+      { id: 1, name: '白熊水彩', style: 'watercolor', color: 'white', date: '2026-06-04', img: '/bears/2026-06-04/白熊_水彩_20260604_01.png' },
+      { id: 2, name: '棕熊3D', style: '3d', color: 'brown', date: '2026-06-04', img: '/bears/2026-06-04/棕熊_3D_20260604_02.png' },
+      { id: 3, name: '灰熊像素', style: 'pixel', color: 'gray', date: '2026-06-04', img: '/bears/2026-06-04/灰熊_像素_20260604_05.png' },
+      { id: 4, name: '粉熊油畫', style: 'oil', color: 'pink', date: '2026-06-04', img: '/bears/2026-06-04/粉熊_油畫_20260604_03.png' },
+      { id: 5, name: '藍熊奇幻', style: 'fantasy', color: 'blue', date: '2026-06-04', img: '/bears/2026-06-04/藍熊_奇幻_20260604_04.png' },
+      { id: 6, name: '橘熊水彩', style: 'watercolor', color: 'orange', date: '2026-06-05', img: '/bears/2026-06-05/橘熊_水彩_20260605_01.png' },
+      { id: 7, name: '藍熊3D', style: '3d', color: 'blue', date: '2026-06-05', img: '/bears/2026-06-05/藍熊_3D_20260605_02.png' },
+      { id: 8, name: '粉熊奇幻', style: 'fantasy', color: 'pink', date: '2026-06-05', img: '/bears/2026-06-05/粉熊_奇幻_20260605_03.png' },
+      { id: 9, name: '白熊油畫', style: 'oil', color: 'white', date: '2026-06-05', img: '/bears/2026-06-05/白熊_油畫_20260605_04.png' },
+      { id: 10, name: '綠熊像素', style: 'pixel', color: 'green', date: '2026-06-05', img: '/bears/2026-06-05/綠熊_像素_20260605_05.png' },
+      // Simulated bears (11-50)
+      { id: 11, name: '熊熊 #011', style: 'watercolor', color: 'pink', date: '2026-06-06', img: 'https://picsum.photos/seed/b11/300/400' },
+      { id: 12, name: '熊熊 #012', style: '3d', color: 'blue', date: '2026-06-06', img: 'https://picsum.photos/seed/b12/300/350' },
+      { id: 13, name: '熊熊 #013', style: 'oil', color: 'white', date: '2026-06-06', img: 'https://picsum.photos/seed/b13/300/420' },
+      { id: 14, name: '熊熊 #014', style: 'fantasy', color: 'pink', date: '2026-06-06', img: 'https://picsum.photos/seed/b14/300/380' },
+      { id: 15, name: '熊熊 #015', style: 'pixel', color: 'green', date: '2026-06-06', img: 'https://picsum.photos/seed/b15/300/340' },
+      { id: 16, name: '熊熊 #016', style: 'watercolor', color: 'blue', date: '2026-06-07', img: 'https://picsum.photos/seed/b16/300/400' },
+      { id: 17, name: '熊熊 #017', style: '3d', color: 'brown', date: '2026-06-07', img: 'https://picsum.photos/seed/b17/300/360' },
+      { id: 18, name: '熊熊 #018', style: 'oil', color: 'pink', date: '2026-06-07', img: 'https://picsum.photos/seed/b18/300/320' },
+      { id: 19, name: '熊熊 #019', style: 'fantasy', color: 'white', date: '2026-06-07', img: 'https://picsum.photos/seed/b19/300/400' },
+      { id: 20, name: '熊熊 #020', style: 'pixel', color: 'blue', date: '2026-06-07', img: 'https://picsum.photos/seed/b20/300/380' },
+      { id: 21, name: '熊熊 #021', style: 'watercolor', color: 'green', date: '2026-06-08', img: 'https://picsum.photos/seed/b21/300/340' },
+      { id: 22, name: '熊熊 #022', style: '3d', color: 'pink', date: '2026-06-08', img: 'https://picsum.photos/seed/b22/300/400' },
+      { id: 23, name: '熊熊 #023', style: 'oil', color: 'brown', date: '2026-06-08', img: 'https://picsum.photos/seed/b23/300/360' },
+      { id: 24, name: '熊熊 #024', style: 'fantasy', color: 'blue', date: '2026-06-08', img: 'https://picsum.photos/seed/b24/300/320' },
+      { id: 25, name: '熊熊 #025', style: 'pixel', color: 'white', date: '2026-06-08', img: 'https://picsum.photos/seed/b25/300/400' },
+      { id: 26, name: '熊熊 #026', style: 'watercolor', color: 'pink', date: '2026-06-09', img: 'https://picsum.photos/seed/b26/300/380' },
+      { id: 27, name: '熊熊 #027', style: '3d', color: 'green', date: '2026-06-09', img: 'https://picsum.photos/seed/b27/300/340' },
+      { id: 28, name: '熊熊 #028', style: 'oil', color: 'blue', date: '2026-06-09', img: 'https://picsum.photos/seed/b28/300/420' },
+      { id: 29, name: '熊熊 #029', style: 'fantasy', color: 'brown', date: '2026-06-09', img: 'https://picsum.photos/seed/b29/300/360' },
+      { id: 30, name: '熊熊 #030', style: 'pixel', color: 'pink', date: '2026-06-09', img: 'https://picsum.photos/seed/b30/300/400' },
+      { id: 31, name: '熊熊 #031', style: 'watercolor', color: 'white', date: '2026-06-10', img: 'https://picsum.photos/seed/b31/300/340' },
+      { id: 32, name: '熊熊 #032', style: '3d', color: 'blue', date: '2026-06-10', img: 'https://picsum.photos/seed/b32/300/380' },
+      { id: 33, name: '熊熊 #033', style: 'oil', color: 'green', date: '2026-06-10', img: 'https://picsum.photos/seed/b33/300/320' },
+      { id: 34, name: '熊熊 #034', style: 'fantasy', color: 'brown', date: '2026-06-10', img: 'https://picsum.photos/seed/b34/300/400' },
+      { id: 35, name: '熊熊 #035', style: 'pixel', color: 'pink', date: '2026-06-10', img: 'https://picsum.photos/seed/b35/300/360' },
+      { id: 36, name: '熊熊 #036', style: 'watercolor', color: 'blue', date: '2026-06-11', img: 'https://picsum.photos/seed/b36/300/340' },
+      { id: 37, name: '熊熊 #037', style: '3d', color: 'white', date: '2026-06-11', img: 'https://picsum.photos/seed/b37/300/400' },
+      { id: 38, name: '熊熊 #038', style: 'oil', color: 'green', date: '2026-06-11', img: 'https://picsum.photos/seed/b38/300/380' },
+      { id: 39, name: '熊熊 #039', style: 'fantasy', color: 'pink', date: '2026-06-11', img: 'https://picsum.photos/seed/b39/300/320' },
+      { id: 40, name: '熊熊 #040', style: 'pixel', color: 'blue', date: '2026-06-11', img: 'https://picsum.photos/seed/b40/300/400' },
+      { id: 41, name: '熊熊 #041', style: 'watercolor', color: 'brown', date: '2026-06-12', img: 'https://picsum.photos/seed/b41/300/360' },
+      { id: 42, name: '熊熊 #042', style: '3d', color: 'white', date: '2026-06-12', img: 'https://picsum.photos/seed/b42/300/340' },
+      { id: 43, name: '熊熊 #043', style: 'oil', color: 'pink', date: '2026-06-12', img: 'https://picsum.photos/seed/b43/300/400' },
+      { id: 44, name: '熊熊 #044', style: 'fantasy', color: 'green', date: '2026-06-12', img: 'https://picsum.photos/seed/b44/300/380' },
+      { id: 45, name: '熊熊 #045', style: 'pixel', color: 'blue', date: '2026-06-12', img: 'https://picsum.photos/seed/b45/300/320' },
+      { id: 46, name: '熊熊 #046', style: 'watercolor', color: 'brown', date: '2026-06-13', img: 'https://picsum.photos/seed/b46/300/400' },
+      { id: 47, name: '熊熊 #047', style: '3d', color: 'pink', date: '2026-06-13', img: 'https://picsum.photos/seed/b47/300/360' },
+      { id: 48, name: '熊熊 #048', style: 'oil', color: 'white', date: '2026-06-13', img: 'https://picsum.photos/seed/b48/300/340' },
+      { id: 49, name: '熊熊 #049', style: 'fantasy', color: 'blue', date: '2026-06-13', img: 'https://picsum.photos/seed/b49/300/400' },
+      { id: 50, name: '熊熊 #050', style: 'pixel', color: 'green', date: '2026-06-13', img: 'https://picsum.photos/seed/b50/300/380' },
+    ];
+
+    // ========================================
+    // Helper: Create Masonry Card
+    // ========================================
+    function createCard(bear) {
+      return `
+        <div class="masonry-item">
+          <div class="masonry-card" data-id="${bear.id}" data-style="${bear.style}" data-color="${bear.color}">
+            <img src="${bear.img}" alt="${bear.name}" loading="lazy">
+            <div class="masonry-info">
+              <h4>${bear.name}</h4>
+              <p>${bear.date} · ${bear.style}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ========================================
+    // PATTERN 1: Tabs + Masonry
+    // ========================================
+    const masonryGrid = document.getElementById('masonry-grid');
+    const patternTabs = document.querySelectorAll('.pattern-tab');
+
+    function renderMasonry(filter = 'all') {
+      const filtered = filter === 'all' ? bears : bears.filter(b => b.style === filter);
+      masonryGrid.innerHTML = filtered.map(createCard).join('');
+
+      // Add click handlers
+      masonryGrid.querySelectorAll('.masonry-card').forEach(card => {
+        card.addEventListener('click', () => openLightbox(parseInt(card.dataset.id)));
+      });
+    }
+
+    patternTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        patternTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderMasonry(tab.dataset.filter);
+      });
+    });
+
+    renderMasonry();
+
+    // ========================================
+    // PATTERN 2: Pagination
+    // ========================================
+    const ITEMS_PER_PAGE = 12;
+    let currentPage = 1;
+    const totalPages = Math.ceil(bears.length / ITEMS_PER_PAGE);
+
+    const paginationGrid = document.getElementById('pagination-grid');
+    const paginationControls = document.getElementById('pagination-controls');
+
+    function renderPagination(page) {
+      const start = (page - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      const pageBears = bears.slice(start, end);
+      paginationGrid.innerHTML = pageBears.map(createCard).join('');
+
+      // Add click handlers
+      paginationGrid.querySelectorAll('.masonry-card').forEach(card => {
+        card.addEventListener('click', () => openLightbox(parseInt(card.dataset.id)));
+      });
+
+      // Render pagination buttons
+      let html = '';
+      html += `<button ${page === 1 ? 'disabled' : ''} data-page="${page - 1}">‹</button>`;
+
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= page - 1 && i <= page + 1)) {
+          html += `<button class="${i === page ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        } else if (i === page - 2 || i === page + 2) {
+          html += `<span class="ellipsis">...</span>`;
+        }
+      }
+
+      html += `<button ${page === totalPages ? 'disabled' : ''} data-page="${page + 1}">›</button>`;
+      paginationControls.innerHTML = html;
+
+      // Add click handlers
+      paginationControls.querySelectorAll('button[data-page]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          renderPagination(parseInt(btn.dataset.page));
+        });
+      });
+    }
+
+    renderPagination(1);
+
+    // ========================================
+    // PATTERN 3: Load More
+    // ========================================
+    const LOAD_MORE_COUNT = 10;
+    let loadMoreLoaded = 10;
+    const loadMoreGrid = document.getElementById('loadmore-grid');
+    const loadMoreBtn = document.getElementById('loadmore-btn');
+    const loadMoreCount = document.getElementById('loadmore-count');
+
+    function renderLoadMore() {
+      const toLoad = bears.slice(0, loadMoreLoaded);
+      loadMoreGrid.innerHTML = toLoad.map(createCard).join('');
+      loadMoreCount.textContent = `${loadMoreLoaded} / ${bears.length}`;
+
+      loadMoreBtn.disabled = loadMoreLoaded >= bears.length;
+      if (loadMoreLoaded >= bears.length) {
+        loadMoreBtn.textContent = '🐻 已經到底了！';
+      }
+
+      // Add click handlers
+      loadMoreGrid.querySelectorAll('.masonry-card').forEach(card => {
+        card.addEventListener('click', () => openLightbox(parseInt(card.dataset.id)));
+      });
+    }
+
+    loadMoreBtn.addEventListener('click', () => {
+      loadMoreLoaded = Math.min(loadMoreLoaded + LOAD_MORE_COUNT, bears.length);
+      renderLoadMore();
+    });
+
+    renderLoadMore();
+
+    // ========================================
+    // PATTERN 4: Filmstrip (shared with Lightbox)
+    // ========================================
+    const filmstripGrid = document.getElementById('filmstrip-grid');
+    filmstripGrid.innerHTML = bears.map(createCard).join('');
+
+    filmstripGrid.querySelectorAll('.masonry-card').forEach(card => {
+      card.addEventListener('click', () => openLightbox(parseInt(card.dataset.id)));
+    });
+
+    // ========================================
+    // PATTERN 5: Category Filter
+    // ========================================
+    const filterGrid = document.getElementById('filter-grid');
+    const filterChips = document.querySelectorAll('.filter-chip');
+
+    function renderFilter(colorFilter = 'all') {
+      const filtered = colorFilter === 'all' ? bears : bears.filter(b => b.color === colorFilter);
+      filterGrid.innerHTML = filtered.map(createCard).join('');
+
+      filterGrid.querySelectorAll('.masonry-card').forEach(card => {
+        card.addEventListener('click', () => openLightbox(parseInt(card.dataset.id)));
+      });
+    }
+
+    filterChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        renderFilter(chip.dataset.style);
+      });
+    });
+
+    renderFilter();
+
+    // ========================================
+    // PATTERN 6: Horizontal Scroll
+    // ========================================
+    const hscrollTrack = document.getElementById('hscroll-track');
+    hscrollTrack.innerHTML = bears.map(bear => `
+      <div class="h-scroll-card" data-id="${bear.id}">
+        <img src="${bear.img}" alt="${bear.name}" loading="lazy">
+        <div class="info">
+          <h4>${bear.name}</h4>
+          <p>${bear.date} · ${bear.style}</p>
+        </div>
+      </div>
+    `).join('');
+
+    hscrollTrack.querySelectorAll('.h-scroll-card').forEach(card => {
+      card.addEventListener('click', () => openLightbox(parseInt(card.dataset.id)));
+    });
+
+    // ========================================
+    // Lightbox with Filmstrip
+    // ========================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxFilmstrip = document.getElementById('lightbox-filmstrip');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
+    let currentLightboxIndex = 0;
+
+    // Build filmstrip
+    lightboxFilmstrip.innerHTML = bears.map((bear, i) => `
+      <div class="filmstrip-thumb ${i === 0 ? 'active' : ''}" data-index="${i}">
+        <img src="${bear.img}" alt="${bear.name}">
+      </div>
+    `).join('');
+
+    function openLightbox(id) {
+      const index = bears.findIndex(b => b.id === id);
+      if (index === -1) return;
+      currentLightboxIndex = index;
+      showLightboxImage(index);
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showLightboxImage(index) {
+      const bear = bears[index];
+      lightboxImg.src = bear.img;
+      lightboxCounter.textContent = `${index + 1} / ${bears.length}`;
+
+      // Update filmstrip active
+      lightboxFilmstrip.querySelectorAll('.filmstrip-thumb').forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === index);
+      });
+
+      // Scroll filmstrip to active
+      const activeThumb = lightboxFilmstrip.querySelector('.filmstrip-thumb.active');
+      if (activeThumb) {
+        activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function prevImage() {
+      currentLightboxIndex = (currentLightboxIndex - 1 + bears.length) % bears.length;
+      showLightboxImage(currentLightboxIndex);
+    }
+
+    function nextImage() {
+      currentLightboxIndex = (currentLightboxIndex + 1) % bears.length;
+      showLightboxImage(currentLightboxIndex);
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', prevImage);
+    lightboxNext.addEventListener('click', nextImage);
+
+    lightboxFilmstrip.querySelectorAll('.filmstrip-thumb').forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        currentLightboxIndex = parseInt(thumb.dataset.index);
+        showLightboxImage(currentLightboxIndex);
+      });
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight') nextImage();
+    });
+  </script>
+</body>
+</html>
