@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>熊熊博物館 —圖片選擇測試</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: #533afd;
+      --purple-hover: #4434d4;
+      --navy: #061b31;
+      --slate: #64748b;
+      --border: #e2e8f0;
+      --white: #ffffff;
+      --bg: #f8fafc;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', 'Noto Sans TC', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      height: 64px;
+    }
+    nav .logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--purple);
+      text-decoration: none;
+    }
+    nav .nav-links {
+      display: flex;
+      gap: 24px;
+      margin-left: auto;
+    }
+    nav .nav-links a {
+      color: var(--slate);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    nav .nav-links a:hover { color: var(--purple); }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--purple) 0%, #7c3aed 100%);
+      color: white;
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2rem; font-weight: 600; margin-bottom: 12px; }
+    .hero p { font-size: 1rem; opacity: 0.9; }
+
+    /* Section */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    .section h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section .desc {
+      color: var(--slate);
+      margin-bottom: 24px;
+    }
+
+    /* Selection Bar (Floating) */
+    .selection-bar {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--navy);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      z-index: 200;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0;
+    }
+    .selection-bar.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    .selection-bar .count {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .selection-bar .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .selection-bar .btn-primary {
+      background: var(--purple);
+      color: white;
+    }
+    .selection-bar .btn-primary:hover { background: var(--purple-hover); }
+    .selection-bar .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+    .selection-bar .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+    .selection-bar .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+    .selection-bar .btn-danger:hover { background: #dc2626; }
+
+    /* Mode Toggle */
+    .mode-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .mode-btn {
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .mode-btn:hover { border-color: var(--purple); }
+    .mode-btn.active {
+      background: var(--purple);
+      color: white;
+      border-color: var(--purple);
+    }
+
+    /* Masonry Grid */
+    .masonry {
+      column-count: 4;
+      column-gap: 16px;
+    }
+    @media (max-width: 1024px) { .masonry { column-count: 3; } }
+    @media (max-width: 768px) { .masonry { column-count: 2; } }
+    @media (max-width: 480px) { .masonry { column-count: 1; } }
+
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    /* Selectable Card */
+    .selectable-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .selectable-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .selectable-card.selected {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(83, 58, 253, 0.2);
+    }
+    .selectable-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .selectable-card .card-info {
+      padding: 12px 16px;
+    }
+    .selectable-card .card-info h4 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .selectable-card .card-info p {
+      font-size: 0.75rem;
+      color: var(--slate);
+    }
+
+    /* Checkbox Overlay */
+    .card-checkbox {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 28px;
+      height: 28px;
+      background: rgba(255,255,255,0.9);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+    .selectable-card:hover .card-checkbox,
+    .selectable-card.selected .card-checkbox {
+      opacity: 1;
+    }
+    .selectable-card.selected .card-checkbox {
+      background: var(--purple);
+      border-color: var(--purple);
+    }
+    .card-checkbox::after {
+      content: '✓';
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      opacity: 0;
+    }
+    .selectable-card.selected .card-checkbox::after {
+      opacity: 1;
+    }
+
+    /* Star/Favorite Overlay */
+    .card-star {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      z-index: 10;
+      font-size: 1.1rem;
+    }
+    .card-star:hover { transform: scale(1.2); }
+    .card-star.starred {
+      background: var(--warning);
+      color: white;
+    }
+
+    /* Selection Counter Badge */
+    .selection-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--purple);
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.2s;
+    }
+    .selectable-card.selected .selection-badge {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ========================================
+       PATTERN 1: Checkbox Selection
+       ======================================== */
+
+    /* ========================================
+       PATTERN 2: Star/Favorite
+       ======================================== */
+
+    /* ========================================
+       PATTERN 3: Album/Collection
+       ======================================== */
+    .album-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 768px) { .album-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .album-card {
+      aspect-ratio: 1;
+      background: var(--white);
+      border-radius: 12px;
+      border: 2px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--slate);
+    }
+    .album-card:hover {
+      border-color: var(--purple);
+      color: var(--purple);
+    }
+    .album-card .album-icon { font-size: 2rem; margin-bottom: 8px; }
+    .album-card .album-name { font-size: 0.85rem; font-weight: 500; }
+    .album-card .album-count { font-size: 0.75rem; }
+
+    /* ========================================
+       PATTERN 4: Search + Filter
+       ======================================== */
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .search-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--purple);
+    }
+    .filter-select {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      background: white;
+      cursor: pointer;
+    }
+
+    /* ========================================
+       PATTERN 5: Drag to Reorder (Simulated)
+       ======================================== */
+    .drag-hint {
+      background: linear-gradient(135deg, rgba(83,58,253,0.1), rgba(124,58,237,0.1));
+      border: 1px solid rgba(83,58,253,0.2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+    .drag-hint .icon { font-size: 1.5rem; }
+    .drag-hint .shortcut {
+      background: var(--purple);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* Selected Gallery Preview */
+    .selected-gallery {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+    .selected-gallery h3 {
+      color: white;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .selected-gallery .preview-grid {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+    }
+    .selected-gallery .preview-item {
+      flex-shrink: 0;
+      width: 120px;
+      height: 90px;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    .selected-gallery .preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .selected-gallery .preview-item .remove-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 0.7rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .selected-gallery .empty-state {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox-main {
+      position: relative;
+      max-width: 80vw;
+      max-height: 70vh;
+    }
+    .lightbox-main img {
+      max-width: 100%;
+      max-height: 70vh;
+      border-radius: 12px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .lightbox-info {
+      color: white;
+      margin-top: 16px;
+      text-align: center;
+    }
+    .lightbox-info h4 { font-size: 1.1rem; margin-bottom: 4px; }
+    .lightbox-info p { font-size: 0.9rem; opacity: 0.7; }
+
+    /* Demo label */
+    .demo-label {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--purple), #7c3aed);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-left: 12px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--slate);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">🐻 熊熊博物館</a>
+      <div class="nav-links">
+        <a href="test-gallery.html">📷 圖片瀏覽</a>
+        <a href="test-stripe.html">🎨 設計系統</a>
+        <a href="test-selection.html" class="active">✨ 圖片選擇</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>✨ 圖片選擇與展示</h1>
+    <p>多種選擇模式：勾選、星號、專輯、搜尋、拖曳排序</p>
+  </div>
+
+  <!-- ========================================
+       PATTERN 1: Checkbox Selection
+       ======================================== -->
+  <section class="section" id="checkbox">
+    <h2>☑️ 勾選模式 <span class="demo-label">Pattern 1</span></h2>
+    <p class="desc">點擊卡片或Checkbox選擇多張圖片，適合「批次操作」</p>
+
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="checkbox">☑️ 勾選模式</button>
+      <button class="mode-btn" data-mode="star">⭐ 星號模式</button>
+      <button class="mode-btn" data-mode="album">📚 專輯模式</button>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" class="search-input" id="search-input" placeholder="🔍 搜尋熊熊名稱...">
+      <select class="filter-select" id="style-filter">
+        <option value="all">全部風格</option>
+        <option value="watercolor">水彩</option>
+        <option value="3d">3D</option>
+        <option value="pixel">像素</option>
+        <option value="fantasy">奇幻</option>
+        <option value="oil">油畫</option>
+      </select>
+    </div>
+
+    <div class="drag-hint">
+      <span class="icon">💡</span>
+      <span><strong>提示：</strong> 按住 <span class="shortcut">Ctrl</span> 或 <span class="shortcut">Cmd</span> 可多選，<span class="shortcut">Shift</span> 可範圍選擇</span>
+    </div>
+
+    <div class="masonry" id="selection-grid">
+      <!-- Generated by JS -->
+    </div>
+  </section>
+
+  <!-- Selected Gallery Preview -->
+  <section class="section">
+    <div class="selected-gallery" id="selected-gallery">
+      <h3>🖼️ 已選擇的圖片 <span id="selected-count">(0)</span></h3>
+      <div class="preview-grid" id="preview-grid">
+        <div class="empty-state" id="empty-state">尚未選擇任何圖片，點擊上方卡片開始選擇！</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">×</button>
+    <div class="lightbox-main">
+      <img id="lightbox-img" src="" alt="">
+    </div>
+    <div class="lightbox-info" id="lightbox-info"></div>
+  </div>
+
+  <!-- Selection Bar -->
+  <div class="selection-bar" id="selection-bar">
+    <span class="count"><span id="bar-count">0</span> 張已選擇</span>
+    <button class="btn btn-primary" id="btn-showcase">✨ 展示所選</button>
+    <button class="btn btn-secondary" id="btn-save">💾 儲存精選</button>
+    <button class="btn btn-danger" id="btn-clear">🗑️ 清除</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>熊熊博物館 v6.0 — 圖片選擇測試 🐻</p>
+  </footer>
+
+  <script>
+    // ========================================
+    // Sample Data (50 bears)
+    // ========================================
+    const bears = [
+      { id: 1, name: '白熊水彩', style: 'watercolor', color: 'white', date: '2026-06-04', img: '/bears/2026-06-04/白熊_水彩_20260604_01.png' },
+      { id: 2, name: '棕熊3D', style: '3d', color: 'brown', date: '2026-06-04', img: '/bears/2026-06-04/棕熊_3D_20260604_02.png' },
+      { id: 3, name: '灰熊像素', style: 'pixel', color: 'gray', date: '2026-06-04', img: '/bears/2026-06-04/灰熊_像素_20260604_05.png' },
+      { id: 4, name: '粉熊油畫', style: 'oil', color: 'pink', date: '2026-06-04', img: '/bears/2026-06-04/粉熊_油畫_20260604_03.png' },
+      { id: 5, name: '藍熊奇幻', style: 'fantasy', color: 'blue', date: '2026-06-04', img: '/bears/2026-06-04/藍熊_奇幻_20260604_04.png' },
+      { id: 6, name: '橘熊水彩', style: 'watercolor', color: 'orange', date: '2026-06-05', img: '/bears/2026-06-05/橘熊_水彩_20260605_01.png' },
+      { id: 7, name: '藍熊3D', style: '3d', color: 'blue', date: '2026-06-05', img: '/bears/2026-06-05/藍熊_3D_20260605_02.png' },
+      { id: 8, name: '粉熊奇幻', style: 'fantasy', color: 'pink', date: '2026-06-05', img: '/bears/2026-06-05/粉熊_奇幻_20260605_03.png' },
+      { id: 9, name: '白熊油畫', style: 'oil', color: 'white', date: '2026-06-05', img: '/bears/2026-06-05/白熊_油畫_20260605_04.png' },
+      { id: 10, name: '綠熊像素', style: 'pixel', color: 'green', date: '2026-06-05', img: '/bears/2026-06-05/綠熊_像素_20260605_05.png' },
+      // Simulated bears (11-50)
+      { id: 11, name: '熊熊 #011', style: 'watercolor', color: 'pink', date: '2026-06-06', img: 'https://picsum.photos/seed/b11/300/400' },
+      { id: 12, name: '熊熊 #012', style: '3d', color: 'blue', date: '2026-06-06', img: 'https://picsum.photos/seed/b12/300/350' },
+      { id: 13, name: '熊熊 #013', style: 'oil', color: 'white', date: '2026-06-06', img: 'https://picsum.photos/seed/b13/300/420' },
+      { id: 14, name: '熊熊 #014', style: 'fantasy', color: 'pink', date: '2026-06-06', img: 'https://picsum.photos/seed/b14/300/380' },
+      { id: 15, name: '熊熊 #015', style: 'pixel', color: 'green', date: '2026-06-06', img: 'https://picsum.photos/seed/b15/300/340' },
+      { id: 16, name: '熊熊 #016', style: 'watercolor', color: 'blue', date: '2026-06-07', img: 'https://picsum.photos/seed/b16/300/400' },
+      { id: 17, name: '熊熊 #017', style: '3d', color: 'brown', date: '2026-06-07', img: 'https://picsum.photos/seed/b17/300/360' },
+      { id: 18, name: '熊熊 #018', style: 'oil', color: 'pink', date: '2026-06-07', img: 'https://picsum.photos/seed/b18/300/320' },
+      { id: 19, name: '熊熊 #019', style: 'fantasy', color: 'white', date: '2026-06-07', img: 'https://picsum.photos/seed/b19/300/400' },
+      { id: 20, name: '熊熊 #020', style: 'pixel', color: 'blue', date: '2026-06-07', img: 'https://picsum.photos/seed/b20/300/380' },
+      { id: 21, name: '熊熊 #021', style: 'watercolor', color: 'green', date: '2026-06-08', img: 'https://picsum.photos/seed/b21/300/340' },
+      { id: 22, name: '熊熊 #022', style: '3d', color: 'pink', date: '2026-06-08', img: 'https://picsum.photos/seed/b22/300/400' },
+      { id: 23, name: '熊熊 #023', style: 'oil', color: 'brown', date: '2026-06-08', img: 'https://picsum.photos/seed/b23/300/360' },
+      { id: 24, name: '熊熊 #024', style: 'fantasy', color: 'blue', date: '2026-06-08', img: 'https://picsum.photos/seed/b24/300/320' },
+      { id: 25, name: '熊熊 #025', style: 'pixel', color: 'white', date: '2026-06-08', img: 'https://picsum.photos/seed/b25/300/400' },
+      { id: 26, name: '熊熊 #026', style: 'watercolor', color: 'pink', date: '2026-06-09', img: 'https://picsum.photos/seed/b26/300/380' },
+      { id: 27, name: '熊熊 #027', style: '3d', color: 'green', date: '2026-06-09', img: 'https://picsum.photos/seed/b27/300/340' },
+      { id: 28, name: '熊熊 #028', style: 'oil', color: 'blue', date: '2026-06-09', img: 'https://picsum.photos/seed/b28/300/420' },
+      { id: 29, name: '熊熊 #029', style: 'fantasy', color: 'brown', date: '2026-06-09', img: 'https://picsum.photos/seed/b29/300/360' },
+      { id: 30, name: '熊熊 #030', style: 'pixel', color: 'pink', date: '2026-06-09', img: 'https://picsum.photos/seed/b30/300/400' },
+      { id: 31, name: '熊熊 #031', style: 'watercolor', color: 'white', date: '2026-06-10', img: 'https://picsum.photos/seed/b31/300/340' },
+      { id: 32, name: '熊熊 #032', style: '3d', color: 'blue', date: '2026-06-10', img: 'https://picsum.photos/seed/b32/300/380' },
+      { id: 33, name: '熊熊 #033', style: 'oil', color: 'green', date: '2026-06-10', img: 'https://picsum.photos/seed/b33/300/320' },
+      { id: 34, name: '熊熊 #034', style: 'fantasy', color: 'brown', date: '2026-06-10', img: 'https://picsum.photos/seed/b34/300/400' },
+      { id: 35, name: '熊熊 #035', style: 'pixel', color: 'pink', date: '2026-06-10', img: 'https://picsum.photos/seed/b35/300/360' },
+      { id: 36, name: '熊熊 #036', style: 'watercolor', color: 'blue', date: '2026-06-11', img: 'https://picsum.photos/seed/b36/300/340' },
+      { id: 37, name: '熊熊 #037', style: '3d', color: 'white', date: '2026-06-11', img: 'https://picsum.photos/seed/b37/300/400' },
+      { id: 38, name: '熊熊 #038', style: 'oil', color: 'green', date: '2026-06-11', img: 'https://picsum.photos/seed/b38/300/380' },
+      { id: 39, name: '熊熊 #039', style: 'fantasy', color: 'pink', date: '2026-06-11', img: 'https://picsum.photos/seed/b39/300/320' },
+      { id: 40, name: '熊熊 #040', style: 'pixel', color: 'blue', date: '2026-06-11', img: 'https://picsum.photos/seed/b40/300/400' },
+      { id: 41, name: '熊熊 #041', style: 'watercolor', color: 'brown', date: '2026-06-12', img: 'https://picsum.photos/seed/b41/300/360' },
+      { id: 42, name: '熊熊 #042', style: '3d', color: 'white', date: '2026-06-12', img: 'https://picsum.photos/seed/b42/300/340' },
+      { id: 43, name: '熊熊 #043', style: 'oil', color: 'pink', date: '2026-06-12', img: 'https://picsum.photos/seed/b43/300/400' },
+      { id: 44, name: '熊熊 #044', style: 'fantasy', color: 'green', date: '2026-06-12', img: 'https://picsum.photos/seed/b44/300/380' },
+      { id: 45, name: '熊熊 #045', style: 'pixel', color: 'blue', date: '2026-06-12', img: 'https://picsum.photos/seed/b45/300/320' },
+      { id: 46, name: '熊熊 #046', style: 'watercolor', color: 'brown', date: '2026-06-13', img: 'https://picsum.photos/seed/b46/300/400' },
+      { id: 47, name: '熊熊 #047', style: '3d', color: 'pink', date: '2026-06-13', img: 'https://picsum.photos/seed/b47/300/360' },
+      { id: 48, name: '熊熊 #048', style: 'oil', color: 'white', date: '2026-06-13', img: 'https://picsum.photos/seed/b48/300/340' },
+      { id: 49, name: '熊熊 #049', style: 'fantasy', color: 'blue', date: '2026-06-13', img: 'https://picsum.photos/seed/b49/300/400' },
+      { id: 50, name: '熊熊 #050', style: 'pixel', color: 'green', date: '2026-06-13', img: 'https://picsum.photos/seed/b50/300/380' },
+    ];
+
+    // ========================================
+    // State
+    // ========================================
+    let selectedIds = new Set();
+    let starredIds = new Set(JSON.parse(localStorage.getItem('starredBears') || '[]'));
+    let currentMode = 'checkbox';
+    let lastClickedId = null;
+
+    // Load saved selections
+    const savedSelections = JSON.parse(localStorage.getItem('selectedBears') || '[]');
+    savedSelections.forEach(id => selectedIds.add(id));
+
+    // ========================================
+    // Elements
+    // ========================================
+    const grid = document.getElementById('selection-grid');
+    const previewGrid = document.getElementById('preview-grid');
+    const emptyState = document.getElementById('empty-state');
+    const selectedCount = document.getElementById('selected-count');
+    const selectionBar = document.getElementById('selection-bar');
+    const barCount = document.getElementById('bar-count');
+    const searchInput = document.getElementById('search-input');
+    const styleFilter = document.getElementById('style-filter');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxInfo = document.getElementById('lightbox-info');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    // ========================================
+    // Render Grid
+    // ========================================
+    function renderGrid(filteredBears = bears) {
+      grid.innerHTML = filteredBears.map(bear => `
+        <div class="masonry-item">
+          <div class="selectable-card ${selectedIds.has(bear.id) ? 'selected' : ''}"
+               data-id="${bear.id}"
+               data-style="${bear.style}"
+               data-name="${bear.name}">
+            <div class="card-checkbox"></div>
+            <div class="card-star ${starredIds.has(bear.id) ? 'starred' : ''}" data-star="${bear.id}">
+              ${starredIds.has(bear.id) ? '★' : '☆'}
+            </div>
+            <span class="selection-badge">${selectedIds.has(bear.id) ? Array.from(selectedIds).indexOf(bear.id) + 1 : ''}</span>
+            <img src="${bear.img}" alt="${bear.name}" loading="lazy">
+            <div class="card-info">
+              <h4>${bear.name}</h4>
+              <p>${bear.date} · ${bear.style}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Update selection badge numbers
+      updateSelectionBadgeNumbers();
+    }
+
+    function updateSelectionBadgeNumbers() {
+      const cards = grid.querySelectorAll('.selectable-card');
+      cards.forEach(card => {
+        const id = parseInt(card.dataset.id);
+        const badge = card.querySelector('.selection-badge');
+        if (selectedIds.has(id)) {
+          const index = Array.from(selectedIds).indexOf(id) + 1;
+          badge.textContent = index;
+        } else {
+          badge.textContent = '';
+        }
+      });
+    }
+
+    // ========================================
+    // Selection Logic
+    // ========================================
+    grid.addEventListener('click', (e) => {
+      const card = e.target.closest('.selectable-card');
+      const star = e.target.closest('.card-star');
+
+      if (star) {
+        // Toggle star
+        e.stopPropagation();
+        const id = parseInt(star.dataset.star);
+        if (starredIds.has(id)) {
+          starredIds.delete(id);
+        } else {
+          starredIds.add(id);
+        }
+        localStorage.setItem('starredBears', JSON.stringify([...starredIds]));
+        star.classList.toggle('starred');
+        star.textContent = starredIds.has(id) ? '★' : '☆';
+        return;
+      }
+
+      if (!card) return;
+
+      const id = parseInt(card.dataset.id);
+
+      // Ctrl/Cmd + Click = Add to selection
+      if (e.ctrlKey || e.metaKey) {
+        toggleSelection(id);
+      }
+      // Shift + Click = Range selection
+      else if (e.shiftKey && lastClickedId !== null) {
+        const startIdx = bears.findIndex(b => b.id === lastClickedId);
+        const endIdx = bears.findIndex(b => b.id === id);
+        const [from, to] = startIdx < endIdx ? [startIdx, endIdx] : [endIdx, startIdx];
+        for (let i = from; i <= to; i++) {
+          selectedIds.add(bears[i].id);
+        }
+        updateSelection();
+      }
+      // Regular click = Single select (clear others)
+      else {
+        if (selectedIds.has(id) && selectedIds.size === 1) {
+          selectedIds.clear();
+        } else {
+          selectedIds.clear();
+          selectedIds.add(id);
+        }
+        updateSelection();
+      }
+
+      lastClickedId = id;
+    });
+
+    function toggleSelection(id) {
+      if (selectedIds.has(id)) {
+        selectedIds.delete(id);
+      } else {
+        selectedIds.add(id);
+      }
+      updateSelection();
+    }
+
+    function updateSelection() {
+      // Update cards
+      grid.querySelectorAll('.selectable-card').forEach(card => {
+        const id = parseInt(card.dataset.id);
+        card.classList.toggle('selected', selectedIds.has(id));
+      });
+
+      updateSelectionBadgeNumbers();
+      updatePreview();
+      updateSelectionBar();
+
+      // Save to localStorage
+      localStorage.setItem('selectedBears', JSON.stringify([...selectedIds]));
+    }
+
+    // ========================================
+    // Preview
+    // ========================================
+    function updatePreview() {
+      const selected = bears.filter(b => selectedIds.has(b.id));
+
+      if (selected.length === 0) {
+        emptyState.style.display = 'block';
+        previewGrid.querySelectorAll('.preview-item').forEach(el => el.remove());
+      } else {
+        emptyState.style.display = 'none';
+
+        // Clear old previews
+        previewGrid.querySelectorAll('.preview-item').forEach(el => el.remove());
+
+        selected.forEach(bear => {
+          const item = document.createElement('div');
+          item.className = 'preview-item';
+          item.innerHTML = `
+            <img src="${bear.img}" alt="${bear.name}">
+            <button class="remove-btn" data-remove="${bear.id}">×</button>
+          `;
+          previewGrid.appendChild(item);
+        });
+      }
+
+      selectedCount.textContent = `(${selectedIds.size})`;
+    }
+
+    previewGrid.addEventListener('click', (e) => {
+      const btn = e.target.closest('.remove-btn');
+      if (btn) {
+        const id = parseInt(btn.dataset.remove);
+        selectedIds.delete(id);
+        updateSelection();
+      }
+    });
+
+    // ========================================
+    // Selection Bar
+    // ========================================
+    function updateSelectionBar() {
+      if (selectedIds.size > 0) {
+        selectionBar.classList.add('visible');
+        barCount.textContent = selectedIds.size;
+      } else {
+        selectionBar.classList.remove('visible');
+      }
+    }
+
+    document.getElementById('btn-clear').addEventListener('click', () => {
+      selectedIds.clear();
+      updateSelection();
+    });
+
+    document.getElementById('btn-showcase').addEventListener('click', () => {
+      if (selectedIds.size > 0) {
+        const selected = bears.filter(b => selectedIds.has(b.id));
+        // Open lightbox with first selected
+        openLightbox(selected[0].id);
+      }
+    });
+
+    document.getElementById('btn-save').addEventListener('click', () => {
+      const name = prompt('請輸入精選集名稱：', '我的最愛熊熊');
+      if (name) {
+        const collection = {
+          name: name,
+          ids: [...selectedIds],
+          created: new Date().toISOString()
+        };
+        const collections = JSON.parse(localStorage.getItem('bearCollections') || '[]');
+        collections.push(collection);
+        localStorage.setItem('bearCollections', JSON.stringify(collections));
+        alert(`✅ 已儲存為「${name}」！\n包含 ${selectedIds.size} 張圖片`);
+      }
+    });
+
+    // ========================================
+    // Search & Filter
+    // ========================================
+    function applyFilters() {
+      const query = searchInput.value.toLowerCase();
+      const style = styleFilter.value;
+
+      const filtered = bears.filter(bear => {
+        const matchName = bear.name.toLowerCase().includes(query);
+        const matchStyle = style === 'all' || bear.style === style;
+        return matchName && matchStyle;
+      });
+
+      renderGrid(filtered);
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    styleFilter.addEventListener('change', applyFilters);
+
+    // ========================================
+    // Lightbox
+    // ========================================
+    grid.addEventListener('dblclick', (e) => {
+      const card = e.target.closest('.selectable-card');
+      if (card) {
+        openLightbox(parseInt(card.dataset.id));
+      }
+    });
+
+    function openLightbox(id) {
+      const bear = bears.find(b => b.id === id);
+      if (!bear) return;
+
+      lightboxImg.src = bear.img;
+      lightboxInfo.innerHTML = `
+        <h4>${bear.name}</h4>
+        <p>${bear.date} · ${bear.style}</p>
+      `;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // ========================================
+    // Mode Toggle
+    // ========================================
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMode = btn.dataset.mode;
+
+        if (currentMode === 'star') {
+          // Show only starred
+          const starred = bears.filter(b => starredIds.has(b.id));
+          renderGrid(starred);
+        } else {
+          applyFilters();
+        }
+      });
+    });
+
+    // ========================================
+    // Init
+    // ========================================
+    renderGrid();
+    updateSelectionBar();
+  </script>
+</body>
+</html>
