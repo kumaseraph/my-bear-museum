@@ -79,4 +79,21 @@ nav a.active { background-color: var(--color-primary); }
 function toggleNav() {
     document.getElementById('mainNav').classList.toggle('expanded');
 }
+
+// Update active nav link based on current page
+(function() {
+    const pathParts = window.location.pathname.split('/');
+    const currentPage = pathParts[pathParts.length - 1] || 'index.html';
+    const currentBase = currentPage.replace(/\.html$/, '');
+    
+    document.querySelectorAll('nav a').forEach(a => {
+        const href = a.getAttribute('href');
+        const hrefBase = href.replace(/\.html$/, '');
+        if (hrefBase === currentBase || href === currentPage) {
+            a.classList.add('active');
+        } else {
+            a.classList.remove('active');
+        }
+    });
+})();
 </script>
