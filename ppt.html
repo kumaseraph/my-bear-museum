@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📊 熊熊 PPT 素材庫</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #fdf6e3;
             color: #5d4037;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
+        
+        /* Navigation */
         nav {
             background-color: #a1887f;
             width: 100%;
@@ -23,6 +22,9 @@
             gap: 20px;
             padding: 10px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         nav a {
             color: white;
@@ -34,6 +36,8 @@
         }
         nav a:hover { background-color: #8d6e63; }
         nav a.active { background-color: #5d4037; }
+        
+        /* Header */
         header {
             background-color: #5d4037;
             color: white;
@@ -44,806 +48,1840 @@
         }
         h1 { margin: 0; font-size: 2.5rem; }
         .subtitle { font-size: 1.1rem; margin-top: 0.5rem; opacity: 0.9; }
-        .container { padding: 40px; max-width: 1200px; width: 95%; }
-        .material-section {
+        
+        /* Main Container */
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 0;
+            overflow: hidden;
+            transition: width 0.3s ease, padding 0.3s ease;
             background: white;
             border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-            border: 4px solid #d7ccc8;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            flex-shrink: 0;
+            opacity: 0;
         }
-        .section-title {
+        .sidebar.open {
+            width: 280px;
+            padding: 20px;
+            opacity: 1;
+        }
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d7ccc8;
+        }
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #5d4037;
+        }
+        .sidebar-close {
+            background: none;
+            border: none;
             font-size: 1.5rem;
+            cursor: pointer;
+            color: #a1887f;
+        }
+        .sidebar-close:hover { color: #5d4037; }
+        
+        /* Filter Sections */
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        .filter-label {
+            font-size: 0.95rem;
             font-weight: bold;
             color: #795548;
-            border-bottom: 2px solid #d7ccc8;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
-        .material-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        .material-item {
-            background: #fffbf0;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid #e7d8c9;
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-            color: inherit;
+        .filter-options {
             display: flex;
             flex-direction: column;
+            gap: 8px;
+        }
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .filter-option:hover { background: #faf6f1; }
+        .filter-option.active { background: #e7d8c9; }
+        .filter-option input { display: none; }
+        .filter-radio, .filter-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #d7ccc8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .filter-option.active .filter-radio {
+            background: #5d4037;
+            border-color: #5d4037;
+        }
+        .filter-option.active .filter-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+        .filter-option.active .filter-checkbox {
+            background: #5d4037;
+            border-color: #5d4037;
+        }
+        .filter-option.active .filter-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+        }
+        
+        /* Style color dots */
+        .style-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .style-formal { background: #5c6bc0; }
+        .style-simple { background: #78909c; }
+        .style-creative { background: #ab47bc; }
+        .style-bear { background: #8d6e63; }
+        .style-nature { background: #66bb6a; }
+        .style-festival { background: #ef5350; }
+        
+        .clear-filters {
+            width: 100%;
+            padding: 10px;
+            background: #e7d8c9;
+            border: none;
+            border-radius: 10px;
+            color: #5d4037;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .clear-filters:hover { background: #d7ccc8; }
+
+        /* Tag Filter Section */
+        .tag-section {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #d7ccc8;
+        }
+        .tag-section:last-of-type {
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
+        .tag-section-label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #795548;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tag-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tag-btn {
+            padding: 5px 10px;
+            border: 2px solid #d7ccc8;
+            border-radius: 15px;
+            background: white;
+            color: #5d4037;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .tag-btn:hover { border-color: #a1887f; }
+        .tag-btn.active {
+            background: #5d4037;
+            border-color: #5d4037;
+            color: white;
+        }
+        .tag-btn.radio.active {
+            background: #5d4037;
+            border-color: #5d4037;
+        }
+        .tag-btn.checkbox.active {
+            background: #8d6e63;
+            border-color: #8d6e63;
+        }
+
+        /* Category Group Display */
+        .category-group {
+            margin-bottom: 30px;
+        }
+        .category-group-header {
+            display: flex;
             align-items: center;
             gap: 10px;
-            cursor: pointer;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e7d8c9;
         }
-        .material-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-            background: #fff;
-        }
-        .material-thumb {
-            width: 180px;
-            height: 120px;
-            object-fit: contain;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 2px solid #d7ccc8;
-            background: white;
-        }
-        .material-thumb:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .material-name {
+        .category-group-title {
+            font-size: 1.1rem;
             font-weight: bold;
+            color: #5d4037;
+        }
+        .category-group-count {
             font-size: 0.85rem;
-            word-break: break-all;
-        }
-        .material-desc {
             color: #a1887f;
-            font-size: 0.75rem;
-            margin-top: -5px;
+            background: #f5efe9;
+            padding: 3px 10px;
+            border-radius: 12px;
         }
-        /* 燈箱效果 */
-        #lightbox {
+
+        /* Download Modal */
+        .download-modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.5);
+            z-index: 10001;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            flex-direction: column;
         }
-        #lightbox.active { display: flex; }
-        #lightbox-img {
-            max-width: 85%;
-            max-height: 75%;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+        .download-modal-overlay.active { display: flex; }
+        .download-modal {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            width: 340px;
+            max-width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
-        #lightbox-info { color: white; margin: 15px 0; font-size: 1.1rem; }
-        #lightbox-nav { display: flex; gap: 20px; align-items: center; }
-        .nav-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
+        .download-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .download-modal-title {
             font-size: 1.2rem;
-            cursor: pointer;
-            transition: background 0.3s;
+            font-weight: bold;
+            color: #5d4037;
         }
-        .nav-btn:hover { background: rgba(255,255,255,0.4); }
-        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        #lightbox-close {
-            position: absolute;
-            top: 20px; right: 30px;
-            color: white;
-            font-size: 2.5rem;
-            cursor: pointer;
+        .download-modal-close {
             background: none;
             border: none;
-        }
-        #lightbox-close:hover { color: #ff6b6b; }
-        .lightbox-download {
-            background: #8d6e63;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 1rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            border: none;
-            margin-top: 10px;
+            color: #a1887f;
         }
-        .lightbox-download:hover { background: #5d4037; }
-        .format-select {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            cursor: pointer;
-        }
-        .format-select option { background: #5d4037; color: white; }
-        .loading { color: #a1887f; font-style: italic; }
-        footer { margin-top: 40px; padding: 20px; color: #a1887f; font-size: 0.9rem; }
-
-        /* 統一邊框預覽樣式 */
-        .borders-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .border-group {
-            background: #faf6f1;
-            border-radius: 12px;
-            padding: 20px;
-            border: 2px dashed #d7ccc8;
-        }
-        .border-group-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #6d4c41;
+        .download-modal-close:hover { color: #5d4037; }
+        .download-section {
             margin-bottom: 15px;
-            text-align: center;
         }
-        .border-group-items {
+        .download-section-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #795548;
+            margin-bottom: 8px;
+        }
+        .format-options {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
         }
-        .border-item {
+        .format-btn {
+            padding: 10px 5px;
+            border: 2px solid #d7ccc8;
+            border-radius: 10px;
             background: white;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
+            color: #5d4037;
+            font-size: 0.9rem;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.2s;
-            border: 1px solid #e7d8c9;
+            text-align: center;
         }
-        .border-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        .format-btn:hover { border-color: #a1887f; }
+        .format-btn.active {
+            background: #5d4037;
+            border-color: #5d4037;
+            color: white;
         }
-        .border-item img {
-            width: 100%;
-            height: 80px;
-            object-fit: contain;
-            border-radius: 4px;
-            border: 1px solid #d7ccc8;
+        .bg-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .bg-btn {
+            padding: 12px;
+            border: 2px solid #d7ccc8;
+            border-radius: 12px;
             background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
         }
-        .border-item-name {
-            font-size: 0.8rem;
-            color: #5d4037;
-            margin-top: 8px;
+        .bg-btn:hover { border-color: #a1887f; }
+        .bg-btn.active {
+            background: #f5efe9;
+            border-color: #5d4037;
+        }
+        .bg-btn-label {
             font-weight: bold;
+            color: #5d4037;
+            margin-bottom: 4px;
         }
-        /* 分頁 tab 樣式 */
+        .bg-btn-desc {
+            font-size: 0.75rem;
+            color: #a1887f;
+        }
+        .download-confirm {
+            width: 100%;
+            padding: 12px;
+            background: #5d4037;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        .download-confirm:hover { background: #4a322c; }
+        
+        /* Content Area */
+        .content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .search-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 45px;
+            border: 2px solid #d7ccc8;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: white;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #5d4037;
+        }
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #a1887f;
+        }
+        .search-clear {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #a1887f;
+            cursor: pointer;
+            display: none;
+        }
+        .search-clear.visible { display: block; }
+        .search-clear:hover { color: #5d4037; }
+        
+        .filter-btn, .favorites-btn {
+            padding: 12px 20px;
+            border: 2px solid #d7ccc8;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .filter-btn:hover, .favorites-btn:hover {
+            border-color: #5d4037;
+            background: #fdf6e3;
+        }
+        .filter-btn.active, .favorites-btn.active {
+            background: #5d4037;
+            color: white;
+            border-color: #5d4037;
+        }
+        
+        /* Results count */
+        .results-count {
+            margin-bottom: 15px;
+            color: #a1887f;
+            font-size: 0.9rem;
+        }
+        
+        /* Tab Container */
         .tab-container {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            justify-content: center;
-            margin-bottom: 30px;
-            padding: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         .tab-btn {
-            padding: 12px 24px;
+            padding: 10px 20px;
             border: none;
             background: #e7d8c9;
             color: #5d4037;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
-            border-radius: 25px;
+            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .tab-btn:hover { background: #d7ccc8; }
         .tab-btn.active {
             background: #5d4037;
             color: white;
         }
-        .section-hidden { display: none; }
-        .section-visible { display: block; }
-        /* 子分頁 tab 樣式 */
-        .sub-tab-container {
+        .tab-count {
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .tab-btn.active .tab-count {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* Material Grid */
+        .material-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        
+        /* Material Card */
+        .material-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .material-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .material-card.favorited {
+            border-color: #d4a574;
+        }
+        
+        .card-thumb {
+            width: 100%;
+            height: 140px;
+            object-fit: contain;
+            background: #faf6f1;
+            padding: 15px;
+        }
+        
+        .card-favorite {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .material-card:hover .card-favorite,
+        .material-card.favorited .card-favorite {
+            opacity: 1;
+        }
+        .material-card.favorited .card-favorite::before {
+            content: '★';
+            color: #d4a574;
+        }
+        
+        .card-content {
+            padding: 15px;
+        }
+        .card-name {
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            color: #5d4037;
+        }
+        .card-desc {
+            font-size: 0.8rem;
+            color: #a1887f;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .card-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #faf6f1;
-            border-radius: 15px;
+            gap: 6px;
         }
-        .sub-tab-btn {
-            padding: 8px 16px;
-            border: none;
+        .card-tag {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
             background: #e7d8c9;
             color: #5d4037;
-            font-size: 0.9rem;
-            font-weight: bold;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
         }
-        .sub-tab-btn:hover { background: #d7ccc8; }
-        .sub-tab-btn.active {
-            background: #8d6e63;
+        .card-tag.style-tag {
             color: white;
         }
-        .sub-section-hidden { display: none; }
-        .sub-section-visible { display: block; }
-        .group-hidden { display: none; }
-        .group-visible { display: block; }
+        .card-tag.style-formal { background: #5c6bc0; }
+        .card-tag.style-simple { background: #78909c; }
+        .card-tag.style-creative { background: #ab47bc; }
+        .card-tag.style-bear { background: #8d6e63; }
+        .card-tag.style-nature { background: #66bb6a; }
+        .card-tag.style-festival { background: #ef5350; }
+        
+        /* No results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #a1887f;
+        }
+        .no-results-icon { font-size: 4rem; margin-bottom: 20px; }
+        .no-results-text { font-size: 1.2rem; margin-bottom: 10px; }
+        .no-results-hint { font-size: 0.9rem; }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #a1887f;
+            font-size: 0.9rem;
+        }
+        
+        /* ========== LIGHTBOX ========== */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255,255,255,0.98);
+            z-index: 9999;
+            flex-direction: column;
+            padding: 20px;
+        }
+        #lightbox.active { display: flex; }
+        
+        .lightbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .lightbox-counter {
+            color: #333;
+            font-size: 1.1rem;
+        }
+        #lightbox-close {
+            color: #333;
+            font-size: 2.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        #lightbox-close:hover { color: #ff6b6b; }
+        
+        .lightbox-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .lightbox-main.zoomed {
+            cursor: grab;
+        }
+        .lightbox-main.zoomed.dragging {
+            cursor: grabbing;
+        }
+        #lightbox-img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.15);
+            transition: transform 0.2s ease;
+        }
+        #lightbox-img.zoomed {
+            transform: scale(1.5);
+            cursor: zoom-out;
+            max-width: none;
+            max-height: none;
+        }
+        .zoom-hint {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        
+        /* Fullscreen mode */
+        #lightbox.fullscreen .lightbox-header,
+        #lightbox.fullscreen .lightbox-strip,
+        #lightbox.fullscreen .lightbox-info {
+            display: none !important;
+        }
+        #lightbox.fullscreen .lightbox-main {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: white;
+            z-index: 10000;
+        }
+        #lightbox.fullscreen #lightbox-img {
+            cursor: grab;
+        }
+        #lightbox.fullscreen #lightbox-img.dragging {
+            cursor: grabbing;
+        }
+        #lightbox.fullscreen .zoom-hint {
+            bottom: 20px;
+            font-size: 1rem;
+            padding: 8px 16px;
+        }
+        
+        /* Other materials strip */
+        .lightbox-strip {
+            background: rgba(0,0,0,0.03);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .lightbox-strip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .lightbox-strip-title {
+            font-size: 0.95rem;
+            opacity: 0.6;
+        }
+        .lightbox-strip-nav {
+            display: flex;
+            gap: 10px;
+        }
+        .strip-nav-btn {
+            background: rgba(0,0,0,0.08);
+            color: #333;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.2s;
+        }
+        .strip-nav-btn:hover { background: rgba(0,0,0,0.15); }
+        
+        .lightbox-strip-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 5px 0;
+        }
+        .lightbox-strip-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .lightbox-strip-scroll::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.08);
+            border-radius: 3px;
+        }
+        .lightbox-strip-scroll::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 3px;
+        }
+        
+        .strip-item {
+            flex-shrink: 0;
+            width: 80px;
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 3px solid transparent;
+            transition: border-color 0.2s;
+            background: rgba(0,0,0,0.05);
+        }
+        .strip-item:hover { border-color: rgba(0,0,0,0.2); }
+        .strip-item.active { border-color: #d4a574; }
+        .strip-item img {
+            width: 100%;
+            height: 60px;
+            object-fit: contain;
+            padding: 5px;
+        }
+        .strip-item.favorited::after {
+            content: '★';
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            color: #d4a574;
+            font-size: 0.8rem;
+        }
+        
+        /* Lightbox Info */
+        .lightbox-info {
+            background: rgba(0,0,0,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        .lightbox-info-name {
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .lightbox-info-desc {
+            color: rgba(0,0,0,0.6);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        .lightbox-info-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: rgba(0,0,0,0.5);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        .lightbox-info-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .lightbox-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .lightbox-action {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            position: relative;
+            z-index: 10;
+        }
+        .lightbox-action.primary {
+            background: #5d4037;
+            color: white;
+        }
+        .lightbox-action.primary:hover { background: #4a322c; }
+        .lightbox-action.secondary {
+            background: rgba(0,0,0,0.08);
+            color: #333;
+        }
+        .lightbox-action.secondary:hover { background: rgba(0,0,0,0.15); }
+        .lightbox-action.active {
+            background: #d4a574;
+            color: white;
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                z-index: 200;
+                border-radius: 0;
+            }
+            .sidebar.open {
+                width: 280px;
+            }
+            .material-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .search-bar { flex-wrap: wrap; }
+            .search-input-wrapper { width: 100%; }
+            .filter-btn, .favorites-btn { flex: 1; justify-content: center; }
+            .tab-btn { padding: 8px 15px; font-size: 0.85rem; }
+            .material-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .card-thumb { height: 100px; }
+            .lightbox-actions { justify-content: center; }
+        }
     </style>
 </head>
 <body>
-    <div id="lightbox">
-        <button id="lightbox-close" onclick="closeLightbox()">×</button>
-        <img id="lightbox-img" src="" alt="預覽">
-        <div id="lightbox-info"></div>
-        <div id="lightbox-nav">
-            <button class="nav-btn" id="prev-btn" onclick="prevImage()">◀ 上一張</button>
-            <button class="lightbox-download" onclick="downloadCurrent()">⬇ 直接下載</button>
-            <select class="format-select" id="format-select">
-                <option value="svg">SVG (原始)</option>
-                <option value="png">PNG</option>
-                <option value="jpeg">JPEG</option>
-                <option value="webp">WEBP</option>
-            </select>
-            <button class="nav-btn" id="next-btn" onclick="nextImage()">下一張 ▶</button>
-        </div>
-    </div>
     <nav>
         <a href="index.html">🐻 熊熊博物館</a>
         <a href="ppt.html" class="active">📊 PPT 素材庫</a>
+        <a href="vocabulary.html">📚 詞彙庫</a>
         <a href="slides.html">📝 熊熊簡報</a>
         <a href="video.html">🎬 熊熊短影音</a>
-        <a href="test-gallery.html">📷 圖片瀏覽</a>
-        <a href="test-selection.html">✨ 圖片選擇</a>
-        <a href="test-stripe.html">🎨 設計系統</a>
     </nav>
+    
     <header>
         <h1>📊 熊熊 PPT 素材庫</h1>
         <div class="subtitle">為你的工作報告注入可愛與專業 ✨</div>
     </header>
-    <div class="container">
-        <div class="tab-container" id="tab-container"></div>
-        <div id="materials-container">
-            <p class="loading">熊熊正在準備素材中... ʕっ•ᴥ•ʔっ</p>
+    
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-title">🎨 篩選</span>
+                <button class="sidebar-close" onclick="toggleSidebar()">×</button>
+            </div>
+            
+            <!-- Style Filter -->
+            <div class="filter-section">
+                <div class="filter-label">🎨 風格</div>
+                <div class="filter-options" id="style-filters">
+                    <label class="filter-option active" data-style="all">
+                        <input type="radio" name="style" value="all" checked>
+                        <span class="filter-radio"></span>
+                        <span class="style-dot" style="background: linear-gradient(135deg, #5c6bc0, #78909c, #ab47bc, #8d6e63, #66bb6a, #ef5350);"></span>
+                        全部
+                    </label>
+                    <label class="filter-option" data-style="formal">
+                        <input type="radio" name="style" value="formal">
+                        <span class="filter-radio"></span>
+                        <span class="style-dot style-formal"></span>
+                        🏛️ 正式
+                    </label>
+                    <label class="filter-option" data-style="simple">
+                        <input type="radio" name="style" value="simple">
+                        <span class="filter-radio"></span>
+                        <span class="style-dot style-simple"></span>
+                        ✨ 簡潔
+                    </label>
+                    <label class="filter-option" data-style="creative">
+                        <input type="radio" name="style" value="creative">
+                        <span class="filter-radio"></span>
+                        <span class="style-dot style-creative"></span>
+                        🎨 創意
+                    </label>
+                    <label class="filter-option" data-style="bear">
+                        <input type="radio" name="style" value="bear">
+                        <span class="filter-radio"></span>
+                        <span class="style-dot style-bear"></span>
+                        🐻 熊熊
+                    </label>
+                    <label class="filter-option" data-style="nature">
+                        <input type="radio" name="style" value="nature">
+                        <span class="filter-radio"></span>
+                        <span class="style-dot style-nature"></span>
+                        🌿 自然
+                    </label>
+                    <label class="filter-option" data-style="festival">
+                        <input type="radio" name="style" value="festival">
+                        <span class="filter-radio"></span>
+                        <span class="style-dot style-festival"></span>
+                        🎊 節慶
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Format Filter -->
+            <div class="filter-section">
+                <div class="filter-label">📄 格式</div>
+                <div class="filter-options" id="format-filters">
+                    <label class="filter-option" data-format="svg">
+                        <input type="checkbox" name="format" value="svg" checked>
+                        <span class="filter-checkbox"></span>
+                        SVG
+                    </label>
+                    <label class="filter-option" data-format="png">
+                        <input type="checkbox" name="format" value="png" checked>
+                        <span class="filter-checkbox"></span>
+                        PNG
+                    </label>
+                    <label class="filter-option" data-format="jpg">
+                        <input type="checkbox" name="format" value="jpg" checked>
+                        <span class="filter-checkbox"></span>
+                        JPG
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Date Filter -->
+            <div class="filter-section">
+                <div class="filter-label">📅 日期</div>
+                <div class="filter-options" id="date-filters">
+                    <label class="filter-option" data-date="all">
+                        <input type="radio" name="date" value="all" checked>
+                        <span class="filter-radio"></span>
+                        全部
+                    </label>
+                    <label class="filter-option" data-date="today">
+                        <input type="radio" name="date" value="today">
+                        <span class="filter-radio"></span>
+                        今天
+                    </label>
+                    <label class="filter-option" data-date="week">
+                        <input type="radio" name="date" value="week">
+                        <span class="filter-radio"></span>
+                        本週
+                    </label>
+                    <label class="filter-option" data-date="month">
+                        <input type="radio" name="date" value="month">
+                        <span class="filter-radio"></span>
+                        本月
+                    </label>
+                </div>
+            </div>
+
+            <!-- Tag Filters -->
+            <div class="filter-section">
+                <div class="filter-label">🏷️ 標籤</div>
+
+                <!-- Style Tags (Single Select) -->
+                <div class="tag-section">
+                    <div class="tag-section-label">🏛️ 風格</div>
+                    <div class="tag-options" id="tag-style">
+                        <button class="tag-btn radio active" data-tag-style="all">全部</button>
+                        <button class="tag-btn radio" data-tag-style="formal">🏛️ 正式</button>
+                        <button class="tag-btn radio" data-tag-style="simple">✨ 簡潔</button>
+                        <button class="tag-btn radio" data-tag-style="creative">🎨 創意</button>
+                        <button class="tag-btn radio" data-tag-style="bear">🐻 熊熊</button>
+                        <button class="tag-btn radio" data-tag-style="nature">🌿 自然</button>
+                    </div>
+                </div>
+
+                <!-- Shape Tags (Multi Select) -->
+                <div class="tag-section">
+                    <div class="tag-section-label">📐 形狀/構圖</div>
+                    <div class="tag-options" id="tag-shape">
+                        <button class="tag-btn checkbox" data-tag-shape="square">⬜ 方角</button>
+                        <button class="tag-btn checkbox" data-tag-shape="rounded">🔵 圓角</button>
+                        <button class="tag-btn checkbox" data-tag-shape="diagonal">📐 斜角</button>
+                        <button class="tag-btn checkbox" data-tag-shape="circle">⭕ 圓形</button>
+                    </div>
+                </div>
+
+                <!-- Usage Tags (Multi Select) -->
+                <div class="tag-section">
+                    <div class="tag-section-label">🎯 應用場景</div>
+                    <div class="tag-options" id="tag-usage">
+                        <button class="tag-btn checkbox" data-tag-usage="cover">📌 封面</button>
+                        <button class="tag-btn checkbox" data-tag-usage="inner">📄 內頁</button>
+                        <button class="tag-btn checkbox" data-tag-usage="section">📑 章節</button>
+                        <button class="tag-btn checkbox" data-tag-usage="ending">📎 結尾</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="clear-filters" onclick="clearAllFilters()">清除所有篩選</button>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <div class="search-input-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" id="searchInput" placeholder="搜尋素材名稱或說明...">
+                    <button class="search-clear" id="searchClear" onclick="clearSearch()">×</button>
+                </div>
+                <button class="filter-btn" id="filterBtn" onclick="toggleSidebar()">🔧 篩選</button>
+                <button class="favorites-btn" id="favoritesBtn" onclick="toggleFavoritesOnly()">★ 收藏</button>
+            </div>
+            
+            <!-- Results Count -->
+            <div class="results-count" id="resultsCount">載入中...</div>
+            
+            <!-- Tab Container -->
+            <div class="tab-container" id="tabContainer"></div>
+            
+            <!-- Material Grid -->
+            <div class="material-grid" id="materialGrid"></div>
+            
+            <!-- No Results -->
+            <div class="no-results" id="noResults" style="display:none;">
+                <div class="no-results-icon">🔍</div>
+                <div class="no-results-text">沒有找到符合的素材</div>
+                <div class="no-results-hint">試試其他關鍵字或調整篩選條件</div>
+            </div>
         </div>
     </div>
+
     <footer>由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ</footer>
+
+    <!-- Download Modal -->
+    <div class="download-modal-overlay" id="downloadModal">
+        <div class="download-modal">
+            <div class="download-modal-header">
+                <span class="download-modal-title">⬇ 下載素材</span>
+                <button class="download-modal-close" onclick="closeDownloadModal()">×</button>
+            </div>
+            <div class="download-section">
+                <div class="download-section-label">📄 格式</div>
+                <div class="format-options">
+                    <button class="format-btn active" data-format="svg">SVG</button>
+                    <button class="format-btn" data-format="png">PNG</button>
+                    <button class="format-btn" data-format="jpeg">JPEG</button>
+                    <button class="format-btn" data-format="webp">WebP</button>
+                </div>
+            </div>
+            <div class="download-section">
+                <div class="download-section-label">🖼️ 背景選項</div>
+                <div class="bg-options">
+                    <button class="bg-btn active" data-bg="original">
+                        <div class="bg-btn-label">A. 原始外觀</div>
+                        <div class="bg-btn-desc">文字燒進去</div>
+                    </button>
+                    <button class="bg-btn" data-bg="clean">
+                        <div class="bg-btn-label">B. 留白模板</div>
+                        <div class="bg-btn-desc">移除文字</div>
+                    </button>
+                </div>
+            </div>
+            <button class="download-confirm" onclick="confirmDownload()">確認下載</button>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox">
+        <div class="lightbox-header">
+            <span class="lightbox-counter" id="lightboxCounter">1 / 12</span>
+            <button id="lightbox-close" onclick="closeLightbox()">×</button>
+        </div>
+        
+        <div class="lightbox-main" id="lightboxMain">
+            <img id="lightbox-img" src="" alt="預覽" onclick="toggleFullscreen()">
+            <div class="zoom-hint" id="zoomHint">點擊進入全螢幕 🔍</div>
+        </div>
+        
+        <!-- Other Materials Strip -->
+        <div class="lightbox-strip">
+            <div class="lightbox-strip-header">
+                <span class="lightbox-strip-title" id="stripTitle">同分類素材</span>
+                <div class="lightbox-strip-nav">
+                    <button class="strip-nav-btn" onclick="scrollStrip(-1)">◀</button>
+                    <button class="strip-nav-btn" onclick="scrollStrip(1)">▶</button>
+                </div>
+            </div>
+            <div class="lightbox-strip-scroll" id="stripScroll"></div>
+        </div>
+        
+        <div class="lightbox-info">
+            <div class="lightbox-info-name" id="lightboxName">素材名稱</div>
+            <div class="lightbox-info-desc" id="lightboxDesc">素材說明</div>
+            <div class="lightbox-info-meta">
+                <span>📅 <span id="lightboxDate">2026-06-06</span></span>
+                <span>📄 <span id="lightboxFormat">SVG</span></span>
+                <span>🏷️ <span id="lightboxCategory">邊框</span></span>
+                <span>🎨 <span id="lightboxStyle">🏛️ 正式</span></span>
+            </div>
+            <div class="lightbox-actions">
+                <button class="lightbox-action primary" onclick="downloadCurrent()">⬇ 下載</button>
+                <!-- <button class="lightbox-action secondary" onclick="copySvgCode()">📋 複製程式碼</button> -->
+                <button class="lightbox-action secondary" id="lightboxFavBtn" onclick="toggleFavorite()">☆ 收藏</button>
+                <button class="lightbox-action secondary" onclick="shareLink()">🔗 分享</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
-        // 素材分類定義
-        const materialCategories = [
-            {
-                name: '🎨 邊框素材',
-                folder: 'borders',
-                groups: [
-                    {
-                        title: '📐 四角邊框 (角落裝飾)',
-                        files: ['20260603_四角邊框_01.svg', '20260604_四角邊框_01.svg', '20260605_四角邊框_01.svg', '20260606_四角邊框_01.svg'],
-                        desc: '單一角裝飾設計'
-                    },
-                    {
-                        title: '➖ 單側邊框 (上下左右/分隔線)',
-                        files: ['20260603_單側邊框_長.svg', '20260603_單側邊框_寬.svg', '20260604_單側邊框_長.svg', '20260604_單側邊框_寬.svg', '20260605_單側邊框_長.svg', '20260605_單側邊框_寬.svg', '20260606_單側邊框_長.svg', '20260606_單側邊框_寬.svg'],
-                        desc: '水平或垂直線條裝飾（含分隔線）'
-                    },
-                    {
-                        title: '⬜ 全框邊框 (四邊組合)',
-                        files: ['20260603_全框邊框_01.svg', '20260603_全框邊框_雙層虛線.svg', '20260603_全框邊框_三層古典.svg', '20260603_全框邊框_弧角.svg', '20260603_全框邊框_對角線.svg', '20260603_全框邊框_現代商務風.svg', '20260604_全框邊框_01.svg', '20260605_全框邊框_01.svg', '20260606_全框邊框_商務報告.svg'],
-                        desc: '四面完整的邊框設計'
-                    }
-                ]
-            },
-            {
-                name: '💡 實用圖標',
-                subtitle: '工作報告必備素材',
-                folder: 'icons',
-                groups: [
-                    {
-                        title: '👥 人員相關',
-                        files: ['20260603_圖標_人員.svg', '20260604_圖標_團隊協作.svg', '20260605_圖標_團隊協作.svg'],
-                        desc: '團隊與人力資源'
-                    },
-                    {
-                        title: '📄 內容相關',
-                        files: ['20260603_圖標_報告.svg', '20260603_圖標_想法.svg', '20260603_圖標_成就.svg', '20260604_圖標_成長趨勢.svg', '20260604_圖標_目標達成.svg', '20260605_圖標_會議報告.svg', '20260605_圖標_目標達成.svg', '20260605_圖標_成長趨勢.svg', '20260606_圖標_工作報告成果.svg', '20260606_圖標_創意思維.svg'],
-                        desc: '報告與創意內容'
-                    }
-                ]
-            },
-            {
-                name: '🖼️ 背景圖片',
-                subtitle: '政府機關正式風格 · 藍灰色系',
-                folder: 'backgrounds',
-                groups: [
-                    {
-                        title: '📋 政府機關正式風格',
-                        files: [
-                            '20260604_背景_政策說明.jpg',
-                            '20260604_背景_施政成果.jpg',
-                            '20260604_背景_業務報告.jpg',
-                            '20260604_背景_年度計畫.jpg',
-                            '20260604_背景_議會專案.jpg'
-                        ],
-                        desc: '政策說明 / 施政成果 / 業務報告 / 年度計畫 / 議會專案'
-                    },
-                    {
-                        title: '💻 科技應用',
-                        files: [
-                            '20260604_背景_AI治理.jpg',
-                            '20260604_背景_智慧城市.jpg',
-                            '20260604_背景_大數據.jpg',
-                            '20260604_背景_雲端服務.jpg',
-                            '20260604_背景_資訊安全.jpg'
-                        ],
-                        desc: 'AI治理 / 智慧城市 / 大數據 / 雲端服務 / 資訊安全'
-                    },
-                    {
-                        title: '🏆 活動場合',
-                        files: [
-                            '20260604_背景_活動成果.jpg',
-                            '20260604_背景_頒獎典禮.jpg',
-                            '20260604_背景_記者會.jpg',
-                            '20260604_背景_成果發表.jpg',
-                            '20260604_背景_國際交流.jpg'
-                        ],
-                        desc: '活動成果 / 頒獎典禮 / 記者會 / 成果發表 / 國際交流'
-                    },
-                    {
-                        title: '✨ 通用風格',
-                        files: [
-                            '20260604_背景_極簡藍色.jpg',
-                            '20260604_背景_幾何線條.jpg',
-                            '20260604_背景_科技感.jpg',
-                            '20260604_背景_漸層.jpg',
-                            '20260604_背景_高質感白底.jpg',
-                            '20260605_背景_極簡線條.svg',
-                            '20260605_背景_學院風格.svg',
-                            '20260605_背景_可愛熊熊.svg'
-                        ],
-                        desc: '極簡藍色 / 幾何線條 / 科技感 / 漸層 / 高質感白底'
-                    },
-                    {
-                        title: '🎨 藝術背景',
-                        files: ['20260603_背景_抽象.jpg', '20260604_背景_抽象.svg'],
-                        desc: '創意視覺效果'
-                    }
-                ]
-            },
-            {
-                name: '📦 區塊設計',
-                subtitle: '版面區域裝飾',
-                folder: 'blocks',
-                groups: [
-                    {
-                        title: '📋 卡片區塊',
-                        files: ['20260603_區塊_卡片.jpg', '20260604_區塊_卡片.svg', '20260606_區塊_工作報告資訊卡.svg'],
-                        desc: '資訊卡片設計'
-                    },
-                    {
-                        title: '📐 標題與內容框架',
-                        files: ['20260605_區塊_標題框.svg'],
-                        desc: '標題框與內容區塊'
-                    },
-                    {
-                        title: '📝 資訊卡',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '💬 引言框',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '📋 備註區塊',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '📊 數據卡片',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '⚖️ 比較框架',
-                        files: [],
-                        desc: '待新增素材'
-                    }
-                ]
-            },
-            {
-                name: '🔀 流程圖',
-                subtitle: '流程與 step by step',
-                folder: 'flowcharts',
-                groups: [
-                    {
-                        title: '📊 步驟流程',
-                        files: ['20260603_流程圖_步驟.jpg', '20260604_流程圖_步驟.svg', '20260605_流程圖_工作報告步驟.svg', '20260606_流程圖_工作報告四步驟.svg'],
-                        desc: '流程順序展示'
-                    },
-                    {
-                        title: '🔹 流程節點 (含箭頭連接)',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '📅 時間流程',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '📈 圖表框架',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '🏛️ 組織架構',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '🏁 里程碑',
-                        files: [],
-                        desc: '待新增素材'
-                    }
-                ]
-            },
-            {
-                name: '🎯 按鈕元件',
-                subtitle: '操作與交互元素',
-                folder: 'buttons',
-                groups: [
-                    {
-                        title: '▶️ CTA 按鈕',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '⬅️➡️ 上下頁控制',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '↩️ 返回鍵',
-                        files: [],
-                        desc: '待新增素材'
-                    }
-                ]
-            },
-            {
-                name: '🔢 頁碼指示',
-                subtitle: '進度與導航元素',
-                folder: 'pagenumbers',
-                groups: [
-                    {
-                        title: '🔢 頁碼設計',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '⏺️ 進度指示',
-                        files: [],
-                        desc: '待新增素材'
-                    },
-                    {
-                        title: '🏷️ 章節標記',
-                        files: [],
-                        desc: '待新增素材'
-                    }
-                ]
-            }
-        ];
-
-        // 從 sample 目錄讀取額外素材（示範用）
-        const sampleMaterials = [];
-
+        // ========== STATE ==========
         let allMaterials = [];
-        let currentIndex = 0;
+        let filteredMaterials = [];
+        let currentCategory = 'all';
+        let currentStyle = 'all';
+        let currentFormats = ['svg', 'png', 'jpg'];
+        let currentDate = 'all';
+        let favoritesOnly = false;
+        let searchQuery = '';
+        let currentLightboxIndex = 0;
+        let stripMaterials = [];
+        let favorites = JSON.parse(localStorage.getItem('ppt-favorites') || '[]');
 
-        async function loadMaterials() {
-            const container = document.getElementById('materials-container');
-            let html = '';
+        // Tag filter state
+        let currentTagStyle = 'all';
+        let currentTagShapes = [];
+        let currentTagUsages = [];
 
-            for (const cat of materialCategories) {
-                const sectionId = `section-${materialCategories.indexOf(cat)}`;
-                const catIndex = materialCategories.indexOf(cat);
-                if (cat.name === '🎨 邊框素材') {
-                    // 邊框分類：使用群組顯示
-                    html += `<div class="material-section section-visible" id="${sectionId}"><div class="section-title">${cat.name}</div>`;
-                    html += `<div class="sub-tab-container" id="subtabs-${catIndex}"></div>`;
-                    for (let gi = 0; gi < cat.groups.length; gi++) {
-                        const group = cat.groups[gi];
-                        html += `<div class="border-group sub-section-visible" id="group-${catIndex}-${gi}">`;
-                        html += `<div class="border-group-title">${group.title}</div>`;
-                        html += `<div class="border-item-desc" style="text-align:center;color:#a1887f;font-size:0.85rem;margin-bottom:15px;">${group.desc}</div>`;
-                        html += `<div class="border-group-items">`;
-                        
-                        for (const file of group.files) {
-                            const fileDate = file.substring(0, 8);
-                            const year = fileDate.substring(0, 4);
-                            const month = fileDate.substring(4, 6);
-                            const day = fileDate.substring(6, 8);
-                            const dateFolder = `${year}-${month}-${day}`;
-                            const path = `materials/${dateFolder}/${cat.folder}/${file}`;
-                            try {
-                                const response = await fetch(path);
-                                if (response.ok) {
-                                    const name = file.replace('.svg', '').replace('.jpg', '');
-                                    allMaterials.push({ src: path, name: name, category: cat.name });
-                                    const idx = allMaterials.length - 1;
-                                    html += `<div class="border-item" data-index="${idx}" onclick="openLightbox(${idx})">
-                                        <img src="${path}" alt="${name}">
-                                        <div class="border-item-name">${name}</div>
-                                    </div>`;
-                                }
-                            } catch(e) {}
-                        }
-                        
-                        html += `</div></div>`;
-                    }
-                    html += `</div>`;
-                } else if (cat.groups) {
-                    // 有 groups 的分類（用 border-group 樣式）
-                    html += `<div class="material-section section-hidden" id="${sectionId}"><div class="section-title">${cat.name}${cat.subtitle ? `<span style="font-size:0.9rem;font-weight:normal;color:#a1887f;margin-left:10px;">— ${cat.subtitle}</span>` : ''}</div>`;
-                    html += `<div class="sub-tab-container" id="subtabs-${catIndex}"></div>`;
-                    
-                    for (let gi = 0; gi < cat.groups.length; gi++) {
-                        const group = cat.groups[gi];
-                        const hasFiles = group.files && group.files.length > 0;
-                        html += `<div class="border-group sub-section-visible" id="group-${catIndex}-${gi}">`;
-                        html += `<div class="border-group-title">${group.title}</div>`;
-                        html += `<div class="border-item-desc" style="text-align:center;color:#a1887f;font-size:0.85rem;margin-bottom:15px;">${group.desc}</div>`;
-                        html += `<div class="border-group-items">`;
-                        
-                        if (hasFiles) {
-                            for (const file of group.files) {
-                                // 從檔名提取日期 (前8字為 YYYYMMDD)
-                                const fileDate = file.substring(0, 8);
-                                const year = fileDate.substring(0, 4);
-                                const month = fileDate.substring(4, 6);
-                                const day = fileDate.substring(6, 8);
-                                const dateFolder = `${year}-${month}-${day}`;
-                                const path = `materials/${dateFolder}/${cat.folder}/${file}`;
-                                try {
-                                    const response = await fetch(path);
-                                    if (response.ok) {
-                                        const name = file.replace('.svg', '').replace('.jpg', '');
-                                        allMaterials.push({ src: path, name: name, category: cat.name });
-                                        const idx = allMaterials.length - 1;
-                                        html += `<div class="border-item" data-index="${idx}" onclick="openLightbox(${idx})">
-                                            <img src="${path}" alt="${name}">
-                                            <div class="border-item-name">${name}</div>
-                                        </div>`;
-                                    }
-                                } catch(e) {}
-                            }
-                        } else {
-                            html += `<div style="color:#ccc;font-style:italic;grid-column:1/-1;text-align:center;padding:20px;">此分類暂无素材</div>`;
-                        }
-                        
-                        html += `</div></div>`;
-                    }
-                    html += `</div>`;
-                } else {
-                    // 一般分類：使用原有網格顯示
-                    html += `<div class="material-section"><div class="section-title">${cat.name}${cat.subtitle ? `<span style="font-size:0.9rem;font-weight:normal;color:#a1887f;margin-left:10px;">— ${cat.subtitle}</span>` : ''}</div><div class="material-list">`;
-                    
-                    let hasItems = false;
-                    for (const file of cat.files) {
-                        const fileDate = file.substring(0, 8);
-                        const year = fileDate.substring(0, 4);
-                        const month = fileDate.substring(4, 6);
-                        const day = fileDate.substring(6, 8);
-                        const dateFolder = `${year}-${month}-${day}`;
-                        const folderPath = cat.folder ? `/${cat.folder}` : '';
-                        const path = `materials/${dateFolder}${folderPath}/${file}`;
-                        try {
-                            const response = await fetch(path);
-                            if (response.ok) {
-                                const name = file.replace('.svg', '').replace('.jpg', '');
-                                allMaterials.push({ src: path, name: name, category: cat.name });
-                                html += `<div class="material-item" data-index="${allMaterials.length - 1}">
-                                    <img class="material-thumb" src="${path}" alt="${name}">
-                                    <span class="material-name">${name}</span>
-                                    <span style="color: #a1887f; font-size: 0.8rem;">點擊預覽即可下載</span>
-                                </div>`;
-                                hasItems = true;
-                            }
-                        } catch(e) {}
-                    }
-                    
-                    // 從 sample 目錄讀取
-                    for (const path of sampleMaterials) {
-                        if (cat.name === '🎨 邊框素材') {
-                            try {
-                                const response = await fetch(path);
-                                if (response.ok) {
-                                    const name = path.split('/').pop().replace('.svg', '');
-                                    allMaterials.push({ src: path, name: name, category: cat.name });
-                                    html += `<div class="material-item" data-index="${allMaterials.length - 1}">
-                                        <img class="material-thumb" src="${path}" alt="${name}">
-                                        <span class="material-name">${name}</span>
-                                        <span style="color: #a1887f; font-size: 0.8rem;">點擊預覽即可下載</span>
-                                    </div>`;
-                                    hasItems = true;
-                                }
-                            } catch(e) {}
-                        }
-                    }
-                    
-                    if (!hasItems) {
-                        html += `<p style="color: #a1887f; font-style: italic;">目前還沒有素材，熊熊正在努力準備中... ʕっ•ᴥ•ʔっ</p>`;
-                    }
-                    html += '</div></div>';
-                }
-            }
-
-            container.innerHTML = html;
-            bindEvents();
-        }
-
-        function bindEvents() {
-            document.querySelectorAll('.material-item').forEach((item) => {
-                item.addEventListener('click', function() {
-                    openLightbox(parseInt(this.getAttribute('data-index')));
+        // Download modal state
+        let downloadFormat = 'svg';
+        let downloadBg = 'original';
+        
+        // ========== GLOBAL CONFIG ==========
+        const categoryNames = {
+            'all': '全部',
+            'borders': '🎨 邊框',
+            'icons': '💡 圖標',
+            'backgrounds': '🖼️ 背景',
+            'blocks': '📦 區塊',
+            'flowcharts': '🔀 流程圖',
+            'buttons': '🎯 按鈕',
+            'pagenumbers': '🔢 頁碼'
+        };
+        
+        // ========== INIT ==========
+        async function init() {
+            try {
+                const response = await fetch('materials/metadata.json');
+                const data = await response.json();
+                allMaterials = data.materials;
+                
+                // Restore favorites
+                allMaterials.forEach(m => {
+                    m.favorite = favorites.includes(m.path);
                 });
-            });
-        }
-
-        function openLightbox(index) {
-            currentIndex = index;
-            updateLightbox();
-            document.getElementById('lightbox').classList.add('active');
-        }
-
-        function updateLightbox() {
-            const material = allMaterials[currentIndex];
-            document.getElementById('lightbox-img').src = material.src;
-            document.getElementById('lightbox-info').textContent = `${currentIndex + 1} / ${allMaterials.length} — ${material.name}`;
-            document.getElementById('prev-btn').disabled = currentIndex === 0;
-            document.getElementById('next-btn').disabled = currentIndex === allMaterials.length - 1;
-        }
-
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-        }
-
-        function prevImage() {
-            if (currentIndex > 0) { currentIndex--; updateLightbox(); }
-        }
-
-        function nextImage() {
-            if (currentIndex < allMaterials.length - 1) { currentIndex++; updateLightbox(); }
-        }
-
-        function downloadCurrent() {
-            const material = allMaterials[currentIndex];
-            downloadFile(material.src, document.getElementById('format-select').value);
-        }
-
-        async function downloadFile(url, format = 'svg') {
-            const filename = url.split('/').pop().split('.')[0];
-            if (format === 'svg') {
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename + '.svg';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            } else {
-                try {
-                    const img = new Image();
-                    img.crossOrigin = 'anonymous';
-                    img.src = url;
-                    await new Promise((resolve, reject) => {
-                        img.onload = resolve;
-                        img.onerror = reject;
-                    });
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.naturalWidth || 1200;
-                    canvas.height = img.naturalHeight || 800;
-                    const ctx = canvas.getContext('2d');
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0);
-                    canvas.toBlob(blob => {
-                        const a = document.createElement('a');
-                        a.href = URL.createObjectURL(blob);
-                        a.download = `${filename}.${format}`;
-                        document.body.appendChild(a);
-                        a.click();
-                        document.body.removeChild(a);
-                        URL.revokeObjectURL(a.href);
-                    }, `image/${format}`, 0.95);
-                } catch (e) { alert('格式轉換失敗'); }
+                
+                generateTabs();
+                filterMaterials();
+            } catch (error) {
+                console.error('Failed to load metadata:', error);
+                document.getElementById('resultsCount').textContent = '載入失敗，請重新整理';
             }
         }
+        
+        // ========== TABS ==========
+        function generateTabs() {
+            const container = document.getElementById('tabContainer');
+            const categories = ['all', ...new Set(allMaterials.map(m => m.category))];
+            
+            let html = '';
+            categories.forEach(cat => {
+                const count = allMaterials.filter(m => m.category === cat || cat === 'all').length;
+                if (count > 0 || cat === 'all') {
+                    html += `<button class="tab-btn ${cat === currentCategory ? 'active' : ''}" onclick="setCategory('${cat}')">
+                        ${categoryNames[cat] || cat}
+                        <span class="tab-count">${count}</span>
+                    </button>`;
+                }
+            });
+            container.innerHTML = html;
+        }
+        
+        function setCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.includes(categoryNames[cat] || cat));
+            });
+            filterMaterials();
+        }
+        
+        // ========== FILTER ==========
+        function filterMaterials() {
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            const weekAgo = new Date(today.setDate(today.getDate() - 7)).toISOString().split('T')[0];
+            const monthAgo = new Date(today.setDate(today.getDate() - 30)).toISOString().split('T')[0];
 
-        document.addEventListener('keydown', function(e) {
-            if (!document.getElementById('lightbox').classList.contains('active')) return;
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft') prevImage();
-            if (e.key === 'ArrowRight') nextImage();
+            filteredMaterials = allMaterials.filter(m => {
+                // Category
+                if (currentCategory !== 'all' && m.category !== currentCategory) return false;
+
+                // Style (sidebar)
+                if (currentStyle !== 'all' && m.style !== currentStyle) return false;
+
+                // Tag Style filter
+                if (currentTagStyle !== 'all' && m.style !== currentTagStyle) return false;
+
+                // Tag Shape filter (multi-select - match any)
+                if (currentTagShapes.length > 0) {
+                    const hasShape = currentTagShapes.some(shape => {
+                        if (shape === 'square') return m.name.includes('方') || m.subcategory?.includes('方');
+                        if (shape === 'rounded') return m.name.includes('圓') || m.subcategory?.includes('圓') || m.name.includes('弧') || m.subcategory?.includes('弧');
+                        if (shape === 'diagonal') return m.name.includes('斜') || m.subcategory?.includes('斜') || m.name.includes('角');
+                        if (shape === 'circle') return m.name.includes('圓形') || m.subcategory?.includes('圓形');
+                        return false;
+                    });
+                    if (!hasShape) return false;
+                }
+
+                // Tag Usage filter (multi-select - match any)
+                if (currentTagUsages.length > 0) {
+                    const hasUsage = currentTagUsages.some(usage => {
+                        if (usage === 'cover') return m.name.includes('封面') || m.subcategory?.includes('封面');
+                        if (usage === 'inner') return m.name.includes('內頁') || m.subcategory?.includes('內頁') || m.name.includes('內容');
+                        if (usage === 'section') return m.name.includes('章節') || m.subcategory?.includes('章節') || m.name.includes('標題');
+                        if (usage === 'ending') return m.name.includes('結尾') || m.subcategory?.includes('結尾') || m.name.includes('结束');
+                        return false;
+                    });
+                    if (!hasUsage) return false;
+                }
+
+                // Format
+                if (!currentFormats.includes(m.format)) return false;
+
+                // Date
+                if (currentDate === 'today' && m.created !== todayStr) return false;
+                if (currentDate === 'week' && m.created < weekAgo) return false;
+                if (currentDate === 'month' && m.created < monthAgo) return false;
+
+                // Favorites
+                if (favoritesOnly && !m.favorite) return false;
+
+                // Search
+                if (searchQuery) {
+                    const q = searchQuery.toLowerCase();
+                    if (!m.name.toLowerCase().includes(q) &&
+                        !m.shortName.toLowerCase().includes(q) &&
+                        !m.description.toLowerCase().includes(q)) return false;
+                }
+
+                return true;
+            });
+
+            renderMaterials();
+        }
+        
+        // ========== RENDER ==========
+        function renderMaterials() {
+            const grid = document.getElementById('materialGrid');
+            const noResults = document.getElementById('noResults');
+            const resultsCount = document.getElementById('resultsCount');
+
+            resultsCount.textContent = `找到 ${filteredMaterials.length} 個素材`;
+
+            if (filteredMaterials.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'block';
+            noResults.style.display = 'none';
+
+            // Grouped display for "all" category
+            if (currentCategory === 'all') {
+                const groups = {};
+                filteredMaterials.forEach(m => {
+                    const cat = m.category;
+                    if (!groups[cat]) {
+                        groups[cat] = {
+                            name: categoryNames[cat] || cat,
+                            items: []
+                        };
+                    }
+                    groups[cat].items.push(m);
+                });
+
+                let html = '';
+                for (const cat in groups) {
+                    const group = groups[cat];
+                    html += `
+                        <div class="category-group">
+                            <div class="category-group-header">
+                                <span class="category-group-title">${group.name}</span>
+                                <span class="category-group-count">(${group.items.length})</span>
+                            </div>
+                            <div class="material-grid">
+                                ${group.items.map((m, idx) => {
+                                    const globalIdx = filteredMaterials.indexOf(m);
+                                    return `
+                                        <div class="material-card ${m.favorite ? 'favorited' : ''}" onclick="openLightbox(${globalIdx})">
+                                            <div style="position:relative;">
+                                                <img class="card-thumb" src="${m.path}" alt="${m.shortName}" loading="lazy">
+                                                <span class="card-favorite"></span>
+                                            </div>
+                                            <div class="card-content">
+                                                <div class="card-name">${m.shortName}</div>
+                                                <div class="card-desc">${m.description}</div>
+                                                <div class="card-tags">
+                                                    <span class="card-tag">${m.categoryName}</span>
+                                                    <span class="card-tag style-tag style-${m.style}">${getStyleName(m.style)}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                grid.innerHTML = html;
+            } else {
+                // Normal grid display
+                grid.innerHTML = filteredMaterials.map((m, idx) => `
+                    <div class="material-card ${m.favorite ? 'favorited' : ''}" onclick="openLightbox(${idx})">
+                        <div style="position:relative;">
+                            <img class="card-thumb" src="${m.path}" alt="${m.shortName}" loading="lazy">
+                            <span class="card-favorite"></span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-name">${m.shortName}</div>
+                            <div class="card-desc">${m.description}</div>
+                            <div class="card-tags">
+                                <span class="card-tag">${m.categoryName}</span>
+                                <span class="card-tag style-tag style-${m.style}">${getStyleName(m.style)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function getStyleName(style) {
+            const names = {
+                'formal': '🏛️ 正式',
+                'simple': '✨ 簡潔',
+                'creative': '🎨 創意',
+                'bear': '🐻 熊熊',
+                'nature': '🌿 自然',
+                'festival': '🎊 節慶'
+            };
+            return names[style] || style;
+        }
+        
+        // ========== SEARCH ==========
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            searchQuery = e.target.value;
+            document.getElementById('searchClear').classList.toggle('visible', searchQuery.length > 0);
+            filterMaterials();
+        });
+        
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            searchQuery = '';
+            document.getElementById('searchClear').classList.remove('visible');
+            filterMaterials();
+        }
+        
+        // ========== SIDEBAR ==========
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('filterBtn').classList.toggle('active');
+        }
+        
+        // Style filters
+        document.querySelectorAll('#style-filters .filter-option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                document.querySelectorAll('#style-filters .filter-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                currentStyle = this.dataset.style;
+                filterMaterials();
+            });
+        });
+        
+        // Format filters
+        document.querySelectorAll('#format-filters .filter-option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const format = this.dataset.format;
+                if (this.classList.contains('active')) {
+                    if (!currentFormats.includes(format)) currentFormats.push(format);
+                } else {
+                    currentFormats = currentFormats.filter(f => f !== format);
+                }
+                filterMaterials();
+            });
+        });
+        
+        // Date filters
+        document.querySelectorAll('#date-filters .filter-option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                document.querySelectorAll('#date-filters .filter-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                currentDate = this.dataset.date;
+                filterMaterials();
+            });
         });
 
-                // 生成分頁 tabs
-        function renderTabs() {
-            const tabContainer = document.getElementById('tab-container');
-            let tabsHtml = '';
-            materialCategories.forEach((cat, idx) => {
-                const activeClass = idx === 0 ? ' active' : '';
-                tabsHtml += `<button class="tab-btn${activeClass}" onclick="switchTab(${idx})">${cat.name}</button>`;
+        // Tag Style filters (radio behavior)
+        document.querySelectorAll('#tag-style .tag-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#tag-style .tag-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentTagStyle = this.dataset.tagStyle;
+                filterMaterials();
             });
-            tabContainer.innerHTML = tabsHtml;
-        }
+        });
 
-        function switchTab(idx) {
-            document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-                btn.classList.toggle('active', i === idx);
-            });
-            document.querySelectorAll('.material-section').forEach((sec, i) => {
-                sec.classList.toggle('section-hidden', i !== idx);
-                sec.classList.toggle('section-visible', i === idx);
-            });
-            // 切換時渲染子分頁
-            renderSubTabs(idx);
-        }
-
-        function renderSubTabs(catIndex) {
-            const cat = materialCategories[catIndex];
-            if (!cat.groups || cat.groups.length <= 1) return;
-            
-            const subtabContainer = document.getElementById(`subtabs-${catIndex}`);
-            if (!subtabContainer) return;
-            
-            let subtabsHtml = '';
-            cat.groups.forEach((group, gi) => {
-                const activeClass = gi === 0 ? ' active' : '';
-                subtabsHtml += `<button class="sub-tab-btn${activeClass}" onclick="switchSubTab(${catIndex}, ${gi})">${group.title}</button>`;
-            });
-            subtabContainer.innerHTML = subtabsHtml;
-        }
-
-        function switchSubTab(catIndex, gi) {
-            // 更新子分頁按鈕狀態
-            document.querySelectorAll(`#subtabs-${catIndex} .sub-tab-btn`).forEach((btn, i) => {
-                btn.classList.toggle('active', i === gi);
-            });
-            // 切換 group 顯示
-            const cat = materialCategories[catIndex];
-            cat.groups.forEach((group, i) => {
-                const groupEl = document.getElementById(`group-${catIndex}-${i}`);
-                if (groupEl) {
-                    groupEl.classList.toggle('sub-section-hidden', i !== gi);
-                    groupEl.classList.toggle('sub-section-visible', i === gi);
+        // Tag Shape filters (checkbox behavior)
+        document.querySelectorAll('#tag-shape .tag-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const shape = this.dataset.tagShape;
+                if (this.classList.contains('active')) {
+                    if (!currentTagShapes.includes(shape)) currentTagShapes.push(shape);
+                } else {
+                    currentTagShapes = currentTagShapes.filter(s => s !== shape);
                 }
+                filterMaterials();
             });
+        });
+
+        // Tag Usage filters (checkbox behavior)
+        document.querySelectorAll('#tag-usage .tag-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const usage = this.dataset.tagUsage;
+                if (this.classList.contains('active')) {
+                    if (!currentTagUsages.includes(usage)) currentTagUsages.push(usage);
+                } else {
+                    currentTagUsages = currentTagUsages.filter(u => u !== usage);
+                }
+                filterMaterials();
+            });
+        });
+        
+        function clearAllFilters() {
+            currentStyle = 'all';
+            currentFormats = ['svg', 'png', 'jpg'];
+            currentDate = 'all';
+            favoritesOnly = false;
+            currentTagStyle = 'all';
+            currentTagShapes = [];
+            currentTagUsages = [];
+
+            document.querySelectorAll('.filter-option').forEach(o => o.classList.remove('active'));
+            document.querySelector('#style-filters .filter-option[data-style="all"]').classList.add('active');
+            document.querySelectorAll('#format-filters .filter-option').forEach(o => o.classList.add('active'));
+            document.querySelector('#date-filters .filter-option[data-date="all"]').classList.add('active');
+
+            // Reset tag filters
+            document.querySelectorAll('#tag-style .tag-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('#tag-style .tag-btn[data-tag-style="all"]').classList.add('active');
+            document.querySelectorAll('#tag-shape .tag-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('#tag-usage .tag-btn').forEach(b => b.classList.remove('active'));
+
+            document.getElementById('favoritesBtn').classList.remove('active');
+            clearSearch();
+            filterMaterials();
+        }
+        
+        function toggleFavoritesOnly() {
+            favoritesOnly = !favoritesOnly;
+            document.getElementById('favoritesBtn').classList.toggle('active', favoritesOnly);
+            filterMaterials();
+        }
+        
+        // ========== LIGHTBOX ==========
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            const m = filteredMaterials[index];
+            
+            // Find related materials (same category)
+            stripMaterials = filteredMaterials.filter(mat => mat.category === m.category);
+            
+            // Update main view
+            document.getElementById('lightbox-img').src = m.path;
+            document.getElementById('lightboxName').textContent = m.shortName;
+            document.getElementById('lightboxDesc').textContent = m.description;
+            document.getElementById('lightboxDate').textContent = m.created;
+            document.getElementById('lightboxFormat').textContent = m.format.toUpperCase();
+            document.getElementById('lightboxCategory').textContent = m.categoryName;
+            document.getElementById('lightboxStyle').textContent = getStyleName(m.style);
+            document.getElementById('lightboxCounter').textContent = `${index + 1} / ${filteredMaterials.length}`;
+            
+            // Update favorite button
+            updateFavButton(m.favorite);
+            
+            // Update strip title
+            document.getElementById('stripTitle').textContent = `同分類素材 (${stripMaterials.length})`;
+            
+            // Render strip
+            renderStrip(m.path);
+            
+            // Show lightbox
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function renderStrip(activePath) {
+            const scroll = document.getElementById('stripScroll');
+            scroll.innerHTML = stripMaterials.map(m => `
+                <div class="strip-item ${m.favorite ? 'favorited' : ''} ${m.path === activePath ? 'active' : ''}" onclick="event.stopPropagation(); goToMaterial('${m.path}')">
+                    <img src="${m.path}" alt="${m.shortName}">
+                </div>
+            `).join('');
+        }
+        
+        function goToMaterial(path) {
+            const idx = filteredMaterials.findIndex(m => m.path === path);
+            if (idx !== -1) {
+                currentLightboxIndex = idx;
+                openLightbox(idx);
+            }
+        }
+        
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+            // Reset fullscreen state
+            resetFullscreen();
+        }
+        
+        // ========== FULLSCREEN / ZOOM ==========
+        let isFullscreen = false;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let imgPosX = 0;
+        let imgPosY = 0;
+        let currentScale = 1;
+        
+        function toggleFullscreen() {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            const hint = document.getElementById('zoomHint');
+            
+            isFullscreen = !isFullscreen;
+            
+            if (isFullscreen) {
+                lightbox.classList.add('fullscreen');
+                currentScale = 1;
+                imgPosX = 0;
+                imgPosY = 0;
+                img.style.transform = '';
+                hint.textContent = '拖曳移動 · 點擊離開全螢幕';
+            } else {
+                lightbox.classList.remove('fullscreen');
+                imgPosX = 0;
+                imgPosY = 0;
+                img.style.transform = '';
+                hint.textContent = '點擊進入全螢幕 🔍';
+            }
+        }
+        
+        function resetFullscreen() {
+            isFullscreen = false;
+            isDragging = false;
+            imgPosX = 0;
+            imgPosY = 0;
+            currentScale = 1;
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            const hint = document.getElementById('zoomHint');
+            lightbox.classList.remove('fullscreen');
+            img.style.transform = '';
+            hint.textContent = '點擊進入全螢幕 🔍';
+        }
+        
+        // Mouse drag for fullscreen image
+        document.getElementById('lightboxMain').addEventListener('mousedown', (e) => {
+            if (!isFullscreen) return;
+            isDragging = true;
+            dragStartX = e.clientX - imgPosX;
+            dragStartY = e.clientY - imgPosY;
+            e.target.classList.add('dragging');
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const img = document.getElementById('lightbox-img');
+            imgPosX = e.clientX - dragStartX;
+            imgPosY = e.clientY - dragStartY;
+            img.style.transform = `translate(${imgPosX}px, ${imgPosY}px)`;
+        });
+        
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            document.getElementById('lightbox-img').classList.remove('dragging');
+        });
+        
+        // Mouse wheel zoom in fullscreen
+        document.getElementById('lightboxMain').addEventListener('wheel', (e) => {
+            if (!isFullscreen) return;
+            e.preventDefault();
+            const img = document.getElementById('lightbox-img');
+            const delta = e.deltaY > 0 ? -0.1 : 0.1;
+            currentScale = Math.max(0.5, Math.min(5, currentScale + delta));
+            img.style.transform = `translate(${imgPosX}px, ${imgPosY}px) scale(${currentScale})`;
+            
+            const hint = document.getElementById('zoomHint');
+            hint.textContent = `${Math.round(currentScale * 100)}% · 拖曳移動 · 滾輪縮放 · 點擊離開`;
+        });
+        
+        function scrollStrip(dir) {
+            const scroll = document.getElementById('stripScroll');
+            scroll.scrollBy({ left: dir * 150, behavior: 'smooth' });
+        }
+        
+        // ========== ACTIONS ==========
+        function updateFavButton(isFav) {
+            const btn = document.getElementById('lightboxFavBtn');
+            if (isFav) {
+                btn.innerHTML = '★ 已收藏';
+                btn.classList.add('active');
+            } else {
+                btn.innerHTML = '☆ 收藏';
+                btn.classList.remove('active');
+            }
+        }
+        
+        function toggleFavorite() {
+            const m = filteredMaterials[currentLightboxIndex];
+            m.favorite = !m.favorite;
+            
+            // Update localStorage
+            if (m.favorite) {
+                favorites.push(m.path);
+            } else {
+                favorites = favorites.filter(f => f !== m.path);
+            }
+            localStorage.setItem('ppt-favorites', JSON.stringify(favorites));
+            
+            // Update UI
+            updateFavButton(m.favorite);
+            renderMaterials();
+            
+            // Update strip if visible
+            const stripItem = document.querySelector(`.strip-item[onclick*="${m.path}"]`);
+            if (stripItem) {
+                stripItem.classList.toggle('favorited', m.favorite);
+            }
+        }
+        
+        function downloadCurrent() {
+            document.getElementById('downloadModal').classList.add('active');
         }
 
-        loadMaterials();
-        renderTabs();
-        renderSubTabs(0);
+        function closeDownloadModal() {
+            document.getElementById('downloadModal').classList.remove('active');
+        }
+
+        // Format selection
+        document.querySelectorAll('.format-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                downloadFormat = this.dataset.format;
+            });
+        });
+
+        // Background selection
+        document.querySelectorAll('.bg-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.bg-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                downloadBg = this.dataset.bg;
+            });
+        });
+
+        async function confirmDownload() {
+            const m = filteredMaterials[currentLightboxIndex];
+
+            if (downloadFormat === 'svg') {
+                // SVG direct download
+                try {
+                    const response = await fetch(m.path);
+                    let svgContent = await response.text();
+
+                    if (downloadBg === 'clean') {
+                        // Remove text elements
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(svgContent, 'image/svg+xml');
+                        doc.querySelectorAll('text, tspan').forEach(el => el.remove());
+                        svgContent = new XMLSerializer().serializeToString(doc);
+                    }
+
+                    const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = m.name + '.svg';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                } catch (error) {
+                    alert('下載失敗：' + error);
+                }
+            } else {
+                // PNG/JPEG/WebP via Canvas
+                try {
+                    const response = await fetch(m.path);
+                    let svgContent = await response.text();
+
+                    if (downloadBg === 'clean') {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(svgContent, 'image/svg+xml');
+                        doc.querySelectorAll('text, tspan').forEach(el => el.remove());
+                        svgContent = new XMLSerializer().serializeToString(doc);
+                    }
+
+                    const img = new Image();
+                    const svgBlob = new Blob([svgContent], { type: 'image/svg+xml' });
+                    const svgUrl = URL.createObjectURL(svgBlob);
+
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+
+                        // Fill white background for JPEG, transparent for PNG/WebP
+                        if (downloadFormat === 'jpeg') {
+                            ctx.fillStyle = 'white';
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        }
+
+                        ctx.drawImage(img, 0, 0);
+
+                        const mimeType = 'image/' + downloadFormat;
+                        const dataUrl = canvas.toDataURL(mimeType, 0.95);
+                        const a = document.createElement('a');
+                        a.href = dataUrl;
+                        a.download = m.name + '.' + downloadFormat;
+                        a.click();
+
+                        URL.revokeObjectURL(svgUrl);
+                        closeDownloadModal();
+                    };
+
+                    img.src = svgUrl;
+                } catch (error) {
+                    alert('下載失敗：' + error);
+                }
+            }
+
+            closeDownloadModal();
+        }
+        
+        async function copySvgCode() {
+            const m = filteredMaterials[currentLightboxIndex];
+            try {
+                const response = await fetch(m.path);
+                const text = await response.text();
+                await navigator.clipboard.writeText(text);
+                alert('已複製 SVG 程式碼！');
+            } catch (error) {
+                alert('複製失敗：' + error);
+            }
+        }
+        
+        function shareLink() {
+            const m = filteredMaterials[currentLightboxIndex];
+            const url = window.location.origin + '/' + m.path;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('連結已複製：' + url);
+            });
+        }
+        
+        // ========== KEYBOARD ==========
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') {
+                const idx = filteredMaterials.findIndex(m => m.path === filteredMaterials[currentLightboxIndex].path);
+                if (currentLightboxIndex > 0) openLightbox(currentLightboxIndex - 1);
+            }
+            if (e.key === 'ArrowRight') {
+                if (currentLightboxIndex < filteredMaterials.length - 1) openLightbox(currentLightboxIndex + 1);
+            }
+        });
+        
+        // Close on outside click
+        document.addEventListener('click', function(e) {
+            const lightbox = document.getElementById('lightbox');
+            const sidebar = document.getElementById('sidebar');
+            const filterBtn = document.getElementById('filterBtn');
+            
+            // Close lightbox on outside click (but not on actions/info area)
+            if (lightbox.classList.contains('active')) {
+                const lightboxMain = document.getElementById('lightboxMain');
+                const lightboxInfo = document.querySelector('.lightbox-info');
+                const lightboxHeader = document.querySelector('.lightbox-header');
+                const lightboxStrip = document.querySelector('.lightbox-strip');
+                
+                // Check if click is outside lightbox content areas
+                const isOutsideLightbox = 
+                    !lightbox.contains(e.target) ||
+                    (e.target === lightbox);
+                
+                // Check if click is on any action button or inside action areas
+                const isActionArea = 
+                    e.target.closest('.lightbox-actions') ||
+                    e.target.closest('.lightbox-strip') ||
+                    e.target.closest('#lightbox-close');
+                
+                if (isOutsideLightbox && !isActionArea) {
+                    closeLightbox();
+                }
+            }
+
+            // Close sidebar on outside click
+            if (sidebar.classList.contains('open') &&
+                !sidebar.contains(e.target) &&
+                !filterBtn.contains(e.target)) {
+                toggleSidebar();
+            }
+
+            // Close download modal on outside click
+            const modal = document.getElementById('downloadModal');
+            if (modal.classList.contains('active') && 
+                !modal.querySelector('.download-modal').contains(e.target) &&
+                !e.target.closest('.lightbox-action')) {
+                closeDownloadModal();
+            }
+        });
+        
+        // ========== START ==========
+        init();
     </script>
 </body>
 </html>
