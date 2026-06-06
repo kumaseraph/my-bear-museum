@@ -2096,7 +2096,8 @@
 
         function updateFeaturedBears() {
             renderFeaturedCarousel();
-            updateStarButtons();
+            // Update star buttons AFTER carousel renders so innerHTML doesn't overwrite them
+            setTimeout(updateStarButtons, 0);
             updateTodayBearsDisplay();
         }
 
