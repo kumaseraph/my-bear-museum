@@ -1343,7 +1343,7 @@
                                 ${group.items.map((m, idx) => {
                                     const globalIdx = filteredMaterials.indexOf(m);
                                     return `
-                                        <div class="material-card ${m.favorite ? 'favorited' : ''}" onclick="openLightbox(${globalIdx})">
+                                        <div class="material-card ${m.favorite ? 'favorited' : ''}" onclick="event.stopPropagation(); openLightbox(${globalIdx})">
                                             <div style="position:relative;">
                                                 <img class="card-thumb" src="${m.path}" alt="${m.shortName}" loading="lazy">
                                                 <span class="card-favorite"></span>
@@ -1367,7 +1367,7 @@
             } else {
                 // Normal grid display
                 grid.innerHTML = filteredMaterials.map((m, idx) => `
-                    <div class="material-card ${m.favorite ? 'favorited' : ''}" onclick="openLightbox(${idx})">
+                    <div class="material-card ${m.favorite ? 'favorited' : ''}" onclick="event.stopPropagation(); openLightbox(${idx})">
                         <div style="position:relative;">
                             <img class="card-thumb" src="${m.path}" alt="${m.shortName}" loading="lazy">
                             <span class="card-favorite"></span>
