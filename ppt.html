@@ -931,43 +931,43 @@
             <div class="filter-section">
                 <div class="filter-label">🎨 風格</div>
                 <div class="filter-options" id="style-filters">
-                    <label class="filter-option active" data-style="all" onclick="handleStyleFilter(this, 'all')">
+                    <label class="filter-option active" data-style="all">
                         <input type="radio" name="style" value="all" checked>
                         <span class="filter-radio"></span>
                         <span class="style-dot" style="background: linear-gradient(135deg, #5c6bc0, #78909c, #ab47bc, #8d6e63, #66bb6a, #ef5350);"></span>
                         全部
                     </label>
-                    <label class="filter-option" data-style="formal" onclick="handleStyleFilter(this, 'formal')">
+                    <label class="filter-option" data-style="formal">
                         <input type="radio" name="style" value="formal">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-formal"></span>
                         🏛️ 正式
                     </label>
-                    <label class="filter-option" data-style="simple" onclick="handleStyleFilter(this, 'simple')">
+                    <label class="filter-option" data-style="simple">
                         <input type="radio" name="style" value="simple">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-simple"></span>
                         ✨ 簡潔
                     </label>
-                    <label class="filter-option" data-style="creative" onclick="handleStyleFilter(this, 'creative')">
+                    <label class="filter-option" data-style="creative">
                         <input type="radio" name="style" value="creative">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-creative"></span>
                         🎨 創意
                     </label>
-                    <label class="filter-option" data-style="bear" onclick="handleStyleFilter(this, 'bear')">
+                    <label class="filter-option" data-style="bear">
                         <input type="radio" name="style" value="bear">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-bear"></span>
                         🐻 熊熊
                     </label>
-                    <label class="filter-option" data-style="nature" onclick="handleStyleFilter(this, 'nature')">
+                    <label class="filter-option" data-style="nature">
                         <input type="radio" name="style" value="nature">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-nature"></span>
                         🌿 自然
                     </label>
-                    <label class="filter-option" data-style="festival" onclick="handleStyleFilter(this, 'festival')">
+                    <label class="filter-option" data-style="festival">
                         <input type="radio" name="style" value="festival">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-festival"></span>
@@ -1452,7 +1452,7 @@
             });
         });
         
-        // Format filters
+        // Format filters (使用 click 事件，因為是 checkbox 可以多選)
         document.querySelectorAll('#format-filters .filter-option').forEach(opt => {
             opt.addEventListener('click', function() {
                 this.classList.toggle('active');
@@ -1466,19 +1466,12 @@
             });
         });
         
-        // Date filters (支援取消選擇)
-        document.querySelectorAll('#date-filters .filter-option').forEach(opt => {
-            opt.addEventListener('click', function() {
-                // 如果點擊的是已選中的項目，則取消選擇（回到全部）
-                if (this.classList.contains('active')) {
-                    this.classList.remove('active');
-                    document.querySelector('#date-filters .filter-option[data-date="all"]').classList.add('active');
-                    currentDate = 'all';
-                } else {
-                    document.querySelectorAll('#date-filters .filter-option').forEach(o => o.classList.remove('active'));
-                    this.classList.add('active');
-                    currentDate = this.dataset.date;
-                }
+        // Date filters - 使用 change 事件監聽 radio button
+        document.querySelectorAll('#date-filters input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('#date-filters .filter-option').forEach(o => o.classList.remove('active'));
+                this.closest('.filter-option').classList.add('active');
+                currentDate = this.value;
                 filterMaterials();
             });
         });
