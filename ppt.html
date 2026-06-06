@@ -889,9 +889,13 @@
             .then(r => r.text())
             .then(html => {
                 document.getElementById('nav-container').innerHTML = html;
-                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                // Update active nav link based on current page
+                const pathParts = window.location.pathname.split('/');
+                const currentPage = pathParts[pathParts.length - 1] || 'index.html';
+                const currentBase = currentPage.replace(/\.html$/, '');
                 document.querySelectorAll('nav a').forEach(a => {
-                    if (a.getAttribute('href') === currentPage) {
+                    const hrefBase = a.getAttribute('href').replace(/\.html$/, '');
+                    if (hrefBase === currentBase) {
                         a.classList.add('active');
                     } else {
                         a.classList.remove('active');
