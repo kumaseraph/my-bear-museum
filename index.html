@@ -24,14 +24,14 @@
     v6.12 - 熊熊年鑑系列整合：19個系列整合成11個系列（童話夢境、星際冒險、浪漫時光、勇者傳奇、溫暖家園、暖心守護等），維持20個左右系列的目标；資訊卡翻頁改為純淡入，移除縮放動畫
     v6.13 - 開館紀念熊大改造：使用MiniMax生成專屬紀念熊圖、加入星星按鈕、動態渲染、尺寸變大（140px）、金色邊框+五色泡泡光芒效果
     v6.14 - 紀念熊尺寸再加大（170px）、更深的背景遮罩、背景加金色語錄
-    v6.18 - 星星按鈕優化：大小32px、位置左上、移除圓圈外框；年鑑圖示置換為自製熊熊圖示
+    v6.19 - 星星按鈕優化：大小32px、位置左上、移除圓圈外框；年鑑圖示置換為自製熊熊圖示
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.18</title>
+    <title>熊熊博物館 v6.19</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -1778,13 +1778,79 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.18
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.19
         <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="切換深色模式">🌙</button>
     </footer>
 
     <script>
         // Bear data
         const bears = [
+ {
+                name: "雪球滾滾",
+                date: "2026-06-07",
+                checkIn: "20260707-01",
+                collectionNo: 20,
+                category: "水彩",
+                title: "冰雪精靈",
+                series: "童話夢境系列",
+                birthday: "2026-06-07",
+                personality: "我在雪地裡滾來滾去，收集了好多閃閃發亮的冰晶！純真活潑，帶來冬日的魔法。",
+                quote: "每一顆冰晶都是冬天的禮物。",
+                img: "bears/2026-06-07/白熊_水彩_20260607_01.png"
+            },
+            {
+                name: "焦糖布丁",
+                date: "2026-06-07",
+                checkIn: "20260707-02",
+                collectionNo: 21,
+                category: "3D",
+                title: "甜點大師",
+                series: "暖心守護系列",
+                birthday: "2026-06-07",
+                personality: "剛出爐的焦糖布丁，最適合當下午茶！體貼細心，總是為朋友著想。",
+                quote: "甜蜜的時光，要和好朋友一起分享。",
+                img: "bears/2026-06-07/棕熊_3D_20260607_02.png"
+            },
+            {
+                name: "櫻花舞者",
+                date: "2026-06-07",
+                checkIn: "20260707-03",
+                collectionNo: 22,
+                category: "油畫",
+                title: "浪漫花仙",
+                series: "浪漫時光系列",
+                birthday: "2026-06-07",
+                personality: "春天的風吹來，櫻花花瓣翩翩起舞～浪漫優雅，珍惜每一個綻放的瞬間。",
+                quote: "花開的季節，是愛的季節。",
+                img: "bears/2026-06-07/粉熊_油畫_20260607_03.png"
+            },
+            {
+                name: "星空旅者",
+                date: "2026-06-07",
+                checkIn: "20260707-04",
+                collectionNo: 23,
+                category: "奇幻",
+                title: "銀河漫遊者",
+                series: "星際冒險系列",
+                birthday: "2026-06-07",
+                personality: "我駕著星光穿越銀河，收集每一個閃亮的夢想！好奇勇敢，探索未知的宇宙。",
+                quote: "星星的方向，就是我的方向。",
+                img: "bears/2026-06-07/紫熊_奇幻_20260607_04.png"
+            },
+            {
+                name: "南瓜精靈",
+                date: "2026-06-07",
+                checkIn: "20260707-05",
+                collectionNo: 24,
+                category: "像素",
+                title: "萬聖小魔術師",
+                series: "勇者傳奇系列",
+                birthday: "2026-06-07",
+                personality: "施展一點小魔法，讓南瓜燈亮起來！創意十足，總有想不到的驚喜。",
+                quote: "魔法的秘密，藏在快樂的心裏。",
+                img: "bears/2026-06-07/橙熊_像素_20260607_05.png"
+            },
+
  {
                 name: "雲朵綿綿",
                 date: "2026-06-06",
