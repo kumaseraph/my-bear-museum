@@ -15,25 +15,6 @@
             flex-direction: column;
             align-items: center;
         }
-        nav {
-            background-color: #a1887f;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 5px 15px;
-            border-radius: 15px;
-            transition: background 0.3s;
-        }
-        nav a:hover { background-color: #8d6e63; }
-        nav a.active { background-color: #5d4037; }
         header {
             background-color: #5d4037;
             color: white;
@@ -120,16 +101,25 @@
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">🐻 熊熊博物館</a>
-        <a href="ppt.html">📊 PPT 素材庫</a>
-        <a href="vocabulary.html" class="active">📚 詞彙庫</a>
-        <a href="slides.html">📝 熊熊簡報</a>
-        <a href="video.html">🎬 熊熊短影音</a>
-        <a href="test-gallery.html">📷 圖片瀏覽</a>
-        <a href="test-selection.html">✨ 圖片選擇</a>
-        <a href="test-stripe.html">🎨 設計系統</a>
-    </nav>
+    <!-- Navigation (loaded via component) -->
+    <div id="nav-container"></div>
+    <script>
+        fetch('/components/nav-component')
+            .then(r => r.text())
+            .then(html => {
+                document.getElementById('nav-container').innerHTML = html;
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                document.querySelectorAll('nav a').forEach(a => {
+                    if (a.getAttribute('href') === currentPage) {
+                        a.classList.add('active');
+                    } else {
+                        a.classList.remove('active');
+                    }
+                });
+            })
+            .catch(err => console.log('Nav component load failed:', err));
+    </script>
+
     <header>
         <h1>📚 熊熊詞彙庫</h1>
         <div class="subtitle">溫暖、治癒、童話、收藏、夢幻、正向 ✨</div>

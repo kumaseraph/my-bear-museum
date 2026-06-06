@@ -47,6 +47,7 @@
             padding: 1.5rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
             margin-bottom: 20px;
+            color: #5d4037;
         }
         h1 { font-size: 2rem; color: #5d4037; }
         .subtitle { color: #a1887f; margin-top: 5px; font-size: 1rem; }
@@ -147,16 +148,25 @@
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html">🐻 熊熊博物館</a>
-        <a href="ppt.html">📊 PPT 素材庫</a>
-        <a href="vocabulary.html">📚 詞彙庫</a>
-        <a href="slides.html" class="active">📝 熊熊簡報</a>
-        <a href="video.html">🎬 熊熊短影音</a>
-        <a href="test-gallery.html">📷 圖片瀏覽</a>
-        <a href="test-selection.html">✨ 圖片選擇</a>
-        <a href="test-stripe.html">🎨 設計系統</a>
-    </nav>
+    <!-- Navigation (loaded via component) -->
+    <div id="nav-container"></div>
+    <script>
+        fetch('/components/nav-component')
+            .then(r => r.text())
+            .then(html => {
+                document.getElementById('nav-container').innerHTML = html;
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                document.querySelectorAll('nav a').forEach(a => {
+                    if (a.getAttribute('href') === currentPage) {
+                        a.classList.add('active');
+                    } else {
+                        a.classList.remove('active');
+                    }
+                });
+            })
+            .catch(err => console.log('Nav component load failed:', err));
+    </script>
+
     <header>
         <h1>📝 熊熊簡報</h1>
         <div class="subtitle">選擇一份簡報開始欣賞</div>
