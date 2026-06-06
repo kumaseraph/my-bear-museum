@@ -1441,24 +1441,14 @@
             document.getElementById('filterBtn').classList.toggle('active');
         }
         
-        // Style filters (支援取消選擇)
-        function handleStyleFilter(label, style) {
-            // 如果點擊的是已選中的項目，則取消選擇（回到全部）
-            if (label.classList.contains('active')) {
-                label.classList.remove('active');
-                document.querySelector('#style-filters .filter-option[data-style="all"]').classList.add('active');
-                currentStyle = 'all';
-            } else {
+        // Style filters - 使用 change 事件監聽 radio button
+        document.querySelectorAll('#style-filters input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // 更新視覺狀態
                 document.querySelectorAll('#style-filters .filter-option').forEach(o => o.classList.remove('active'));
-                label.classList.add('active');
-                currentStyle = style;
-            }
-            filterMaterials();
-        }
-        
-        document.querySelectorAll('#style-filters .filter-option').forEach(opt => {
-            opt.addEventListener('click', function() {
-                handleStyleFilter(this, this.dataset.style);
+                this.closest('.filter-option').classList.add('active');
+                currentStyle = this.value;
+                filterMaterials();
             });
         });
         
