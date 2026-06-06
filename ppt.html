@@ -1417,12 +1417,19 @@
             document.getElementById('filterBtn').classList.toggle('active');
         }
         
-        // Style filters
+        // Style filters (支援取消選擇)
         document.querySelectorAll('#style-filters .filter-option').forEach(opt => {
             opt.addEventListener('click', function() {
-                document.querySelectorAll('#style-filters .filter-option').forEach(o => o.classList.remove('active'));
-                this.classList.add('active');
-                currentStyle = this.dataset.style;
+                // 如果點擊的是已選中的項目，則取消選擇（回到全部）
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    document.querySelector('#style-filters .filter-option[data-style="all"]').classList.add('active');
+                    currentStyle = 'all';
+                } else {
+                    document.querySelectorAll('#style-filters .filter-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    currentStyle = this.dataset.style;
+                }
                 filterMaterials();
             });
         });
@@ -1441,22 +1448,36 @@
             });
         });
         
-        // Date filters
+        // Date filters (支援取消選擇)
         document.querySelectorAll('#date-filters .filter-option').forEach(opt => {
             opt.addEventListener('click', function() {
-                document.querySelectorAll('#date-filters .filter-option').forEach(o => o.classList.remove('active'));
-                this.classList.add('active');
-                currentDate = this.dataset.date;
+                // 如果點擊的是已選中的項目，則取消選擇（回到全部）
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    document.querySelector('#date-filters .filter-option[data-date="all"]').classList.add('active');
+                    currentDate = 'all';
+                } else {
+                    document.querySelectorAll('#date-filters .filter-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    currentDate = this.dataset.date;
+                }
                 filterMaterials();
             });
         });
 
-        // Tag Style filters (radio behavior)
+        // Tag Style filters (支援取消選擇)
         document.querySelectorAll('#tag-style .tag-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                document.querySelectorAll('#tag-style .tag-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentTagStyle = this.dataset.tagStyle;
+                // 如果點擊的是已選中的項目，則取消選擇（回到全部）
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    document.querySelector('#tag-style .tag-btn[data-tag-style="all"]').classList.add('active');
+                    currentTagStyle = 'all';
+                } else {
+                    document.querySelectorAll('#tag-style .tag-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentTagStyle = this.dataset.tagStyle;
+                }
                 filterMaterials();
             });
         });
