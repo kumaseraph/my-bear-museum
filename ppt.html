@@ -122,10 +122,19 @@
             border-radius: 10px;
             cursor: pointer;
             transition: background 0.2s;
+            position: relative;
         }
         .filter-option:hover { background: #faf6f1; }
         .filter-option.active { background: #e7d8c9; }
-        .filter-option input { display: none; pointer-events: none; }
+        .filter-option input { 
+            position: absolute; 
+            opacity: 0; 
+            width: 100%; 
+            height: 100%; 
+            top: 0; 
+            left: 0; 
+            cursor: pointer;
+        }
         .filter-radio, .filter-checkbox {
             width: 18px;
             height: 18px;
