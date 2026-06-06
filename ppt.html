@@ -1875,14 +1875,16 @@
                     (e.target === lightbox);
                 
                 // Check if click is on any action button or inside action areas
-                const isActionArea = 
-                    e.target.closest('.lightbox-actions') ||
-                    e.target.closest('.lightbox-strip') ||
-                    e.target.closest('#lightbox-close');
-                
-                if (isOutsideLightbox && !isActionArea) {
-                    closeLightbox();
-                }
+                                const isActionArea = 
+                                    e.target.closest('.lightbox-actions') ||
+                                    e.target.closest('.lightbox-strip') ||
+                                    e.target.closest('#lightbox-close') ||
+                                    (document.getElementById('downloadModal').classList.contains('active') &&
+                                     document.getElementById('downloadModal').contains(e.target));
+
+                                if (isOutsideLightbox && !isActionArea) {
+                                    closeLightbox();
+                                }
             }
 
             // Close sidebar on outside click

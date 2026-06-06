@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ 熊熊簡報模板（示範）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════════════════════
+           CSS Custom Properties (熊熊暖棕系)
+        ═══════════════════════════════════════════════════════════════ */
+        :root {
+            /* Color Palette */
+            --color-bg: #fdf6e3;
+            --color-primary: #5d4037;
+            --color-accent: #d4a574;
+            --color-card: #ffffff;
+            --color-border: #d7ccc8;
+            --color-text-muted: #a1887f;
+            
+            /* Dark Mode */
+            --color-bg-dark: #2c2416;
+            --color-primary-dark: #e8d5c4;
+            --color-accent-dark: #b8956a;
+            --color-card-dark: #3d3225;
+            --color-border-dark: #5d4d3d;
+            
+            /* Typography */
+            --font-main: 'Noto Sans TC', 'Quicksand', -apple-system, sans-serif;
+            --font-display: 'Quicksand', 'Noto Sans TC', sans-serif;
+            
+            /* Spacing */
+            --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+            --space-sm: clamp(0.75rem, 2vw, 1rem);
+            --space-md: clamp(1rem, 3vw, 1.5rem);
+            --space-lg: clamp(1.5rem, 4vw, 2.5rem);
+            --space-xl: clamp(2rem, 5vw, 4rem);
+            
+            /* Transitions */
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(93, 64, 55, 0.08);
+            --shadow-md: 0 4px 16px rgba(93, 64, 55, 0.12);
+            --shadow-lg: 0 8px 32px rgba(93, 64, 55, 0.16);
+        }
+        
+        /* Dark Mode */
+        [data-theme="dark"] {
+            --color-bg: var(--color-bg-dark);
+            --color-primary: var(--color-primary-dark);
+            --color-accent: var(--color-accent-dark);
+            --color-card: var(--color-card-dark);
+            --color-border: var(--color-border-dark);
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           Base Styles
+        ═══════════════════════════════════════════════════════════════ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: clamp(14px, 2vw, 18px);
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg);
+            color: var(--color-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color var(--transition-smooth), color var(--transition-smooth);
+        }
+        
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        [data-reduced-motion="true"] *, 
+        [data-reduced-motion="true"] *::before, 
+        [data-reduced-motion="true"] *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           Slide Container & Layout System
+        ═══════════════════════════════════════════════════════════════ */
+        .slides-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-md);
+        }
+        
+        /* Layout Options */
+        [data-layout="grid"] .slide-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-md);
+        }
+        
+        [data-layout="center"] .slide-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        [data-layout="left"] .slide-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           Individual Slide Structure
+        ═══════════════════════════════════════════════════════════════ */
+        .slide {
+            position: relative;
+            min-height: 100vh;
+            padding: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            background: var(--color-bg);
+            overflow: hidden;
+        }
+        
+        /* Corner Border Decorations */
+        .slide-border {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            pointer-events: none;
+            opacity: 0.6;
+            transition: opacity var(--transition-smooth);
+        }
+        
+        .slide-border--tl { top: 20px; left: 20px; }
+        .slide-border--tr { top: 20px; right: 20px; transform: scaleX(-1); }
+        .slide-border--bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+        .slide-border--br { bottom: 20px; right: 20px; transform: scale(-1, -1); }
+        
+        .slide-border svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide:hover .slide-border {
+            opacity: 0.9;
+        }
+        
+        /* Header Zone */
+        .slide-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) 0;
+            border-bottom: 2px solid var(--color-border);
+            margin-bottom: var(--space-md);
+        }
+        
+        .slide-header__icon {
+            width: clamp(40px, 6vw, 60px);
+            height: clamp(40px, 6vw, 60px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-accent);
+            border-radius: var(--radius-md);
+            flex-shrink: 0;
+            transition: transform var(--transition-bounce);
+        }
+        
+        .slide-header__icon svg {
+            width: 60%;
+            height: 60%;
+        }
+        
+        .slide-header:hover .slide-header__icon {
+            transform: rotate(10deg) scale(1.05);
+        }
+        
+        .slide-header__title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: 1.2;
+        }
+        
+        .slide-header__subtitle {
+            font-size: clamp(0.875rem, 2vw, 1.125rem);
+            color: var(--color-text-muted);
+            margin-top: var(--space-xs);
+        }
+        
+        /* Content Zone */
+        .slide-content {
+            flex: 1;
+            padding: var(--space-md) 0;
+        }
+        
+        /* Footer Zone */
+        .slide-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-border);
+        }
+        
+        .slide-footer__page {
+            font-family: var(--font-display);
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            color: var(--color-text-muted);
+            background: var(--color-card);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           Content Elements
+        ═══════════════════════════════════════════════════════════════ */
+        .bear-card {
+            background: var(--color-card);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border);
+            transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+        }
+        
+        .bear-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .bear-card__icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .bear-card__title {
+            font-family: var(--font-display);
+            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .bear-card__text {
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            color: var(--color-text-muted);
+            line-height: 1.6;
+        }
+        
+        .bear-highlight {
+            background: linear-gradient(180deg, transparent 60%, var(--color-accent) 60%);
+            padding: 0 4px;
+            font-weight: 500;
+        }
+        
+        .bear-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .bear-list__item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            padding: var(--space-sm) 0;
+            border-bottom: 1px dashed var(--color-border);
+        }
+        
+        .bear-list__item:last-child {
+            border-bottom: none;
+        }
+        
+        .bear-list__emoji {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           Transition Animations
+        ═══════════════════════════════════════════════════════════════ */
+        [data-animation="false"] .slide {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        
+        /* Fade Transition */
+        .transition-fade {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Slide Transition */
+        .transition-slide {
+            animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateX(60px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+        
+        /* Zoom Transition */
+        .transition-zoom {
+            animation: zoomIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        @keyframes zoomIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1); 
+            }
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           Tweaks Panel
+        ═══════════════════════════════════════════════════════════════ */
+        .tweaks-panel {
+            position: fixed;
+            top: var(--space-md);
+            right: var(--space-md);
+            z-index: 1000;
+            background: var(--color-card);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--color-border);
+            width: clamp(280px, 90vw, 320px);
+            max-height: calc(100vh - var(--space-xl));
+            overflow-y: auto;
+            transition: transform var(--transition-smooth), opacity var(--transition-smooth);
+        }
+        
+        .tweaks-panel--collapsed {
+            transform: translateX(calc(100% + var(--space-md)));
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .tweaks-panel__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-accent);
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            cursor: pointer;
+        }
+        
+        .tweaks-panel__title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .tweaks-panel__toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: var(--space-xs);
+            transition: transform var(--transition-fast);
+        }
+        
+        .tweaks-panel__toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .tweaks-panel__content {
+            padding: var(--space-md);
+        }
+        
+        .tweaks-group {
+            margin-bottom: var(--space-md);
+        }
+        
+        .tweaks-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .tweaks-group__label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .tweaks-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .tweaks-btn-group {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .tweaks-btn {
+            flex: 1;
+            padding: var(--space-xs) var(--space-sm);
+            border: 1px solid var(--color-border);
+            background: var(--color-bg);
+            color: var(--color-primary);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .tweaks-btn:hover {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+        
+        .tweaks-btn--active {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+        
+        .tweaks-color-picker {
+            width: 100%;
+            height: 36px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            padding: 2px;
+            background: var(--color-card);
+        }
+        
+        .tweaks-range {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--color-border);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        .tweaks-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .tweaks-range::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            cursor: pointer;
+            border: none;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .tweaks-toggle {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            background: var(--color-border);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+        
+        .tweaks-toggle--active {
+            background: var(--color-accent);
+        }
+        
+        .tweaks-toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform var(--transition-fast);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .tweaks-toggle--active::after {
+            transform: translateX(22px);
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           Navigation Controls
+        ═══════════════════════════════════════════════════════════════ */
+        .nav-controls {
+            position: fixed;
+            bottom: var(--space-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: var(--space-sm);
+            background: var(--color-card);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--color-border);
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: var(--color-bg);
+            color: var(--color-primary);
+            border-radius: 50%;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-btn:hover {
+            background: var(--color-accent);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .nav-indicator {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 0 var(--space-sm);
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           Responsive Design
+        ═══════════════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .slide {
+                padding: var(--space-md);
+                min-height: auto;
+                padding-bottom: 120px;
+            }
+            
+            .slide-border {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .slide-border--tl { top: 10px; left: 10px; }
+            .slide-border--tr { top: 10px; right: 10px; }
+            .slide-border--bl { bottom: 10px; left: 10px; }
+            .slide-border--br { bottom: 10px; right: 10px; }
+            
+            .tweaks-panel {
+                width: calc(100vw - var(--space-lg));
+                right: var(--space-sm);
+                top: var(--space-sm);
+            }
+            
+            .nav-controls {
+                bottom: var(--space-md);
+                padding: var(--space-xs) var(--space-sm);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .slide-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .slide-header__icon {
+                width: 48px;
+                height: 48px;
+            }
+        }
+    </style>
+</head>
+<body data-layout="grid" data-animation="true" data-theme="light">
+    <!-- ═══════════════════════════════════════════════════════════════
+         Tweaks Panel
+    ═══════════════════════════════════════════════════════════════ -->
+    <div class="tweaks-panel" id="tweaksPanel">
+        <div class="tweaks-panel__header" onclick="toggleTweaksPanel()">
+            <span class="tweaks-panel__title">⚙️ 熊熊調整</span>
+            <button class="tweaks-panel__toggle" id="tweaksToggleBtn">−</button>
+        </div>
+        <div class="tweaks-panel__content" id="tweaksContent">
+            <!-- Theme Toggle -->
+            <div class="tweaks-group">
+                <label class="tweaks-group__label">主題</label>
+                <div class="tweaks-btn-group">
+                    <button class="tweaks-btn tweaks-btn--active" data-theme="light" onclick="setTheme('light')">☀️</button>
+                    <button class="tweaks-btn" data-theme="dark" onclick="setTheme('dark')">🌙</button>
+                </div>
+            </div>
+            
+            <!-- Layout Switch -->
+            <div class="tweaks-group">
+                <label class="tweaks-group__label">版面</label>
+                <div class="tweaks-btn-group">
+                    <button class="tweaks-btn" data-layout="grid" onclick="setLayout('grid')">格</button>
+                    <button class="tweaks-btn" data-layout="center" onclick="setLayout('center')">居</button>
+                    <button class="tweaks-btn" data-layout="left" onclick="setLayout('left')">左</button>
+                </div>
+            </div>
+            
+            <!-- Accent Color -->
+            <div class="tweaks-group">
+                <label class="tweaks-group__label">強調色</label>
+                <input type="color" class="tweaks-color-picker" id="accentColor" value="#d4a574" onchange="setAccentColor(this.value)">
+            </div>
+            
+            <!-- Font Size -->
+            <div class="tweaks-group">
+                <label class="tweaks-group__label">字體大小</label>
+                <div class="tweaks-row">
+                    <span>A</span>
+                    <input type="range" class="tweaks-range" id="fontSize" min="12" max="22" value="16" oninput="setFontSize(this.value)">
+                    <span style="font-size: 1.2em;">A</span>
+                </div>
+            </div>
+            
+            <!-- Animation Toggle -->
+            <div class="tweaks-group">
+                <label class="tweaks-group__label">動畫效果</label>
+                <div class="tweaks-row">
+                    <span>啟用轉場動畫</span>
+                    <div class="tweaks-toggle tweaks-toggle--active" id="animationToggle" onclick="toggleAnimation()"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         Slides Container
+    ═══════════════════════════════════════════════════════════════ -->
+    <div class="slides-wrapper" id="slidesWrapper">
+        
+        <!-- Slide 1: Title Slide -->
+        <section class="slide transition-fade" data-slide="1">
+            <div class="slide-border slide-border--tl">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            <div class="slide-border slide-border--tr">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            <div class="slide-border slide-border--bl">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            <div class="slide-border slide-border--br">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            
+            <header class="slide-header">
+                <div class="slide-header__icon">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="40" r="30" fill="none" stroke="white" stroke-width="4"/>
+                        <circle cx="35" cy="35" r="5" fill="white"/>
+                        <circle cx="65" cy="35" r="5" fill="white"/>
+                        <ellipse cx="50" cy="50" rx="10" ry="6" fill="white"/>
+                        <path d="M30 60 Q50 80 70 60" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="slide-header__title">🐻 熊熊森林探險記</h1>
+                    <p class="slide-header__subtitle">探索神秘又溫馨的熊熊世界</p>
+                </div>
+            </header>
+            
+            <div class="slide-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; flex: 1;">
+                <div style="font-size: clamp(4rem, 12vw, 8rem); margin-bottom: var(--space-md);">🌲🐾🌲</div>
+                <h2 style="font-family: var(--font-display); font-size: clamp(1.5rem, 4vw, 2.5rem); color: var(--color-primary); margin-bottom: var(--space-sm);">
+                    歡迎來到<br>熊熊的溫暖天地
+                </h2>
+                <p style="font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--color-text-muted); max-width: 600px;">
+                    在這片溫暖的森林裡，每一隻熊熊都有屬於自己的故事。<br>
+                    讓我們一起發現生活中的小確幸吧！
+                </p>
+            </div>
+            
+            <footer class="slide-footer">
+                <span class="slide-footer__page">1 / 5</span>
+            </footer>
+        </section>
+
+        <!-- Slide 2: Content Slide - Grid Layout -->
+        <section class="slide transition-slide" data-slide="2" style="display: none;">
+            <div class="slide-border slide-border--tl">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            <div class="slide-border slide-border--br">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            
+            <header class="slide-header">
+                <div class="slide-header__icon">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="35" fill="none" stroke="white" stroke-width="3"/>
+                        <path d="M35 40 L45 50 L65 35" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="slide-header__title">🌟 熊熊的日常</h1>
+                    <p class="slide-header__subtitle">森林裡的小確幸</p>
+                </div>
+            </header>
+            
+            <div class="slide-content">
+                <div class="bear-card">
+                    <div class="bear-card__icon">🍯</div>
+                    <h3 class="bear-card__title">晨間蜂蜜時光</h3>
+                    <p class="bear-card__text">每天醒來，熊熊都會去森林深處尋找最甜的蜂蜜。那是森林裡蜜蜂們的愛心奉獻。</p>
+                </div>
+                <div class="bear-card">
+                    <div class="bear-card__icon">🌿</div>
+                    <h3 class="bear-card__title">午後森林漫步</h3>
+                    <p class="bear-card__text">在溫暖的陽光下，熊熊最喜歡在森林裡漫步，傾聽鳥兒的歌聲和風的低語。</p>
+                </div>
+                <div class="bear-card">
+                    <div class="bear-card__icon">🏠</div>
+                    <h3 class="bear-card__title">溫馨的小窩</h3>
+                    <p class="bear-card__text">傍晚回家，熊熊會窩在暖暖的洞穴裡，看看書、畫畫，回想一天的美好。</p>
+                </div>
+            </div>
+            
+            <footer class="slide-footer">
+                <span class="slide-footer__page">2 / 5</span>
+            </footer>
+        </section>
+
+        <!-- Slide 3: Content Slide - List Layout -->
+        <section class="slide transition-zoom" data-slide="3" style="display: none;">
+            <div class="slide-border slide-border--tl">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            <div class="slide-border slide-border--tr">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            
+            <header class="slide-header">
+                <div class="slide-header__icon">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 20 L55 35 L70 35 L58 45 L63 60 L50 50 L37 60 L42 45 L30 35 L45 35 Z" fill="none" stroke="white" stroke-width="3" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="slide-header__title">✨ 熊熊的秘密</h1>
+                    <p class="slide-header__subtitle">那些溫暖的小事</p>
+                </div>
+            </header>
+            
+            <div class="slide-content">
+                <ul class="bear-list">
+                    <li class="bear-list__item">
+                        <span class="bear-list__emoji">🍄</span>
+                        <div>
+                            <strong>森林裡的寶藏</strong>
+                            <p style="color: var(--color-text-muted); font-size: 0.9em;">每當下雨過後，森林裡就會長出各種神奇的蘑菇，熊熊會小心翼翼地採集回家。</p>
+                        </div>
+                    </li>
+                    <li class="bear-list__item">
+                        <span class="bear-list__emoji">🌸</span>
+                        <div>
+                            <strong>春天的約會</strong>
+                            <p style="color: var(--color-text-muted); font-size: 0.9em;">春天來臨時，熊熊會和朋友們在花叢中野餐，分享冬天的故事。</p>
+                        </div>
+                    </li>
+                    <li class="bear-list__item">
+                        <span class="bear-list__emoji">🍂</span>
+                        <div>
+                            <strong>秋天的禮物</strong>
+                            <p style="color: var(--color-text-muted); font-size: 0.9em;">秋天的落葉是熊熊最好的朋友，可以用來做標本、寫信、還能做成暖暖的被子。</p>
+                        </div>
+                    </li>
+                    <li class="bear-list__item">
+                        <span class="bear-list__emoji">❄️</span>
+                        <div>
+                            <strong>冬天的奇蹟</strong>
+                            <p style="color: var(--color-text-muted); font-size: 0.9em;">當第一片雪花落下，熊熊知道這是新故事的開始，充滿無限可能。</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <footer class="slide-footer">
+                <span class="slide-footer__page">3 / 5</span>
+            </footer>
+        </section>
+
+        <!-- Slide 4: Content Slide - Center Layout -->
+        <section class="slide transition-fade" data-slide="4" style="display: none;">
+            <div class="slide-border slide-border--bl">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            <div class="slide-border slide-border--br">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            
+            <header class="slide-header" style="justify-content: center;">
+                <div class="slide-header__icon">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 30 L70 30 L70 70 L30 70 Z" fill="none" stroke="white" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="15" fill="none" stroke="white" stroke-width="3"/>
+                        <line x1="50" y1="35" x2="50" y2="50" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="50" y1="50" x2="60" y2="55" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div style="text-align: center;">
+                    <h1 class="slide-header__title">⏰ 熊熊的一天</h1>
+                    <p class="slide-header__subtitle">時間裡的小幸福</p>
+                </div>
+            </header>
+            
+            <div class="slide-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <div style="font-size: clamp(6rem, 15vw, 10rem); margin-bottom: var(--space-lg);">🕐</div>
+                <blockquote style="font-family: var(--font-display); font-size: clamp(1.25rem, 3vw, 1.75rem); color: var(--color-primary); max-width: 700px; line-height: 1.8; font-style: italic;">
+                    「最重要的小事，都藏在平凡的每一天裡。<br>
+                    就像蜂蜜的甜，來自於花朵的點點付出。」
+                </blockquote>
+                <p style="margin-top: var(--space-md); color: var(--color-text-muted); font-size: clamp(0.875rem, 2vw, 1rem);">
+                    — 熊熊的每日語錄 🐻
+                </p>
+            </div>
+            
+            <footer class="slide-footer">
+                <span class="slide-footer__page">4 / 5</span>
+            </footer>
+        </section>
+
+        <!-- Slide 5: End Slide -->
+        <section class="slide transition-slide" data-slide="5" style="display: none;">
+            <div class="slide-border slide-border--tl">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            <div class="slide-border slide-border--tr">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            <div class="slide-border slide-border--bl">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            <div class="slide-border slide-border--br">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="90" height="90" fill="none" stroke="var(--color-primary)" stroke-width="2" opacity="0.3"/>
+                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="var(--color-accent)" stroke-width="1.5" opacity="0.4"/>
+                    <polyline points="20,5 20,20 5,20" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="20" y="20" width="12" height="12" fill="var(--color-accent)" opacity="0.3"/>
+                    <circle cx="20" cy="20" r="4" fill="var(--color-primary)" opacity="0.5"/>
+                </svg>
+            </div>
+            
+            <header class="slide-header" style="justify-content: center;">
+                <div class="slide-header__icon">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 50 Q50 20 80 50 Q50 80 20 50" fill="none" stroke="white" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="8" fill="white"/>
+                    </svg>
+                </div>
+                <div style="text-align: center;">
+                    <h1 class="slide-header__title">🎉 感謝觀賞</h1>
+                    <p class="slide-header__subtitle">熊熊期待下次再相見</p>
+                </div>
+            </header>
+            
+            <div class="slide-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <div style="font-size: clamp(4rem, 10vw, 7rem); margin-bottom: var(--space-md);">🐻💛🌲</div>
+                <h2 style="font-family: var(--font-display); font-size: clamp(1.5rem, 4vw, 2.5rem); color: var(--color-primary); margin-bottom: var(--space-sm);">
+                    熊熊暖棕系簡報模板
+                </h2>
+                <p style="color: var(--color-text-muted); font-size: clamp(0.875rem, 2vw, 1rem); max-width: 500px; margin-bottom: var(--space-lg);">
+                    嘗試右上角的調整面板，<br>客製化你的專屬簡報吧！
+                </p>
+                <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; justify-content: center;">
+                    <span style="font-size: 2rem;">✨</span>
+                    <span style="font-size: 2rem;">🎨</span>
+                    <span style="font-size: 2rem;">⚡</span>
+                    <span style="font-size: 2rem;">💫</span>
+                </div>
+            </div>
+            
+            <footer class="slide-footer">
+                <span class="slide-footer__page">5 / 5</span>
+            </footer>
+        </section>
+    </div>
+
+    <!-- Navigation Controls -->
+    <nav class="nav-controls">
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()">◀</button>
+        <div class="nav-indicator">
+            <span id="currentSlide">1</span> / <span id="totalSlides">5</span>
+        </div>
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">▶</button>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         JavaScript
+    ═══════════════════════════════════════════════════════════════ -->
+    <script>
+        // State
+        let currentSlide = 1;
+        const totalSlides = 5;
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSettings();
+            updateSlideVisibility();
+            updateNavButtons();
+        });
+        
+        // Settings Management
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('bear-slides-settings') || '{}');
+            
+            // Apply theme
+            if (settings.theme) {
+                setTheme(settings.theme, false);
+            }
+            
+            // Apply layout
+            if (settings.layout) {
+                setLayout(settings.layout, false);
+            }
+            
+            // Apply accent color
+            if (settings.accentColor) {
+                setAccentColor(settings.accentColor, false);
+            }
+            
+            // Apply font size
+            if (settings.fontSize) {
+                setFontSize(settings.fontSize, false);
+            }
+            
+            // Apply animation
+            if (settings.animation === false) {
+                toggleAnimation(false);
+            }
+        }
+        
+        function saveSettings(key, value) {
+            const settings = JSON.parse(localStorage.getItem('bear-slides-settings') || '{}');
+            settings[key] = value;
+            localStorage.setItem('bear-slides-settings', JSON.stringify(settings));
+        }
+        
+        // Theme
+        function setTheme(theme, save = true) {
+            document.body.dataset.theme = theme;
+            document.querySelectorAll('[data-theme]').forEach(btn => {
+                btn.classList.toggle('tweaks-btn--active', btn.dataset.theme === theme);
+            });
+            if (save) saveSettings('theme', theme);
+        }
+        
+        // Layout
+        function setLayout(layout, save = true) {
+            document.body.dataset.layout = layout;
+            document.querySelectorAll('[data-layout]').forEach(btn => {
+                btn.classList.toggle('tweaks-btn--active', btn.dataset.layout === layout);
+            });
+            if (save) saveSettings('layout', layout);
+        }
+        
+        // Accent Color
+        function setAccentColor(color, save = true) {
+            document.documentElement.style.setProperty('--color-accent', color);
+            document.getElementById('accentColor').value = color;
+            if (save) saveSettings('accentColor', color);
+        }
+        
+        // Font Size
+        function setFontSize(size, save = true) {
+            document.documentElement.style.setProperty('--font-size-base', size + 'px');
+            document.body.style.fontSize = size + 'px';
+            if (save) saveSettings('fontSize', size);
+        }
+        
+        // Animation Toggle
+        function toggleAnimation(save = true) {
+            const toggle = document.getElementById('animationToggle');
+            const isActive = toggle.classList.toggle('tweaks-toggle--active');
+            document.body.dataset.animation = isActive;
+            if (save) saveSettings('animation', isActive);
+        }
+        
+        // Tweaks Panel Toggle
+        function toggleTweaksPanel() {
+            const panel = document.getElementById('tweaksPanel');
+            const btn = document.getElementById('tweaksToggleBtn');
+            panel.classList.toggle('tweaks-panel--collapsed');
+            btn.textContent = panel.classList.contains('tweaks-panel--collapsed') ? '+' : '−';
+        }
+        
+        // Navigation
+        function updateSlideVisibility() {
+            for (let i = 1; i <= totalSlides; i++) {
+                const slide = document.querySelector(`[data-slide="${i}"]`);
+                if (slide) {
+                    slide.style.display = i === currentSlide ? 'flex' : 'none';
+                }
+            }
+        }
+        
+        function updateNavButtons() {
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+        
+        function goToSlide(n) {
+            if (n >= 1 && n <= totalSlides) {
+                currentSlide = n;
+                updateSlideVisibility();
+                updateNavButtons();
+            }
+        }
+        
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+        
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+        
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+        
+        // Touch Swipe
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) nextSlide();
+                else prevSlide();
+            }
+        });
+    </script>
+</body>
+</html>

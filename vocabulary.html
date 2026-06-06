@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 熊熊詞彙庫</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fdf6e3;
+            color: #5d4037;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        nav {
+            background-color: #a1887f;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 15px;
+            transition: background 0.3s;
+        }
+        nav a:hover { background-color: #8d6e63; }
+        nav a.active { background-color: #5d4037; }
+        header {
+            background-color: #5d4037;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 { margin: 0; font-size: 2.5rem; }
+        .subtitle { font-size: 1.1rem; margin-top: 0.5rem; opacity: 0.9; }
+        .container { padding: 40px; max-width: 1200px; width: 95%; }
+        .intro-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            border: 4px solid #d7ccc8;
+        }
+        .intro-card h2 {
+            color: #795548;
+            margin-top: 0;
+        }
+        .rule-section {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .rule-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+        }
+        .rule-included {
+            background: #e8f5e9;
+            border: 2px solid #a5d6a7;
+            color: #2e7d32;
+        }
+        .rule-excluded {
+            background: #fce4ec;
+            border: 2px solid #f48fb1;
+            color: #c62828;
+        }
+        .category-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            border: 4px solid #d7ccc8;
+        }
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #795548;
+            border-bottom: 2px solid #d7ccc8;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .words-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .word-tag {
+            background: #fff8e1;
+            border: 2px solid #ffe082;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.95rem;
+            color: #5d4037;
+            transition: all 0.2s;
+        }
+        .word-tag:hover {
+            background: #ffe082;
+            transform: translateY(-2px);
+        }
+        footer { margin-top: 40px; padding: 20px; color: #a1887f; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">🐻 熊熊博物館</a>
+        <a href="ppt.html">📊 PPT 素材庫</a>
+        <a href="vocabulary.html" class="active">📚 詞彙庫</a>
+        <a href="slides.html">📝 熊熊簡報</a>
+        <a href="video.html">🎬 熊熊短影音</a>
+        <a href="test-gallery.html">📷 圖片瀏覽</a>
+        <a href="test-selection.html">✨ 圖片選擇</a>
+        <a href="test-stripe.html">🎨 設計系統</a>
+    </nav>
+    <header>
+        <h1>📚 熊熊詞彙庫</h1>
+        <div class="subtitle">溫暖、治癒、童話、收藏、夢幻、正向 ✨</div>
+    </header>
+    <div class="container">
+        <div class="intro-card">
+            <h2>🌟 詞彙庫介紹</h2>
+            <p>熊熊博物館專用詞彙庫，收錄符合世界觀的美好詞彙，用於圖片生成、素材創作與內容產出。</p>
+            <div class="rule-section">
+                <div class="rule-box rule-included">
+                    <strong>✅ 收錄標準</strong><br>
+                    溫暖 · 治癒 · 童話 · 收藏 · 夢幻 · 正向
+                </div>
+                <div class="rule-box rule-excluded">
+                    <strong>❌ 避免詞彙</strong><br>
+                    負面 · 暴力 · 恐怖 · 宗教爭議 · 政治
+                </div>
+            </div>
+        </div>
+        <div id="categories-container">
+            <p style="color:#a1887f;font-style:italic;">熊熊正在載入詞彙中... ʕっ•ᴥ•ʔっ</p>
+        </div>
+    </div>
+    <footer>由 熊熊(Kuma) 盡心經營ʕっ•ᴥ•ʔっ</footer>
+    <script>
+        async function loadVocabulary() {
+            try {
+                const res = await fetch('vocabulary/vocabulary.json');
+                const data = await res.json();
+                const container = document.getElementById('categories-container');
+                container.innerHTML = '';
+                for (const [catName, catData] of Object.entries(data.categories)) {
+                    const section = document.createElement('div');
+                    section.className = 'category-section';
+                    section.innerHTML = `
+                        <div class="category-title">${getCategoryIcon(catName)} ${catName}</div>
+                        <p style="color:#a1887f;font-size:0.9rem;margin-top:-10px;">${catData.description}</p>
+                        <div class="words-grid">
+                            ${catData.words.map(w => `<span class="word-tag">${w}</span>`).join('')}
+                        </div>
+                    `;
+                    container.appendChild(section);
+                }
+            } catch(e) {
+                document.getElementById('categories-container').innerHTML = '<p style="color:#c62828;">載入失敗：'+e.message+'</p>';
+            }
+        }
+        function getCategoryIcon(name) {
+            const icons = {
+                '自然系':'🌿','天空系':'☁️','星空系':'🌟','甜點系':'🍰',
+                '花卉系':'🌸','森林系':'🌲','海洋系':'🌊','夢幻系':'✨',
+                '情緒系':'💖','祝福系':'🎉','稱號系':'🏅','語錄關鍵字':'💬'
+            };
+            return icons[name] || '📚';
+        }
+        loadVocabulary();
+    </script>
+</body>
+</html>
