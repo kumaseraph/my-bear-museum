@@ -922,43 +922,43 @@
             <div class="filter-section">
                 <div class="filter-label">🎨 風格</div>
                 <div class="filter-options" id="style-filters">
-                    <label class="filter-option active" data-style="all">
+                    <label class="filter-option active" data-style="all" onclick="handleStyleFilter(this, 'all')">
                         <input type="radio" name="style" value="all" checked>
                         <span class="filter-radio"></span>
                         <span class="style-dot" style="background: linear-gradient(135deg, #5c6bc0, #78909c, #ab47bc, #8d6e63, #66bb6a, #ef5350);"></span>
                         全部
                     </label>
-                    <label class="filter-option" data-style="formal">
+                    <label class="filter-option" data-style="formal" onclick="handleStyleFilter(this, 'formal')">
                         <input type="radio" name="style" value="formal">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-formal"></span>
                         🏛️ 正式
                     </label>
-                    <label class="filter-option" data-style="simple">
+                    <label class="filter-option" data-style="simple" onclick="handleStyleFilter(this, 'simple')">
                         <input type="radio" name="style" value="simple">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-simple"></span>
                         ✨ 簡潔
                     </label>
-                    <label class="filter-option" data-style="creative">
+                    <label class="filter-option" data-style="creative" onclick="handleStyleFilter(this, 'creative')">
                         <input type="radio" name="style" value="creative">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-creative"></span>
                         🎨 創意
                     </label>
-                    <label class="filter-option" data-style="bear">
+                    <label class="filter-option" data-style="bear" onclick="handleStyleFilter(this, 'bear')">
                         <input type="radio" name="style" value="bear">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-bear"></span>
                         🐻 熊熊
                     </label>
-                    <label class="filter-option" data-style="nature">
+                    <label class="filter-option" data-style="nature" onclick="handleStyleFilter(this, 'nature')">
                         <input type="radio" name="style" value="nature">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-nature"></span>
                         🌿 自然
                     </label>
-                    <label class="filter-option" data-style="festival">
+                    <label class="filter-option" data-style="festival" onclick="handleStyleFilter(this, 'festival')">
                         <input type="radio" name="style" value="festival">
                         <span class="filter-radio"></span>
                         <span class="style-dot style-festival"></span>
@@ -1433,19 +1433,23 @@
         }
         
         // Style filters (支援取消選擇)
+        function handleStyleFilter(label, style) {
+            // 如果點擊的是已選中的項目，則取消選擇（回到全部）
+            if (label.classList.contains('active')) {
+                label.classList.remove('active');
+                document.querySelector('#style-filters .filter-option[data-style="all"]').classList.add('active');
+                currentStyle = 'all';
+            } else {
+                document.querySelectorAll('#style-filters .filter-option').forEach(o => o.classList.remove('active'));
+                label.classList.add('active');
+                currentStyle = style;
+            }
+            filterMaterials();
+        }
+        
         document.querySelectorAll('#style-filters .filter-option').forEach(opt => {
             opt.addEventListener('click', function() {
-                // 如果點擊的是已選中的項目，則取消選擇（回到全部）
-                if (this.classList.contains('active')) {
-                    this.classList.remove('active');
-                    document.querySelector('#style-filters .filter-option[data-style="all"]').classList.add('active');
-                    currentStyle = 'all';
-                } else {
-                    document.querySelectorAll('#style-filters .filter-option').forEach(o => o.classList.remove('active'));
-                    this.classList.add('active');
-                    currentStyle = this.dataset.style;
-                }
-                filterMaterials();
+                handleStyleFilter(this, this.dataset.style);
             });
         });
         
