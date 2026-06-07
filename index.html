@@ -66,15 +66,6 @@
             --border-thin: 1px solid rgba(93,64,55,0.1);
         }
 
-        [data-theme="dark"] {
-            --color-bg: #1a1510;
-            --color-primary: #d4a574;
-            --color-accent: #FFD700;
-            --color-card: #2d2520;
-            --color-border: #4a3f35;
-            --color-text-muted: #a08060;
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
@@ -145,7 +136,7 @@
         /* Section */
         .section {
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto 20px;
             padding: 0 20px;
         }
         .section-title {
@@ -162,7 +153,7 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 12px;
         }
 
         /* Bear Thumbnail Button */
@@ -240,10 +231,15 @@
             height: 70px;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: var(--shadow-soft);
+            box-shadow: 0 0 10px rgba(255,182,193,0.6), 0 0 20px rgba(173,216,230,0.4);
             flex-shrink: 0;
             position: relative;
             z-index: 1;
+            animation: thumb-glow 3s ease-in-out infinite;
+        }
+        @keyframes thumb-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(255,182,193,0.6), 0 0 20px rgba(173,216,230,0.4); }
+            50% { box-shadow: 0 0 15px rgba(255,213,164,0.7), 0 0 30px rgba(230,230,250,0.5); }
         }
         .bear-thumb::before {
             content: '';
@@ -281,7 +277,7 @@
             background-size: cover;
             background-position: center;
             border-radius: 20px;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
             box-shadow: var(--shadow-medium);
             margin-bottom: 40px;
@@ -322,7 +318,7 @@
             width: 220px;
             height: 220px;
             border-radius: 50%;
-            overflow: visible;
+            overflow: hidden;
             border: 6px solid #FFD700;
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 30px rgba(255, 215, 0, 0.5);
             flex-shrink: 0;
@@ -779,15 +775,16 @@
             font-size: 0.75rem;
             font-weight: 500;
             margin-top: 8px;
+            background: #f5e6d3;
+            color: #5d4037;
         }
-        .category-badge.奇幻 { background: #e6e6fa; color: #6b5b95; }
-        .category-badge.悠閒 { background: #ffe4e1; color: #d87093; }
-        .category-badge.領袖 { background: #b0e0e6; color: #4682b4; }
-        .category-badge.水彩 { background: #ffd1dc; color: #db7093; }
-        .category-badge[class*="3D"] { background: #98fb98; color: #228b22; }
-        .category-badge.油畫 { background: #ffdead; color: #daa520; }
-        .category-badge.像素 { background: #afeeee; color: #008b8b; }
-        .category-badge.紀念 { background: linear-gradient(135deg, #FFD700, #FFA500); color: #8b6914; }
+        .category-badge[data-series*="童話"] { background: #ffd1dc; color: #db7093; }
+        .category-badge[data-series*="星際"] { background: #e6e6fa; color: #6b5b95; }
+        .category-badge[data-series*="浪漫"] { background: #ffe4e1; color: #d87093; }
+        .category-badge[data-series*="勇者"] { background: #b0e0e6; color: #4682b4; }
+        .category-badge[data-series*="暖心"] { background: #ffd1a4; color: #8b6914; }
+        .category-badge[data-series*="溫暖"] { background: #ffe4b5; color: #8b6914; }
+        .category-badge[data-series*="紀念"] { background: linear-gradient(135deg, #FFD700, #FFA500); color: #8b6914; }
 
         /* Carousel for featured bears */
         .carousel-container {
@@ -871,7 +868,7 @@
             max-height: 90vh;
             overflow-y: auto;
             scrollbar-gutter: stable;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
             box-shadow: 0 20px 60px rgba(93, 64, 55, 0.3);
             position: relative;
@@ -1191,7 +1188,7 @@
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
-            padding: 30px;
+            padding: 20px;
             box-shadow: 0 10px 40px rgba(93, 64, 55, 0.3);
             position: relative;
         }
@@ -1568,28 +1565,7 @@
             align-items: center;
             gap: 15px;
         }
-        .theme-toggle {
-            background: none;
-            border: var(--border-thin);
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            box-shadow: var(--shadow-soft);
-        }
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-medium);
-        }
-        [data-theme="dark"] .theme-toggle {
-            background: var(--color-card);
-        }
-    </style>
+        </style>
 </head>
 <body>
     <!-- Navigation (Web Component) -->
@@ -1638,7 +1614,6 @@
     <!-- Opening Commemorative Bear -->
     <div class="section featured-section" id="featuredBearSection">
         <div class="section-title">
-            <img src="images/icon-bear-crown.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
             🏛️ 開館紀念熊
         </div>
         <div class="featured-thumb" id="featuredBearThumb" onclick="openBearModal(0)">
@@ -1646,7 +1621,6 @@
             <div class="thumb-circle" id="featuredBearCircle">
                 <img src="images/featured-bear.jpg" alt="開館紀念熊" loading="lazy">
             </div>
-            <div class="thumb-no" id="featuredBearNo">No.0001</div>
         </div>
         <div class="featured-quote">「歡迎光臨熊熊博物館！」</div>
     </div>
@@ -1674,7 +1648,10 @@
 
         <!-- Yearbook Tab Switch -->
         <div class="yearbook-tabs">
-            <button class="yearbook-tab active" id="tabMonth" onclick="switchYearbookTab('month')">
+            <button class="yearbook-tab active" id="tabAll" onclick="switchYearbookTab('all')">
+                🏠 全部熊熊
+            </button>
+            <button class="yearbook-tab" id="tabMonth" onclick="switchYearbookTab('month')">
                 <img src="images/icon-bear-calendar.jpg" style="width:24px;height:24px;vertical-align:middle;margin-right:5px;"> 熊熊月份
             </button>
             <button class="yearbook-tab" id="tabCategory" onclick="switchYearbookTab('category')">
@@ -1684,8 +1661,10 @@
 
         <!-- Yearbook Accordion -->
         <div class="yearbook-accordion">
+            <!-- 全部熊熊容器 -->
+            <div id="yearbookAllContainer" class="yearbook-grid"></div>
             <!-- 月份模式容器 -->
-            <div id="yearbookMonthContainer"></div>
+            <div id="yearbookMonthContainer" style="display: none;"></div>
             <!-- 特性模式容器 -->
             <div id="yearbookCategoryContainer" style="display: none;"></div>
         </div>
@@ -1763,7 +1742,6 @@
 
     <footer>
         由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.21
-        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="切換深色模式">🌙</button>
     </footer>
 
     <script>
@@ -1774,7 +1752,7 @@
                 date: "2026-06-07",
                 checkIn: "20260707-01",
                 collectionNo: 20,
-                category: "水彩",
+                
                 title: "冰雪精靈",
                 series: "童話夢境系列",
                 birthday: "2026-06-07",
@@ -1787,7 +1765,7 @@
                 date: "2026-06-07",
                 checkIn: "20260707-02",
                 collectionNo: 21,
-                category: "3D",
+                
                 title: "甜點大師",
                 series: "暖心守護系列",
                 birthday: "2026-06-07",
@@ -1800,7 +1778,7 @@
                 date: "2026-06-07",
                 checkIn: "20260707-03",
                 collectionNo: 22,
-                category: "油畫",
+                
                 title: "浪漫花仙",
                 series: "浪漫時光系列",
                 birthday: "2026-06-07",
@@ -1813,7 +1791,7 @@
                 date: "2026-06-07",
                 checkIn: "20260707-04",
                 collectionNo: 23,
-                category: "奇幻",
+                
                 title: "銀河漫遊者",
                 series: "星際冒險系列",
                 birthday: "2026-06-07",
@@ -1826,7 +1804,7 @@
                 date: "2026-06-07",
                 checkIn: "20260707-05",
                 collectionNo: 24,
-                category: "像素",
+                
                 title: "萬聖小魔術師",
                 series: "勇者傳奇系列",
                 birthday: "2026-06-07",
@@ -1840,7 +1818,7 @@
                 date: "2026-06-06",
                 checkIn: "20260606-01",
                 collectionNo: 15,
-                category: "水彩",
+                
                 title: "🌤️ 棉花糖精靈",
                 series: "童話夢境系列",
                 birthday: "2026-06-06",
@@ -1853,7 +1831,7 @@
                 date: "2026-06-06",
                 checkIn: "20260606-02",
                 collectionNo: 16,
-                category: "3D",
+                
                 title: "🐾 蜂蜜收藏家",
                 series: "暖心守護系列",
                 birthday: "2026-06-06",
@@ -1866,7 +1844,7 @@
                 date: "2026-06-06",
                 checkIn: "20260606-03",
                 collectionNo: 17,
-                category: "油畫",
+                
                 title: "💖 晚霞戀人",
                 series: "浪漫時光系列",
                 birthday: "2026-06-06",
@@ -1879,7 +1857,7 @@
                 date: "2026-06-06",
                 checkIn: "20260606-04",
                 collectionNo: 18,
-                category: "奇幻",
+                
                 title: "✨ 星辰收藏家",
                 series: "星際冒險系列",
                 birthday: "2026-06-06",
@@ -1892,7 +1870,7 @@
                 date: "2026-06-06",
                 checkIn: "20260606-05",
                 collectionNo: 19,
-                category: "像素",
+                
                 title: "🎁 友誼使者",
                 series: "溫暖家園系列",
                 birthday: "2026-06-06",
@@ -1906,7 +1884,7 @@
                 date: "2026-06-02",
                 checkIn: "20260602-01",
                 collectionNo: 2,
-                category: "奇幻",
+                
                 title: "☁️ 雲端漫遊者",
                 series: "童話夢境系列",
                 birthday: "2026-06-02",
@@ -1919,7 +1897,7 @@
                 date: "2026-06-02",
                 checkIn: "20260602-02",
                 collectionNo: 3,
-                category: "悠閒",
+                
                 title: "🛋️ 悠閒生活家",
                 series: "溫暖家園系列",
                 birthday: "2026-06-02",
@@ -1932,7 +1910,7 @@
                 date: "2026-06-02",
                 checkIn: "20260602-03",
                 collectionNo: 4,
-                category: "領袖",
+                
                 title: "❄️ 冰雪王者",
                 series: "勇者傳奇系列",
                 birthday: "2026-06-02",
@@ -1946,7 +1924,7 @@
                 date: "2026-06-04",
                 checkIn: "20260604-01",
                 collectionNo: 5,
-                category: "水彩",
+                
                 title: "🌸 晨曦花語者",
                 series: "自然物語系列",
                 birthday: "2026-06-04",
@@ -1959,7 +1937,7 @@
                 date: "2026-06-04",
                 checkIn: "20260604-02",
                 collectionNo: 6,
-                category: "3D",
+                
                 title: "🍯 甜蜜收藏家",
                 series: "暖心守護系列",
                 birthday: "2026-06-04",
@@ -1972,7 +1950,7 @@
                 date: "2026-06-04",
                 checkIn: "20260604-03",
                 collectionNo: 7,
-                category: "油畫",
+                
                 title: "🌅 夕陽詩人",
                 series: "浪漫時光系列",
                 birthday: "2026-06-04",
@@ -1985,7 +1963,7 @@
                 date: "2026-06-04",
                 checkIn: "20260604-04",
                 collectionNo: 8,
-                category: "奇幻",
+                
                 title: "🌙 星海尋夢者",
                 series: "星際冒險系列",
                 birthday: "2026-06-04",
@@ -1998,7 +1976,7 @@
                 date: "2026-06-04",
                 checkIn: "20260604-05",
                 collectionNo: 9,
-                category: "像素",
+                
                 title: "🧱 彩虹建築師",
                 series: "創意玩趣系列",
                 birthday: "2026-06-04",
@@ -2011,7 +1989,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-01",
                 collectionNo: 10,
-                category: "水彩",
+                
                 title: "🍰 甜蜜魔法師",
                 series: "糖果廚房系列",
                 birthday: "2026-06-05",
@@ -2024,7 +2002,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-02",
                 collectionNo: 11,
-                category: "3D",
+                
                 title: "🚀 銀河探險家",
                 series: "星際冒險系列",
                 birthday: "2026-06-05",
@@ -2037,7 +2015,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-03",
                 collectionNo: 12,
-                category: "奇幻",
+                
                 title: "🍩 糖果王國使者",
                 series: "童話夢境系列",
                 birthday: "2026-06-05",
@@ -2050,7 +2028,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-04",
                 collectionNo: 13,
-                category: "油畫",
+                
                 title: "🌊 海洋勇者",
                 series: "海洋傳奇系列",
                 birthday: "2026-06-05",
@@ -2063,7 +2041,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-05",
                 collectionNo: 14,
-                category: "像素",
+                
                 title: "🚒 城市守護者",
                 series: "勇者傳奇系列",
                 birthday: "2026-06-05",
@@ -2079,7 +2057,7 @@
             date: openDate,
             checkIn: "20260603-01",
             collectionNo: 1,
-            category: "紀念",
+            
             title: "🌟 館藏守護者",
             series: "紀念珍藏系列",
             birthday: "2026-06-03",
@@ -2090,29 +2068,6 @@
 
         // Star button state management
         let starredBears = JSON.parse(localStorage.getItem('starredBears') || '[]');
-
-        // Theme management
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            if (next === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else {
-                document.documentElement.removeAttribute('data-theme');
-            }
-            localStorage.setItem('theme', next);
-            document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
-        }
-        // Init theme button icon
-        document.addEventListener('DOMContentLoaded', () => {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
-        });
 
         function toggleStar(collectionNo, event) {
             event.stopPropagation();
@@ -2468,7 +2423,6 @@
             thumb.innerHTML = `
                 <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                 <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
-                <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                 <div class="thumb-name">${bear.name}</div>
             `;
             return thumb;
@@ -2482,26 +2436,45 @@
             items.classList.toggle('show');
         }
 
-        // Switch yearbook tab (月份/特性)
-        let currentYearbookTab = 'month';
+        // Switch yearbook tab (全部/月份/特性)
+        let currentYearbookTab = 'all';
         function switchYearbookTab(tab) {
             currentYearbookTab = tab;
+            const tabAll = document.getElementById('tabAll');
             const tabMonth = document.getElementById('tabMonth');
             const tabCategory = document.getElementById('tabCategory');
+            const allContainer = document.getElementById('yearbookAllContainer');
             const monthContainer = document.getElementById('yearbookMonthContainer');
             const categoryContainer = document.getElementById('yearbookCategoryContainer');
 
-            if (tab === 'month') {
+            tabAll.classList.remove('active');
+            tabMonth.classList.remove('active');
+            tabCategory.classList.remove('active');
+            allContainer.style.display = 'none';
+            monthContainer.style.display = 'none';
+            categoryContainer.style.display = 'none';
+
+            if (tab === 'all') {
+                tabAll.classList.add('active');
+                allContainer.style.display = 'block';
+                renderAllYearbookBears();
+            } else if (tab === 'month') {
                 tabMonth.classList.add('active');
-                tabCategory.classList.remove('active');
                 monthContainer.style.display = 'block';
-                categoryContainer.style.display = 'none';
             } else {
-                tabMonth.classList.remove('active');
                 tabCategory.classList.add('active');
-                monthContainer.style.display = 'none';
                 categoryContainer.style.display = 'block';
             }
+        }
+
+        // Render all bears for yearbook "all" tab
+        function renderAllYearbookBears() {
+            const container = document.getElementById('yearbookAllContainer');
+            container.innerHTML = '';
+            bears.forEach(bear => {
+                const thumb = createBearThumb(bear);
+                container.appendChild(thumb);
+            });
         }
 
         // Open category modal (for category filter in yearbook)
@@ -2510,11 +2483,11 @@
             document.getElementById('monthModalTitle').textContent = `🎨 ${category} 分類`;
             grid.innerHTML = '';
 
-            // Filter bears by category
-            let categoryBears = bears.filter(b => b.category === category);
+            // Filter bears by series
+            let categoryBears = bears.filter(b => b.series === category);
             categoryBears.sort((a, b) => a.collectionNo - b.collectionNo);
 
-            if (category === featuredBear.category) {
+            if (category === featuredBear.series) {
                 categoryBears.unshift(featuredBear);
             }
 
@@ -2530,8 +2503,8 @@
 
         function getAllCategories() {
             const cats = new Set(['全部']);
-            cats.add(featuredBear.category);
-            bears.forEach(b => cats.add(b.category));
+            cats.add(featuredBear.series);
+            bears.forEach(b => cats.add(b.series));
             return Array.from(cats);
         }
 
@@ -2585,9 +2558,8 @@
                 thumb.innerHTML = `
                     <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                     <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
-                    <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                     <div class="thumb-name">${bear.name}</div>
-                    <span class="category-badge ${bear.category}">${bear.category}</span>
+                    <span class="category-badge" data-series="${bear.series}">${bear.series}</span>
                 `;
                 grid.appendChild(thumb);
             });
@@ -2843,7 +2815,6 @@
                         <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid #d4a574; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
                             <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
-                        <div class="thumb-no" style="margin-top: 10px; font-size: 1rem; font-weight: bold; color: #5d4037;">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                     </div>
                 `;
                 stopAutoSlide();
@@ -2892,7 +2863,6 @@
                         <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid #d4a574; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
                             <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
-                        <div class="thumb-no" style="margin-top: 10px; font-size: 1rem; font-weight: bold; color: #5d4037;">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                     </div>
                 `;
                 track.appendChild(slide);
@@ -3030,7 +3000,6 @@
             thumb.innerHTML = `
                 <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                 <div class="thumb-circle" style="width: 120px; height: 120px;"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
-                <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                 <div class="thumb-name">${bear.name}</div>
             `;
             grid.appendChild(thumb);
