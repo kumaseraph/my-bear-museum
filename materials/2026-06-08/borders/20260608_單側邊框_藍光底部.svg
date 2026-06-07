@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bottomGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2C3E50"/>
+      <stop offset="50%" style="stop-color:#3498DB"/>
+      <stop offset="100%" style="stop-color:#2C3E50"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 底部粗線 -->
+  <rect x="0" y="1050" width="1920" height="30" fill="url(#bottomGrad)"/>
+  
+  <!-- 底部發光效果線 -->
+  <rect x="100" y="1040" width="1720" height="6" fill="#5DADE2" filter="url(#glow)" rx="3"/>
+  
+  <!-- 裝飾三角 -->
+  <polygon points="960,1020 980,1040 940,1040" fill="#3498DB"/>
+  
+  <!-- 左裝飾 -->
+  <rect x="80" y="1048" width="60" height="3" fill="#85C1E9" rx="1.5"/>
+  <rect x="150" y="1048" width="30" height="3" fill="#AED6F1" rx="1.5"/>
+  
+  <!-- 右裝飾 -->
+  <rect x="1690" y="1048" width="30" height="3" fill="#AED6F1" rx="1.5"/>
+  <rect x="1730" y="1048" width="60" height="3" fill="#85C1E9" rx="1.5"/>
+</svg>

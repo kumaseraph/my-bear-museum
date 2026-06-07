@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a252f"/>
+      <stop offset="50%" style="stop-color:#2c3e50"/>
+      <stop offset="100%" style="stop-color:#34495e"/>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:0"/>
+      <stop offset="50%" style="stop-color:#3498db;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#3498db;stop-opacity:0"/>
+    </linearGradient>
+    <radialGradient id="spotlight" cx="70%" cy="30%" r="60%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#3498db;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Base background -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Spotlight effect -->
+  <ellipse cx="1350" cy="300" rx="800" ry="500" fill="url(#spotlight)"/>
+  
+  <!-- Diagonal lines pattern -->
+  <g opacity="0.1">
+    <line x1="0" y1="1080" x2="1920" y2="0" stroke="#5dade2" stroke-width="1"/>
+    <line x1="-100" y1="1080" x2="1820" y2="0" stroke="#5dade2" stroke-width="1"/>
+    <line x1="100" y1="1080" x2="2020" y2="0" stroke="#5dade2" stroke-width="1"/>
+    <line x1="300" y1="1080" x2="2220" y2="0" stroke="#5dade2" stroke-width="1"/>
+    <line x1="500" y1="1080" x2="2420" y2="0" stroke="#5dade2" stroke-width="1"/>
+    <line x1="700" y1="1080" x2="2620" y2="0" stroke="#5dade2" stroke-width="1"/>
+    <line x1="900" y1="1080" x2="2820" y2="0" stroke="#5dade2" stroke-width="1"/>
+    <line x1="1100" y1="1080" x2="3020" y2="0" stroke="#5dade2" stroke-width="1"/>
+  </g>
+  
+  <!-- Center accent line -->
+  <rect x="100" y="520" width="1720" height="2" fill="url(#lineGrad)"/>
+  
+  <!-- Corner accents -->
+  <rect x="0" y="0" width="150" height="8" fill="#34495e"/>
+  <rect x="0" y="0" width="8" height="150" fill="#34495e"/>
+  <rect x="1770" y="0" width="150" height="8" fill="#34495e"/>
+  <rect x="1912" y="0" width="8" height="150" fill="#34495e"/>
+  <rect x="0" y="1072" width="150" height="8" fill="#34495e"/>
+  <rect x="0" y="930" width="8" height="150" fill="#34495e"/>
+  <rect x="1770" y="1072" width="150" height="8" fill="#34495e"/>
+  <rect x="1912" y="930" width="8" height="150" fill="#34495e"/>
+</svg>
