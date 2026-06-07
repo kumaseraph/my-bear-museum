@@ -176,6 +176,7 @@ class NavBar extends HTMLElement {
         align-items: center;
         justify-content: center;
         transition: background 0.2s;
+        flex-shrink: 0;
       }
 
       .close-btn:hover {
