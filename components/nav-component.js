@@ -23,7 +23,7 @@ class NavBar extends HTMLElement {
     const style = document.createElement('style');
     style.id = 'nav-offset-styles';
     style.textContent = `
-      body.sidebar-open > * {
+      body.sidebar-open > *:not(nav-bar) {
         transform: translateX(280px);
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
