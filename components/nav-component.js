@@ -149,20 +149,31 @@ class NavBar extends HTMLElement {
 
       /* Sidebar header */
       .sidebar-header {
-        padding: 20px 16px 12px;
+        padding: 20px 16px 16px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
+        position: relative;
         border-bottom: 1px solid ${dividerColor};
       }
 
-      .sidebar-title {
-        font-size: 1rem;
-        font-weight: 700;
-        color: ${textColor};
+      .sidebar-bear-icon {
+        width: 60px;
+        height: 60px;
         display: flex;
         align-items: center;
-        gap: 6px;
+        justify-content: center;
+      }
+
+      .sidebar-bear-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .sidebar-header .close-btn {
+        position: absolute;
+        right: 0;
       }
 
       .close-btn {
@@ -378,7 +389,9 @@ class NavBar extends HTMLElement {
 
       <nav class="sidebar" id="sidebar" role="navigation" aria-label="主導航">
         <div class="sidebar-header">
-          <span class="sidebar-title">🐻 熊熊博物館</span>
+          <div class="sidebar-bear-icon">
+            <img src="/images/bear-icon.svg" alt="熊熊" />
+          </div>
           <button class="close-btn" aria-label="關閉導航選單">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
