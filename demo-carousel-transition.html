@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>輪播動畫示範</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #fdf8f3 0%, #f5ebe0 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+h1 {
+  text-align: center;
+  color: #5d4037;
+  margin-bottom: 10px;
+}
+p { text-align: center; color: #8d6e63; margin-bottom: 30px; }
+
+.demo-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.demo-box {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(93, 64, 55, 0.15);
+  width: 320px;
+}
+.demo-box h2 {
+  text-align: center;
+  color: #5d4037;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+.demo-box p {
+  font-size: 12px;
+  margin-bottom: 15px;
+  color: #8d6e63;
+}
+
+/* ====== CAROUSEL BASE ====== */
+.carousel {
+  position: relative;
+  width: 280px;
+  height: 200px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fdf8f3;
+}
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ====== OPTION A: SLIDE ====== */
+.option-a .carousel-track {
+  transition: transform 0.5s ease-in-out;
+}
+.option-a .carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #5d4037;
+}
+
+/* ====== OPTION B: FADE ====== */
+.option-b .carousel-slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #5d4037;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.option-b .carousel-slide.active {
+  opacity: 1;
+}
+
+/* ====== OPTION C: BOUNCE ====== */
+.option-c .carousel-track {
+  transition: transform 0.3s ease;
+}
+.option-c .carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #5d4037;
+}
+.option-c .carousel.bounce {
+  animation: bounceEffect 0.4s ease;
+}
+@keyframes bounceEffect {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+/* ====== BEAR SLIDE CONTENT ====== */
+.bear-slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #f5ebe0 0%, #e8ddd4 100%);
+}
+.bear-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.bear-name {
+  font-size: 14px;
+  color: #5d4037;
+  font-weight: bold;
+}
+
+/* ====== NAV CONTROLS ====== */
+.nav-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+.nav-btn {
+  background: #5d4037;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-btn:hover {
+  background: #8d6e63;
+  transform: scale(1.1);
+}
+.counter {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #8d6e63;
+}
+
+/* ====== DOTS ====== */
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d4a574;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dot.active {
+  background: #5d4037;
+  transform: scale(1.3);
+}
+</style>
+</head>
+<body>
+<h1>🎠 輪播動畫示範</h1>
+<p>五隻熊熊的循環輪播測試</p>
+
+<div class="demo-container">
+
+<!-- OPTION A: SLIDE -->
+<div class="demo-box option-a">
+  <h2>🟢 方案A：滑動動畫</h2>
+  <p>用 translateX 滑到下一隻，最後一隻滑回第一隻（動畫過渡）</p>
+  <div class="carousel" id="carouselA">
+    <div class="carousel-track" id="trackA"></div>
+  </div>
+  <div class="nav-controls">
+    <button class="nav-btn" onclick="prevA()">❮</button>
+    <span class="counter"><span id="counterA">1</span> / 5</span>
+    <button class="nav-btn" onclick="nextA()">❯</button>
+  </div>
+  <div class="dots" id="dotsA"></div>
+</div>
+
+<!-- OPTION B: FADE -->
+<div class="demo-box option-b">
+  <h2>🔵 方案B：淡入淡出</h2>
+  <p>新熊熊淡入、舊熊熊淡出，適合少量圖片</p>
+  <div class="carousel" id="carouselB">
+    <div class="carousel-track" id="trackB"></div>
+  </div>
+  <div class="nav-controls">
+    <button class="nav-btn" onclick="prevB()">❮</button>
+    <span class="counter"><span id="counterB">1</span> / 5</span>
+    <button class="nav-btn" onclick="nextB()">❯</button>
+  </div>
+  <div class="dots" id="dotsB"></div>
+</div>
+
+<!-- OPTION C: BOUNCE -->
+<div class="demo-box option-c">
+  <h2>🟡 方案C：邊界反彈</h2>
+  <p>到最後一隻時輕微震動提示「已經最後了」，不循環</p>
+  <div class="carousel" id="carouselC">
+    <div class="carousel-track" id="trackC"></div>
+  </div>
+  <div class="nav-controls">
+    <button class="nav-btn" onclick="prevC()">❮</button>
+    <span class="counter"><span id="counterC">1</span> / 5</span>
+    <button class="nav-btn" onclick="nextC()">❯</button>
+  </div>
+  <div class="dots" id="dotsC"></div>
+</div>
+
+</div>
+
+<script>
+const bears = [
+  { name: '熊熊①', emoji: '🐻', color: '#f8bbd9' },
+  { name: '熊熊②', emoji: '🐼', color: '#bbdefb' },
+  { name: '熊熊③', emoji: '🐨', color: '#e0e0e0' },
+  { name: '熊熊④', emoji: '🐯', color: '#ffe0b2' },
+  { name: '熊熊⑤', emoji: '🦁', color: '#fff9c4' },
+];
+
+// ====== OPTION A: SLIDE ======
+let indexA = 0;
+const trackA = document.getElementById('trackA');
+const dotsAContainer = document.getElementById('dotsA');
+
+bears.forEach((b, i) => {
+  const slide = document.createElement('div');
+  slide.className = 'carousel-slide';
+  slide.innerHTML = `<div class="bear-slide"><div class="bear-circle" style="background:${b.color}">${b.emoji}</div><div class="bear-name">${b.name}</div></div>`;
+  trackA.appendChild(slide);
+
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => goToA(i);
+  dotsAContainer.appendChild(dot);
+});
+
+function updateA() {
+  trackA.style.transform = `translateX(-${indexA * 100}%)`;
+  document.getElementById('counterA').textContent = indexA + 1;
+  dotsAContainer.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === indexA));
+}
+function nextA() { indexA = (indexA + 1) % 5; updateA(); }
+function prevA() { indexA = (indexA - 1 + 5) % 5; updateA(); }
+function goToA(i) { indexA = i; updateA(); }
+
+// ====== OPTION B: FADE ======
+let indexB = 0;
+const trackB = document.getElementById('trackB');
+const dotsBContainer = document.getElementById('dotsB');
+
+bears.forEach((b, i) => {
+  const slide = document.createElement('div');
+  slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
+  slide.innerHTML = `<div class="bear-slide"><div class="bear-circle" style="background:${b.color}">${b.emoji}</div><div class="bear-name">${b.name}</div></div>`;
+  trackB.appendChild(slide);
+
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => goToB(i);
+  dotsBContainer.appendChild(dot);
+});
+
+function updateB() {
+  trackB.querySelectorAll('.carousel-slide').forEach((s, i) => s.classList.toggle('active', i === indexB));
+  document.getElementById('counterB').textContent = indexB + 1;
+  dotsBContainer.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === indexB));
+}
+function nextB() { indexB = (indexB + 1) % 5; updateB(); }
+function prevB() { indexB = (indexB - 1 + 5) % 5; updateB(); }
+function goToB(i) { indexB = i; updateB(); }
+
+// ====== OPTION C: BOUNCE (no wrap) ======
+let indexC = 0;
+const trackC = document.getElementById('trackC');
+const dotsCContainer = document.getElementById('dotsC');
+const carouselC = document.getElementById('carouselC');
+
+bears.forEach((b, i) => {
+  const slide = document.createElement('div');
+  slide.className = 'carousel-slide';
+  slide.innerHTML = `<div class="bear-slide"><div class="bear-circle" style="background:${b.color}">${b.emoji}</div><div class="bear-name">${b.name}</div></div>`;
+  trackC.appendChild(slide);
+
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => goToC(i);
+  dotsCContainer.appendChild(dot);
+});
+
+function updateC() {
+  trackC.style.transform = `translateX(-${indexC * 100}%)`;
+  document.getElementById('counterC').textContent = indexC + 1;
+  dotsCContainer.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === indexC));
+}
+function nextC() {
+  if (indexC < 4) { indexC++; updateC(); }
+  else { carouselC.classList.add('bounce'); setTimeout(() => carouselC.classList.remove('bounce'), 400); }
+}
+function prevC() {
+  if (indexC > 0) { indexC--; updateC(); }
+  else { carouselC.classList.add('bounce'); setTimeout(() => carouselC.classList.remove('bounce'), 400); }
+}
+function goToC(i) { indexC = i; updateC(); }
+</script>
+</body>
+</html>
