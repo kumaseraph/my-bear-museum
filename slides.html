@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📝 熊熊簡報</title>
+    <title>📝 熊熊簡報 | Bear Slides v1.1</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -120,9 +120,15 @@
             color: #5d4037;
             margin-bottom: 4px;
         }
-        .pres-btn-filename {
+        .pres-btn-desc {
             font-size: 0.8rem;
+            color: #8b7355;
+            margin-bottom: 4px;
+        }
+        .pres-btn-filename {
+            font-size: 0.75rem;
             color: #a1887f;
+            font-family: monospace;
         }
         .pres-btn-arrow {
             font-size: 1.3rem;
@@ -145,6 +151,10 @@
             font-size: 1.2rem;
             margin: 0 4px;
         }
+        .hub-footer small {
+            color: #a1887f;
+            font-size: 0.75rem;
+        }
     </style>
 </head>
 <body>
@@ -154,7 +164,7 @@
 
     <header>
         <h1>📝 熊熊簡報</h1>
-        <div class="subtitle">選擇一份簡報開始欣賞</div>
+        <div class="subtitle">選擇一份簡報開始欣賞 ✨ 支援轉場動畫、版面模板、Tweaks調整</div>
         <div class="paw-decoration">
             <span>🐾</span>
             <span>🐾</span>
@@ -166,21 +176,23 @@
         <div id="pres-list" class="pres-list"></div>
         <div class="hub-footer">
             <span class="bear-emoji">🐻</span>
-            熊熊簡報
+            熊熊簡報 v1.1
             <span class="bear-emoji">🐻</span>
+            <br>
+            <small>✨ 版面模板 · 🎨 轉場動畫 · ⚙️ Tweaks調整</small>
         </div>
     </div>
 
 <script>
 // 熊熊簡報展示列表
 const presentations = [
-    { name: 'template-enhanced.html', title: '✨ 熊熊簡報模板（示範）' },
-    { name: '2026-06-04-mage-life.html', title: '🧙 魔法師的日常' },
-    { name: '2026-06-04-bear-happiness.html', title: '🐻 小熊的幸福旅程' },
-    { name: 'slidestest.html', title: '小熊的一生（測試版）' },
-    { name: 'slidestest_claudeM27.html', title: '小熊的一生（Claude版）' },
-    { name: 'slidestest_cursorM27.html', title: '小熊的一生（Cursor M27版）' },
-    { name: 'slidestest_cursorAuto.html', title: '小熊的一生（Cursor 自動版）' }
+    { name: 'slides/template-enhanced.html', title: '✨ 熊熊簡報模板（示範）', desc: '完整功能展示：版面模板、轉場動畫、Tweaks調整面板', icon: '🎨' },
+    { name: 'slides/2026-06-04-mage-life.html', title: '🧙 魔法師的日常', desc: '魔法師的生活點滴', icon: '🔮' },
+    { name: 'slides/2026-06-04-bear-happiness.html', title: '🐻 小熊的幸福旅程', desc: '小熊的溫馨故事', icon: '🌟' },
+    { name: 'slides/slidestest.html', title: '🐻 小熊的一生（測試版）', desc: '早期測試作品', icon: '📝' },
+    { name: 'slides/slidestest_claudeM27.html', title: '🐻 小熊的一生（Claude版）', desc: 'Claude 協作版本', icon: '🤖' },
+    { name: 'slides/slidestest_cursorM27.html', title: '🐻 小熊的一生（Cursor M27版）', desc: 'Cursor M27 版本', icon: '🖥️' },
+    { name: 'slides/slidestest_cursorAuto.html', title: '🐻 小熊的一生（Cursor 自動版）', desc: 'Cursor 自動生成版', icon: '⚡' }
 ];
 
 function renderHub() {
@@ -189,13 +201,14 @@ function renderHub() {
     presentations.forEach(pres => {
         const card = document.createElement('a');
         card.className = 'pres-btn-card';
-        card.href = pres.name.startsWith('slides/') ? pres.name : 'slides/' + pres.name;
+        card.href = pres.name;
         card.target = '_blank';
         card.innerHTML = `
-            <div class="pres-btn-icon">🐻</div>
+            <div class="pres-btn-icon">${pres.icon}</div>
             <div class="pres-btn-content">
                 <div class="pres-btn-title">${pres.title}</div>
-                <div class="pres-btn-filename">${pres.name}</div>
+                <div class="pres-btn-desc">${pres.desc}</div>
+                <div class="pres-btn-filename">${pres.name.split('/').pop()}</div>
             </div>
             <div class="pres-btn-arrow">▶</div>
         `;
