@@ -161,6 +161,9 @@ class NavBar extends HTMLElement {
         height: 100%;
         object-fit: cover;
         display: block;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,255,255,0.15);
       }
 
       .sidebar-header .close-btn {
