@@ -42,7 +42,8 @@ class NavBar extends HTMLElement {
       .hamburger {
         position: fixed;
         top: 16px;
-        left: 16px;
+        right: 16px;
+        left: auto;
         z-index: 1001;
         width: 44px;
         height: 44px;
@@ -54,7 +55,14 @@ class NavBar extends HTMLElement {
         align-items: center;
         justify-content: center;
         box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        transition: background0.2s, transform 0.2s;
+        transition: background 0.2s, transform 0.2s;
+      }
+
+      .hamburger svg {
+        width: 22px;
+        height: 22px;
+        fill: ${textColor};
+        transition: opacity 0.2s;
       }
 
       .hamburger:hover {
@@ -65,13 +73,6 @@ class NavBar extends HTMLElement {
       .hamburger:focus {
         outline: 2px solid #d4a574;
         outline-offset: 2px;
-      }
-
-      .hamburger svg {
-        width: 22px;
-        height: 22px;
-        fill: ${textColor};
-        transition: opacity 0.2s;
       }
 
       /* Overlay backdrop */
@@ -97,16 +98,17 @@ class NavBar extends HTMLElement {
       .sidebar {
         position: fixed;
         top: 0;
-        left: 0;
+        right: 0;
+        left: auto;
         width: 280px;
         height: 100vh;
         background: ${bgColor};
         z-index: 1000;
-        transform: translateX(-100%);
+        transform: translateX(100%);
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         flex-direction: column;
-        box-shadow: 4px 0 20px rgba(0,0,0,0.25);
+        box-shadow: -4px 0 20px rgba(0,0,0,0.25);
         overflow-y: auto;
       }
 
