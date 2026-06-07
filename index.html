@@ -25,14 +25,14 @@
     v6.13 - 開館紀念熊大改造：使用MiniMax生成專屬紀念熊圖、加入星星按鈕、動態渲染、尺寸變大（140px）、金色邊框+五色泡泡光芒效果
     v6.14 - 紀念熊尺寸再加大（170px）、更深的背景遮罩、背景加金色語錄
     v6.19 - 星星按鈕優化：大小32px、位置左上、移除圓圈外框；年鑑圖示置換為自製熊熊圖示
-    v6.20 - 導航列改用 Web Component（側邊欄漢堡選單），全站統一導航
+    v6.21 - 修復側邊欄 transform 影響 fixed 定位問題
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.20</title>
+    <title>熊熊博物館 v6.21</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -1762,7 +1762,7 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.20
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.21
         <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="切換深色模式">🌙</button>
     </footer>
 
