@@ -390,7 +390,7 @@ class NavBar extends HTMLElement {
       <nav class="sidebar" id="sidebar" role="navigation" aria-label="主導航">
         <div class="sidebar-header">
           <div class="sidebar-bear-icon">
-            <img src="/images/bear-icon-side2.jpg" alt="熊熊" />
+            <img src="/images/bear-icon-cute.svg" alt="熊熊" />
           </div>
           <button class="close-btn" aria-label="關閉導航選單">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
