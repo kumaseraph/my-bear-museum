@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>熊熊縮圖框線示範</title>
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #fdf6e3, #fff8f0);
+    padding: 40px;
+    text-align: center;
+}
+h1 { color: #5d4037; margin-bottom: 10px; }
+p { color: #8b7355; margin-bottom: 40px; }
+.demo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+.demo-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 20px 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 180px;
+}
+.demo-card h3 {
+    color: #5d4037;
+    font-size: 0.9rem;
+    margin: 15px 0 5px;
+}
+.demo-card code {
+    font-size: 0.7rem;
+    color: #a1887f;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* ── 共同樣式 ── */
+.bear-thumb {
+    width: 80px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    transition: transform 0.3s;
+    position: relative;
+    margin: 0 auto;
+}
+.bear-thumb img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.thumb-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+.thumb-name {
+    font-size: 0.75rem;
+    color: #a08060;
+    margin-top: 8px;
+}
+
+/* ── 方案 A：雙層偽元素框線（內外框）── */
+.demo-A .thumb-circle::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffb6c1, #add8e6, #e6e6fa, #ffd1a4, #98fb98);
+    background-size: 300% 300%;
+    z-index: -1;
+    animation: bubble-border 4s ease infinite;
+}
+.demo-A .thumb-circle::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    border: 3px solid #FFD700;
+    z-index: 2;
+    animation: gold-pulse 2s ease-in-out infinite;
+}
+@keyframes bubble-border {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+@keyframes gold-pulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(255,215,0,0.5); }
+    50% { box-shadow: 0 0 20px rgba(255,215,0,0.8); }
+}
+
+/* ── 方案 B：邊框漸層 ── */
+.demo-B .thumb-circle {
+    border: 5px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, #ffb6c1, #add8e6, #e6e6fa, #ffd1a4, #98fb98) border-box;
+    animation: rainbow-border 3s linear infinite;
+}
+@keyframes rainbow-border {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+/* ── 方案 C：多層陰影框 ── */
+.demo-C .thumb-circle {
+    border: 4px solid #FFD700;
+    box-shadow: 
+        0 0 0 3px rgba(255,215,0,0.3),
+        0 0 15px rgba(255,182,193,0.6),
+        0 0 30px rgba(173,216,230,0.5),
+        0 0 45px rgba(230,230,250,0.4);
+}
+
+/* ── 方案 D：純金色光環 ── */
+.demo-D .thumb-circle {
+    border: 5px solid #FFD700;
+    box-shadow: 
+        0 0 15px rgba(255,215,0,0.8),
+        0 0 30px rgba(255,215,0,0.5),
+        inset 0 0 20px rgba(255,215,0,0.3);
+}
+
+/* ── 方案 E：夢幻紫粉 ── */
+.demo-E .thumb-circle {
+    border: 4px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, #e6e6fa, #ffb6c1, #ffd1a4) border-box;
+    box-shadow: 
+        0 0 15px rgba(230,230,250,0.6),
+        0 0 30px rgba(255,182,193,0.4);
+}
+</style>
+</head>
+<body>
+<h1>🐻 熊熊縮圖框線設計示範</h1>
+<p>點擊方案查看詳細說明</p>
+
+<div class="demo-grid">
+    <!-- 方案 A -->
+    <div class="demo-card demo-A">
+        <div class="bear-thumb">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/70/70?random=1" alt="熊熊">
+            </div>
+        </div>
+        <h3>方案 A：雙層框</h3>
+        <code>::before 彩虹 + ::after 金框</code>
+        <p style="font-size:0.75rem;color:#888;margin:0;">內外雙層，真正包住</p>
+    </div>
+
+    <!-- 方案 B -->
+    <div class="demo-card demo-B">
+        <div class="bear-thumb">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/70/70?random=2" alt="熊熊">
+            </div>
+        </div>
+        <h3>方案 B：邊框漸層</h3>
+        <code>border-image 彩虹</code>
+        <p style="font-size:0.75rem;color:#888;margin:0;">彩虹繞圈旋轉</p>
+    </div>
+
+    <!-- 方案 C -->
+    <div class="demo-card demo-C">
+        <div class="bear-thumb">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/70/70?random=3" alt="熊熊">
+            </div>
+        </div>
+        <h3>方案 C：多層陰影</h3>
+        <code>box-shadow 多層</code>
+        <p style="font-size:0.75rem;color:#888;margin:0;">彩虹光暈疊加</p>
+    </div>
+
+    <!-- 方案 D -->
+    <div class="demo-card demo-D">
+        <div class="bear-thumb">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/70/70?random=4" alt="熊熊">
+            </div>
+        </div>
+        <h3>方案 D：金色光環</h3>
+        <code>純金色 + 發光</code>
+        <p style="font-size:0.75rem;color:#888;margin:0;">穩重華麗金色</p>
+    </div>
+
+    <!-- 方案 E -->
+    <div class="demo-card demo-E">
+        <div class="bear-thumb">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/70/70?random=5" alt="熊熊">
+            </div>
+        </div>
+        <h3>方案 E：夢幻紫粉</h3>
+        <code>紫粉漸層框</code>
+        <p style="font-size:0.75rem;color:#888;margin:0;">柔和夢幻風格</p>
+    </div>
+</div>
+
+<div style="margin-top:50px;padding:20px;background:rgba(255,182,193,0.2);border-radius:15px;display:inline-block;">
+    <h4 style="color:#5d4037;margin:0 0 10px;">📌 哪一個是你喜歡的風格？</h4>
+    <p style="margin:0;font-size:0.85rem;color:#8b7355;">
+        A＝雙層動態 &nbsp;|&nbsp; B＝彩虹旋轉 &nbsp;|&nbsp; C＝彩虹光暈<br>
+        D＝金色華麗 &nbsp;|&nbsp; E＝夢幻柔和
+    </p>
+</div>
+</body>
+</html>

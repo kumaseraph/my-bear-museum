@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星星位置大小示範</title>
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #fdf6e3, #fff8f0);
+    padding: 30px;
+    text-align: center;
+}
+h1 { color: #5d4037; margin-bottom: 8px; }
+p { color: #8b7355; margin-bottom: 30px; font-size: 0.9rem; }
+
+.demo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+.demo-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+.demo-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px 15px 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    width: 160px;
+}
+.demo-card h4 {
+    color: #5d4037;
+    font-size: 0.8rem;
+    margin: 10px 0 3px;
+}
+.demo-card p {
+    font-size: 0.7rem;
+    color: #a1887f;
+    margin: 0 0 8px;
+}
+
+.bear-thumb {
+    width: 90px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 0 auto;
+}
+.thumb-circle {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, #e6e6fa, #ffb6c1, #ffd1a4) border-box;
+    box-shadow: 
+        0 0 15px rgba(230,230,250,0.6),
+        0 0 30px rgba(255,182,193,0.4);
+}
+.thumb-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.thumb-name {
+    font-size: 0.75rem;
+    color: #a08060;
+    margin-top: 6px;
+}
+
+/* 方案C通用樣式 */
+.star-btn {
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 10;
+    background: transparent;
+    border: none;
+    color: #AAAAAA;
+}
+.star-btn:hover {
+    color: #FFD700;
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.9);
+}
+.star-btn.starred {
+    color: #FFD700;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 1), 0 0 25px rgba(255, 215, 0, 0.7);
+}
+.star-btn.starred:hover {
+    transform: scale(1.25);
+}
+
+/* ── 位置變化 ── */
+/* 右上角 */
+.pos-TopRight .star-btn {
+    top: -5px;
+    right: -5px;
+}
+/* 左上角 */
+.pos-TopLeft .star-btn {
+    top: -5px;
+    left: -5px;
+}
+/* 右下角 */
+.pos-BottomRight .star-btn {
+    bottom: 30px;
+    right: -5px;
+}
+/* 左下角 */
+.pos-BottomLeft .star-btn {
+    bottom: 30px;
+    left: -5px;
+}
+/* 正上方 */
+.pos-TopCenter .star-btn {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* 正下方 */
+.pos-BottomCenter .star-btn {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ── 大小變化 ── */
+.size-S .star-btn { font-size: 14px; }
+.size-M .star-btn { font-size: 18px; }
+.size-L .star-btn { font-size: 24px; }
+.size-XL .star-btn { font-size: 30px; }
+
+/* hover時保持大小 */
+.pos-TopCenter.starred:hover .star-btn,
+.pos-BottomCenter.starred:hover .star-btn {
+    transform: translateX(-50%) scale(1.2);
+}
+
+.row-title {
+    width: 100%;
+    font-size: 0.85rem;
+    color: #8b7355;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.info-box {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255,182,193,0.15);
+    border-radius: 12px;
+    display: inline-block;
+    text-align: left;
+}
+.info-box h4 {
+    color: #5d4037;
+    margin: 0 0 8px;
+    font-size: 0.9rem;
+}
+.info-box ul {
+    margin: 0;
+    padding-left: 18px;
+    color: #8b7355;
+    font-size: 0.8rem;
+    line-height: 1.7;
+}
+</style>
+</head>
+<body>
+<h1>✨ 方案C：位置與大小示範</h1>
+<p>灰☆ → 金★ — 點擊任一個星星切換空心/實心</p>
+
+<!-- 大小示範 -->
+<div class="row-title">📐 大小變化（位置：右上角）</div>
+<div class="demo-row">
+    <div class="demo-card">
+        <div class="bear-thumb pos-TopRight size-S">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/75/75?random=1" alt="熊熊">
+            </div>
+            <div class="thumb-name">小熊同學</div>
+            <button class="star-btn" onclick="toggleStar(this)">☆</button>
+        </div>
+        <h4>S（14px）</h4>
+        <p>最小，低調</p>
+    </div>
+    <div class="demo-card">
+        <div class="bear-thumb pos-TopRight size-M">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/75/75?random=2" alt="熊熊">
+            </div>
+            <div class="thumb-name">小熊同學</div>
+            <button class="star-btn" onclick="toggleStar(this)">☆</button>
+        </div>
+        <h4>M（18px）</h4>
+        <p>中等，適中</p>
+    </div>
+    <div class="demo-card">
+        <div class="bear-thumb pos-TopRight size-L">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/75/75?random=3" alt="熊熊">
+            </div>
+            <div class="thumb-name">小熊同學</div>
+            <button class="star-btn" onclick="toggleStar(this)">☆</button>
+        </div>
+        <h4>L（24px）</h4>
+        <p>大字，明顯</p>
+    </div>
+    <div class="demo-card">
+        <div class="bear-thumb pos-TopRight size-XL">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/75/75?random=4" alt="熊熊">
+            </div>
+            <div class="thumb-name">小熊同學</div>
+            <button class="star-btn" onclick="toggleStar(this)">☆</button>
+        </div>
+        <h4>XL（30px）</h4>
+        <p>最大，最顯眼</p>
+    </div>
+</div>
+
+<!-- 位置示範 -->
+<div class="row-title">📍 位置變化（大小：24px）</div>
+<div class="demo-row">
+    <div class="demo-card">
+        <div class="bear-thumb pos-TopLeft size-L">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/75/75?random=5" alt="熊熊">
+            </div>
+            <div class="thumb-name">小熊同學</div>
+            <button class="star-btn" onclick="toggleStar(this)">☆</button>
+        </div>
+        <h4>左上角</h4>
+        <p>Top-Left</p>
+    </div>
+    <div class="demo-card">
+        <div class="bear-thumb pos-TopRight size-L">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/75/75?random=6" alt="熊熊">
+            </div>
+            <div class="thumb-name">小熊同學</div>
+            <button class="star-btn" onclick="toggleStar(this)">☆</button>
+        </div>
+        <h4>右上角</h4>
+        <p>Top-Right</p>
+    </div>
+    <div class="demo-card">
+        <div class="bear-thumb pos-TopCenter size-L">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/75/75?random=7" alt="熊熊">
+            </div>
+            <div class="thumb-name">小熊同學</div>
+            <button class="star-btn" onclick="toggleStar(this)">☆</button>
+        </div>
+        <h4>正上方</h4>
+        <p>Top-Center</p>
+    </div>
+    <div class="demo-card">
+        <div class="bear-thumb pos-BottomLeft size-L">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/75/75?random=8" alt="熊熊">
+            </div>
+            <div class="thumb-name">小熊同學</div>
+            <button class="star-btn" onclick="toggleStar(this)">☆</button>
+        </div>
+        <h4>左下角</h4>
+        <p>Bottom-Left</p>
+    </div>
+    <div class="demo-card">
+        <div class="bear-thumb pos-BottomRight size-L">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/75/75?random=9" alt="熊熊">
+            </div>
+            <div class="thumb-name">小熊同學</div>
+            <button class="star-btn" onclick="toggleStar(this)">☆</button>
+        </div>
+        <h4>右下角</h4>
+        <p>Bottom-Right</p>
+    </div>
+    <div class="demo-card">
+        <div class="bear-thumb pos-BottomCenter size-L">
+            <div class="thumb-circle">
+                <img src="https://picsum.photos/75/75?random=10" alt="熊熊">
+            </div>
+            <div class="thumb-name">小熊同學</div>
+            <button class="star-btn" onclick="toggleStar(this)">☆</button>
+        </div>
+        <h4>正下方</h4>
+        <p>Bottom-Center</p>
+    </div>
+</div>
+
+<script>
+function toggleStar(btn) {
+    btn.classList.toggle('starred');
+    btn.textContent = btn.classList.contains('starred') ? '★' : '☆';
+}
+</script>
+
+<div class="info-box">
+    <h4>📌 設計建議</h4>
+    <ul>
+        <li><strong>大小：</strong>S(14px)低調、M(18px)適中、L(24px)明顯、XL(30px)最顯眼</li>
+        <li><strong>右上角</strong> — 最常見，不影響主體視覺</li>
+        <li><strong>左上角</strong> — 對稱美，適合左側佈局</li>
+        <li><strong>正上方</strong> — 莊重，適合重要角色</li>
+        <li><strong>紀念熊</strong> — 建議 L 或 XL + 右上角</li>
+        <li><strong>一般熊熊</strong> — 建議 M 或 L + 右上角</li>
+    </ul>
+</div>
+</body>
+</html>

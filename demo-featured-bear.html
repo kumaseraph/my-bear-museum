@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏅 徽章獎章選擇</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "Noto Sans TC", sans-serif;
+  background: #fdf8f3;
+  min-height: 100vh;
+  padding: 20px;
+  color: #5d4037;
+}
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  color: #5d4037;
+  font-size: 1.6rem;
+}
+h2 {
+  color: #5d4037;
+  font-size: 1.1rem;
+  margin: 20px 0 8px;
+  text-align: center;
+}
+p.desc {
+  color: #8b7355;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.demo-item {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 2px solid #d4a574;
+  box-shadow: 0 6px 15px rgba(93,64,55,0.12);
+}
+
+/* ========== 橫幅卡片 ========== */
+.banner-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  min-height: 200px;
+  border: 2px solid #d4a574;
+  box-shadow: 0 6px 15px rgba(93,64,55,0.12);
+}
+.banner-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 80% 50%, rgba(201,162,39,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(212,165,116,0.08) 0%, transparent 50%);
+  pointer-events: none;
+  border-radius: 14px;
+}
+.banner-top {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.banner-right {
+  flex: 1;
+  text-align: left;
+  padding-top: 30px;
+}
+.banner-left {
+  flex-shrink: 0;
+  position: relative;
+  padding-top: 35px;
+}
+.banner-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #5d4037;
+  margin-bottom: 6px;
+}
+.banner-quote {
+  font-size: 1rem;
+  font-style: italic;
+  color: #C9A227;
+}
+.info-card {
+  background: linear-gradient(135deg, rgba(212,165,116,0.12), rgba(212,165,116,0.05));
+  border: 1px solid rgba(212,165,116,0.4);
+  border-radius: 10px;
+  padding: 6px 12px;
+  margin-top: 6px;
+  display: inline-block;
+}
+.info-card .info-title {
+  color: #5d4037;
+  font-size: 0.95rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.info-card .info-row {
+  color: #8b7355;
+  font-size: 0.85rem;
+}
+
+/* 熊熊區塊 */
+.thumb-wrapper {
+  position: relative;
+  display: inline-block;
+  animation: gentle-pulse 3s ease-in-out infinite;
+}
+@keyframes gentle-pulse {
+  0%, 100% { filter: drop-shadow(0 4px 16px rgba(201,162,39,0.25)); }
+  50% { filter: drop-shadow(0 6px 24px rgba(201,162,39,0.35)); }
+}
+.thumb-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: visible;
+  position: relative;
+  border: 4px solid #C9A227;
+  box-shadow:
+    0 0 0 6px rgba(201,162,39,0.15),
+    0 0 0 12px rgba(201,162,39,0.08),
+    0 6px 20px rgba(201,162,39,0.25);
+  background: #fff;
+}
+.thumb-circle img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+.star-btn-new {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  transition: transform 0.2s, filter 0.2s;
+  z-index: 15;
+  color: #C9A227;
+}
+.star-btn-new:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 3px 6px rgba(201,162,39,0.4));
+}
+
+/* ========== 徽章 SVG ========== */
+.badge-ornate {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55px;
+  height: 55px;
+  z-index: 20;
+  animation: badge-float 3s ease-in-out infinite;
+  filter: drop-shadow(0 3px 6px rgba(201,162,39,0.5));
+}
+@keyframes badge-float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* 緞帶 */
+.ribbon {
+  position: absolute;
+  top: -6px;
+  left: -10px;
+  background: linear-gradient(135deg, #C9A227, #d4a574);
+  color: #fff;
+  padding: 4px 14px;
+  border-radius: 0 0 8px 0;
+  font-size: 0.75rem;
+  font-weight: bold;
+  box-shadow: 0 3px 8px rgba(93,64,55,0.2);
+  z-index: 5;
+}
+.ribbon-text { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+</style>
+</head>
+<body>
+<h1>🏅 徽章獎章選擇（1-10）</h1>
+
+<div class="demo-grid">
+
+<!-- 徽章 1: 盾牌徽章 -->
+<div class="demo-item">
+  <h2>獎章 1 — 皇家盾牌</h2>
+  <p class="desc">經典盾牌造型，貴族氣息</p>
+  <div class="banner-card">
+    <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+    <div class="banner-top">
+      <div class="banner-right">
+        <div class="banner-title">🏛️ 開館記念熊</div>
+        <div class="info-card">
+          <div class="info-title">🌟 館藏守護者</div>
+          <div class="info-row">No.0001 · 2026-06-03</div>
+        </div>
+        <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+      </div>
+      <div class="banner-left">
+        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+          <!-- 盾牌外框 -->
+          <path d="M27.5 5 L47 12 L47 30 Q47 45 27.5 52 Q8 45 8 30 L8 12 Z"
+                fill="url(#b1)" stroke="#C9A227" stroke-width="2"/>
+          <!-- 盾牌內框 -->
+          <path d="M27.5 10 L43 15.5 L43 30 Q43 41 27.5 47 Q12 41 12 30 L12 15.5 Z"
+                fill="#5d4037" stroke="#C9A227" stroke-width="1.5"/>
+          <!-- 熊熊圖示 -->
+          <text x="27.5" y="34" text-anchor="middle" font-size="16" fill="#FFD700">🐻</text>
+          <!-- 頂部裝飾 -->
+          <circle cx="27.5" cy="8" r="3" fill="#FFD700" stroke="#C9A227" stroke-width="1"/>
+          <defs>
+            <linearGradient id="b1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#FFE55C"/>
+              <stop offset="50%" style="stop-color:#FFD700"/>
+              <stop offset="100%" style="stop-color:#C9A227"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="thumb-wrapper">
+          <button class="star-btn-new" onclick="this.textContent=this.textContent==='☆'?'★':'☆'">☆</button>
+          <div class="thumb-circle">
+            <img src="images/featured-bear.jpg" alt="開館記念熊">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 徽章 2: 星星獎章 -->
+<div class="demo-item">
+  <h2>獎章 2 — 光之星</h2>
+  <p class="desc">放射光芒，璀璨奪目</p>
+  <div class="banner-card">
+    <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+    <div class="banner-top">
+      <div class="banner-right">
+        <div class="banner-title">🏛️ 開館記念熊</div>
+        <div class="info-card">
+          <div class="info-title">🌟 館藏守護者</div>
+          <div class="info-row">No.0001 · 2026-06-03</div>
+        </div>
+        <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+      </div>
+      <div class="banner-left">
+        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+          <!-- 光芒射線 -->
+          <line x1="27.5" y1="2" x2="27.5" y2="10" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="27.5" y1="2" x2="18" y2="8" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+          <line x1="27.5" y1="2" x2="37" y2="8" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+          <line x1="27.5" y1="2" x2="10" y2="14" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="27.5" y1="2" x2="45" y2="14" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- 星星外圈 -->
+          <polygon points="27.5,10 32,22 45,22 34,30 38,42 27.5,34 17,42 21,30 10,22 23,22"
+                   fill="url(#b2)" stroke="#C9A227" stroke-width="2"/>
+          <!-- 星星內圈 -->
+          <polygon points="27.5,16 30,24 39,24 32,29 34,37 27.5,32 21,37 23,29 16,24 25,24"
+                   fill="#FFF8DC" stroke="#C9A227" stroke-width="1"/>
+          <!-- 中心熊熊 -->
+          <text x="27.5" y="28" text-anchor="middle" font-size="10" fill="#5d4037">🐻</text>
+          <defs>
+            <linearGradient id="b2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#FFE55C"/>
+              <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="thumb-wrapper">
+          <button class="star-btn-new" onclick="this.textContent=this.textContent==='☆'?'★':'☆'">☆</button>
+          <div class="thumb-circle">
+            <img src="images/featured-bear.jpg" alt="開館記念熊">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 徽章 3: 熊熊掌徽章 -->
+<div class="demo-item">
+  <h2>獎章 3 — 熊熊掌</h2>
+  <p class="desc">可愛熊掌，超萌風格</p>
+  <div class="banner-card">
+    <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+    <div class="banner-top">
+      <div class="banner-right">
+        <div class="banner-title">🏛️ 開館記念熊</div>
+        <div class="info-card">
+          <div class="info-title">🌟 館藏守護者</div>
+          <div class="info-row">No.0001 · 2026-06-03</div>
+        </div>
+        <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+      </div>
+      <div class="banner-left">
+        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+          <!-- 外圈 -->
+          <circle cx="27.5" cy="27.5" r="24" fill="url(#b3)" stroke="#C9A227" stroke-width="2"/>
+          <!-- 內圈 -->
+          <circle cx="27.5" cy="27.5" r="20" fill="#F5DEB3" stroke="#C9A227" stroke-width="1.5"/>
+          <!-- 熊掌肉球 -->
+          <ellipse cx="27.5" cy="32" rx="10" ry="8" fill="#8B4513"/>
+          <ellipse cx="27.5" cy="32" rx="8" ry="6" fill="#A0522D"/>
+          <!-- 爪墊 -->
+          <ellipse cx="20" cy="22" rx="4" ry="5" fill="#8B4513"/>
+          <ellipse cx="35" cy="22" rx="4" ry="5" fill="#8B4513"/>
+          <ellipse cx="16" cy="28" rx="3" ry="4" fill="#8B4513"/>
+          <ellipse cx="39" cy="28" rx="3" ry="4" fill="#8B4513"/>
+          <!-- 高光 -->
+          <ellipse cx="26" cy="30" rx="2" ry="1.5" fill="#CD853F" opacity="0.5"/>
+          <defs>
+            <linearGradient id="b3" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#FFE55C"/>
+              <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="thumb-wrapper">
+          <button class="star-btn-new" onclick="this.textContent=this.textContent==='☆'?'★':'☆'">☆</button>
+          <div class="thumb-circle">
+            <img src="images/featured-bear.jpg" alt="開館記念熊">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 徽章 4: 愛心獎章 -->
+<div class="demo-item">
+  <h2>獎章 4 — 愛心守護</h2>
+  <p class="desc">愛心形狀，溫暖守護</p>
+  <div class="banner-card">
+    <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+    <div class="banner-top">
+      <div class="banner-right">
+        <div class="banner-title">🏛️ 開館記念熊</div>
+        <div class="info-card">
+          <div class="info-title">🌟 館藏守護者</div>
+          <div class="info-row">No.0001 · 2026-06-03</div>
+        </div>
+        <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+      </div>
+      <div class="banner-left">
+        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+          <!-- 愛心外框 -->
+          <path d="M27.5 48 L10 30 Q2 20 10 12 Q18 4 27.5 14 Q37 4 45 12 Q53 20 45 30 Z"
+                fill="url(#b4)" stroke="#C9A227" stroke-width="2"/>
+          <!-- 愛心內框 -->
+          <path d="M27.5 42 L14 30 Q8 22 14 17 Q20 12 27.5 19 Q35 12 41 17 Q47 22 41 30 Z"
+                fill="#FF6B6B" stroke="#C9A227" stroke-width="1.5"/>
+          <!-- 熊熊符號 -->
+          <text x="27.5" y="30" text-anchor="middle" font-size="12" fill="#FFD700">🐻</text>
+          <!-- 愛心高光 -->
+          <ellipse cx="18" cy="18" rx="4" ry="3" fill="white" opacity="0.3"/>
+          <defs>
+            <linearGradient id="b4" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#FFE55C"/>
+              <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="thumb-wrapper">
+          <button class="star-btn-new" onclick="this.textContent=this.textContent==='☆'?'★':'☆'">☆</button>
+          <div class="thumb-circle">
+            <img src="images/featured-bear.jpg" alt="開館記念熊">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 徽章 5: 獎盃徽章 -->
+<div class="demo-item">
+  <h2>獎章 5 — 冠軍獎盃</h2>
+  <p class="desc">冠軍獎盃勝利象徵</p>
+  <div class="banner-card">
+    <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+    <div class="banner-top">
+      <div class="banner-right">
+        <div class="banner-title">🏛️ 開館記念熊</div>
+        <div class="info-card">
+          <div class="info-title">🌟 館藏守護者</div>
+          <div class="info-row">No.0001 · 2026-06-03</div>
+        </div>
+        <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+      </div>
+      <div class="banner-left">
+        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+          <!-- 獎盃外圈 -->
+          <circle cx="27.5" cy="27.5" r="24" fill="url(#b5)" stroke="#C9A227" stroke-width="2"/>
+          <!-- 獎盃杯身 -->
+          <path d="M18 15 L18 25 Q18 32 27.5 35 Q37 32 37 25 L37 15 Z"
+                fill="#FFD700" stroke="#C9A227" stroke-width="1.5"/>
+          <!-- 獎盃手柄 -->
+          <path d="M18 18 Q10 18 10 24 Q10 30 18 28" fill="none" stroke="#FFD700" stroke-width="3"/>
+          <path d="M37 18 Q45 18 45 24 Q45 30 37 28" fill="none" stroke="#FFD700" stroke-width="3"/>
+          <!-- 獎盃底座 -->
+          <rect x="22" y="35" width="11" height="4" fill="#FFD700" stroke="#C9A227" stroke-width="1"/>
+          <rect x="19" y="39" width="17" height="3" rx="1" fill="#FFD700" stroke="#C9A227" stroke-width="1"/>
+          <!-- 星星裝飾 -->
+          <text x="27.5" y="27" text-anchor="middle" font-size="10" fill="#5d4037">🐻</text>
+          <polygon points="27.5,8 28.5,11 32,11 29,13 30,17 27.5,15 25,17 26,13 23,11 26.5,11"
+                   fill="#FFF8DC" stroke="#C9A227" stroke-width="0.5"/>
+          <defs>
+            <linearGradient id="b5" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#FFE55C"/>
+              <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="thumb-wrapper">
+          <button class="star-btn-new" onclick="this.textContent=this.textContent==='☆'?'★':'☆'">☆</button>
+          <div class="thumb-circle">
+            <img src="images/featured-bear.jpg" alt="開館記念熊">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 徽章 6: 齒輪徽章 -->
+<div class="demo-item">
+  <h2>獎章 6 — 守護齒輪</h2>
+  <p class="desc">機械齒輪，精密守護</p>
+  <div class="banner-card">
+    <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+    <div class="banner-top">
+      <div class="banner-right">
+        <div class="banner-title">🏛️ 開館記念熊</div>
+        <div class="info-card">
+          <div class="info-title">🌟 館藏守護者</div>
+          <div class="info-row">No.0001 · 2026-06-03</div>
+        </div>
+        <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+      </div>
+      <div class="banner-left">
+        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+          <!-- 齒輪外圈 -->
+          <circle cx="27.5" cy="27.5" r="24" fill="url(#b6)" stroke="#C9A227" stroke-width="2"/>
+          <!-- 齒輪主體 -->
+          <path d="M27.5 8 L30 8 L31 12 L34 10 L36 12 L34 16 L38 17 L38 20 L42 22 L42 24 L46 26 L44 28 L46 30 L42 33 L42 36 L38 38 L38 41 L34 42 L31 40 L34 44 L30 44 L27.5 48 L25 44 L21 44 L18 40 L21 42 L18 38 L14 36 L14 33 L10 30 L12 28 L10 26 L14 24 L14 22 L18 20 L18 17 L14 16 L16 12 L14 10 L18 12 L21 8 L25 8 Z"
+                fill="#C0C0C0" stroke="#C9A227" stroke-width="1.5"/>
+          <!-- 齒輪內圈 -->
+          <circle cx="27.5" cy="28" r="10" fill="#A0A0A0" stroke="#C9A227" stroke-width="1.5"/>
+          <!-- 熊熊符號 -->
+          <text x="27.5" y="32" text-anchor="middle" font-size="12" fill="#FFD700">🐻</text>
+          <defs>
+            <linearGradient id="b6" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#FFE55C"/>
+              <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="thumb-wrapper">
+          <button class="star-btn-new" onclick="this.textContent=this.textContent==='☆'?'★':'☆'">☆</button>
+          <div class="thumb-circle">
+            <img src="images/featured-bear.jpg" alt="開館記念熊">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 徽章 7: 火焰獎章 -->
+<div class="demo-item">
+  <h2>獎章 7 — 熱情之焰</h2>
+  <p class="desc">火焰燃燒，熱情活力</p>
+  <div class="banner-card">
+    <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+    <div class="banner-top">
+      <div class="banner-right">
+        <div class="banner-title">🏛️ 開館記念熊</div>
+        <div class="info-card">
+          <div class="info-title">🌟 館藏守護者</div>
+          <div class="info-row">No.0001 · 2026-06-03</div>
+        </div>
+        <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+      </div>
+      <div class="banner-left">
+        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+          <!-- 外圈 -->
+          <circle cx="27.5" cy="27.5" r="24" fill="url(#b7)" stroke="#C9A227" stroke-width="2"/>
+          <!-- 火焰 -->
+          <path d="M27.5 8 Q35 18 35 26 Q35 35 27.5 42 Q20 35 20 26 Q20 18 27.5 8"
+                fill="url(#b7flame)" stroke="#C9A227" stroke-width="1.5"/>
+          <!-- 火焰內層 -->
+          <path d="M27.5 16 Q32 22 32 28 Q32 34 27.5 38 Q23 34 23 28 Q23 22 27.5 16"
+                fill="#FFD700"/>
+          <!-- 火焰核心 -->
+          <ellipse cx="27.5" cy="32" rx="4" ry="5" fill="#FFF8DC"/>
+          <!-- 熊熊符號 -->
+          <text x="27.5" y="26" text-anchor="middle" font-size="10" fill="#5d4037">🐻</text>
+          <defs>
+            <linearGradient id="b7" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#FFE55C"/>
+              <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+            <linearGradient id="b7flame" x1="0%" y1="100%" x2="0%" y2="0%">
+              <stop offset="0%" style="stop-color:#FF6B35"/>
+              <stop offset="50%" style="stop-color:#FFD700"/>
+              <stop offset="100%" style="stop-color:#FFE55C"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="thumb-wrapper">
+          <button class="star-btn-new" onclick="this.textContent=this.textContent==='☆'?'★':'☆'">☆</button>
+          <div class="thumb-circle">
+            <img src="images/featured-bear.jpg" alt="開館熊">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 徽章 8: 寶石徽章 -->
+<div class="demo-item">
+  <h2>獎章 8 — 皇家寶石</h2>
+  <p class="desc">璀璨寶石，尊貴華麗</p>
+  <div class="banner-card">
+    <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+    <div class="banner-top">
+      <div class="banner-right">
+        <div class="banner-title">🏛️ 開館記念熊</div>
+        <div class="info-card">
+          <div class="info-title">🌟 館藏守護者</div>
+          <div class="info-row">No.0001 · 2026-06-03</div>
+        </div>
+        <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+      </div>
+      <div class="banner-left">
+        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+          <!-- 外圈 -->
+          <circle cx="27.5" cy="27.5" r="24" fill="url(#b8)" stroke="#C9A227" stroke-width="2"/>
+          <!-- 寶石外框 -->
+          <polygon points="27.5,8 38,16 44,28 38,40 27.5,48 17,40 11,28 17,16"
+                   fill="url(#b8gem)" stroke="#C9A227" stroke-width="1.5"/>
+          <!-- 寶石內部切割線 -->
+          <line x1="27.5" y1="8" x2="27.5" y2="48" stroke="#C9A227" stroke-width="1" opacity="0.5"/>
+          <line x1="11" y1="28" x2="44" y2="28" stroke="#C9A227" stroke-width="1" opacity="0.5"/>
+          <line x1="17" y1="16" x2="38" y2="40" stroke="#C9A227" stroke-width="1" opacity="0.3"/>
+          <line x1="38" y1="16" x2="17" y2="40" stroke="#C9A227" stroke-width="1" opacity="0.3"/>
+          <!-- 熊熊符號 -->
+          <text x="27.5" y="32" text-anchor="middle" font-size="10" fill="#FFD700">🐻</text>
+          <!-- 寶石高光 -->
+          <polygon points="27.5,10 32,16 27.5,20 23,16" fill="white" opacity="0.4"/>
+          <defs>
+            <linearGradient id="b8" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#FFE55C"/>
+              <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+            <linearGradient id="b8gem" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#E1BEE7"/>
+              <stop offset="50%" style="stop-color:#9C27B0"/>
+              <stop offset="100%" style="stop-color:#4A148C"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="thumb-wrapper">
+          <button class="star-btn-new" onclick="this.textContent=this.textContent==='☆'?'★':'☆'">☆</button>
+          <div class="thumb-circle">
+            <img src="images/featured-bear.jpg" alt="開館記念熊">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 徽章 9: 月亮星星徽章 -->
+<div class="demo-item">
+  <h2>獎章 9 — 月光守護</h2>
+  <p class="desc">月亮星星，夜間守護</p>
+  <div class="banner-card">
+    <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+    <div class="banner-top">
+      <div class="banner-right">
+        <div class="banner-title">🏛️ 開館記念熊</div>
+        <div class="info-card">
+          <div class="info-title">🌟 館藏守護者</div>
+          <div class="info-row">No.0001 · 2026-06-03</div>
+        </div>
+        <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+      </div>
+      <div class="banner-left">
+        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+          <!-- 外圈 -->
+          <circle cx="27.5" cy="27.5" r="24" fill="url(#b9)" stroke="#C9A227" stroke-width="2"/>
+          <!-- 月亮 -->
+          <path d="M32 12 Q22 18 22 28 Q22 38 32 44 Q24 40 20 32 Q16 24 20 16 Q24 8 32 12"
+                fill="#FFE55C" stroke="#C9A227" stroke-width="1.5"/>
+          <!-- 大星星 -->
+          <polygon points="38,18 39.5,22 44,22 40.5,25 42,29 38,26.5 34,29 35.5,25 32,22 36.5,22"
+                   fill="#FFD700" stroke="#C9A227" stroke-width="0.5"/>
+          <!-- 小星星 -->
+          <polygon points="16,20 17,22 19,22 17.5,24 18,26 16,24.5 14,26 14.5,24 13,22 15,22"
+                   fill="#FFD700" stroke="#C9A227" stroke-width="0.5"/>
+          <circle cx="42" cy="36" r="2" fill="#FFD700"/>
+          <circle cx="14" cy="38" r="1.5" fill="#FFD700"/>
+          <!-- 熊熊符號 -->
+          <text x="27.5" y="30" text-anchor="middle" font-size="8" fill="#5d4037">🐻</text>
+          <defs>
+            <linearGradient id="b9" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#1A237E"/>
+              <stop offset="100%" style="stop-color:#3F51B5"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="thumb-wrapper">
+          <button class="star-btn-new" onclick="this.textContent=this.textContent==='☆'?'★':'☆'">☆</button>
+          <div class="thumb-circle">
+            <img src="images/featured-bear.jpg" alt="開館</minimax:tool_call>熊">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 徽章 10: 書本徽章 -->
+<div class="demo-item">
+  <h2>獎章 10 — 知識之書</h2>
+  <p class="desc">魔法書本，知識象徵</p>
+  <div class="banner-card">
+    <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+    <div class="banner-top">
+      <div class="banner-right">
+        <div class="banner-title">🏛️ 開館記念熊</div>
+        <div class="info-card">
+          <div class="info-title">🌟 館藏守護者</div>
+          <div class="info-row">No.0001 · 2026-06-03</div>
+        </div>
+        <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+      </div>
+      <div class="banner-left">
+        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+          <!-- 外圈 -->
+          <circle cx="27.5" cy="27.5" r="24" fill="url(#b10)" stroke="#C9A227" stroke-width="2"/>
+          <!-- 書本 -->
+          <rect x="12" y="14" width="31" height="28" rx="2" fill="#8B4513" stroke="#C9A227" stroke-width="1.5"/>
+          <!-- 書脊 -->
+          <rect x="12" y="14" width="6" height="28" fill="#5D4037"/>
+          <!-- 書頁 -->
+          <rect x="18" y="16" width="23" height="24" fill="#FFF8DC"/>
+          <!-- 書本符文 -->
+          <text x="24" y="26" font-size="8" fill="#C9A227">✦</text>
+          <text x="32" y="32" font-size="6" fill="#C9A227">☆</text>
+          <text x="26" y="38" font-size="7" fill="#C9A227">✧</text>
+          <!-- 熊熊符號 -->
+          <text x="27.5" y="30" text-anchor="middle" font-size="8" fill="#8B4513">📖</text>
+          <!-- 書角裝飾 -->
+          <polygon points="12,14 18,14 12,20" fill="#C9A227"/>
+          <defs>
+            <linearGradient id="b10" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#FFE55C"/>
+              <stop offset="100%" style="stop-color:#FFD700"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="thumb-wrapper">
+          <button class="star-btn-new" onclick="this.textContent=this.textContent==='☆'?'★':'☆'">☆</button>
+          <div class="thumb-circle">
+            <img src="images/featured-bear.jpg" alt="開館記念熊">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<h2 style="margin-top:40px;">🏅 獎章總覽（1-10）</h2>
+<p class="desc">還有更多風格可以設計喔！</p>
+
+</body>
+</html>
