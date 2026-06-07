@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF8F0"/>
+      <stop offset="100%" style="stop-color:#FFE8D6"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#D4956A"/>
+      <stop offset="100%" style="stop-color:#C4875A"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="3" dy="4" stdDeviation="5" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- 卡片背景 -->
+  <rect x="10" y="10" width="380" height="180" rx="16" ry="16" fill="url(#cardGrad)" filter="url(#cardShadow)"/>
+  
+  <!-- 卡片頂部標題區 -->
+  <rect x="10" y="10" width="380" height="50" rx="16" ry="16" fill="url(#headerGrad)"/>
+  <rect x="10" y="35" width="380" height="25" fill="url(#headerGrad)"/>
+  
+  <!-- 熊熊耳朵裝飾 -->
+  <circle cx="35" cy="30" r="12" fill="#E5A77A"/>
+  <circle cx="365" cy="30" r="12" fill="#E5A77A"/>
+  
+  <!-- 標題文字 -->
+  <text x="200" y="43" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">工作報告</text>
+  
+  <!-- 內容區域 -->
+  <g transform="translate(25, 75)">
+    <!-- 標題行 -->
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#8B5A2B">報告標題</text>
+    <line x1="0" y1="30" x2="350" y2="30" stroke="#D4A574" stroke-width="1" opacity="0.5"/>
+    
+    <!-- 日期行 -->
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="12" fill="#A0785A">日期：2026年06月07日</text>
+    
+    <!-- 部門行 -->
+    <text x="180" y="50" font-family="Arial, sans-serif" font-size="12" fill="#A0785A">部門：熊熊創意部</text>
+    
+    <!-- 內容摘要行 -->
+    <text x="0" y="75" font-family="Arial, sans-serif" font-size="12" fill="#A0785A">摘要：本月工作進度與成果報告</text>
+  </g>
+  
+  <!-- 熊熊小愛心裝飾 -->
+  <path d="M 350 150 C 350 145, 355 140, 360 145 C 365 140, 370 145, 370 150 C 370 158, 360 165, 360 165 C 360 165, 350 158, 350 150" 
+        fill="#E57373" opacity="0.7"/>
+</svg>

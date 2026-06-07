@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80">
+  <defs>
+    <linearGradient id="btnGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6BA3D6"/>
+      <stop offset="100%" style="stop-color:#4A7FB8"/>
+    </linearGradient>
+    <filter id="shadow2" x="-10%" y="-20%" width="120%" height="140%">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景矩形 -->
+  <rect x="4" y="4" width="192" height="72" rx="12" ry="12" fill="url(#btnGrad2)" filter="url(#shadow2)"/>
+  
+  <!-- 白色內邊框裝飾 -->
+  <rect x="8" y="8" width="184" height="64" rx="10" ry="10" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+  
+  <!-- 箭頭圖標 (向左) -->
+  <path d="M 75 40 L 55 40 M 62 33 L 55 40 L 62 47" 
+        stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- 文字 -->
+  <text x="100" y="44" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">上一頁</text>
+</svg>

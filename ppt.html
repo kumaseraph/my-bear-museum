@@ -891,28 +891,9 @@
     </style>
 </head>
 <body>
-    <!-- Navigation (loaded via component) -->
-    <div id="nav-container"></div>
-    <script>
-        fetch('/components/nav-component')
-            .then(r => r.text())
-            .then(html => {
-                document.getElementById('nav-container').innerHTML = html;
-                // Update active nav link based on current page
-                const pathParts = window.location.pathname.split('/');
-                const currentPage = pathParts[pathParts.length - 1] || 'index.html';
-                const currentBase = currentPage.replace(/\.html$/, '');
-                document.querySelectorAll('nav a').forEach(a => {
-                    const hrefBase = a.getAttribute('href').replace(/\.html$/, '');
-                    if (hrefBase === currentBase) {
-                        a.classList.add('active');
-                    } else {
-                        a.classList.remove('active');
-                    }
-                });
-            })
-            .catch(err => console.log('Nav component load failed:', err));
-    </script>
+    <!-- Navigation (Web Component) -->
+    <script src="/components/nav-component.js"></script>
+    <nav-bar></nav-bar>
 
     <header>
         <h1>📊 熊熊 PPT 素材庫</h1>

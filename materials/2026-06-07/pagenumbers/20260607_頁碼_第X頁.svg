@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 60">
+  <defs>
+    <linearGradient id="bearGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4956A"/>
+      <stop offset="100%" style="stop-color:#B87333"/>
+    </linearGradient>
+    <filter id="bearShadow" x="-15%" y="-30%" width="130%" height="160%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  
+  <!-- 小熊耳朵裝飾 -->
+  <circle cx="18" cy="12" r="8" fill="#C4875A"/>
+  <circle cx="42" cy="12" r="8" fill="#C4875A"/>
+  
+  <!-- 頁碼框背景 -->
+  <rect x="5" y="15" width="130" height="40" rx="10" ry="10" fill="url(#bearGrad)" filter="url(#bearShadow)"/>
+  
+  <!-- 頁碼文字 -->
+  <text x="70" y="43" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">第 3 頁</text>
+  
+  <!-- 熊熊小鼻子裝飾 -->
+  <ellipse cx="115" cy="42" rx="4" ry="3" fill="#8B5A2B" opacity="0.6"/>
+</svg>

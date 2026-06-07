@@ -79,4 +79,16 @@ nav a.active { background-color: var(--color-primary); }
 function toggleNav() {
     document.getElementById('mainNav').classList.toggle('expanded');
 }
+
+// Auto-expand nav on mobile (screen width <= 600px)
+function autoExpandNav() {
+    const nav = document.getElementById('mainNav');
+    if (window.innerWidth <= 600 && nav) {
+        nav.classList.add('expanded');
+    }
+}
+
+// Call immediately and after a short delay to ensure component is loaded
+autoExpandNav();
+setTimeout(autoExpandNav, 100);
 </script>
