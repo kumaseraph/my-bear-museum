@@ -147,39 +147,33 @@ class NavBar extends HTMLElement {
         transform: translateX(0);
       }
 
-      /* Sidebar header */
+      /* Sidebar header - full width banner */
       .sidebar-header {
-        padding: 20px 16px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         position: relative;
+        width: 100%;
+        height: 120px;
+        overflow: hidden;
         border-bottom: 1px solid ${dividerColor};
       }
 
-      .sidebar-bear-icon {
-        width: 60px;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .sidebar-bear-icon img {
+      .sidebar-header img {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
+        display: block;
       }
 
       .sidebar-header .close-btn {
         position: absolute;
-        right: 0;
+        top: 8px;
+        right: 8px;
+        z-index: 10;
       }
 
       .close-btn {
         width: 36px;
         height: 36px;
-        background: transparent;
+        background: rgba(255,255,255,0.2);
         border: none;
         border-radius: 8px;
         cursor: pointer;
@@ -191,7 +185,7 @@ class NavBar extends HTMLElement {
       }
 
       .close-btn:hover {
-        background: ${hoverColor};
+        background: rgba(255,255,255,0.4);
       }
 
       .close-btn:focus {
@@ -389,9 +383,7 @@ class NavBar extends HTMLElement {
 
       <nav class="sidebar" id="sidebar" role="navigation" aria-label="主導航">
         <div class="sidebar-header">
-          <div class="sidebar-bear-icon">
-            <img src="/images/forest-banner.jpg" alt="森林" />
-          </div>
+          <img src="/images/forest-banner.jpg" alt="森林" />
           <button class="close-btn" aria-label="關閉導航選單">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
