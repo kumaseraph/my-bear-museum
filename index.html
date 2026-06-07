@@ -194,23 +194,6 @@
             flex-shrink: 0;
             position: relative;
         }
-        .bear-thumb::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 5px;
-            width: 78px;
-            height: 78px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ffb6c1, #add8e6, #e6e6fa, #ffd1a4, #98fb98);
-            background-size: 300% 300%;
-            z-index: 0;
-            animation: bubble-border 4s ease infinite;
-        }
-        @keyframes bubble-border {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
         .bear-thumb:hover {
             transform: scale(1.12) translateY(-3px);
             filter: drop-shadow(0 8px 12px rgba(0,0,0,0.25));
@@ -370,24 +353,18 @@
             display: inline-flex;
             flex-direction: column;
             align-items: center;
+            gap: 8px;
             cursor: pointer;
-            transition: transform 0.3s;
-            flex-shrink: 0;
-            position: relative;
-            transform: scale(1.08);
-            animation: featured-glow 2s ease-in-out infinite;
+            transition: transform 0.3s ease;
         }
         .featured-thumb:hover {
-            transform: scale(1.12);
-            animation: none;
+            transform: scale(1.05);
         }
         @keyframes featured-glow {
             0%, 100% {
-                transform: scale(1.08);
                 filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
             }
             50% {
-                transform: scale(1.10);
                 filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.9));
             }
         }
@@ -477,6 +454,7 @@
             min-width: 200px;
             display: flex;
             flex-direction: column;
+            align-items: flex-start;
             gap: 10px;
         }
         .banner-left {
@@ -1143,8 +1121,8 @@
             background: linear-gradient(135deg, #FFD700, #FFA500);
             box-shadow: var(--shadow-deep);
         }
-        .bear-modal-nav.prev { left: -22px; }
-        .bear-modal-nav.next { right: -22px; }
+        .bear-modal-nav.prev { left: 10px; }
+        .bear-modal-nav.next { right: 10px; }
         .bear-modal-position {
             position: absolute;
             top: 12px;
@@ -1805,10 +1783,6 @@
             <div class="label">館藏數量</div>
         </div>
         <div class="info-card">
-            <div class="circle" id="museumAge">2日</div>
-            <div class="label">博物館年齡</div>
-        </div>
-        <div class="info-card">
             <div class="circle" id="todayCount">+5</div>
             <div class="label">今日主角</div>
         </div>
@@ -1837,7 +1811,7 @@
             <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
             <div class="banner-top">
                 <div class="banner-right">
-                    <div class="banner-title">🏛️ 開館記念熊</div>
+                    <div class="banner-title">🏛️ 開館紀念熊</div>
                     <div class="info-card">
                         <div class="info-title">🌟 館藏守護者</div>
                         <div class="info-row">No.0001 · 2026-06-03</div>
@@ -2722,8 +2696,8 @@
             document.getElementById('yearbookGridTitle').textContent = '🏠 全部熊熊';
             grid.innerHTML = '';
             
-            // Sort bears: opening bear first, then by date (newest last)
-            const sortedBears = [...bears].sort((a, b) => {
+            // Sort bears: opening bear first, then by date (oldest first)
+            const sortedBears = [featuredBear, ...bears].sort((a, b) => {
                 if (a.collectionNo === featuredBear.collectionNo) return -1;
                 if (b.collectionNo === featuredBear.collectionNo) return 1;
                 return new Date(a.date) - new Date(b.date);
@@ -2735,6 +2709,7 @@
             });
             document.getElementById('yearbookGridModal').classList.add('active');
             document.body.style.overflow = 'hidden';
+            updateStarButtons();
         }
 
         // Open category modal (for category filter in yearbook)
@@ -3102,8 +3077,8 @@
                 container.innerHTML = `
                     <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
                         <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
-                        <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid #d4a574; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
-                            <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
+ <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                     </div>
                 `;
@@ -3150,7 +3125,7 @@
                 slide.innerHTML = `
                     <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
                         <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
-                        <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid #d4a574; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
+                        <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
                             <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                     </div>
@@ -3265,8 +3240,8 @@
             // Filter bears by month
             currentMonthBears = bears.filter(b => b.date.substring(0, 7) === month);
             
-            // Sort by collectionNo ascending
-            currentMonthBears.sort((a, b) => a.collectionNo - b.collectionNo);
+            // Sort by date ascending (oldest first)
+            currentMonthBears.sort((a, b) => new Date(a.date) - new Date(b.date));
             
             // Add opening bear if it's the opening month
             if (month === openDate.substring(0, 7)) {
