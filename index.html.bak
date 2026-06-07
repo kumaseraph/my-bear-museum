@@ -24,14 +24,19 @@
     v6.12 - 熊熊年鑑系列整合：19個系列整合成11個系列（童話夢境、星際冒險、浪漫時光、勇者傳奇、溫暖家園、暖心守護等），維持20個左右系列的目标；資訊卡翻頁改為純淡入，移除縮放動畫
     v6.13 - 開館紀念熊大改造：使用MiniMax生成專屬紀念熊圖、加入星星按鈕、動態渲染、尺寸變大（140px）、金色邊框+五色泡泡光芒效果
     v6.14 - 紀念熊尺寸再加大（170px）、更深的背景遮罩、背景加金色語錄
-    v6.18 - 星星按鈕優化：大小32px、位置左上、移除圓圈外框；年鑑圖示置換為自製熊熊圖示
+    v6.19 - 星星按鈕優化：大小32px、位置左上、移除圓圈外框；年鑑圖示置換為自製熊熊圖示
+    v6.22 - 版面緊湊化、移除深色模式、年鑑新增全部熊熊Tab、category刪除改用series
+    v6.33 - 星星按鈕 UI 優化：圓形背景+邊框、backdrop-filter、毛玻璃效果、加強光暈
+    v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
+    v6.40 - 修復11項問題：移除5色動畫/輪播棕邊/排序錯誤/缺少紀念熊/缩圖裁切/星星更新/錯字/標題置左/移除熊齡/Modal按鈕
+    v6.39 - 熊熊年鑑→熊熊圖鑑+新入住置中+輪播min-height+缩圖紫粉渐層+field-sizing+排序规则+B方案緞帶卡片
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.18</title>
+    <title>熊熊博物館 v6.40</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -63,15 +68,6 @@
             --shadow-card: 0 4px 18px rgba(93,64,55,0.04), 0 2.025px 7.84688px rgba(93,64,55,0.027), 0 0.8px 2.925px rgba(93,64,55,0.02), 0 0.175px 1.04062px rgba(93,64,55,0.01);
             /* Thin border */
             --border-thin: 1px solid rgba(93,64,55,0.1);
-        }
-
-        [data-theme="dark"] {
-            --color-bg: #1a1510;
-            --color-primary: #d4a574;
-            --color-accent: #FFD700;
-            --color-card: #2d2520;
-            --color-border: #4a3f35;
-            --color-text-muted: #a08060;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,12 +103,23 @@
             gap: 30px;
             flex-wrap: wrap;
             margin-bottom: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 400px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255,245,235,0.8), rgba(255,228,196,0.5));
+            border-radius: 16px;
+            border: 1px solid rgba(212,165,116,0.3);
         }
         .info-card {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 8px;
+            transition: transform 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-3px);
         }
         .info-card .circle {
             width: 70px;
@@ -122,11 +129,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: var(--shadow-card);
+            box-shadow: 0 4px 12px rgba(93, 64, 55, 0.25), 0 2px 4px rgba(93, 64, 55, 0.15);
             font-size: 1.4rem;
             font-weight: bold;
             color: white;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            transition: box-shadow 0.3s ease;
+        }
+        .info-card:hover .circle {
+            box-shadow: 0 6px 18px rgba(93, 64, 55, 0.35), 0 3px 6px rgba(93, 64, 55, 0.2);
         }
         .info-card .label {
             font-size: 0.8rem;
@@ -144,16 +155,22 @@
         /* Section */
         .section {
             max-width: 800px;
-            margin: 0 auto 40px;
-            padding: 0 20px;
+            margin: 0 auto 25px;
+            padding: 25px 20px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,245,235,0.3) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(212,165,116,0.2);
+            box-shadow: 0 2px 12px rgba(93, 64, 55, 0.08);
         }
         .section-title {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #5d4037;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(212,165,116,0.25);
         }
 
         /* Bear Thumbnails Grid */
@@ -166,8 +183,8 @@
 
         /* Bear Thumbnail Button */
         .bear-thumb {
-            width: 80px;
-            height: 100px;
+            width: 90px;
+            height: 110px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -177,86 +194,97 @@
             flex-shrink: 0;
             position: relative;
         }
-        .bear-thumb::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 5px;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ffb6c1, #add8e6, #e6e6fa, #ffd1a4, #98fb98);
-            background-size: 300% 300%;
-            z-index: 0;
-            animation: bubble-border 4s ease infinite;
-        }
-        @keyframes bubble-border {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
         .bear-thumb:hover {
-            transform: scale(1.1);
+            transform: scale(1.12) translateY(-3px);
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.25));
         }
-        /* Star button (top-left of bear thumb) */
+        .bear-thumb:hover .thumb-circle {
+            box-shadow: 0 0 20px rgba(255,182,193,0.8), 0 0 35px rgba(173,216,230,0.6);
+        }
+        .bear-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .bear-thumb:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.08) saturate(1.1);
+        }
+        /* Star button - 方案C：雙色對比（灰☆ → 金★） */
         .star-btn {
             position: absolute;
-            top: 6px;
-            left: 6px;
-            width: 32px;
-            height: 32px;
+            top: -5px;
+            right: -5px;
             background: transparent;
             border: none;
-            color: #FFD700;
-            font-size: 20px;
+            color: #AAAAAA;
+            font-size: 24px;
             cursor: pointer;
             z-index: 10;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            line-height: 1;
         }
         .star-btn:hover {
-            color: #FFA500;
-            transform: scale(1.2);
+            color: #FFD700;
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.9);
         }
         .star-btn.starred {
             color: #FFD700;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 1), 0 0 25px rgba(255, 215, 0, 0.7);
         }
         .star-btn.starred:hover {
-            background: linear-gradient(135deg, #FFA500, #FF8C00);
+            transform: scale(1.2);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
         }
-        .star-btn.popping {
-            animation: star-pop 0.3s ease;
+        /* 星星大小 - 各場景 */
+.featured-star { font-size: 40px; }  /* 紀念熊 - 40px */
+.today-star { font-size: 30px; }      /* 今日主角 - 30px */
+.yearbook-star { font-size: 24px; }  /* 熊熊圖鑑 - 24px */
+.newbear-star { font-size: 24px; }   /* 新入住熊熊 - 24px */
+
+/* Star pop animation */
+.star-btn.popping {
+    animation: star-pop 0.3s ease;
+}
+@keyframes star-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5); text-shadow: 0 0 25px rgba(255, 165, 0, 0.9); }
+    100% { transform: scale(1); }
+}
+        /* 新入住熊熊 - 加大間距 */
+        .bear-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            padding: 10px 0;
         }
-        @keyframes star-pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); box-shadow: 0 0 15px rgba(255, 165, 0, 0.8); }
-            100% { transform: scale(1); }
+        .bear-thumb {
+            width: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .bear-thumb:hover {
+            transform: translateY(-5px);
         }
         .bear-thumb .thumb-circle {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: var(--shadow-soft);
-            flex-shrink: 0;
-            position: relative;
-            z-index: 1;
-        }
-        .bear-thumb::before {
-            content: '';
-            position: absolute;
-            top: 11px;
-            left: 5px;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ffb6c1, #add8e6, #e6e6fa, #ffd1a4, #98fb98);
-            background-size: 300% 300%;
-            z-index: 0;
-            animation: bubble-border 4s ease infinite;
-            pointer-events: none;
+            border: 4px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #e6e6fa, #ffb6c1, #ffd1a4) border-box;
+            box-shadow:
+                0 0 15px rgba(230,230,250,0.6),
+                0 0 30px rgba(255,182,193,0.4);
+            transition: all 0.3s ease;
+            field-sizing: normal;
         }
         .bear-thumb img {
             width: 100%;
@@ -280,7 +308,7 @@
             background-size: cover;
             background-position: center;
             border-radius: 20px;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
             box-shadow: var(--shadow-medium);
             margin-bottom: 40px;
@@ -303,50 +331,69 @@
             text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             margin-top: 15px;
         }
+        /* 獎章浮動動畫 */
+        .badge-ornate {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 55px;
+            height: 55px;
+            z-index: 20;
+            animation: badge-float 3s ease-in-out infinite;
+            filter: drop-shadow(0 3px 6px rgba(201,162,39,0.5));
+        }
+        @keyframes badge-float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
         .featured-thumb {
             width: 260px;
             height: 320px;
             display: inline-flex;
             flex-direction: column;
             align-items: center;
+            gap: 8px;
             cursor: pointer;
-            transition: transform 0.3s;
-            flex-shrink: 0;
-            position: relative;
+            transition: transform 0.3s ease;
         }
         .featured-thumb:hover {
             transform: scale(1.05);
+        }
+        @keyframes featured-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+            }
+            50% {
+                filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.9));
+            }
         }
         .featured-thumb .thumb-circle {
             width: 220px;
             height: 220px;
             border-radius: 50%;
-            overflow: visible;
+            overflow: hidden;
             border: 6px solid #FFD700;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 30px rgba(255, 215, 0, 0.5);
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.5),
+                0 0 60px rgba(255, 180, 0, 0.3),
+                inset 0 0 25px rgba(255, 215, 0, 0.4);
             flex-shrink: 0;
             background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
             background-size: 200% 200%;
             animation: gold-shimmer 3s ease infinite;
             position: relative;
         }
-        .featured-thumb .thumb-circle::before {
-            content: '';
-            position: absolute;
-            top: -12px;
-            left: -12px;
-            right: -12px;
-            bottom: -12px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ffb6c1, #add8e6, #e6e6fa, #ffd1a4, #98fb98);
-            background-size: 300% 300%;
-            animation: bubble-border 4s ease infinite;
-            z-index: -1;
-            opacity: 0.7;
-        }
         @keyframes gold-shimmer {
-            0%, 100% { background-position: 0% 50%; box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.4), inset 0 0 30px rgba(255, 215, 0, 0.5); }
-            50% { background-position: 100% 50%; box-shadow: 0 0 35px rgba(255, 165, 0, 0.9), 0 0 60px rgba(255, 215, 0, 0.5), inset 0 0 40px rgba(255, 215, 0, 0.6); }
+            0%, 100% { 
+                background-position: 0% 50%; 
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 180, 0, 0.3), inset 0 0 25px rgba(255, 215, 0, 0.4); 
+            }
+            50% { 
+                background-position: 100% 50%; 
+                box-shadow: 0 0 30px rgba(255, 165, 0, 0.9), 0 0 50px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 180, 0, 0.4), inset 0 0 35px rgba(255, 215, 0, 0.5); 
+            }
         }
         .featured-thumb img {
             width: 100%;
@@ -366,6 +413,114 @@
             font-size: 0.8rem;
             color: #a08060;
             margin-top: 2px;
+        }
+
+        /* ── B方案：紀念熊橫幅卡片 ── */
+        .banner-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px 24px;
+            position: relative;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-height: 200px;
+            border: 2px solid #d4a574;
+            box-shadow: 0 6px 15px rgba(93,64,55,0.12);
+        }
+        .ribbon {
+            position: absolute;
+            top: -6px;
+            left: -10px;
+            background: linear-gradient(135deg, #C9A227, #d4a574);
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 0 0 8px 0;
+            font-size: 0.75rem;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(93,64,55,0.2);
+            z-index: 5;
+        }
+        .ribbon-text { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+        .banner-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .banner-right {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .banner-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .info-card {
+            background: linear-gradient(135deg, rgba(212,165,116,0.12), rgba(212,165,116,0.05));
+            border: 1px solid rgba(212,165,116,0.4);
+            border-radius: 10px;
+            padding: 6px 12px;
+            display: inline-block;
+            width: fit-content;
+        }
+        .info-card .info-title {
+            color: #5d4037;
+            font-size: 0.95rem;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        .info-card .info-row {
+            color: #8b7355;
+            font-size: 0.85rem;
+        }
+        .banner-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #5d4037;
+        }
+        .banner-quote {
+            font-size: 1rem;
+            font-style: italic;
+            color: #C9A227;
+        }
+        .thumb-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .featured-thumb-circle {
+            width: 180px !important;
+            height: 180px !important;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid #FFD700 !important;
+            box-shadow:
+                0 0 20px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.5),
+                0 0 60px rgba(255, 180, 0, 0.3),
+                inset 0 0 25px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%) !important;
+            background-size: 200% 200%;
+            animation: gold-shimmer 3s ease infinite;
+            position: relative;
+        }
+        .featured-thumb-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        .featured-thumb-circle:hover {
+            transform: scale(1.05);
         }
 
         /* Yearbook */
@@ -773,20 +928,29 @@
         }
         .category-badge {
             display: inline-block;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
             margin-top: 8px;
+            background: #f5e6d3;
+            color: #5d4037;
+            border: 1px solid rgba(212,165,116,0.3);
+            box-shadow: 0 2px 4px rgba(93, 64, 55, 0.1);
+            transition: all 0.2s ease;
         }
-        .category-badge.奇幻 { background: #e6e6fa; color: #6b5b95; }
-        .category-badge.悠閒 { background: #ffe4e1; color: #d87093; }
-        .category-badge.領袖 { background: #b0e0e6; color: #4682b4; }
-        .category-badge.水彩 { background: #ffd1dc; color: #db7093; }
-        .category-badge[class*="3D"] { background: #98fb98; color: #228b22; }
-        .category-badge.油畫 { background: #ffdead; color: #daa520; }
-        .category-badge.像素 { background: #afeeee; color: #008b8b; }
-        .category-badge.紀念 { background: linear-gradient(135deg, #FFD700, #FFA500); color: #8b6914; }
+        .category-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 8px rgba(93, 64, 55, 0.2);
+        }
+        .category-badge[data-series*="童話"] { background: #ffd1dc; color: #db7093; }
+        .category-badge[data-series*="星際"] { background: #e6e6fa; color: #6b5b95; }
+        .category-badge[data-series*="浪漫"] { background: #ffe4e1; color: #d87093; }
+        .category-badge[data-series*="勇者"] { background: #b0e0e6; color: #4682b4; }
+        .category-badge[data-series*="暖心"] { background: #ffd1a4; color: #8b6914; }
+        .category-badge[data-series*="溫暖"] { background: #ffe4b5; color: #8b6914; }
+        .category-badge[data-series*="紀念"] { background: linear-gradient(135deg, #FFD700, #FFA500); color: #8b6914; }
 
         /* Carousel for featured bears */
         .carousel-container {
@@ -794,6 +958,7 @@
             max-width: 400px;
             margin: 0 auto;
             overflow: hidden;
+            min-height: 180px;
         }
         .carousel-track {
             display: flex;
@@ -803,7 +968,17 @@
             min-width: 100%;
             display: flex;
             justify-content: center;
-            padding: 10px 0;
+            align-items: center;
+            padding: 15px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            min-height: 150px;
+}
+        .carousel-slide.active {
+            opacity: 1;
         }
         .carousel-dots {
             display: flex;
@@ -870,7 +1045,7 @@
             max-height: 90vh;
             overflow-y: auto;
             scrollbar-gutter: stable;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
             box-shadow: 0 20px 60px rgba(93, 64, 55, 0.3);
             position: relative;
@@ -901,6 +1076,27 @@
             opacity: 1;
             background: rgba(93, 64, 55, 0.2);
         }
+        .bear-modal-star-btn {
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            background: transparent;
+            border: none;
+            color: #AAAAAA;
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        .bear-modal-star-btn:hover {
+            color: #FFD700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+            transform: scale(1.15);
+        }
+        .bear-modal-star-btn.starred {
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.7);
+        }
         .bear-modal-nav {
             position: absolute;
             top: 50%;
@@ -925,8 +1121,8 @@
             background: linear-gradient(135deg, #FFD700, #FFA500);
             box-shadow: var(--shadow-deep);
         }
-        .bear-modal-nav.prev { left: -22px; }
-        .bear-modal-nav.next { right: -22px; }
+        .bear-modal-nav.prev { left: 10px; }
+        .bear-modal-nav.next { right: 10px; }
         .bear-modal-position {
             position: absolute;
             top: 12px;
@@ -1190,7 +1386,7 @@
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
-            padding: 30px;
+            padding: 20px;
             box-shadow: 0 10px 40px rgba(93, 64, 55, 0.3);
             position: relative;
         }
@@ -1567,50 +1763,12 @@
             align-items: center;
             gap: 15px;
         }
-        .theme-toggle {
-            background: none;
-            border: var(--border-thin);
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            box-shadow: var(--shadow-soft);
-        }
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-medium);
-        }
-        [data-theme="dark"] .theme-toggle {
-            background: var(--color-card);
-        }
-    </style>
+        </style>
 </head>
 <body>
-    <!-- Navigation (loaded via component) -->
-    <div id="nav-container"></div>
-    <script>
-        // Load nav component
-        fetch('/components/nav-component')
-            .then(r => r.text())
-            .then(html => {
-                document.getElementById('nav-container').innerHTML = html;
-                // Update active nav link based on current page
-                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-                document.querySelectorAll('nav a').forEach(a => {
-                    if (a.getAttribute('href') === currentPage) {
-                        a.classList.add('active');
-                    } else {
-                        a.classList.remove('active');
-                    }
-                });
-            })
-            .catch(err => console.log('Nav component load failed:', err));
-    </script>
+    <!-- Navigation (Web Component) -->
+    <script src="/components/nav-component.js"></script>
+    <nav-bar></nav-bar>
 
     <!-- Header -->
     <header>
@@ -1623,10 +1781,6 @@
         <div class="info-card">
             <div class="circle" id="totalCount">14</div>
             <div class="label">館藏數量</div>
-        </div>
-        <div class="info-card">
-            <div class="circle" id="museumAge">2日</div>
-            <div class="label">博物館年齡</div>
         </div>
         <div class="info-card">
             <div class="circle" id="todayCount">+5</div>
@@ -1653,18 +1807,44 @@
 
     <!-- Opening Commemorative Bear -->
     <div class="section featured-section" id="featuredBearSection">
-        <div class="section-title">
-            <img src="images/icon-bear-crown.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
-            🏛️ 開館紀念熊
-        </div>
-        <div class="featured-thumb" id="featuredBearThumb" onclick="openBearModal(0)">
-            <button class="star-btn" id="featuredStarBtn" data-no="${featuredBear.collectionNo}" onclick="toggleStar(featuredBear.collectionNo, event)">☆</button>
-            <div class="thumb-circle" id="featuredBearCircle">
-                <img src="images/featured-bear.jpg" alt="開館紀念熊" loading="lazy">
+        <div class="banner-card">
+            <div class="ribbon"><span class="ribbon-text">THE FIRST</span></div>
+            <div class="banner-top">
+                <div class="banner-right">
+                    <div class="banner-title">🏛️ 開館紀念熊</div>
+                    <div class="info-card">
+                        <div class="info-title">🌟 館藏守護者</div>
+                        <div class="info-row">No.0001 · 2026-06-03</div>
+                    </div>
+                    <div class="banner-quote">「歡迎光臨熊熊博物館！」</div>
+                </div>
+                <div class="banner-left">
+                    <div class="thumb-wrapper">
+                        <!-- 獎章 - 光之星 -->
+                        <svg class="badge-ornate" viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+                          <defs>
+                            <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                              <stop offset="0%" style="stop-color:#FFE55C"/>
+                              <stop offset="100%" style="stop-color:#FFD700"/>
+                            </linearGradient>
+                          </defs>
+                          <line x1="27.5" y1="2" x2="27.5" y2="10" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+                          <line x1="27.5" y1="2" x2="18" y2="8" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+                          <line x1="27.5" y1="2" x2="37" y2="8" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/>
+                          <line x1="27.5" y1="2" x2="10" y2="14" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round"/>
+                          <line x1="27.5" y1="2" x2="45" y2="14" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round"/>
+                          <polygon points="27.5,10 32,22 45,22 34,30 38,42 27.5,34 17,42 21,30 10,22 23,22" fill="url(#badgeGrad)" stroke="#C9A227" stroke-width="2"/>
+                          <polygon points="27.5,16 30,24 39,24 32,29 34,37 27.5,32 21,37 23,29 16,24 25,24" fill="#FFF8DC" stroke="#C9A227" stroke-width="1"/>
+                          <text x="27.5" y="28" text-anchor="middle" font-size="10" fill="#5d4037">🐻</text>
+                        </svg>
+                        <div class="thumb-circle featured-thumb-circle" id="featuredBearCircle">
+                            <img src="images/featured-bear.jpg" alt="開館紀念熊" loading="lazy" onclick="openBearModal(0)">
+                        </div>
+                        <button class="star-btn featured-star" id="featuredStarBtn" data-no="${featuredBear.collectionNo}" onclick="toggleStar(featuredBear.collectionNo, event)">☆</button>
+                    </div>
+                </div>
             </div>
-            <div class="thumb-no" id="featuredBearNo">No.0001</div>
         </div>
-        <div class="featured-quote">「歡迎光臨熊熊博物館！」</div>
     </div>
 
     <!-- Today's New Arrivals -->
@@ -1680,7 +1860,7 @@
     <div class="section">
         <div class="section-title">
             <img src="images/icon-bear-book.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
-            熊熊年鑑
+            熊熊圖鑑
         </div>
         <!-- Search Box -->
         <div class="search-box">
@@ -1690,7 +1870,10 @@
 
         <!-- Yearbook Tab Switch -->
         <div class="yearbook-tabs">
-            <button class="yearbook-tab active" id="tabMonth" onclick="switchYearbookTab('month')">
+            <button class="yearbook-tab active" id="tabAll" onclick="openAllBearsModal()">
+                🏠 全部熊熊
+            </button>
+            <button class="yearbook-tab" id="tabMonth" onclick="switchYearbookTab('month')">
                 <img src="images/icon-bear-calendar.jpg" style="width:24px;height:24px;vertical-align:middle;margin-right:5px;"> 熊熊月份
             </button>
             <button class="yearbook-tab" id="tabCategory" onclick="switchYearbookTab('category')">
@@ -1700,8 +1883,10 @@
 
         <!-- Yearbook Accordion -->
         <div class="yearbook-accordion">
+            <!-- 全部熊熊容器 -->
+            <div id="yearbookAllContainer" class="yearbook-grid"></div>
             <!-- 月份模式容器 -->
-            <div id="yearbookMonthContainer"></div>
+            <div id="yearbookMonthContainer" style="display: none;"></div>
             <!-- 特性模式容器 -->
             <div id="yearbookCategoryContainer" style="display: none;"></div>
         </div>
@@ -1719,6 +1904,7 @@
                 <img id="modalImg" src="" alt="">
             </div>
             <div class="bear-modal-name" id="modalName"></div>
+            <button class="bear-modal-star-btn" id="modalStarBtn" onclick="toggleModalStar()">☆</button>
             <div class="bear-modal-meta" id="modalMeta"></div>
             <div class="bear-modal-quote">
                 <div class="quote-label">今日語錄</div>
@@ -1778,19 +1964,84 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.18
-        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="切換深色模式">🌙</button>
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.40
     </footer>
 
     <script>
         // Bear data
         const bears = [
  {
+                name: "雪球滾滾",
+                date: "2026-06-07",
+                checkIn: "20260707-01",
+                collectionNo: 20,
+                
+                title: "冰雪精靈",
+                series: "童話夢境系列",
+                birthday: "2026-06-07",
+                personality: "我在雪地裡滾來滾去，收集了好多閃閃發亮的冰晶！純真活潑，帶來冬日的魔法。",
+                quote: "每一顆冰晶都是冬天的禮物。",
+                img: "bears/2026-06-07/白熊_水彩_20260607_01.jpg"
+            },
+            {
+                name: "焦糖布丁",
+                date: "2026-06-07",
+                checkIn: "20260707-02",
+                collectionNo: 21,
+                
+                title: "甜點大師",
+                series: "暖心守護系列",
+                birthday: "2026-06-07",
+                personality: "剛出爐的焦糖布丁，最適合當下午茶！體貼細心，總是為朋友著想。",
+                quote: "甜蜜的時光，要和好朋友一起分享。",
+                img: "bears/2026-06-07/棕熊_3D_20260607_02.jpg"
+            },
+            {
+                name: "櫻花舞者",
+                date: "2026-06-07",
+                checkIn: "20260707-03",
+                collectionNo: 22,
+                
+                title: "浪漫花仙",
+                series: "浪漫時光系列",
+                birthday: "2026-06-07",
+                personality: "春天的風吹來，櫻花花瓣翩翩起舞～浪漫優雅，珍惜每一個綻放的瞬間。",
+                quote: "花開的季節，是愛的季節。",
+                img: "bears/2026-06-07/粉熊_油畫_20260607_03.jpg"
+            },
+            {
+                name: "星空旅者",
+                date: "2026-06-07",
+                checkIn: "20260707-04",
+                collectionNo: 23,
+                
+                title: "銀河漫遊者",
+                series: "星際冒險系列",
+                birthday: "2026-06-07",
+                personality: "我駕著星光穿越銀河，收集每一個閃亮的夢想！好奇勇敢，探索未知的宇宙。",
+                quote: "星星的方向，就是我的方向。",
+                img: "bears/2026-06-07/紫熊_奇幻_20260607_04.jpg"
+            },
+            {
+                name: "南瓜精靈",
+                date: "2026-06-07",
+                checkIn: "20260707-05",
+                collectionNo: 24,
+                
+                title: "萬聖小魔術師",
+                series: "勇者傳奇系列",
+                birthday: "2026-06-07",
+                personality: "施展一點小魔法，讓南瓜燈亮起來！創意十足，總有想不到的驚喜。",
+                quote: "魔法的秘密，藏在快樂的心裏。",
+                img: "bears/2026-06-07/橙熊_像素_20260607_05.jpg"
+            },
+
+ {
                 name: "雲朵綿綿",
                 date: "2026-06-06",
                 checkIn: "20260606-01",
                 collectionNo: 15,
-                category: "水彩",
+                
                 title: "🌤️ 棉花糖精靈",
                 series: "童話夢境系列",
                 birthday: "2026-06-06",
@@ -1803,7 +2054,7 @@
                 date: "2026-06-06",
                 checkIn: "20260606-02",
                 collectionNo: 16,
-                category: "3D",
+                
                 title: "🐾 蜂蜜收藏家",
                 series: "暖心守護系列",
                 birthday: "2026-06-06",
@@ -1816,7 +2067,7 @@
                 date: "2026-06-06",
                 checkIn: "20260606-03",
                 collectionNo: 17,
-                category: "油畫",
+                
                 title: "💖 晚霞戀人",
                 series: "浪漫時光系列",
                 birthday: "2026-06-06",
@@ -1829,7 +2080,7 @@
                 date: "2026-06-06",
                 checkIn: "20260606-04",
                 collectionNo: 18,
-                category: "奇幻",
+                
                 title: "✨ 星辰收藏家",
                 series: "星際冒險系列",
                 birthday: "2026-06-06",
@@ -1842,7 +2093,7 @@
                 date: "2026-06-06",
                 checkIn: "20260606-05",
                 collectionNo: 19,
-                category: "像素",
+                
                 title: "🎁 友誼使者",
                 series: "溫暖家園系列",
                 birthday: "2026-06-06",
@@ -1856,7 +2107,7 @@
                 date: "2026-06-02",
                 checkIn: "20260602-01",
                 collectionNo: 2,
-                category: "奇幻",
+                
                 title: "☁️ 雲端漫遊者",
                 series: "童話夢境系列",
                 birthday: "2026-06-02",
@@ -1869,7 +2120,7 @@
                 date: "2026-06-02",
                 checkIn: "20260602-02",
                 collectionNo: 3,
-                category: "悠閒",
+                
                 title: "🛋️ 悠閒生活家",
                 series: "溫暖家園系列",
                 birthday: "2026-06-02",
@@ -1882,7 +2133,7 @@
                 date: "2026-06-02",
                 checkIn: "20260602-03",
                 collectionNo: 4,
-                category: "領袖",
+                
                 title: "❄️ 冰雪王者",
                 series: "勇者傳奇系列",
                 birthday: "2026-06-02",
@@ -1896,7 +2147,7 @@
                 date: "2026-06-04",
                 checkIn: "20260604-01",
                 collectionNo: 5,
-                category: "水彩",
+                
                 title: "🌸 晨曦花語者",
                 series: "自然物語系列",
                 birthday: "2026-06-04",
@@ -1909,7 +2160,7 @@
                 date: "2026-06-04",
                 checkIn: "20260604-02",
                 collectionNo: 6,
-                category: "3D",
+                
                 title: "🍯 甜蜜收藏家",
                 series: "暖心守護系列",
                 birthday: "2026-06-04",
@@ -1922,7 +2173,7 @@
                 date: "2026-06-04",
                 checkIn: "20260604-03",
                 collectionNo: 7,
-                category: "油畫",
+                
                 title: "🌅 夕陽詩人",
                 series: "浪漫時光系列",
                 birthday: "2026-06-04",
@@ -1935,7 +2186,7 @@
                 date: "2026-06-04",
                 checkIn: "20260604-04",
                 collectionNo: 8,
-                category: "奇幻",
+                
                 title: "🌙 星海尋夢者",
                 series: "星際冒險系列",
                 birthday: "2026-06-04",
@@ -1948,7 +2199,7 @@
                 date: "2026-06-04",
                 checkIn: "20260604-05",
                 collectionNo: 9,
-                category: "像素",
+                
                 title: "🧱 彩虹建築師",
                 series: "創意玩趣系列",
                 birthday: "2026-06-04",
@@ -1961,7 +2212,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-01",
                 collectionNo: 10,
-                category: "水彩",
+                
                 title: "🍰 甜蜜魔法師",
                 series: "糖果廚房系列",
                 birthday: "2026-06-05",
@@ -1974,7 +2225,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-02",
                 collectionNo: 11,
-                category: "3D",
+                
                 title: "🚀 銀河探險家",
                 series: "星際冒險系列",
                 birthday: "2026-06-05",
@@ -1987,7 +2238,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-03",
                 collectionNo: 12,
-                category: "奇幻",
+                
                 title: "🍩 糖果王國使者",
                 series: "童話夢境系列",
                 birthday: "2026-06-05",
@@ -2000,7 +2251,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-04",
                 collectionNo: 13,
-                category: "油畫",
+                
                 title: "🌊 海洋勇者",
                 series: "海洋傳奇系列",
                 birthday: "2026-06-05",
@@ -2013,7 +2264,7 @@
                 date: "2026-06-05",
                 checkIn: "20260605-05",
                 collectionNo: 14,
-                category: "像素",
+                
                 title: "🚒 城市守護者",
                 series: "勇者傳奇系列",
                 birthday: "2026-06-05",
@@ -2029,7 +2280,7 @@
             date: openDate,
             checkIn: "20260603-01",
             collectionNo: 1,
-            category: "紀念",
+            
             title: "🌟 館藏守護者",
             series: "紀念珍藏系列",
             birthday: "2026-06-03",
@@ -2040,29 +2291,6 @@
 
         // Star button state management
         let starredBears = JSON.parse(localStorage.getItem('starredBears') || '[]');
-
-        // Theme management
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            if (next === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
-            } else {
-                document.documentElement.removeAttribute('data-theme');
-            }
-            localStorage.setItem('theme', next);
-            document.getElementById('themeToggle').textContent = next === 'dark' ? '☀️' : '🌙';
-        }
-        // Init theme button icon
-        document.addEventListener('DOMContentLoaded', () => {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
-        });
 
         function toggleStar(collectionNo, event) {
             event.stopPropagation();
@@ -2418,7 +2646,6 @@
             thumb.innerHTML = `
                 <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                 <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
-                <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                 <div class="thumb-name">${bear.name}</div>
             `;
             return thumb;
@@ -2432,26 +2659,57 @@
             items.classList.toggle('show');
         }
 
-        // Switch yearbook tab (月份/特性)
-        let currentYearbookTab = 'month';
+        // Switch yearbook tab (全部/月份/特性)
+        let currentYearbookTab = 'all';
         function switchYearbookTab(tab) {
             currentYearbookTab = tab;
+            const tabAll = document.getElementById('tabAll');
             const tabMonth = document.getElementById('tabMonth');
             const tabCategory = document.getElementById('tabCategory');
+            const allContainer = document.getElementById('yearbookAllContainer');
             const monthContainer = document.getElementById('yearbookMonthContainer');
             const categoryContainer = document.getElementById('yearbookCategoryContainer');
 
-            if (tab === 'month') {
+            tabAll.classList.remove('active');
+            tabMonth.classList.remove('active');
+            tabCategory.classList.remove('active');
+            allContainer.style.display = 'none';
+            monthContainer.style.display = 'none';
+            categoryContainer.style.display = 'none';
+
+            if (tab === 'all') {
+                tabAll.classList.add('active');
+                allContainer.style.display = 'block';
+                renderAllYearbookBears();
+            } else if (tab === 'month') {
                 tabMonth.classList.add('active');
-                tabCategory.classList.remove('active');
                 monthContainer.style.display = 'block';
-                categoryContainer.style.display = 'none';
             } else {
-                tabMonth.classList.remove('active');
                 tabCategory.classList.add('active');
-                monthContainer.style.display = 'none';
                 categoryContainer.style.display = 'block';
             }
+        }
+
+        // Render all bears for yearbook "all" tab (now opens modal)
+        function openAllBearsModal() {
+            const grid = document.getElementById('yearbookGrid');
+            document.getElementById('yearbookGridTitle').textContent = '🏠 全部熊熊';
+            grid.innerHTML = '';
+            
+            // Sort bears: opening bear first, then by date (oldest first)
+            const sortedBears = [featuredBear, ...bears].sort((a, b) => {
+                if (a.collectionNo === featuredBear.collectionNo) return -1;
+                if (b.collectionNo === featuredBear.collectionNo) return 1;
+                return new Date(a.date) - new Date(b.date);
+            });
+            
+            sortedBears.forEach(bear => {
+                const thumb = createBearThumb(bear, sortedBears);
+                grid.appendChild(thumb);
+            });
+            document.getElementById('yearbookGridModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            updateStarButtons();
         }
 
         // Open category modal (for category filter in yearbook)
@@ -2460,11 +2718,17 @@
             document.getElementById('monthModalTitle').textContent = `🎨 ${category} 分類`;
             grid.innerHTML = '';
 
-            // Filter bears by category
-            let categoryBears = bears.filter(b => b.category === category);
-            categoryBears.sort((a, b) => a.collectionNo - b.collectionNo);
+            // Filter bears by series
+            let categoryBears = bears.filter(b => b.series === category);
+            categoryBears.sort((a, b) => {
+                // 紀念熊永遠排第一
+                if (a.collectionNo === featuredBear.collectionNo) return -1;
+                if (b.collectionNo === featuredBear.collectionNo) return 1;
+                // 然後按日期排序（最舊到最新）
+                return new Date(a.date) - new Date(b.date);
+            });
 
-            if (category === featuredBear.category) {
+            if (category === featuredBear.series) {
                 categoryBears.unshift(featuredBear);
             }
 
@@ -2480,8 +2744,8 @@
 
         function getAllCategories() {
             const cats = new Set(['全部']);
-            cats.add(featuredBear.category);
-            bears.forEach(b => cats.add(b.category));
+            cats.add(featuredBear.series);
+            bears.forEach(b => cats.add(b.series));
             return Array.from(cats);
         }
 
@@ -2535,9 +2799,8 @@
                 thumb.innerHTML = `
                     <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                     <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
-                    <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                     <div class="thumb-name">${bear.name}</div>
-                    <span class="category-badge ${bear.category}">${bear.category}</span>
+                    <span class="category-badge" data-series="${bear.series}">${bear.series}</span>
                 `;
                 grid.appendChild(thumb);
             });
@@ -2596,6 +2859,15 @@
             const bear = currentModalGroup[currentModalIndex];
             document.getElementById('modalImg').src = bear.img;
             document.getElementById('modalName').textContent = bear.name;
+            // Update modal star button
+            const modalStarBtn = document.getElementById('modalStarBtn');
+            if (starredBears.includes(bear.collectionNo)) {
+                modalStarBtn.textContent = '★';
+                modalStarBtn.classList.add('starred');
+            } else {
+                modalStarBtn.textContent = '☆';
+                modalStarBtn.classList.remove('starred');
+            }
             // 顯示完整館藏資料
             const title = bear.title || '';
             const series = bear.series || '';
@@ -2680,6 +2952,21 @@
         function nextModalBear() {
             currentModalIndex = (currentModalIndex + 1) % currentModalGroup.length;
             updateModalBear();
+        }
+
+        // Toggle star in modal
+        function toggleModalStar() {
+            const bear = currentModalGroup[currentModalIndex];
+            toggleStar(bear.collectionNo, event);
+            // Update modal star button after toggle
+            const modalStarBtn = document.getElementById('modalStarBtn');
+            if (starredBears.includes(bear.collectionNo)) {
+                modalStarBtn.textContent = '★';
+                modalStarBtn.classList.add('starred');
+            } else {
+                modalStarBtn.textContent = '☆';
+                modalStarBtn.classList.remove('starred');
+            }
         }
 
         // Close bear modal
@@ -2790,10 +3077,9 @@
                 container.innerHTML = `
                     <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
                         <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
-                        <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid #d4a574; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
-                            <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
+ <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
-                        <div class="thumb-no" style="margin-top: 10px; font-size: 1rem; font-weight: bold; color: #5d4037;">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                     </div>
                 `;
                 stopAutoSlide();
@@ -2834,15 +3120,14 @@
 
             featuredList.forEach((bear, i) => {
                 const slide = document.createElement('div');
-                slide.className = 'carousel-slide';
+                slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
                 const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
                 slide.innerHTML = `
                     <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
                         <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
-                        <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid #d4a574; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
+                        <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
                             <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
-                        <div class="thumb-no" style="margin-top: 10px; font-size: 1rem; font-weight: bold; color: #5d4037;">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                     </div>
                 `;
                 track.appendChild(slide);
@@ -2867,8 +3152,9 @@
 
         function goToSlide(index) {
             carouselIndex = index;
-            const track = document.getElementById('carouselTrack');
-            track.style.transform = `translateX(-${index * 100}%)`;
+            document.querySelectorAll('.carousel-slide').forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
             document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
             });
@@ -2954,8 +3240,8 @@
             // Filter bears by month
             currentMonthBears = bears.filter(b => b.date.substring(0, 7) === month);
             
-            // Sort by collectionNo ascending
-            currentMonthBears.sort((a, b) => a.collectionNo - b.collectionNo);
+            // Sort by date ascending (oldest first)
+            currentMonthBears.sort((a, b) => new Date(a.date) - new Date(b.date));
             
             // Add opening bear if it's the opening month
             if (month === openDate.substring(0, 7)) {
@@ -2980,7 +3266,6 @@
             thumb.innerHTML = `
                 <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                 <div class="thumb-circle" style="width: 120px; height: 120px;"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
-                <div class="thumb-no">No.${String(bear.collectionNo).padStart(4, '0')}</div>
                 <div class="thumb-name">${bear.name}</div>
             `;
             grid.appendChild(thumb);

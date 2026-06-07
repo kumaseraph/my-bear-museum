@@ -28,7 +28,7 @@
     v6.22 - 版面緊湊化、移除深色模式、年鑑新增全部熊熊Tab、category刪除改用series
     v6.33 - 星星按鈕 UI 優化：圓形背景+邊框、backdrop-filter、毛玻璃效果、加強光暈
     v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
-    v6.40 - 修復11項問題：移除5色動畫/輪播棕邊/排序錯誤/缺少紀念熊/缩圖裁切/星星更新/錯字/標題置左/移除熊齡/Modal按鈕
+    v6.41 - 新增2026-06-08館藏：棉花糖糖、蜂蜜罐罐、方塊熊熊、玫瑰花瓣、星空泡泡：修復月份/特質Tab渲染、移除museumAge更新
     v6.39 - 熊熊年鑑→熊熊圖鑑+新入住置中+輪播min-height+缩圖紫粉渐層+field-sizing+排序规则+B方案緞帶卡片
 -->
 <!DOCTYPE html>
@@ -36,7 +36,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.40</title>
+    <title>熊熊博物館 v6.41</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -1964,12 +1964,78 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.40
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.41
     </footer>
 
     <script>
         // Bear data
         const bears = [
+            {
+                name: "棉花糖糖",
+                date: "2026-06-08",
+                checkIn: "20260608-01",
+                collectionNo: 25,
+                
+                title: "棉花糖精靈",
+                series: "童話夢境系列",
+                birthday: "2026-06-08",
+                personality: "我在白雲上跳舞，收集甜蜜的露珠！純真可愛，帶來雲端的魔法。",
+                quote: "每一朵白雲都是棉花糖做的。",
+                img: "bears/2026-06-08/白熊_水彩_20260608_01.png"
+            },
+            {
+                name: "蜂蜜罐罐",
+                date: "2026-06-08",
+                checkIn: "20260608-02",
+                collectionNo: 26,
+                
+                title: "蜂蜜收藏家",
+                series: "暖心守護系列",
+                birthday: "2026-06-08",
+                personality: "這罐蜂蜜是森林裡最甜的！善良貼心，總是把最好的留給好朋友。",
+                quote: "甜甜的蜂蜜，暖暖的心。",
+                img: "bears/2026-06-08/棕熊_3D_20260608_02.png"
+            },
+            {
+                name: "方塊熊熊",
+                date: "2026-06-08",
+                checkIn: "20260608-03",
+                collectionNo: 27,
+                
+                title: "復古小熊",
+                series: "勇者傳奇系列",
+                birthday: "2026-06-08",
+                personality: "我是8位元世界來的使者！勇敢有趣，帶來像素世界的魔力。",
+                quote: "每一個方塊都是冒險的起點。",
+                img: "bears/2026-06-08/灰熊_像素_20260608_03.png"
+            },
+            {
+                name: "玫瑰花瓣",
+                date: "2026-06-08",
+                checkIn: "20260608-04",
+                collectionNo: 28,
+                
+                title: "浪漫花仙",
+                series: "浪漫時光系列",
+                birthday: "2026-06-08",
+                personality: "我在花園裡翩翩起舞，每一片花瓣都是愛的詩篇！浪漫優雅，珍惜綻放的瞬間。",
+                quote: "花開的季節，是愛的季節。",
+                img: "bears/2026-06-08/粉熊_油畫_20260608_04.png"
+            },
+            {
+                name: "星空泡泡",
+                date: "2026-06-08",
+                checkIn: "20260608-05",
+                collectionNo: 29,
+                
+                title: "銀河漫遊者",
+                series: "星際冒險系列",
+                birthday: "2026-06-08",
+                personality: "我乘著星光穿越銀河，收集每一個閃亮的夢想！好奇勇敢，探索宇宙的奧秘。",
+                quote: "星星的方向，就是我的方向。",
+                img: "bears/2026-06-08/藍熊_奇幻_20260608_05.png"
+            },
+
  {
                 name: "雪球滾滾",
                 date: "2026-06-07",
@@ -2684,9 +2750,11 @@
             } else if (tab === 'month') {
                 tabMonth.classList.add('active');
                 monthContainer.style.display = 'block';
+                renderYearbookMonth();
             } else {
                 tabCategory.classList.add('active');
                 categoryContainer.style.display = 'block';
+                renderYearbookCategory();
             }
         }
 
@@ -2781,13 +2849,6 @@
             // Update counts - starred bears (今日主角) for info card
             document.getElementById('todayCount').textContent = '+' + starredBears.length;
             document.getElementById('totalCount').textContent = bears.length + 1;
-            // Calculate museum age
-            const now = new Date();
-            const [openY, openM, openD] = openDate.split('-').map(Number);
-            const openDateObj = new Date(openY, openM - 1, openD);
-            const diffTime = now - openDateObj;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            document.getElementById('museumAge').textContent = diffDays + '日';
 
             const od = openDate.split('-');
             document.getElementById('openDateFull').textContent = `${od[0]}年${parseInt(od[1])}月${parseInt(od[2])}日`;
