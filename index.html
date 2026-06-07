@@ -27,13 +27,14 @@
     v6.19 - 星星按鈕優化：大小32px、位置左上、移除圓圈外框；年鑑圖示置換為自製熊熊圖示
     v6.22 - 版面緊湊化、移除深色模式、年鑑新增全部熊熊Tab、category刪除改用series
     v6.33 - 星星按鈕 UI 優化：圓形背景+邊框、backdrop-filter、毛玻璃效果、加強光暈
+    v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.33</title>
+    <title>熊熊博物館 v6.34</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -188,7 +189,21 @@
             50% { background-position: 100% 50%; }
         }
         .bear-thumb:hover {
-            transform: scale(1.1);
+            transform: scale(1.12) translateY(-3px);
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.25));
+        }
+        .bear-thumb:hover .thumb-circle {
+            box-shadow: 0 0 20px rgba(255,182,193,0.8), 0 0 35px rgba(173,216,230,0.6);
+        }
+        .bear-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .bear-thumb:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.08) saturate(1.1);
         }
         /* Star button (top-left of bear thumb) */
         .star-btn {
@@ -1765,7 +1780,7 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.33
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.34
     </footer>
 
     <script>
