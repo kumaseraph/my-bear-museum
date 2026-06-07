@@ -18,6 +18,37 @@ class NavBar extends HTMLElement {
     return document.documentElement.dataset.theme === 'dark';
   }
 
+  injectBodyStyles() {
+    if (document.getElementById('nav-offset-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'nav-offset-styles';
+    style.textContent = `
+      body.sidebar-open > * {
+        transform: translateX(280px);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      body.sidebar-open {
+        overflow-x: hidden;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  get isOpen() {
+    return this._isOpen;
+  }
+
+  set isOpen(val) {
+    this._isOpen = val;
+    this.injectBodyStyles();
+    // Notify body for content offset
+    if (val) {
+      document.body.classList.add('sidebar-open');
+    } else {
+      document.body.classList.remove('sidebar-open');
+    }
+  }
+
   get styles() {
     const bgColor = this.isDarkMode ? '#2d2520' : '#a1887f';
     const hoverColor = this.isDarkMode ? '#4a3f35' : '#8d6e63';
@@ -42,8 +73,8 @@ class NavBar extends HTMLElement {
       .hamburger {
         position: fixed;
         top: 16px;
-        right: 16px;
-        left: auto;
+        left: 16px;
+        right: auto;
         z-index: 1001;
         width: 44px;
         height: 44px;
@@ -98,17 +129,17 @@ class NavBar extends HTMLElement {
       .sidebar {
         position: fixed;
         top: 0;
-        right: 0;
-        left: auto;
+        left: 0;
+        right: auto;
         width: 280px;
         height: 100vh;
         background: ${bgColor};
         z-index: 1000;
-        transform: translateX(100%);
+        transform: translateX(-100%);
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         flex-direction: column;
-        box-shadow: -4px 0 20px rgba(0,0,0,0.25);
+        box-shadow: 4px 0 20px rgba(0,0,0,0.25);
         overflow-y: auto;
       }
 
@@ -257,12 +288,12 @@ class NavBar extends HTMLElement {
   }
 
   toggleSidebar() {
-    this._isOpen = !this._isOpen;
+    this.isOpen = !this._isOpen;
     const sidebar = this.shadowRoot.querySelector('.sidebar');
     const overlay = this.shadowRoot.querySelector('.overlay');
     const hamburger = this.shadowRoot.querySelector('.hamburger');
 
-    if (this._isOpen) {
+    if (this.isOpen) {
       sidebar.classList.add('open');
       overlay.classList.add('active');
       hamburger.setAttribute('aria-expanded', 'true');
@@ -277,7 +308,7 @@ class NavBar extends HTMLElement {
 
   closeSidebar() {
     if (this._isOpen) {
-      this._isOpen = false;
+      this.isOpen = false;
       const sidebar = this.shadowRoot.querySelector('.sidebar');
       const overlay = this.shadowRoot.querySelector('.overlay');
       const hamburger = this.shadowRoot.querySelector('.hamburger');
