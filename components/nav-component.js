@@ -14,10 +14,6 @@ class NavBar extends HTMLElement {
     this.updateActiveLink();
   }
 
-  get isDarkMode() {
-    return document.documentElement.dataset.theme === 'dark';
-  }
-
   injectBodyStyles() {
     if (document.getElementById('nav-offset-styles')) return;
     const style = document.createElement('style');
@@ -50,13 +46,13 @@ class NavBar extends HTMLElement {
   }
 
   get styles() {
-    const bgColor = this.isDarkMode ? '#2d2520' : '#a1887f';
-    const hoverColor = this.isDarkMode ? '#4a3f35' : '#8d6e63';
+    const bgColor = '#a1887f';
+    const hoverColor = '#8d6e63';
     const textColor = '#ffffff';
-    const dividerColor = this.isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.3)';
-    const groupLabelColor = this.isDarkMode ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.65)';
-    const overlayBg = this.isDarkMode ? 'rgba(0,0,0,0.7)' : 'rgba(0,0,0,0.4)';
-
+    const dividerColor = 'rgba(255,255,255,0.3)';
+    const groupLabelColor = 'rgba(255,255,255,0.65)';
+    const overlayBg = 'rgba(0,0,0,0.4)';
+    const activeBg = 'rgba(255,255,255,0.15)';
     return `
       * {
         margin: 0;
@@ -354,22 +350,10 @@ class NavBar extends HTMLElement {
       }
     };
     document.addEventListener('keydown', this._escHandler);
-
-    // Listen for dark mode changes
-    this._mutationObserver = new MutationObserver(() => {
-      this.shadowRoot.querySelector('style').textContent = this.styles;
-    });
-    this._mutationObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme']
-    });
   }
 
   disconnectCallback() {
     document.removeEventListener('keydown', this._escHandler);
-    if (this._mutationObserver) {
-      this._mutationObserver.disconnect();
-    }
   }
 
   render() {
