@@ -3049,8 +3049,8 @@
             // Always show ALL today's bears regardless of category filter
             let todayBearsList = bears.filter(b => b.date === today);
 
-            // Update total count
-            document.getElementById('totalCount').textContent = bears.length;
+            // Update total count (bears + 紀念熊)
+            document.getElementById('totalCount').textContent = bears.length + 1;
 
             const od = openDate.split('-');
             document.getElementById('openDateFull').textContent = `${od[0]}年${parseInt(od[1])}月${parseInt(od[2])}日`;
