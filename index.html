@@ -3045,9 +3045,17 @@
             const grid = document.getElementById('todayBears');
             grid.innerHTML = '';
             // 使用台北時區，避免 UTC 時差問題
-            const today = new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }).split('/').map(x => x.padStart(2, '0')).join('-');
-            // 只顯示今天的熊熊
-            let todayBearsList = bears.filter(b => b.date === today);
+            const today = new Date();
+            const todayStr = today.toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }).split('/').map(x => x.padStart(2, '0')).join('-');
+            // 只顯示今天的熊熊，如果今天沒有就看昨天的（持續保留直到有新熊熊）
+            let todayBearsList = bears.filter(b => b.date === todayStr);
+            // 如果今天沒有新熊熊，取昨天的
+            if (todayBearsList.length === 0) {
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
+                const yesterdayStr = yesterday.toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }).split('/').map(x => x.padStart(2, '0')).join('-');
+                todayBearsList = bears.filter(b => b.date === yesterdayStr);
+            }
 
             // Update total count (bears + 紀念熊)
             document.getElementById('totalCount').textContent = bears.length + 1;
