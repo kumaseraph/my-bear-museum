@@ -3291,18 +3291,32 @@
             // 停止自動輪播（不再需要）
             stopAutoSlide();
 
-            // 清除容器並重建為 5 格並排
+            // 清除容器並重建為上3下2排列
             container.innerHTML = '';
             container.style.display = 'flex';
-            container.style.flexWrap = 'wrap';
-            container.style.flexDirection = 'row';
-            container.style.justifyContent = 'center';
+            container.style.flexDirection = 'column';
+            container.style.alignItems = 'center';
             container.style.gap = '15px';
             container.style.overflow = 'visible';
             container.style.maxWidth = '100%';
             container.style.padding = '10px 0';
 
-            featuredList.forEach((bear) => {
+            // 上排：3隻熊熊
+            const topRow = document.createElement('div');
+            topRow.style.display = 'flex';
+            topRow.style.flexWrap = 'wrap';
+            topRow.style.justifyContent = 'center';
+            topRow.style.gap = '15px';
+
+            // 下排：2隻熊熊（靠左對齊上排起點）
+            const bottomRow = document.createElement('div');
+            bottomRow.style.display = 'flex';
+            bottomRow.style.flexWrap = 'wrap';
+            bottomRow.style.justifyContent = 'flex-start';
+            bottomRow.style.gap = '15px';
+            bottomRow.style.paddingLeft = 'calc((100% - 80px * 3 - 15px * 2) / 2)'; // 讓下排居中對齊上排
+
+            featuredList.forEach((bear, i) => {
                 const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
                 const ref = isOpeningBear ? 'opening' : bear.collectionNo;
 
@@ -3310,14 +3324,23 @@
                 thumb.className = 'featured-thumb';
                 thumb.style.cssText = 'display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative; flex-shrink: 0;';
                 thumb.onclick = () => openBearModalByRef(ref, featuredList);
+                // 預設全部顯示金色實心星星
                 thumb.innerHTML = `
-                    <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: -5px; right: 5px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                    <button class="star-btn starred" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: -5px; right: 5px; z-index: 5;">★</button>
                     <div class="thumb-circle" style="width: 80px; height: 80px; border-radius: 50%; overflow: hidden; box-shadow: 0 4px 10px rgba(93, 64, 55, 0.15);">
                         <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 `;
-                container.appendChild(thumb);
+
+                if (i < 3) {
+                    topRow.appendChild(thumb);
+                } else {
+                    bottomRow.appendChild(thumb);
+                }
             });
+
+            container.appendChild(topRow);
+            container.appendChild(bottomRow);
         }
 
         function goToSlide(index) {
