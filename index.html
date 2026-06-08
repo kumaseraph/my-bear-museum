@@ -3251,7 +3251,7 @@
 
         let carouselIndex = 0;
         let carouselTotal = 0;
-        let featuredList = []; // 全域變數，供 inline onclick 使用
+        var featuredList = []; // 全域變數，供 inline onclick 使用
 
         let autoSlideInterval = null;
 
@@ -3285,14 +3285,20 @@
             if (featuredList.length === 1) {
                 const bear = featuredList[0];
                 const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
-                container.innerHTML = `
-                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}', featuredList)" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
-                        <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
-                        <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
- <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
+                const ref = isOpeningBear ? 'opening' : bear.collectionNo;
+
+                const thumb = document.createElement('div');
+                thumb.className = 'featured-thumb';
+                thumb.style.cssText = 'display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;';
+                thumb.onclick = () => openBearModalByRef(ref, featuredList);
+                thumb.innerHTML = `
+                    <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                    <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
+                        <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 `;
+                container.innerHTML = '';
+                container.appendChild(thumb);
                 stopAutoSlide();
                 return;
             }
@@ -3333,15 +3339,21 @@
                 const slide = document.createElement('div');
                 slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
                 const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
-                slide.innerHTML = `
-                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}', featuredList)" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
-                        <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
-                        <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
-                            <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
+                const ref = isOpeningBear ? 'opening' : bear.collectionNo;
+                
+                const thumb = document.createElement('div');
+                thumb.className = 'featured-thumb';
+                thumb.style.cssText = 'display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;';
+                thumb.onclick = () => openBearModalByRef(ref, featuredList);
+                thumb.innerHTML = `
+                    <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                    <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
+                        <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 `;
+                slide.appendChild(thumb);
                 track.appendChild(slide);
+
 
                 const dot = document.createElement('div');
                 dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
