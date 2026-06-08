@@ -7,7 +7,7 @@
 1. 檢查新圖片（bears/YYYY-MM-DD/）
 2. 驗證圖片命名（{顏色}_{風格}_{日期}_{序號}.png）
 3. 複製到 my-bear-museum/bears/
-4. 更新 index.html（新增熊熊數據）
+4. 更新 index.html（新增熊熊數據，使用詞彙庫命名）
 5. 更新版本號
 6. Git commit + push
 7. 部署到 Cloudflare Pages
@@ -22,8 +22,8 @@ from datetime import datetime
 from pathlib import Path
 
 # ============== 設定 ==============
-BEARS_DIR = Path("/home/fjj04/bears")
 MUSEUM_DIR = Path("/home/fjj04/my-bear-museum")
+BEARS_DIR = MUSEUM_DIR / "bears"  # 熊熊圖片目錄
 INDEX_HTML = MUSEUM_DIR / "index.html"
 TODAY = datetime.now().strftime("%Y-%m-%d")
 TODAY_SHORT = datetime.now().strftime("%Y%m%d")
@@ -137,7 +137,7 @@ def copy_images_to_museum(images, date_str):
     dest_images = list(dest_dir.glob("*.png"))
     log(f"博物館目錄共 {len(dest_images)} 張圖片")
 
-# ============== 步驟 4：更新 index.html ==============
+# ============== 詞彙庫載入函數 ==============
 
 def load_naming_dict():
     """載入熊熊命名字典"""
@@ -147,13 +147,22 @@ def load_naming_dict():
     return data['combinations']['names']
 
 def load_quotes_dict():
-    """載入熊熊語錄"""
+    """載入熊熊語錄（支援分類結構）"""
     quotes_file = MUSEUM_DIR / "vocabulary" / "bear-quotes.json"
     with open(quotes_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
+    
+    # 支援兩種格式：純陣列 或 分類結構
     if isinstance(data, list):
         return data
-    return data.get("quotes", [])
+    
+    # 分類結構：提取所有 quotes
+    all_quotes = []
+    categories = data.get("categories", {})
+    for category_name, category_data in categories.items():
+        quotes = category_data.get("quotes", [])
+        all_quotes.extend(quotes)
+    return all_quotes
 
 def generate_bear_name(used_names):
     """從詞彙庫取得一個還沒用過的熊熊名稱"""
@@ -173,6 +182,8 @@ def generate_bear_quote(used_quotes):
         available = all_quotes
     return random.choice(available)
 
+# ============== 步驟 4：更新 index.html ==============
+
 def update_index_html(images, date_str, collection_start):
     """更新 index.html 的 bears 數組（使用詞彙庫命名）"""
     import random
@@ -181,18 +192,29 @@ def update_index_html(images, date_str, collection_start):
     all_names = load_naming_dict()
     all_quotes = load_quotes_dict()
     
-    # 收集已使用的名稱和語錄
+    # 收集已使用的名稱、語錄、圖片路徑
     with open(INDEX_HTML, 'r', encoding='utf-8') as f:
         content = f.read()
     used_names = set(re.findall(r'name:\s*"([^"]+)"', content))
     used_quotes = set(re.findall(r'quote:\s*"([^"]+)"', content))
     
+    # 收集已存在的圖片路徑（避免重複新增）
+    existing_imgs = set(re.findall(r'img:\s*"([^"]+)"', content))
+    
     log(f"詞彙庫：{len(all_names)} 個名字，{len(all_quotes)} 條語錄")
     log(f"已使用：{len(used_names)} 個名字，{len(used_quotes)} 條語錄")
+    log(f"已存在：{len(existing_imgs)} 張圖片")
     
-    # 產生熊熊 JSON
+    # 產生熊熊 JSON（只處理新圖片）
     bears = []
     for i, img in enumerate(sorted(images), start=1):
+        img_path = f"bears/{date_str}/{img.name}"
+        
+        # 跳過已存在的圖片
+        if img_path in existing_imgs:
+            log(f"圖片已存在，跳過: {img.name}")
+            continue
+        
         name = img.stem  # 例如：白熊_水彩_20260608_01
         
         # 解析命名
@@ -215,95 +237,12 @@ def update_index_html(images, date_str, collection_start):
             "collectionNo": collection_start + i,
             "category": style,
             "desc": quote,
-            "img": f"bears/{date_str}/{img.name}"
+            "img": img_path
         }
         bears.append(bear_json)
         log(f"新增熊熊: {bear_name} (No.{collection_start + i})")
     
     return bears
-
-# ============== ComfyUI 魔法畫筆 ==============
-
-COMFYUI_URL = "http://fjjhomei9.fjjhome:8188"
-
-def generate_with_comfyui(prompt, width=1600, height=912, output_prefix="Bear", negative_prompt="blurry, low quality, watermark, dark"):
-    """
-    使用 ComfyUI 生成圖片（Flux.2-Klein workflow）
-    
-    參數：
-    - prompt: 英文 prompt（熊熊描述）
-    - width, height: 圖片尺寸
-    - output_prefix: 輸出檔案前綴（日期資料夾）
-    - negative_prompt: 負向 prompt
-    
-    返回：
-    - 輸出檔案名稱列表
-    """
-    import requests
-    import time
-    import random
-    
-    log(f"提交 ComfyUI prompt: {prompt[:50]}...")
-    
-    # 組合完整 workflow（使用雙反斜線）
-    workflow = {
-        "84": {"inputs": {"samples": ["98", 0], "vae": ["92", 0]}, "class_type": "VAEDecode"},
-        "85": {"inputs": {"width": width, "height": height, "batch_size": 1}, "class_type": "EmptyFlux2LatentImage"},
-        "86": {"inputs": {"text": negative_prompt, "clip": ["91", 0]}, "class_type": "CLIPTextEncode"},
-        "90": {"inputs": {"unet_name": "Flux\\Flux.2-Klein\\flux-2-klein-9b-fp8.safetensors", "weight_dtype": "default"}, "class_type": "UNETLoader"},
-        "91": {"inputs": {"clip_name": "qwen_3_8b_fp8mixed.safetensors", "type": "flux2", "device": "default"}, "class_type": "CLIPLoader"},
-        "92": {"inputs": {"vae_name": "Flux\\flux2-vae.safetensors"}, "class_type": "VAELoader"},
-        "93": {"inputs": {"text": prompt, "clip": ["91", 0]}, "class_type": "CLIPTextEncode"},
-        "98": {"inputs": {"seed": random.randint(1, 9999999999), "steps": 20, "cfg": 1.0, "sampler_name": "euler", "scheduler": "simple", "denoise": 1.0, "model": ["90", 0], "positive": ["93", 0], "negative": ["86", 0], "latent_image": ["85", 0]}, "class_type": "KSampler"},
-        "105": {"inputs": {"filename_prefix": f"{output_prefix}/Flux2-Klein", "images": ["84", 0]}, "class_type": "SaveImage"}
-    }
-    
-    # 提交 prompt
-    response = requests.post(f"{COMFYUI_URL}/api/prompt", json={"prompt": workflow})
-    if response.status_code != 200:
-        raise Exception(f"ComfyUI API 錯誤: {response.text}")
-    
-    result = response.json()
-    prompt_id = result.get("prompt_id")
-    queue_number = result.get("number", "?")
-    log(f"已提交 prompt，排隊號碼: {queue_number}")
-    
-    # 等待完成（最多 2 分鐘）
-    max_wait = 120
-    for i in range(max_wait):
-        time.sleep(1)
-        try:
-            history = requests.get(f"{COMFYUI_URL}/api/history/{prompt_id}").json()
-            if prompt_id in history:
-                status = history[prompt_id].get("status", {})
-                if status.get("status_str") == "success":
-                    outputs = history[prompt_id].get("outputs", {})
-                    images = []
-                    for node_id, node_output in outputs.items():
-                        if "images" in node_output:
-                            for img in node_output["images"]:
-                                images.append(img)
-                    log(f"✅ ComfyUI 生成完成: {len(images)} 張圖片")
-                    return images
-        except:
-            pass
-        
-        if (i + 1) % 10 == 0:
-            log(f"等待中... ({i+1}/{max_wait} 秒)")
-    
-    raise Exception("ComfyUI 生成超時")
-
-
-def download_comfyui_image(filename, subfolder, dest_path):
-    """下載 ComfyUI 輸出的圖片"""
-    import requests
-    url = f"{COMFYUI_URL}/api/view?filename={filename}&subfolder={subfolder}&type=output"
-    response = requests.get(url)
-    if response.status_code == 200:
-        with open(dest_path, 'wb') as f:
-            f.write(response.content)
-        return True
-    return False
 
 # ============== 主流程 ==============
 
@@ -333,6 +272,11 @@ def main():
     new_bears = update_index_html(images, TODAY, max_no)
     log(f"新增 {len(new_bears)} 隻熊熊")
     
+    # 如果有新熊熊才繼續
+    if not new_bears:
+        log("\n沒有新熊熊，配送結束")
+        return
+    
     # 更新版本號
     log(f"\n🏷️  步驟 4：更新版本號")
     new_version = get_next_version()
@@ -340,7 +284,9 @@ def main():
     
     # Git commit
     log(f"\n📦 步驟 5：Git commit")
-    run_cmd(f"cd {MUSEUM_DIR} && git add bears/{TODAY}/ && git add index.html")
+    run_cmd(f"cd {MUSEUM_DIR} && git add bears/{TODAY}/")
+    run_cmd(f"cd {MUSEUM_DIR} && git add index.html")
+    run_cmd(f"cd {MUSEUM_DIR} && git add vocabulary/daily-delivery.py")
     run_cmd(f"cd {MUSEUM_DIR} && git commit -m 'v{new_version} - 每日配送 {TODAY}'")
     run_cmd(f"cd {MUSEUM_DIR} && git push")
     log("Git push 完成")
