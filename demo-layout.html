@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>熊熊博物館 - 館藏數量版面設計展示（K1-K5）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #fdf8f3;
+            --brown-dark: #5d4037;
+            --brown-light: #d4a574;
+            --text-muted: #8b7355;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background: var(--bg-cream);
+            color: var(--brown-dark);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+        }
+        .demo-section {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(93,64,55,0.08);
+        }
+        .demo-title {
+            font-size: 0.85rem;
+            color: var(--brown-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        /* ========== K1: 卡片堆疊 ========== */
+        .k1-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 0;
+            padding: 30px 0;
+        }
+        .k1-card {
+            position: relative;
+            background: linear-gradient(135deg, #fff5f0, #ffe8dc);
+            border-radius: 16px;
+            padding: 20px 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(93,64,55,0.1);
+        }
+        .k1-card:nth-child(1) { z-index: 3; margin-right: -15px; transform: rotate(-3deg); }
+        .k1-card:nth-child(2) { z-index: 2; margin-right: -15px; transform: rotate(2deg); }
+        .k1-card:nth-child(3) { z-index: 1; transform: rotate(-1deg); }
+        .k1-card .icon { font-size: 2rem; margin-bottom: 8px; }
+        .k1-card .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--brown-dark);
+        }
+        .k1-card .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+        /* ========== K2: 進度條樣式 ========== */
+        .k2-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .k2-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .k2-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #fff5f0, #ffe8dc);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .k2-content { flex: 1; }
+        .k2-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .k2-bar {
+            height: 8px;
+            background: #f0e8e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .k2-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e8b4a0, #d4a574);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        .k2-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            min-width: 50px;
+            text-align: right;
+        }
+        /* ========== K3: 圓形徽章 ========== */
+        .k3-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 30px 0;
+        }
+        .k3-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .k3-circle {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #fff5f0, #ffe8dc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: 0 4px 15px rgba(93,64,55,0.15), inset 0 2px 10px rgba(255,255,255,0.5);
+        }
+        .k3-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        /* ========== K4: 大數字極簡 ========== */
+        .k4-container {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 15px;
+            padding: 40px 0;
+        }
+        .k4-number {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--brown-dark);
+            line-height: 1;
+        }
+        .k4-info { display: flex; flex-direction: column; gap: 5px; }
+        .k4-label {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .k4-icon {
+            font-size: 2.5rem;
+        }
+        /* ========== K5: 圖示橫排 ========== */
+        .k5-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 25px 0;
+            flex-wrap: wrap;
+        }
+        .k5-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #fff5f0, #ffe8dc);
+            border-radius: 12px;
+            min-width: 90px;
+            transition: transform 0.2s ease;
+        }
+        .k5-item:hover { transform: translateY(-3px); }
+        .k5-icon { font-size: 1.5rem; }
+        .k5-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+        }
+        .k5-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        /* 返回連結 */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 40px;
+            color: var(--brown-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>🐻 館藏數量版面設計展示</h1>
+    <p class="subtitle">K1-K5 五種不同風格，點此查看示範 → <a href="demo.html">A-J 方案</a></p>
+
+    <!-- K1: 卡片堆疊 -->
+    <div class="demo-section">
+        <div class="demo-title">K1 - 卡片堆疊（卡片稍微旋轉重疊）</div>
+        <div class="k1-container">
+            <div class="k1-card">
+                <div class="icon">🐾</div>
+                <div class="number">14</div>
+                <div class="label">館藏數量</div>
+            </div>
+            <div class="k1-card">
+                <div class="icon">⭐</div>
+                <div class="number">5</div>
+                <div class="label">精選熊熊</div>
+            </div>
+            <div class="k1-card">
+                <div class="icon">🐻</div>
+                <div class="number">3</div>
+                <div class="label">新入住</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- K2: 進度條樣式 -->
+    <div class="demo-section">
+        <div class="demo-title">K2 - 進度條樣式（數字+進度條）</div>
+        <div class="k2-container">
+            <div class="k2-item">
+                <div class="k2-icon">🐾</div>
+                <div class="k2-content">
+                    <div class="k2-label">館藏進度 · 14 隻熊熊</div>
+                    <div class="k2-bar"><div class="k2-bar-fill" style="width: 70%;"></div></div>
+                </div>
+                <div class="k2-number">14</div>
+            </div>
+            <div class="k2-item">
+                <div class="k2-icon">⭐</div>
+                <div class="k2-content">
+                    <div class="k2-label">精選進度 · 5 隻熊熊</div>
+                    <div class="k2-bar"><div class="k2-bar-fill" style="width: 25%;"></div></div>
+                </div>
+                <div class="k2-number">5</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- K3: 圓形徽章 -->
+    <div class="demo-section">
+        <div class="demo-title">K3 - 圓形徽章（數字在圓形中）</div>
+        <div class="k3-container">
+            <div class="k3-badge">
+                <div class="k3-circle">🐾</div>
+                <div class="k3-label">館藏數量</div>
+                <div class="number" style="font-size:1.5rem;font-weight:700;">14</div>
+            </div>
+            <div class="k3-badge">
+                <div class="k3-circle">⭐</div>
+                <div class="k3-label">精選熊熊</div>
+                <div class="number" style="font-size:1.5rem;font-weight:700;">5</div>
+            </div>
+            <div class="k3-badge">
+                <div class="k3-circle">🐻</div>
+                <div class="k3-label">新入住</div>
+                <div class="number" style="font-size:1.5rem;font-weight:700;">3</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- K4: 大數字極簡 -->
+    <div class="demo-section">
+        <div class="demo-title">K4 - 大數字極簡（數字很大+標籤很小）</div>
+        <div class="k4-container">
+            <div class="k4-icon">🐾</div>
+            <div class="k4-number">14</div>
+            <div class="k4-info">
+                <div class="k4-label">館藏數量</div>
+                <div class="k4-label" style="font-size:0.75rem;">熊熊博物館</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- K5: 圖示橫排 -->
+    <div class="demo-section">
+        <div class="demo-title">K5 - 圖示橫排（水平排列的小卡片）</div>
+        <div class="k5-container">
+            <div class="k5-item">
+                <div class="k5-icon">🐾</div>
+                <div class="k5-number">14</div>
+                <div class="k5-label">館藏數量</div>
+            </div>
+            <div class="k5-item">
+                <div class="k5-icon">⭐</div>
+                <div class="k5-number">5</div>
+                <div class="k5-label">精選熊熊</div>
+            </div>
+            <div class="k5-item">
+                <div class="k5-icon">🐻</div>
+                <div class="k5-number">3</div>
+                <div class="k5-label">新入住</div>
+            </div>
+            <div class="k5-item">
+                <div class="k5-icon">🎉</div>
+                <div class="k5-number">1</div>
+                <div class="k5-label">紀念熊</div>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">← 返回正式網站</a>
+</body>
+</html>
