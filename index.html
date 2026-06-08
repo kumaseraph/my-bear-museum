@@ -29,7 +29,7 @@
     v6.33 - 星星按鈕 UI 優化：圓形背景+邊框、backdrop-filter、毛玻璃效果、加強光暈
     v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
     v6.46 - 精選熊熊點擊修復/邊框統一/改名精選熊熊
-    v6.47 - 手機版優化：Modal/輪播指示器/年鑑顯示/點擊區域/搜尋框/clamp/輪播箭頭；熊熊縮圖邊框改為粉紫橘色
+    v6.50 - 熊熊縮圖邊框改為淡粉淡紫淡藍/館藏數量移除圓圈/年鑑手機版減少每排
     v6.39 - 熊熊年鑑→熊熊圖鑑+新入住置中+輪播min-height+缩圖紫粉渐層+field-sizing+排序规则+B方案緞帶卡片
 -->
 <!DOCTYPE html>
@@ -37,7 +37,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.47</title>
+    <title>熊熊博物館 v6.50</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -124,23 +124,15 @@
         .info-card:hover {
             transform: translateY(-3px);
         }
-        .info-card .circle {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #d4a574, #c49a6c);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(93, 64, 55, 0.25), 0 2px 4px rgba(93, 64, 55, 0.15);
+        .info-card .value {
             font-size: 1.4rem;
             font-weight: bold;
-            color: white;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-            transition: box-shadow 0.3s ease;
+            color: #5d4037;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+            transition: transform 0.3s ease;
         }
-        .info-card:hover .circle {
-            box-shadow: 0 6px 18px rgba(93, 64, 55, 0.35), 0 3px 6px rgba(93, 64, 55, 0.2);
+        .info-card:hover .value {
+            transform: scale(1.05);
         }
         .info-card .label {
             font-size: 0.8rem;
@@ -285,22 +277,22 @@
             overflow: hidden;
             border: 4px solid transparent;
             background: linear-gradient(white, white) padding-box,
-                        linear-gradient(135deg, #ffb6c1, #9b59b6, #ff9500) border-box;
+                        linear-gradient(135deg, #ffd6e0, #d4b8e0, #b8d4e8) border-box;
             background-size: 300% 300%;
-            animation: pink-purple-orange-shimmer 3s ease infinite;
+            animation: light-pink-purple-blue-shimmer 3s ease infinite;
             box-shadow:
-                0 0 15px rgba(255, 182, 193, 0.5),
-                0 0 30px rgba(155, 89, 182, 0.3);
+                0 0 8px rgba(255, 214, 224, 0.3),
+                0 0 15px rgba(212, 184, 224, 0.2);
             transition: all 0.3s ease;
         }
-        @keyframes pink-purple-orange-shimmer {
+        @keyframes light-pink-purple-blue-shimmer {
             0%, 100% {
                 background-position: 0% 50%;
-                box-shadow: 0 0 15px rgba(255, 182, 193, 0.5), 0 0 30px rgba(155, 89, 182, 0.3);
+                box-shadow: 0 0 8px rgba(255, 214, 224, 0.3), 0 0 15px rgba(212, 184, 224, 0.2);
             }
             50% {
                 background-position: 100% 50%;
-                box-shadow: 0 0 25px rgba(255, 182, 193, 0.7), 0 0 45px rgba(155, 89, 182, 0.5);
+                box-shadow: 0 0 12px rgba(255, 214, 224, 0.5), 0 0 20px rgba(212, 184, 224, 0.3);
             }
         }
         .bear-thumb img {
@@ -392,12 +384,12 @@
             overflow: hidden;
             border: 4px solid transparent;
             background: linear-gradient(white, white) padding-box,
-                        linear-gradient(135deg, #ffb6c1, #9b59b6, #ff9500) border-box;
+                        linear-gradient(135deg, #ffd6e0, #d4b8e0, #b8d4e8) border-box;
             background-size: 300% 300%;
-            animation: pink-purple-orange-shimmer 3s ease infinite;
+            animation: light-pink-purple-blue-shimmer 3s ease infinite;
             box-shadow:
-                0 0 15px rgba(255, 182, 193, 0.5),
-                0 0 30px rgba(155, 89, 182, 0.3);
+                0 0 8px rgba(255, 214, 224, 0.3),
+                0 0 15px rgba(212, 184, 224, 0.2);
             flex-shrink: 0;
             position: relative;
         }
@@ -1680,7 +1672,7 @@
 
             /* Info Cards Mobile */
             .info-cards { gap: 15px; }
-            .info-card .circle { width: 50px; height: 50px; font-size: 1.1rem; }
+            .info-card .value { width: 50px; height: 50px; font-size: 1.1rem; }
             .info-card .label { font-size: 0.7rem; }
 
             /* General Mobile */
@@ -1765,6 +1757,20 @@
                 padding: 10px;
                 border-radius: 8px;
             }
+
+            /* 年鑑超窄手機 */
+            @media (max-width: 400px) {
+                .yearbook-bar-items {
+                    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+                }
+            }
+
+            /* 年鑑極窄手機 */
+            @media (max-width: 350px) {
+                .yearbook-bar-items {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
             .yearbook-bar-items .bear-thumb {
                 width: 100%;
                 height: auto;
@@ -1787,10 +1793,10 @@
                 width: 55px;
                 height: 55px;
                 border-radius: 50%;
-                background: linear-gradient(135deg, #ffb6c1, #add8e6, #e6e6fa, #ffd1a4, #98fb98);
+                background: linear-gradient(135deg, #ffd6e0, #d4b8e0, #b8d4e8);
                 background-size: 300% 300%;
                 z-index: 0;
-                animation: bubble-border 4s ease infinite;
+                animation: light-pink-purple-blue-shimmer 3s ease infinite;
                 pointer-events: none;
             }
             .yearbook-bar-items .bear-thumb .thumb-no,
@@ -1881,11 +1887,11 @@
     <!-- Info Cards - Circular Badge Style -->
     <div class="info-cards">
         <div class="info-card">
-            <div class="circle" id="totalCount">14</div>
+            <div class="value" id="totalCount">14</div>
             <div class="label">館藏數量</div>
         </div>
         <div class="info-card">
-            <div class="circle" id="todayCount">+5</div>
+            <div class="value" id="todayCount">+5</div>
             <div class="label">精選熊熊</div>
         </div>
     </div>
@@ -2066,7 +2072,7 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.47
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.50
     </footer>
 
     <script>
