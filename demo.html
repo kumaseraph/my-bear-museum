@@ -29,11 +29,11 @@
     v6.33 - 星星按鈕 UI 優化：圓形背景+邊框、backdrop-filter、毛玻璃效果、加強光暈
     v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
     v6.46 - 精選熊熊點擊修復/邊框統一/改名精選熊熊
-    v6.60 - 修復：館藏數量區塊重新設計（熊熊掌印包圍數字）
+    v6.55 - 館藏數量區塊重新設計：熊熊掌印包圍數字
     v6.51 - 精選熊熊改為每日隨機5隻並排顯示（廢除輪播）
     v6.52 - 精選熊熊改為上3下2排列，星星預設金色實心
     v6.53 - 精選熊熊使用與新入住熊熊相同的 bear-grid 結構
-    v6.60 - 修復：館藏數量區塊重新設計（熊熊掌印包圍數字）
+    v6.55 - 館藏數量區塊重新設計：熊熊掌印包圍數字
     v6.39 - 熊熊年鑑→熊熊圖鑑+新入住置中+輪播min-height+缩圖紫粉渐層+field-sizing+排序规则+B方案緞帶卡片
 -->
 <!DOCTYPE html>
@@ -41,7 +41,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.60</title>
+    <title>熊熊博物館 - 館藏數量設計方案展示（示範頁面）</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -114,7 +114,6 @@
             padding: 20px;
             background: linear-gradient(135deg, rgba(255,245,235,0.8), rgba(255,228,196,0.5));
             border-radius: 16px;
-            border: 1px solid rgba(212,165,116,0.3);
         }
         .info-card {
             display: flex;
@@ -128,29 +127,23 @@
         .info-card:hover {
             transform: translateY(-3px);
         }
-        /* Paw Wrap - 熊熊掌印包圍數字 */
+        /* Paw Wrap - 熊熊掌印包圍數字（無邊框） */
         .paw-wrap {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 5px 12px;
-            background: linear-gradient(135deg, rgba(255,245,235,0.9), rgba(255,228,196,0.6));
-            border-radius: 20px;
-            border: 2px solid rgba(212,165,116,0.4);
-            box-shadow: 0 2px 8px rgba(93,64,55,0.1);
+            gap: 12px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(255,245,235,0.95), rgba(255,228,196,0.7));
+            border-radius: 25px;
+            box-shadow: 0 2px 8px rgba(93,64,55,0.08);
+            min-width: 100px;
         }
         .paw-left, .paw-right {
             font-size: 1.2rem;
+            text-align: center;
+            width: 1.5em;
             filter: drop-shadow(0 1px 1px rgba(255,255,255,0.8));
-        }
-        .paw-card .paw-wrap {
-            background: linear-gradient(135deg, #fff5f0, #ffe8dc);
-            border-color: #e8b4a0;
-        }
-        .star-card .paw-wrap {
-            background: linear-gradient(135deg, #fffef5, #fff8dc);
-            border-color: #e8d4a0;
         }
         .info-card .value {
             font-size: 1.4rem;
@@ -158,6 +151,8 @@
             color: #5d4037;
             text-shadow: 0 1px 2px rgba(255,255,255,0.8);
             transition: transform 0.3s ease;
+            text-align: center;
+            min-width: 2em;
         }
         .info-card:hover .value {
             transform: scale(1.05);
@@ -165,6 +160,41 @@
         .paw-wrap:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(93,64,55,0.15);
+        }
+        /* 各方案不同配色（無邊框） */
+        .paw-card .paw-wrap {
+            background: linear-gradient(135deg, #fff5f0, #ffe8dc);
+        }
+        .star-card .paw-wrap {
+            background: linear-gradient(135deg, #fffef5, #fff8dc);
+        }
+        .bear-card .paw-wrap {
+            background: linear-gradient(135deg, #f5f0ff, #e8dcff);
+        }
+        .book-card .paw-wrap {
+            background: linear-gradient(135deg, #f0f5ff, #dce8ff);
+        }
+        .medal-card .paw-wrap {
+            background: linear-gradient(135deg, #fffbf0, #ffe8c0);
+        }
+        .ribbon-card .paw-wrap {
+            background: linear-gradient(135deg, #fff0f5, #ffdce8);
+        }
+        /* 方案 F-J 不同配色 */
+        .heart-card .paw-wrap {
+            background: linear-gradient(135deg, #fff0f3, #ffe0e8);
+        }
+        .music-card .paw-wrap {
+            background: linear-gradient(135deg, #f0f5ff, #e0e8ff);
+        }
+        .balloon-card .paw-wrap {
+            background: linear-gradient(135deg, #f5fff0, #e8ffe0);
+        }
+        .crown-card .paw-wrap {
+            background: linear-gradient(135deg, #fffbf5, #ffe8d0);
+        }
+        .bubble-card .paw-wrap {
+            background: linear-gradient(135deg, #f0faff, #dceeff);
         }
         .info-card .label {
             font-size: 0.8rem;
@@ -1913,24 +1943,57 @@
         <div class="subtitle">每一個卡片都是一個溫暖的故事 ✨</div>
     </header>
 
-    <!-- Info Cards - Paw Print Style -->
-    <div class="info-cards">
-        <div class="info-card paw-card">
+    <!-- Info Cards Demo - 5種新設計方案 -->
+    <div class="info-cards demo-cards">
+        <!-- 方案 F：愛心環繞 -->
+        <div class="info-card heart-card demo-F">
             <div class="paw-wrap">
-                <span class="paw-left">🐾</span>
-                <span class="value" id="totalCount">14</span>
-                <span class="paw-right">🐾</span>
+                <span class="paw-left">💖</span>
+                <span class="value">14</span>
+                <span class="paw-right">💖</span>
             </div>
             <div class="label">館藏數量</div>
         </div>
-        <div class="info-card star-card">
+        <!-- 方案 G：音符跳動 -->
+        <div class="info-card music-card demo-G">
             <div class="paw-wrap">
-                <span class="paw-left">⭐</span>
-                <span class="value" id="todayCount">5</span>
-                <span class="paw-right">⭐</span>
+                <span class="paw-left">🎵</span>
+                <span class="value">14</span>
+                <span class="paw-right">🎵</span>
             </div>
-            <div class="label">精選熊熊</div>
+            <div class="label">館藏數量</div>
         </div>
+        <!-- 方案 H：氣球漂浮 -->
+        <div class="info-card balloon-card demo-H">
+            <div class="paw-wrap">
+                <span class="paw-left">🎈</span>
+                <span class="value">14</span>
+                <span class="paw-right">🎈</span>
+            </div>
+            <div class="label">館藏數量</div>
+        </div>
+        <!-- 方案 I：皇冠皇家 -->
+        <div class="info-card crown-card demo-I">
+            <div class="paw-wrap">
+                <span class="paw-left">👑</span>
+                <span class="value">14</span>
+                <span class="paw-right">👑</span>
+            </div>
+            <div class="label">館藏數量</div>
+        </div>
+        <!-- 方案 J：泡泡魔法 -->
+        <div class="info-card bubble-card demo-J">
+            <div class="paw-wrap">
+                <span class="paw-left">🫧</span>
+                <span class="value">14</span>
+                <span class="paw-right">🫧</span>
+            </div>
+            <div class="label">館藏數量</div>
+        </div>
+    </div>
+    <!-- 方案說明 -->
+    <div class="demo-label" style="text-align:center;margin-bottom:20px;color:#8b7355;font-size:0.9rem;">
+        💖 F：愛心環繞 | 🎵 G：音符跳動 | 🎈 H：氣球漂浮 | 👑 I：皇冠皇家 | 🫧 J：泡泡魔法
     </div>
     <div class="info-footer">
         ✨ <span id="openDateFull">2026年6月3日</span> 熊熊博物館正式開幕！
@@ -2109,7 +2172,7 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.60
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.55
     </footer>
 
     <script>
