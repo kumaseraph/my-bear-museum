@@ -3049,8 +3049,8 @@
         // Open bear modal by bear object
         function openBearModalByBear(bear, group = null) {
             currentModalGroup = group || [bear];
-            // Use findIndex instead of indexOf to avoid reference mismatch issues
-            currentModalIndex = currentModalGroup.findIndex(b => b.collectionNo === bear.collectionNo);
+            // Use parseInt to ensure comparison works regardless of whether collectionNo is string or number
+            currentModalIndex = currentModalGroup.findIndex(b => parseInt(b.collectionNo) === parseInt(bear.collectionNo));
             // Fallback to -1 if not found (will show last bear)
             if (currentModalIndex === -1 && currentModalGroup.length > 0) {
                 console.warn('Bear not found in group, using last bear');
@@ -3062,18 +3062,7 @@
         }
 
         // Open bear modal by reference ('opening' for featuredBear, or collectionNo)
-        function openBearModalByRef(ref, group) {
-            let bear;
-            if (ref === 'opening') {
-                bear = featuredBear;
-            } else {
-                const collectionNo = parseInt(ref);
-                bear = group.find(b => parseInt(b.collectionNo) === collectionNo) || featuredBear;
-            }
-            if (bear) {
-                openBearModalByBear(bear, group);
-            }
-        }
+
 
         // Update modal content from current group
         function updateModalBear() {
@@ -3397,14 +3386,14 @@
             if (ref === 'opening') {
                 openBearModal(0);
             } else {
-                const bear = bears.find(b => b.collectionNo === parseInt(ref));
+                const refNum = parseInt(ref);
+                // Find the bear by collectionNo, ensuring type compatibility
+                const bear = (group && group.find(b => parseInt(b.collectionNo) === refNum)) || 
+                             bears.find(b => parseInt(b.collectionNo) === refNum);
+                
                 if (bear) {
-                    // If group is provided (from carousel), use it
-                    if (group) {
-                        openBearModalByBear(bear, group);
-                    } else {
-                        openBearModalByBear(bear);
-                    }
+                    // Use the provided group for carousel navigation, otherwise just the bear
+                    openBearModalByBear(bear, group || null);
                 }
             }
         };
