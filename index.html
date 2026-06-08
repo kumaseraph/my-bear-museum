@@ -3049,8 +3049,7 @@
             // Always show ALL today's bears regardless of category filter
             let todayBearsList = bears.filter(b => b.date === today);
 
-            // Update counts - starred bears (今日主角) for info card
-            document.getElementById('todayCount').textContent = starredBears.length;
+            // Update total count
             document.getElementById('totalCount').textContent = bears.length;
 
             const od = openDate.split('-');
