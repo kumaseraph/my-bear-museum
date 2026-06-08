@@ -35,7 +35,7 @@
     v6.52 - 精選熊熊改為上3下2排列，星星預設金色實心
     v6.53 - 精選熊熊使用與新入住熊熊相同的 bear-grid 結構
     v6.62 - 館藏數量改為 K4 大數字極簡風格（只保留館藏數量）
-    v6.39 - 熊熊年鑑→熊熊圖鑑+新入住置中+輪播min-height+缩圖紫粉渐層+field-sizing+排序规则+B方案緞帶卡片
+    v6.70 - 深色模式：CSS變數架構、主題切換按鈕、localStorage記憶、Linear風格深灰紫配色
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -57,23 +57,101 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/images/icon-192.png">
     <style>
-        /* ===== CSS Variables ===== */
+        /* ===== CSS Variables - Light Theme (Default) ===== */
         :root {
-            /* Colors */
+            /* Colors - Warm theme */
             --color-bg: #fdf8f3;
+            --color-bg-secondary: #fff5eb;
             --color-primary: #5d4037;
             --color-accent: #d4a574;
             --color-card: #ffffff;
+            --color-card-hover: #faf5f0;
             --color-border: #d7ccc8;
+            --color-border-light: rgba(93,64,55,0.1);
             --color-text-muted: #8b7355;
-
-            /* Multi-layer shadows (Notion-style) */
+            --color-text-light: #a89585;
+            
+            /* Brown dark (for legacy compatibility) */
+            --brown-dark: #5d4037;
+            
+            /* Star color */
+            --star-color: #FFD700;
+            --star-glow: rgba(255, 215, 0, 0.4);
+            
+            /* Gradient borders */
+            --gradient-border: linear-gradient(135deg, #FFD1DC, #E6E6FA, #B0E0E6);
+            --gradient-border-light: linear-gradient(135deg, rgba(255,209,220,0.5), rgba(230,230,250,0.5), rgba(176,224,230,0.5));
+            
+            /* Shadows (Notion-style) */
             --shadow-soft: 0 4px 18px rgba(93,64,55,0.04), 0 2px 7.8px rgba(93,64,55,0.027), 0 0.8px 2.9px rgba(93,64,55,0.02), 0 0.17px 1px rgba(93,64,55,0.01);
             --shadow-medium: 0 6px 15px rgba(93,64,55,0.08), 0 2.5px 8px rgba(93,64,55,0.05), 0 0.8px 3px rgba(93,64,55,0.03);
             --shadow-deep: 0 1px 3px rgba(93,64,55,0.01), 0 3px 7px rgba(93,64,55,0.02), 0 7px 15px rgba(93,64,55,0.04), 0 14px 28px rgba(93,64,55,0.05);
             --shadow-card: 0 4px 18px rgba(93,64,55,0.04), 0 2.025px 7.84688px rgba(93,64,55,0.027), 0 0.8px 2.925px rgba(93,64,55,0.02), 0 0.175px 1.04062px rgba(93,64,55,0.01);
+            
             /* Thin border */
             --border-thin: 1px solid rgba(93,64,55,0.1);
+            
+            /* Hover effects */
+            --hover-lift: translateY(-4px);
+            --hover-shadow: 0 8px 24px rgba(93,64,55,0.15);
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            
+            /* Image filter for dark mode */
+            --img-brightness: 1;
+            --img-contrast: 1;
+        }
+
+        /* ===== Dark Theme ===== */
+        [data-theme="dark"] {
+            /* Colors - Linear style deep purple-gray */
+            --color-bg: #1A1A2E;
+            --color-bg-secondary: #16162A;
+            --color-primary: #E8E8E8;
+            --color-accent: #BB86FC;
+            --color-card: #2D2D44;
+            --color-card-hover: #363654;
+            --color-border: #4A4A6A;
+            --color-border-light: rgba(255,255,255,0.1);
+            --color-text-muted: #B8B8C8;
+            --color-text-light: #8888A0;
+            
+            /* Brown dark (for legacy compatibility) */
+            --brown-dark: #E8E8E8;
+            
+            /* Star color - Linear style purple */
+            --star-color: #BB86FC;
+            --star-glow: rgba(187, 134, 252, 0.4);
+            
+            /* Gradient borders - darker */
+            --gradient-border: linear-gradient(135deg, #4A4A6A, #3D3D5C, #2D2D44);
+            --gradient-border-light: linear-gradient(135deg, rgba(74,74,106,0.5), rgba(61,61,92,0.5), rgba(45,45,68,0.5));
+            
+            /* Shadows - darker for dark mode */
+            --shadow-soft: 0 4px 18px rgba(0,0,0,0.2), 0 2px 7.8px rgba(0,0,0,0.15);
+            --shadow-medium: 0 6px 15px rgba(0,0,0,0.3), 0 2.5px 8px rgba(0,0,0,0.2);
+            --shadow-deep: 0 1px 3px rgba(0,0,0,0.2), 0 3px 7px rgba(0,0,0,0.3), 0 7px 15px rgba(0,0,0,0.4), 0 14px 28px rgba(0,0,0,0.5);
+            --shadow-card: 0 4px 18px rgba(0,0,0,0.2), 0 2.025px 7.84688px rgba(0,0,0,0.15);
+            
+            /* Thin border */
+            --border-thin: 1px solid rgba(255,255,255,0.1);
+            
+            /* Hover effects */
+            --hover-lift: translateY(-4px);
+            --hover-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            
+            /* Image filter - brighten images on dark background */
+            --img-brightness: 1.1;
+            --img-contrast: 1.05;
+        }
+
+        /* Theme transition */
+        :root, [data-theme="dark"] {
+            transition: background-color var(--transition-normal), 
+                        color var(--transition-normal),
+                        border-color var(--transition-normal);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -91,6 +169,40 @@
             text-align: center;
             padding: 30px 20px;
             margin-bottom: 20px;
+            position: relative;
+        }
+        header .header-top {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border);
+            background: var(--color-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-soft);
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-medium);
+        }
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+        .theme-icon {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        [data-theme="dark"] .theme-icon {
+            transform: rotate(180deg);
         }
         header h1 {
             font-size: 2rem;
@@ -288,16 +400,16 @@
             line-height: 1;
         }
         .star-btn:hover {
-            color: #FFD700;
-            text-shadow: 0 0 12px rgba(255, 215, 0, 0.9);
+            color: var(--star-color);
+            text-shadow: 0 0 12px var(--star-glow);
         }
         .star-btn.starred {
-            color: #FFD700;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 1), 0 0 25px rgba(255, 215, 0, 0.7);
+            color: var(--star-color);
+            text-shadow: 0 0 15px var(--star-glow), 0 0 25px var(--star-glow);
         }
         .star-btn.starred:hover {
             transform: scale(1.2);
-            text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
+            text-shadow: 0 0 20px var(--star-color), 0 0 30px var(--star-glow);
         }
         /* 星星大小 - 各場景 */
 .featured-star { font-size: 40px; }  /* 紀念熊 - 40px */
@@ -311,7 +423,7 @@
 }
 @keyframes star-pop {
     0% { transform: scale(1); }
-    50% { transform: scale(1.5); text-shadow: 0 0 25px rgba(255, 165, 0, 0.9); }
+    50% { transform: scale(1.5); text-shadow: 0 0 25px var(--star-color); }
     100% { transform: scale(1); }
 }
         /* 新入住熊熊 - 加大間距 */
@@ -928,17 +1040,17 @@
             font-size: 1rem;
             outline: none;
             transition: border-color 0.3s, box-shadow 0.3s;
-            background: #fff;
-            color: #5d4037;
+            background: var(--color-card);
+            color: var(--color-primary);
             box-sizing: border-box;
             box-shadow: var(--shadow-soft);
         }
         .search-box input:focus {
-            border-color: #d4a574;
+            border-color: var(--color-accent);
             box-shadow: var(--shadow-medium);
         }
         .search-box input::placeholder {
-            color: #a08060;
+            color: var(--color-text-muted);
         }
         .search-results {
             position: absolute;
@@ -1945,6 +2057,11 @@
 
     <!-- Header -->
     <header>
+        <div class="header-top">
+            <button class="theme-toggle" id="themeToggle" aria-label="切換深色模式">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
         <h1>🐻 熊熊線上博物館</h1>
         <div class="subtitle">每一個卡片都是一個溫暖的故事 ✨</div>
     </header>
@@ -2139,6 +2256,49 @@
     </footer>
 
     <script>
+        // ===== Theme Management =====
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                updateThemeIcon(true);
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                updateThemeIcon(false);
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                updateThemeIcon(true);
+            }
+        }
+
+        function updateThemeIcon(isDark) {
+            const icon = document.querySelector('.theme-icon');
+            if (icon) {
+                icon.textContent = isDark ? '☀️' : '🌙';
+            }
+        }
+
+        // Initialize theme on page load
+        initTheme();
+
+        // Attach theme toggle event
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeBtn = document.getElementById('themeToggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', toggleTheme);
+            }
+            // Update icon based on current theme
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            updateThemeIcon(isDark);
+        });
+
         // Bear data
         const bears = [
             {
