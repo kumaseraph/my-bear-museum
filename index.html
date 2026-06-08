@@ -30,6 +30,7 @@
     v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
     v6.46 - 精選熊熊點擊修復/邊框統一/改名精選熊熊
     v6.50 - 熊熊縮圖邊框改為淡粉淡紫淡藍/館藏數量移除圓圈/年鑑手機版減少每排
+    v6.51 - 精選熊熊改為每日隨機5隻並排顯示（廢除輪播）
     v6.39 - 熊熊年鑑→熊熊圖鑑+新入住置中+輪播min-height+缩圖紫粉渐層+field-sizing+排序规则+B方案緞帶卡片
 -->
 <!DOCTYPE html>
@@ -37,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.50</title>
+    <title>熊熊博物館 v6.51</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -2072,7 +2073,7 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.50
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.51
     </footer>
 
     <script>
@@ -3239,14 +3240,27 @@
             }
         });
 
-        // Featured bears for carousel - build dynamically from starredBears + featuredBear
+        // Featured bears for carousel - 每日隨機5隻熊熊
         function getFeaturedBearsList() {
-            const starred = bears.filter(b => starredBears.includes(b.collectionNo) && b.collectionNo !== featuredBear.collectionNo);
-            // Only include featuredBear if it's been starred (has a star)
-            if (starredBears.includes(featuredBear.collectionNo)) {
-                return [featuredBear, ...starred];
+            // 使用日期作為隨機種子，確保整天顯示相同組合
+            const today = new Date();
+            const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+            
+            // 簡單的 seeded random function
+            function seededRandom(s) {
+                const x = Math.sin(s) * 10000;
+                return x - Math.floor(x);
             }
-            return starred;
+            
+            // Fisher-Yates shuffle with seed
+            const shuffled = [...bears];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(seededRandom(seed + i) * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            
+            // 取前5隻（如果不足5隻就取全部）
+            return shuffled.slice(0, 5);
         }
 
         let carouselIndex = 0;
@@ -3271,106 +3285,41 @@
             const container = document.getElementById('featuredCarousel');
             featuredList = getFeaturedBearsList(); // 更新全域變數
 
-            // Reset carousel index when re-rendering
-            carouselIndex = 0;
-
-            // Show nothing if no bears are featured (no stars)
+            // 如果沒有熊熊就不顯示
             if (featuredList.length === 0) {
                 container.innerHTML = '';
-                stopAutoSlide();
                 return;
             }
 
-            // Show single bear if only 1 featured bear
-            if (featuredList.length === 1) {
-                const bear = featuredList[0];
-                const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
-                const ref = isOpeningBear ? 'opening' : bear.collectionNo;
+            // 停止自動輪播（不再需要）
+            stopAutoSlide();
 
-                const thumb = document.createElement('div');
-                thumb.className = 'featured-thumb';
-                thumb.style.cssText = 'display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;';
-                thumb.onclick = () => openBearModalByRef(ref, featuredList);
-                thumb.innerHTML = `
-                    <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
-                    <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
-                        <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                `;
-                container.innerHTML = '';
-                container.appendChild(thumb);
-                stopAutoSlide();
-                return;
-            }
-
-            // Multi mode - render carousel with featuredList
-            carouselTotal = featuredList.length;
-            
-            // Clear container and rebuild
+            // 清除容器並重建為 5 格並排
             container.innerHTML = '';
-            
-            const track = document.createElement('div');
-            track.className = 'carousel-track';
-            track.id = 'carouselTrack';
-            
-            const prevBtn = document.createElement('div');
-            prevBtn.className = 'carousel-nav carousel-prev';
-            prevBtn.id = 'carouselPrev';
-            prevBtn.textContent = '❮';
-            prevBtn.onclick = (e) => {
-                e.stopPropagation();
-                prevSlide();
-            };
-            
-            const nextBtn = document.createElement('div');
-            nextBtn.className = 'carousel-nav carousel-next';
-            nextBtn.id = 'carouselNext';
-            nextBtn.textContent = '❯';
-            nextBtn.onclick = (e) => {
-                e.stopPropagation();
-                nextSlide();
-            };
-            
-            const dots = document.createElement('div');
-            dots.className = 'carousel-dots';
-            dots.id = 'carouselDots';
+            container.style.display = 'flex';
+            container.style.flexWrap = 'wrap';
+            container.style.justifyContent = 'center';
+            container.style.gap = '15px';
+            container.style.overflowX = 'auto';
+            container.style.maxWidth = '100%';
+            container.style.padding = '10px 0';
 
-            featuredList.forEach((bear, i) => {
-                const slide = document.createElement('div');
-                slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
+            featuredList.forEach((bear) => {
                 const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
                 const ref = isOpeningBear ? 'opening' : bear.collectionNo;
-                
+
                 const thumb = document.createElement('div');
                 thumb.className = 'featured-thumb';
-                thumb.style.cssText = 'display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;';
+                thumb.style.cssText = 'display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative; flex-shrink: 0;';
                 thumb.onclick = () => openBearModalByRef(ref, featuredList);
                 thumb.innerHTML = `
-                    <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
-                    <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
+                    <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: -5px; right: 5px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                    <div class="thumb-circle" style="width: 80px; height: 80px; border-radius: 50%; overflow: hidden; box-shadow: 0 4px 10px rgba(93, 64, 55, 0.15);">
                         <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 `;
-                slide.appendChild(thumb);
-                track.appendChild(slide);
-
-
-                const dot = document.createElement('div');
-                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-                dot.onclick = () => goToSlide(i);
-                dots.appendChild(dot);
+                container.appendChild(thumb);
             });
-
-            container.appendChild(track);
-            container.appendChild(prevBtn);
-            container.appendChild(nextBtn);
-            container.appendChild(dots);
-
-            // Re-attach touch swipe
-            setupCarouselSwipe();
-
-            // Start auto-slide
-            startAutoSlide();
         }
 
         function goToSlide(index) {
