@@ -30,7 +30,7 @@
     v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
     v6.46 - 精選熊熊點擊修復/邊框統一/改名精選熊熊
     v6.62 - 館藏數量改為 K4 大數字極簡風格（只保留館藏數量）
-    v6.64 - 修正白熊水彩「星光騎士」→「棉花糖」：更搭配水彩柔和風格
+    v6.66 - 精選熊熊和新入住熊熊縮圖間距加大（gap 30→40, 8→12），讓熊熊名字變成一行
     v6.51 - 精選熊熊改為每日隨機5隻並排顯示（廢除輪播）
     v6.52 - 精選熊熊改為上3下2排列，星星預設金色實心
     v6.53 - 精選熊熊使用與新入住熊熊相同的 bear-grid 結構
@@ -318,12 +318,12 @@
         .bear-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 40px;
             justify-content: center;
             padding: 10px 0;
         }
         .bear-thumb {
-            width: 100px;
+            width: 110px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -426,10 +426,11 @@
             display: inline-flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             cursor: pointer;
             transition: transform 0.3s ease;
             flex-shrink: 0;
+            width: 120px;
         }
         .featured-thumb:hover {
             transform: scale(1.05);
@@ -2133,7 +2134,7 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.64
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.66
     </footer>
 
     <script>
