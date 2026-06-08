@@ -128,18 +128,17 @@
         .info-card:hover {
             transform: translateY(-3px);
         }
-        /* Paw Wrap - 熊熊掌印包圍數字 */
+        /* Paw Wrap - 熊熊掌印包圍數字（無邊框） */
         .paw-wrap {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 5px 12px;
-            background: linear-gradient(135deg, rgba(255,245,235,0.9), rgba(255,228,196,0.6));
-            border-radius: 20px;
-            border: 2px solid rgba(212,165,116,0.4);
-            box-shadow: 0 2px 8px rgba(93,64,55,0.1);
-            min-width: 90px;
+            gap: 12px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(255,245,235,0.95), rgba(255,228,196,0.7));
+            border-radius: 25px;
+            box-shadow: 0 2px 8px rgba(93,64,55,0.08);
+            min-width: 100px;
         }
         .paw-left, .paw-right {
             font-size: 1.2rem;
@@ -163,51 +162,40 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(93,64,55,0.15);
         }
+        /* 各方案不同配色（無邊框） */
         .paw-card .paw-wrap {
             background: linear-gradient(135deg, #fff5f0, #ffe8dc);
-            border-color: #e8b4a0;
         }
         .star-card .paw-wrap {
             background: linear-gradient(135deg, #fffef5, #fff8dc);
-            border-color: #e8d4a0;
         }
-        /* 各方案不同配色 */
         .bear-card .paw-wrap {
             background: linear-gradient(135deg, #f5f0ff, #e8dcff);
-            border-color: #c4b0e8;
         }
         .book-card .paw-wrap {
             background: linear-gradient(135deg, #f0f5ff, #dce8ff);
-            border-color: #a0b8e8;
         }
         .medal-card .paw-wrap {
             background: linear-gradient(135deg, #fffbf0, #ffe8c0);
-            border-color: #e8d080;
         }
         .ribbon-card .paw-wrap {
             background: linear-gradient(135deg, #fff0f5, #ffdce8);
-            border-color: #e8b4c4;
         }
         /* 方案 F-J 不同配色 */
         .heart-card .paw-wrap {
             background: linear-gradient(135deg, #fff0f3, #ffe0e8);
-            border-color: #e8b4c8;
         }
         .music-card .paw-wrap {
             background: linear-gradient(135deg, #f0f5ff, #e0e8ff);
-            border-color: #b0b8e8;
         }
         .balloon-card .paw-wrap {
             background: linear-gradient(135deg, #f5fff0, #e8ffe0);
-            border-color: #b8e8b0;
         }
         .crown-card .paw-wrap {
             background: linear-gradient(135deg, #fffbf5, #ffe8d0);
-            border-color: #e8d0a0;
         }
         .bubble-card .paw-wrap {
             background: linear-gradient(135deg, #f0faff, #dceeff);
-            border-color: #a0d0e8;
         }
         .info-card .label {
             font-size: 0.8rem;
