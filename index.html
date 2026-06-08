@@ -28,7 +28,7 @@
     v6.22 - 版面緊湊化、移除深色模式、年鑑新增全部熊熊Tab、category刪除改用series
     v6.33 - 星星按鈕 UI 優化：圓形背景+邊框、backdrop-filter、毛玻璃效果、加強光暈
     v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
-    v6.43 - 修復：輪播圓形光暈/統計卡片置中/新入住圓形邊框
+    v6.44 - 修復：新入住熊熊圓形被拉成橢圓（移除field-sizing）
     v6.39 - 熊熊年鑑→熊熊圖鑑+新入住置中+輪播min-height+缩圖紫粉渐層+field-sizing+排序规则+B方案緞帶卡片
 -->
 <!DOCTYPE html>
@@ -36,7 +36,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.43</title>
+    <title>熊熊博物館 v6.44</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -288,7 +288,6 @@
                 0 0 15px rgba(155, 89, 182, 0.5),
                 0 0 30px rgba(230, 126, 34, 0.3);
             transition: all 0.3s ease;
-            field-sizing: normal;
         }
         @keyframes purple-orange-shimmer {
             0%, 100% {
@@ -2008,7 +2007,7 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.43
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.44
     </footer>
 
     <script>
