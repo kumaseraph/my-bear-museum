@@ -2463,8 +2463,39 @@
             img: "images/featured-bear.jpg"
         };
 
-        // Star button state management
-        let starredBears = JSON.parse(localStorage.getItem('starredBears') || '[]');
+        // Star button state management - 使用共享 API
+        const STAR_API_URL = 'https://kuma-star-api.kumaseraph.workers.dev';
+        let starredBears = [];
+        let isLoadingStars = false;
+
+        // 從 API 載入星星
+        async function loadStarsFromAPI() {
+            try {
+                const response = await fetch(`${STAR_API_URL}/stars`);
+                if (response.ok) {
+                    const data = await response.json();
+                    starredBears = Array.isArray(data) ? data : [];
+                }
+            } catch (error) {
+                console.warn('無法從 API 載入星星，使用本地儲存:', error);
+                starredBears = JSON.parse(localStorage.getItem('starredBears') || '[]');
+            }
+        }
+
+        // 儲存星星到 API
+        async function saveStarsToAPI() {
+            try {
+                await fetch(`${STAR_API_URL}/stars`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ stars: starredBears })
+                });
+            } catch (error) {
+                console.warn('無法儲存星星到 API:', error);
+            }
+            // 同時保存到 localStorage 作為備份
+            localStorage.setItem('starredBears', JSON.stringify(starredBears));
+        }
 
         function toggleStar(collectionNo, event) {
             event.stopPropagation();
@@ -2478,7 +2509,7 @@
                 btn.classList.add('starred', 'popping');
                 setTimeout(() => btn.classList.remove('popping'), 300);
             }
-            localStorage.setItem('starredBears', JSON.stringify(starredBears));
+            saveStarsToAPI();
             updateStarButtons();
             updateFeaturedBears();
         }
@@ -3527,6 +3558,13 @@
 
         // Initialize swipe on page load
         setupCarouselSwipe();
+
+        // 初始化：從 API 載入星星
+        (async function initStars() {
+            await loadStarsFromAPI();
+            updateStarButtons();
+            updateFeaturedBears();
+        })();
 
         // Register PWA service worker
         if ('serviceWorker' in navigator) {
