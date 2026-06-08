@@ -139,10 +139,29 @@
             border-radius: 20px;
             border: 2px solid rgba(212,165,116,0.4);
             box-shadow: 0 2px 8px rgba(93,64,55,0.1);
+            min-width: 90px;
         }
         .paw-left, .paw-right {
             font-size: 1.2rem;
+            text-align: center;
+            width: 1.5em;
             filter: drop-shadow(0 1px 1px rgba(255,255,255,0.8));
+        }
+        .info-card .value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #5d4037;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+            transition: transform 0.3s ease;
+            text-align: center;
+            min-width: 2em;
+        }
+        .info-card:hover .value {
+            transform: scale(1.05);
+        }
+        .paw-wrap:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(93,64,55,0.15);
         }
         .paw-card .paw-wrap {
             background: linear-gradient(135deg, #fff5f0, #ffe8dc);
@@ -168,20 +187,6 @@
         .ribbon-card .paw-wrap {
             background: linear-gradient(135deg, #fff0f5, #ffdce8);
             border-color: #e8b4c4;
-        }
-        .info-card .value {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #5d4037;
-            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-            transition: transform 0.3s ease;
-        }
-        .info-card:hover .value {
-            transform: scale(1.05);
-        }
-        .paw-wrap:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(93,64,55,0.15);
         }
         .info-card .label {
             font-size: 0.8rem;
