@@ -2515,7 +2515,9 @@
         }
 
         function updateStarButtons() {
+            // 跳過精選熊熊區塊的星星（每日隨機，預設金色實心）
             document.querySelectorAll('.star-btn').forEach(btn => {
+                if (btn.closest('#featuredCarousel')) return; // 跳過精選熊熊
                 const no = parseInt(btn.dataset.no);
                 if (starredBears.includes(no)) {
                     btn.innerHTML = '★';
