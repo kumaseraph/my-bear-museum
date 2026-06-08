@@ -3049,7 +3049,12 @@
         // Open bear modal by bear object
         function openBearModalByBear(bear, group = null) {
             currentModalGroup = group || [bear];
-            currentModalIndex = currentModalGroup.indexOf(bear);
+            // Use findIndex instead of indexOf to avoid reference mismatch issues
+            currentModalIndex = currentModalGroup.findIndex(b => b.collectionNo === bear.collectionNo);
+            // Fallback to -1 if not found (will show last bear)
+            if (currentModalIndex === -1 && currentModalGroup.length > 0) {
+                console.warn('Bear not found in group, using last bear');
+            }
             updateModalBear();
             document.getElementById('bearModal').classList.add('active');
             // Prevent background scroll
