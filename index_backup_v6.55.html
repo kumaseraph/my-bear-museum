@@ -41,7 +41,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.56 - 館藏數量設計方案展示</title>
+    <title>熊熊博物館 v6.55</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -151,23 +151,6 @@
         .star-card .paw-wrap {
             background: linear-gradient(135deg, #fffef5, #fff8dc);
             border-color: #e8d4a0;
-        }
-        /* 各方案不同配色 */
-        .bear-card .paw-wrap {
-            background: linear-gradient(135deg, #f5f0ff, #e8dcff);
-            border-color: #c4b0e8;
-        }
-        .book-card .paw-wrap {
-            background: linear-gradient(135deg, #f0f5ff, #dce8ff);
-            border-color: #a0b8e8;
-        }
-        .medal-card .paw-wrap {
-            background: linear-gradient(135deg, #fffbf0, #ffe8c0);
-            border-color: #e8d080;
-        }
-        .ribbon-card .paw-wrap {
-            background: linear-gradient(135deg, #fff0f5, #ffdce8);
-            border-color: #e8b4c4;
         }
         .info-card .value {
             font-size: 1.4rem;
@@ -1930,10 +1913,9 @@
         <div class="subtitle">每一個卡片都是一個溫暖的故事 ✨</div>
     </header>
 
-    <!-- Info Cards Demo - 5種設計方案 -->
-    <div class="info-cards demo-cards">
-        <!-- 方案 A：熊熊掌印 -->
-        <div class="info-card paw-card demo-A">
+    <!-- Info Cards - Paw Print Style -->
+    <div class="info-cards">
+        <div class="info-card paw-card">
             <div class="paw-wrap">
                 <span class="paw-left">🐾</span>
                 <span class="value" id="totalCount">14</span>
@@ -1941,46 +1923,14 @@
             </div>
             <div class="label">館藏數量</div>
         </div>
-        <!-- 方案 B：熊熊頭像 -->
-        <div class="info-card bear-card demo-B">
+        <div class="info-card star-card">
             <div class="paw-wrap">
-                <span class="paw-left">🐻</span>
-                <span class="value">14</span>
-                <span class="paw-right">🐻</span>
+                <span class="paw-left">⭐</span>
+                <span class="value" id="todayCount">5</span>
+                <span class="paw-right">⭐</span>
             </div>
-            <div class="label">館藏數量</div>
+            <div class="label">精選熊熊</div>
         </div>
-        <!-- 方案 C：書本收藏架 -->
-        <div class="info-card book-card demo-C">
-            <div class="paw-wrap">
-                <span class="paw-left">📚</span>
-                <span class="value">14</span>
-                <span class="paw-right">📚</span>
-            </div>
-            <div class="label">館藏數量</div>
-        </div>
-        <!-- 方案 D：獎牌徽章 -->
-        <div class="info-card medal-card demo-D">
-            <div class="paw-wrap">
-                <span class="paw-left">🏆</span>
-                <span class="value">14</span>
-                <span class="paw-right">🏆</span>
-            </div>
-            <div class="label">館藏數量</div>
-        </div>
-        <!-- 方案 E：蝴蝶結緞帶 -->
-        <div class="info-card ribbon-card demo-E">
-            <div class="paw-wrap">
-                <span class="paw-left">🎀</span>
-                <span class="value">14</span>
-                <span class="paw-right">🎀</span>
-            </div>
-            <div class="label">館藏數量</div>
-        </div>
-    </div>
-    <!-- 方案說明 -->
-    <div class="demo-label" style="text-align:center;margin-bottom:20px;color:#8b7355;font-size:0.9rem;">
-        🐾 A：熊熊掌印 | 🐻 B：熊熊頭像 | 📚 C：書本收藏架 | 🏆 D：獎牌徽章 | 🎀 E：蝴蝶結緞帶
     </div>
     <div class="info-footer">
         ✨ <span id="openDateFull">2026年6月3日</span> 熊熊博物館正式開幕！
