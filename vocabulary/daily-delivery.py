@@ -139,24 +139,56 @@ def copy_images_to_museum(images, date_str):
 
 # ============== 步驟 4：更新 index.html ==============
 
-def update_index_html(images, date_str, collection_start):
-    """更新 index.html 的 bears 數組"""
-    # 讀取 bear-naming.json
+def load_naming_dict():
+    """載入熊熊命名字典"""
     naming_file = MUSEUM_DIR / "vocabulary" / "bear-naming.json"
-    if naming_file.exists():
-        with open(naming_file, 'r', encoding='utf-8') as f:
-            naming_data = json.load(f)
-    else:
-        naming_data = {"prefix": [], "core": [], "suffix": []}
-    
-    # 讀取 bear-quotes.json
+    with open(naming_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    return data['combinations']['names']
+
+def load_quotes_dict():
+    """載入熊熊語錄"""
     quotes_file = MUSEUM_DIR / "vocabulary" / "bear-quotes.json"
-    if quotes_file.exists():
-        with open(quotes_file, 'r', encoding='utf-8') as f:
-            quotes_data = json.load(f)
-        quotes_list = quotes_data if isinstance(quotes_data, list) else quotes_data.get("quotes", [])
-    else:
-        quotes_list = []
+    with open(quotes_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    if isinstance(data, list):
+        return data
+    return data.get("quotes", [])
+
+def generate_bear_name(used_names):
+    """從詞彙庫取得一個還沒用過的熊熊名稱"""
+    import random
+    all_names = load_naming_dict()
+    available = [n for n in all_names if n not in used_names]
+    if not available:
+        available = all_names  # 如果都用過了，就隨機選
+    return random.choice(available)
+
+def generate_bear_quote(used_quotes):
+    """從詞彙庫取得一段還沒用過的語錄"""
+    import random
+    all_quotes = load_quotes_dict()
+    available = [q for q in all_quotes if q not in used_quotes]
+    if not available:
+        available = all_quotes
+    return random.choice(available)
+
+def update_index_html(images, date_str, collection_start):
+    """更新 index.html 的 bears 數組（使用詞彙庫命名）"""
+    import random
+    
+    # 載入詞彙庫
+    all_names = load_naming_dict()
+    all_quotes = load_quotes_dict()
+    
+    # 收集已使用的名稱和語錄
+    with open(INDEX_HTML, 'r', encoding='utf-8') as f:
+        content = f.read()
+    used_names = set(re.findall(r'name:\s*"([^"]+)"', content))
+    used_quotes = set(re.findall(r'quote:\s*"([^"]+)"', content))
+    
+    log(f"詞彙庫：{len(all_names)} 個名字，{len(all_quotes)} 條語錄")
+    log(f"已使用：{len(used_names)} 個名字，{len(used_quotes)} 條語錄")
     
     # 產生熊熊 JSON
     bears = []
@@ -168,12 +200,13 @@ def update_index_html(images, date_str, collection_start):
         color = parts[0] if len(parts) > 0 else "棕熊"
         style = parts[1] if len(parts) > 1 else "3D"
         
-        # 簡單命名（實際應從 bear-naming.json 取）
-        bear_name = f"{color}熊熊"
+        # 從詞彙庫取名字（避開已使用的）
+        bear_name = generate_bear_name(used_names)
+        used_names.add(bear_name)
         
-        # 隨機選擇語錄
-        import random
-        quote = random.choice(quotes_list) if quotes_list else "溫暖守護每一天"
+        # 從詞彙庫取語錄（避開已使用的）
+        quote = generate_bear_quote(used_quotes)
+        used_quotes.add(quote)
         
         bear_json = {
             "name": bear_name,
