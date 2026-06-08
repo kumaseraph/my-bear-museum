@@ -28,7 +28,7 @@
     v6.22 - 版面緊湊化、移除深色模式、年鑑新增全部熊熊Tab、category刪除改用series
     v6.33 - 星星按鈕 UI 優化：圓形背景+邊框、backdrop-filter、毛玻璃效果、加強光暈
     v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
-    v6.41 - 新增2026-06-08館藏：棉花糖糖、蜂蜜罐罐、方塊熊熊、玫瑰花瓣、星空泡泡：修復月份/特質Tab渲染、移除museumAge更新
+    v6.42 - 修復19項：輪播圓形/資訊卡置中/+符號/指示器底部/Modal導航/手機版紀念熊/新入住圓形紫橘框/月份排序/星星金色
     v6.39 - 熊熊年鑑→熊熊圖鑑+新入住置中+輪播min-height+缩圖紫粉渐層+field-sizing+排序规则+B方案緞帶卡片
 -->
 <!DOCTYPE html>
@@ -36,7 +36,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.41</title>
+    <title>熊熊博物館 v6.42</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -117,6 +117,7 @@
             align-items: center;
             gap: 8px;
             transition: transform 0.3s ease;
+            box-sizing: border-box;
         }
         .info-card:hover {
             transform: translateY(-3px);
@@ -279,12 +280,24 @@
             overflow: hidden;
             border: 4px solid transparent;
             background: linear-gradient(white, white) padding-box,
-                        linear-gradient(135deg, #e6e6fa, #ffb6c1, #ffd1a4) border-box;
+                        linear-gradient(135deg, #9b59b6, #e67e22, #f39c12, #e74c3c, #3498db) border-box;
+            background-size: 200% 200%;
+            animation: purple-orange-shimmer 3s ease infinite;
             box-shadow:
-                0 0 15px rgba(230,230,250,0.6),
-                0 0 30px rgba(255,182,193,0.4);
+                0 0 15px rgba(155, 89, 182, 0.5),
+                0 0 30px rgba(230, 126, 34, 0.3);
             transition: all 0.3s ease;
             field-sizing: normal;
+        }
+        @keyframes purple-orange-shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+                box-shadow: 0 0 15px rgba(155, 89, 182, 0.5), 0 0 30px rgba(230, 126, 34, 0.3);
+            }
+            50% {
+                background-position: 100% 50%;
+                box-shadow: 0 0 25px rgba(155, 89, 182, 0.7), 0 0 45px rgba(230, 126, 34, 0.5);
+            }
         }
         .bear-thumb img {
             width: 100%;
@@ -348,8 +361,8 @@
             50% { transform: translateX(-50%) translateY(-5px); }
         }
         .featured-thumb {
-            width: 260px;
-            height: 320px;
+            width: 240px;
+            height: 300px;
             display: inline-flex;
             flex-direction: column;
             align-items: center;
@@ -369,16 +382,16 @@
             }
         }
         .featured-thumb .thumb-circle {
-            width: 220px;
-            height: 220px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             overflow: hidden;
             border: 6px solid #FFD700;
             box-shadow: 
-                0 0 20px rgba(255, 215, 0, 0.8),
-                0 0 40px rgba(255, 215, 0, 0.5),
-                0 0 60px rgba(255, 180, 0, 0.3),
-                inset 0 0 25px rgba(255, 215, 0, 0.4);
+                0 0 15px rgba(255, 215, 0, 0.8),
+                0 0 30px rgba(255, 215, 0, 0.5),
+                0 0 45px rgba(255, 180, 0, 0.3),
+                inset 0 0 20px rgba(255, 215, 0, 0.4);
             flex-shrink: 0;
             background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
             background-size: 200% 200%;
@@ -955,10 +968,12 @@
         /* Carousel for featured bears */
         .carousel-container {
             position: relative;
-            max-width: 400px;
+            max-width: 520px;
             margin: 0 auto;
             overflow: hidden;
             min-height: 180px;
+            display: flex;
+            flex-direction: column;
         }
         .carousel-track {
             display: flex;
@@ -984,7 +999,8 @@
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-top: 15px;
+            margin-top: auto;
+            padding-bottom: 10px;
         }
         .carousel-dot {
             width: 10px;
@@ -1750,6 +1766,35 @@
             nav.expanded .nav-toggle {
                 display: block;
             }
+
+            /* Opening Bear Mobile - keep title left, center everything else */
+            .banner-card {
+                padding: 15px 16px;
+            }
+            .ribbon {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .banner-right {
+                align-items: center;
+                text-align: center;
+            }
+            .banner-title {
+                text-align: left;
+                width: 100%;
+            }
+            .info-card {
+                margin: 0 auto;
+            }
+            .banner-quote {
+                text-align: center;
+            }
+            .banner-left {
+                width: 100%;
+            }
+            .thumb-wrapper {
+                align-items: center;
+            }
         }
 
         footer {
@@ -1964,7 +2009,7 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.41
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.42
     </footer>
 
     <script>
@@ -2458,8 +2503,10 @@
                 sortedMonths.forEach(month => {
                     const [y, m] = month.split('-');
                     const monthBears = monthsInYear[month];
+                    // Sort bears within month by date (oldest first)
+                    monthBears.sort((a, b) => new Date(a.date) - new Date(b.date));
+
                     const monthBar = document.createElement('button');
-                    monthBar.className = 'yearbook-bar';
                     monthBar.innerHTML = `
                         <div class="yearbook-bar-left">
                             <img src="images/icon-bear-star.jpg" style="width:16px;height:16px;vertical-align:middle;margin-right:5px;">
@@ -2710,7 +2757,7 @@
             thumb.className = 'bear-thumb';
             thumb.onclick = () => openBearModalByBear(bear, group);
             thumb.innerHTML = `
-                <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                 <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
                 <div class="thumb-name">${bear.name}</div>
             `;
@@ -2847,7 +2894,7 @@
             let todayBearsList = bears.filter(b => b.date === today);
 
             // Update counts - starred bears (今日主角) for info card
-            document.getElementById('todayCount').textContent = '+' + starredBears.length;
+            document.getElementById('todayCount').textContent = starredBears.length;
             document.getElementById('totalCount').textContent = bears.length + 1;
 
             const od = openDate.split('-');
@@ -2858,7 +2905,7 @@
                 thumb.className = 'bear-thumb';
                 thumb.onclick = () => openBearModalByBear(bear, todayBearsList);
                 thumb.innerHTML = `
-                    <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                    <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                     <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
                     <div class="thumb-name">${bear.name}</div>
                     <span class="category-badge" data-series="${bear.series}">${bear.series}</span>
@@ -3136,7 +3183,7 @@
                 const bear = featuredList[0];
                 const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
                 container.innerHTML = `
-                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
+                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}', featuredList)" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
                         <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                         <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
  <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
@@ -3184,7 +3231,7 @@
                 slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
                 const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
                 slide.innerHTML = `
-                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}')" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
+                    <div class="featured-thumb" onclick="openBearModalByRef('${isOpeningBear ? 'opening' : bear.collectionNo}', featuredList)" style="display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; position: relative;">
                         <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)" style="position: absolute; top: 0; right: 10px; z-index: 5;">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                         <div class="thumb-circle" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; box-shadow: 0 6px 15px rgba(93, 64, 55, 0.2);">
                             <img src="${bear.img}" alt="${bear.name}" style="width: 100%; height: 100%; object-fit: cover;">
@@ -3232,12 +3279,19 @@
         }
 
         // Open bear modal by reference string
-        function openBearModalByRef(ref) {
+        function openBearModalByRef(ref, group = null) {
             if (ref === 'opening') {
                 openBearModal(0);
             } else {
                 const bear = bears.find(b => b.collectionNo === parseInt(ref));
-                if (bear) openBearModalByBear(bear);
+                if (bear) {
+                    // If group is provided (from carousel), use it
+                    if (group) {
+                        openBearModalByBear(bear, group);
+                    } else {
+                        openBearModalByBear(bear);
+                    }
+                }
             }
         }
 
@@ -3325,7 +3379,7 @@
             thumb.style.cssText = 'width: 150px; height: 180px;';
             thumb.onclick = () => { closeMonthModal(); openBearModalByRef(bear.collectionNo === featuredBear.collectionNo ? 'opening' : bear.collectionNo); };
             thumb.innerHTML = `
-                <button class="star-btn" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                 <div class="thumb-circle" style="width: 120px; height: 120px;"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
                 <div class="thumb-name">${bear.name}</div>
             `;
