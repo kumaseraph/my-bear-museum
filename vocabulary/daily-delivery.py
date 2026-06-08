@@ -137,6 +137,45 @@ def copy_images_to_museum(images, date_str):
     dest_images = list(dest_dir.glob("*.png"))
     log(f"博物館目錄共 {len(dest_images)} 張圖片")
 
+# ============== 風格輪流函數 ==============
+
+def load_style_rotation():
+    """載入風格輪流設定"""
+    rotation_file = MUSEUM_DIR / "vocabulary" / "style-rotation.json"
+    with open(rotation_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    return data['current_index'], data['styles']
+
+def get_styles_for_today(count=6):
+    """取得今天要使用的風格（根據輪流順序）"""
+    current_index, styles = load_style_rotation()
+    total_styles = len(styles)
+    
+    # 取得接下來 count 個風格（會循環）
+    selected = []
+    idx = current_index
+    for _ in range(count):
+        selected.append(styles[idx % total_styles])
+        idx += 1
+    
+    return selected, current_index
+
+def advance_style_index(count=6):
+    """更新風格輪流的 current_index"""
+    rotation_file = MUSEUM_DIR / "vocabulary" / "style-rotation.json"
+    with open(rotation_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    
+    total_styles = len(data['styles'])
+    new_index = (data['current_index'] + count) % total_styles
+    data['current_index'] = new_index
+    data['last_updated'] = datetime.now().strftime("%Y-%m-%d")
+    
+    with open(rotation_file, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    
+    log(f"風格輪流：current_index 更新為 {new_index}")
+
 # ============== 詞彙庫載入函數 ==============
 
 def load_naming_dict():
@@ -251,6 +290,11 @@ def main():
     log("熊熊博物館每日配送開始")
     log("=" * 50)
     
+    # 取得今天的風格（根據輪流順序）
+    styles_today, current_idx = get_styles_for_today(6)
+    log(f"\n🎨 今天的風格（輪流 index: {current_idx}）:")
+    log(f"   {', '.join(styles_today)}")
+    
     # 檢查新圖片
     log(f"\n📁 步驟 1：檢查圖片 - {TODAY}")
     images = check_and_validate_images(TODAY)
@@ -299,6 +343,9 @@ def main():
     log("✅ 配送完成！")
     log(f"🌐 https://kumaweb.pages.dev")
     log("=" * 50)
+    
+    # 更新風格輪流 index
+    advance_style_index(6)
 
 if __name__ == "__main__":
     main()
