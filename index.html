@@ -29,11 +29,11 @@
     v6.33 - 星星按鈕 UI 優化：圓形背景+邊框、backdrop-filter、毛玻璃效果、加強光暈
     v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
     v6.46 - 精選熊熊點擊修復/邊框統一/改名精選熊熊
-    v6.50 - 熊熊縮圖邊框改為淡粉淡紫淡藍/館藏數量移除圓圈/年鑑手機版減少每排
+    v6.55 - 館藏數量區塊重新設計：熊熊掌印包圍數字
     v6.51 - 精選熊熊改為每日隨機5隻並排顯示（廢除輪播）
     v6.52 - 精選熊熊改為上3下2排列，星星預設金色實心
     v6.53 - 精選熊熊使用與新入住熊熊相同的 bear-grid 結構
-    v6.54 - updateStarButtons 跳過精選熊熊，保持星星金色實心
+    v6.55 - 館藏數量區塊重新設計：熊熊掌印包圍數字
     v6.39 - 熊熊年鑑→熊熊圖鑑+新入住置中+輪播min-height+缩圖紫粉渐層+field-sizing+排序规则+B方案緞帶卡片
 -->
 <!DOCTYPE html>
@@ -41,7 +41,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.54</title>
+    <title>熊熊博物館 v6.55</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -128,6 +128,30 @@
         .info-card:hover {
             transform: translateY(-3px);
         }
+        /* Paw Wrap - 熊熊掌印包圍數字 */
+        .paw-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 5px 12px;
+            background: linear-gradient(135deg, rgba(255,245,235,0.9), rgba(255,228,196,0.6));
+            border-radius: 20px;
+            border: 2px solid rgba(212,165,116,0.4);
+            box-shadow: 0 2px 8px rgba(93,64,55,0.1);
+        }
+        .paw-left, .paw-right {
+            font-size: 1.2rem;
+            filter: drop-shadow(0 1px 1px rgba(255,255,255,0.8));
+        }
+        .paw-card .paw-wrap {
+            background: linear-gradient(135deg, #fff5f0, #ffe8dc);
+            border-color: #e8b4a0;
+        }
+        .star-card .paw-wrap {
+            background: linear-gradient(135deg, #fffef5, #fff8dc);
+            border-color: #e8d4a0;
+        }
         .info-card .value {
             font-size: 1.4rem;
             font-weight: bold;
@@ -137,6 +161,10 @@
         }
         .info-card:hover .value {
             transform: scale(1.05);
+        }
+        .paw-wrap:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(93,64,55,0.15);
         }
         .info-card .label {
             font-size: 0.8rem;
@@ -1885,14 +1913,22 @@
         <div class="subtitle">每一個卡片都是一個溫暖的故事 ✨</div>
     </header>
 
-    <!-- Info Cards - Circular Badge Style -->
+    <!-- Info Cards - Paw Print Style -->
     <div class="info-cards">
-        <div class="info-card">
-            <div class="value" id="totalCount">14</div>
+        <div class="info-card paw-card">
+            <div class="paw-wrap">
+                <span class="paw-left">🐾</span>
+                <span class="value" id="totalCount">14</span>
+                <span class="paw-right">🐾</span>
+            </div>
             <div class="label">館藏數量</div>
         </div>
-        <div class="info-card">
-            <div class="value" id="todayCount">+5</div>
+        <div class="info-card star-card">
+            <div class="paw-wrap">
+                <span class="paw-left">⭐</span>
+                <span class="value" id="todayCount">5</span>
+                <span class="paw-right">⭐</span>
+            </div>
             <div class="label">精選熊熊</div>
         </div>
     </div>
@@ -2073,7 +2109,7 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.54
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.55
     </footer>
 
     <script>
