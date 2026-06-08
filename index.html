@@ -3453,6 +3453,7 @@
                     <button class="star-btn starred" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">★</button>
                     <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
                     <div class="thumb-name">${bear.name}</div>
+                    <span class="category-badge" data-series="${bear.series}">${bear.series}</span>
                 `;
                 container.appendChild(thumb);
             });
