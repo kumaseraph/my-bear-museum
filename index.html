@@ -3564,6 +3564,12 @@
             await loadStarsFromAPI();
             updateStarButtons();
             updateFeaturedBears();
+            // 修復靜態 HTML 中的 ${featuredBear.collectionNo} 未解析問題
+            const featuredStarBtn = document.getElementById('featuredStarBtn');
+            if (featuredStarBtn && typeof featuredBear !== 'undefined') {
+                featuredStarBtn.dataset.no = featuredBear.collectionNo;
+                featuredStarBtn.setAttribute('onclick', `toggleStar(${featuredBear.collectionNo}, event)`);
+            }
         })();
 
         // Register PWA service worker
