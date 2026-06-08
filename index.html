@@ -194,8 +194,95 @@
             transform: scale(1.1);
             box-shadow: var(--shadow-medium);
         }
-        .theme-toggle:active {
+        .random-toggle:active {
             transform: scale(0.95);
+        }
+        /* Random Modal */
+        .random-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+        .random-modal.active {
+            display: flex;
+        }
+        .random-modal-content {
+            background: var(--color-card);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-deep);
+            animation: modalPop 0.3s ease;
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .random-modal-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gradient-border);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-medium);
+        }
+        .random-modal-name {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .random-modal-title {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 15px;
+        }
+        .random-modal-quote {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            font-style: italic;
+            padding: 10px 15px;
+            background: var(--color-bg-secondary);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .random-modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .random-btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+        }
+        .random-btn-primary {
+            background: var(--color-accent);
+            color: white;
+        }
+        .random-btn-primary:hover {
+            background: var(--brown-dark);
+        }
+        .random-btn-secondary {
+            background: var(--color-bg-secondary);
+            color: var(--color-primary);
+        }
+        .random-btn-secondary:hover {
+            background: var(--color-border);
         }
         .theme-icon {
             display: inline-block;
@@ -2061,6 +2148,9 @@
             <button class="theme-toggle" id="themeToggle" aria-label="切換深色模式">
                 <span class="theme-icon">🌙</span>
             </button>
+            <button class="random-toggle" id="randomToggle" aria-label="隨機看看熊熊">
+                🎲
+            </button>
         </div>
         <h1>🐻 熊熊線上博物館</h1>
         <div class="subtitle">每一個卡片都是一個溫暖的故事 ✨</div>
@@ -2297,6 +2387,44 @@
             // Update icon based on current theme
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             updateThemeIcon(isDark);
+
+            // ===== Random See (P2) =====
+            const randomModal = document.getElementById('randomModal');
+            const randomImg = document.getElementById('randomImg');
+            const randomName = document.getElementById('randomName');
+            const randomTitle = document.getElementById('randomTitle');
+            const randomQuote = document.getElementById('randomQuote');
+            const randomCloseBtn = document.getElementById('randomCloseBtn');
+            const randomAgainBtn = document.getElementById('randomAgainBtn');
+            const randomToggle = document.getElementById('randomToggle');
+
+            function showRandomBear() {
+                const randomBear = bears[Math.floor(Math.random() * bears.length)];
+                randomImg.src = `images/${randomBear.img}`;
+                randomName.textContent = randomBear.name;
+                randomTitle.textContent = randomBear.title;
+                randomQuote.textContent = `"${randomBear.quote}"`;
+                randomModal.classList.add('active');
+            }
+
+            if (randomToggle) {
+                randomToggle.addEventListener('click', showRandomBear);
+            }
+            if (randomCloseBtn) {
+                randomCloseBtn.addEventListener('click', () => {
+                    randomModal.classList.remove('active');
+                });
+            }
+            if (randomAgainBtn) {
+                randomAgainBtn.addEventListener('click', showRandomBear);
+            }
+            if (randomModal) {
+                randomModal.addEventListener('click', (e) => {
+                    if (e.target === randomModal) {
+                        randomModal.classList.remove('active');
+                    }
+                });
+            }
         });
 
         // Bear data
@@ -3833,5 +3961,19 @@
             });
         }
     </script>
+
+    <!-- Random Modal -->
+    <div class="random-modal" id="randomModal">
+        <div class="random-modal-content">
+            <img class="random-modal-img" id="randomImg" src="" alt="隨機熊熊">
+            <div class="random-modal-name" id="randomName"></div>
+            <div class="random-modal-title" id="randomTitle"></div>
+            <div class="random-modal-quote" id="randomQuote"></div>
+            <div class="random-modal-actions">
+                <button class="random-btn random-btn-secondary" id="randomCloseBtn">關閉</button>
+                <button class="random-btn random-btn-primary" id="randomAgainBtn">再看一隻 🎲</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
