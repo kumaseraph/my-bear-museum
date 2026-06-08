@@ -3063,7 +3063,7 @@
                 bear = featuredBear;
             } else {
                 const collectionNo = parseInt(ref);
-                bear = group.find(b => b.collectionNo === collectionNo) || featuredBear;
+                bear = group.find(b => parseInt(b.collectionNo) === collectionNo) || featuredBear;
             }
             if (bear) {
                 openBearModalByBear(bear, group);
