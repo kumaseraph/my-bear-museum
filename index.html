@@ -28,7 +28,7 @@
     v6.22 - 版面緊湊化、移除深色模式、年鑑新增全部熊熊Tab、category刪除改用series
     v6.33 - 星星按鈕 UI 優化：圓形背景+邊框、backdrop-filter、毛玻璃效果、加強光暈
     v6.34 - 圖片 hover 效果優化：放大+上浮+陰影、圖片 scale+亮度+飽和度過渡
-    v6.45 - 新增：.thumb-circle 加 min-height/max-height 80px 固定高度
+    v6.46 - 精選熊熊點擊修復/邊框統一/改名精選熊熊
     v6.39 - 熊熊年鑑→熊熊圖鑑+新入住置中+輪播min-height+缩圖紫粉渐層+field-sizing+排序规则+B方案緞帶卡片
 -->
 <!DOCTYPE html>
@@ -36,7 +36,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.45</title>
+    <title>熊熊博物館 v6.46</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -118,6 +118,7 @@
             gap: 8px;
             transition: transform 0.3s ease;
             box-sizing: border-box;
+            width: 100%;
         }
         .info-card:hover {
             transform: translateY(-3px);
@@ -388,14 +389,15 @@
             height: 200px;
             border-radius: 50%;
             overflow: hidden;
-            border: 6px solid #FFD700;
-            box-shadow:
-                0 0 8px rgba(255, 215, 0, 0.6),
-                0 0 15px rgba(255, 215, 0, 0.3);
-            flex-shrink: 0;
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            border: 4px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #9b59b6, #e67e22, #f39c12, #e74c3c, #3498db) border-box;
             background-size: 200% 200%;
-            animation: gold-shimmer 3s ease infinite;
+            animation: purple-orange-shimmer 3s ease infinite;
+            box-shadow:
+                0 0 15px rgba(155, 89, 182, 0.5),
+                0 0 30px rgba(230, 126, 34, 0.3);
+            flex-shrink: 0;
             position: relative;
         }
         @keyframes gold-shimmer {
@@ -413,7 +415,6 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6)) drop-shadow(0 0 30px rgba(255, 200, 100, 0.4));
         }
         .featured-thumb .thumb-no {
             margin-top: 10px;
@@ -1829,7 +1830,7 @@
         </div>
         <div class="info-card">
             <div class="circle" id="todayCount">+5</div>
-            <div class="label">今日主角</div>
+            <div class="label">精選熊熊</div>
         </div>
     </div>
     <div class="info-footer">
@@ -1840,7 +1841,7 @@
     <div class="section">
         <div class="section-title">
             <img src="images/icon-bear-star.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
-            今日主角
+            精選熊熊
         </div>
         <div class="carousel-container" id="featuredCarousel">
             <div class="carousel-track" id="carouselTrack"></div>
@@ -2009,7 +2010,7 @@
     </div>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.45
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.46
     </footer>
 
     <script>
@@ -3149,6 +3150,7 @@
 
         let carouselIndex = 0;
         let carouselTotal = 0;
+        let featuredList = []; // 全域變數，供 inline onclick 使用
 
         let autoSlideInterval = null;
 
@@ -3166,7 +3168,7 @@
 
         function renderFeaturedCarousel() {
             const container = document.getElementById('featuredCarousel');
-            const featuredList = getFeaturedBearsList();
+            featuredList = getFeaturedBearsList(); // 更新全域變數
 
             // Reset carousel index when re-rendering
             carouselIndex = 0;
@@ -3278,8 +3280,8 @@
             goToSlide(carouselIndex);
         }
 
-        // Open bear modal by reference string
-        function openBearModalByRef(ref, group = null) {
+        // Open bear modal by reference string (掛到 window 上供 inline onclick調用)
+        window.openBearModalByRef = function(ref, group = null) {
             if (ref === 'opening') {
                 openBearModal(0);
             } else {
@@ -3293,7 +3295,7 @@
                     }
                 }
             }
-        }
+        };
 
         // Mobile nav toggle
         function toggleNav() {
