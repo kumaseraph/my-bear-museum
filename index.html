@@ -264,6 +264,7 @@
             gap: 6px;
             cursor: pointer;
             transition: transform 0.3s ease;
+            flex-shrink: 0;
         }
         .bear-thumb:hover {
             transform: translateY(-5px);
@@ -271,8 +272,6 @@
         .bear-thumb .thumb-circle {
             width: 80px;
             height: 80px;
-            min-height: 80px;
-            max-height: 80px;
             border-radius: 50%;
             overflow: hidden;
             border: 4px solid transparent;
@@ -284,6 +283,7 @@
                 0 0 8px rgba(255, 214, 224, 0.3),
                 0 0 15px rgba(212, 184, 224, 0.2);
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
         @keyframes light-pink-purple-blue-shimmer {
             0%, 100% {
