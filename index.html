@@ -2015,11 +2015,11 @@
         </div>
     </div>
 
-    <!-- Recent Bears -->
+    <!-- Today's New Arrivals -->
     <div class="section">
         <div class="section-title">
             <img src="images/icon-bear-heart.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
-            最近入住
+            新入住熊熊
         </div>
         <div class="bear-grid" id="todayBears"></div>
     </div>
@@ -3045,15 +3045,9 @@
             const grid = document.getElementById('todayBears');
             grid.innerHTML = '';
             // 使用台北時區，避免 UTC 時差問題
-            const today = new Date();
-            const todayStr = today.toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }).split('/').map(x => x.padStart(2, '0')).join('-');
-            // 顯示最近7天內入住的熊熊（不限今天），確保每天都有一隻熊熊顯示
-            const sevenDaysAgo = new Date(today);
-            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-            const sevenDaysAgoStr = sevenDaysAgo.toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }).split('/').map(x => x.padStart(2, '0')).join('-');
-            // 取得最近7天的熊熊，按日期新到舊排序
-            let recentBears = bears.filter(b => b.date >= sevenDaysAgoStr && b.date <= todayStr);
-            recentBears.sort((a, b) => b.date.localeCompare(a.date));
+            const today = new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }).split('/').map(x => x.padStart(2, '0')).join('-');
+            // 只顯示今天的熊熊
+            let todayBearsList = bears.filter(b => b.date === today);
 
             // Update total count (bears + 紀念熊)
             document.getElementById('totalCount').textContent = bears.length + 1;
@@ -3061,10 +3055,10 @@
             const od = openDate.split('-');
             document.getElementById('openDateFull').textContent = `${od[0]}年${parseInt(od[1])}月${parseInt(od[2])}日`;
 
-            recentBears.forEach((bear) => {
+            todayBearsList.forEach((bear) => {
                 const thumb = document.createElement('div');
                 thumb.className = 'bear-thumb';
-                thumb.onclick = () => openBearModalByBear(bear, recentBears);
+                thumb.onclick = () => openBearModalByBear(bear, todayBearsList);
                 thumb.innerHTML = `
                     <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                     <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
