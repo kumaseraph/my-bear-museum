@@ -3025,6 +3025,20 @@
             document.body.style.overflow = 'hidden';
         }
 
+        // Open bear modal by reference ('opening' for featuredBear, or collectionNo)
+        function openBearModalByRef(ref, group) {
+            let bear;
+            if (ref === 'opening') {
+                bear = featuredBear;
+            } else {
+                const collectionNo = parseInt(ref);
+                bear = group.find(b => b.collectionNo === collectionNo) || featuredBear;
+            }
+            if (bear) {
+                openBearModalByBear(bear, group);
+            }
+        }
+
         // Update modal content from current group
         function updateModalBear() {
             const bear = currentModalGroup[currentModalIndex];
