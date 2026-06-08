@@ -41,7 +41,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v6.56 - 館藏數量設計方案展示</title>
+    <title>熊熊博物館 v6.58 - 館藏數量新設計方案展示</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -187,6 +187,27 @@
         .ribbon-card .paw-wrap {
             background: linear-gradient(135deg, #fff0f5, #ffdce8);
             border-color: #e8b4c4;
+        }
+        /* 方案 F-J 不同配色 */
+        .heart-card .paw-wrap {
+            background: linear-gradient(135deg, #fff0f3, #ffe0e8);
+            border-color: #e8b4c8;
+        }
+        .music-card .paw-wrap {
+            background: linear-gradient(135deg, #f0f5ff, #e0e8ff);
+            border-color: #b0b8e8;
+        }
+        .balloon-card .paw-wrap {
+            background: linear-gradient(135deg, #f5fff0, #e8ffe0);
+            border-color: #b8e8b0;
+        }
+        .crown-card .paw-wrap {
+            background: linear-gradient(135deg, #fffbf5, #ffe8d0);
+            border-color: #e8d0a0;
+        }
+        .bubble-card .paw-wrap {
+            background: linear-gradient(135deg, #f0faff, #dceeff);
+            border-color: #a0d0e8;
         }
         .info-card .label {
             font-size: 0.8rem;
@@ -1935,57 +1956,57 @@
         <div class="subtitle">每一個卡片都是一個溫暖的故事 ✨</div>
     </header>
 
-    <!-- Info Cards Demo - 5種設計方案 -->
+    <!-- Info Cards Demo - 5種新設計方案 -->
     <div class="info-cards demo-cards">
-        <!-- 方案 A：熊熊掌印 -->
-        <div class="info-card paw-card demo-A">
+        <!-- 方案 F：愛心環繞 -->
+        <div class="info-card heart-card demo-F">
             <div class="paw-wrap">
-                <span class="paw-left">🐾</span>
-                <span class="value" id="totalCount">14</span>
-                <span class="paw-right">🐾</span>
+                <span class="paw-left">💖</span>
+                <span class="value">14</span>
+                <span class="paw-right">💖</span>
             </div>
             <div class="label">館藏數量</div>
         </div>
-        <!-- 方案 B：熊熊頭像 -->
-        <div class="info-card bear-card demo-B">
+        <!-- 方案 G：音符跳動 -->
+        <div class="info-card music-card demo-G">
             <div class="paw-wrap">
-                <span class="paw-left">🐻</span>
+                <span class="paw-left">🎵</span>
                 <span class="value">14</span>
-                <span class="paw-right">🐻</span>
+                <span class="paw-right">🎵</span>
             </div>
             <div class="label">館藏數量</div>
         </div>
-        <!-- 方案 C：書本收藏架 -->
-        <div class="info-card book-card demo-C">
+        <!-- 方案 H：氣球漂浮 -->
+        <div class="info-card balloon-card demo-H">
             <div class="paw-wrap">
-                <span class="paw-left">📚</span>
+                <span class="paw-left">🎈</span>
                 <span class="value">14</span>
-                <span class="paw-right">📚</span>
+                <span class="paw-right">🎈</span>
             </div>
             <div class="label">館藏數量</div>
         </div>
-        <!-- 方案 D：獎牌徽章 -->
-        <div class="info-card medal-card demo-D">
+        <!-- 方案 I：皇冠皇家 -->
+        <div class="info-card crown-card demo-I">
             <div class="paw-wrap">
-                <span class="paw-left">🏆</span>
+                <span class="paw-left">👑</span>
                 <span class="value">14</span>
-                <span class="paw-right">🏆</span>
+                <span class="paw-right">👑</span>
             </div>
             <div class="label">館藏數量</div>
         </div>
-        <!-- 方案 E：蝴蝶結緞帶 -->
-        <div class="info-card ribbon-card demo-E">
+        <!-- 方案 J：泡泡魔法 -->
+        <div class="info-card bubble-card demo-J">
             <div class="paw-wrap">
-                <span class="paw-left">🎀</span>
+                <span class="paw-left">🫧</span>
                 <span class="value">14</span>
-                <span class="paw-right">🎀</span>
+                <span class="paw-right">🫧</span>
             </div>
             <div class="label">館藏數量</div>
         </div>
     </div>
     <!-- 方案說明 -->
     <div class="demo-label" style="text-align:center;margin-bottom:20px;color:#8b7355;font-size:0.9rem;">
-        🐾 A：熊熊掌印 | 🐻 B：熊熊頭像 | 📚 C：書本收藏架 | 🏆 D：獎牌徽章 | 🎀 E：蝴蝶結緞帶
+        💖 F：愛心環繞 | 🎵 G：音符跳動 | 🎈 H：氣球漂浮 | 👑 I：皇冠皇家 | 🫧 J：泡泡魔法
     </div>
     <div class="info-footer">
         ✨ <span id="openDateFull">2026年6月3日</span> 熊熊博物館正式開幕！
