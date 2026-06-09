@@ -2123,6 +2123,38 @@
                 .yearbook-bar-items {
                     grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
                 }
+
+                /* Series Grid Mobile - 11 series needs smaller cards */
+                .series-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 8px;
+                }
+                .series-card {
+                    padding: 10px 8px;
+                    border-radius: 12px;
+                }
+                .series-card-header {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 6px;
+                }
+                .series-icon {
+                    width: 36px;
+                    height: 36px;
+                    font-size: 1.1rem;
+                }
+                .series-name {
+                    font-size: 0.7rem;
+                    text-align: center;
+                }
+                .series-count {
+                    font-size: 0.65rem;
+                }
+                .series-progress {
+                    height: 6px;
+                    border-radius: 3px;
+                    margin: 4px 0;
+                }
             }
 
             /* 年鑑極窄手機 */
@@ -2538,7 +2570,12 @@
             '勇者傳奇系列': { icon: '⚔️', color: '#B0E0E6', gradient: 'linear-gradient(135deg, #B0E0E6, #E0F0F8)' },
             '暖心守護系列': { icon: '🍯', color: '#FFD1A4', gradient: 'linear-gradient(135deg, #FFD1A4, #FFE4C4)' },
             '浪漫時光系列': { icon: '🌹', color: '#FFE4E1', gradient: 'linear-gradient(135deg, #FFE4E1, #FFF0EE)' },
-            '溫暖家園系列': { icon: '🏠', color: '#FFE4B5', gradient: 'linear-gradient(135deg, #FFE4B5, #FFF8DC)' }
+            '溫暖家園系列': { icon: '🏠', color: '#FFE4B5', gradient: 'linear-gradient(135deg, #FFE4B5, #FFF8DC)' },
+            '創意玩趣系列': { icon: '🎨', color: '#E8D5FF', gradient: 'linear-gradient(135deg, #E8D5FF, #F0E6FF)' },
+            '海洋傳奇系列': { icon: '🌊', color: '#B5E5FF', gradient: 'linear-gradient(135deg, #B5E5FF, #D6F0FF)' },
+            '糖果廚房系列': { icon: '🍬', color: '#FFE5EC', gradient: 'linear-gradient(135deg, #FFE5EC, #FFF0F4)' },
+            '紀念珍藏系列': { icon: '💎', color: '#F0E6FF', gradient: 'linear-gradient(135deg, #F0E6FF, #F8F0FF)' },
+            '自然物語系列': { icon: '🌿', color: '#D4F5D4', gradient: 'linear-gradient(135deg, #D4F5D4, #E8FFE8)' }
         };
 
         function renderSeriesSection() {
