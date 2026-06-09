@@ -320,6 +320,45 @@
         header .subtitle {
             font-size: 1rem;
             color: var(--color-text-muted);
+            min-height: 1.5em;
+        }
+
+        /* P4: Hero Decorations */
+        .hero-decorations {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .floating-decoration {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0.5;
+            animation: float 6s ease-in-out infinite;
+            will-change: transform;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-15px) rotate(10deg); opacity: 0.7; }
+        }
+
+        /* P4: Typewriter effect */
+        .typewriter-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--color-primary);
+            margin-left: 2px;
+            animation: blink 0.8s infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
         /* P3: Series Visualization - Horizontal Carousel */
@@ -2339,7 +2378,7 @@
     <nav-bar></nav-bar>
 
     <!-- Header -->
-    <header>
+    <header id="mainHeader">
         <div class="header-top">
             <button class="theme-toggle" id="themeToggle" aria-label="切換深色模式">
                 <span class="theme-icon">🌙</span>
@@ -2348,8 +2387,9 @@
                 🎲
             </button>
         </div>
+        <div class="hero-decorations" id="heroDecorations"></div>
         <h1>🐻 熊熊線上博物館</h1>
-        <div class="subtitle">每一個卡片都是一個溫暖的故事 ✨</div>
+        <div class="subtitle" id="subtitle"></div>
     </header>
 
     <!-- K4: 大數字極簡風格 -->
@@ -2588,6 +2628,61 @@
         // Initialize theme on page load
         initTheme();
 
+        // ===== P4: Hero Animations =====
+        const decorations = ['✨', '🌟', '💫', '⭐', '🌙', '💎', '🎀', '🎈', '🐾', '🦋', '🌸', '🍀'];
+        const decorationCount = window.innerWidth > 768 ? 10 : (window.innerWidth > 480 ? 6 : 4);
+
+        function initHeroDecorations() {
+            const container = document.getElementById('heroDecorations');
+            if (!container) return;
+            container.innerHTML = '';
+
+            for (let i = 0; i < decorationCount; i++) {
+                const dec = document.createElement('span');
+                dec.className = 'floating-decoration';
+                dec.textContent = decorations[Math.floor(Math.random() * decorations.length)];
+                dec.style.left = `${Math.random() * 90 + 5}%`;
+                dec.style.top = `${Math.random() * 80 + 10}%`;
+                dec.style.animationDelay = `${Math.random() * 4}s`;
+                dec.style.animationDuration = `${4 + Math.random() * 4}s`;
+                container.appendChild(dec);
+            }
+        }
+
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.textContent = '';
+            const cursor = document.createElement('span');
+            cursor.className = 'typewriter-cursor';
+            element.after(cursor);
+
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    setTimeout(() => cursor.remove(), 2000);
+                }
+            }
+            type();
+        }
+
+        function animateCountUp(element, target, duration = 1500) {
+            const startTime = performance.now();
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(start + (target - start) * easeOut);
+                element.textContent = current;
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        }
+
+        let start = 0;
+
         // Attach theme toggle event
         document.addEventListener('DOMContentLoaded', function() {
             const themeBtn = document.getElementById('themeToggle');
@@ -2597,6 +2692,15 @@
             // Update icon based on current theme
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             updateThemeIcon(isDark);
+
+            // Initialize hero decorations
+            initHeroDecorations();
+
+            // Typewriter effect for subtitle
+            const subtitleEl = document.getElementById('subtitle');
+            if (subtitleEl) {
+                typeWriter(subtitleEl, '每一個卡片都是一個溫暖的故事 ✨', 60);
+            }
 
             // ===== Random See (P2) =====
             const randomModal = document.getElementById('randomModal');
