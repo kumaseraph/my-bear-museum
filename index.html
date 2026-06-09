@@ -1587,25 +1587,40 @@
         .featured-card .card-info {
             padding: 12px;
             text-align: center;
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .featured-card .card-name {
             font-size: 1rem;
             font-weight: bold;
             color: #5D4E4E;
             margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .featured-card .card-series {
             font-size: 0.8rem;
             color: #8B7355;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .featured-card.center .card-info {
             padding: 16px;
+            min-height: 80px;
         }
         .featured-card.center .card-name {
             font-size: 1.2rem;
+            white-space: normal;
+            overflow: visible;
         }
         .featured-card.center .card-series {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            white-space: normal;
+            overflow: visible;
         }
         .featured-card .star-btn {
             position: absolute;
