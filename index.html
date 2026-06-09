@@ -1497,14 +1497,14 @@
             margin: 0 auto;
             padding: 20px 0;
             overflow: hidden;
-            min-height: 320px;
+            height: 300px;
         }
         .featured-carousel-track {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 15px;
-            min-height: 320px;
+            height: 280px;
         }
         .featured-card {
             position: relative;
@@ -1515,6 +1515,8 @@
             cursor: pointer;
             transition: transform 0.25s ease-out, opacity 0.25s ease-out, width 0.25s ease-out, height 0.25s ease-out, filter 0.25s ease-out;
             flex-shrink: 0;
+            /* Center all cards vertically in track */
+            position: relative;
         }
         /* Loading skeleton */
         .featured-carousel-track:empty::before {
