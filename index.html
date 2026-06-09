@@ -322,6 +322,74 @@
             color: var(--color-text-muted);
         }
 
+        /* P3: Series Visualization */
+        .series-section {
+            padding: 30px 20px;
+            margin-bottom: 30px;
+        }
+        .series-section .section-title {
+            font-size: 1.3rem;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .series-card {
+            background: var(--color-card);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow-soft);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1px solid var(--color-border-light);
+        }
+        .series-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+        .series-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .series-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .series-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+        .series-progress {
+            height: 8px;
+            background: var(--color-bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .series-progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease-out;
+        }
+        .series-count {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
         /* K4: 大數字極簡風格 */
         .k4-stats {
             display: flex;
@@ -2197,6 +2265,14 @@
         ✨ <span id="openDateFull">2026年6月3日</span> 熊熊博物館正式開幕！
     </div>
 
+    <!-- P3: 熊熊系列視覺化 -->
+    <div class="series-section" id="seriesSection">
+        <div class="section-title">
+            🏷️ 熊熊系列
+        </div>
+        <div class="series-grid" id="seriesGrid"></div>
+    </div>
+
     <!-- Today's Featured Bear (Carousel Mode) -->
     <div class="section">
         <div class="section-title">
@@ -2453,6 +2529,70 @@
                     }
                 });
             }
+        });
+
+        // ===== P3: Series Visualization =====
+        const seriesConfig = {
+            '童話夢境系列': { icon: '🌸', color: '#FFD1DC', gradient: 'linear-gradient(135deg, #FFD1DC, #FFE4EC)' },
+            '星際冒險系列': { icon: '🌌', color: '#E6E6FA', gradient: 'linear-gradient(135deg, #E6E6FA, #F0F0FF)' },
+            '勇者傳奇系列': { icon: '⚔️', color: '#B0E0E6', gradient: 'linear-gradient(135deg, #B0E0E6, #E0F0F8)' },
+            '暖心守護系列': { icon: '🍯', color: '#FFD1A4', gradient: 'linear-gradient(135deg, #FFD1A4, #FFE4C4)' },
+            '浪漫時光系列': { icon: '🌹', color: '#FFE4E1', gradient: 'linear-gradient(135deg, #FFE4E1, #FFF0EE)' },
+            '溫暖家園系列': { icon: '🏠', color: '#FFE4B5', gradient: 'linear-gradient(135deg, #FFE4B5, #FFF8DC)' }
+        };
+
+        function renderSeriesSection() {
+            const seriesGrid = document.getElementById('seriesGrid');
+            if (!seriesGrid) return;
+
+            // Count bears per series
+            const seriesCount = {};
+            bears.forEach(bear => {
+                if (bear.series) {
+                    seriesCount[bear.series] = (seriesCount[bear.series] || 0) + 1;
+                }
+            });
+
+            const total = bears.length;
+            let html = '';
+
+            Object.entries(seriesConfig).forEach(([seriesName, config]) => {
+                const count = seriesCount[seriesName] || 0;
+                const percent = total > 0 ? Math.round((count / total) * 100) : 0;
+                const displayPercent = count > 0 ? Math.max(percent, 10) : 0;
+
+                html += `
+                    <div class="series-card" onclick="filterBySeries('${seriesName}')">
+                        <div class="series-card-header">
+                            <div class="series-icon" style="background: ${config.gradient}">${config.icon}</div>
+                            <div class="series-name">${seriesName.replace('系列', '')}</div>
+                        </div>
+                        <div class="series-progress">
+                            <div class="series-progress-fill" style="width: ${displayPercent}%; background: ${config.color}"></div>
+                        </div>
+                        <div class="series-count">${count} 隻熊熊</div>
+                    </div>
+                `;
+            });
+
+            seriesGrid.innerHTML = html;
+        }
+
+        function filterBySeries(seriesName) {
+            // Scroll to yearbook section
+            const yearbookSection = document.querySelector('.yearbook-section') || document.getElementById('yearbookSection');
+            if (yearbookSection) {
+                yearbookSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            // Filter bears by series (reuses existing logic)
+            if (typeof filterByCategory === 'function') {
+                filterByCategory(seriesName);
+            }
+        }
+
+        // Initialize series section after DOM ready
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSeriesSection();
         });
 
         // Bear data
