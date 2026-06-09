@@ -1490,6 +1490,199 @@
         .carousel-prev { left: 10px; }
         .carousel-next { right: 10px; }
 
+        /* Big Card Carousel for Featured Bears */
+        .featured-carousel-wrapper {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px 0;
+            overflow: hidden;
+            min-height: 320px;
+        }
+        .featured-carousel-track {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            min-height: 320px;
+        }
+        .featured-card {
+            position: relative;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 8px 32px rgba(93, 64, 55, 0.15);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.25s ease-out, opacity 0.25s ease-out, width 0.25s ease-out, height 0.25s ease-out, filter 0.25s ease-out;
+            flex-shrink: 0;
+        }
+        /* Loading skeleton */
+        .featured-carousel-track:empty::before {
+            content: '';
+            display: block;
+            width: 200px;
+            height: 280px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 20px;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .featured-card.center {
+            width: 200px;
+            height: 280px;
+            transform: scale(1.05);
+            z-index: 2;
+            box-shadow: 0 20px 60px rgba(93, 64, 55, 0.25);
+        }
+        .featured-card.side-left {
+            width: 140px;
+            height: 200px;
+            transform: scale(0.85) translateX(20px);
+            opacity: 0.7;
+            z-index: 1;
+        }
+        .featured-card.side-right {
+            width: 140px;
+            height: 200px;
+            transform: scale(0.85) translateX(-20px);
+            opacity: 0.7;
+            z-index: 1;
+        }
+        .featured-card.far-left {
+            width: 100px;
+            height: 150px;
+            transform: scale(0.65) translateX(40px);
+            opacity: 0.3;
+            z-index: 0;
+            filter: blur(2px);
+        }
+        .featured-card.far-right {
+            width: 100px;
+            height: 150px;
+            transform: scale(0.65) translateX(-40px);
+            opacity: 0.3;
+            z-index: 0;
+            filter: blur(2px);
+        }
+        .featured-card.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .featured-card .card-image {
+            width: 100%;
+            height: 75%;
+            object-fit: cover;
+        }
+        .featured-card .card-info {
+            padding: 12px;
+            text-align: center;
+        }
+        .featured-card .card-name {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #5D4E4E;
+            margin-bottom: 4px;
+        }
+        .featured-card .card-series {
+            font-size: 0.8rem;
+            color: #8B7355;
+        }
+        .featured-card.center .card-info {
+            padding: 16px;
+        }
+        .featured-card.center .card-name {
+            font-size: 1.2rem;
+        }
+        .featured-card.center .card-series {
+            font-size: 0.9rem;
+        }
+        .featured-card .star-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #FFD700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 5;
+        }
+        /* Quote section below carousel */
+        .featured-quote-section {
+            max-width: 500px;
+            margin: 20px auto 0;
+            text-align: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, rgba(255,209,220,0.3), rgba(230,230,250,0.3));
+            border-radius: 15px;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .featured-quote-text {
+            font-size: 1rem;
+            color: #5D4E4E;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        .featured-quote-author {
+            font-size: 0.85rem;
+            color: #8B7355;
+        }
+        /* Big card carousel nav */
+        .big-carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.9);
+            border: 2px solid #d4a574;
+            color: #d4a574;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .big-carousel-nav:hover {
+            background: #d4a574;
+            color: white;
+        }
+        .big-carousel-prev { left: 5px; }
+        .big-carousel-next { right: 5px; }
+        /* Big card carousel dots */
+        .big-carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .big-carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #d4c4b0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .big-carousel-dot.active {
+            background: #d4a574;
+            transform: scale(1.3);
+        }
+        .big-carousel-dot:hover {
+            background: #d4a574;
+        }
+
         /* Bear Detail Modal */
         .bear-modal {
             display: none;
@@ -2507,18 +2700,19 @@
         <div class="series-no-results" id="seriesNoResults" style="display:none;">沒有找到符合的系列</div>
     </div>
 
-    <!-- Today's Featured Bear (Carousel Mode) -->
+    <!-- Today's Featured Bear (Big Card Carousel) -->
     <div class="section">
         <div class="section-title">
             <img src="images/icon-bear-star.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
             精選熊熊
         </div>
-        <div class="carousel-container" id="featuredCarousel">
-            <div class="carousel-track" id="carouselTrack"></div>
-            <div class="carousel-nav carousel-prev" id="carouselPrev">❮</div>
-            <div class="carousel-nav carousel-next" id="carouselNext">❯</div>
-            <div class="carousel-dots" id="carouselDots"></div>
+        <div class="featured-carousel-wrapper" id="featuredCarousel">
+            <button class="big-carousel-nav big-carousel-prev" id="bigCarouselPrev">❮</button>
+            <div class="featured-carousel-track" id="bigCarouselTrack"></div>
+            <button class="big-carousel-nav big-carousel-next" id="bigCarouselNext">❯</button>
         </div>
+        <div class="big-carousel-dots" id="bigCarouselDots"></div>
+        <div class="featured-quote-section" id="featuredQuoteSection"></div>
     </div>
 
     <!-- Opening Commemorative Bear -->
@@ -2687,7 +2881,7 @@
         </a>
         <a class="nav-item" href="#featuredSection" onclick="handleNavClick('bears', event)">
             <span class="nav-icon">🐻</span>
-            <span class="nav-label">熊熊</span>
+            <span class="nav-label">精選</span>
         </a>
         <a class="nav-item" href="#yearbookSection" onclick="handleNavClick('yearbook', event)">
             <span class="nav-icon">📖</span>
@@ -2695,7 +2889,7 @@
         </a>
         <a class="nav-item" href="#" onclick="handleNavClick('profile', event)">
             <span class="nav-icon">⭐</span>
-            <span class="nav-label">我的</span>
+            <span class="nav-label">新熊</span>
         </a>
     </nav>
 
@@ -2754,18 +2948,24 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     break;
                 case 'bears':
-                    // 滑到精選熊熊輪播（星星熊熊）
+                    // 滑到精選熊熊輪播（星星熊熊輪播）
                     const featuredCarousel = document.getElementById('featuredCarousel');
-                    if (featuredCarousel) featuredCarousel.scrollIntoView({ behavior: 'smooth' });
+                    if (featuredCarousel) {
+                        const top = featuredCarousel.offsetTop - 100;
+                        window.scrollTo({ top: top, behavior: 'smooth' });
+                    }
                     break;
                 case 'yearbook':
                     const yearbookSection = document.getElementById('yearbookSection');
                     if (yearbookSection) yearbookSection.scrollIntoView({ behavior: 'smooth' });
                     break;
                 case 'profile':
-                    // 滑到精選熊熊區域（顯示星星熊熊）
-                    const starredSection = document.getElementById('featuredBearSection');
-                    if (starredSection) starredSection.scrollIntoView({ behavior: 'smooth' });
+                    // 滑到新入住熊熊 - 往上偏移顯示標題
+                    const todayBears = document.getElementById('todayBears');
+                    if (todayBears) {
+                        const top = todayBears.offsetTop - 150;
+                        window.scrollTo({ top: top, behavior: 'smooth' });
+                    }
                     break;
             }
         }
@@ -2775,6 +2975,7 @@
             const sections = [
                 { id: 'mainHeader', tab: 'home' },
                 { id: 'featuredCarousel', tab: 'bears' },
+                { id: 'todayBears', tab: 'profile' },
                 { id: 'yearbookSection', tab: 'yearbook' }
             ];
             
@@ -4311,38 +4512,178 @@
             }
         }
 
-        function renderFeaturedCarousel() {
-            const container = document.getElementById('featuredCarousel');
-            featuredList = getFeaturedBearsList(); // 更新全域變數
+        // Big Card Carousel for Featured Bears
+        let bigCarouselIndex = 0;
+        let bigCarouselAutoplayInterval = null;
 
-            // 如果沒有熊熊就不顯示
+        function renderFeaturedCarousel() {
+            const track = document.getElementById('bigCarouselTrack');
+            const dotsContainer = document.getElementById('bigCarouselDots');
+            const quoteSection = document.getElementById('featuredQuoteSection');
+            const wrapper = document.getElementById('featuredCarousel');
+            const prevBtn = document.getElementById('bigCarouselPrev');
+            const nextBtn = document.getElementById('bigCarouselNext');
+
+            featuredList = getFeaturedBearsList();
+
             if (featuredList.length === 0) {
-                container.innerHTML = '';
+                track.innerHTML = '';
+                dotsContainer.innerHTML = '';
+                quoteSection.innerHTML = '';
                 return;
             }
 
-            // 停止自動輪播（不再需要）
-            stopAutoSlide();
+            bigCarouselIndex = 0;
 
-            // 清除容器並使用和新入住熊熊相同的 bear-grid 結構
-            container.innerHTML = '';
-            container.className = 'bear-grid';
-
-            featuredList.forEach((bear) => {
-                const isOpeningBear = bear.collectionNo === featuredBear.collectionNo;
-                const ref = isOpeningBear ? 'opening' : bear.collectionNo;
-
-                const thumb = document.createElement('div');
-                thumb.className = 'bear-thumb';
-                thumb.onclick = () => openBearModalByRef(ref, featuredList);
-                // 預設全部顯示金色實心星星
-                thumb.innerHTML = `
-                    <button class="star-btn starred" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">★</button>
-                    <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
-                    <div class="thumb-name">${bear.name}</div>
-                    <span class="category-badge" data-series="${bear.series}">${bear.series}</span>
+            // Render cards
+            track.innerHTML = '';
+            featuredList.forEach((bear, i) => {
+                const isStarred = starredBears.includes(parseInt(bear.collectionNo));
+                const card = document.createElement('div');
+                card.className = 'featured-card';
+                card.dataset.index = i;
+                card.innerHTML = `
+                    <button class="star-btn ${isStarred ? 'starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${isStarred ? '★' : '☆'}</button>
+                    <img class="card-image" src="${bear.img}" alt="${bear.name}" loading="lazy">
+                    <div class="card-info">
+                        <div class="card-name">${bear.name}</div>
+                        <div class="card-series">${bear.series}</div>
+                    </div>
                 `;
-                container.appendChild(thumb);
+                card.onclick = (e) => {
+                    if (e.target.classList.contains('star-btn')) return;
+                    openBearModalByRef(bear.collectionNo, featuredList);
+                };
+                track.appendChild(card);
+            });
+
+            // Render dots
+            dotsContainer.innerHTML = '';
+            featuredList.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.className = 'big-carousel-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => goToBigCarouselSlide(i);
+                dotsContainer.appendChild(dot);
+            });
+
+            // Initial update
+            updateBigCarouselCards();
+
+            // Quote section
+            updateFeaturedQuote();
+
+            // Nav button events
+            prevBtn.onclick = () => { prevBigCarousel(); stopBigCarouselAutoplay(); };
+            nextBtn.onclick = () => { nextBigCarousel(); stopBigCarouselAutoplay(); };
+
+            // Touch events
+            setupBigCarouselTouch();
+
+            // Start autoplay
+            startBigCarouselAutoplay();
+        }
+
+        function updateBigCarouselCards() {
+            const cards = document.querySelectorAll('.featured-card');
+            const total = cards.length;
+
+            cards.forEach((card, i) => {
+                const offset = i - bigCarouselIndex;
+
+                card.className = 'featured-card';
+
+                if (offset === 0) {
+                    card.classList.add('center');
+                } else if (offset === -1) {
+                    card.classList.add('side-left');
+                } else if (offset === 1) {
+                    card.classList.add('side-right');
+                } else if (offset === -2) {
+                    card.classList.add('far-left');
+                } else if (offset === 2) {
+                    card.classList.add('far-right');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Update dots
+            document.querySelectorAll('.big-carousel-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === bigCarouselIndex);
+            });
+        }
+
+        function updateFeaturedQuote() {
+            const quoteSection = document.getElementById('featuredQuoteSection');
+            if (featuredList.length === 0) {
+                quoteSection.innerHTML = '';
+                return;
+            }
+            const bear = featuredList[bigCarouselIndex];
+            quoteSection.innerHTML = `
+                <div class="featured-quote-text">「${bear.quote}」</div>
+                <div class="featured-quote-author">── ${bear.name} No.${bear.collectionNo}</div>
+            `;
+        }
+
+        function goToBigCarouselSlide(index) {
+            bigCarouselIndex = index;
+            updateBigCarouselCards();
+            updateFeaturedQuote();
+        }
+
+        function nextBigCarousel() {
+            bigCarouselIndex = (bigCarouselIndex + 1) % featuredList.length;
+            updateBigCarouselCards();
+            updateFeaturedQuote();
+        }
+
+        function prevBigCarousel() {
+            bigCarouselIndex = (bigCarouselIndex - 1 + featuredList.length) % featuredList.length;
+            updateBigCarouselCards();
+            updateFeaturedQuote();
+        }
+
+        function startBigCarouselAutoplay() {
+            stopBigCarouselAutoplay();
+            bigCarouselAutoplayInterval = setInterval(nextBigCarousel, 5000);
+        }
+
+        function stopBigCarouselAutoplay() {
+            if (bigCarouselAutoplayInterval) {
+                clearInterval(bigCarouselAutoplayInterval);
+                bigCarouselAutoplayInterval = null;
+            }
+        }
+
+        function setupBigCarouselTouch() {
+            const track = document.getElementById('bigCarouselTrack');
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            track.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+                stopBigCarouselAutoplay();
+            }, { passive: true });
+
+            track.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) nextBigCarousel();
+                    else prevBigCarousel();
+                }
+                startBigCarouselAutoplay();
+            }, { passive: true });
+
+            // Pause on hover
+            track.addEventListener('mouseenter', stopBigCarouselAutoplay);
+            track.addEventListener('mouseleave', startBigCarouselAutoplay);
+
+            // Pause on visibility change
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) stopBigCarouselAutoplay();
+                else startBigCarouselAutoplay();
             });
         }
 
