@@ -4535,8 +4535,9 @@
 
             bigCarouselIndex = 0;
 
-            // Render cards
+            // Render cards - use fragment for better performance
             track.innerHTML = '';
+            const fragment = document.createDocumentFragment();
             featuredList.forEach((bear, i) => {
                 const isStarred = starredBears.includes(parseInt(bear.collectionNo));
                 const card = document.createElement('div');
@@ -4554,23 +4555,26 @@
                     if (e.target.classList.contains('star-btn')) return;
                     openBearModalByRef(bear.collectionNo, featuredList);
                 };
-                track.appendChild(card);
+                fragment.appendChild(card);
             });
+            track.appendChild(fragment);
 
             // Render dots
             dotsContainer.innerHTML = '';
+            const dotsFragment = document.createDocumentFragment();
             featuredList.forEach((_, i) => {
                 const dot = document.createElement('span');
                 dot.className = 'big-carousel-dot' + (i === 0 ? ' active' : '');
                 dot.onclick = () => goToBigCarouselSlide(i);
-                dotsContainer.appendChild(dot);
+                dotsFragment.appendChild(dot);
             });
+            dotsContainer.appendChild(dotsFragment);
 
-            // Initial update
-            updateBigCarouselCards();
-
-            // Quote section
-            updateFeaturedQuote();
+            // Initial update - use requestAnimationFrame to avoid flicker
+            requestAnimationFrame(() => {
+                updateBigCarouselCards();
+                updateFeaturedQuote();
+            });
 
             // Nav button events
             prevBtn.onclick = () => { prevBigCarousel(); stopBigCarouselAutoplay(); };
@@ -4729,8 +4733,7 @@
             document.getElementById('mainNav').classList.toggle('expanded');
         }
 
-        // Initialize
-        renderFeaturedCarousel();
+        // Initialize (sync - will be overridden by async initStars)
         renderTodayBears();
         renderYearbook();
         updateStarButtons();
