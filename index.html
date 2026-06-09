@@ -2584,10 +2584,10 @@
             if (yearbookSection) {
                 yearbookSection.scrollIntoView({ behavior: 'smooth' });
             }
-            // Filter bears by series (reuses existing logic)
-            if (typeof filterByCategory === 'function') {
-                filterByCategory(seriesName);
-            }
+            // Open category modal to show bears of this series
+            setTimeout(() => {
+                openCategoryModal(seriesName);
+            }, 300); // Wait for scroll to complete
         }
 
         // Initialize series section after DOM ready
