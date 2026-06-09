@@ -322,28 +322,63 @@
             color: var(--color-text-muted);
         }
 
-        /* P3: Series Visualization */
+        /* P3: Series Visualization - Horizontal Carousel */
         .series-section {
-            padding: 30px 20px;
+            padding: 30px 0;
             margin-bottom: 30px;
         }
         .series-section .section-title {
             font-size: 1.3rem;
             color: var(--color-primary);
             margin-bottom: 20px;
+            padding: 0 20px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .series-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
+        .series-search-wrap {
+            padding: 0 20px;
+            margin-bottom: 15px;
+        }
+        .series-search {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--color-border-light);
+            background: var(--color-card);
+            color: var(--color-text);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .series-search:focus {
+            border-color: var(--color-primary);
+        }
+        .series-search::placeholder {
+            color: var(--color-text-light);
+        }
+        .series-carousel {
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 10px 20px;
+        }
+        .series-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        .series-carousel-track {
+            display: flex;
+            gap: 12px;
+            min-width: min-content;
         }
         .series-card {
+            flex: 0 0 auto;
+            width: 140px;
             background: var(--color-card);
             border-radius: 16px;
-            padding: 16px;
+            padding: 14px;
             box-shadow: var(--shadow-soft);
             cursor: pointer;
             transition: all var(--transition-fast);
@@ -353,44 +388,77 @@
             transform: translateY(-4px);
             box-shadow: var(--shadow-medium);
         }
+        .series-card.hidden {
+            display: none;
+        }
         .series-card-header {
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .series-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
         .series-name {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: var(--color-primary);
+            color: var(--color-text);
+            text-align: center;
+        }
+        .series-count {
+            font-size: 0.75rem;
+            color: var(--color-text-light);
+            text-align: center;
+            margin-top: 4px;
         }
         .series-progress {
             height: 8px;
             background: var(--color-bg-secondary);
             border-radius: 4px;
+            margin: 8px 0;
             overflow: hidden;
-            margin-bottom: 8px;
         }
         .series-progress-fill {
             height: 100%;
             border-radius: 4px;
-            transition: width 0.8s ease-out;
+            transition: width 0.3s ease;
         }
-        .series-count {
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
+        .series-no-results {
+            text-align: center;
+            padding: 20px;
+            color: var(--color-text-light);
+            font-size: 0.9rem;
         }
 
-        /* K4: 大數字極簡風格 */
+        /* P3 Mobile Responsive */
+        @media (max-width: 600px) {
+            .series-card {
+                width: 120px;
+                padding: 12px;
+            }
+            .series-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+            }
+            .series-name {
+                font-size: 0.8rem;
+            }
+            .series-count {
+                font-size: 0.7rem;
+            }
+            .series-search {
+                max-width: 100%;
+            }
+        }
         .k4-stats {
             display: flex;
             justify-content: center;
@@ -2302,7 +2370,13 @@
         <div class="section-title">
             🏷️ 熊熊系列
         </div>
-        <div class="series-grid" id="seriesGrid"></div>
+        <div class="series-search-wrap">
+            <input type="text" class="series-search" id="seriesSearch" placeholder="🔍 搜尋系列..." oninput="filterSeriesSearch(this.value)">
+        </div>
+        <div class="series-carousel" id="seriesCarousel">
+            <div class="series-carousel-track" id="seriesTrack"></div>
+        </div>
+        <div class="series-no-results" id="seriesNoResults" style="display:none;">沒有找到符合的系列</div>
     </div>
 
     <!-- Today's Featured Bear (Carousel Mode) -->
@@ -2579,8 +2653,8 @@
         };
 
         function renderSeriesSection() {
-            const seriesGrid = document.getElementById('seriesGrid');
-            if (!seriesGrid) return;
+            const seriesTrack = document.getElementById('seriesTrack');
+            if (!seriesTrack) return;
 
             // Count bears per series
             const seriesCount = {};
@@ -2599,7 +2673,7 @@
                 const displayPercent = count > 0 ? Math.max(percent, 10) : 0;
 
                 html += `
-                    <div class="series-card" onclick="filterBySeries('${seriesName}')">
+                    <div class="series-card" data-series="${seriesName}" onclick="filterBySeries('${seriesName}')">
                         <div class="series-card-header">
                             <div class="series-icon" style="background: ${config.gradient}">${config.icon}</div>
                             <div class="series-name">${seriesName.replace('系列', '')}</div>
@@ -2612,7 +2686,27 @@
                 `;
             });
 
-            seriesGrid.innerHTML = html;
+            seriesTrack.innerHTML = html;
+        }
+
+        function filterSeriesSearch(query) {
+            const cards = document.querySelectorAll('.series-card');
+            const noResults = document.getElementById('seriesNoResults');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const name = card.dataset.series.replace('系列', '').toLowerCase();
+                const q = query.toLowerCase().trim();
+
+                if (q === '' || name.includes(q)) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
         }
 
         function filterBySeries(seriesName) {
