@@ -4733,7 +4733,8 @@
             document.getElementById('mainNav').classList.toggle('expanded');
         }
 
-        // Initialize (sync - will be overridden by async initStars)
+        // Initialize (sync - render carousel immediately, stars load async)
+        renderFeaturedCarousel();
         renderTodayBears();
         renderYearbook();
         updateStarButtons();
