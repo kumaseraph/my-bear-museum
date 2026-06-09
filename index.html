@@ -1534,9 +1534,10 @@
             100% { background-position: -200% 0; }
         }
         .featured-card.center {
+            order: 2;
             width: 200px;
             height: 320px;
-            transform: scale(1.05) translateX(40px);
+            transform: scale(1.05);
             opacity: 1;
             z-index: 2;
             box-shadow: 0 20px 60px rgba(93, 64, 55, 0.25);
@@ -1558,6 +1559,7 @@
             z-index: 1;
         }
         .featured-card.far-left {
+            order: 0;
             width: 100px;
             height: 180px;
             transform: scale(0.65);
@@ -1566,6 +1568,7 @@
             filter: blur(2px);
         }
         .featured-card.far-right {
+            order: 4;
             width: 100px;
             height: 180px;
             transform: scale(0.65);
