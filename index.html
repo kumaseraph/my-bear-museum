@@ -2788,13 +2788,14 @@
             
             const items = nav.querySelectorAll('.nav-item');
             items.forEach(item => {
+                // First, remove active from all items
+                item.classList.remove('active');
+                
                 const href = item.getAttribute('href');
                 if ((currentTab === 'home' && href === '#') || 
                     (currentTab === 'bears' && href === '#featuredSection') ||
                     (currentTab === 'yearbook' && href === '#yearbookSection')) {
                     item.classList.add('active');
-                } else if (currentTab === 'profile' && href === '#') {
-                    // Don't auto-activate profile
                 }
             });
         }
