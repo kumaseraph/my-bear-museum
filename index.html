@@ -1052,6 +1052,18 @@
             box-shadow: 0 4px 12px rgba(93, 64, 55, 0.3);
         }
 
+        /* 全部熊熊按鈕 - 區隔樣式 */
+        .yearbook-tab-outline {
+            background: transparent;
+            border: 2px dashed #d4a574;
+            color: #8b7355;
+        }
+        .yearbook-tab-outline:hover {
+            background: #fff5eb;
+            border-style: solid;
+            transform: translateY(-2px);
+        }
+
         /* Yearbook Accordion */
         .yearbook-accordion {
             display: flex;
@@ -2813,10 +2825,10 @@
 
         <!-- Yearbook Tab Switch -->
         <div class="yearbook-tabs">
-            <button class="yearbook-tab active" id="tabAll" onclick="openAllBearsModal()">
+            <button class="yearbook-tab yearbook-tab-outline" id="tabAll" onclick="openAllBearsModal()">
                 🏠 全部熊熊
             </button>
-            <button class="yearbook-tab" id="tabMonth" onclick="switchYearbookTab('month')">
+            <button class="yearbook-tab active" id="tabMonth" onclick="switchYearbookTab('month')">
                 <img src="images/icon-bear-calendar.jpg" style="width:24px;height:24px;vertical-align:middle;margin-right:5px;"> 熊熊月份
             </button>
             <button class="yearbook-tab" id="tabCategory" onclick="switchYearbookTab('category')">
