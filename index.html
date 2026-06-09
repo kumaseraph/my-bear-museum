@@ -1534,6 +1534,7 @@
             100% { background-position: -200% 0; }
         }
         .featured-card.center {
+            order: 2;
             width: 200px;
             height: 280px;
             transform: scale(1.05);
@@ -1542,6 +1543,7 @@
             box-shadow: 0 20px 60px rgba(93, 64, 55, 0.25);
         }
         .featured-card.side-left {
+            order: 1;
             width: 140px;
             height: 200px;
             transform: scale(0.85);
@@ -1549,6 +1551,7 @@
             z-index: 1;
         }
         .featured-card.side-right {
+            order: 3;
             width: 140px;
             height: 200px;
             transform: scale(0.85);
@@ -1556,6 +1559,7 @@
             z-index: 1;
         }
         .featured-card.far-left {
+            order: 0;
             width: 100px;
             height: 150px;
             transform: scale(0.65);
@@ -1564,6 +1568,7 @@
             filter: blur(2px);
         }
         .featured-card.far-right {
+            order: 4;
             width: 100px;
             height: 150px;
             transform: scale(0.65);
@@ -4589,29 +4594,33 @@
             startBigCarouselAutoplay();
         }
 
+        // 循環偏移：以 bigCarouselIndex 為中心，左負右正（-2～+2）
+        function getBigCarouselOffset(listIndex, centerIndex, total) {
+            if (total <= 1) return listIndex === centerIndex ? 0 : null;
+            let offset = listIndex - centerIndex;
+            offset = ((offset % total) + total) % total;
+            if (offset > Math.floor(total / 2)) offset -= total;
+            return offset;
+        }
+
+        function offsetToCarouselClass(offset) {
+            if (offset === 0) return 'center';
+            if (offset === -1) return 'side-left';
+            if (offset === 1) return 'side-right';
+            if (offset === -2) return 'far-left';
+            if (offset === 2) return 'far-right';
+            return 'hidden';
+        }
+
         function updateBigCarouselCards() {
             const track = document.getElementById('bigCarouselTrack');
             if (!track) return;
             const cards = track.querySelectorAll('.featured-card');
+            const total = featuredList.length;
 
             cards.forEach((card, i) => {
-                const offset = i - bigCarouselIndex;
-
-                card.className = 'featured-card';
-
-                if (offset === 0) {
-                    card.classList.add('center');
-                } else if (offset === -1) {
-                    card.classList.add('side-left');
-                } else if (offset === 1) {
-                    card.classList.add('side-right');
-                } else if (offset === -2) {
-                    card.classList.add('far-left');
-                } else if (offset === 2) {
-                    card.classList.add('far-right');
-                } else {
-                    card.classList.add('hidden');
-                }
+                const offset = getBigCarouselOffset(i, bigCarouselIndex, total);
+                card.className = 'featured-card ' + (offset === null ? 'hidden' : offsetToCarouselClass(offset));
             });
 
             // Update dots
