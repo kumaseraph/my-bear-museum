@@ -2573,7 +2573,7 @@
     </div>
 
     <!-- Bear Yearbook -->
-    <div class="section">
+    <div class="section" id="yearbookSection">
         <div class="section-title">
             <img src="images/icon-bear-book.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
             熊熊圖鑑
@@ -2754,16 +2754,18 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     break;
                 case 'bears':
-                    const featuredSection = document.getElementById('featuredBearSection');
-                    if (featuredSection) featuredSection.scrollIntoView({ behavior: 'smooth' });
+                    // 滑到精選熊熊輪播（星星熊熊）
+                    const featuredCarousel = document.getElementById('featuredCarousel');
+                    if (featuredCarousel) featuredCarousel.scrollIntoView({ behavior: 'smooth' });
                     break;
                 case 'yearbook':
-                    const yearbookSection = document.getElementById('yearbookAllContainer');
+                    const yearbookSection = document.getElementById('yearbookSection');
                     if (yearbookSection) yearbookSection.scrollIntoView({ behavior: 'smooth' });
                     break;
                 case 'profile':
-                    // For now, just show a toast or could open a profile modal
-                    alert('🐾 我的星星熊熊收藏');
+                    // 滑到精選熊熊區域（顯示星星熊熊）
+                    const starredSection = document.getElementById('featuredBearSection');
+                    if (starredSection) starredSection.scrollIntoView({ behavior: 'smooth' });
                     break;
             }
         }
@@ -2772,8 +2774,8 @@
         function updateActiveNavOnScroll() {
             const sections = [
                 { id: 'mainHeader', tab: 'home' },
-                { id: 'featuredBearSection', tab: 'bears' },
-                { id: 'yearbookAllContainer', tab: 'yearbook' }
+                { id: 'featuredCarousel', tab: 'bears' },
+                { id: 'yearbookSection', tab: 'yearbook' }
             ];
             
             const nav = document.getElementById('mobileBottomNav');
