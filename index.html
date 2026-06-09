@@ -2754,11 +2754,11 @@
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     break;
                 case 'bears':
-                    const featuredSection = document.getElementById('featuredSection');
+                    const featuredSection = document.getElementById('featuredBearSection');
                     if (featuredSection) featuredSection.scrollIntoView({ behavior: 'smooth' });
                     break;
                 case 'yearbook':
-                    const yearbookSection = document.getElementById('yearbookSection');
+                    const yearbookSection = document.getElementById('yearbookAllContainer');
                     if (yearbookSection) yearbookSection.scrollIntoView({ behavior: 'smooth' });
                     break;
                 case 'profile':
@@ -2771,9 +2771,9 @@
         // Update active nav item on scroll
         function updateActiveNavOnScroll() {
             const sections = [
-                { id: 'heroSection', tab: 'home' },
-                { id: 'featuredSection', tab: 'bears' },
-                { id: 'yearbookSection', tab: 'yearbook' }
+                { id: 'mainHeader', tab: 'home' },
+                { id: 'featuredBearSection', tab: 'bears' },
+                { id: 'yearbookAllContainer', tab: 'yearbook' }
             ];
             
             const nav = document.getElementById('mobileBottomNav');
