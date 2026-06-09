@@ -1570,8 +1570,7 @@
             filter: blur(2px);
         }
         .featured-card.hidden {
-            opacity: 0;
-            pointer-events: none;
+            display: none;
         }
         .featured-card .card-image {
             width: 100%;
@@ -4516,6 +4515,7 @@
         // Big Card Carousel for Featured Bears
         let bigCarouselIndex = 0;
         let bigCarouselAutoplayInterval = null;
+        let bigCarouselTouchSetup = false;
 
         function renderFeaturedCarousel() {
             const track = document.getElementById('bigCarouselTrack');
@@ -4571,26 +4571,26 @@
             });
             dotsContainer.appendChild(dotsFragment);
 
-            // Initial update - use requestAnimationFrame to avoid flicker
-            requestAnimationFrame(() => {
-                updateBigCarouselCards();
-                updateFeaturedQuote();
-            });
+            updateBigCarouselCards();
+            updateFeaturedQuote();
 
             // Nav button events
             prevBtn.onclick = () => { prevBigCarousel(); stopBigCarouselAutoplay(); };
             nextBtn.onclick = () => { nextBigCarousel(); stopBigCarouselAutoplay(); };
 
-            // Touch events
-            setupBigCarouselTouch();
+            // Touch events (bind once — renderFeaturedCarousel may run again after stars load)
+            if (!bigCarouselTouchSetup) {
+                setupBigCarouselTouch();
+                bigCarouselTouchSetup = true;
+            }
 
-            // Start autoplay
             startBigCarouselAutoplay();
         }
 
         function updateBigCarouselCards() {
-            const cards = document.querySelectorAll('.featured-card');
-            const total = cards.length;
+            const track = document.getElementById('bigCarouselTrack');
+            if (!track) return;
+            const cards = track.querySelectorAll('.featured-card');
 
             cards.forEach((card, i) => {
                 const offset = i - bigCarouselIndex;
@@ -4681,11 +4681,9 @@
                 startBigCarouselAutoplay();
             }, { passive: true });
 
-            // Pause on hover
             track.addEventListener('mouseenter', stopBigCarouselAutoplay);
             track.addEventListener('mouseleave', startBigCarouselAutoplay);
 
-            // Pause on visibility change
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden) stopBigCarouselAutoplay();
                 else startBigCarouselAutoplay();
