@@ -3554,17 +3554,24 @@
 
         // Open category modal (for category filter in yearbook)
         function openCategoryModal(category) {
+            const modal = document.getElementById('monthModal');
+            const title = document.getElementById('monthModalTitle');
             const grid = document.getElementById('monthModalGrid');
-            document.getElementById('monthModalTitle').textContent = `🎨 ${category} 分類`;
+            const counter = document.getElementById('monthModalCounter');
+            const prevBtn = document.getElementById('monthModalPrev');
+            const nextBtn = document.getElementById('monthModalNext');
+
+            title.textContent = `${category}`;
             grid.innerHTML = '';
+            counter.style.display = 'none';
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
 
             // Filter bears by series
             let categoryBears = bears.filter(b => b.series === category);
             categoryBears.sort((a, b) => {
-                // 紀念熊永遠排第一
                 if (a.collectionNo === featuredBear.collectionNo) return -1;
                 if (b.collectionNo === featuredBear.collectionNo) return 1;
-                // 然後按日期排序（最舊到最新）
                 return new Date(a.date) - new Date(b.date);
             });
 
@@ -3572,11 +3579,21 @@
                 categoryBears.unshift(featuredBear);
             }
 
-            currentMonthBears = categoryBears;
-            currentMonthIndex = 0;
+            // Show all bears as grid (not single bear with nav)
+            categoryBears.forEach(bear => {
+                const thumb = document.createElement('div');
+                thumb.className = 'bear-thumb';
+                thumb.style.cssText = 'width: 80px; height: 100px;';
+                thumb.onclick = () => { closeMonthModal(); openBearModalByRef(bear.collectionNo === featuredBear.collectionNo ? 'opening' : bear.collectionNo); };
+                thumb.innerHTML = `
+                    <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
+                    <div class="thumb-circle" style="width: 60px; height: 60px;"><img src="${bear.img}" alt="${bear.name}" loading="lazy"></div>
+                    <div class="thumb-name">${bear.name}</div>
+                `;
+                grid.appendChild(thumb);
+            });
 
-            renderMonthModalContent();
-            document.getElementById('monthModal').classList.add('active');
+            modal.classList.add('active');
         }
 
         // Category filter functionality
