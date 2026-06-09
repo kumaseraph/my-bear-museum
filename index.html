@@ -36,13 +36,14 @@
     v6.53 - 精選熊熊使用與新入住熊熊相同的 bear-grid 結構
     v6.62 - 館藏數量改為 K4 大數字極簡風格（只保留館藏數量）
     v6.70 - 深色模式：CSS變數架構、主題切換按鈕、localStorage記憶、Linear風格深灰紫配色
+    v6.81 - 手機底部導航：固定底部列、4圖示導航、iPhone安全區域
 -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v1.1</title>
+    <title>熊熊博物館 v6.81</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -162,6 +163,7 @@
             color: var(--color-primary);
             min-height: 100vh;
             padding: 20px;
+            padding-bottom: 80px; /* 為底部導航預留空間 */
         }
 
         /* Header */
@@ -2370,6 +2372,83 @@
             align-items: center;
             gap: 15px;
         }
+
+        /* ===== Mobile Bottom Navigation ===== */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--color-card);
+            border-top: 1px solid var(--color-border);
+            padding: 8px 16px;
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 9000;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .mobile-bottom-nav.show {
+            display: flex;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            color: var(--color-text-muted);
+            min-width: 60px;
+        }
+
+        .nav-item:active {
+            background: var(--color-border-light);
+            transform: scale(0.95);
+        }
+
+        .nav-item.active {
+            color: var(--color-accent);
+        }
+
+        .nav-item.active .nav-icon {
+            transform: scale(1.1);
+        }
+
+        .nav-icon {
+            font-size: 1.4rem;
+            transition: transform var(--transition-fast);
+        }
+
+        .nav-label {
+            font-size: 0.65rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-bottom-nav {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .nav-item {
+                padding: 5px 8px;
+                min-width: 50px;
+            }
+            .nav-icon {
+                font-size: 1.2rem;
+            }
+            .nav-label {
+                font-size: 0.6rem;
+            }
+        }
         </style>
 </head>
 <body>
@@ -2591,8 +2670,28 @@
         </div>
     </div>
 
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav show" id="mobileBottomNav">
+        <a class="nav-item active" href="#" onclick="handleNavClick('home', event)">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">首頁</span>
+        </a>
+        <a class="nav-item" href="#featuredSection" onclick="handleNavClick('bears', event)">
+            <span class="nav-icon">🐻</span>
+            <span class="nav-label">熊熊</span>
+        </a>
+        <a class="nav-item" href="#yearbookSection" onclick="handleNavClick('yearbook', event)">
+            <span class="nav-icon">📖</span>
+            <span class="nav-label">年鑑</span>
+        </a>
+        <a class="nav-item" href="#" onclick="handleNavClick('profile', event)">
+            <span class="nav-icon">⭐</span>
+            <span class="nav-label">我的</span>
+        </a>
+    </nav>
+
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.66
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.81
     </footer>
 
     <script>
@@ -2627,6 +2726,74 @@
 
         // Initialize theme on page load
         initTheme();
+
+        // ===== Mobile Bottom Navigation =====
+        function handleNavClick(tab, event) {
+            event.preventDefault();
+            const nav = document.getElementById('mobileBottomNav');
+            const items = nav.querySelectorAll('.nav-item');
+            
+            // Remove active class from all
+            items.forEach(item => item.classList.remove('active'));
+            
+            // Add active class to clicked item
+            event.currentTarget.classList.add('active');
+            
+            // Scroll to corresponding section
+            switch(tab) {
+                case 'home':
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    break;
+                case 'bears':
+                    const featuredSection = document.getElementById('featuredSection');
+                    if (featuredSection) featuredSection.scrollIntoView({ behavior: 'smooth' });
+                    break;
+                case 'yearbook':
+                    const yearbookSection = document.getElementById('yearbookSection');
+                    if (yearbookSection) yearbookSection.scrollIntoView({ behavior: 'smooth' });
+                    break;
+                case 'profile':
+                    // For now, just show a toast or could open a profile modal
+                    alert('🐾 我的星星熊熊收藏');
+                    break;
+            }
+        }
+
+        // Update active nav item on scroll
+        function updateActiveNavOnScroll() {
+            const sections = [
+                { id: 'heroSection', tab: 'home' },
+                { id: 'featuredSection', tab: 'bears' },
+                { id: 'yearbookSection', tab: 'yearbook' }
+            ];
+            
+            const nav = document.getElementById('mobileBottomNav');
+            if (!nav) return;
+            
+            let currentTab = 'home';
+            const scrollPosition = window.scrollY + 200;
+            
+            sections.forEach(section => {
+                const el = document.getElementById(section.id);
+                if (el && el.offsetTop <= scrollPosition) {
+                    currentTab = section.tab;
+                }
+            });
+            
+            const items = nav.querySelectorAll('.nav-item');
+            items.forEach(item => {
+                const href = item.getAttribute('href');
+                if ((currentTab === 'home' && href === '#') || 
+                    (currentTab === 'bears' && href === '#featuredSection') ||
+                    (currentTab === 'yearbook' && href === '#yearbookSection')) {
+                    item.classList.add('active');
+                } else if (currentTab === 'profile' && href === '#') {
+                    // Don't auto-activate profile
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNavOnScroll);
 
         // ===== P4: Hero Animations =====
         const decorations = ['✨', '🌟', '💫', '⭐', '🌙', '💎', '🎀', '🎈', '🐾', '🦋', '🌸', '🍀'];
