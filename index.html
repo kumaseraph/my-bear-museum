@@ -2382,18 +2382,21 @@
             right: 0;
             background: var(--color-card);
             border-top: 1px solid var(--color-border);
-            padding: 0 8px;
+            padding: 0 4px;
             padding-bottom: max(12px, env(safe-area-inset-bottom));
             z-index: 999999;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             min-height: 50px;
             overflow: visible;
+            /* Force horizontal layout */
+            flex-direction: row !important;
+            flex-wrap: nowrap;
         }
 
         .mobile-bottom-nav.show {
-            display: flex;
+            display: flex !important;
         }
 
         .nav-item {
@@ -2401,15 +2404,16 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            padding: 4px 8px;
+            gap: 2px;
+            padding: 4px 6px;
             border-radius: 8px;
             cursor: pointer;
             transition: all var(--transition-fast);
             text-decoration: none;
             color: var(--color-text-muted);
-            min-width: 50px;
-            height: 40px;
+            flex: 1 1 auto;
+            min-width: 0;
+            height: 36px;
         }
 
         .nav-item:active {
@@ -2426,33 +2430,32 @@
         }
 
         .nav-icon {
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: transform var(--transition-fast);
         }
 
         .nav-label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 500;
             white-space: nowrap;
         }
 
         @media (max-width: 768px) {
             .mobile-bottom-nav {
-                display: flex;
+                display: flex !important;
             }
         }
 
         @media (max-width: 400px) {
             .nav-item {
                 padding: 3px 4px;
-                min-width: 44px;
-                gap: 2px;
+                gap: 1px;
             }
             .nav-icon {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
             .nav-label {
-                font-size: 0.65rem;
+                font-size: 0.6rem;
             }
         }
         </style>
