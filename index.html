@@ -3164,6 +3164,9 @@
                     }
                 });
             }
+
+            // 載入 bears.json 後再渲染各區塊
+            initBearData();
         });
 
         // ===== P3: Series Visualization =====
@@ -3267,13 +3270,29 @@
             }
         }
 
-        // 初始化 - 載入後渲染
-        document.addEventListener('DOMContentLoaded', async () => {
+        // 載入 bears 後渲染所有依賴資料的區塊
+        async function initBearData() {
             const loaded = await loadBears();
-            if (loaded) {
-                renderSeriesSection();
+            if (!loaded) return;
+
+            renderSeriesSection();
+            renderFeaturedCarousel();
+            renderTodayBears();
+            renderYearbook();
+            renderCategoryFilter();
+            if (currentCategory === '全部') {
+                filterByCategory('全部');
             }
-        });
+
+            await loadStarsFromAPI();
+            updateStarButtons();
+            updateFeaturedBears();
+            const featuredStarBtn = document.getElementById('featuredStarBtn');
+            if (featuredStarBtn && typeof featuredBear !== 'undefined') {
+                featuredStarBtn.dataset.no = featuredBear.collectionNo;
+                featuredStarBtn.setAttribute('onclick', `toggleStar(${featuredBear.collectionNo}, event)`);
+            }
+        }
         const openDate = "2026-06-03";
         const featuredBear = {
             name: "開館紀念熊",
@@ -4355,17 +4374,6 @@
             document.getElementById('mainNav').classList.toggle('expanded');
         }
 
-        // Initialize (sync - render carousel immediately, stars load async)
-        renderFeaturedCarousel();
-        renderTodayBears();
-        renderYearbook();
-        updateStarButtons();
-        renderCategoryFilter();
-        // Initialize display with current category filter
-        if (currentCategory === '全部') {
-            filterByCategory('全部');
-        }
-
         // Search functionality
         function handleSearch(query) {
             const resultsDiv = document.getElementById('searchResults');
@@ -4505,18 +4513,6 @@
         // Initialize swipe on page load
         setupCarouselSwipe();
 
-        // 初始化：從 API 載入星星
-        (async function initStars() {
-            await loadStarsFromAPI();
-            updateStarButtons();
-            updateFeaturedBears();
-            // 修復靜態 HTML 中的 ${featuredBear.collectionNo} 未解析問題
-            const featuredStarBtn = document.getElementById('featuredStarBtn');
-            if (featuredStarBtn && typeof featuredBear !== 'undefined') {
-                featuredStarBtn.dataset.no = featuredBear.collectionNo;
-                featuredStarBtn.setAttribute('onclick', `toggleStar(${featuredBear.collectionNo}, event)`);
-            }
-        })();
 
         // Register PWA service worker
         if ('serviceWorker' in navigator) {
