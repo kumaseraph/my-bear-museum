@@ -1144,8 +1144,10 @@
             try {
                 const response = await fetch('/cats-images/cats.json');
                 catsData = await response.json();
+                console.log("[DEBUG] catsData loaded, cats count:", catsData.cats.length);
             } catch (e) {
-                console.warn('無法載入 cats.json，使用範例資料');
+                console.error("[DEBUG] loadCatsData failed:", e);
+                console.log("[DEBUG] catsData:", catsData);
             }
         }
 
