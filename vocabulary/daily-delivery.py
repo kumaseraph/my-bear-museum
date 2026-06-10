@@ -6,14 +6,16 @@
 1. 檢查 ComfyUI 狀態
 2. 取得熊熊名字與風格
 3. 準備目錄
-4. 生成圖片（ComfyUI + MiniMax，Comfy 失敗改 MiniMax）
+4. 產生 metadata → MiniMax Chat 產英文 prompt → 生圖（ComfyUI + MiniMax，Comfy 失敗改 MiniMax）
 5. 複製圖片並更新 bears.json
 6. Git commit + push
 7. 部署 Cloudflare Pages
 """
 
 import argparse
+import base64
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -30,6 +32,7 @@ BEARS_JSON = PROJECT_DIR / "bears.json"
 DEFAULT_TEMP_DIR = Path("/home/fjj04/bears")
 DEFAULT_DEST_DIR = PROJECT_DIR / "bears"
 VOCAB_DIR = PROJECT_DIR / "vocabulary"
+LOG_DIR = VOCAB_DIR / "logs"
 BEAR_NAMING = VOCAB_DIR / "bear-naming.json"
 STYLE_ROTATION = VOCAB_DIR / "style-rotation.json"
 BEAR_QUOTES = VOCAB_DIR / "bear-quotes.json"
@@ -41,7 +44,27 @@ COMFY_WORKFLOW = Path("/home/fjj04/comfyui/Flux.2-Klein-文生图_API.json")
 COMFY_SCRIPT_DIR = Path("/home/fjj04/.hermes/skills_custom/comfyui-gen-image/scripts")
 
 MINIMAX_API_KEY = "sk-cp-lV21qvcemkF6vZI0d494QVJFj0oj0y7cvAjpjGACOs2H4gYBwtvAFqYjZNFyYIiv2W532ZcNwftGpfGWXzS4SkGyLpqi7vBUIrFteW72R1FGMGau8-oi_0A"
-BEAR_COLORS = ["白熊", "棕熊", "灰熊", "黑熊", "粉熊", "藍熊", "紫熊", "綠熊", "紅熊", "橘熊"]
+MINIMAX_IMAGE_URL = "https://api.minimax.io/v1/image_generation"
+MINIMAX_CHAT_URL = "https://api.minimax.io/v1/chat/completions"
+MINIMAX_CHAT_MODEL = "MiniMax-M2.5-highspeed"
+
+PROMPT_QUALITY_SUFFIX = (
+    "soft kawaii style, horizontal composition 16:9, "
+    "high quality illustration, detailed fur texture"
+)
+
+PROMPT_SYSTEM = f"""You are an expert at writing English text-to-image prompts for cute kawaii bear museum characters.
+
+Given bear metadata in Traditional Chinese, write ONE detailed English image generation prompt.
+
+Rules:
+- Infer fur color and scene from the bear name, personality, series, and title
+- Translate the art style to English (e.g. 油畫=oil painting, 霓虹燈=neon light, 水彩=watercolor)
+- Describe a vivid scene with atmosphere and magical lighting
+- Write as a single English paragraph
+- Do NOT include Chinese characters or the raw Chinese bear name
+- Must end with: {PROMPT_QUALITY_SUFFIX}
+- Output ONLY the prompt text, no quotes, no explanation, no markdown"""
 
 
 class DeliveryConfig:
@@ -72,8 +95,21 @@ class DeliveryConfig:
         return self.comfy_count + self.minimax_count
 
 
+_log_file = None
+
+
+def init_log_file(today):
+    global _log_file
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    _log_file = LOG_DIR / f"{today}.log"
+
+
 def log(msg):
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}")
+    line = f"[{datetime.now().strftime('%H:%M:%S')}] {msg}"
+    print(line)
+    if _log_file is not None:
+        with open(_log_file, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
 
 
 def run_cmd(cmd, check=True):
@@ -205,49 +241,174 @@ def bear_img_path(config, today, name):
     return str(rel).replace("\\", "/")
 
 
-def make_bear_record(name, style, today, collection_no, daily_index, config):
+def derive_title(name):
+    """從熊熊名字推斷稱號（如 彩霞追光者 → 追光者）。"""
+    naming = load_json(BEAR_NAMING)
+    suffixes = naming.get("parts", {}).get("suffix", {}).get("words", [])
+    for suffix in sorted(suffixes, key=len, reverse=True):
+        if suffix != "熊" and name.endswith(suffix):
+            return suffix
+    return name
+
+
+def prepare_bear_metadata(name, style):
+    """生圖前先產生熊熊 metadata，供 prompt 與 bears.json 共用。"""
     return {
         "name": name,
-        "date": today,
-        "checkIn": today.replace("-", "") + f"-{daily_index:02d}",
-        "collectionNo": collection_no,
-        "title": f"{name} ({style})",
+        "style": style,
         "series": get_random_series(),
-        "birthday": today,
         "personality": get_random_personality(style),
         "quote": get_random_quote(),
-        "img": bear_img_path(config, today, name),
+        "title": derive_title(name),
     }
 
 
-def build_prompt(bear_name, style, color):
+def make_bear_record(metadata, today, collection_no, daily_index, config):
+    return {
+        "name": metadata["name"],
+        "date": today,
+        "checkIn": today.replace("-", "") + f"-{daily_index:02d}",
+        "collectionNo": collection_no,
+        "title": metadata["title"],
+        "series": metadata["series"],
+        "birthday": today,
+        "personality": metadata["personality"],
+        "quote": metadata["quote"],
+        "img": bear_img_path(config, today, metadata["name"]),
+    }
+
+
+def clean_minimax_text(content):
+    """移除 MiniMax thinking 區塊與多餘包裝。"""
+    if not content:
+        return ""
+
+    for pattern in (r"</think>\s*", r"</thinking>\s*"):
+        parts = re.split(pattern, content, flags=re.IGNORECASE)
+        if len(parts) > 1:
+            return parts[-1].strip().strip("\"'")
+
+    # fallback：取最後一段像生圖 prompt 的英文段落
+    paragraphs = [p.strip() for p in content.split("\n\n") if p.strip()]
+    for paragraph in reversed(paragraphs):
+        lower = paragraph.lower()
+        if "bear" in lower and ("kawaii" in lower or "illustration" in lower):
+            return paragraph.strip("\"'")
+
+    return content.strip().strip("\"'")
+
+
+def build_prompt_fallback(name, style, series, personality, title):
+    """MiniMax 失敗時的本地 fallback prompt。"""
     return (
-        f"A cute {color} bear character named {bear_name}, {style} art style, "
-        "adorable kawaii style, soft colors, high quality, horizontal composition"
+        f"A cute adorable bear character, {title}, "
+        f"inspired by {series}, {personality}, "
+        f"{style} art style, dreamy atmosphere, "
+        f"{PROMPT_QUALITY_SUFFIX}"
     )
 
 
-def generate_minimax_image(prompt, bear_name, style, color, output_path, idx, config):
-    log(f"MiniMax #{idx+1}: {bear_name} ({style}) [{config.minimax_size}]")
+def generate_prompt_via_minimax(name, style, series, personality, title):
+    """用 MiniMax Chat API 依 metadata 產生英文生圖 prompt。"""
+    user_content = (
+        f"Bear name: {name}\n"
+        f"Art style: {style}\n"
+        f"Series: {series}\n"
+        f"Title: {title}\n"
+        f"Personality: {personality}"
+    )
+    log(f"  MiniMax 產生 prompt: {name}")
 
     try:
         response = requests.post(
-            "https://api.minimax.io/v1/images/generations",
+            MINIMAX_CHAT_URL,
             headers={
                 "Authorization": f"Bearer {MINIMAX_API_KEY}",
                 "Content-Type": "application/json",
             },
             json={
-                "model": "MiniMax-Image-01",
+                "model": MINIMAX_CHAT_MODEL,
+                "messages": [
+                    {"role": "system", "content": PROMPT_SYSTEM},
+                    {"role": "user", "content": user_content},
+                ],
+                "temperature": 0.8,
+                "max_completion_tokens": 512,
+                "extra_body": {
+                    "reasoning_split": True,
+                    "thinking": {"type": "disabled"},
+                },
+            },
+            timeout=60,
+        )
+        response.raise_for_status()
+        body = response.json()
+
+        base_resp = body.get("base_resp", {})
+        if base_resp.get("status_code", 0) not in (0, None):
+            raise RuntimeError(base_resp.get("status_msg", "MiniMax chat API error"))
+
+        choices = body.get("choices", [])
+        if not choices:
+            raise RuntimeError("MiniMax chat 無 choices")
+
+        content = clean_minimax_text(choices[0].get("message", {}).get("content", ""))
+        if not content:
+            raise RuntimeError("MiniMax chat 回傳空 prompt")
+
+        lower = content.lower()
+        if not (
+            "soft kawaii style" in lower
+            and "16:9" in lower
+            and "detailed fur texture" in lower
+        ):
+            content = f"{content.rstrip('., ')}, {PROMPT_QUALITY_SUFFIX}"
+
+        log(f"  prompt: {content}")
+        return content
+    except Exception as e:
+        log(f"  MiniMax prompt 生成失敗: {e}，使用 fallback")
+        fallback = build_prompt_fallback(name, style, series, personality, title)
+        log(f"  prompt (fallback): {fallback}")
+        return fallback
+
+
+def save_minimax_image(data, output_path):
+    if data.get("image_urls"):
+        urllib.request.urlretrieve(data["image_urls"][0], output_path)
+        return
+    if data.get("image_base64"):
+        output_path.write_bytes(base64.b64decode(data["image_base64"][0]))
+        return
+    raise ValueError("回應無圖片資料")
+
+
+def generate_minimax_image(prompt, bear_name, style, output_path, idx, config):
+    log(f"MiniMax #{idx+1}: {bear_name} ({style}) [{config.minimax_size}]")
+
+    try:
+        response = requests.post(
+            MINIMAX_IMAGE_URL,
+            headers={
+                "Authorization": f"Bearer {MINIMAX_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": "image-01",
                 "prompt": prompt,
-                "size": config.minimax_size,
+                "aspect_ratio": config.minimax_size,
+                "response_format": "url",
                 "n": 1,
             },
             timeout=120,
         )
         response.raise_for_status()
-        image_url = response.json()["data"][0]["url"]
-        urllib.request.urlretrieve(image_url, output_path)
+        body = response.json()
+        base_resp = body.get("base_resp", {})
+        if base_resp.get("status_code", -1) != 0:
+            raise RuntimeError(base_resp.get("status_msg", f"status_code={base_resp.get('status_code')}"))
+
+        save_minimax_image(body.get("data", {}), output_path)
         log(f"  已保存: {output_path.name}")
         return True
     except Exception as e:
@@ -269,7 +430,7 @@ def _load_comfy_helpers():
     return load_workflow, patch_workflow, submit_workflow, poll_status, get_output_images, download_image
 
 
-def generate_comfyui_image(prompt, bear_name, style, color, output_path, idx, config):
+def generate_comfyui_image(prompt, bear_name, style, output_path, idx, config):
     log(f"ComfyUI #{idx+1}: {bear_name} ({style}) [{config.comfy_width}x{config.comfy_height}]")
 
     if not COMFY_WORKFLOW.exists():
@@ -316,7 +477,7 @@ def add_bears_to_json(new_bears):
 
 
 def step_generate_images(bear_names, styles, today, config, comfyui_online):
-    """步驟 4：生成圖片到暫存目錄"""
+    """步驟 4：先產 metadata → MiniMax 產 prompt → 生圖到暫存目錄"""
     today_dir = config.temp_dir / today
     today_dir.mkdir(parents=True, exist_ok=True)
 
@@ -330,29 +491,63 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
 
     for i in range(config.comfy_count):
         name, style = bear_names[i], styles[i]
-        color = random.choice(BEAR_COLORS)
+        metadata = prepare_bear_metadata(name, style)
+        log(
+            f"  metadata: title={metadata['title']}, series={metadata['series']}, "
+            f"personality={metadata['personality']}"
+        )
+        prompt = generate_prompt_via_minimax(
+            metadata["name"],
+            metadata["style"],
+            metadata["series"],
+            metadata["personality"],
+            metadata["title"],
+        )
         output = today_dir / f"{name}.png"
-        prompt = build_prompt(name, style, color)
 
         ok = False
         if comfyui_online:
-            ok = generate_comfyui_image(prompt, name, style, color, output, slot, config)
+            ok = generate_comfyui_image(prompt, name, style, output, slot, config)
         if not ok:
             if comfyui_online:
                 log(f"  ComfyUI 無效，改用 MiniMax: {name}")
-            ok = generate_minimax_image(prompt, name, style, color, output, slot, config)
+            ok = generate_minimax_image(prompt, name, style, output, slot, config)
 
         if ok:
-            generated.append({"name": name, "style": style, "temp_path": output, "source": "comfy_or_fallback"})
+            generated.append({
+                "name": name,
+                "style": style,
+                "temp_path": output,
+                "source": "comfy_or_fallback",
+                "metadata": metadata,
+                "prompt": prompt,
+            })
             slot += 1
 
     for i in range(config.comfy_count, config.total_count):
         name, style = bear_names[i], styles[i]
-        color = random.choice(BEAR_COLORS)
+        metadata = prepare_bear_metadata(name, style)
+        log(
+            f"  metadata: title={metadata['title']}, series={metadata['series']}, "
+            f"personality={metadata['personality']}"
+        )
+        prompt = generate_prompt_via_minimax(
+            metadata["name"],
+            metadata["style"],
+            metadata["series"],
+            metadata["personality"],
+            metadata["title"],
+        )
         output = today_dir / f"{name}.png"
-        prompt = build_prompt(name, style, color)
-        if generate_minimax_image(prompt, name, style, color, output, slot, config):
-            generated.append({"name": name, "style": style, "temp_path": output, "source": "minimax"})
+        if generate_minimax_image(prompt, name, style, output, slot, config):
+            generated.append({
+                "name": name,
+                "style": style,
+                "temp_path": output,
+                "source": "minimax",
+                "metadata": metadata,
+                "prompt": prompt,
+            })
             slot += 1
 
     log(f"共生成 {len(generated)} 張圖片於 {today_dir}")
@@ -372,7 +567,7 @@ def step_update_museum(generated, today, config):
         shutil.copy2(item["temp_path"], dest)
         log(f"已複製: {item['name']}.png → {dest}")
         new_bears.append(make_bear_record(
-            item["name"], item["style"], today, collection_no, len(new_bears) + 1, config
+            item["metadata"], today, collection_no, len(new_bears) + 1, config
         ))
         collection_no += 1
 
@@ -393,11 +588,12 @@ def parse_size(value):
 
 
 def main(config):
+    today = get_today()
+    init_log_file(today)
+
     log("===== 熊熊每日配送計畫 =====")
     if config.mode:
         log(f"模式: {config.mode}")
-
-    today = get_today()
     log(f"今日日期: {today}")
     log(f"暫存目錄: {config.temp_dir / today}")
     log(f"目的目錄: {config.dest_dir / today}")
