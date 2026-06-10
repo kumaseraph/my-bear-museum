@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <!-- 熊熊風格標題框 - 溫暖棕金色系 -->
+  <defs>
+    <linearGradient id="bearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5A2B"/>
+      <stop offset="50%" style="stop-color:#D4A574"/>
+      <stop offset="100%" style="stop-color:#F5DEB3"/>
+    </linearGradient>
+    <filter id="bearShadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#5D3A1A" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- 主體背景 - 圓角矩形 -->
+  <rect x="10" y="10" width="380" height="100" rx="15" fill="#FFF8F0" filter="url(#bearShadow)"/>
+  
+  <!-- 頂部熊熊裝飾 -->
+  <circle cx="40" cy="25" r="12" fill="#D4A574"/>
+  <circle cx="28" cy="22" r="6" fill="#C49A6C"/>
+  <circle cx="52" cy="22" r="6" fill="#C49A6C"/>
+  
+  <!-- 左側邊框裝飾 -->
+  <rect x="10" y="10" width="8" height="100" rx="4" fill="url(#bearGrad)"/>
+  
+  <!-- 右側熊熊耳朵裝飾 -->
+  <circle cx="360" cy="25" r="12" fill="#D4A574"/>
+  <circle cx="348" cy="22" r="6" fill="#C49A6C"/>
+  <circle cx="372" cy="22" r="6" fill="#C49A6C"/>
+  
+  <!-- 底部熊熊鼻子裝飾 -->
+  <ellipse cx="200" cy="105" rx="20" ry="8" fill="#8B5A2B"/>
+  <ellipse cx="200" cy="103" rx="12" ry="5" fill="#5D3A1A"/>
+  
+  <!-- 裝飾線條 -->
+  <path d="M70 60 Q120 40 180 55 Q240 70 300 50 Q340 40 370 55" 
+        stroke="#D4A574" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M70 75 Q150 85 200 70 Q250 55 330 75" 
+        stroke="#E8C9A0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  
+  <!-- 亮點裝飾 -->
+  <circle cx="85" cy="45" r="3" fill="#FFD700"/>
+  <circle cx="320" cy="50" r="2.5" fill="#FFD700"/>
+  <circle cx="250" cy="85" r="2" fill="#F5DEB3"/>
+</svg>

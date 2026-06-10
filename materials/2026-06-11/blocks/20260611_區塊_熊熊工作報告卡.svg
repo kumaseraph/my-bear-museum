@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <!-- 熊熊風格資訊卡 - 工作報告專用 -->
+  <defs>
+    <linearGradient id="cardBear" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF8F0"/>
+      <stop offset="100%" style="stop-color:#F5E6D3"/>
+    </linearGradient>
+    <linearGradient id="accentBear" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8B5A2B"/>
+      <stop offset="100%" style="stop-color:#D4A574"/>
+    </linearGradient>
+    <filter id="softShadow">
+      <feDropShadow dx="3" dy="3" stdDeviation="4" flood-color="#5D3A1A" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  
+  <!-- 卡片主體 -->
+  <rect x="15" y="15" width="270" height="170" rx="12" fill="url(#cardBear)" filter="url(#softShadow)"/>
+  
+  <!-- 頂部熊熊頭像區 -->
+  <circle cx="50" cy="50" r="25" fill="#D4A574"/>
+  <circle cx="38" cy="42" r="8" fill="#C49A6C"/>
+  <circle cx="62" cy="42" r="8" fill="#C49A6C"/>
+  <ellipse cx="50" cy="55" rx="10" ry="7" fill="#5D3A1A"/>
+  
+  <!-- 標題區 -->
+  <rect x="85" y="35" width="8" height="35" rx="4" fill="url(#accentBear)"/>
+  <text x="100" y="55" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#5D3A1A">工作報告</text>
+  <text x="100" y="72" font-family="Arial, sans-serif" font-size="11" fill="#8B5A2B">月度成果總結</text>
+  
+  <!-- 分隔線 -->
+  <line x1="25" y1="90" x2="275" y2="90" stroke="#E8D4BC" stroke-width="1"/>
+  
+  <!-- 內容區 - 三個指標卡片 -->
+  <!-- 指標1 -->
+  <rect x="25" y="100" width="75" height="70" rx="8" fill="#FFFDF8"/>
+  <text x="62" y="125" font-family="Arial" font-size="22" font-weight="bold" fill="#8B5A2B" text-anchor="middle">98%</text>
+  <text x="62" y="145" font-family="Arial" font-size="9" fill="#A08060" text-anchor="middle">達成率</text>
+  <circle cx="62" cy="160" r="5" fill="#D4A574"/>
+  
+  <!-- 指標2 -->
+  <rect x="112" y="100" width="75" height="70" rx="8" fill="#FFFDF8"/>
+  <text x="150" y="125" font-family="Arial" font-size="22" font-weight="bold" fill="#8B5A2B" text-anchor="middle">24</text>
+  <text x="150" y="145" font-family="Arial" font-size="9" fill="#A08060" text-anchor="middle">專案數</text>
+  <circle cx="150" cy="160" r="5" fill="#D4A574"/>
+  
+  <!-- 指標3 -->
+  <rect x="200" y="100" width="75" height="70" rx="8" fill="#FFFDF8"/>
+  <text x="237" y="125" font-family="Arial" font-size="22" font-weight="bold" fill="#8B5A2B" text-anchor="middle">5</text>
+  <text x="237" y="145" font-family="Arial" font-size="9" fill="#A08060" text-anchor="middle">獲獎項</text>
+  <circle cx="237" cy="160" r="5" fill="#D4A574"/>
+  
+  <!-- 底部裝飾 -->
+  <ellipse cx="150" cy="185" rx="40" ry="6" fill="#E8D4BC" opacity="0.5"/>
+</svg>

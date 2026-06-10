@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <!-- 熊熊風格背景 - 溫暖工作氛圍 -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF8F0"/>
+      <stop offset="30%" style="stop-color:#F5E6D3"/>
+      <stop offset="70%" style="stop-color:#E8D4BC"/>
+      <stop offset="100%" style="stop-color:#D4A574"/>
+    </linearGradient>
+    <pattern id="bearPawPattern" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      <!-- 熊掌印圖案 -->
+      <ellipse cx="60" cy="70" rx="25" ry="20" fill="#D4A574" opacity="0.15"/>
+      <circle cx="45" cy="45" r="10" fill="#D4A574" opacity="0.12"/>
+      <circle cx="75" cy="45" r="10" fill="#D4A574" opacity="0.12"/>
+      <circle cx="38" cy="58" r="7" fill="#D4A574" opacity="0.1"/>
+      <circle cx="82" cy="58" r="7" fill="#D4A574" opacity="0.1"/>
+    </pattern>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFF8F0" stop-opacity="0.8"/>
+      <stop offset="100%" style="stop-color:#F5E6D3" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- 主背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- 熊掌印圖案疊加 -->
+  <rect width="1920" height="1080" fill="url(#bearPawPattern)"/>
+  
+  <!-- 中心光暈 -->
+  <ellipse cx="960" cy="540" rx="800" ry="500" fill="url(#centerGlow)"/>
+  
+  <!-- 裝飾幾何元素 -->
+  <circle cx="100" cy="100" r="80" fill="#D4A574" opacity="0.1"/>
+  <circle cx="1820" cy="150" r="120" fill="#C49A6C" opacity="0.08"/>
+  <circle cx="150" cy="950" r="100" fill="#E8C9A0" opacity="0.12"/>
+  <circle cx="1750" cy="900" r="90" fill="#D4A574" opacity="0.1"/>
+  
+  <!-- 頂部裝飾線 -->
+  <path d="M0 50 Q300 80 600 50 T1200 70 T1800 40 T1920 60" stroke="#D4A574" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M0 70 Q400 100 800 60 T1400 90 T1920 50" stroke="#E8C9A0" stroke-width="1.5" fill="none" opacity="0.25"/>
+  
+  <!-- 左側垂直裝飾 -->
+  <rect x="30" y="200" width="4" height="680" rx="2" fill="#D4A574" opacity="0.2"/>
+  <rect x="45" y="250" width="3" height="600" rx="1.5" fill="#C49A6C" opacity="0.15"/>
+  
+  <!-- 右側垂直裝飾 -->
+  <rect x="1870" y="200" width="4" height="680" rx="2" fill="#D4A574" opacity="0.2"/>
+  <rect x="1855" y="250" width="3" height="600" rx="1.5" fill="#C49A6C" opacity="0.15"/>
+  
+  <!-- 底部裝飾波浪 -->
+  <path d="M0 1000 Q200 970 400 990 T800 960 T1200 985 T1600 955 T1920 980 L1920 1080 L0 1080 Z" fill="#8B5A2B" opacity="0.05"/>
+</svg>
