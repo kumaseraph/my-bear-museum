@@ -597,7 +597,7 @@
 
         <!-- Back Link -->
         <div style="text-align: center;">
-            <a href="meow" class="back-link">
+            <a href="/meow" class="back-link">
                 ← 返回今日
             </a>
         </div>
@@ -673,7 +673,7 @@
 
         async function loadCatsData() {
             try {
-                const response = await fetch('cats-images/cats.json');
+                const response = await fetch('/cats-images/cats.json');
                 catsData = await response.json();
             } catch (e) {
                 console.warn('無法載入 cats.json');
