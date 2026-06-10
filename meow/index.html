@@ -1211,7 +1211,8 @@
                     const imgEl = frame.querySelector('.comic-frame-img');
                     if (stories[idx] && stories[idx].img) {
                         console.log("[DEBUG] Setting img src:", stories[idx].img);
-                    console.log("[DEBUG] Setting img src to:", stories[idx].img);
+                    console.log("[DEBUG] ===== LOADING IMAGE =====");
+                    console.log("[DEBUG] Story:", stories[idx]);
                     imgEl.src = stories[idx].img;
                     console.log("[DEBUG] img src attribute:", imgEl.src);
                         // 保存对应的 allImages 索引
