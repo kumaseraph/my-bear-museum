@@ -4,13 +4,13 @@
 克勞熊使用說明：
 1. 檢查系統狀態 (ComfyUI + MiniMax)
 2. 讀取今日風格
-3. 生成圖片 (MiniMax 3張 16:9 + ComfyUI 3張 16:9)
-4. 如果 ComfyUI 離線，MiniMax 生成 5 張 16:9 圖片
-5. 更新 bears.json
-6. Commit + 部署
+3. 生成圖片 (MiniMax 5張 16:9，若 ComfyUI 在線則再生成 3張)
+4. 更新 bears.json 和 index.html
+5. Commit + 部署
 """
 
 import os
+import re
 import json
 import shutil
 import requests
@@ -24,6 +24,7 @@ import sys
 # ===== 設定 =====
 PROJECT_DIR = Path("/home/fjj04/my-bear-museum")
 BEARS_JSON = PROJECT_DIR / "bears.json"
+INDEX_HTML = PROJECT_DIR / "index.html"
 TEMP_DIR = Path("/home/fjj04/bears")
 VOCAB_DIR = PROJECT_DIR / "vocabulary"
 BEAR_NAMING = VOCAB_DIR / "bear-naming.json"
@@ -37,7 +38,7 @@ MINIMAX_API_KEY = "sk-cp-lV21qvcemkF6vZI0d494QVJFj0oj0y7cvAjpjGACOs2H4gYBwtvAFqY
 
 # MiniMax 生圖設定
 MINIMAX_MODEL = "MiniMax-Image-01"
-MINIMAX_SIZE = "16:9"  # 16:9 橫向大圖 (1600x912)
+MINIMAX_SIZE = "16:9"  # 16:9 橫向大圖
 
 # 熊熊顏色
 BEAR_COLORS = ["白熊", "棕熊", "灰熊", "黑熊", "粉熊", "藍熊", "紫熊", "綠熊", "紅熊", "橘熊"]
@@ -79,7 +80,7 @@ def get_today():
     return date.today().strftime("%Y-%m-%d")
 
 
-def get_next_bear_names(n=6):
+def get_next_bear_names(n=8):
     """取得下一組熊熊名字（避免重複）"""
     naming = load_json(BEAR_NAMING)
     combinations = naming.get("combinations", {}).get("names", [])
@@ -105,7 +106,7 @@ def get_next_bear_names(n=6):
     return random.sample(available, min(n, len(available)))
 
 
-def get_next_styles(n=6):
+def get_next_styles(n=8):
     """取得下一組風格（輪流）"""
     rotation = load_json(STYLE_ROTATION)
     styles = rotation.get("styles", [])
@@ -134,7 +135,6 @@ def get_random_quote():
 
 def get_random_series():
     """取得隨機系列"""
-    world = load_json(WORLD_BUILDING)
     series_list = [
         "童話夢境系列", "星際冒險系列", "浪漫時光系列", 
         "勇者傳奇系列", "暖心守護系列", "糖果廚房系列",
@@ -179,8 +179,6 @@ def generate_comfyui_image(prompt, bear_name, output_path, idx):
     """使用 ComfyUI 生成圖片"""
     log(f"ComfyUI #{idx+1}: {bear_name}")
     
-    # ComfyUI prompt（需要預先設定 workflow）
-    # 這裡是示範，實際需要根據你的 workflow 調整
     workflow = {
         "3": {
             "inputs": {
@@ -247,11 +245,82 @@ def generate_comfyui_image(prompt, bear_name, output_path, idx):
         return False
 
 
-def add_bears_to_json(bears_data, date_str, new_bears):
+def update_index_html(new_bears):
+    """更新 index.html 中的 bears 陣列"""
+    log("更新 index.html...")
+    
+    # 讀取現有的 bears 陣列
+    with open(INDEX_HTML, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # 找到 bears 陣列的開始和結束位置
+    start_pattern = r'const bears = \['
+    end_pattern = r'\];'
+    
+    start_match = re.search(start_pattern, content)
+    if not start_match:
+        log("錯誤: 找不到 bears 陣列")
+        return False
+    
+    start_pos = start_match.start()
+    
+    # 找到匹配的結束位置
+    search_content = content[start_pos + len(start_match.group()):]
+    depth = 1
+    end_pos = 0
+    
+    for i, char in enumerate(search_content):
+        if char == '[':
+            depth += 1
+        elif char == ']':
+            depth -= 1
+            if depth == 0:
+                end_pos = i
+                break
+    
+    if end_pos == 0:
+        log("錯誤: 找不到 bears 陣列結尾")
+        return False
+    
+    end_pos = start_pos + len(start_match.group()) + end_pos + 1
+    
+    # 讀取現有的 bears.json
+    existing = load_json(BEARS_JSON)
+    existing_bears = existing.get("bears", [])
+    
+    # 合併新熊熊
+    all_bears = existing_bears + new_bears
+    
+    # 產生新的 bears 陣列
+    js_lines = ['const bears = [']
+    for i, bear in enumerate(all_bears):
+        js_lines.append('            {')
+        for key, value in bear.items():
+            if isinstance(value, str):
+                escaped = value.replace('\\', '\\\\').replace('"', '\\"').replace('\n', ' ')
+                js_lines.append(f'                {key}: "{escaped}",')
+            elif isinstance(value, int):
+                js_lines.append(f'                {key}: {value},')
+        js_lines.append('            }' + (',' if i < len(all_bears) - 1 else ''))
+    js_lines.append('        ];')
+    
+    new_bears_array = '\n'.join(js_lines)
+    
+    # 替換 bears 陣列
+    new_content = content[:start_pos] + new_bears_array + content[end_pos:]
+    
+    # 保存
+    with open(INDEX_HTML, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    
+    log(f"index.html 已更新，共 {len(all_bears)} 隻熊熊")
+
+
+def add_bears_to_json(new_bears):
     """新增熊熊到 bears.json"""
     data = load_json(BEARS_JSON)
     data["bears"].extend(new_bears)
-    data["last_updated"] = date_str
+    data["last_updated"] = get_today()
     save_json(BEARS_JSON, data)
     log(f"已更新 bears.json")
 
@@ -276,8 +345,14 @@ def main():
     
     # 2. 取得熊熊名字和風格
     log("\n--- 步驟 2: 取得熊熊名字和風格 ---")
-    bear_names = get_next_bear_names(6)
-    styles = get_next_styles(6)
+    
+    if comfyui_online:
+        num_bears = 8  # ComfyUI 在線：MiniMax 5 + ComfyUI 3
+    else:
+        num_bears = 5  # ComfyUI 離線：MiniMax 5
+    
+    bear_names = get_next_bear_names(num_bears)
+    styles = get_next_styles(num_bears)
     
     log(f"熊熊名字: {bear_names}")
     log(f"風格: {styles}")
@@ -298,11 +373,11 @@ def main():
     new_bears = []
     
     if comfyui_online:
-        # ComfyUI 在線：MiniMax 3張 + ComfyUI 3張
+        # ComfyUI 在線：MiniMax 5張 + ComfyUI 3張
         log("ComfyUI 在線，使用混合模式...")
         
-        # MiniMax 生成 3 張 (idx 0-2)
-        for i in range(3):
+        # MiniMax 生成 5 張 (idx 0-4)
+        for i in range(5):
             name = bear_names[i]
             style = styles[i]
             color = random.choice(BEAR_COLORS)
@@ -310,7 +385,6 @@ def main():
             
             prompt = f"A {color} bear in {style} style, {name}"
             if generate_minimax_image(prompt, name, style, color, output, i):
-                # 複製到博物館目錄
                 museum_output = museum_dir / f"{name}.png"
                 shutil.copy(output, museum_output)
                 
@@ -327,16 +401,15 @@ def main():
                     "img": f"bears/{today}/{name}.png"
                 })
         
-        # ComfyUI 生成 3 張 (idx 3-5)
+        # ComfyUI 生成 3 張 (idx 5-7)
         for i in range(3):
-            idx = i + 3
+            idx = i + 5
             name = bear_names[idx]
             style = styles[idx]
             output = today_dir / f"{name}.png"
             
             prompt = f"A bear in {style} style, {name}"
             if generate_comfyui_image(prompt, name, output, idx):
-                # 複製到博物館目錄
                 museum_output = museum_dir / f"{name}.png"
                 shutil.copy(output, museum_output)
                 
@@ -365,7 +438,6 @@ def main():
             
             prompt = f"A {color} bear in {style} style, {name}"
             if generate_minimax_image(prompt, name, style, color, output, i):
-                # 複製到博物館目錄
                 museum_output = museum_dir / f"{name}.png"
                 shutil.copy(output, museum_output)
                 
@@ -382,10 +454,11 @@ def main():
                     "img": f"bears/{today}/{name}.png"
                 })
     
-    # 5. 更新 bears.json
-    log("\n--- 步驟 5: 更新 bears.json ---")
+    # 5. 更新 bears.json 和 index.html
+    log("\n--- 步驟 5: 更新 bears.json 和 index.html ---")
     if new_bears:
-        add_bears_to_json(BEARS_JSON, today, new_bears)
+        add_bears_to_json(new_bears)
+        update_index_html(new_bears)
         log(f"新增 {len(new_bears)} 隻熊熊")
     else:
         log("沒有新增熊熊")
@@ -394,8 +467,8 @@ def main():
     log("\n--- 步驟 6: Git Commit ---")
     os.chdir(PROJECT_DIR)
     
-    os.system("git add bears.json bears/ index.html vocabulary/style-rotation.json")
-    os.system("git commit -m '新增 {today} 熊熊圖片'")
+    os.system("git add bears.json index.html bears/ vocabulary/style-rotation.json daily-delivery.py")
+    os.system(f'git commit -m "新增 {today} 熊熊圖片"')
     os.system("git push")
     
     log("\n===== 完成 =====")
