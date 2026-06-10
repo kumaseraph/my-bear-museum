@@ -133,8 +133,47 @@ STORY_GENERATION_PROMPT = """你是喵喵故事的創作者。
 直接輸出故事："""
 
 
+def read_story_from_file(story_type, today):
+    """從 story-today.txt 讀取故事（熊熊創作）"""
+    story_file = PROJECT_DIR / "cats-images" / "story-today.txt"
+    if not story_file.exists():
+        return None
+    content = story_file.read_text(encoding="utf-8").strip()
+    
+    # 跳過前三行 metadata（故事類型、日期、空行）
+    lines = content.split('\n')
+    story_lines = []
+    in_poem = False
+    for i, line in enumerate(lines):
+        # 跳過前3行的 metadata
+        if i < 3:
+            continue
+        # 跳過空行
+        if line.strip() == '' and not in_poem:
+            continue
+        # 跳過詩的標題行（以《》包圍）
+        if line.strip().startswith('《') and line.strip().endswith('》'):
+            in_poem = True
+            continue
+        if line.strip():
+            story_lines.append(line.strip())
+    
+    if story_lines:
+        story_text = '\n'.join(story_lines)
+        log(f"  熊熊故事: {story_text[:50]}...")
+        return story_text
+    return None
+
+
 def generate_story_via_minimax(story_type):
     """用 MiniMax Chat API 生成故事"""
+    today = get_today()
+    
+    # 優先讀取熊熊寫的故事
+    bear_story = read_story_from_file(story_type, today)
+    if bear_story:
+        return bear_story
+    
     prompt = STORY_GENERATION_PROMPT.format(story_type=story_type)
     log(f"  MiniMax 生成故事 (類型: {story_type})")
 
