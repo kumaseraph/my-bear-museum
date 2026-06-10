@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <meta name="description" content="🐱 喵時光 - 橘貓妹妹「喵喵公主」的每日療癒內容，溫暖手繪繪本風格">
+    <meta name="description" content="🐱 喵時光 - 喵喵日常，溫暖手繪繪本風格">
     <meta property="og:title" content="🐱 喵時光">
-    <meta property="og:description" content="橘貓妹妹「喵喵公主」的每日療癒內容">
+    <meta property="og:description" content="喵喵日常，溫暖手繪繪本風格">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#FF8C42">
     
@@ -829,13 +829,13 @@
 
         <!-- Fixed Character Section -->
         <section class="section">
-            <h2 class="section-title">橘貓妹妹「喵喵公主」的日常</h2>
+            <h2 class="section-title">喵喵日常</h2>
             <div class="fixed-character-grid" id="fixedCharacterGrid">
                 <!-- 4-Grid Comic Card -->
                 <div class="hand-drawn-card character-card card-4grid" data-index="0">
                     <div class="character-card-image" id="card4grid">
                     </div>
-                    <h3 class="character-card-title">4格條漫</h3>
+                    <h3 class="character-card-title">喵漫</h3>
                     <p class="character-card-desc">喵喵公主的生活小故事</p>
                 </div>
 
@@ -843,7 +843,7 @@
                 <div class="hand-drawn-card character-card card-single" data-index="1">
                     <div class="character-card-image" id="cardSingle">
                     </div>
-                    <h3 class="character-card-title">單格插圖</h3>
+                    <h3 class="character-card-title">喵圖</h3>
                     <p class="character-card-desc">今天的心情與情境</p>
                 </div>
             </div>
@@ -1003,6 +1003,16 @@
                     if (e.key === 'ArrowLeft') this.prev();
                     if (e.key === 'ArrowRight') this.next();
                 });
+                
+                // Carousel card click to open modal
+                document.querySelectorAll('.carousel-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const idx = parseInt(card.dataset.carouselIndex);
+                        // All images: [4grid, single, ...carousel items]
+                        // Carousel index starts at 2 (after 4grid and single)
+                        Modal.open(idx + 2);
+                    });
+                });
             }
         };
 
@@ -1099,6 +1109,16 @@
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'ArrowLeft') this.prev();
                     if (e.key === 'ArrowRight') this.next();
+                });
+                
+                // Carousel card click to open modal
+                document.querySelectorAll('.carousel-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const idx = parseInt(card.dataset.carouselIndex);
+                        // All images: [4grid, single, ...carousel items]
+                        // Carousel index starts at 2 (after 4grid and single)
+                        Modal.open(idx + 2);
+                    });
                 });
             },
             
