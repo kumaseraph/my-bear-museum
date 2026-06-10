@@ -244,9 +244,10 @@
         .comic-strip {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 1fr;
             gap: 8px;
             width: 100%;
-            aspect-ratio: 1;
+            height: 100%;
         }
         
         .comic-frame {
@@ -259,6 +260,18 @@
             transition: transform 0.2s ease;
             background: var(--color-card);
             border: 2px solid var(--color-border);
+            /* 確保每格都是正方形的關鍵 */
+            height: 0;
+            padding-bottom: 100%;
+        }
+        
+        .comic-frame-image,
+        .comic-frame-number {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
         
         .comic-frame:hover {
