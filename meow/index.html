@@ -1456,7 +1456,8 @@
             Modal.allImages = allImages;
 
             // 设置喵图卡片（index 1）- 喵漫使用 loadComicStrip 处理
-            const singleItem = catsData.cats.find(c => c.type === 'single');
+            const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
+            const singleItem = catsData.cats.find(c => c.type === 'single' && c.date === today);
             if (singleItem) {
                 const card = document.querySelector('.character-card[data-index="1"]');
                 if (card) {
@@ -1471,11 +1472,13 @@
             const singleCard = document.querySelector('.character-card[data-index="1"]');
             if (singleCard) {
                 singleCard.addEventListener('click', () => {
-                    const idx = allImages.indexOf(singleItem);
-                    if (idx >= 0) Modal.open(idx);
+                    if (singleItem) {
+                        const idx = allImages.findIndex(c => c.img === singleItem.img);
+                        if (idx >= 0) Modal.open(idx);
+                    }
                 });
             }
-        }
+        };
 
         // ===== Initialize =====
         document.addEventListener('DOMContentLoaded', async () => {
