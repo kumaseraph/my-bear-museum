@@ -1131,7 +1131,7 @@
 
         async function loadCatsData() {
             try {
-                const response = await fetch('cats-images/cats.json');
+                const response = await fetch('/cats-images/cats.json');
                 catsData = await response.json();
             } catch (e) {
                 console.warn('無法載入 cats.json，使用範例資料');
