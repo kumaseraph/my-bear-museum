@@ -380,6 +380,11 @@ class NavBar extends HTMLElement {
 
         <div class="nav-links">
 <div class="nav-group">
+            <div class="group-label">🐱 喵時光</div>
+            <a href="cats.html" class="nav-link"><span class="icon">🐱</span>喵時光</a>
+          </div>
+
+          <div class="nav-group">
             <div class="group-label">🐻 熊熊系列</div>
             <a href="index.html" class="nav-link"><span class="icon">🏠</span>熊熊博物館</a>
             <a href="ppt.html" class="nav-link"><span class="icon">📊</span>PPT素材</a>
