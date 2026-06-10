@@ -3276,9 +3276,12 @@
                 renderTodayBears();
                 renderYearbook();
                 updateStarButtons();
-                renderCategoryFilter();
-                if (currentCategory === '全部') {
-                    filterByCategory('全部');
+                // 檢查元素是否存在
+                if (document.getElementById('categoryFilter')) {
+                    renderCategoryFilter();
+                    if (currentCategory === '全部') {
+                        filterByCategory('全部');
+                    }
                 }
             }
         });
