@@ -812,20 +812,16 @@
             <h2 class="section-title">橘貓妹妹「喵喵公主」的日常</h2>
             <div class="fixed-character-grid" id="fixedCharacterGrid">
                 <!-- 4-Grid Comic Card -->
-                <div class="hand-drawn-card character-card" data-index="0">
-                    <div class="character-card-image card-placeholder" id="card4grid">
-                        <span class="card-placeholder-icon">🎨</span>
-                        <span class="card-placeholder-text">4格漫卡片</span>
+                <div class="hand-drawn-card character-card" data-index="0" onclick="openModal(0)">
+                    <div class="character-card-image" id="card4grid" style="background-image: url('${sampleData.fixedCharacters[0].image}');">
                     </div>
                     <h3 class="character-card-title">4格條漫</h3>
                     <p class="character-card-desc">喵喵公主的生活小故事</p>
                 </div>
                 
                 <!-- Single Illustration Card -->
-                <div class="hand-drawn-card character-card" data-index="1">
-                    <div class="character-card-image card-placeholder" id="cardSingle">
-                        <span class="card-placeholder-icon">🖼️</span>
-                        <span class="card-placeholder-text">單格插圖</span>
+                <div class="hand-drawn-card character-card" data-index="1" onclick="openModal(1)">
+                    <div class="character-card-image" id="cardSingle" style="background-image: url('${sampleData.fixedCharacters[1].image}');">
                     </div>
                     <h3 class="character-card-title">單格插圖</h3>
                     <p class="character-card-desc">今天的心情與情境</p>
@@ -1003,8 +999,7 @@
                 track.innerHTML = sampleData.carouselItems.map((item, index) => `
                     <div class="carousel-item">
                         <div class="hand-drawn-card carousel-card" data-carousel-index="${index}">
-                            <div class="carousel-card-image card-placeholder">
-                                <span class="carousel-placeholder">🐱</span>
+                            <div class="carousel-card-image" style="background-image: url('${item.image}');">
                             </div>
                             <div class="carousel-card-meta">
                                 ${item.title}<br>
