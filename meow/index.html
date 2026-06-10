@@ -941,19 +941,19 @@
                 <div class="hand-drawn-card character-card card-4grid" data-index="0">
                     <div class="comic-strip" id="comicStrip">
                         <div class="comic-frame" data-frame="1">
-                            <img class="comic-frame-img" src="" alt="1">
+                            <img class="comic-frame-img" src="" alt="1" onerror="this.style.background='red';this.nextElementSibling.textContent='Error: '+this.src" onload="this.style.opacity=1">
                             <span class="comic-frame-number">1</span>
                         </div>
                         <div class="comic-frame" data-frame="2">
-                            <img class="comic-frame-img" src="" alt="2">
+                            <img class="comic-frame-img" src="" alt="2" onerror="this.style.background='red';this.nextElementSibling.textContent='Error'" onload="this.style.opacity=1">
                             <span class="comic-frame-number">2</span>
                         </div>
                         <div class="comic-frame" data-frame="3">
-                            <img class="comic-frame-img" src="" alt="3">
+                            <img class="comic-frame-img" src="" alt="3" onerror="this.style.background='red';this.nextElementSibling.textContent='Error'" onload="this.style.opacity=1">
                             <span class="comic-frame-number">3</span>
                         </div>
                         <div class="comic-frame" data-frame="4">
-                            <img class="comic-frame-img" src="" alt="4">
+                            <img class="comic-frame-img" src="" alt="4" onerror="this.style.background='red';this.nextElementSibling.textContent='Error'" onload="this.style.opacity=1">
                             <span class="comic-frame-number">4</span>
                         </div>
                     </div>
@@ -1180,6 +1180,9 @@
         // 加载喵漫分镜
         function loadComicStrip() {
             console.log("[DEBUG] loadComicStrip called");
+            console.log("[DEBUG] catsData.cats:", catsData.cats ? catsData.cats.length : 0);
+            const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
+            console.log("[DEBUG] today:", today);
             const stories = getTodayStory();
             console.log("[DEBUG] stories.length:", stories.length);
             document.getElementById("debug-info").textContent = "stories: " + stories.length + " | allImages: " + allImages.length + " | today: " + new Date().toLocaleDateString("zh-TW", {timeZone: "Asia/Taipei"}).replace(/\\//g, "-");
@@ -1196,7 +1199,9 @@
                     const imgEl = frame.querySelector('.comic-frame-img');
                     if (stories[idx] && stories[idx].img) {
                         console.log("[DEBUG] Setting img src:", stories[idx].img);
+                    console.log("[DEBUG] Setting img src to:", stories[idx].img);
                     imgEl.src = stories[idx].img;
+                    console.log("[DEBUG] img src attribute:", imgEl.src);
                         // 保存对应的 allImages 索引
                         const catItem = catsData.cats.find(c => c.img === stories[idx].img);
                         if (catItem) {
@@ -1510,8 +1515,11 @@
 
         // ===== Initialize =====
         document.addEventListener('DOMContentLoaded', async () => {
+            console.log("[DEBUG] DOMContentLoaded");
             ThemeManager.init();
+            console.log("[DEBUG] Before loadCatsData");
             await loadCatsData();
+            console.log("[DEBUG] After loadCatsData, catsData.cats:", catsData.cats ? catsData.cats.length : 0);
             Carousel.init();
             loadComicStrip();
             Calendar.init();
