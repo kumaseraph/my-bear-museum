@@ -379,11 +379,6 @@ class NavBar extends HTMLElement {
         </div>
 
         <div class="nav-links">
-<div class="nav-group">
-            <div class="group-label">🐱 喵時光</div>
-            <a href="cats.html" class="nav-link"><span class="icon">🐱</span>喵時光</a>
-          </div>
-
           <div class="nav-group">
             <div class="group-label">🐻 熊熊系列</div>
             <a href="index.html" class="nav-link"><span class="icon">🏠</span>熊熊博物館</a>
@@ -391,6 +386,11 @@ class NavBar extends HTMLElement {
             <a href="slides.html" class="nav-link"><span class="icon">🎬</span>影片素材</a>
             <a href="video.html" class="nav-link"><span class="icon">🎥</span>熊熊影片</a>
             <a href="vocabulary.html" class="nav-link"><span class="icon">📚</span>詞彙庫</a>
+          </div>
+
+          <div class="nav-group">
+            <div class="group-label">🐱 貓貓系列</div>
+            <a href="cats.html" class="nav-link"><span class="icon">🐱</span>喵時光</a>
           </div>
 
           <div class="nav-group">
