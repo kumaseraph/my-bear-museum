@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>找不到頁面 - 熊熊博物館</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#5d4037">
+    <style>
+        :root {
+            --color-bg: #fdf8f3;
+            --color-primary: #5d4037;
+            --color-accent: #d4a574;
+            --color-text-muted: #8b7355;
+            --shadow-card: 0 4px 18px rgba(93,64,55,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Inter', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .card {
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            background: #fff;
+            border-radius: 24px;
+            padding: 48px 32px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(93,64,55,0.1);
+        }
+
+        .emoji {
+            font-size: 4rem;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: var(--color-text-muted);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 999px;
+            padding: 12px 24px;
+            font-weight: 500;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        a:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(93,64,55,0.2);
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: var(--color-primary);
+            border: 1px solid rgba(93,64,55,0.15);
+        }
+
+        .code {
+            margin-top: 24px;
+            font-size: 0.85rem;
+            color: var(--color-accent);
+            letter-spacing: 0.08em;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <div class="emoji" aria-hidden="true">🐻</div>
+        <h1>這裡找不到熊熊</h1>
+        <p>你造訪的網址不存在，或檔案尚未入住博物館。<br>不妨回大廳看看其他可愛的熊熊吧！</p>
+        <div class="actions">
+            <a class="btn-primary" href="/">回到博物館首頁</a>
+            <a class="btn-secondary" href="/cats.html">前往喵時光</a>
+        </div>
+        <p class="code">404 NOT FOUND</p>
+    </main>
+</body>
+</html>
