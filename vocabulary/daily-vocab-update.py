@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 熊熊博物館——每日詞彙更新腳本
-每天自動新增 10 個不重複的新詞到 vocabulary.json
+每天自動新增 20 個不重複的新詞到 world-building.json
 """
 import json
 import os
@@ -35,7 +35,7 @@ def count_words(wb):
     """計算詞庫總詞數"""
     return sum(len(cat_data.get('words', [])) for cat_data in wb['categories'].values())
 
-def get_new_words(count=10):
+def get_new_words(count=20):
     """從 pool 中取出未使用的新詞"""
     pool_data = load_json(DAILY_WORDS_FILE)
     # daily-words-pool.json 的詞在 pool_data['pool'] 陣列中
@@ -69,7 +69,7 @@ def main():
     used_before = get_all_used_words(wb)
     
     # 取得新詞
-    new_words, skipped = get_new_words(10)
+    new_words, skipped = get_new_words(20)
     
     if not new_words:
         print("沒有新的詞可以添加了。")
