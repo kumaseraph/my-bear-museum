@@ -242,19 +242,16 @@
 
         /* ===== Comic Strip Layout (喵漫分鏡) ===== */
         .comic-strip {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: 1fr;
+            display: flex;
+            flex-direction: row;
             gap: 8px;
             width: 100%;
-            height: 100%;
         }
         
         .comic-frame {
             position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 100%;
+            flex: 1;
+            aspect-ratio: 1;
             border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
@@ -331,8 +328,10 @@
         /* 手機版：2x2 網格 */
         @media (max-width: 600px) {
             .comic-strip {
-                grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(2, 1fr);
+                flex-wrap: wrap;
+            }
+            .comic-frame {
+                flex: 0 0 calc(50% - 4px);
                 aspect-ratio: 1;
             }
         }
