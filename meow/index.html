@@ -955,6 +955,7 @@
                     </div>
                     <h3 class="character-card-title">喵漫</h3>
                     <p class="character-card-desc">喵喵公主的生活小故事</p>
+                    <div id="debug-info" style="display:none; font-size: 10px; color: red; padding: 5px; background: #ffe0e0; margin-top: 5px;"></div>
                 </div>
 
                 <!-- Single Illustration Card -->
@@ -1172,6 +1173,8 @@
             console.log("[DEBUG] loadComicStrip called");
             const stories = getTodayStory();
             console.log("[DEBUG] stories.length:", stories.length);
+            document.getElementById("debug-info").textContent = "stories: " + stories.length + " | allImages: " + allImages.length + " | today: " + new Date().toLocaleDateString("zh-TW", {timeZone: "Asia/Taipei"}).replace(/\\//g, "-");
+            document.getElementById("debug-info").style.display = "block";
             const comicStrip = document.getElementById('comicStrip');
             const storyContainer = document.getElementById('storyTextContainer');
             const storyText = document.getElementById('storyText');
