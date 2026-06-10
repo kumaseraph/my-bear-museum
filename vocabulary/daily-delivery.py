@@ -1,428 +1,358 @@
 #!/usr/bin/env python3
 """
-熊熊博物館 - 每日配送自動化腳本
-執行時間：每天 04:10（由 Cronjob 觸發）
-
-功能：
-1. 檢查新圖片（bears/YYYY-MM-DD/）
-2. 自動將 JPG 圖片轉換為 PNG 格式
-3. 驗證圖片命名（{顏色}_{風格}_{日期}_{序號}.png）
-4. 複製到 my-bear-museum/bears/
-5. 更新 index.html（新增熊熊數據，使用詞彙庫命名）
-6. 更新版本號
-7. Git commit + push
-8. 部署到 Cloudflare Pages
+熊熊每日配送計畫 - 自動化配送腳本
+克勞熊使用說明：
+1. 檢查系統狀態 (ComfyUI + MiniMax)
+2. 讀取今日風格
+3. 生成圖片 (MiniMax 5張 16:9，若 ComfyUI 在線則再生成 3張)
+4. 更新 bears.json
+5. Commit + 部署
 """
 
+import argparse
 import os
-import sys
 import json
+import shutil
 import subprocess
-import re
-from datetime import datetime
+import requests
+import urllib.request
+from datetime import datetime, date
 from pathlib import Path
+import random
+import sys
 
-# ============== 設定 ==============
-MUSEUM_DIR = Path("/home/fjj04/my-bear-museum")
-BEARS_DIR = MUSEUM_DIR / "bears"  # 熊熊圖片目錄
-INDEX_HTML = MUSEUM_DIR / "index.html"
-TODAY = datetime.now().strftime("%Y-%m-%d")
-TODAY_SHORT = datetime.now().strftime("%Y%m%d")
+# ===== 設定 =====
+PROJECT_DIR = Path("/home/fjj04/my-bear-museum")
+BEARS_JSON = PROJECT_DIR / "bears.json"
+TEMP_DIR = Path("/home/fjj04/bears")
+VOCAB_DIR = PROJECT_DIR / "vocabulary"
+BEAR_NAMING = VOCAB_DIR / "bear-naming.json"
+STYLE_ROTATION = VOCAB_DIR / "style-rotation.json"
+BEAR_QUOTES = VOCAB_DIR / "bear-quotes.json"
+WORLD_BUILDING = VOCAB_DIR / "world-building.json"
+VOCABULARY = VOCAB_DIR / "vocabulary.json"
 
-# ============== 工具函數 ==============
+# API 設定
+COMFYUI_URL = "http://fjjhomei9.fjjhome:8188"
+MINIMAX_API_KEY = "sk-cp-lV21qvcemkF6vZI0d494QVJFj0oj0y7cvAjpjGACOs2H4gYBwtvAFqYjZNFyYIiv2W532ZcNwftGpfGWXzS4SkGyLpqi7vBUIrFteW72R1FGMGau8-oi_0A"
+
+MINIMAX_SIZE = "16:9"
+BEAR_COLORS = ["白熊", "棕熊", "灰熊", "黑熊", "粉熊", "藍熊", "紫熊", "綠熊", "紅熊", "橘熊"]
+
 
 def log(msg):
-    """輸出日誌"""
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}")
 
+
 def run_cmd(cmd, check=True):
-    """執行 shell 命令"""
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     if check and result.returncode != 0:
         raise Exception(f"命令執行失敗: {cmd}\n{result.stderr}")
     return result.stdout.strip()
 
-def get_max_collection_no():
-    """取得目前最大的 collectionNo"""
-    with open(INDEX_HTML, 'r', encoding='utf-8') as f:
-        content = f.read()
-    matches = re.findall(r'collectionNo:\s*(\d+)', content)
-    if matches:
-        return max(int(m) for m in matches)
-    return 0
 
-def update_version(new_version):
-    """更新版本號（三處）"""
-    with open(INDEX_HTML, 'r', encoding='utf-8') as f:
-        content = f.read()
-    
-    # 1. title 標籤
-    content = re.sub(
-        r'<title>.*?</title>',
-        f'<title>熊熊博物館 v{new_version}</title>',
-        content
-    )
-    
-    # 2. footer 版本文字
-    content = re.sub(
-        r'v\d+\.\d+</span>\s*–\s*熊熊博物館更新',
-        f'v{new_version}</span> – 熊熊博物館更新',
-        content
-    )
-    
-    # 3. version history 註解
-    content = re.sub(
-        r'<!-- v\d+\.\d+',
-        f'<!-- v{new_version}',
-        content
-    )
-    
-    with open(INDEX_HTML, 'w', encoding='utf-8') as f:
-        f.write(content)
-    
-    log(f"版本更新至 v{new_version}")
+def load_json(path):
+    with open(path, 'r', encoding='utf-8') as f:
+        return json.load(f)
 
-def get_next_version():
-    """取得下一個版本號"""
-    with open(INDEX_HTML, 'r', encoding='utf-8') as f:
-        content = f.read()
-    match = re.search(r'v(\d+)\.(\d+)', content)
-    if match:
-        major = int(match.group(1))
-        minor = int(match.group(2)) + 1
-        return f"{major}.{minor}"
-    return "6.1"
 
-# ============== 步驟 0：JPG 轉 PNG ==============
-
-def convert_jpg_to_png(date_str):
-    """將 JPG 圖片轉換為 PNG 格式"""
-    img_dir = BEARS_DIR / date_str
-    
-    if not img_dir.exists():
-        return 0
-    
-    jpg_files = list(img_dir.glob("*.jpg")) + list(img_dir.glob("*.jpeg"))
-    
-    if not jpg_files:
-        return 0
-    
-    log(f"找到 {len(jpg_files)} 張 JPG 圖片需要轉換")
-    
-    #嘗試使用 PIL 轉換
-    try:
-        from PIL import Image
-        for jpg_file in jpg_files:
-            png_file = jpg_file.with_suffix('.png')
-            if png_file.exists():
-                log(f"PNG 已存在，跳過: {jpg_file.name}")
-                continue
-            img = Image.open(jpg_file)
-            img.save(png_file, 'PNG')
-            log(f"已轉換: {jpg_file.name} -> {png_file.name}")
-            jpg_file.unlink()  # 刪除原始 JPG
-        return len(jpg_files)
-    except ImportError:
-        log("⚠️  需要 Pillow 庫來轉換圖片格式")
-        log(" 執行: uv pip install pillow")
-        return 0
-
-# ============== 步驟 1-2：檢查並驗證圖片 ==============
-
-def check_and_validate_images(date_str):
-    """檢查並驗證圖片"""
-    img_dir = BEARS_DIR / date_str
-    
-    if not img_dir.exists():
-        log(f"❌ 找不到目錄: {img_dir}")
-        return []
-    
-    images = sorted(img_dir.glob("*.png"))
-    log(f"找到 {len(images)} 張圖片")
-    
-    # 驗證命名格式
-    valid_images = []
-    for img in images:
-        name = img.name
-        # 格式：{顏色}_{風格}_{日期}_{序號}.png
-        if re.match(r'^(棕熊|灰熊|白熊|粉熊|藍熊|黑熊|橙熊|綠熊|金熊|銀熊)_(.+)_\d{8}_\d{2}\.png$', name):
-            valid_images.append(img)
-        else:
-            log(f"⚠️  命名格式不符: {name}")
-    
-    return valid_images
-
-# ============== 步驟 3：複製到 my-bear-museum ==============
-
-def copy_images_to_museum(images, date_str):
-    """複製圖片到博物館目錄"""
-    dest_dir = MUSEUM_DIR / "bears" / date_str
-    dest_dir.mkdir(parents=True, exist_ok=True)
-    
-    for img in images:
-        dest = dest_dir / img.name
-        if dest.exists():
-            log(f"已存在，跳過: {img.name}")
-        else:
-            import shutil
-            shutil.copy2(img, dest)
-            log(f"已複製: {img.name}")
-    
-    # 驗證
-    dest_images = list(dest_dir.glob("*.png"))
-    log(f"博物館目錄共 {len(dest_images)} 張圖片")
-
-# ============== 風格輪流函數 ==============
-
-def load_style_rotation():
-    """載入風格輪流設定"""
-    rotation_file = MUSEUM_DIR / "vocabulary" / "style-rotation.json"
-    with open(rotation_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    return data['current_index'], data['styles']
-
-def get_styles_for_today(count=6):
-    """取得今天要使用的風格（根據輪流順序）"""
-    current_index, styles = load_style_rotation()
-    total_styles = len(styles)
-    
-    # 取得接下來 count 個風格（會循環）
-    selected = []
-    idx = current_index
-    for _ in range(count):
-        selected.append(styles[idx % total_styles])
-        idx += 1
-    
-    return selected, current_index
-
-def advance_style_index(count=6):
-    """更新風格輪流的 current_index"""
-    rotation_file = MUSEUM_DIR / "vocabulary" / "style-rotation.json"
-    with open(rotation_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    
-    total_styles = len(data['styles'])
-    new_index = (data['current_index'] + count) % total_styles
-    data['current_index'] = new_index
-    data['last_updated'] = datetime.now().strftime("%Y-%m-%d")
-    
-    with open(rotation_file, 'w', encoding='utf-8') as f:
+def save_json(path, data):
+    with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    
-    log(f"風格輪流：current_index 更新為 {new_index}")
 
-# ============== 詞彙庫載入函數 ==============
 
-def load_naming_dict():
-    """載入熊熊命名字典"""
-    naming_file = MUSEUM_DIR / "vocabulary" / "bear-naming.json"
-    with open(naming_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    return data['combinations']['names']
+def check_comfyui():
+    try:
+        resp = requests.get(f"{COMFYUI_URL}/system_stats", timeout=5)
+        return resp.status_code == 200
+    except:
+        return False
 
-def load_quotes_dict():
-    """載入熊熊語錄（支援分類結構）"""
-    quotes_file = MUSEUM_DIR / "vocabulary" / "bear-quotes.json"
-    with open(quotes_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    
-    # 支援兩種格式：純陣列 或 分類結構
-    if isinstance(data, list):
-        return data
-    
-    # 分類結構：提取所有 quotes
-    all_quotes = []
-    categories = data.get("categories", {})
-    for category_name, category_data in categories.items():
-        quotes = category_data.get("quotes", [])
-        all_quotes.extend(quotes)
-    return all_quotes
 
-def generate_bear_name(used_names):
-    """從詞彙庫取得一個還沒用過的熊熊名稱"""
-    import random
-    all_names = load_naming_dict()
-    available = [n for n in all_names if n not in used_names]
-    if not available:
-        available = all_names  # 如果都用過了，就隨機選
-    return random.choice(available)
+def get_today():
+    return date.today().strftime("%Y-%m-%d")
 
-def generate_bear_quote(used_quotes):
-    """從詞彙庫取得一段還沒用過的語錄"""
-    import random
-    all_quotes = load_quotes_dict()
-    available = [q for q in all_quotes if q not in used_quotes]
-    if not available:
-        available = all_quotes
-    return random.choice(available)
 
-# ============== 步驟 4：更新 index.html ==============
+def get_next_bear_names(n=8):
+    naming = load_json(BEAR_NAMING)
+    combinations = naming.get("combinations", {}).get("names", [])
+    
+    try:
+        existing = load_json(BEARS_JSON)
+        existing_names = {b["name"] for b in existing.get("bears", [])}
+    except:
+        existing_names = set()
+    
+    available = [name for name in combinations if name not in existing_names]
+    while len(available) < n:
+        prefix = random.choice(naming["parts"]["prefix"]["words"])
+        suffix = random.choice(naming["parts"]["suffix"]["words"])
+        name = prefix + suffix
+        if name not in existing_names and name not in available:
+            available.append(name)
+    
+    return random.sample(available, min(n, len(available)))
 
-def update_index_html(images, date_str, collection_start):
-    """更新 index.html 的 bears 數組（使用詞彙庫命名）"""
-    import random
-    
-    # 載入詞彙庫
-    all_names = load_naming_dict()
-    all_quotes = load_quotes_dict()
-    
-    # 收集已使用的名稱、語錄、圖片路徑
-    with open(INDEX_HTML, 'r', encoding='utf-8') as f:
-        content = f.read()
-    used_names = set(re.findall(r'name:\s*"([^"]+)"', content))
-    used_quotes = set(re.findall(r'quote:\s*"([^"]+)"', content))
-    
-    # 收集已存在的圖片路徑（避免重複新增）
-    existing_imgs = set(re.findall(r'img:\s*"([^"]+)"', content))
-    
-    log(f"詞彙庫：{len(all_names)} 個名字，{len(all_quotes)} 條語錄")
-    log(f"已使用：{len(used_names)} 個名字，{len(used_quotes)} 條語錄")
-    log(f"已存在：{len(existing_imgs)} 張圖片")
-    
-    # 產生熊熊 JSON（只處理新圖片）
-    bears = []
-    for i, img in enumerate(sorted(images), start=1):
-        img_path = f"bears/{date_str}/{img.name}"
-        
-        # 跳過已存在的圖片
-        if img_path in existing_imgs:
-            log(f"圖片已存在，跳過: {img.name}")
-            continue
-        
-        name = img.stem  # 例如：白熊_水彩_20260608_01
-        
-        # 解析命名
-        parts = name.split('_')
-        color = parts[0] if len(parts) > 0 else "棕熊"
-        style = parts[1] if len(parts) > 1 else "3D"
-        
-        # 從詞彙庫取名字（避開已使用的）
-        bear_name = generate_bear_name(used_names)
-        used_names.add(bear_name)
-        
-        # 從詞彙庫取語錄（避開已使用的）
-        quote = generate_bear_quote(used_quotes)
-        used_quotes.add(quote)
-        
-        bear_json = {
-            "name": bear_name,
-            "date": date_str,
-            "checkIn": f"{TODAY_SHORT}-{i:02d}",
-            "collectionNo": collection_start + i,
-            "category": style,
-            "desc": quote,
-            "img": img_path
-        }
-        bears.append(bear_json)
-        log(f"新增熊熊: {bear_name} (No.{collection_start + i})")
-    
+
+def peek_styles(n=8):
+    """預覽風格輪流（不寫入 style-rotation.json）"""
+    rotation = load_json(STYLE_ROTATION)
+    styles = rotation.get("styles", [])
+    current_index = rotation.get("current_index", 0)
+    return [styles[(current_index + i) % len(styles)] for i in range(n)], current_index
+
+
+def get_next_styles(n=8):
+    selected, current_index = peek_styles(n)
+    rotation = load_json(STYLE_ROTATION)
+    rotation["current_index"] = (current_index + n) % len(rotation["styles"])
+    rotation["last_updated"] = get_today()
+    save_json(STYLE_ROTATION, rotation)
+    return selected
+
+
+def get_random_quote():
+    quotes = load_json(BEAR_QUOTES)
+    categories = list(quotes.get("categories", {}).keys())
+    cat = random.choice(categories)
+    cat_quotes = quotes["categories"][cat].get("quotes", [])
+    return random.choice(cat_quotes) if cat_quotes else "每一天都是新的開始。"
+
+
+def get_random_series():
+    vocab = load_json(VOCABULARY)
+    series_cats = ["童話系", "夢幻系"]
+    cat = random.choice(series_cats)
+    word = random.choice(vocab["categories"][cat]["words"])
+    return f"{word}系列"
+
+
+def get_max_collection_no():
+    data = load_json(BEARS_JSON)
+    bears = data.get("bears", [])
     if not bears:
-        return bears
-    
-    # 將新熊熊寫入 index.html
-    # 找到 bears 陣列的結尾（倒数第二个 ]之前）
-    lines = content.split('\n')
-    bears_end_idx = None
-    for i in range(len(lines) - 1, -1, -1):
-        if lines[i].strip() == '];':
-            bears_end_idx = i
-            break
-    
-    if bears_end_idx is None:
-        raise Exception("找不到 bears 陣列結尾")
-    
-    # 產生新的熊熊 JSON 文字
-    new_bears_text = []
-    for bear in bears:
-        new_bears_text.append('            {')
-        new_bears_text.append(f'                name: "{bear["name"]}",')
-        new_bears_text.append(f'                date: "{bear["date"]}",')
-        new_bears_text.append(f'                checkIn: "{bear["checkIn"]}",')
-        new_bears_text.append(f'                collectionNo: {bear["collectionNo"]},')
-        new_bears_text.append(f'                category: "{bear["category"]}",')
-        new_bears_text.append(f'                desc: "{bear["desc"]}",')
-        new_bears_text.append(f'                img: "{bear["img"]}"')
-        new_bears_text.append('            },' + ('' if bear == bears[-1] else ''))
-    
-    # 在 bears_end_idx 之前插入新熊熊
-    new_lines = lines[:bears_end_idx] + new_bears_text + [''] + lines[bears_end_idx:]
-    
-    with open(INDEX_HTML, 'w', encoding='utf-8') as f:
-        f.write('\n'.join(new_lines))
-    
-    log(f"已寫入 {len(bears)} 隻熊熊到 index.html")
-    
-    return bears
+        return 0
+    return max(b["collectionNo"] for b in bears)
 
-# ============== 主流程 ==============
 
-def main():
-    log("=" * 50)
-    log("熊熊博物館每日配送開始")
-    log("=" * 50)
+def get_random_personality(style=None):
+    """從詞彙庫組合個性描述（描述詞 + 溫暖風格）"""
+    wb = load_json(WORLD_BUILDING)
+    vocab = load_json(VOCABULARY)
+
+    traits = [t for t in wb["categories"]["熊熊個性"]["words"] if len(t) <= 8]
+    trait = random.choice(traits)
+    trait2 = random.choice([t for t in traits if t != trait])
+
+    scene_cats = ["自然系", "天空系", "星空系", "甜點系", "花卉系", "海洋系", "夢幻系", "童話系"]
+    scene = random.choice(vocab["categories"][random.choice(scene_cats)]["words"])
+
+    warm_tails = [
+        "是個夢幻的小精靈",
+        "總是給身邊的人帶來幸福感",
+        "珍惜每一個美好的瞬間",
+        "熱愛大自然的美好",
+        "帶來滿滿的溫暖與快樂",
+        "充滿好奇與勇氣",
+    ]
+    actions = ["漫步", "探險", "玩耍", "小憩", "追光", "跳舞", "守護"]
+
+    templates = [
+        f"今天發現了{scene}，想分享給你！{trait}，{random.choice(warm_tails)}。",
+        f"我{random.choice(['在', '於'])}{scene}中{random.choice(actions)}！{trait}，{trait2}。",
+        f"{trait}，{random.choice(['喜歡', '熱愛'])}{scene}。{random.choice(warm_tails)}。",
+        f"我{random.choice(['在', '於'])}{scene}裡找到了美好！{trait}，{random.choice(['喜歡收集閃閃發亮的東西', '熱愛探索未知', '珍惜每一個綻放的瞬間'])}。",
+    ]
+    if style:
+        templates.append(
+            f"我用{style}風格描繪{scene}！{trait}，{trait2}，{random.choice(warm_tails)}。"
+        )
+    return random.choice(templates)
+
+
+def make_bear_record(name, style, today, collection_no, daily_index):
+    return {
+        "name": name,
+        "date": today,
+        "checkIn": today.replace("-", "") + f"-{daily_index:02d}",
+        "collectionNo": collection_no,
+        "title": f"{name} ({style})",
+        "series": get_random_series(),
+        "birthday": today,
+        "personality": get_random_personality(style),
+        "quote": get_random_quote(),
+        "img": f"bears/{today}/{name}.png",
+    }
+
+
+def generate_minimax_image(prompt, bear_name, style, color, output_path, idx):
+    full_prompt = f"A cute {color.lower()} bear character named {bear_name}, {style} art style, adorable kawaii style, soft colors, high quality, horizontal composition"
     
-    # 取得今天的風格（根據輪流順序）
-    styles_today, current_idx = get_styles_for_today(6)
-    log(f"\n🎨 今天的風格（輪流 index: {current_idx}）:")
-    log(f"   {', '.join(styles_today)}")
+    log(f"MiniMax #{idx+1}: {bear_name} ({style})")
     
-    # JPG 轉 PNG
-    log(f"\n📁 步驟 0：JPG轉 PNG - {TODAY}")
-    converted = convert_jpg_to_png(TODAY)
-    if converted > 0:
-        log(f"已轉換 {converted} 張 JPG 為 PNG")
-    
-    # 檢查新圖片
-    log(f"\n📁 步驟 1：檢查圖片 - {TODAY}")
-    images = check_and_validate_images(TODAY)
-    
-    if not images:
-        log("沒有新圖片，配送結束")
+    try:
+        response = requests.post(
+            "https://api.minimax.io/v1/images/generations",
+            headers={
+                "Authorization": f"Bearer {MINIMAX_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": "MiniMax-Image-01",
+                "prompt": full_prompt,
+                "size": MINIMAX_SIZE,
+                "n": 1,
+            },
+            timeout=120,
+        )
+        response.raise_for_status()
+        image_url = response.json()["data"][0]["url"]
+        urllib.request.urlretrieve(image_url, output_path)
+        log(f"  已保存: {output_path.name}")
+        return True
+    except Exception as e:
+        log(f"  MiniMax 生成失敗: {e}")
+        return False
+
+
+def generate_comfyui_image(prompt, bear_name, output_path, idx):
+    log(f"ComfyUI #{idx+1}: {bear_name}")
+    log(f"  (ComfyUI 需要預設 workflow，請手動生成)")
+    return False
+
+
+def add_bears_to_json(new_bears):
+    """只更新 bears.json"""
+    data = load_json(BEARS_JSON)
+    data["bears"].extend(new_bears)
+    data["last_updated"] = get_today()
+    save_json(BEARS_JSON, data)
+    log(f"已更新 bears.json")
+
+
+def step_generate_images(bear_names, styles, today, comfyui_online):
+    """步驟 4：生成圖片到暫存目錄（不複製到博物館）"""
+    today_dir = TEMP_DIR / today
+    today_dir.mkdir(parents=True, exist_ok=True)
+
+    if comfyui_online:
+        log("ComfyUI 在線: MiniMax 5張 + ComfyUI 3張")
+    else:
+        log("ComfyUI 離線: MiniMax 5張")
+
+    generated = []
+    for i in range(5):
+        name, style = bear_names[i], styles[i]
+        color = random.choice(BEAR_COLORS)
+        output = today_dir / f"{name}.png"
+        if generate_minimax_image(f"A {color} bear", name, style, color, output, i):
+            generated.append({"name": name, "style": style, "temp_path": output})
+
+    log(f"共生成 {len(generated)} 張圖片於 {today_dir}")
+    return generated
+
+
+def step_update_museum(generated, today):
+    """步驟 5：複製圖片到博物館並更新 bears.json"""
+    museum_dir = PROJECT_DIR / "bears" / today
+    museum_dir.mkdir(parents=True, exist_ok=True)
+
+    new_bears = []
+    collection_no = get_max_collection_no() + 1
+
+    for item in generated:
+        dest = museum_dir / f"{item['name']}.png"
+        shutil.copy2(item["temp_path"], dest)
+        log(f"已複製: {item['name']}.png → {dest}")
+        new_bears.append(make_bear_record(
+            item["name"], item["style"], today, collection_no, len(new_bears) + 1
+        ))
+        collection_no += 1
+
+    if new_bears:
+        add_bears_to_json(new_bears)
+        log(f"新增 {len(new_bears)} 隻熊熊")
+    else:
+        log("沒有新增熊熊")
+
+    return new_bears
+
+
+def main(mode=""):
+    log("===== 熊熊每日配送計畫 =====")
+    if mode:
+        log(f"模式: {mode}")
+
+    today = get_today()
+    log(f"今日日期: {today}")
+
+    log("\n--- 步驟 1: 檢查系統狀態 ---")
+    comfyui_online = check_comfyui()
+    log(f"ComfyUI: {'✓ 在線' if comfyui_online else '✗ 離線'}")
+
+    log("\n--- 步驟 2: 取得熊熊名字和風格 ---")
+    num_bears = 8 if comfyui_online else 5
+    bear_names = get_next_bear_names(num_bears)
+
+    if mode == "step2":
+        styles, current_index = peek_styles(num_bears)
+        log(f"風格輪流 index: {current_index}")
+        log(f"熊熊 ({len(bear_names)}): {bear_names}")
+        log(f"風格 ({len(styles)}): {styles}")
+        for i, (name, style) in enumerate(zip(bear_names, styles), start=1):
+            log(f"  #{i}: {name} / {style}")
+        log("\n[step2] 預覽完成，未生圖、未更新詞彙輪流")
         return
-    
-    # 複製到博物館
-    log(f"\n📋 步驟 2：複製圖片到博物館")
-    copy_images_to_museum(images, TODAY)
-    
-    # 取得目前最大 collectionNo
-    max_no = get_max_collection_no()
-    log(f"目前最大 collectionNo: {max_no}")
-    
-    # 更新 index.html
-    log(f"\n📝 步驟 3：更新 index.html")
-    new_bears = update_index_html(images, TODAY, max_no)
-    log(f"新增 {len(new_bears)} 隻熊熊")
-    
-    # 如果有新熊熊才繼續
+
+    styles = get_next_styles(num_bears)
+    log(f"熊熊: {bear_names}")
+    log(f"風格: {styles}")
+
+    log("\n--- 步驟 3: 準備目錄 ---")
+    (TEMP_DIR / today).mkdir(parents=True, exist_ok=True)
+    (PROJECT_DIR / "bears" / today).mkdir(parents=True, exist_ok=True)
+
+    log("\n--- 步驟 4: 生成圖片 (16:9) ---")
+    generated = step_generate_images(bear_names, styles, today, comfyui_online)
+
+    if mode == "step4":
+        log("\n[step4] 生圖完成，圖片保留於暫存目錄，未複製、未更新 bears.json")
+        return
+
+    log("\n--- 步驟 5: 更新熊熊博物館 ---")
+    new_bears = step_update_museum(generated, today)
+
+    if mode == "step5":
+        log("\n[step5] 博物館更新完成，未 commit、未部署")
+        return
+
     if not new_bears:
-        log("\n沒有新熊熊，配送結束")
+        log("\n沒有新增熊熊，跳過 commit 與部署")
         return
-    
-    # 更新版本號
-    log(f"\n🏷️  步驟 4：更新版本號")
-    new_version = get_next_version()
-    update_version(new_version)
-    
-    # Git commit
-    log(f"\n📦 步驟 5：Git commit")
-    run_cmd(f"cd {MUSEUM_DIR} && git add bears/{TODAY}/")
-    run_cmd(f"cd {MUSEUM_DIR} && git add index.html")
-    run_cmd(f"cd {MUSEUM_DIR} && git add vocabulary/daily-delivery.py")
-    run_cmd(f"cd {MUSEUM_DIR} && git commit -m 'v{new_version} - 每日配送 {TODAY}'")
-    run_cmd(f"cd {MUSEUM_DIR} && git push")
+
+    log("\n--- 步驟 6: Git Commit ---")
+    run_cmd(f"cd {PROJECT_DIR} && git add bears.json bears/ vocabulary/style-rotation.json vocabulary/daily-delivery.py")
+    run_cmd(f'cd {PROJECT_DIR} && git commit -m "新增 {today} 熊熊"')
+    run_cmd(f"cd {PROJECT_DIR} && git push")
     log("Git push 完成")
-    
-    # 部署
-    log(f"\n🚀 步驟 6：部署到 Cloudflare Pages")
-    run_cmd(f"cd {MUSEUM_DIR} && npx wrangler pages deploy . --project-name kumaweb --branch main --no-install-skills --commit-dirty=true")
-    
-    log("\n" + "=" * 50)
-    log("✅ 配送完成！")
-    log(f"🌐 https://kumaweb.pages.dev")
-    log("=" * 50)
-    
-    # 更新風格輪流 index
-    advance_style_index(6)
+
+    log("\n--- 步驟 7: 部署到 Cloudflare Pages ---")
+    run_cmd(
+        f"cd {PROJECT_DIR} && npx wrangler pages deploy . "
+        f"--project-name kumaweb --branch main --no-install-skills --commit-dirty=true"
+    )
+
+    log("\n===== 完成 =====")
+    log("到 https://kumaweb.pages.dev 觀看結果")
+
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="熊熊每日配送")
+    parser.add_argument(
+        "--mode",
+        default="",
+        choices=["", "step2", "step4", "step5"],
+        help="step2=僅預覽名字風格, step4=僅生圖, step5=到更新博物館",
+    )
+    args = parser.parse_args()
+    main(mode=args.mode)
