@@ -1527,18 +1527,21 @@
         };
 
         // ===== Initialize =====
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log("[DEBUG] DOMContentLoaded");
+        // 立即执行，不等待 DOMContentLoaded
+        (async function init() {
+            console.log("[DEBUG] Starting init...");
             ThemeManager.init();
-            console.log("[DEBUG] Before loadCatsData");
+            console.log("[DEBUG] Loading cats data...");
             await loadCatsData();
-            console.log("[DEBUG] After loadCatsData, catsData.cats:", catsData.cats ? catsData.cats.length : 0);
+            console.log("[DEBUG] catsData.cats:", catsData.cats ? catsData.cats.length : 0);
+            console.log("[DEBUG] Initializing components...");
             Carousel.init();
             loadComicStrip();
             Calendar.init();
             Modal.init();
             setupFixedCharacterCards();
-        });
+            console.log("[DEBUG] Init complete!");
+        })();
     </script>
 </body>
 </html>
