@@ -788,9 +788,8 @@
             aspect-ratio: 1;
             border-radius: 18px;
             margin-bottom: 20px;
+            object-fit: cover;
             background: var(--color-bg);
-            background-size: cover;
-            background-position: center;
         }
 
         .modal-info {
@@ -1041,7 +1040,7 @@
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content" id="modalContent">
             <button class="modal-close" id="modalClose" aria-label="關閉">✕</button>
-            <div class="modal-image" id="modalImage"></div>
+            <img class="modal-image" id="modalImage" src="" alt="">
             <div class="modal-info">
                 <h3 class="modal-title" id="modalTitle">標題</h3>
                 <div class="modal-meta" id="modalMeta">
