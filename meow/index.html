@@ -1145,7 +1145,7 @@
         
         // 获取今日喵漫故事（story 类型）
         function getTodayStory() {
-            const today = new Date().toISOString().split('T')[0];
+            const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei'}).replace(/\//g, '-');
             const stories = catsData.cats.filter(c => c.type === 'story' && c.date === today);
             return stories.sort((a, b) => (a.frame_num || 1) - (b.frame_num || 1));
         }
