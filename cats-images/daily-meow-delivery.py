@@ -18,6 +18,7 @@ import json
 import os
 import re
 import shutil
+
 import subprocess
 import sys
 import uuid
@@ -29,7 +30,13 @@ from pathlib import Path
 
 # ===== 故事類型配置 =====
 STORY_TYPES = ["日常生活", "冒險", "探險", "悠閒生活", "炸毛生活"]
-STORY_TYPE_FILE = PROJECT_DIR / "cats" / "story-type-tracker.json"
+STORY_TYPE_FILE = None  # 稍後在 setup_variables() 中設定
+
+
+def setup_variables():
+    """延遲初始化需要 PROJECT_DIR 的變數"""
+    global STORY_TYPE_FILE
+    STORY_TYPE_FILE = PROJECT_DIR / "cats-images" / "story-type-tracker.json"
 
 
 def load_story_tracker():
@@ -73,44 +80,9 @@ def get_next_story_type():
     return story_type
 
 
-def generate_story_from_vocab():
-    """從詞彙庫生成50字內的小故事"""
-    vocab = load_json(VOCABULARY)
-    
-    # 隨機選擇類別
-    categories = list(vocab["categories"].keys())
-    
-    # 選擇2-3個類別
-    selected_cats = random.sample(categories, min(2, len(categories)))
-    
-    # 從每個類別選詞
-    words = []
-    for cat in selected_cats:
-        cat_words = vocab["categories"][cat].get("words", [])
-        if cat_words:
-            words.extend(random.sample(cat_words, min(3, len(cat_words))))
-    
-    # 添加一些情緒詞
-    if "情緒系" in vocab["categories"]:
-        emotion_words = vocab["categories"]["情緒系"].get("words", [])
-        if emotion_words:
-            words.append(random.choice(emotion_words))
-    
-    # 添加祝福詞
-    if "祝福系" in vocab["categories"]:
-        blessing_words = vocab["categories"]["祝福系"].get("words", [])
-        if blessing_words:
-            words.append(random.choice(blessing_words))
-    
-    # 隨機選擇4-6個詞組成故事
-    story_words = random.sample(words, min(5, len(words)))
-    
-    # 組成50字內的故事
-    story = "、".join(story_words[:4]) + "的" + random.choice(["日常", "時光", "物語"])
-    if len(story) > 50:
-        story = story[:47] + "..."
-    
-    return story
+def generate_story_from_vocab(story_type):
+    """從詞彙庫生成50字內的小故事（本地 fallback）"""
+    return generate_story_fallback(story_type)
 
 
 def split_story_to_frames(story_text):
@@ -120,7 +92,7 @@ def split_story_to_frames(story_text):
         parts = story_text.split("、")
         if len(parts) >= 4:
             return [p.strip() + "。" for p in parts[:4]]
-    
+
     # 均分為4句
     words = story_text.replace("的", "的 ").split()
     if len(words) >= 4:
@@ -132,7 +104,7 @@ def split_story_to_frames(story_text):
             frame = "".join(words[start:end])
             frames.append(frame + "。")
         return frames
-    
+
     # 回退：如果無法切割，返回4個相同的框架描述
     return [
         story_text + "的開始。",
@@ -143,22 +115,146 @@ def split_story_to_frames(story_text):
 
 import random
 
+# ===== 故事生成系統 =====
+
+STORY_GENERATION_PROMPT = """你是喵喵故事的創作者。
+
+任務：為橘貓妹妹「喵喵公主」創作一個50字以內的小故事。
+
+故事類型：{story_type}
+
+要求：
+- 故事要溫暖、療癒
+- 適合小貓咪的日常生活場景
+- 50字以內（中文）
+- 不需要標點符號結尾
+- 只需要輸出故事文字，不需要任何說明
+
+直接輸出故事："""
+
+
+def generate_story_via_minimax(story_type):
+    """用 MiniMax Chat API 生成故事"""
+    prompt = STORY_GENERATION_PROMPT.format(story_type=story_type)
+    log(f"  MiniMax 生成故事 (類型: {story_type})")
+
+    try:
+        response = requests.post(
+            MINIMAX_CHAT_URL,
+            headers={
+                "Authorization": f"Bearer {MINIMAX_API_KEY}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": MINIMAX_CHAT_MODEL,
+                "messages": [
+                    {"role": "system", "content": "你是喵喵故事的創作者，擅長創作溫暖療癒的小貓咪故事。"},
+                    {"role": "user", "content": prompt},
+                ],
+                "temperature": 0.9,
+                "max_completion_tokens": 100,
+                "extra_body": {
+                    "reasoning_split": True,
+                    "thinking": {"type": "disabled"},
+                },
+            },
+            timeout=30,
+        )
+        response.raise_for_status()
+        body = response.json()
+
+        base_resp = body.get("base_resp", {})
+        if base_resp.get("status_code", 0) not in (0, None):
+            raise RuntimeError(base_resp.get("status_msg", "MiniMax chat API error"))
+
+        choices = body.get("choices", [])
+        if not choices:
+            raise RuntimeError("MiniMax chat 無 choices")
+
+        content = choices[0].get("message", {}).get("content", "").strip()
+        # 清理可能的引號
+        content = content.strip("\"'\"\"")
+        log(f"  生成故事: {content}")
+        return content
+    except Exception as e:
+        log(f"  MiniMax 故事生成失敗: {e}，使用 fallback")
+        return generate_story_fallback(story_type)
+
+
+def generate_story_fallback(story_type):
+    """故事生成失敗時的本地 fallback"""
+    vocab = load_json(VOCABULARY)
+    categories = list(vocab["categories"].keys())
+    selected_cats = random.sample(categories, min(2, len(categories)))
+    words = []
+    for cat in selected_cats:
+        cat_words = vocab["categories"][cat].get("words", [])
+        if cat_words:
+            words.extend(random.sample(cat_words, min(3, len(cat_words))))
+    if "情緒系" in vocab["categories"]:
+        emotion_words = vocab["categories"]["情緒系"].get("words", [])
+        if emotion_words:
+            words.append(random.choice(emotion_words))
+    story_words = random.sample(words, min(5, len(words)))
+    story = "、".join(story_words[:4]) + "的" + random.choice(["日常", "時光", "物語"])
+    if len(story) > 50:
+        story = story[:47] + "..."
+    return story
+
+
+def generate_story_from_vocab(story_type):
+    """從詞彙庫生成50字內的小故事（本地 fallback）"""
+    return generate_story_fallback(story_type)
+
+
+def split_story_to_frames(story_text):
+    """將故事切割為4個分鏡"""
+    # 簡單切割：根據句號、頓號、或直接均分
+    if "、" in story_text:
+        parts = story_text.split("、")
+        if len(parts) >= 4:
+            return [p.strip() + "。" for p in parts[:4]]
+
+    # 均分為4句
+    words = story_text.replace("的", "的 ").split()
+    if len(words) >= 4:
+        frame_size = len(words) // 4
+        frames = []
+        for i in range(4):
+            start = i * frame_size
+            end = start + frame_size if i < 3 else len(words)
+            frame = "".join(words[start:end])
+            frames.append(frame + "。")
+        return frames
+
+    # 回退：如果無法切割，返回4個相同的框架描述
+    return [
+        story_text + "的開始。",
+        story_text + "的發展。",
+        story_text + "的高潮。",
+        story_text + "的結局。"
+    ]
+
+
+import random
+
+
 # =====設定 =====
 PROJECT_DIR = Path("/home/fjj04/my-bear-museum")
-CATS_JSON = PROJECT_DIR / "cats" / "cats.json"
+CATS_JSON = PROJECT_DIR / "cats-images" / "cats.json"
 DEFAULT_TEMP_DIR = Path("/home/fjj04/cats")
-DEFAULT_DEST_DIR = PROJECT_DIR / "cats"
+DEFAULT_DEST_DIR = PROJECT_DIR / "cats-images"
 VOCAB_DIR = PROJECT_DIR / "vocabulary"
 LOG_DIR = VOCAB_DIR / "logs"
-MEOW_CHARACTER = PROJECT_DIR / "cats" / "meow-character.json"
-MEOW_STYLE_ROTATION = PROJECT_DIR / "cats" / "meow-style-rotation.json"
+MEOW_CHARACTER = PROJECT_DIR / "cats-images" / "meow-character.json"
+MEOW_STYLE_ROTATION = PROJECT_DIR / "cats-images" / "meow-style-rotation.json"
 VOCABULARY = VOCAB_DIR / "vocabulary.json"
 
 COMFYUI_URL = "http://fjjhomei9.fjjhome:8188"
 COMFY_WORKFLOW = Path("/home/fjj04/comfyui/Flux.2-Klein-文生图_API.json")
 COMFY_SCRIPT_DIR = Path("/home/fjj04/.hermes/skills_custom/comfyui-gen-image/scripts")
 
-MINIMAX_API_KEY = os.environ.get("MINIMAX_API_KEY", "")
+MINIMAX_API_KEY = os.environ.get("MINIMAX_API_KEY", os.popen("grep MINIMAX_API_KEY /home/fjj04/.hermes/.env | cut -d'=' -f2").read().strip())
 MINIMAX_IMAGE_URL = "https://api.minimax.io/v1/image_generation"
 MINIMAX_CHAT_URL = "https://api.minimax.io/v1/chat/completions"
 MINIMAX_CHAT_MODEL = "MiniMax-M2.5-highspeed"
@@ -173,7 +269,10 @@ PROMPT_SYSTEM = """You are an expert at writing English text-to-image prompts fo
 Given cat metadata in Traditional Chinese, write ONE detailed English image generation prompt.
 
 Rules:
-- Infer fur color and scene from the cat name, personality, breed, and scene
+- Character description (MUST include in every prompt):
+  * Orange tabby cat with fluffy orange fur
+  * Gold bell collar with a small golden bell
+  * Milk tea colored eyes (light brown/hazel)
 - Translate the art style to English (e.g. 油畫=oil painting, 水墨=ink wash painting, 黏土=clay art)
 - Describe a vivid scene with atmosphere and magical lighting
 - Write as a single English paragraph
@@ -306,8 +405,10 @@ def get_random_mode():
     return random.choice(modes)
 
 
-def meow_filename(type_name, today, index):
+def meow_filename(type_name, today, index, frame_num=None):
     """喵喵圖片檔名：miaomiao_類型_日期_序號.jpg"""
+    if frame_num is not None:
+        return f"miaomiao_{type_name}_{today.replace('-', '')}_{index:02d}_{frame_num:02d}.jpg"
     return f"miaomiao_{type_name}_{today.replace('-', '')}_{index:02d}.jpg"
 
 
@@ -322,18 +423,25 @@ def meow_img_path(config, today, filename):
     return str(rel).replace("\\", "/")
 
 
-def prepare_meow_metadata(type_name, style):
+def prepare_meow_metadata(type_name, style, story_text=None, story_type=None, frame_num=None):
     """產生喵喵的 metadata"""
     character = load_json(MEOW_CHARACTER)
     scene = get_random_scene(type_name)
     mode = get_random_mode()
-    return {
+    result = {
         "name": character["固定角色"]["name"],
         "type": type_name,
         "style": style,
         "mode": mode,
         "scene": scene,
     }
+    if story_text is not None:
+        result["story_text"] = story_text
+    if story_type is not None:
+        result["story_type"] = story_type
+    if frame_num is not None:
+        result["frame_num"] = frame_num
+    return result
 
 
 def prepare_cat_metadata(breed, style, theme):
@@ -347,16 +455,23 @@ def prepare_cat_metadata(breed, style, theme):
 
 
 def make_meow_record(metadata, today, index, config, filename):
-    return {
+    record = {
         "name": metadata["name"],
         "type": metadata["type"],
         "date": today,
         "checkIn": today.replace("-", "") + f"-{index:02d}",
-        "title": metadata["scene"],
+        "title": metadata.get("scene", metadata.get("story_text", "")),
         "style": metadata["style"],
-        "mode": metadata["mode"],
+        "mode": metadata.get("mode", ""),
         "img": meow_img_path(config, today, filename),
     }
+    if metadata.get("story_text"):
+        record["story_text"] = metadata["story_text"]
+    if metadata.get("story_type"):
+        record["story_type"] = metadata["story_type"]
+    if metadata.get("frame_num"):
+        record["frame_num"] = metadata["frame_num"]
+    return record
 
 
 def make_cat_record(metadata, today, index, config, filename):
@@ -587,6 +702,7 @@ def parse_size(value):
 
 
 def main(config):
+    setup_variables()  # 初始化需要 PROJECT_DIR 的變數
     today = get_today()
     init_log_file(today)
 
@@ -602,7 +718,7 @@ def main(config):
     log(f"ComfyUI: {'✓ 在線' if comfyui_online else '✗ 離線'}")
 
     log("\n--- 步驟 2: 取得風格 ---")
-    styles = get_next_styles(7)
+    styles = get_next_styles(9)  # 4 story + 1 single + 4 diverse = 9張圖
     log(f"風格 ({len(styles)}): {styles}")
 
     # 建立配送項目：三種配送
@@ -616,8 +732,8 @@ def main(config):
     story_type = get_next_story_type()
     log(f"  今日故事類型: {story_type}")
     
-    # 生成故事
-    story_text = generate_story_from_vocab()
+    # 生成故事（使用 MiniMax Chat API）
+    story_text = generate_story_via_minimax(story_type)
     story_frames = split_story_to_frames(story_text)
     log(f"  故事內容: {story_text}")
     log(f"  分鏡數: {len(story_frames)}")
@@ -688,7 +804,7 @@ def main(config):
         return
 
     log("\n--- 步驟 6: Git Commit ---")
-    run_cmd(f"cd {PROJECT_DIR} && git add cats/cats.json cats/ vocabulary/meow-style-rotation.json vocabulary/story-type-tracker.json/meow-style-rotation.json cats/daily-meow-delivery.py")
+    run_cmd(f"cd {PROJECT_DIR} && git add cats-images/cats.json cats-images/ vocabulary/meow-style-rotation.json vocabulary/story-type-tracker.json cats-images/daily-meow-delivery.py")
     run_cmd(f'cd {PROJECT_DIR} && git commit -m "新增 {today} 喵時光"')
     run_cmd(f"cd {PROJECT_DIR} && git push")
     log("Git push 完成")
