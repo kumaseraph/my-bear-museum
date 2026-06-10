@@ -220,9 +220,7 @@
 
         .character-card-image {
             width: 100%;
-            aspect-ratio: 1;
             border-radius: 18px;
-            object-fit: cover;
             margin-bottom: 12px;
             background: var(--color-bg);
             background-size: cover;
@@ -231,6 +229,23 @@
             align-items: center;
             justify-content: center;
             font-size: 3rem;
+            cursor: pointer;
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        /* 4-grid card: 16:9 ratio */
+        .character-card.card-4grid .character-card-image {
+            aspect-ratio: 16/9;
+        }
+
+        /* Single card: 1:1 ratio */
+        .character-card.card-single .character-card-image {
+            aspect-ratio: 1;
+        }
+
+        .character-card:hover .character-card-image {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-medium);
         }
 
         .character-card-title {
@@ -638,9 +653,10 @@
             width: 100%;
             aspect-ratio: 1;
             border-radius: 18px;
-            object-fit: cover;
             margin-bottom: 20px;
             background: var(--color-bg);
+            background-size: cover;
+            background-position: center;
         }
 
         .modal-info {
@@ -816,16 +832,16 @@
             <h2 class="section-title">橘貓妹妹「喵喵公主」的日常</h2>
             <div class="fixed-character-grid" id="fixedCharacterGrid">
                 <!-- 4-Grid Comic Card -->
-                <div class="hand-drawn-card character-card" data-index="0" onclick="openModal(0)">
-                    <div class="character-card-image" id="card4grid" style="background-image: url('${sampleData.fixedCharacters[0].image}');">
+                <div class="hand-drawn-card character-card card-4grid" data-index="0">
+                    <div class="character-card-image" id="card4grid">
                     </div>
                     <h3 class="character-card-title">4格條漫</h3>
                     <p class="character-card-desc">喵喵公主的生活小故事</p>
                 </div>
-                
+
                 <!-- Single Illustration Card -->
-                <div class="hand-drawn-card character-card" data-index="1" onclick="openModal(1)">
-                    <div class="character-card-image" id="cardSingle" style="background-image: url('${sampleData.fixedCharacters[1].image}');">
+                <div class="hand-drawn-card character-card card-single" data-index="1">
+                    <div class="character-card-image" id="cardSingle">
                     </div>
                     <h3 class="character-card-title">單格插圖</h3>
                     <p class="character-card-desc">今天的心情與情境</p>
@@ -886,7 +902,7 @@
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content" id="modalContent">
             <button class="modal-close" id="modalClose" aria-label="關閉">✕</button>
-            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-image" id="modalImage"></div>
             <div class="modal-info">
                 <h3 class="modal-title" id="modalTitle">標題</h3>
                 <div class="modal-meta" id="modalMeta">
@@ -993,53 +1009,40 @@
         // Make openModal global for onclick handlers
         window.openModal = (index) => Modal.open(index);
 
-        // ===== Sample Data =====
-        const sampleData = {
-            fixedCharacters: [
-                {
-                    type: '4grid',
-                    title: '喵喵公主的早餐時間',
-                    desc: '今天任性了一把，一定要吃兩份小魚乾！',
-                    image: 'cats/2026-06-10/miaomiao_4grid_20260610_01.jpg',
-                    breed: '橘貓妹妹',
-                    theme: '生活日常',
-                    style: '童趣蠟筆風',
-                    date: '2026.06.10'
-                },
-                {
-                    type: 'single',
-                    title: '午後的陽光 Yoga',
-                    desc: '在窗台邊做伸展，陽光剛好落在毛茸茸的肚子上',
-                    image: 'cats/2026-06-10/miaomiao_single_20260610_01.jpg',
-                    breed: '橘貓妹妹',
-                    theme: '午後時光',
-                    style: '薄霧水彩',
-                    date: '2026.06.10'
-                }
-            ],
-            carouselItems: [
-                { image: 'cats/2026-06-10/cat_油畫_20260610_01.jpg', title: '英短小幫手', breed: '英國短毛貓', theme: '美食', style: '油畫' },
-                { image: 'cats/2026-06-10/cat_黏土_20260610_01.jpg', title: '布偶貓的午後', breed: '布偶貓', theme: '午後時光', style: '黏土陶藝風' },
-                { image: 'cats/2026-06-10/cat_水墨_20260610_01.jpg', title: '神秘黑貓', breed: '黑貓', theme: '神秘禮物', style: '水墨風' },
-                { image: 'cats/2026-06-10/cat_和風_20260610_01.jpg', title: '三花貓的派對', breed: '三花貓', theme: '派對', style: '和風浮世繪' },
-                { image: 'cats/2026-06-10/cat_復古童話_20260610_01.jpg', title: '橘貓的午後', breed: '橘貓', theme: '午後時光', style: '復古童話' }
-            ],
-            calendarData: {
-                '2026-06-01': true,
-                '2026-06-02': true,
-                '2026-06-05': true,
-                '2026-06-06': true,
-                '2026-06-08': true,
-                '2026-06-09': true,
-                '2026-06-10': true,
-                '2026-06-12': true,
-                '2026-06-15': true,
-                '2026-06-18': true,
-                '2026-06-20': true,
-                '2026-06-22': true,
-                '2026-06-25': true
+        // ===== Data Loading =====
+        let catsData = { cats: [], last_updated: '' };
+
+        async function loadCatsData() {
+            try {
+                const response = await fetch('cats/cats.json');
+                catsData = await response.json();
+            } catch (e) {
+                console.warn('無法載入 cats.json，使用範例資料');
             }
-        };
+        }
+
+        function getFixedCharacters() {
+            return catsData.cats.filter(c => c.type === '4grid' || c.type === 'single');
+        }
+
+        function getCarouselItems() {
+            return catsData.cats.filter(c => c.type !== '4grid' && c.type !== 'single');
+        }
+
+        function getCalendarData() {
+            const data = {};
+            catsData.cats.forEach(cat => {
+                if (cat.date) {
+                    data[cat.date] = true;
+                }
+            });
+            return data;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            return dateStr.replace(/-/g, '.');
+        }
 
         // ===== All images for modal navigation =====
         let allImages = [];
@@ -1047,38 +1050,38 @@
         // ===== Carousel Management =====
         const Carousel = {
             currentIndex: 0,
-            autoplayInterval: null,
-            
+
             init() {
                 this.render();
                 this.setupEventListeners();
-                this.startAutoplay();
+                // Autoplay disabled - user controls carousel manually
             },
             
             render() {
                 const track = document.getElementById('carouselTrack');
                 const indicators = document.getElementById('carouselIndicators');
-                
-                track.innerHTML = sampleData.carouselItems.map((item, index) => `
+                const carouselItems = getCarouselItems();
+
+                track.innerHTML = carouselItems.map((item, index) => `
                     <div class="carousel-item">
                         <div class="hand-drawn-card carousel-card" data-carousel-index="${index}">
-                            <div class="carousel-card-image" style="background-image: url('${item.image}');">
+                            <div class="carousel-card-image" style="background-image: url('${item.img}');">
                             </div>
                             <div class="carousel-card-meta">
                                 ${item.title}<br>
-                                <span style="font-size: 0.65rem;">${item.theme} · ${item.style}</span>
+                                <span style="font-size: 0.65rem;">${item.title} · ${item.style}</span>
                             </div>
                         </div>
                     </div>
                 `).join('');
-                
-                indicators.innerHTML = sampleData.carouselItems.map((_, index) => `
+
+                indicators.innerHTML = carouselItems.map((_, index) => `
                     <span class="indicator ${index === 0 ? 'active' : ''}" data-indicator-index="${index}">
                         ${index === 0 ? '♥' : '♡'}
                     </span>
                 `).join('');
-                
-                allImages = [...sampleData.fixedCharacters, ...sampleData.carouselItems];
+
+                allImages = [...getFixedCharacters(), ...carouselItems];
             },
             
             setupEventListeners() {
@@ -1134,22 +1137,6 @@
                     ind.classList.toggle('active', i === this.currentIndex);
                     ind.textContent = i === this.currentIndex ? '♥' : '♡';
                 });
-            },
-            
-            startAutoplay() {
-                this.autoplayInterval = setInterval(() => {
-                    const items = document.querySelectorAll('.carousel-item');
-                    if (items.length === 0) return;
-                    
-                    this.currentIndex = (this.currentIndex + 1) % items.length;
-                    this.scrollToCurrent();
-                }, 5000);
-            },
-            
-            stopAutoplay() {
-                if (this.autoplayInterval) {
-                    clearInterval(this.autoplayInterval);
-                }
             }
         };
 
@@ -1191,7 +1178,7 @@
                 // Days
                 for (let day = 1; day <= daysInMonth; day++) {
                     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                    const hasContent = sampleData.calendarData[dateStr];
+                    const hasContent = getCalendarData()[dateStr];
                     const isToday = today.getFullYear() === year && 
                                     today.getMonth() === month && 
                                     today.getDate() === day;
@@ -1233,21 +1220,30 @@
                     existingAccordion.classList.toggle('open');
                     return;
                 }
-                
+
+                // Get images for this date (filter by date in image path)
+                const dateFormatted = dateStr.replace(/-/g, '');
+                const dayImages = allImages.filter(item => item.img && item.img.includes(dateFormatted));
+
                 // Create new accordion
                 const accordion = document.createElement('div');
                 accordion.className = 'accordion-item';
                 accordion.dataset.date = dateStr;
+
+                const imagesHtml = dayImages.length > 0
+                    ? dayImages.map(item => `
+                        <div class="accordion-image" style="background-image: url('${item.img}'); background-size: cover; background-position: center; cursor: pointer;" data-image-index="${allImages.indexOf(item)}" onclick="openModal(${allImages.indexOf(item)})"></div>
+                    `).join('')
+                    : '<div class="accordion-image card-placeholder" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🐱</div>';
+
                 accordion.innerHTML = `
                     <div class="accordion-header">
-                        <span>${dateStr} 的內容</span>
+                        <span>${dateStr} 的內容 ${dayImages.length > 0 ? `(${dayImages.length}張)` : ''}</span>
                         <span class="accordion-arrow">▼</span>
                     </div>
                     <div class="accordion-content">
                         <div class="accordion-inner">
-                            <div class="accordion-image card-placeholder" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🐱</div>
-                            <div class="accordion-image card-placeholder" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🐱</div>
-                            <div class="accordion-image card-placeholder" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🐱</div>
+                            ${imagesHtml}
                         </div>
                     </div>
                 `;
@@ -1324,29 +1320,27 @@
             
             updateContent() {
                 const item = allImages[this.currentIndex];
-                const isFixed = this.currentIndex < 2;
-                
-                // Set image placeholder
+
+                // Set image using background-image
                 const modalImage = document.getElementById('modalImage');
-                modalImage.innerHTML = isFixed 
-                    ? `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--color-bg);border-radius:18px;">🎨</div>`
-                    : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--color-bg);border-radius:18px;">🐱</div>`;
-                
+                modalImage.style.backgroundImage = `url('${item.img}')`;
+
                 // Set title
                 document.getElementById('modalTitle').textContent = item.title;
-                
+
                 // Set meta
                 const metaEl = document.getElementById('modalMeta');
+                const breedOrMode = item.breed || (item.mode ? '🐱 ' + item.mode : '');
                 metaEl.innerHTML = `
-                    <span class="modal-meta-item">${item.breed}</span>
-                    <span class="modal-meta-item">${item.theme}</span>
+                    ${breedOrMode ? `<span class="modal-meta-item">${breedOrMode}</span>` : ''}
+                    <span class="modal-meta-item">${item.title}</span>
                     <span class="modal-meta-item">${item.style}</span>
                 `;
-                
+
                 // Set date
-                const dateStr = item.date || '2026.06.10';
+                const dateStr = formatDate(item.date) || '2026.06.10';
                 document.getElementById('modalDate').innerHTML = `🌙 ${dateStr}`;
-                
+
                 // Update nav buttons
                 document.getElementById('modalPrevBtn').disabled = this.currentIndex === 0;
                 document.getElementById('modalNextBtn').disabled = this.currentIndex === allImages.length - 1;
@@ -1357,6 +1351,18 @@
         function setupFixedCharacterCards() {
             // Sync allImages to Modal for consistent access
             Modal.allImages = allImages;
+
+            // Set background images for fixed character cards
+            getFixedCharacters().forEach((item, index) => {
+                const card = document.querySelector(`.character-card[data-index="${index}"]`);
+                if (card) {
+                    const imageEl = card.querySelector('.character-card-image');
+                    if (imageEl) {
+                        imageEl.style.backgroundImage = `url('${item.img}')`;
+                    }
+                }
+            });
+
             document.querySelectorAll('.character-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const index = parseInt(card.dataset.index);
@@ -1366,8 +1372,9 @@
         }
 
         // ===== Initialize =====
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             ThemeManager.init();
+            await loadCatsData();
             Carousel.init();
             Calendar.init();
             Modal.init();

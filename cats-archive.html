@@ -3,52 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 喵喵公主的歷史相簿 - 喵時光</title>
+    <title>📚喵時光存檔 - 橘貓妹妹的療癒圖庫</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <meta name="description" content="📚 喵喵公主的歷史相簿 - 收藏所有橘貓妹妹的療癒時刻">
-    <meta name="theme-color" content="#FF8C42">
-    
+    <meta name="description" content="📚 喵時光圖片存檔 - 橘貓妹妹「喵喵公主」的完整歷史圖庫">
+    <meta property="og:title" content="📚 喵時光存檔">
+    <meta property="og:description" content="橘貓妹妹的完整歷史圖庫">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#a1887f">
+
     <!-- Nav Component -->
     <script src="/components/nav-component.js"></script>
-    
+
     <style>
-        /* ===== CSS Variables - Light Theme (Default) ===== */
+        /* ===== CSS Variables - Light Theme ===== */
         :root {
             --color-bg: #FFF8F0;
             --color-card: #FFFAF5;
-            --color-primary: #FF8C42;
+            --color-primary: #a1887f;
             --color-secondary: #C4A77D;
             --color-accent: #A8D8C8;
             --color-text: #3D2B1F;
             --color-text-muted: #8B7355;
-            --color-border: #E07028;
-            
+            --color-border: #8d7060;
+
             --shadow-soft: 0 4px 18px rgba(61, 43, 31, 0.08);
             --shadow-medium: 0 6px 20px rgba(61, 43, 31, 0.12);
             --shadow-card: 0 4px 12px rgba(61, 43, 31, 0.06);
-            
+
             --transition-fast: 0.2s ease;
             --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease-in-out;
         }
 
-        [data-theme="dark"] {
-            --color-bg: #2D2A26;
-            --color-card: #3D3832;
-            --color-primary: #FF8C42;
-            --color-secondary: #A89078;
-            --color-accent: #8CBAA8;
-            --color-text: #F5EDE6;
-            --color-text-muted: #B8A898;
-            --color-border: #D06020;
-            
-            --shadow-soft: 0 4px 18px rgba(0, 0, 0, 0.2);
-            --shadow-medium: 0 6px 20px rgba(0, 0, 0, 0.25);
-            --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.15);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Noto Sans TC', 'Inter', 'Segoe UI', 'Microsoft JhengHei', sans-serif;
@@ -64,32 +57,448 @@
             padding: 0 20px;
         }
 
-        /* Header */
+        /* ===== Header Section ===== */
         .header-section {
             text-align: center;
-            padding: 60px 20px 30px;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+
+        .header-decoration {
+            font-size: 1.2rem;
+            color: var(--color-secondary);
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            opacity: 0.7;
         }
 
         .header-title {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: var(--color-primary);
             margin-bottom: 10px;
+            text-shadow: 2px 2px 0 rgba(161, 136, 127, 0.2);
         }
 
         .header-subtitle {
             font-size: 1rem;
             color: var(--color-text-muted);
+            letter-spacing: 2px;
         }
 
-        /* Theme Toggle */
-        .theme-toggle-btn {
+        .header-wave {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 8px;
+            color: var(--color-secondary);
+            opacity: 0.5;
+        }
+
+        .header-wave span {
+            animation: wave 1.5s ease-in-out infinite;
+        }
+
+        .header-wave span:nth-child(2) { animation-delay: 0.1s; }
+        .header-wave span:nth-child(3) { animation-delay: 0.2s; }
+        .header-wave span:nth-child(4) { animation-delay: 0.3s; }
+        .header-wave span:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* ===== Back Button ===== */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border: 2px solid var(--color-border);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--color-primary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            margin-bottom: 30px;
+        }
+
+        .back-link:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ===== Section ===== */
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '~';
+            color: var(--color-secondary);
+        }
+
+        /* ===== Calendar ===== */
+        .calendar-section {
+            background: var(--color-card);
+            border: 2px solid var(--color-border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+            margin-bottom: 40px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--color-secondary);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--color-primary);
+            transition: all var(--transition-fast);
+        }
+
+        .calendar-nav-btn:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .calendar-month {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .calendar-weekday {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            padding: 8px 0;
+            font-weight: 500;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            position: relative;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .calendar-day:hover {
+            background: var(--color-bg);
+            border-color: var(--color-secondary);
+        }
+
+        .calendar-day.has-content {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .calendar-day.has-content::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 4px;
+        }
+
+        .calendar-day.today {
+            border: 2px solid var(--color-primary);
+            font-weight: 600;
+        }
+
+        .calendar-day.empty {
+            cursor: default;
+        }
+
+        /* ===== Date Accordion ===== */
+        .date-accordion {
+            margin-top: 15px;
+            border: 1px solid var(--color-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .date-accordion-header {
+            padding: 15px 20px;
+            background: var(--color-bg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1rem;
+            transition: background var(--transition-fast);
+        }
+
+        .date-accordion-header:hover {
+            background: var(--color-card);
+        }
+
+        .date-accordion-arrow {
+            transition: transform var(--transition-fast);
+            color: var(--color-primary);
+        }
+
+        .date-accordion.open .date-accordion-arrow {
+            transform: rotate(180deg);
+        }
+
+        .date-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-normal);
+        }
+
+        .date-accordion.open .date-accordion-content {
+            max-height: 2000px;
+        }
+
+        .date-accordion-inner {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        /* ===== Image Card ===== */
+        .archive-card {
+            background: var(--color-card);
+            border: 2px solid var(--color-border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .archive-card:hover {
+            transform: translateY(-4px) rotate(1deg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .archive-card-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--color-bg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .archive-card-info {
+            padding: 12px;
+        }
+
+        .archive-card-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-text);
+            margin-bottom: 5px;
+        }
+
+        .archive-card-meta {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .archive-card-meta span {
+            background: var(--color-bg);
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        /* ===== Stamp Style Date ===== */
+        .stamp-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--color-primary);
+            transform: rotate(-2deg);
+            opacity: 0.8;
+        }
+
+        /* ===== Modal ===== */
+        .modal-overlay {
+            display: none;
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            width: 48px;
-            height: 48px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 248, 240, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-card);
+            border: 3px solid var(--color-border);
+            border-radius: 24px;
+            padding: 25px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalPop 0.3s ease-out;
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--color-border);
+            background: var(--color-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--color-text);
+            transition: all var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            background: var(--color-bg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .modal-info {
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 10px;
+        }
+
+        .modal-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .modal-meta-item {
+            padding: 5px 12px;
+            background: var(--color-bg);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .modal-date {
+            font-size: 1rem;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .modal-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .modal-nav-btn {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: 2px solid var(--color-border);
             background: var(--color-card);
@@ -98,131 +507,22 @@
             align-items: center;
             justify-content: center;
             font-size: 1.3rem;
-            transition: all var(--transition-fast);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .theme-toggle-btn:hover {
-            transform: scale(1.1) rotate(10deg);
-        }
-
-        /* Filters */
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin-bottom: 30px;
-            padding: 0 20px;
-        }
-
-        .filter-select {
-            padding: 10px 15px;
-            border: 2px solid var(--color-secondary);
-            border-radius: 20px;
-            background: var(--color-card);
-            color: var(--color-text);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            min-width: 120px;
-        }
-
-        .filter-select:hover, .filter-select:focus {
-            border-color: var(--color-primary);
-            outline: none;
-        }
-
-        /* Gallery Grid */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            padding: 0 20px;
-        }
-
-        .gallery-item {
-            aspect-ratio: 1;
-            background: var(--color-card);
-            border: 2px solid var(--color-border);
-            border-radius: 18px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            box-shadow: var(--shadow-card);
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-4px) rotate(1deg);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .gallery-item-image {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            background: var(--color-bg);
-        }
-
-        .gallery-item-meta {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 8px;
-            background: rgba(255, 248, 240, 0.9);
-            font-size: 0.65rem;
-            color: var(--color-text-muted);
-            text-align: center;
-        }
-
-        /* Load More Button */
-        .load-more-container {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .load-more-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 30px;
-            border: 2px solid var(--color-border);
-            border-radius: 25px;
-            background: var(--color-card);
             color: var(--color-primary);
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
             transition: all var(--transition-fast);
         }
 
-        .load-more-btn:hover {
+        .modal-nav-btn:hover:not(:disabled) {
             background: var(--color-primary);
             color: white;
-            transform: translateY(-2px);
+            transform: scale(1.1);
         }
 
-        /* Back Link */
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin: 20px 20px;
-            color: var(--color-primary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all var(--transition-fast);
+        .modal-nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
         }
 
-        .back-link:hover {
-            transform: translateX(-5px);
-        }
-
-        /* Footer */
+        /* ===== Footer ===== */
         .footer {
             text-align: center;
             padding: 40px 20px;
@@ -236,50 +536,46 @@
             opacity: 0.5;
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .gallery-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+        /* ===== Loading ===== */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--color-text-muted);
         }
 
+        .loading-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: wave 1.5s ease-in-out infinite;
+        }
+
+        /* ===== Responsive ===== */
         @media (max-width: 768px) {
             .header-title {
-                font-size: 1.6rem;
+                font-size: 2rem;
             }
 
-            .gallery-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 15px;
+            .calendar-day {
+                font-size: 0.8rem;
             }
 
-            .filters {
-                gap: 8px;
-            }
-
-            .filter-select {
-                padding: 8px 12px;
-                font-size: 0.85rem;
-                min-width: 100px;
+            .date-accordion-inner {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
         }
 
         @media (max-width: 480px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
+            .header-section {
+                padding: 50px 15px 30px;
             }
 
-            .theme-toggle-btn {
-                width: 42px;
-                height: 42px;
-                font-size: 1.1rem;
+            .header-title {
+                font-size: 1.8rem;
             }
-        }
 
-        :root, [data-theme="dark"] {
-            transition: background-color var(--transition-normal), 
-                        color var(--transition-normal);
+            .date-accordion-inner {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -287,153 +583,349 @@
     <!-- Navigation -->
     <nav-bar></nav-bar>
 
-    <!-- Theme Toggle -->
-    <button class="theme-toggle-btn" id="themeToggle" aria-label="切換深色模式">🌙</button>
-
     <!-- Main Content -->
     <main class="page-container">
-        <a href="cats.html" class="back-link">← 返回喵時光</a>
-
+        <!-- Header Section -->
         <header class="header-section">
-            <h1 class="header-title">📚 喵喵公主的歷史相簿</h1>
-            <p class="header-subtitle">收藏每一個療癒時刻</p>
+            <div class="header-decoration">~~~~~~~~</div>
+            <h1 class="header-title">📚 喵時光存檔</h1>
+            <p class="header-subtitle">橘貓妹妹的完整歷史圖庫</p>
+            <div class="header-wave">
+                <span>~</span><span>~</span><span>~</span><span>~</span><span>~</span>
+            </div>
         </header>
 
-        <!-- Filters -->
-        <div class="filters">
-            <select class="filter-select" id="filterMonth">
-                <option value="">月份</option>
-                <option value="2026-06">2026年6月</option>
-                <option value="2026-05">2026年5月</option>
-                <option value="2026-04">2026年4月</option>
-            </select>
-            <select class="filter-select" id="filterTheme">
-                <option value="">主題</option>
-                <option value="美食">美食</option>
-                <option value="冒險">冒險</option>
-                <option value="戀愛">戀愛</option>
-                <option value="節日">節日</option>
-                <option value="派對">派對</option>
-                <option value="午後時光">午後時光</option>
-            </select>
-            <select class="filter-select" id="filterStyle">
-                <option value="">風格</option>
-                <option value="童趣蠟筆風">童趣蠟筆風</option>
-                <option value="薄霧水彩">薄霧水彩</option>
-                <option value="紙雕">紙雕</option>
-                <option value="昭和貓咪風">昭和貓咪風</option>
-                <option value="浮世貓風">浮世貓風</option>
-            </select>
-            <select class="filter-select" id="filterBreed">
-                <option value="">品種</option>
-                <option value="橘貓">橘貓</option>
-                <option value="英短">英國短毛貓</option>
-                <option value="布偶">布偶貓</option>
-                <option value="三花">三花貓</option>
-                <option value="黑貓">黑貓</option>
-            </select>
+        <!-- Back Link -->
+        <div style="text-align: center;">
+            <a href="cats.html" class="back-link">
+                ← 返回今日
+            </a>
         </div>
 
-        <!-- Gallery Grid -->
-        <div class="gallery-grid" id="galleryGrid">
-            <!-- Gallery items will be dynamically generated -->
+        <!-- Loading State -->
+        <div class="loading" id="loadingState">
+            <div class="loading-icon">🐱</div>
+            <p>載入中...</p>
         </div>
 
-        <!-- Load More -->
-        <div class="load-more-container">
-            <button class="load-more-btn" id="loadMoreBtn">
-                載入更多
-            </button>
+        <!-- Archive Content -->
+        <div id="archiveContent" style="display: none;">
+            <!-- Calendar Section -->
+            <section class="section">
+                <h2 class="section-title">📅 月曆總覽</h2>
+                <div class="calendar-section">
+                    <div class="calendar-nav">
+                        <button class="calendar-nav-btn" id="prevMonth" aria-label="上個月">◀</button>
+                        <div class="calendar-month" id="currentMonth">
+                            <span>🌙</span>
+                            <span>2026年六月</span>
+                            <span>🌙</span>
+                        </div>
+                        <button class="calendar-nav-btn" id="nextMonth" aria-label="下個月">▶</button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be dynamically generated -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- All Images Section -->
+            <section class="section">
+                <h2 class="section-title">🖼️ 全部圖庫</h2>
+                <div id="allImagesGrid">
+                    <!-- Images will be dynamically generated -->
+                </div>
+            </section>
         </div>
 
+        <!-- Footer -->
         <footer class="footer">
             <div class="footer-decoration">~~~~~~~~</div>
             <p>© 2026 熊熊博物館 · 每日更新</p>
         </footer>
     </main>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content" id="modalContent">
+            <button class="modal-close" id="modalClose" aria-label="關閉">✕</button>
+            <div class="modal-image" id="modalImage"></div>
+            <div class="modal-info">
+                <h3 class="modal-title" id="modalTitle">標題</h3>
+                <div class="modal-meta" id="modalMeta">
+                    <!-- Meta items will be dynamically generated -->
+                </div>
+                <div class="modal-date" id="modalDate">
+                    🌙 2026.06.10
+                </div>
+            </div>
+            <div class="modal-nav">
+                <button class="modal-nav-btn" id="modalPrevBtn" aria-label="上一張">←</button>
+                <button class="modal-nav-btn" id="modalNextBtn" aria-label="下一張">→</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ===== Theme Management =====
-        const ThemeManager = {
-            STORAGE_KEY: 'cats-theme',
-            
-            init() {
-                const saved = localStorage.getItem(this.STORAGE_KEY);
-                if (saved === 'dark') {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                    document.getElementById('themeToggle').textContent = '☀️';
-                } else {
-                    document.getElementById('themeToggle').textContent = '🌙';
+        // ===== Data =====
+        let catsData = { cats: [], last_updated: '' };
+        let allImages = [];
+
+        async function loadCatsData() {
+            try {
+                const response = await fetch('cats/cats.json');
+                catsData = await response.json();
+            } catch (e) {
+                console.warn('無法載入 cats.json');
+            }
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            return dateStr.replace(/-/g, '.');
+        }
+
+        function getAllDates() {
+            const dates = {};
+            catsData.cats.forEach(cat => {
+                if (cat.date) {
+                    if (!dates[cat.date]) {
+                        dates[cat.date] = [];
+                    }
+                    dates[cat.date].push(cat);
                 }
-                
-                document.getElementById('themeToggle').addEventListener('click', () => this.toggle());
+            });
+            return dates;
+        }
+
+        // ===== Modal =====
+        const Modal = {
+            currentIndex: 0,
+
+            open(index) {
+                this.currentIndex = index;
+                this.updateContent();
+                document.getElementById('modalOverlay').classList.add('active');
+                document.body.style.overflow = 'hidden';
             },
-            
-            toggle() {
-                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-                if (isDark) {
-                    document.documentElement.removeAttribute('data-theme');
-                    localStorage.setItem(this.STORAGE_KEY, 'light');
-                    document.getElementById('themeToggle').textContent = '🌙';
-                } else {
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                    localStorage.setItem(this.STORAGE_KEY, 'dark');
-                    document.getElementById('themeToggle').textContent = '☀️';
+
+            close() {
+                document.getElementById('modalOverlay').classList.remove('active');
+                document.body.style.overflow = '';
+            },
+
+            prev() {
+                if (this.currentIndex > 0) {
+                    this.currentIndex--;
+                    this.updateContent();
                 }
+            },
+
+            next() {
+                if (this.currentIndex < allImages.length - 1) {
+                    this.currentIndex++;
+                    this.updateContent();
+                }
+            },
+
+            updateContent() {
+                const item = allImages[this.currentIndex];
+                if (!item) return;
+
+                const modalImage = document.getElementById('modalImage');
+                modalImage.style.backgroundImage = `url('${item.img}')`;
+
+                document.getElementById('modalTitle').textContent = item.title || item.name;
+
+                const metaEl = document.getElementById('modalMeta');
+                const breedOrMode = item.breed || (item.mode ? '🐱 ' + item.mode : '');
+                metaEl.innerHTML = `
+                    ${breedOrMode ? `<span class="modal-meta-item">${breedOrMode}</span>` : ''}
+                    <span class="modal-meta-item">${item.style}</span>
+                `;
+
+                document.getElementById('modalDate').innerHTML = `🌙 ${formatDate(item.date)}`;
+
+                document.getElementById('modalPrevBtn').disabled = this.currentIndex === 0;
+                document.getElementById('modalNextBtn').disabled = this.currentIndex === allImages.length - 1;
+            },
+
+            init() {
+                document.getElementById('modalClose').addEventListener('click', () => this.close());
+                document.getElementById('modalOverlay').addEventListener('click', (e) => {
+                    if (e.target === document.getElementById('modalOverlay')) this.close();
+                });
+                document.getElementById('modalPrevBtn').addEventListener('click', () => this.prev());
+                document.getElementById('modalNextBtn').addEventListener('click', () => this.next());
+                document.addEventListener('keydown', (e) => {
+                    if (!document.getElementById('modalOverlay').classList.contains('active')) return;
+                    if (e.key === 'Escape') this.close();
+                    if (e.key === 'ArrowLeft') this.prev();
+                    if (e.key === 'ArrowRight') this.next();
+                });
             }
         };
 
-        // ===== Sample Gallery Data =====
-        const galleryData = [
-            { title: '喵喵公主的早餐', breed: '橘貓', theme: '美食', style: '童趣蠟筆風', date: '2026-06-10' },
-            { title: '午後的陽光 Yoga', breed: '橘貓', theme: '午後時光', style: '薄霧水彩', date: '2026-06-10' },
-            { title: '英短小幫手', breed: '英短', theme: '美食', style: '紙雕', date: '2026-06-09' },
-            { title: '布偶貓的午後', breed: '布偶', theme: '午後時光', style: '昭和貓咪風', date: '2026-06-09' },
-            { title: '神秘黑貓', breed: '黑貓', theme: '神秘禮物', style: '浮世貓風', date: '2026-06-08' },
-            { title: '三花貓的派對', breed: '三花', theme: '派對', style: '漫畫網點', date: '2026-06-08' },
-            { title: '曼赤肯的冒險', breed: '曼赤肯', theme: '冒險', style: '黏土陶藝風', date: '2026-06-07' },
-            { title: '波斯貴族', breed: '波斯', theme: '森林', style: '油畫', date: '2026-06-07' },
-            { title: '暹羅優雅', breed: '暹羅', theme: '戀愛', style: '水墨風', date: '2026-06-06' },
-            { title: '白貓的雨天的', breed: '白貓', theme: '雨天', style: '復古童話', date: '2026-06-06' },
-            { title: '米克斯的禮物', breed: '米克斯', theme: '節日', style: '織品', date: '2026-06-05' },
-            { title: '俄羅斯藍的星空', breed: '俄羅斯藍', theme: '神秘禮物', style: '和風浮世繪', date: '2026-06-05' },
-            { title: '豹貓的叢林', breed: '孟加拉豹貓', theme: '冒險', style: '紙雕', date: '2026-06-04' },
-            { title: '摺耳貓的午後', breed: '蘇格蘭摺耳', theme: '午後時光', style: '昭和貓咪風', date: '2026-06-04' },
-            { title: '橘貓的派對', breed: '橘貓', theme: '派對', style: '童趣蠟筆風', date: '2026-06-03' },
-            { title: '英短的早餐', breed: '英短', theme: '美食', style: '薄霧水彩', date: '2026-06-03' },
-            { title: '黑貓的神秘', breed: '黑貓', theme: '神秘禮物', style: '浮世貓風', date: '2026-06-02' },
-            { title: '三花的工作日', breed: '三花', theme: '城市', style: '漫畫網點', date: '2026-06-02' },
-            { title: '布偶的雨天的', breed: '布偶', theme: '雨天', style: '黏土陶藝風', date: '2026-06-01' },
-            { title: '曼赤肯的滑雪', breed: '曼赤肯', theme: '冒險', style: '油畫', date: '2026-06-01' }
-        ];
+        window.openModal = (index) => Modal.open(index);
 
-        let displayedCount = 10;
+        // ===== Calendar =====
+        const Calendar = {
+            currentDate: new Date(),
 
-        // ===== Render Gallery =====
-        function renderGallery() {
-            const grid = document.getElementById('galleryGrid');
-            const items = galleryData.slice(0, displayedCount);
-            
-            grid.innerHTML = items.map((item, index) => `
-                <div class="gallery-item" data-index="${index}">
-                    <div class="gallery-item-image">🐱</div>
+            init() {
+                this.render();
+                this.setupEventListeners();
+            },
+
+            render() {
+                const grid = document.getElementById('calendarGrid');
+                const monthDisplay = document.getElementById('currentMonth');
+
+                const year = this.currentDate.getFullYear();
+                const month = this.currentDate.getMonth();
+
+                monthDisplay.innerHTML = `
+                    <span>🌙</span>
+                    <span>${year}年${month + 1}月</span>
+                    <span>🌙</span>
+                `;
+
+                const firstDay = new Date(year, month, 1).getDay() || 7;
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const today = new Date();
+
+                const datesByDate = getAllDates();
+
+                let html = ['一', '二', '三', '四', '五', '六', '日'].map(d =>
+                    `<div class="calendar-weekday">${d}</div>`
+                ).join('');
+
+                for (let i = 1; i < firstDay; i++) {
+                    html += '<div class="calendar-day empty"></div>';
+                }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    const hasContent = datesByDate[dateStr] && datesByDate[dateStr].length > 0;
+                    const isToday = today.getFullYear() === year &&
+                                    today.getMonth() === month &&
+                                    today.getDate() === day;
+
+                    html += `
+                        <div class="calendar-day ${hasContent ? 'has-content' : ''} ${isToday ? 'today' : ''}"
+                             data-date="${dateStr}">
+                            ${day}
+                        </div>
+                    `;
+                }
+
+                grid.innerHTML = html;
+            },
+
+            setupEventListeners() {
+                document.getElementById('prevMonth').addEventListener('click', () => {
+                    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+                    this.render();
+                });
+
+                document.getElementById('nextMonth').addEventListener('click', () => {
+                    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+                    this.render();
+                });
+
+                document.getElementById('calendarGrid').addEventListener('click', (e) => {
+                    const dayEl = e.target.closest('.calendar-day:not(.empty)');
+                    if (dayEl && dayEl.classList.contains('has-content')) {
+                        this.showDayContent(dayEl.dataset.date);
+                    }
+                });
+            },
+
+            showDayContent(dateStr) {
+                const existingAccordion = document.querySelector(`.date-accordion[data-date="${dateStr}"]`);
+                if (existingAccordion) {
+                    existingAccordion.classList.toggle('open');
+                    existingAccordion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    return;
+                }
+
+                const datesByDate = getAllDates();
+                const dayImages = datesByDate[dateStr] || [];
+
+                const accordion = document.createElement('div');
+                accordion.className = 'date-accordion open';
+                accordion.dataset.date = dateStr;
+
+                const imagesHtml = dayImages.map(item => `
+                    <div class="archive-card" onclick="openModal(${allImages.indexOf(item)})">
+                        <div class="archive-card-image" style="background-image: url('${item.img}');"></div>
+                        <div class="archive-card-info">
+                            <div class="archive-card-title">${item.title || item.name}</div>
+                            <div class="archive-card-meta">
+                                ${item.breed || (item.mode ? '🐱 ' + item.mode : '') ? `<span>${item.breed || '🐱 ' + item.mode}</span>` : ''}
+                                <span>${item.style}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                accordion.innerHTML = `
+                    <div class="date-accordion-header">
+                        <div>
+                            <span class="stamp-date">📅 ${dateStr}</span>
+                            <span style="margin-left: 10px;">${dayImages.length} 張圖片</span>
+                        </div>
+                        <span class="date-accordion-arrow">▼</span>
+                    </div>
+                    <div class="date-accordion-content">
+                        <div class="date-accordion-inner">
+                            ${imagesHtml}
+                        </div>
+                    </div>
+                `;
+
+                document.querySelectorAll('.date-accordion').forEach(a => a.remove());
+                document.querySelector('.calendar-section').appendChild(accordion);
+
+                accordion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        };
+
+        // ===== All Images Grid =====
+        function renderAllImages() {
+            const grid = document.getElementById('allImagesGrid');
+
+            const sortedCats = [...catsData.cats].sort((a, b) => {
+                return (b.date || '').localeCompare(a.date || '');
+            });
+
+            allImages = sortedCats;
+
+            grid.innerHTML = sortedCats.map((item, index) => `
+                <div class="archive-card" onclick="openModal(${index})">
+                    <div class="archive-card-image" style="background-image: url('${item.img}');"></div>
+                    <div class="archive-card-info">
+                        <div class="archive-card-title">${item.title || item.name}</div>
+                        <div class="archive-card-meta">
+                            ${item.breed || (item.mode ? '🐱 ' + item.mode : '') ? `<span>${item.breed || '🐱 ' + item.mode}</span>` : ''}
+                            <span>${item.style}</span>
+                            <span>${formatDate(item.date)}</span>
+                        </div>
+                    </div>
                 </div>
             `).join('');
         }
 
         // ===== Initialize =====
-        document.addEventListener('DOMContentLoaded', () => {
-            ThemeManager.init();
-            renderGallery();
-            
-            document.getElementById('loadMoreBtn').addEventListener('click', () => {
-                displayedCount = Math.min(galleryData.length, displayedCount + 10);
-                renderGallery();
-                
-                if (displayedCount >= galleryData.length) {
-                    document.getElementById('loadMoreBtn').style.display = 'none';
-                }
-            });
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadCatsData();
+
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('archiveContent').style.display = 'block';
+
+            Calendar.init();
+            Modal.init();
+            renderAllImages();
         });
     </script>
 </body>
