@@ -390,7 +390,7 @@ class NavBar extends HTMLElement {
 
           <div class="nav-group">
             <div class="group-label">🐱 貓貓系列</div>
-            <a href="cats.html" class="nav-link"><span class="icon">🐱</span>喵時光</a>
+            <a href="meow.html" class="nav-link"><span class="icon">🐱</span>喵時光</a>
           </div>
 
           <div class="nav-group">
