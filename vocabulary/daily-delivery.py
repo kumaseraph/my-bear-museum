@@ -236,8 +236,13 @@ def get_random_personality(style=None):
     return random.choice(templates)
 
 
-def bear_img_path(config, today, name):
-    rel = (config.dest_dir / today / f"{name}.png").relative_to(PROJECT_DIR)
+def bear_filename(collection_no, name):
+    """館藏圖片檔名：編號-名字.png，如 46-彩霞漫遊者.png"""
+    return f"{collection_no}-{name}.png"
+
+
+def bear_img_path(config, today, collection_no, name):
+    rel = (config.dest_dir / today / bear_filename(collection_no, name)).relative_to(PROJECT_DIR)
     return str(rel).replace("\\", "/")
 
 
@@ -274,7 +279,7 @@ def make_bear_record(metadata, today, collection_no, daily_index, config):
         "birthday": today,
         "personality": metadata["personality"],
         "quote": metadata["quote"],
-        "img": bear_img_path(config, today, metadata["name"]),
+        "img": bear_img_path(config, today, collection_no, metadata["name"]),
     }
 
 
@@ -488,12 +493,14 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
 
     generated = []
     slot = 0
+    collection_no = get_max_collection_no() + 1
 
     for i in range(config.comfy_count):
         name, style = bear_names[i], styles[i]
         metadata = prepare_bear_metadata(name, style)
+        filename = bear_filename(collection_no, name)
         log(
-            f"  metadata: title={metadata['title']}, series={metadata['series']}, "
+            f"  No.{collection_no} metadata: title={metadata['title']}, series={metadata['series']}, "
             f"personality={metadata['personality']}"
         )
         prompt = generate_prompt_via_minimax(
@@ -503,7 +510,7 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             metadata["personality"],
             metadata["title"],
         )
-        output = today_dir / f"{name}.png"
+        output = today_dir / filename
 
         ok = False
         if comfyui_online:
@@ -517,18 +524,22 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             generated.append({
                 "name": name,
                 "style": style,
+                "collection_no": collection_no,
+                "filename": filename,
                 "temp_path": output,
                 "source": "comfy_or_fallback",
                 "metadata": metadata,
                 "prompt": prompt,
             })
+            collection_no += 1
             slot += 1
 
     for i in range(config.comfy_count, config.total_count):
         name, style = bear_names[i], styles[i]
         metadata = prepare_bear_metadata(name, style)
+        filename = bear_filename(collection_no, name)
         log(
-            f"  metadata: title={metadata['title']}, series={metadata['series']}, "
+            f"  No.{collection_no} metadata: title={metadata['title']}, series={metadata['series']}, "
             f"personality={metadata['personality']}"
         )
         prompt = generate_prompt_via_minimax(
@@ -538,16 +549,19 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             metadata["personality"],
             metadata["title"],
         )
-        output = today_dir / f"{name}.png"
+        output = today_dir / filename
         if generate_minimax_image(prompt, name, style, output, slot, config):
             generated.append({
                 "name": name,
                 "style": style,
+                "collection_no": collection_no,
+                "filename": filename,
                 "temp_path": output,
                 "source": "minimax",
                 "metadata": metadata,
                 "prompt": prompt,
             })
+            collection_no += 1
             slot += 1
 
     log(f"共生成 {len(generated)} 張圖片於 {today_dir}")
@@ -560,16 +574,15 @@ def step_update_museum(generated, today, config):
     museum_dir.mkdir(parents=True, exist_ok=True)
 
     new_bears = []
-    collection_no = get_max_collection_no() + 1
 
     for item in generated:
-        dest = museum_dir / f"{item['name']}.png"
+        filename = item["filename"]
+        dest = museum_dir / filename
         shutil.copy2(item["temp_path"], dest)
-        log(f"已複製: {item['name']}.png → {dest}")
+        log(f"已複製: {filename} → {dest}")
         new_bears.append(make_bear_record(
-            item["metadata"], today, collection_no, len(new_bears) + 1, config
+            item["metadata"], today, item["collection_no"], len(new_bears) + 1, config
         ))
-        collection_no += 1
 
     if new_bears:
         add_bears_to_json(new_bears)
