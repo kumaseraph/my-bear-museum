@@ -1108,8 +1108,9 @@
             update() {
                 const item = this.allImages[this.currentIndex];
                 if (!item) return;
-                document.getElementById('modalImage').src = item.img;
-                document.getElementById('modalTitle').textContent = item.title;
+                const imgPath = item.img.startsWith('/') ? item.img : '/' + item.img;
+                document.getElementById('modalImage').src = imgPath;
+                document.getElementById('modalTitle').textContent = item.title || '';
                 document.getElementById('modalPrevBtn').disabled = this.currentIndex === 0;
                 document.getElementById('modalNextBtn').disabled = this.currentIndex === this.allImages.length - 1;
             },
