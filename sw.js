@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kuma-museum-v5';
+const CACHE_NAME = 'kuma-museum-v6';
 
 // Cloudflare Pages 對不存在的路徑會回 200 + index.html，不可當成圖片/JSON 快取
 function isImageRequest(request) {
