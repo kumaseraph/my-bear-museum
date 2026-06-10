@@ -5,12 +5,13 @@
 
 功能：
 1. 檢查新圖片（bears/YYYY-MM-DD/）
-2. 驗證圖片命名（{顏色}_{風格}_{日期}_{序號}.png）
-3. 複製到 my-bear-museum/bears/
-4. 更新 index.html（新增熊熊數據，使用詞彙庫命名）
-5. 更新版本號
-6. Git commit + push
-7. 部署到 Cloudflare Pages
+2. 自動將 JPG 圖片轉換為 PNG 格式
+3. 驗證圖片命名（{顏色}_{風格}_{日期}_{序號}.png）
+4. 複製到 my-bear-museum/bears/
+5. 更新 index.html（新增熊熊數據，使用詞彙庫命名）
+6. 更新版本號
+7. Git commit + push
+8. 部署到 Cloudflare Pages
 """
 
 import os
@@ -91,6 +92,40 @@ def get_next_version():
         minor = int(match.group(2)) + 1
         return f"{major}.{minor}"
     return "6.1"
+
+# ============== 步驟 0：JPG 轉 PNG ==============
+
+def convert_jpg_to_png(date_str):
+    """將 JPG 圖片轉換為 PNG 格式"""
+    img_dir = BEARS_DIR / date_str
+    
+    if not img_dir.exists():
+        return 0
+    
+    jpg_files = list(img_dir.glob("*.jpg")) + list(img_dir.glob("*.jpeg"))
+    
+    if not jpg_files:
+        return 0
+    
+    log(f"找到 {len(jpg_files)} 張 JPG 圖片需要轉換")
+    
+    #嘗試使用 PIL 轉換
+    try:
+        from PIL import Image
+        for jpg_file in jpg_files:
+            png_file = jpg_file.with_suffix('.png')
+            if png_file.exists():
+                log(f"PNG 已存在，跳過: {jpg_file.name}")
+                continue
+            img = Image.open(jpg_file)
+            img.save(png_file, 'PNG')
+            log(f"已轉換: {jpg_file.name} -> {png_file.name}")
+            jpg_file.unlink()  # 刪除原始 JPG
+        return len(jpg_files)
+    except ImportError:
+        log("⚠️  需要 Pillow 庫來轉換圖片格式")
+        log(" 執行: uv pip install pillow")
+        return 0
 
 # ============== 步驟 1-2：檢查並驗證圖片 ==============
 
@@ -281,6 +316,42 @@ def update_index_html(images, date_str, collection_start):
         bears.append(bear_json)
         log(f"新增熊熊: {bear_name} (No.{collection_start + i})")
     
+    if not bears:
+        return bears
+    
+    # 將新熊熊寫入 index.html
+    # 找到 bears 陣列的結尾（倒数第二个 ]之前）
+    lines = content.split('\n')
+    bears_end_idx = None
+    for i in range(len(lines) - 1, -1, -1):
+        if lines[i].strip() == '];':
+            bears_end_idx = i
+            break
+    
+    if bears_end_idx is None:
+        raise Exception("找不到 bears 陣列結尾")
+    
+    # 產生新的熊熊 JSON 文字
+    new_bears_text = []
+    for bear in bears:
+        new_bears_text.append('            {')
+        new_bears_text.append(f'                name: "{bear["name"]}",')
+        new_bears_text.append(f'                date: "{bear["date"]}",')
+        new_bears_text.append(f'                checkIn: "{bear["checkIn"]}",')
+        new_bears_text.append(f'                collectionNo: {bear["collectionNo"]},')
+        new_bears_text.append(f'                category: "{bear["category"]}",')
+        new_bears_text.append(f'                desc: "{bear["desc"]}",')
+        new_bears_text.append(f'                img: "{bear["img"]}"')
+        new_bears_text.append('            },' + ('' if bear == bears[-1] else ''))
+    
+    # 在 bears_end_idx 之前插入新熊熊
+    new_lines = lines[:bears_end_idx] + new_bears_text + [''] + lines[bears_end_idx:]
+    
+    with open(INDEX_HTML, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(new_lines))
+    
+    log(f"已寫入 {len(bears)} 隻熊熊到 index.html")
+    
     return bears
 
 # ============== 主流程 ==============
@@ -294,6 +365,12 @@ def main():
     styles_today, current_idx = get_styles_for_today(6)
     log(f"\n🎨 今天的風格（輪流 index: {current_idx}）:")
     log(f"   {', '.join(styles_today)}")
+    
+    # JPG 轉 PNG
+    log(f"\n📁 步驟 0：JPG轉 PNG - {TODAY}")
+    converted = convert_jpg_to_png(TODAY)
+    if converted > 0:
+        log(f"已轉換 {converted} 張 JPG 為 PNG")
     
     # 檢查新圖片
     log(f"\n📁 步驟 1：檢查圖片 - {TODAY}")
