@@ -235,7 +235,8 @@
 
         /* 4-grid card: 1:1 ratio for comic strip */
         .character-card.card-4grid .comic-strip {
-            aspect-ratio: 1;
+            min-height: 400px;
+            width: 100%;
         }
 
         /* Single card: 1:1 ratio */
@@ -244,16 +245,17 @@
         .comic-strip {
             display: flex;
             flex-direction: row;
-            align-items: start;
-            gap: 8px;
+            align-items: stretch;
+            gap: 12px;
             width: 100%;
+            min-height: 380px;
         }
         
         .comic-frame {
             position: relative;
             flex: 1;
-            aspect-ratio: 1;
-            border-radius: 8px;
+            min-width: 0;
+            border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.2s ease;
@@ -280,6 +282,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
         
         .comic-frame-image {
@@ -1192,7 +1195,8 @@
                 frames.forEach((frame, idx) => {
                     const imgEl = frame.querySelector('.comic-frame-img');
                     if (stories[idx] && stories[idx].img) {
-                        imgEl.src = stories[idx].img;
+                        console.log("[DEBUG] Setting img src:", stories[idx].img);
+                    imgEl.src = stories[idx].img;
                         // 保存对应的 allImages 索引
                         const catItem = catsData.cats.find(c => c.img === stories[idx].img);
                         if (catItem) {
