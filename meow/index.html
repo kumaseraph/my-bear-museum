@@ -1211,7 +1211,7 @@
                 });
                 
                 // 显示故事文字
-                if (stories[0].story_text) {
+                if (stories[0] && stories[0].story_text) {
                     storyText.textContent = stories[0].story_text;
                     storyContainer.style.display = 'block';
                 }
