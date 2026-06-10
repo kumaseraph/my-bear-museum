@@ -1167,7 +1167,9 @@
 
         // 加载喵漫分镜
         function loadComicStrip() {
+            console.log("[DEBUG] loadComicStrip called");
             const stories = getTodayStory();
+            console.log("[DEBUG] stories.length:", stories.length);
             const comicStrip = document.getElementById('comicStrip');
             const storyContainer = document.getElementById('storyTextContainer');
             const storyText = document.getElementById('storyText');
