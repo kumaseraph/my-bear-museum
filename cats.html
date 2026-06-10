@@ -970,7 +970,7 @@
             update() {
                 const item = this.allImages[this.currentIndex];
                 if (!item) return;
-                document.getElementById('modalImage').src = item.image;
+                document.getElementById('modalImage').src = item.img;
                 document.getElementById('modalTitle').textContent = item.title;
                 document.getElementById('modalPrevBtn').disabled = this.currentIndex === 0;
                 document.getElementById('modalNextBtn').disabled = this.currentIndex === this.allImages.length - 1;
@@ -1263,89 +1263,7 @@
             }
         };
 
-        // ===== Modal Management =====
-        const Modal = {
-            currentIndex: 0,
-            
-            init() {
-                this.setupEventListeners();
-            },
-            
-            setupEventListeners() {
-                const overlay = document.getElementById('modalOverlay');
-                const closeBtn = document.getElementById('modalClose');
-                
-                overlay.addEventListener('click', (e) => {
-                    if (e.target === overlay) this.close();
-                });
-                
-                closeBtn.addEventListener('click', () => this.close());
-                
-                document.getElementById('modalPrevBtn').addEventListener('click', () => this.prev());
-                document.getElementById('modalNextBtn').addEventListener('click', () => this.next());
-                
-                document.addEventListener('keydown', (e) => {
-                    if (!overlay.classList.contains('active')) return;
-                    if (e.key === 'Escape') this.close();
-                    if (e.key === 'ArrowLeft') this.prev();
-                    if (e.key === 'ArrowRight') this.next();
-                });
-            },
-            
-            open(index) {
-                this.currentIndex = index;
-                this.updateContent();
-                document.getElementById('modalOverlay').classList.add('active');
-                document.body.style.overflow = 'hidden';
-            },
-            
-            close() {
-                document.getElementById('modalOverlay').classList.remove('active');
-                document.body.style.overflow = '';
-            },
-            
-            prev() {
-                if (this.currentIndex > 0) {
-                    this.currentIndex--;
-                    this.updateContent();
-                }
-            },
-            
-            next() {
-                if (this.currentIndex < allImages.length - 1) {
-                    this.currentIndex++;
-                    this.updateContent();
-                }
-            },
-            
-            updateContent() {
-                const item = allImages[this.currentIndex];
-
-                // Set image using background-image
-                const modalImage = document.getElementById('modalImage');
-                modalImage.style.backgroundImage = `url('${item.img}')`;
-
-                // Set title
-                document.getElementById('modalTitle').textContent = item.title;
-
-                // Set meta
-                const metaEl = document.getElementById('modalMeta');
-                const breedOrMode = item.breed || (item.mode ? '🐱 ' + item.mode : '');
-                metaEl.innerHTML = `
-                    ${breedOrMode ? `<span class="modal-meta-item">${breedOrMode}</span>` : ''}
-                    <span class="modal-meta-item">${item.title}</span>
-                    <span class="modal-meta-item">${item.style}</span>
-                `;
-
-                // Set date
-                const dateStr = formatDate(item.date) || '2026.06.10';
-                document.getElementById('modalDate').innerHTML = `🌙 ${dateStr}`;
-
-                // Update nav buttons
-                document.getElementById('modalPrevBtn').disabled = this.currentIndex === 0;
-                document.getElementById('modalNextBtn').disabled = this.currentIndex === allImages.length - 1;
-            }
-        };
+        // Modal is defined above (lines 953-1007)
 
         // ===== Fixed Character Card Events =====
         function setupFixedCharacterCards() {
