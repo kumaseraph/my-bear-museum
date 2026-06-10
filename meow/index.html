@@ -253,16 +253,14 @@
         .comic-frame {
             position: relative;
             width: 100%;
-            aspect-ratio: 1;
+            height: 0;
+            padding-bottom: 100%;
             border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.2s ease;
             background: var(--color-card);
             border: 2px solid var(--color-border);
-            /* 確保每格都是正方形的關鍵 */
-            height: 0;
-            padding-bottom: 100%;
         }
         
         .comic-frame-image,
