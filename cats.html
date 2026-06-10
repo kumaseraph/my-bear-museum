@@ -225,6 +225,8 @@
             object-fit: cover;
             margin-bottom: 12px;
             background: var(--color-bg);
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -307,6 +309,8 @@
             object-fit: cover;
             margin-bottom: 10px;
             background: var(--color-bg);
+            background-size: cover;
+            background-position: center;
         }
 
         .carousel-card-meta {
@@ -930,6 +934,65 @@
             }
         };
 
+        // ===== Modal Management =====
+        const Modal = {
+            currentIndex: 0,
+            allImages: [],
+
+            open(index) {
+                this.currentIndex = index;
+                this.update();
+                document.getElementById('modalOverlay').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            },
+
+            close() {
+                document.getElementById('modalOverlay').classList.remove('active');
+                document.body.style.overflow = '';
+            },
+
+            update() {
+                const item = this.allImages[this.currentIndex];
+                if (!item) return;
+                document.getElementById('modalImage').src = item.image;
+                document.getElementById('modalTitle').textContent = item.title;
+                document.getElementById('modalPrevBtn').disabled = this.currentIndex === 0;
+                document.getElementById('modalNextBtn').disabled = this.currentIndex === this.allImages.length - 1;
+            },
+
+            prev() {
+                if (this.currentIndex > 0) {
+                    this.currentIndex--;
+                    this.update();
+                }
+            },
+
+            next() {
+                if (this.currentIndex < this.allImages.length - 1) {
+                    this.currentIndex++;
+                    this.update();
+                }
+            },
+
+            init() {
+                document.getElementById('modalClose').addEventListener('click', () => this.close());
+                document.getElementById('modalOverlay').addEventListener('click', (e) => {
+                    if (e.target === document.getElementById('modalOverlay')) this.close();
+                });
+                document.getElementById('modalPrevBtn').addEventListener('click', () => this.prev());
+                document.getElementById('modalNextBtn').addEventListener('click', () => this.next());
+                document.addEventListener('keydown', (e) => {
+                    if (!document.getElementById('modalOverlay').classList.contains('active')) return;
+                    if (e.key === 'Escape') this.close();
+                    if (e.key === 'ArrowLeft') this.prev();
+                    if (e.key === 'ArrowRight') this.next();
+                });
+            }
+        };
+
+        // Make openModal global for onclick handlers
+        window.openModal = (index) => Modal.open(index);
+
         // ===== Sample Data =====
         const sampleData = {
             fixedCharacters: [
@@ -1292,6 +1355,8 @@
 
         // ===== Fixed Character Card Events =====
         function setupFixedCharacterCards() {
+            // Sync allImages to Modal for consistent access
+            Modal.allImages = allImages;
             document.querySelectorAll('.character-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const index = parseInt(card.dataset.index);
