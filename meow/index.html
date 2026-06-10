@@ -361,6 +361,22 @@
             aspect-ratio: 1;
         }
 
+        /* 漫畫標題樣式 */
+        .comic-title-container {
+            font-family: 'ZCOOL XiaoWei', 'Noto Serif TC', serif;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+        .comic-title-decoration {
+            color: var(--color-primary);
+            font-size: 0.9rem;
+        }
+        .comic-title-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0 6px;
+        }
+
         .character-card:hover .character-card-image {
             transform: scale(1.02);
             box-shadow: var(--shadow-medium);
@@ -949,34 +965,17 @@
         <section class="section">
             <h2 class="section-title">喵喵日常</h2>
             <div class="fixed-character-grid" id="fixedCharacterGrid">
-                <!-- 4-Grid Comic Card - 改為漫畫分鏡 -->
-                <div class="hand-drawn-card character-card card-4grid" data-index="0">
-                    <div class="comic-strip" id="comicStrip">
-                        <div class="comic-frame" data-frame="1">
-                            <img class="comic-frame-img" src="" alt="1" onerror="this.style.background='red';this.nextElementSibling.textContent='Error: '+this.src" onload="this.style.opacity=1">
-                            <span class="comic-frame-number">1</span>
-                        </div>
-                        <div class="comic-frame" data-frame="2">
-                            <img class="comic-frame-img" src="" alt="2" onerror="this.style.background='red';this.nextElementSibling.textContent='Error'" onload="this.style.opacity=1">
-                            <span class="comic-frame-number">2</span>
-                        </div>
-                        <div class="comic-frame" data-frame="3">
-                            <img class="comic-frame-img" src="" alt="3" onerror="this.style.background='red';this.nextElementSibling.textContent='Error'" onload="this.style.opacity=1">
-                            <span class="comic-frame-number">3</span>
-                        </div>
-                        <div class="comic-frame" data-frame="4">
-                            <img class="comic-frame-img" src="" alt="4" onerror="this.style.background='red';this.nextElementSibling.textContent='Error'" onload="this.style.opacity=1">
-                            <span class="comic-frame-number">4</span>
-                        </div>
+                <!-- 漫畫卡片：單圖顯示 -->
+                <div class="hand-drawn-card character-card card-single" id="comicCard" data-index="0">
+                    <div class="character-card-image" id="comicImageContainer">
                     </div>
-                    <div class="story-text-container" id="storyTextContainer" style="display: none;">
-                        <div class="story-text-label">📖 今日故事</div>
-                        <div class="story-text" id="storyText"></div>
-                        <span class="story-type-tag" id="storyTypeTag"></span>
+                    <div class="comic-title-container" id="comicTitleContainer" style="display:none;">
+                        <span class="comic-title-decoration">✿ </span>
+                        <span class="comic-title-text" id="comicTitle"></span>
+                        <span class="comic-title-decoration"> ✿</span>
                     </div>
                     <h3 class="character-card-title">喵漫</h3>
                     <p class="character-card-desc">喵喵公主的生活小故事</p>
-                    <div id="debug-info" style="display:none; font-size: 10px; color: red; padding: 5px; background: #ffe0e0; margin-top: 5px;"></div>
                 </div>
 
                 <!-- Single Illustration Card -->
@@ -1189,64 +1188,48 @@
             return catsData.cats.filter(c => c.type !== '4grid' && c.type !== 'single' && c.type !== 'story');
         }
 
-        // 加载喵漫分镜
+        // 加载喵漫（单图显示）
         function loadComicStrip() {
             console.log("[DEBUG] loadComicStrip called");
-            console.log("[DEBUG] catsData.cats:", catsData.cats ? catsData.cats.length : 0);
             const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
-            console.log("[DEBUG] today:", today);
             const stories = getTodayStory();
-            console.log("[DEBUG] stories.length:", stories.length);
-            document.getElementById("debug-info").textContent = "stories: " + stories.length + " | allImages: " + allImages.length + " | today: " + new Date().toLocaleDateString("zh-TW", {timeZone: "Asia/Taipei"}).replace(/\\//g, "-");
-            document.getElementById("debug-info").style.display = "block";
-            const comicStrip = document.getElementById('comicStrip');
-            const storyContainer = document.getElementById('storyTextContainer');
-            const storyText = document.getElementById('storyText');
-            const storyTypeTag = document.getElementById('storyTypeTag');
+            const container = document.getElementById('comicImageContainer');
+            const titleContainer = document.getElementById('comicTitleContainer');
+            const titleEl = document.getElementById('comicTitle');
+            const comicCard = document.getElementById('comicCard');
             
             if (stories.length > 0) {
-                // 填充分镜图片
-                const frames = comicStrip.querySelectorAll('.comic-frame');
-                frames.forEach((frame, idx) => {
-                    const imgEl = frame.querySelector('.comic-frame-img');
-                    if (stories[idx] && stories[idx].img) {
-                        console.log("[DEBUG] Setting img src:", stories[idx].img);
-                    console.log("[DEBUG] ===== LOADING IMAGE =====");
-                    console.log("[DEBUG] Story:", stories[idx]);
-                    imgEl.src = stories[idx].img;
-                    console.log("[DEBUG] img src attribute:", imgEl.src);
-                        // 保存对应的 allImages 索引
-                        const catItem = catsData.cats.find(c => c.img === stories[idx].img);
-                        if (catItem) {
-                            frame.dataset.imageIndex = allImages.indexOf(catItem);
-                        }
-                    }
-                });
+                // 使用第一張漫畫圖片
+                const firstStory = stories[0];
+                const imgPath = firstStory.img;
+                // 確保路徑是絕對路徑（以 / 開頭）
+                const fullPath = imgPath.startsWith('/') ? imgPath : '/' + imgPath;
                 
-                // 显示故事文字
-                if (stories[0] && stories[0].story_text) {
-                    storyText.textContent = stories[0].story_text;
-                    storyContainer.style.display = 'block';
+                container.style.backgroundImage = `url('${fullPath}')`;
+                container.style.backgroundSize = 'cover';
+                container.style.backgroundPosition = 'center';
+                container.style.cursor = 'pointer';
+                
+                // 顯示漫畫標題
+                if (firstStory.title) {
+                    titleEl.textContent = firstStory.title;
+                    titleContainer.style.display = 'flex';
+                    titleContainer.style.justifyContent = 'center';
+                    titleContainer.style.alignItems = 'center';
+                    titleContainer.style.marginBottom = '8px';
                 }
                 
-                // 显示故事类型标签
-                if (stories[0].story_type) {
-                    storyTypeTag.textContent = stories[0].story_type;
-                    storyTypeTag.style.display = 'inline-block';
-                }
-                
-                // 添加分镜点击事件
-                frames.forEach(frame => {
-                    frame.addEventListener('click', () => {
-                        const idx = parseInt(frame.dataset.imageIndex);
-                        if (!isNaN(idx) && idx >= 0) {
-                            Modal.open(idx);
-                        }
+                // 找到對應的 allImages 索引，點擊打開 Lightbox
+                const catItem = catsData.cats.find(c => c.img === imgPath);
+                if (catItem) {
+                    const imgIndex = allImages.indexOf(catItem);
+                    comicCard.dataset.imageIndex = imgIndex;
+                    comicCard.addEventListener('click', () => {
+                        Modal.open(imgIndex);
                     });
-                });
+                }
             } else {
-                // 没有故事数据，显示默认内容
-                comicStrip.style.display = 'none';
+                comicCard.style.display = 'none';
             }
         }
         
