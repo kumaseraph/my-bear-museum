@@ -1565,9 +1565,8 @@
                     return;
                 }
 
-                // Get images for this date (filter by date in image path)
-                const dateFormatted = dateStr.replace(/-/g, '');
-                let dayImages = allImages.filter(item => item.img && item.img.includes(dateFormatted));
+                // Get images for this date (filter by date field)
+                const dayImages = allImages.filter(item => item.date === dateStr);
                 
                 // 根據 currentFilter 進行篩選
                 if (this.currentFilter !== 'all') {
