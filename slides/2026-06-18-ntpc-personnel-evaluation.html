@@ -1237,6 +1237,32 @@
                 }
             });
 
+            // Touch/Swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const presentation = document.querySelector('.presentation');
+
+            presentation.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            presentation.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+            }
+
             // Check for reduced motion preference
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 document.documentElement.setAttribute('data-reduced-motion', 'true');
