@@ -209,10 +209,11 @@
 
         /* ===== Fixed Character Section ===== */
         .fixed-character-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            display: flex;
             gap: 30px;
             padding: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .character-card {
@@ -222,6 +223,9 @@
             border-radius: 24px;
             border: 3px solid var(--color-border);
             box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            flex: 0 0 calc(20% - 24px);
+            min-width: 160px;
+            max-width: 220px;
         }
 
         .character-card-image {
@@ -887,7 +891,8 @@
                 font-size: 2rem;
             }
 
-            .fixed-character-grid {
+            /* ===== Fixed Character Section ===== */
+        .fixed-character-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
@@ -1008,6 +1013,12 @@
         <!-- History Footprint Section -->
         <section class="section">
             <h2 class="section-title">📅 歷史足跡</h2>
+            <div class="history-filter-tabs" id="historyFilterTabs">
+                <button class="filter-tab active" data-filter="all">全部</button>
+                <button class="filter-tab" data-filter="story">喵漫</button>
+                <button class="filter-tab" data-filter="single">喵圖</button>
+                <button class="filter-tab" data-filter="multi">多元內容</button>
+            </div>
             <div class="history-calendar">
                 <div class="calendar-nav">
                     <button class="calendar-nav-btn" id="prevMonth" aria-label="上個月">◀</button>
@@ -1043,6 +1054,7 @@
             <img class="modal-image" id="modalImage" src="" alt="">
             <div class="modal-info">
                 <h3 class="modal-title" id="modalTitle">標題</h3>
+                <div class="modal-caption" id="modalCaption" style="display: none; color: var(--color-text-muted); font-size: 0.9rem; margin: 8px 0; font-style: italic; line-height: 1.5;"></div>
                 <div class="modal-meta" id="modalMeta">
                     <!-- Meta items will be dynamically generated -->
                 </div>
@@ -1092,9 +1104,11 @@
         const Modal = {
             currentIndex: 0,
             allImages: [],
+            validIndices: null, // 限制導航範圍，null 表示全部
 
-            open(index) {
+            open(index, validIndices = null) {
                 this.currentIndex = index;
+                this.validIndices = validIndices;
                 this.update();
                 document.getElementById('modalOverlay').classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -1103,6 +1117,28 @@
             close() {
                 document.getElementById('modalOverlay').classList.remove('active');
                 document.body.style.overflow = '';
+                this.validIndices = null;
+            },
+
+            isFirst() {
+                if (!this.validIndices) return this.currentIndex === 0;
+                return this.currentIndex === this.validIndices[0];
+            },
+
+            isLast() {
+                if (!this.validIndices) return this.currentIndex === this.allImages.length - 1;
+                return this.currentIndex === this.validIndices[this.validIndices.length - 1];
+            },
+
+            getValidIndex(direction) {
+                if (!this.validIndices) {
+                    return direction === 'prev' ? this.currentIndex - 1 : this.currentIndex + 1;
+                }
+                const currentPos = this.validIndices.indexOf(this.currentIndex);
+                if (currentPos === -1) return this.currentIndex;
+                const newPos = direction === 'prev' ? currentPos - 1 : currentPos + 1;
+                if (newPos < 0 || newPos >= this.validIndices.length) return this.currentIndex;
+                return this.validIndices[newPos];
             },
 
             update() {
@@ -1111,20 +1147,31 @@
                 const imgPath = item.img.startsWith('/') ? item.img : '/' + item.img;
                 document.getElementById('modalImage').src = imgPath;
                 document.getElementById('modalTitle').textContent = item.title || '';
-                document.getElementById('modalPrevBtn').disabled = this.currentIndex === 0;
-                document.getElementById('modalNextBtn').disabled = this.currentIndex === this.allImages.length - 1;
+                
+                // 顯示 caption（故事文字）
+                const captionEl = document.getElementById('modalCaption');
+                if (captionEl) {
+                    captionEl.textContent = item.storyText || item.caption || '';
+                    captionEl.style.display = (item.storyText || item.caption) ? 'block' : 'none';
+                }
+                
+                // 根據 validIndices 決定導航按鈕狀態
+                document.getElementById('modalPrevBtn').disabled = this.isFirst();
+                document.getElementById('modalNextBtn').disabled = this.isLast();
             },
 
             prev() {
-                if (this.currentIndex > 0) {
-                    this.currentIndex--;
+                const newIndex = this.getValidIndex('prev');
+                if (newIndex !== this.currentIndex) {
+                    this.currentIndex = newIndex;
                     this.update();
                 }
             },
 
             next() {
-                if (this.currentIndex < this.allImages.length - 1) {
-                    this.currentIndex++;
+                const newIndex = this.getValidIndex('next');
+                if (newIndex !== this.currentIndex) {
+                    this.currentIndex = newIndex;
                     this.update();
                 }
             },
@@ -1156,7 +1203,7 @@
         };
 
         // Make openModal global for onclick handlers
-        window.openModal = (index) => Modal.open(index);
+        window.openModal = (index, validIndices) => Modal.open(index, validIndices);
 
         // ===== Data Loading =====
         let catsData = { cats: [], last_updated: '' };
@@ -1223,9 +1270,16 @@
                 const catItem = catsData.cats.find(c => c.img === imgPath);
                 if (catItem) {
                     const imgIndex = allImages.indexOf(catItem);
+                    // 獲取當日所有漫畫（4grid）的索引範圍
+                    const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
+                    const comicIndices = allImages
+                        .map((item, idx) => ({item, idx}))
+                        .filter(({item}) => item.type === 'story' && item.date === today)
+                        .map(({idx}) => idx);
+                    
                     comicCard.dataset.imageIndex = imgIndex;
                     comicCard.addEventListener('click', () => {
-                        Modal.open(imgIndex);
+                        Modal.open(imgIndex, comicIndices);
                     });
                 }
             } else {
@@ -1357,10 +1411,86 @@
         // ===== Calendar Management =====
         const Calendar = {
             currentDate: new Date(2026, 5, 10), // June 10, 2026
+            currentFilter: 'all', // 當前篩選類型
             
             init() {
                 this.render();
                 this.setupEventListeners();
+                this.setupFilterTabs();
+            },
+            
+            setupFilterTabs() {
+                const tabs = document.querySelectorAll('.filter-tab');
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        // 更新 tab 樣式
+                        tabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        
+                        // 設定篩選類型
+                        this.currentFilter = tab.dataset.filter;
+                        this.render();
+                        
+                        // 漫畫列表模式切換
+                        const grid = document.getElementById('calendarGrid');
+                        const nav = document.querySelector('.calendar-nav');
+                        if (this.currentFilter === 'story') {
+                            this.renderComicList();
+                            if (nav) nav.style.display = 'none';
+                        } else {
+                            // 移除漫畫列表
+                            const comicList = document.getElementById('comicListView');
+                            if (comicList) comicList.remove();
+                            if (nav) nav.style.display = 'flex';
+                        }
+                    });
+                });
+            },
+            
+            renderComicList() {
+                // 移除舊的列表視圖
+                const existingList = document.getElementById('comicListView');
+                if (existingList) existingList.remove();
+                
+                const grid = document.getElementById('calendarGrid');
+                
+                // 獲取所有漫畫，按日期分組
+                const comicGroups = {};
+                const storyItems = allImages.filter(item => item.type === 'story');
+                storyItems.forEach(item => {
+                    const date = item.date;
+                    if (!comicGroups[date]) comicGroups[date] = [];
+                    comicGroups[date].push(item);
+                });
+                
+                // 按日期排序（最新的在前）
+                const sortedDates = Object.keys(comicGroups).sort((a, b) => new Date(b) - new Date(a));
+                
+                if (sortedDates.length === 0) {
+                    grid.innerHTML = '<div style="text-align:center;padding:40px;color:var(--color-text-muted);">尚無漫畫記錄</div>';
+                    return;
+                }
+                
+                let html = '<div id="comicListView" class="comic-list-view">';
+                sortedDates.forEach(date => {
+                    const comics = comicGroups[date];
+                    const dateStr = date.replace(/-/g, '.');
+                    html += `
+                        <div class="comic-list-item" data-date="${date}">
+                            <div class="comic-list-date">${dateStr}</div>
+                            <div class="comic-list-images">
+                                ${comics.map((item, idx) => `
+                                    <div class="comic-list-thumb" style="background-image: url('${item.img}');" onclick="openModal(${allImages.indexOf(item)})">
+                                        ${item.title ? `<span class="comic-list-title">${item.title}</span>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                
+                grid.innerHTML = html;
             },
             
             render() {
@@ -1437,7 +1567,18 @@
 
                 // Get images for this date (filter by date in image path)
                 const dateFormatted = dateStr.replace(/-/g, '');
-                const dayImages = allImages.filter(item => item.img && item.img.includes(dateFormatted));
+                let dayImages = allImages.filter(item => item.img && item.img.includes(dateFormatted));
+                
+                // 根據 currentFilter 進行篩選
+                if (this.currentFilter !== 'all') {
+                    if (this.currentFilter === 'story') {
+                        dayImages = dayImages.filter(item => item.type === 'story');
+                    } else if (this.currentFilter === 'single') {
+                        dayImages = dayImages.filter(item => item.type === 'single');
+                    } else if (this.currentFilter === 'multi') {
+                        dayImages = dayImages.filter(item => item.type !== 'story' && item.type !== 'single');
+                    }
+                }
 
                 // Create new accordion
                 const accordion = document.createElement('div');
@@ -1445,9 +1586,20 @@
                 accordion.dataset.date = dateStr;
 
                 const imagesHtml = dayImages.length > 0
-                    ? dayImages.map(item => `
-                        <div class="accordion-image" style="background-image: url('${item.img}'); background-size: cover; background-position: center; cursor: pointer;" data-image-index="${allImages.indexOf(item)}" onclick="openModal(${allImages.indexOf(item)})"></div>
-                    `).join('')
+                    ? dayImages.map(item => {
+                        // 根據類型計算 validIndices
+                        let validIndices = null;
+                        if (item.type === 'story') {
+                            validIndices = allImages
+                                .map((i, idx) => ({i, idx}))
+                                .filter(({i}) => i.type === 'story' && i.date === item.date)
+                                .map(({idx}) => idx);
+                        } else if (item.type === 'single') {
+                            const idx = allImages.indexOf(item);
+                            validIndices = [idx];
+                        }
+                        return `<div class="accordion-image" style="background-image: url('${item.img}'); background-size: cover; background-position: center; cursor: pointer;" data-image-index="${allImages.indexOf(item)}" onclick="openModal(${allImages.indexOf(item)}, ${JSON.stringify(validIndices)})"></div>`;
+                    }).join('')
                     : '<div class="accordion-image card-placeholder" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🐱</div>';
 
                 accordion.innerHTML = `
@@ -1503,7 +1655,10 @@
                 singleCard.addEventListener('click', () => {
                     if (singleItem) {
                         const idx = allImages.findIndex(c => c.img === singleItem.img);
-                        if (idx >= 0) Modal.open(idx);
+                        if (idx >= 0) {
+                            // 喵圖只有一張，所以 validIndices 只有自己
+                            Modal.open(idx, [idx]);
+                        }
                     }
                 });
             }
