@@ -296,27 +296,33 @@
       </p>
     </div>
 
-    <!-- 測試下載 -->
+    <!-- 115員額評鑑簡報下載 -->
     <div class="info-card" style="margin-top: 16px; background: rgba(127,79,36,0.12);">
-      <h3>🧪 測試下載</h3>
-      <p style="margin-bottom: 12px;">熊熊的簡報設計技巧示範簡報（v2）</p>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <button class="download-btn" style="font-size: 0.9rem; padding: 10px 20px;" onclick="downloadFile('https://tmpfiles.org/dl/w9wfcHC2MzOn/_v2.pptx', '簡報設計技巧_v2.pptx')">📥 下載</button>
-        <button class="remove-btn" style="font-size: 0.9rem; padding: 10px 20px;" onclick="hideTestFile()">🗑️ 刪除</button>
+      <h3>📊 115年員額評鑑簡報（5種風格）</h3>
+      <p style="margin-bottom: 12px; color: #666;">可編輯 PPTX 格式，包含完整版面設計</p>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 10px; justify-content: space-between;">
+          <span>🏛️ 專業政府風格</span>
+          <button class="download-btn" onclick="downloadFile('https://kumaweb.pages.dev/slides/115_員額評鑑/style1-government.pptx', '115員額評鑑_專業政府.pptx')">📥 下載</button>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; justify-content: space-between;">
+          <span>🍂 溫暖大地風格</span>
+          <button class="download-btn" onclick="downloadFile('https://kumaweb.pages.dev/slides/115_員額評鑑/style2-warm-earth.pptx', '115員額評鑑_溫暖大地.pptx')">📥 下載</button>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; justify-content: space-between;">
+          <span>⬜ 極簡留白風格</span>
+          <button class="download-btn" onclick="downloadFile('https://kumaweb.pages.dev/slides/115_員額評鑑/style3-minimal.pptx', '115員額評鑑_極簡留白.pptx')">📥 下載</button>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; justify-content: space-between;">
+          <span>🚀 現代科技風格</span>
+          <button class="download-btn" onclick="downloadFile('https://kumaweb.pages.dev/slides/115_員額評鑑/style4-tech.pptx', '115員額評鑑_現代科技.pptx')">📥 下載</button>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; justify-content: space-between;">
+          <span>🎨 手繪溫馨風格</span>
+          <button class="download-btn" onclick="downloadFile('https://kumaweb.pages.dev/slides/115_員額評鑑/style5-handmade.pptx', '115員額評鑑_手繪溫馨.pptx')">📥 下載</button>
+        </div>
       </div>
     </div>
-
-    <script>
-      // 隱藏測試檔案區塊
-      function hideTestFile() {
-        const testCard = document.querySelector('.info-card:last-child');
-        if (testCard) {
-          testCard.style.display = 'none';
-          showToast('已刪除');
-        }
-      }
-    </script>
-  </div>
 
   <!-- 提示訊息 -->
   <div class="toast" id="toast"></div>
