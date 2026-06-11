@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>熊熊簡報設計元素參考</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #FFF8F0;
+            color: #3A322C;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            color: #7F4F24;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #A26769;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(127, 79, 36, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(127, 79, 36, 0.15);
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .card-info {
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 1.1rem;
+            color: #7F4F24;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: #A26769;
+            line-height: 1.5;
+        }
+        .tips {
+            margin-top: 50px;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(127, 79, 36, 0.1);
+        }
+        .tips h2 {
+            color: #7F4F24;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .tip-item {
+            background: #FFF8F0;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #A26769;
+        }
+        .tip-item h3 {
+            color: #7F4F24;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        .tip-item p {
+            color: #3A322C;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        @media (max-width: 600px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐻 熊熊簡報設計元素參考</h1>
+        <p class="subtitle">Modern • Minimalist • Business Style</p>
+        
+        <div class="gallery">
+            <div class="card">
+                <img src="image_0_Modern_m_20260611_111655.jpg" alt="現代商務風格">
+                <div class="card-info">
+                    <div class="card-title">現代商務風格</div>
+                    <div class="card-desc">極簡主義、大地色系、三環流程圖象徵階段性連結，適合開場或章節扉頁</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <img src="image_0_Elegant__20260611_111717.jpg" alt="優雅時間軸">
+                <div class="card-info">
+                    <div class="card-title">優雅時間軸 / 流程圖</div>
+                    <div class="card-desc">S型曲線串聯圓形節點、有機時間軸設計、植物裝飾，適合品牌故事或產品歷程</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <img src="image_0_Creative_20260611_111822.jpg" alt="創意資料視覺化">
+                <div class="card-info">
+                    <div class="card-title">創意資料視覺化</div>
+                    <div class="card-desc">圓形圖示、柱狀圖、環形圖表、時間軸整合，適合數據報告或儀表板設計</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <img src="image_0_Professi_20260611_111907.jpg" alt="專業流程圖">
+                <div class="card-info">
+                    <div class="card-title">專業流程圖設計</div>
+                    <div class="card-desc">幾何形狀連接、階層結構、圓形圖示，適合策略規劃或組織架構</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <img src="image_0_Detailed_20260611_111958.jpg" alt="詳細圖示組合">
+                <div class="card-info">
+                    <div class="card-title">詳細圖示組合</div>
+                    <div class="card-desc">圓形圖示矩陣、步驟流程、時間軸圖示，適合教學或操作手冊</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <img src="image_0_Modern_b_20260611_112019.jpg" alt="現代商務版面">
+                <div class="card-info">
+                    <div class="card-title">現代商務版面</div>
+                    <div class="card-desc">組織架構圖、階層流程、連接線設計，適合團隊介紹或組織調整提案</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <img src="image_0_Abstract_20260611_111928.jpg" alt="幾何裝飾背景">
+                <div class="card-info">
+                    <div class="card-title">幾何裝飾背景</div>
+                    <div class="card-desc">圓形、方形、線條構成的抽象圖案，適合簡報背景或分隔線設計</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tips">
+            <h2>📐 熊熊設計技巧摘要</h2>
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <h3>留白</h3>
+                    <p>70% 以上留白才能傳達高級感，讓主體有呼吸空間</p>
+                </div>
+                <div class="tip-item">
+                    <h3>配色</h3>
+                    <p>大地暖色系：米白 #FFF8F0、深棕 #7F4F24、陶土玫瑰 #A26769</p>
+                </div>
+                <div class="tip-item">
+                    <h3>圖示</h3>
+                    <p>圓形 Line Icon 系統，極簡細線風格，統一視覺</p>
+                </div>
+                <div class="tip-item">
+                    <h3>流程圖</h3>
+                    <p>非方塊化，用曲線串聯圓形節點，避免死板</p>
+                </div>
+                <div class="tip-item">
+                    <h3>版面</h3>
+                    <p>非對稱平衡、Z型視線引導、黃金比例構圖</p>
+                </div>
+                <div class="tip-item">
+                    <h3>圖表</h3>
+                    <p>2D 優先，避免 3D（嚴謹數據場合），靠明度差區分層級</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
