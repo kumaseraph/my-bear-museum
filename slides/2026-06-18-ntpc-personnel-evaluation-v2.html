@@ -9,17 +9,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* ═══════════════════════════════════════════════════════════════
-           CSS Custom Properties (A2 Professional Blue-Gray)
+           CSS Custom Properties (Warm Gray System)
         ═══════════════════════════════════════════════════════════════ */
         :root {
-            --color-bg: #F0F4F8;
-            --color-primary: #1a365d;
-            --color-accent: #d4a574;
-            --color-text: #334155;
+            --color-bg: #F5F3F0;
+            --color-primary: #4a4a4a;
+            --color-accent: #c4a77d;
+            --color-text: #5a5a5a;
             --color-card: #FFFFFF;
-            --color-border: #e2e8f0;
-            --color-text-muted: #64748b;
-            --color-text-light: #94a3b8;
+            --color-border: #e0ddd8;
+            --color-text-muted: #8a8a8a;
+            --color-text-light: #a8a8a8;
 
             --font-main: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
 
@@ -36,8 +36,8 @@
             --radius-md: 12px;
             --radius-lg: 16px;
 
-            --shadow-card: 0 4px 20px rgba(26, 54, 93, 0.1);
-            --shadow-hover: 0 8px 30px rgba(26, 54, 93, 0.15);
+            --shadow-card: 0 4px 20px rgba(90, 90, 90, 0.1);
+            --shadow-hover: 0 8px 30px rgba(90, 90, 90, 0.15);
         }
 
         *, *::before, *::after {
@@ -110,7 +110,7 @@
             align-items: center;
             text-align: center;
             min-height: 85vh;
-            background: linear-gradient(135deg, #1a365d 0%, #2d4a7c 50%, #1a365d 100%);
+            background: linear-gradient(135deg, #4a4a4a 0%, #5a5a5a 50%, #4a4a4a 100%);
             color: white;
             padding: var(--space-xl);
         }
@@ -119,7 +119,7 @@
             display: inline-flex;
             align-items: center;
             gap: var(--space-xs);
-            background: rgba(212, 165, 116, 0.2);
+            background: rgba(196, 167, 125, 0.2);
             border: 1px solid var(--color-accent);
             color: var(--color-accent);
             padding: var(--space-xs) var(--space-md);
@@ -206,7 +206,7 @@
             align-items: center;
             justify-content: center;
             transition: all var(--transition-fast);
- }
+        }
 
         .nav-btn:hover {
             background: var(--color-accent);
@@ -262,51 +262,21 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════
-           Slide 1: Title Slide
-        ═══════════════════════════════════════════════════════════════ */
-        .title-main {
-            font-size: clamp(1.8rem, 5vw, 3rem);
-            font-weight: 700;
-            margin-bottom: var(--space-md);
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .title-sub {
-            font-size: clamp(1.1rem, 3vw, 1.5rem);
-            color: var(--color-accent);
-            margin-bottom: var(--space-xl);
- }
-
-        .title-info {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: var(--space-sm);
-            font-size: clamp(0.85rem, 2vw, 1rem);
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .title-info-item {
-            display: flex;
-            align-items: center;
-            gap: var(--space-xs);
-            background: rgba(255, 255, 255, 0.1);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
-        }
-
-        .title-info-item svg {
-            width: 18px;
-            height: 18px;
-            fill: var(--color-accent);
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
            Slide Header
-        ═══════════════════════════════════════════════════════════════ */
+ ═══════════════════════════════════════════════════════════════ */
         .slide-header {
             text-align: center;
             margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .slide-header__icon {
+            width: 28px;
+            height: 28px;
+            fill: var(--color-accent);
         }
 
         .slide-header__title {
@@ -322,24 +292,36 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════
-           Slide 2: Strategy Chain
+           Slide 2: Strategy Chain (Horizontal Layout)
         ═══════════════════════════════════════════════════════════════ */
         .strategy-flow {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
+            align-items: stretch;
             gap: var(--space-md);
             padding: var(--space-md) 0;
         }
 
+        @media (max-width: 768px) {
+            .strategy-flow {
+                flex-direction: column;
+            }
+        }
+
         .strategy-phase {
+            flex: 1;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: var(--space-md);
+            text-align: center;
             background: var(--color-card);
-            padding: var(--space-md);
-            border-radius: var(--radius-md);
+            padding: var(--space-lg) var(--space-md);
+            border-radius: var(--radius-lg);
             box-shadow: var(--shadow-card);
-            border-left: 5px solid var(--color-accent);
+            border-top: 5px solid var(--color-accent);
+            position: relative;
+            min-width: 200px;
         }
 
         .phase-number {
@@ -353,7 +335,7 @@
             justify-content: center;
             font-size: clamp(1rem, 3vw, 1.4rem);
             font-weight: 700;
-            flex-shrink: 0;
+            margin-bottom: var(--space-md);
         }
 
         .phase-content {
@@ -377,20 +359,32 @@
             align-items: center;
             justify-content: center;
             color: var(--color-accent);
-            font-size: 1.5rem;
-            padding: var(--space-xs) 0;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .phase-arrow {
+                transform: rotate(90deg);
+            }
         }
 
         /* ═══════════════════════════════════════════════════════════════
-           Slide 3: Six Dimensions Grid
+           Slide 3: Six Dimensions Grid (3x2 Layout)
         ═══════════════════════════════════════════════════════════════ */
         .dimensions-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: var(--space-md);
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
+            .dimensions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
             .dimensions-grid {
                 grid-template-columns: 1fr;
             }
@@ -403,13 +397,27 @@
             box-shadow: var(--shadow-card);
             transition: all var(--transition-fast);
             display: flex;
-            gap: var(--space-md);
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: var(--space-sm);
         }
 
         .dimension-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow-hover);
+        }
+
+        .dimension-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, #d4b896100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
         }
 
         .dimension-number {
@@ -443,75 +451,196 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════
-           Slide 4: Team Composition
-        ═══════════════════════════════════════════════════════════════ */
-        .team-groups {
+           Slide 4: Team Composition (Org Chart)
+ ═══════════════════════════════════════════════════════════════ */
+        .org-chart {
             display: flex;
             flex-direction: column;
-            gap: var(--space-md);
+            align-items: center;
+            gap: var(--space-lg);
         }
 
-        .team-group {
+        .org-convener {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            background: linear-gradient(135deg, var(--color-accent) 0%, #d4b896 100%);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+        }
+
+        .org-convener__label {
+            font-size: 0.8rem;
+            color: #5d4a00;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .org-convener__name {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: 700;
+            color: #3d3a00;
+        }
+
+        .org-convener__title {
+            font-size: 0.9rem;
+            color: #5d4a00;
+        }
+
+        .org-arrow-down {
+            font-size: 2rem;
+            color: var(--color-accent);
+        }
+
+        .org-groups {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media (max-width: 640px) {
+            .org-groups {
+                flex-direction: column;
+            }
+        }
+
+        .org-group {
+            flex: 1;
+            min-width: 220px;
+            max-width: 300px;
             background: var(--color-card);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-card);
             overflow: hidden;
+            border-top: 4px solid var(--color-accent);
         }
 
-        .team-group-header {
+        .org-group-header {
             padding: var(--space-sm) var(--space-md);
             font-weight: 700;
             font-size: clamp(0.95rem, 2vw, 1.1rem);
             color: white;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
         }
 
-        .team-group-header--yellow { background: #e6b800; }
-        .team-group-header--blue { background: var(--color-primary); }
-        .team-group-header--green { background: #2d8a4e; }
+        .org-group-header svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
 
-        .team-group-content {
+        .org-group-header--yellow { background: #c4a77d; }
+        .org-group-header--blue { background: var(--color-primary); }
+        .org-group-header--green { background: #6a6a6a; }
+
+        .org-group-content {
             padding: var(--space-md);
+ }
+
+        .org-group-section {
+            margin-bottom: var(--space-sm);
+        }
+
+        .org-group-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .org-group-section__label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-xs);
+        }
+
+        .org-group-members {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--space-sm);
+            gap: var(--space-xs);
         }
 
-        .team-member {
-            padding: var(--space-xs) var(--space-md);
+        .org-member {
+            padding: var(--space-xs) var(--space-sm);
             background: var(--color-bg);
             border-radius: var(--radius-sm);
-            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
             color: var(--color-text);
+            border: 1px solid var(--color-border);
         }
 
         /* ═══════════════════════════════════════════════════════════════
-           Slide 5: Action Timeline
+           Slide 5: Action Timeline (Symmetrical)
         ═══════════════════════════════════════════════════════════════ */
-        .timeline-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-lg);
+        .timeline-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
         }
 
-        @media (max-width: 640px) {
-            .timeline-container {
-                grid-template-columns: 1fr;
-            }
+        .timeline-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .timeline-row--left {
+            justify-content: flex-start;
+        }
+
+        .timeline-row--right {
+            justify-content: flex-end;
         }
 
         .timeline-card {
+            flex: 1;
+            max-width: 420px;
             background: var(--color-card);
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-card);
             padding: var(--space-md);
+            position: relative;
+        }
+
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 3px;
+            background: var(--color-accent);
+        }
+
+        .timeline-row--left .timeline-card::before {
+            right: -20px;
+        }
+
+        .timeline-row--right .timeline-card::before {
+            left: -20px;
+        }
+
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+ }
+
+        .timeline-header__icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--color-accent);
         }
 
         .timeline-title {
             font-size: clamp(1rem, 2.5vw, 1.3rem);
             font-weight: 700;
             color: var(--color-primary);
-            margin-bottom: var(--space-md);
-            text-align: center;
         }
 
         .timeline-track {
@@ -529,33 +658,89 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--color-border);
+            background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
             transform: translateY(-50%);
         }
 
-        .timeline-dot {
-            width: 14px;
-            height: 14px;
-            background: var(--color-accent);
-            border-radius: 50%;
+        .timeline-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
             position: relative;
             z-index: 1;
         }
 
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            border: 3px solid var(--color-card);
+            box-shadow: 0 2px 8px rgba(196, 167, 125, 0.4);
+        }
+
+        .timeline-dot--highlight {
+            width: 20px;
+            height: 20px;
+            background: var(--color-primary);
+        }
+
         .timeline-time {
-            font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+            font-size: clamp(0.65rem, 1.3vw, 0.8rem);
             color: var(--color-text-muted);
             text-align: center;
-            margin-top: var(--space-xs);
+            white-space: nowrap;
+        }
+
+        .timeline-annotation {
+            font-size: clamp(0.6rem, 1.2vw, 0.75rem);
+            color: var(--color-accent);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .timeline-center-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            box-shadow: var(--shadow-card);
+            flex-shrink: 0;
+        }
+
+        .timeline-center-marker svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
         }
 
         /* ═══════════════════════════════════════════════════════════════
-           Slide 6: Task Matrix Table
+           Slide 6: Task Matrix Table (Enhanced)
         ═══════════════════════════════════════════════════════════════ */
+        .matrix-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .matrix-header__icon {
+            width: 32px;
+            height: 32px;
+            fill: var(--color-accent);
+        }
+
         .matrix-table {
             width: 100%;
             border-collapse: collapse;
             font-size: clamp(0.85rem, 2vw, 1rem);
+            border-radius: var(--radius-md);
+            overflow: hidden;
         }
 
         .matrix-table th,
@@ -580,9 +765,9 @@
             color: var(--color-primary);
         }
 
-        .group-cell--1 { background: #e6b800; color: #5d4a00; }
-        .group-cell--2 { background: var(--color-primary); color: white; }
-        .group-cell--3 { background: #2d8a4e; color: white; }
+        .group-cell--1 { background: #e8dcc8; color: #5d4a00; }
+        .group-cell--2 { background: #d0d0d0; color: #3a3a3a; }
+        .group-cell--3 { background: #c8c8c8; color: #3a3a3a; }
 
         /* ═══════════════════════════════════════════════════════════════
            Slide 7: End Slide
@@ -594,7 +779,7 @@
             align-items: center;
             text-align: center;
             min-height: 85vh;
-            background: linear-gradient(145deg, var(--color-primary) 0%, #243b5f 100%);
+            background: linear-gradient(145deg, var(--color-primary) 0%, #5a5a5a 100%);
             color: white;
         }
 
@@ -625,7 +810,7 @@
         <!-- Slide 1: Title -->
         <div class="slide slide--title active" data-slide="1">
             <div class="title-badge">
-                <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
                 <span>新北市政府 115年</span>
             </div>
             <h1 class="title-main">員額評鑑行前會議</h1>
@@ -636,22 +821,23 @@
                     <span>115年6月18日 (星期四) 08:20</span>
                 </div>
                 <div class="title-info-item">
-                    <svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                     <span>市府行政大樓 27樓 2701會議室</span>
                 </div>
                 <div class="title-info-item">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                     <span>召集人：黃德清 參事</span>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 2: Strategy Chain -->
+        <!-- Slide 2: Strategy Chain (Horizontal) -->
         <div class="slide" data-slide="2">
             <div class="slide-header">
+                <svg class="slide-header__icon" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                 <h2 class="slide-header__title">從診斷到控管</h2>
-                <p class="slide-header__subtitle">評鑑戰略價值鏈</p>
             </div>
+            <p class="slide-header__subtitle">評鑑戰略價值鏈</p>
             <div class="strategy-flow">
                 <div class="strategy-phase">
                     <div class="phase-number">1</div>
@@ -661,7 +847,7 @@
                     </div>
                 </div>
                 <div class="phase-arrow">
-                    <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                 </div>
                 <div class="strategy-phase">
                     <div class="phase-number">2</div>
@@ -671,7 +857,7 @@
                     </div>
                 </div>
                 <div class="phase-arrow">
-                    <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                 </div>
                 <div class="strategy-phase">
                     <div class="phase-number">3</div>
@@ -683,50 +869,51 @@
             </div>
         </div>
 
-        <!-- Slide 3: Six Dimensions -->
+        <!-- Slide 3: Six Dimensions (3x2 Grid with Icons) -->
         <div class="slide" data-slide="3">
             <div class="slide-header">
+                <svg class="slide-header__icon" viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
                 <h2 class="slide-header__title">115年 體育局 / 動保處</h2>
-                <p class="slide-header__subtitle">六大評鑑核心維度</p>
             </div>
+            <p class="slide-header__subtitle">六大評鑑核心維度</p>
             <div class="dimensions-grid">
                 <div class="dimension-card">
-                    <div class="dimension-number">1</div>
+                    <div class="dimension-icon">🏛️</div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">組織架構</h3>
                         <p class="dimension-desc">檢視機關組織編制與架構合理性</p>
                     </div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-number">2</div>
+                    <div class="dimension-icon">👥</div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">員額配置</h3>
                         <p class="dimension-desc">分析實際員額配置與業務需求之匹配</p>
                     </div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-number">3</div>
+                    <div class="dimension-icon">⚖️</div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">工作負荷</h3>
                         <p class="dimension-desc">評估各單位工作負荷分配情形</p>
                     </div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-number">4</div>
+                    <div class="dimension-icon">📚</div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">人才培育</h3>
                         <p class="dimension-desc">檢視人才培育與陞遷制度</p>
                     </div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-number">5</div>
+                    <div class="dimension-icon">🚀</div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">效能提升</h3>
                         <p class="dimension-desc">評估機關效能提升策略與執行</p>
                     </div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-number">6</div>
+                    <div class="dimension-icon">🔭</div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">未來展望</h3>
                         <p class="dimension-desc">規劃未來人力運用發展方向</p>
@@ -735,72 +922,177 @@
             </div>
         </div>
 
-        <!-- Slide 4: Team Composition -->
+        <!-- Slide 4: Team Composition (Org Chart) -->
         <div class="slide" data-slide="4">
             <div class="slide-header">
+                <svg class="slide-header__icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.051.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                 <h2 class="slide-header__title">評鑑小組陣容</h2>
             </div>
-            <div class="team-groups">
-                <div class="team-group">
-                    <div class="team-group-header team-group-header--yellow">召集人</div>
-                    <div class="team-group-content">
-                        <span class="team-member">黃德清 參事</span>
-                    </div>
+            <div class="org-chart">
+                <div class="org-convener">
+                    <span class="org-convener__label">召集人</span>
+                    <span class="org-convener__name">黃德清 參事</span>
                 </div>
-                <div class="team-group">
-                    <div class="team-group-header team-group-header--blue">專家學者</div>
-                    <div class="team-group-content">
-                        <span class="team-member">呂育誠 教授</span>
-                        <span class="team-member">葉公鼎 教授</span>
-                        <span class="team-member">吳宗憲 教授</span>
-                    </div>
+                <div class="org-arrow-down">
+                    <svg viewBox="0 0 24 24"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
                 </div>
-                <div class="team-group">
-                    <div class="team-group-header team-group-header--green">府內委員</div>
-                    <div class="team-group-content">
-                        <span class="team-member">王世英 專委</span>
-                        <span class="team-member">邱淑美 專門委員</span>
-                        <span class="team-member">王瑞玲 主任秘書</span>
-                        <span class="team-member">洪久雅 副處長</span>
+                <div class="org-groups">
+                    <div class="org-group">
+                        <div class="org-group-header org-group-header--yellow">
+                            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            專家學者
+                        </div>
+                        <div class="org-group-content">
+                            <div class="org-group-section">
+                                <div class="org-group-section__label">上午時段</div>
+                                <div class="org-group-members">
+                                    <span class="org-member">呂育誠 教授</span>
+                                    <span class="org-member">葉公鼎 教授</span>
+                                </div>
+                            </div>
+                            <div class="org-group-section">
+                                <div class="org-group-section__label">下午時段</div>
+                                <div class="org-group-members">
+                                    <span class="org-member">吳宗憲 教授</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="org-group">
+                        <div class="org-group-header org-group-header--blue">
+                            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            府內委員
+                        </div>
+                        <div class="org-group-content">
+                            <div class="org-group-section">
+                                <div class="org-group-section__label">上午時段</div>
+                                <div class="org-group-members">
+                                    <span class="org-member">王世英 專委</span>
+                                    <span class="org-member">邱淑美 專門委員</span>
+                                </div>
+                            </div>
+                            <div class="org-group-section">
+                                <div class="org-group-section__label">下午時段</div>
+                                <div class="org-group-members">
+                                    <span class="org-member">王瑞玲 主任秘書</span>
+                                    <span class="org-member">洪久雅 副處長</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="org-group">
+                        <div class="org-group-header org-group-header--green">
+                            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                            工作小組
+                        </div>
+                        <div class="org-group-content">
+                            <div class="org-group-section">
+                                <div class="org-group-section__label">體育局</div>
+                                <div class="org-group-members">
+                                    <span class="org-member">唐薇甯 科長</span>
+                                </div>
+                            </div>
+                            <div class="org-group-section">
+                                <div class="org-group-section__label">動保處</div>
+                                <div class="org-group-members">
+                                    <span class="org-member">蔡孟倫 股長</span>
+                                    <span class="org-member">洪舒菁 科員</span>
+                                    <span class="org-member">馮于宣 科員</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 5: Action Timeline -->
+        <!-- Slide 5: Action Timeline (Symmetrical) -->
         <div class="slide" data-slide="5">
             <div class="slide-header">
+                <svg class="slide-header__icon" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
                 <h2 class="slide-header__title">行動總覽全景圖</h2>
             </div>
-            <div class="timeline-container">
-                <div class="timeline-card">
-                    <h3 class="timeline-title">體育局（上午）</h3>
-                    <div class="timeline-track">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
+            <div class="timeline-wrapper">
+                <div class="timeline-row timeline-row--left">
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <svg class="timeline-header__icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            <h3 class="timeline-title">體育局（上午）</h3>
+                        </div>
+                        <div class="timeline-track">
+                            <div class="timeline-node">
+                                <div class="timeline-dot timeline-dot--highlight"></div>
+                                <div class="timeline-time">08:50</div>
+                                <div class="timeline-annotation">報到</div>
+                            </div>
+                            <div class="timeline-node">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-time">09:00</div>
+                                <div class="timeline-annotation">評鑑開始</div>
+                            </div>
+                            <div class="timeline-node">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-time">09:10</div>
+                                <div class="timeline-annotation">簡報</div>
+                            </div>
+                            <div class="timeline-node">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-time">09:30</div>
+                                <div class="timeline-annotation">實地訪查</div>
+                            </div>
+                            <div class="timeline-node">
+                                <div class="timeline-dot timeline-dot--highlight"></div>
+                                <div class="timeline-time">11:30</div>
+                                <div class="timeline-annotation">結束</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="timeline-time">08:50 → 09:00 → 09:10 → 09:30 → 11:30</div>
                 </div>
-                <div class="timeline-card">
-                    <h3 class="timeline-title">動保處（下午）</h3>
-                    <div class="timeline-track">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-dot"></div>
+                <div class="timeline-center-marker">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                </div>
+                <div class="timeline-row timeline-row--right">
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <svg class="timeline-header__icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            <h3 class="timeline-title">動保處（下午）</h3>
+                        </div>
+                        <div class="timeline-track">
+                            <div class="timeline-node">
+                                <div class="timeline-dot timeline-dot--highlight"></div>
+                                <div class="timeline-time">13:20</div>
+                                <div class="timeline-annotation">報到</div>
+                            </div>
+                            <div class="timeline-node">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-time">13:30</div>
+                                <div class="timeline-annotation">評鑑開始</div>
+                            </div>
+                            <div class="timeline-node">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-time">13:40</div>
+                                <div class="timeline-annotation">簡報</div>
+                            </div>
+                            <div class="timeline-node">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-time">14:00</div>
+                                <div class="timeline-annotation">實地訪查</div>
+                            </div>
+                            <div class="timeline-node">
+                                <div class="timeline-dot timeline-dot--highlight"></div>
+                                <div class="timeline-time">16:00</div>
+                                <div class="timeline-annotation">結束</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="timeline-time">13:20 → 13:30 → 13:40 → 14:00 → 16:00</div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: Task Matrix -->
+        <!-- Slide 6: Task Matrix (Enhanced) -->
         <div class="slide" data-slide="6">
-            <div class="slide-header">
+            <div class="matrix-header">
+                <svg class="matrix-header__icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
                 <h2 class="slide-header__title">任務部署矩陣</h2>
             </div>
             <table class="matrix-table">
