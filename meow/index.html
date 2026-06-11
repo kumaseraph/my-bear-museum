@@ -1313,9 +1313,9 @@
                 document.querySelectorAll('.carousel-card').forEach(card => {
                     card.addEventListener('click', () => {
                         const idx = parseInt(card.dataset.carouselIndex);
-                        // All images: [4grid, single, ...carousel items]
-                        // Carousel index starts at 2 (after 4grid and single)
-                        Modal.open(idx + 2);
+                        // Carousel items start after fixed characters in allImages
+                        const fixedCount = getFixedCharacters().length;
+                        Modal.open(idx + fixedCount);
                     });
                 });
             }
@@ -1482,9 +1482,9 @@
                 document.querySelectorAll('.carousel-card').forEach(card => {
                     card.addEventListener('click', () => {
                         const idx = parseInt(card.dataset.carouselIndex);
-                        // All images: [4grid, single, ...carousel items]
-                        // Carousel index starts at 2 (after 4grid and single)
-                        Modal.open(idx + 2);
+                        // Carousel items start after fixed characters in allImages
+                        const fixedCount = getFixedCharacters().length;
+                        Modal.open(idx + fixedCount);
                     });
                 });
             },
