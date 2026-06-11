@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡報下載 - 熊熊博物館</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #FFF8F0 0%, #F5EDE4 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(127, 79, 36, 0.15);
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            color: #7F4F24;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            color: #A26769;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #A26769 0%, #7F4F24 100%);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 25px rgba(162, 103, 105, 0.4);
+        }
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(162, 103, 105, 0.5);
+        }
+        .file-info {
+            margin-top: 2rem;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        .bear-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bear-icon">🐻</div>
+        <h1>大地暖色系簡報</h1>
+        <p class="subtitle">新北市政府 115年員額評鑑 行前會議簡報</p>
+        <a href="presentation.pptx" class="download-btn" download>
+            ⬇️ 下載 PPTX 檔案
+        </a>
+        <p class="file-info">約 49 KB | 10 張投影片</p>
+    </div>
+</body>
+</html>
