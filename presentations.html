@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>115年員額評鑑簡報 - 5種風格下載</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #FFF8F0 0%, #F5E6D3 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #7F4F24;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #A26769;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+        }
+        
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        
+        .download-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 8px 32px rgba(127, 79, 36, 0.12);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .download-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(127, 79, 36, 0.18);
+        }
+        
+        .style-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px dashed #D4C4A8;
+        }
+        
+        .style-1 .style-name { color: #1A3366; }
+        .style-2 .style-name { color: #7F4F24; }
+        .style-3 .style-name { color: #333333; }
+        .style-4 .style-name { color: #00FFC8; }
+        .style-5 .style-name { color: #8B5A2B; }
+        
+        .color-preview {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .color-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        
+        .style-desc {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .style-1 .download-btn {
+            background: linear-gradient(135deg, #1A3366, #2A4A82);
+            color: white;
+        }
+        .style-1 .download-btn:hover { background: linear-gradient(135deg, #2A4A82, #3A5A92); }
+        
+        .style-2 .download-btn {
+            background: linear-gradient(135deg, #A26769, #B37779);
+            color: white;
+        }
+        .style-2 .download-btn:hover { background: linear-gradient(135deg, #B37779, #C28789); }
+        
+        .style-3 .download-btn {
+            background: linear-gradient(135deg, #555555, #666666);
+            color: white;
+        }
+        .style-3 .download-btn:hover { background: linear-gradient(135deg, #666666, #777777); }
+        
+        .style-4 .download-btn {
+            background: linear-gradient(135deg, #0A0F1E, #1A2A4A);
+            color: #00FFD0;
+            border: 2px solid #00FFD0;
+        }
+        .style-4 .download-btn:hover { background: linear-gradient(135deg, #1A2A4A, #2A3A5A); }
+        
+        .style-5 .download-btn {
+            background: linear-gradient(135deg, #DAA520, #F0C040);
+            color: #5D3A0A;
+        }
+        .style-5 .download-btn:hover { background: linear-gradient(135deg, #F0C040, #FFD060); }
+        
+        .info-box {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 40px;
+            box-shadow: 0 4px 20px rgba(127, 79, 36, 0.1);
+        }
+        
+        .info-box h3 {
+            color: #7F4F24;
+            margin-bottom: 12px;
+        }
+        
+        .info-box p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: #A26769;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            color: #7F4F24;
+        }
+        
+        .file-size {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 115年員額評鑑簡報</h1>
+        <p class="subtitle">5種不同風格版本 - 可編輯 PPTX 格式</p>
+        
+        <div class="download-grid">
+            <div class="download-card style-1">
+                <div class="style-name">🏛️ 風格一：專業政府</div>
+                <div class="color-preview">
+                    <div class="color-dot" style="background:#1A3366;"></div>
+                    <div class="color-dot" style="background:#00C8C8;"></div>
+                    <div class="color-dot" style="background:#FFC107;"></div>
+                </div>
+                <p class="style-desc">深藍色背景搭配金色強調，呈現政府公務的專業與莊重感。</p>
+                <a href="https://kumaweb.pages.dev/slides/115_員額評鑑/風格一_專業政府_專業政府風格.pptx" class="download-btn" download>⬇️ 下載簡報</a>
+                <div class="file-size">PPTX · 約 43 KB</div>
+            </div>
+            
+            <div class="download-card style-2">
+                <div class="style-name">🍂 風格二：溫暖大地</div>
+                <div class="color-preview">
+                    <div class="color-dot" style="background:#FFF8F0;"></div>
+                    <div class="color-dot" style="background:#7F4F24;"></div>
+                    <div class="color-dot" style="background:#C9A86C;"></div>
+                </div>
+                <p class="style-desc">奶油白底色搭配深棕與玫瑰棕，呈現溫暖亲切的視覺感受。</p>
+                <a href="https://kumaweb.pages.dev/slides/115_員額評鑑/風格二_溫暖大地_溫暖大地風格.pptx" class="download-btn" download>⬇️ 下載簡報</a>
+                <div class="file-size">PPTX · 約 43 KB</div>
+            </div>
+            
+            <div class="download-card style-3">
+                <div class="style-name">⬜ 風格三：極簡留白</div>
+                <div class="color-preview">
+                    <div class="color-dot" style="background:#FFFFFF;"></div>
+                    <div class="color-dot" style="background:#333333;"></div>
+                    <div class="color-dot" style="background:#666666;"></div>
+                </div>
+                <p class="style-desc">純白背景搭配深灰黑色調，呈現極簡主義的現代美感。</p>
+                <a href="https://kumaweb.pages.dev/slides/115_員額評鑑/風格三_極簡留白_極簡留白風格.pptx" class="download-btn" download>⬇️ 下載簡報</a>
+                <div class="file-size">PPTX · 約 43 KB</div>
+            </div>
+            
+            <div class="download-card style-4">
+                <div class="style-name">🚀 風格四：現代科技</div>
+                <div class="color-preview">
+                    <div class="color-dot" style="background:#0A0F1E;"></div>
+                    <div class="color-dot" style="background:#00FFC8;"></div>
+                    <div class="color-dot" style="background:#FFD700;"></div>
+                </div>
+                <p class="style-desc">深黑藍背景搭配霓虹發光效果，呈現未來科技感。</p>
+                <a href="https://kumaweb.pages.dev/slides/115_員額評鑑/風格四_現代科技_現代科技風格.pptx" class="download-btn" download>⬇️ 下載簡報</a>
+                <div class="file-size">PPTX · 約 43 KB</div>
+            </div>
+            
+            <div class="download-card style-5">
+                <div class="style-name">🎨 風格五：手繪溫馨</div>
+                <div class="color-preview">
+                    <div class="color-dot" style="background:#FDF5E6;"></div>
+                    <div class="color-dot" style="background:#8B5A2B;"></div>
+                    <div class="color-dot" style="background:#DAA520;"></div>
+                </div>
+                <p class="style-desc">暖米色背景搭配手繪風格元素，呈現溫馨亲切的氛圍。</p>
+                <a href="https://kumaweb.pages.dev/slides/115_員額評鑑/風格五_手繪溫馨_手繪溫馨風格.pptx" class="download-btn" download>⬇️ 下載簡報</a>
+                <div class="file-size">PPTX · 約 43 KB</div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h3>📋 使用說明</h3>
+            <p>所有簡報皆為可編輯的 PPTX 格式，下載後可用 Microsoft PowerPoint 或 Google Slides 開啟編輯。<br>
+            每種風格包含 10 張投影片，內容涵蓋：封面、評鑑流程、核心維度、小組陣容、行動總覽、任務部署、訪談法則、知識閉環、行動清單、結尾。</p>
+        </div>
+        
+        <a href="https://kumaweb.pages.dev" class="back-link">← 返回首頁</a>
+    </div>
+</body>
+</html>
