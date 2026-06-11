@@ -20,7 +20,7 @@ class NavBar extends HTMLElement {
     style.id = 'nav-offset-styles';
     style.textContent = `
       body.sidebar-open > *:not(nav-bar) {
-        transform: translateX(280px);
+        transform: translateX(260px);
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
       body.sidebar-open {
@@ -127,7 +127,8 @@ class NavBar extends HTMLElement {
         top: 0;
         left: 0;
         right: auto;
-        width: 280px;
+        width: 260px;
+        max-width: 60vw;
         height: 100vh;
         background: ${bgColor};
         z-index: 1000;
@@ -267,9 +268,12 @@ class NavBar extends HTMLElement {
       }
 
       /* Mobile responsive */
-      @media (max-width: 600px) {
+      @media (max-width: 480px) {
         .sidebar {
-          width: 100vw;
+          width: 85vw;
+        }
+        body.sidebar-open > *:not(nav-bar) {
+          transform: translateX(85vw);
         }
       }
     `;
@@ -399,11 +403,6 @@ class NavBar extends HTMLElement {
             <a href="/test-selection.html" class="nav-link"><span class="icon">✨</span>圖片選擇</a>
             <a href="/test-stripe.html" class="nav-link"><span class="icon">🎨</span>設計系統</a>
             <a href="/upload.html" class="nav-link"><span class="icon">📡</span>資料傳輸</a>
-          </div>
-
-          <div class="nav-group">
-            <div class="group-label">📂 檔案分享</div>
-            <a href="/upload.html" class="nav-link"><span class="icon">📤</span>上傳下載</a>
           </div>
         </div>
       </nav>
