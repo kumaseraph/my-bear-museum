@@ -175,6 +175,22 @@
       color: white;
     }
 
+    .download-btn {
+      background: #7F4F24;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .download-btn:hover {
+      background: #5D4037;
+    }
+
     /* 空狀態 */
     .empty-state {
       text-align: center;
@@ -279,6 +295,27 @@
         連結有效期約 30 天，請儘早下載。
       </p>
     </div>
+
+    <!-- 測試下載 -->
+    <div class="info-card" style="margin-top: 16px; background: rgba(127,79,36,0.12);">
+      <h3>🧪 測試下載</h3>
+      <p style="margin-bottom: 12px;">熊熊的簡報設計技巧示範簡報（v2）</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="download-btn" style="font-size: 0.9rem; padding: 10px 20px;" onclick="downloadFile('https://tmpfiles.org/dl/w9wfcHC2MzOn/_v2.pptx', '簡報設計技巧_v2.pptx')">📥 下載</button>
+        <button class="remove-btn" style="font-size: 0.9rem; padding: 10px 20px;" onclick="hideTestFile()">🗑️ 刪除</button>
+      </div>
+    </div>
+
+    <script>
+      // 隱藏測試檔案區塊
+      function hideTestFile() {
+        const testCard = document.querySelector('.info-card:last-child');
+        if (testCard) {
+          testCard.style.display = 'none';
+          showToast('已刪除');
+        }
+      }
+    </script>
   </div>
 
   <!-- 提示訊息 -->
@@ -321,6 +358,7 @@
             <div class="file-size">${formatFileSize(file.size)}</div>
             <div class="file-url">${file.url}</div>
           </div>
+          <button class="download-btn" onclick="downloadFile('${file.url}', '${escapeHtml(file.name)}')">下載</button>
           <button class="copy-btn" onclick="copyUrl('${file.url}', this)">複製連結</button>
           <button class="remove-btn" onclick="removeFile(${index})">移除</button>
         </div>
@@ -349,6 +387,19 @@
       saveStoredFiles(files);
       renderFileList();
       showToast('已移除');
+    }
+
+    // 下載檔案
+    function downloadFile(url, filename) {
+      showToast('開始下載...');
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => showToast('下載完成'), 1000);
     }
 
     // 上傳檔案到 tmpfiles.org

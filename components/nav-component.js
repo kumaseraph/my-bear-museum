@@ -398,6 +398,7 @@ class NavBar extends HTMLElement {
             <a href="/test-gallery.html" class="nav-link"><span class="icon">📷</span>圖片瀏覽</a>
             <a href="/test-selection.html" class="nav-link"><span class="icon">✨</span>圖片選擇</a>
             <a href="/test-stripe.html" class="nav-link"><span class="icon">🎨</span>設計系統</a>
+            <a href="/upload.html" class="nav-link"><span class="icon">📡</span>資料傳輸</a>
           </div>
 
           <div class="nav-group">
