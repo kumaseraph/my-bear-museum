@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐱 喵時光 - 每日更新療癒你的每一天</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <meta name="description" content="🐱 喵時光 - 喵喵日常，溫暖手繪繪本風格">
+    <meta property="og:title" content="🐱 喵時光">
+    <meta property="og:description" content="喵喵日常，溫暖手繪繪本風格">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#FF8C42">
+    
+    <!-- Nav Component -->
+    <script src="/components/nav-component.js"></script>
+    
+    <style>
+        /* ===== CSS Variables - Light Theme (Default) ===== */
+        :root {
+            /* Colors - Warm hand-drawn theme */
+            --color-bg: #FFF8F0;
+            --color-card: #FFFAF5;
+            --color-primary: #FF8C42;
+            --color-secondary: #C4A77D;
+            --color-accent: #A8D8C8;
+            --color-text: #3D2B1F;
+            --color-text-muted: #8B7355;
+            --color-border: #E07028;
+            
+            /* Shadows */
+            --shadow-soft: 0 4px 18px rgba(61, 43, 31, 0.08);
+            --shadow-medium: 0 6px 20px rgba(61, 43, 31, 0.12);
+            --shadow-card: 0 4px 12px rgba(61, 43, 31, 0.06);
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease-in-out;
+        }
+
+        /* ===== Dark Theme ===== */
+        [data-theme="dark"] {
+            --color-bg: #2D2A26;
+            --color-card: #3D3832;
+            --color-primary: #FF8C42;
+            --color-secondary: #A89078;
+            --color-accent: #8CBAA8;
+            --color-text: #F5EDE6;
+            --color-text-muted: #B8A898;
+            --color-border: #D06020;
+            
+            --shadow-soft: 0 4px 18px rgba(0, 0, 0, 0.2);
+            --shadow-medium: 0 6px 20px rgba(0, 0, 0, 0.25);
+            --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Inter', 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* Page Container */
+        .page-container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== Header Section ===== */
+        .header-section {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+        }
+
+        .header-decoration {
+            font-size: 1.2rem;
+            color: var(--color-secondary);
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 rgba(255, 140, 66, 0.2);
+        }
+
+        .header-subtitle {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            letter-spacing: 2px;
+        }
+
+        .header-wave {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 8px;
+            color: var(--color-secondary);
+            opacity: 0.5;
+        }
+
+        .header-wave span {
+            animation: wave 1.5s ease-in-out infinite;
+        }
+
+        .header-wave span:nth-child(2) { animation-delay: 0.1s; }
+        .header-wave span:nth-child(3) { animation-delay: 0.2s; }
+        .header-wave span:nth-child(4) { animation-delay: 0.3s; }
+        .header-wave span:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--color-border);
+            background: var(--color-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* ===== Section Common ===== */
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '~';
+            color: var(--color-secondary);
+        }
+
+        /* ===== Hand-drawn Card Style ===== */
+        .hand-drawn-card {
+            background: var(--color-card);
+            border: 2px solid var(--color-border);
+            border-radius: 22px;
+            padding: 15px;
+            box-shadow: var(--shadow-card);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .hand-drawn-card::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border: 1px dashed var(--color-secondary);
+            border-radius: 24px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .hand-drawn-card:hover {
+            transform: translateY(-4px) rotate(1deg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* ===== Fixed Character Section ===== */
+        .fixed-character-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .character-card {
+            text-align: center;
+            padding: 20px;
+            background: var(--color-card);
+            border-radius: 24px;
+            border: 3px solid var(--color-border);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .character-card-image {
+            width: 100%;
+            border-radius: 18px;
+            margin-bottom: 12px;
+            background: var(--color-bg);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        /* 4-grid card: 1:1 ratio for comic strip */
+        .character-card.card-4grid .comic-strip {
+            min-height: 600px;
+            width: 100%;
+            padding: 20px;
+            background: var(--color-bg);
+            border-radius: 20px;
+            border: 2px dashed var(--color-border);
+        }
+
+        /* Single card: 1:1 ratio */
+
+        /* ===== Comic Strip Layout (喵漫分鏡) ===== */
+        .comic-strip {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            gap: 20px;
+            width: 100%;
+            min-height: 540px;
+        }
+        
+        .comic-frame {
+            position: relative;
+            flex: 1;
+            min-width: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            background: var(--color-card);
+            border: 4px solid var(--color-border);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+        
+        .comic-frame-image,
+        .comic-frame-number {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .comic-frame:hover {
+            transform: scale(1.03);
+            z-index: 1;
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .comic-frame-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            min-height: 250px;
+        }
+        
+        .comic-frame-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .comic-frame-number {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        /* 故事文字區域 */
+        .story-text-container {
+            margin-top: 12px;
+            padding: 10px 15px;
+            background: var(--color-card);
+            border-radius: 8px;
+            border: 1px dashed var(--color-secondary);
+        }
+        
+        .story-text-label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-bottom: 5px;
+        }
+        
+        .story-text {
+            font-size: 0.9rem;
+            color: var(--color-text);
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .story-type-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            background: var(--color-primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-top: 8px;
+        }
+        
+        /* 手機版：2x2 網格 */
+        @media (max-width: 600px) {
+            .comic-strip {
+                flex-wrap: wrap;
+            }
+            .comic-frame {
+                flex: 0 0 calc(50% - 4px);
+                aspect-ratio: 1;
+            }
+        }
+        .character-card.card-single .character-card-image {
+            aspect-ratio: 1;
+        }
+
+        /* 漫畫標題樣式 */
+        .comic-title-container {
+            font-family: 'ZCOOL XiaoWei', 'Noto Serif TC', serif;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+        .comic-title-decoration {
+            color: var(--color-primary);
+            font-size: 0.9rem;
+        }
+        .comic-title-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0 6px;
+        }
+
+        .character-card:hover .character-card-image {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .character-card-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-text);
+            margin-bottom: 5px;
+        }
+
+        .character-card-desc {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .card-placeholder {
+            background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-card) 100%);
+            border: 2px dashed var(--color-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-muted);
+        }
+
+        .card-placeholder-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            opacity: 0.5;
+        }
+
+        .card-placeholder-text {
+            font-size: 0.85rem;
+        }
+
+        /* ===== Carousel Section ===== */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            padding: 10px 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 10px 5px;
+        }
+
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-item {
+            flex: 0 0 calc(20% - 16px);
+            min-width: 160px;
+            scroll-snap-align: start;
+        }
+
+        .carousel-card {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+
+        .carousel-card-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            background: var(--color-bg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .carousel-card-meta {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .carousel-placeholder {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        /* Carousel Indicators */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .indicator {
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .indicator.active {
+            color: var(--color-primary);
+            transform: scale(1.2);
+        }
+
+        .indicator:not(.active) {
+            color: var(--color-secondary);
+            opacity: 0.6;
+        }
+
+        .indicator:hover {
+            transform: scale(1.3);
+        }
+
+        /* Carousel Arrows */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--color-border);
+            background: var(--color-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            transition: all var(--transition-fast);
+            z-index: 10;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .carousel-arrow:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-arrow.prev { left: 5px; }
+        .carousel-arrow.next { right: 5px; }
+
+        /* ===== History Section ===== */
+        .history-calendar {
+            background: var(--color-card);
+            border: 2px solid var(--color-border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .calendar-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--color-secondary);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--color-primary);
+            transition: all var(--transition-fast);
+        }
+
+        .calendar-nav-btn:hover {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .calendar-month {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .calendar-weekday {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            padding: 8px 0;
+            font-weight: 500;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            position: relative;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .calendar-day:hover {
+            background: var(--color-bg);
+            border-color: var(--color-secondary);
+        }
+
+        .calendar-day.has-content::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 6px;
+        }
+
+        .calendar-day.today {
+            border: 2px solid var(--color-primary);
+            font-weight: 600;
+        }
+
+        .calendar-day.empty {
+            cursor: default;
+        }
+
+        /* Accordion */
+        .accordion-item {
+            margin-top: 15px;
+            border: 1px solid var(--color-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 12px 15px;
+            background: var(--color-bg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            transition: background var(--transition-fast);
+        }
+
+        .accordion-header:hover {
+            background: var(--color-card);
+        }
+
+        .accordion-arrow {
+            transition: transform var(--transition-fast);
+        }
+
+        .accordion-item.open .accordion-arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-normal);
+        }
+
+        .accordion-item.open .accordion-content {
+            max-height: 500px;
+        }
+
+        .accordion-inner {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .accordion-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--color-secondary);
+        }
+
+        .view-all-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            border: 2px solid var(--color-border);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--color-primary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .view-all-btn:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ===== Modal ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 248, 240, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-card);
+            border: 3px solid var(--color-border);
+            border-radius: 24px;
+            padding: 25px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalPop 0.3s ease-out;
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--color-border);
+            background: var(--color-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--color-text);
+            transition: all var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            background: var(--color-primary);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            object-fit: cover;
+            background: var(--color-bg);
+        }
+
+        .modal-info {
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 10px;
+        }
+
+        .modal-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .modal-meta-item {
+            padding: 5px 12px;
+            background: var(--color-bg);
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .modal-date {
+            font-size: 1rem;
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .modal-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .modal-nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--color-border);
+            background: var(--color-card);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--color-primary);
+            transition: all var(--transition-fast);
+        }
+
+        .modal-nav-btn:hover:not(:disabled) {
+            background: var(--color-primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .modal-nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-decoration {
+            margin-bottom: 10px;
+            letter-spacing: 5px;
+            opacity: 0.5;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .carousel-item {
+                flex: 0 0 calc(33.333% - 14px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+
+            .fixed-character-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .character-card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .carousel-item {
+                flex: 0 0 calc(66.666% - 14px);
+                min-width: 200px;
+            }
+
+            .calendar-day {
+                font-size: 0.8rem;
+            }
+
+            .theme-toggle-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-section {
+                padding: 50px 15px 30px;
+            }
+
+            .header-title {
+                font-size: 1.8rem;
+            }
+
+            .carousel-item {
+                flex: 0 0 calc(75% - 10px);
+                min-width: 180px;
+            }
+
+            .carousel-arrow {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Theme transition */
+        :root, [data-theme="dark"] {
+            transition: background-color var(--transition-normal), 
+                        color var(--transition-normal);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav-bar></nav-bar>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="切換深色模式">🌙</button>
+
+    <!-- Main Content -->
+    <main class="page-container">
+        <!-- Header Section -->
+        <header class="header-section">
+            <div class="header-decoration">~~~~~~~~</div>
+            <h1 class="header-title">🐱 喵時光</h1>
+            <p class="header-subtitle">每日更新 · 療癒你的每一天</p>
+            <div class="header-wave">
+                <span>~</span><span>~</span><span>~</span><span>~</span><span>~</span>
+            </div>
+        </header>
+
+        <!-- Fixed Character Section -->
+        <section class="section">
+            <h2 class="section-title">喵喵日常</h2>
+            <div class="fixed-character-grid" id="fixedCharacterGrid">
+                <!-- 漫畫卡片：單圖顯示 -->
+                <div class="hand-drawn-card character-card card-single" id="comicCard" data-index="0">
+                    <div class="character-card-image" id="comicImageContainer">
+                    </div>
+                    <div class="comic-title-container" id="comicTitleContainer" style="display:none;">
+                        <span class="comic-title-decoration">✿ </span>
+                        <span class="comic-title-text" id="comicTitle"></span>
+                        <span class="comic-title-decoration"> ✿</span>
+                    </div>
+                    <h3 class="character-card-title">喵漫</h3>
+                    <p class="character-card-desc">喵喵公主的生活小故事</p>
+                </div>
+
+                <!-- Single Illustration Card -->
+                <div class="hand-drawn-card character-card card-single" data-index="1">
+                    <div class="character-card-image" id="cardSingle">
+                    </div>
+                    <h3 class="character-card-title">喵圖</h3>
+                    <p class="character-card-desc">今天的心情與情境</p>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: var(--color-text-muted);">
+                ✿ 點擊卡片可看大圖 ✿
+            </p>
+        </section>
+
+        <!-- Multi-Content Carousel Section -->
+        <section class="section">
+            <h2 class="section-title">今日多元內容</h2>
+            <div class="carousel-container">
+                <button class="carousel-arrow prev" id="carouselPrev" aria-label="上一張">←</button>
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Carousel items will be dynamically generated -->
+                </div>
+                <button class="carousel-arrow next" id="carouselNext" aria-label="下一張">→</button>
+            </div>
+            <div class="carousel-indicators" id="carouselIndicators">
+                <!-- Indicators will be dynamically generated -->
+            </div>
+        </section>
+
+        <!-- History Footprint Section -->
+        <section class="section">
+            <h2 class="section-title">📅 歷史足跡</h2>
+            <div class="history-calendar">
+                <div class="calendar-nav">
+                    <button class="calendar-nav-btn" id="prevMonth" aria-label="上個月">◀</button>
+                    <div class="calendar-month" id="currentMonth">
+                        <span>🌙</span>
+                        <span>2026年六月</span>
+                        <span>🌙</span>
+                    </div>
+                    <button class="calendar-nav-btn" id="nextMonth" aria-label="下個月">▶</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be dynamically generated -->
+                </div>
+                <div class="view-all-link">
+                    <a href="cats-archive.html" class="view-all-btn">
+                        查看完整列表 →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-decoration">~~~~~~~~</div>
+            <p>© 2026 熊熊博物館 · 每日更新</p>
+        </footer>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content" id="modalContent">
+            <button class="modal-close" id="modalClose" aria-label="關閉">✕</button>
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-info">
+                <h3 class="modal-title" id="modalTitle">標題</h3>
+                <div class="modal-meta" id="modalMeta">
+                    <!-- Meta items will be dynamically generated -->
+                </div>
+                <div class="modal-date" id="modalDate">
+                    🌙 2026.06.10
+                </div>
+            </div>
+            <div class="modal-nav">
+                <button class="modal-nav-btn" id="modalPrevBtn" aria-label="上一張">←</button>
+                <button class="modal-nav-btn" id="modalNextBtn" aria-label="下一張">→</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Theme Management =====
+        const ThemeManager = {
+            STORAGE_KEY: 'cats-theme',
+            
+            init() {
+                const saved = localStorage.getItem(this.STORAGE_KEY);
+                if (saved === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    document.getElementById('themeToggle').textContent = '☀️';
+                } else {
+                    document.getElementById('themeToggle').textContent = '🌙';
+                }
+                
+                document.getElementById('themeToggle').addEventListener('click', () => this.toggle());
+            },
+            
+            toggle() {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                if (isDark) {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem(this.STORAGE_KEY, 'light');
+                    document.getElementById('themeToggle').textContent = '🌙';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem(this.STORAGE_KEY, 'dark');
+                    document.getElementById('themeToggle').textContent = '☀️';
+                }
+            }
+        };
+
+        // ===== Modal Management =====
+        const Modal = {
+            currentIndex: 0,
+            allImages: [],
+
+            open(index) {
+                this.currentIndex = index;
+                this.update();
+                document.getElementById('modalOverlay').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            },
+
+            close() {
+                document.getElementById('modalOverlay').classList.remove('active');
+                document.body.style.overflow = '';
+            },
+
+            update() {
+                const item = this.allImages[this.currentIndex];
+                if (!item) return;
+                const imgPath = item.img.startsWith('/') ? item.img : '/' + item.img;
+                document.getElementById('modalImage').src = imgPath;
+                document.getElementById('modalTitle').textContent = item.title || '';
+                document.getElementById('modalPrevBtn').disabled = this.currentIndex === 0;
+                document.getElementById('modalNextBtn').disabled = this.currentIndex === this.allImages.length - 1;
+            },
+
+            prev() {
+                if (this.currentIndex > 0) {
+                    this.currentIndex--;
+                    this.update();
+                }
+            },
+
+            next() {
+                if (this.currentIndex < this.allImages.length - 1) {
+                    this.currentIndex++;
+                    this.update();
+                }
+            },
+
+            init() {
+                document.getElementById('modalClose').addEventListener('click', () => this.close());
+                document.getElementById('modalOverlay').addEventListener('click', (e) => {
+                    if (e.target === document.getElementById('modalOverlay')) this.close();
+                });
+                document.getElementById('modalPrevBtn').addEventListener('click', () => this.prev());
+                document.getElementById('modalNextBtn').addEventListener('click', () => this.next());
+                document.addEventListener('keydown', (e) => {
+                    if (!document.getElementById('modalOverlay').classList.contains('active')) return;
+                    if (e.key === 'Escape') this.close();
+                    if (e.key === 'ArrowLeft') this.prev();
+                    if (e.key === 'ArrowRight') this.next();
+                });
+                
+                // Carousel card click to open modal
+                document.querySelectorAll('.carousel-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const idx = parseInt(card.dataset.carouselIndex);
+                        // All images: [4grid, single, ...carousel items]
+                        // Carousel index starts at 2 (after 4grid and single)
+                        Modal.open(idx + 2);
+                    });
+                });
+            }
+        };
+
+        // Make openModal global for onclick handlers
+        window.openModal = (index) => Modal.open(index);
+
+        // ===== Data Loading =====
+        let catsData = { cats: [], last_updated: '' };
+
+        async function loadCatsData() {
+            try {
+                const response = await fetch('/cats-images/cats.json');
+                catsData = await response.json();
+                console.log("[DEBUG] catsData loaded, cats count:", catsData.cats.length);
+            } catch (e) {
+                console.error("[DEBUG] loadCatsData failed:", e);
+                console.log("[DEBUG] catsData:", catsData);
+            }
+        }
+
+        function getFixedCharacters() {
+            // 支持 4grid, single, story 类型
+            return catsData.cats.filter(c => c.type === '4grid' || c.type === 'single' || c.type === 'story');
+        }
+        
+        // 获取今日喵漫故事（story 类型）
+        function getTodayStory() {
+            const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
+            const stories = catsData.cats.filter(c => c.type === 'story' && c.date === today);
+            return stories.sort((a, b) => (a.frame_num || 1) - (b.frame_num || 1));
+        }
+
+        function getCarouselItems() {
+            return catsData.cats.filter(c => c.type !== '4grid' && c.type !== 'single' && c.type !== 'story');
+        }
+
+        // 加载喵漫（单图显示）
+        function loadComicStrip() {
+            console.log("[DEBUG] loadComicStrip called");
+            const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
+            const stories = getTodayStory();
+            const container = document.getElementById('comicImageContainer');
+            const titleContainer = document.getElementById('comicTitleContainer');
+            const titleEl = document.getElementById('comicTitle');
+            const comicCard = document.getElementById('comicCard');
+            
+            if (stories.length > 0) {
+                // 使用第一張漫畫圖片
+                const firstStory = stories[0];
+                const imgPath = firstStory.img;
+                // 確保路徑是絕對路徑（以 / 開頭）
+                const fullPath = imgPath.startsWith('/') ? imgPath : '/' + imgPath;
+                
+                container.style.backgroundImage = `url('${fullPath}')`;
+                container.style.backgroundSize = 'cover';
+                container.style.backgroundPosition = 'center';
+                container.style.cursor = 'pointer';
+                
+                // 顯示漫畫標題
+                if (firstStory.title) {
+                    titleEl.textContent = firstStory.title;
+                    titleContainer.style.display = 'flex';
+                    titleContainer.style.justifyContent = 'center';
+                    titleContainer.style.alignItems = 'center';
+                    titleContainer.style.marginBottom = '8px';
+                }
+                
+                // 找到對應的 allImages 索引，點擊打開 Lightbox
+                const catItem = catsData.cats.find(c => c.img === imgPath);
+                if (catItem) {
+                    const imgIndex = allImages.indexOf(catItem);
+                    comicCard.dataset.imageIndex = imgIndex;
+                    comicCard.addEventListener('click', () => {
+                        Modal.open(imgIndex);
+                    });
+                }
+            } else {
+                comicCard.style.display = 'none';
+            }
+        }
+        
+        function getCalendarData() {
+            const data = {};
+            catsData.cats.forEach(cat => {
+                if (cat.date) {
+                    data[cat.date] = true;
+                }
+            });
+            return data;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            return dateStr.replace(/-/g, '.');
+        }
+
+        // ===== All images for modal navigation =====
+        let allImages = [];
+
+        // ===== Carousel Management =====
+        const Carousel = {
+            currentIndex: 0,
+
+            init() {
+                this.render();
+                this.setupEventListeners();
+                // Autoplay disabled - user controls carousel manually
+            },
+            
+            render() {
+                const track = document.getElementById('carouselTrack');
+                const indicators = document.getElementById('carouselIndicators');
+                const carouselItems = getCarouselItems();
+
+                track.innerHTML = carouselItems.map((item, index) => `
+                    <div class="carousel-item">
+                        <div class="hand-drawn-card carousel-card" data-carousel-index="${index}">
+                            <div class="carousel-card-image" style="background-image: url('${item.img}');">
+                            </div>
+                            <div class="carousel-card-meta">
+                                ${item.title}<br>
+                                <span style="font-size: 0.65rem;">${item.title} · ${item.style}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                indicators.innerHTML = carouselItems.map((_, index) => `
+                    <span class="indicator ${index === 0 ? 'active' : ''}" data-indicator-index="${index}">
+                        ${index === 0 ? '♥' : '♡'}
+                    </span>
+                `).join('');
+
+                allImages = [...getFixedCharacters(), ...carouselItems];
+            },
+            
+            setupEventListeners() {
+                document.getElementById('carouselPrev').addEventListener('click', () => this.prev());
+                document.getElementById('carouselNext').addEventListener('click', () => this.next());
+                
+                document.querySelectorAll('.indicator').forEach(ind => {
+                    ind.addEventListener('click', () => {
+                        const idx = parseInt(ind.dataset.indicatorIndex);
+                        this.goTo(idx);
+                    });
+                });
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prev();
+                    if (e.key === 'ArrowRight') this.next();
+                });
+                
+                // Carousel card click to open modal
+                document.querySelectorAll('.carousel-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const idx = parseInt(card.dataset.carouselIndex);
+                        // All images: [4grid, single, ...carousel items]
+                        // Carousel index starts at 2 (after 4grid and single)
+                        Modal.open(idx + 2);
+                    });
+                });
+            },
+            
+            prev() {
+                const items = document.querySelectorAll('.carousel-item');
+                if (items.length === 0) return;
+                
+                this.currentIndex = Math.max(0, this.currentIndex - 1);
+                this.scrollToCurrent();
+            },
+            
+            next() {
+                const items = document.querySelectorAll('.carousel-item');
+                if (items.length === 0) return;
+                
+                this.currentIndex = Math.min(items.length - 1, this.currentIndex + 1);
+                this.scrollToCurrent();
+            },
+            
+            goTo(index) {
+                this.currentIndex = index;
+                this.scrollToCurrent();
+            },
+            
+            scrollToCurrent() {
+                const items = document.querySelectorAll('.carousel-item');
+                if (items.length === 0) return;
+                
+                const target = items[this.currentIndex];
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
+                
+                // Update indicators
+                document.querySelectorAll('.indicator').forEach((ind, i) => {
+                    ind.classList.toggle('active', i === this.currentIndex);
+                    ind.textContent = i === this.currentIndex ? '♥' : '♡';
+                });
+            }
+        };
+
+        // ===== Calendar Management =====
+        const Calendar = {
+            currentDate: new Date(2026, 5, 10), // June 10, 2026
+            
+            init() {
+                this.render();
+                this.setupEventListeners();
+            },
+            
+            render() {
+                const grid = document.getElementById('calendarGrid');
+                const monthDisplay = document.getElementById('currentMonth');
+                
+                const year = this.currentDate.getFullYear();
+                const month = this.currentDate.getMonth();
+                
+                monthDisplay.innerHTML = `
+                    <span>🌙</span>
+                    <span>${year}年${month + 1}月</span>
+                    <span>🌙</span>
+                `;
+                
+                const firstDay = new Date(year, month, 1).getDay() || 7;
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const today = new Date();
+                
+                let html = ['一', '二', '三', '四', '五', '六', '日'].map(d => 
+                    `<div class="calendar-weekday">${d}</div>`
+                ).join('');
+                
+                // Empty cells before first day
+                for (let i = 1; i < firstDay; i++) {
+                    html += '<div class="calendar-day empty"></div>';
+                }
+                
+                // Days
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    const hasContent = getCalendarData()[dateStr];
+                    const isToday = today.getFullYear() === year && 
+                                    today.getMonth() === month && 
+                                    today.getDate() === day;
+                    
+                    html += `
+                        <div class="calendar-day ${hasContent ? 'has-content' : ''} ${isToday ? 'today' : ''}" 
+                             data-date="${dateStr}">
+                            ${day}
+                        </div>
+                    `;
+                }
+                
+                grid.innerHTML = html;
+            },
+            
+            setupEventListeners() {
+                document.getElementById('prevMonth').addEventListener('click', () => {
+                    this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+                    this.render();
+                });
+                
+                document.getElementById('nextMonth').addEventListener('click', () => {
+                    this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+                    this.render();
+                });
+                
+                document.getElementById('calendarGrid').addEventListener('click', (e) => {
+                    const dayEl = e.target.closest('.calendar-day:not(.empty)');
+                    if (dayEl && dayEl.classList.contains('has-content')) {
+                        this.showDayContent(dayEl.dataset.date);
+                    }
+                });
+            },
+            
+            showDayContent(dateStr) {
+                // Toggle accordion for this date
+                const existingAccordion = document.querySelector(`.accordion-item[data-date="${dateStr}"]`);
+                if (existingAccordion) {
+                    existingAccordion.classList.toggle('open');
+                    return;
+                }
+
+                // Get images for this date (filter by date in image path)
+                const dateFormatted = dateStr.replace(/-/g, '');
+                const dayImages = allImages.filter(item => item.img && item.img.includes(dateFormatted));
+
+                // Create new accordion
+                const accordion = document.createElement('div');
+                accordion.className = 'accordion-item';
+                accordion.dataset.date = dateStr;
+
+                const imagesHtml = dayImages.length > 0
+                    ? dayImages.map(item => `
+                        <div class="accordion-image" style="background-image: url('${item.img}'); background-size: cover; background-position: center; cursor: pointer;" data-image-index="${allImages.indexOf(item)}" onclick="openModal(${allImages.indexOf(item)})"></div>
+                    `).join('')
+                    : '<div class="accordion-image card-placeholder" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🐱</div>';
+
+                accordion.innerHTML = `
+                    <div class="accordion-header">
+                        <span>${dateStr} 的內容 ${dayImages.length > 0 ? `(${dayImages.length}張)` : ''}</span>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-inner">
+                            ${imagesHtml}
+                        </div>
+                    </div>
+                `;
+                
+                // Remove other accordions
+                document.querySelectorAll('.accordion-item').forEach(a => a.remove());
+                
+                // Add new accordion
+                const calendar = document.querySelector('.history-calendar');
+                calendar.appendChild(accordion);
+                
+                // Animate open
+                setTimeout(() => accordion.classList.add('open'), 10);
+                
+                // Scroll to accordion
+                accordion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        };
+
+        // Modal is defined above (lines 953-1007)
+
+        // ===== Fixed Character Card Events =====
+        function setupFixedCharacterCards() {
+            // Sync allImages to Modal for consistent access
+            Modal.allImages = allImages;
+
+            // 设置喵图卡片（index 1）- 喵漫使用 loadComicStrip 处理
+            const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
+            const singleItem = catsData.cats.find(c => c.type === 'single' && c.date === today);
+            if (singleItem) {
+                const card = document.querySelector('.character-card[data-index="1"]');
+                if (card) {
+                    const imageEl = card.querySelector('.character-card-image');
+                    if (imageEl) {
+                        imageEl.style.backgroundImage = `url('${singleItem.img}')`;
+                    }
+                }
+            }
+
+            // 喵图卡片点击事件
+            const singleCard = document.querySelector('.character-card[data-index="1"]');
+            if (singleCard) {
+                singleCard.addEventListener('click', () => {
+                    if (singleItem) {
+                        const idx = allImages.findIndex(c => c.img === singleItem.img);
+                        if (idx >= 0) Modal.open(idx);
+                    }
+                });
+            }
+        };
+
+        // ===== Initialize =====
+        // 立即执行，不等待 DOMContentLoaded
+        (async function init() {
+            console.log("[DEBUG] Starting init...");
+            ThemeManager.init();
+            console.log("[DEBUG] Loading cats data...");
+            await loadCatsData();
+            console.log("[DEBUG] catsData.cats:", catsData.cats ? catsData.cats.length : 0);
+            console.log("[DEBUG] Initializing components...");
+            Carousel.init();
+            loadComicStrip();
+            Calendar.init();
+            Modal.init();
+            setupFixedCharacterCards();
+            console.log("[DEBUG] Init complete!");
+        })();
+    </script>
+</body>
+</html>

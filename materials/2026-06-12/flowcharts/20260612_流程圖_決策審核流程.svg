@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2C5282"/>
+      <stop offset="100%" stop-color="#1A365D"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EDF2F7"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4299E1"/>
+      <stop offset="100%" stop-color="#2B6CB0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect fill="#F0F4F8" width="1920" height="1080"/>
+  
+  <!-- 頂部標題欄 -->
+  <rect x="0" y="0" width="1920" height="100" fill="url(#headerGrad)"/>
+  <text x="960" y="50" font-family="Microsoft JhengHei" font-size="32" font-weight="bold" fill="white" text-anchor="middle">決策審核流程</text>
+  <text x="960" y="80" font-family="Microsoft JhengHei" font-size="16" fill="#A0AEC0" text-anchor="middle">Decision &amp; Approval Workflow</text>
+  
+  <!-- 主流程卡片 -->
+  <!-- 提交申請 -->
+  <g transform="translate(200, 250)">
+    <rect x="0" y="0" width="280" height="200" rx="16" fill="url(#cardGrad)" stroke="#4299E1" stroke-width="2"/>
+    <rect x="0" y="0" width="280" height="50" rx="16" fill="#4299E1"/>
+    <text x="140" y="35" font-family="Microsoft JhengHei" font-size="18" font-weight="bold" fill="white" text-anchor="middle">📋 提交申請</text>
+    <circle cx="140" cy="115" r="40" fill="#EBF8FF"/>
+    <!-- 文件圖標 -->
+    <rect x="125" y="95" width="30" height="40" rx="3" fill="none" stroke="#4299E1" stroke-width="2"/>
+    <line x1="130" y1="108" x2="150" y2="108" stroke="#4299E1" stroke-width="2"/>
+    <line x1="130" y1="118" x2="150" y2="118" stroke="#4299E1" stroke-width="2"/>
+    <line x1="130" y1="128" x2="145" y2="128" stroke="#4299E1" stroke-width="2"/>
+    <text x="140" y="175" font-family="Microsoft JhengHei" font-size="14" fill="#4A5568" text-anchor="middle">Submit Application</text>
+  </g>
+  
+  <!-- 箭頭1 -->
+  <path d="M 490 350 L 590 350" stroke="url(#arrowGrad)" stroke-width="4" fill="none"/>
+  <polygon points="585,340 605,350 585,360" fill="#4299E1"/>
+  <text x="540" y="330" font-family="Microsoft JhengHei" font-size="14" fill="#718096" text-anchor="middle">審核中</text>
+  
+  <!-- 初審評估 -->
+  <g transform="translate(600, 250)">
+    <rect x="0" y="0" width="280" height="200" rx="16" fill="url(#cardGrad)" stroke="#48BB78" stroke-width="2"/>
+    <rect x="0" y="0" width="280" height="50" rx="16" fill="#48BB78"/>
+    <text x="140" y="35" font-family="Microsoft JhengHei" font-size="18" font-weight="bold" fill="white" text-anchor="middle">🔍 初審評估</text>
+    <circle cx="140" cy="115" r="40" fill="#F0FFF4"/>
+    <!-- 放大鏡 -->
+    <circle cx="135" cy="110" r="18" fill="none" stroke="#48BB78" stroke-width="2"/>
+    <line x1="148" y1="123" x2="158" y2="133" stroke="#48BB78" stroke-width="3"/>
+    <text x="140" y="175" font-family="Microsoft JhengHei" font-size="14" fill="#4A5568" text-anchor="middle">Initial Review</text>
+  </g>
+  
+  <!-- 箭頭2 -->
+  <path d="M 890 350 L 990 350" stroke="url(#arrowGrad)" stroke-width="4" fill="none"/>
+  <polygon points="985,340 1005,350 985,360" fill="#4299E1"/>
+  
+  <!-- 覆核確認 -->
+  <g transform="translate(1000, 250)">
+    <rect x="0" y="0" width="280" height="200" rx="16" fill="url(#cardGrad)" stroke="#ED8936" stroke-width="2"/>
+    <rect x="0" y="0" width="280" height="50" rx="16" fill="#ED8936"/>
+    <text x="140" y="35" font-family="Microsoft JhengHei" font-size="18" font-weight="bold" fill="white" text-anchor="middle">👥 覆核確認</text>
+    <circle cx="140" cy="115" r="40" fill="#FFFAF0"/>
+    <!-- 人員圖標 -->
+    <circle cx="140" cy="105" r="12" fill="none" stroke="#ED8936" stroke-width="2"/>
+    <path d="M 125 135 Q 125 120 140 120 Q 155 120 155 135" fill="none" stroke="#ED8936" stroke-width="2"/>
+    <circle cx="158" cy="112" r="8" fill="none" stroke="#ED8936" stroke-width="2"/>
+    <path d="M 150 132 Q 150 122 158 122 Q 166 122 166 132" fill="none" stroke="#ED8936" stroke-width="2"/>
+    <text x="140" y="175" font-family="Microsoft JhengHei" font-size="14" fill="#4A5568" text-anchor="middle">Final Approval</text>
+  </g>
+  
+  <!-- 箭頭3 -->
+  <path d="M 1290 350 L 1390 350" stroke="url(#arrowGrad)" stroke-width="4" fill="none"/>
+  <polygon points="1385,340 1405,350 1385,360" fill="#4299E1"/>
+  
+  <!-- 結果出爐 -->
+  <g transform="translate(1400, 250)">
+    <rect x="0" y="0" width="280" height="200" rx="16" fill="url(#cardGrad)" stroke="#9F7AEA" stroke-width="2"/>
+    <rect x="0" y="0" width="280" height="50" rx="16" fill="#9F7AEA"/>
+    <text x="140" y="35" font-family="Microsoft JhengHei" font-size="18" font-weight="bold" fill="white" text-anchor="middle">✅ 結果出爐</text>
+    <circle cx="140" cy="115" r="40" fill="#FAF5FF"/>
+    <!-- 勳章圖標 -->
+    <path d="M 140 95 L 155 105 L 150 125 L 140 130 L 130 125 L 125 105 Z" fill="none" stroke="#9F7AEA" stroke-width="2"/>
+    <circle cx="140" cy="110" r="8" fill="#9F7AEA" opacity="0.5"/>
+    <text x="140" y="175" font-family="Microsoft JhengHei" font-size="14" fill="#4A5568" text-anchor="middle">Result Published</text>
+  </g>
+  
+  <!-- 退回路线 (左側) -->
+  <g transform="translate(200, 520)">
+    <rect x="0" y="0" width="500" height="150" rx="12" fill="#FED7D7" stroke="#E53E3E" stroke-width="2"/>
+    <text x="250" y="35" font-family="Microsoft JhengHei" font-size="16" font-weight="bold" fill="#C53030" text-anchor="middle">🔄 補正退回流程</text>
+    <text x="250" y="65" font-family="Microsoft JhengHei" font-size="14" fill="#742A2A" text-anchor="middle">材料不齊 → 補正 → 重新送審</text>
+    <path d="M 250 90 L 250 130" stroke="#E53E3E" stroke-width="2" stroke-dasharray="5,3"/>
+    <circle cx="250" cy="130" r="8" fill="#E53E3E"/>
+    <path d="M 242 125 L 250 135 L 258 125" stroke="white" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- 否決路线 (右側) -->
+  <g transform="translate(1200, 520)">
+    <rect x="0" y="0" width="500" height="150" rx="12" fill="#E2E8F0" stroke="#718096" stroke-width="2"/>
+    <text x="250" y="35" font-family="Microsoft JhengHei" font-size="16" font-weight="bold" fill="#4A5568" text-anchor="middle">⛔ 駁回結案流程</text>
+    <text x="250" y="65" font-family="Microsoft JhengHei" font-size="14" fill="#4A5568" text-anchor="middle">審核未通過 → 結案歸檔</text>
+    <path d="M 250 90 L 250 130" stroke="#718096" stroke-width="2" stroke-dasharray="5,3"/>
+    <circle cx="250" cy="130" r="8" fill="#718096"/>
+    <line x1="243" y1="123" x2="257" y2="137" stroke="white" stroke-width="2"/>
+    <line x1="257" y1="123" x2="243" y2="137" stroke="white" stroke-width="2"/>
+  </g>
+  
+  <!-- 連接線到主流程 -->
+  <path d="M 490 340 Q 400 340 400 420 Q 400 480 340 480 Q 280 480 280 520" stroke="#E53E3E" stroke-width="2" stroke-dasharray="5,3" fill="none"/>
+  <path d="M 1390 340 Q 1450 340 1450 400 Q 1450 460 1450 520 Q 1450 560 1450 585" stroke="#718096" stroke-width="2" stroke-dasharray="5,3" fill="none"/>
+  
+  <!-- 底部說明 -->
+  <rect x="0" y="750" width="1920" height="80" fill="#2D3748"/>
+  <text x="960" y="785" font-family="Microsoft JhengHei" font-size="18" fill="white" text-anchor="middle">透明流程 · 高效審核 · 清晰追蹤</text>
+  <text x="960" y="815" font-family="Microsoft JhengHei" font-size="14" fill="#A0AEC0" text-anchor="middle">Transparent Process · Efficient Review · Clear Tracking</text>
+  
+  <!-- 四角裝飾 -->
+  <rect x="30" y="30" width="60" height="6" rx="3" fill="#4299E1"/>
+  <rect x="30" y="30" width="6" height="60" rx="3" fill="#4299E1"/>
+  <rect x="1830" y="30" width="60" height="6" rx="3" fill="#4299E1"/>
+  <rect x="1884" y="30" width="6" height="60" rx="3" fill="#4299E1"/>
+  <rect x="30" y="1044" width="60" height="6" rx="3" fill="#4299E1"/>
+  <rect x="30" y="990" width="6" height="60" rx="3" fill="#4299E1"/>
+  <rect x="1830" y="1044" width="60" height="6" rx="3" fill="#4299E1"/>
+  <rect x="1884" y="990" width="6" height="60" rx="3" fill="#4299E1"/>
+</svg>

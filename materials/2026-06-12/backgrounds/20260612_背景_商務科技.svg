@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="30%" stop-color="#1E3A5F"/>
+      <stop offset="60%" stop-color="#2D4A6F"/>
+      <stop offset="100%" stop-color="#1A365D"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4299E1" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#63B3ED" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#4299E1" stop-opacity="0.3"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#4299E1" stroke-width="0.5" opacity="0.2"/>
+    </pattern>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect fill="url(#bgGrad)" width="1920" height="1080"/>
+  
+  <!-- 網格圖案 -->
+  <rect x="0" y="0" width="1920" height="1080" fill="url(#grid)"/>
+  
+  <!-- 幾何裝飾 - 左上角 -->
+  <circle cx="100" cy="100" r="200" fill="none" stroke="url(#accentGrad)" stroke-width="1"/>
+  <circle cx="100" cy="100" r="300" fill="none" stroke="url(#accentGrad)" stroke-width="0.5"/>
+  <circle cx="100" cy="100" r="400" fill="none" stroke="url(#accentGrad)" stroke-width="0.3"/>
+  
+  <!-- 幾何裝飾 - 右下角 -->
+  <circle cx="1820" cy="980" r="200" fill="none" stroke="url(#accentGrad)" stroke-width="1"/>
+  <circle cx="1820" cy="980" r="300" fill="none" stroke="url(#accentGrad)" stroke-width="0.5"/>
+  <circle cx="1820" cy="980" r="400" fill="none" stroke="url(#accentGrad)" stroke-width="0.3"/>
+  
+  <!-- 連接線裝飾 -->
+  <line x1="100" y1="100" x2="300" y2="300" stroke="#4299E1" stroke-width="0.5" opacity="0.3"/>
+  <line x1="1820" y1="980" x2="1620" y2="780" stroke="#4299E1" stroke-width="0.5" opacity="0.3"/>
+  
+  <!-- 亮點裝飾 -->
+  <circle cx="300" cy="200" r="4" fill="#63B3ED" filter="url(#glow)"/>
+  <circle cx="600" cy="150" r="3" fill="#4299E1" filter="url(#glow)"/>
+  <circle cx="900" cy="100" r="5" fill="#63B3ED" filter="url(#glow)"/>
+  <circle cx="1300" cy="180" r="3" fill="#4299E1" filter="url(#glow)"/>
+  <circle cx="1600" cy="120" r="4" fill="#63B3ED" filter="url(#glow)"/>
+  
+  <circle cx="200" cy="800" r="3" fill="#4299E1" filter="url(#glow)"/>
+  <circle cx="500" cy="900" r="4" fill="#63B3ED" filter="url(#glow)"/>
+  <circle cx="1000" cy="950" r="5" fill="#4299E1" filter="url(#glow)"/>
+  <circle cx="1400" cy="850" r="3" fill="#63B3ED" filter="url(#glow)"/>
+  
+  <!-- 中央啞鈴形光暈 -->
+  <ellipse cx="960" cy="540" rx="400" ry="200" fill="none" stroke="url(#accentGrad)" stroke-width="2" opacity="0.4"/>
+  <ellipse cx="960" cy="540" rx="300" ry="150" fill="none" stroke="url(#accentGrad)" stroke-width="1" opacity="0.3"/>
+  
+  <!-- 底部色帶 -->
+  <rect x="0" y="1050" width="1920" height="30" fill="url(#accentGrad)" opacity="0.5"/>
+  
+  <!-- 右上角裝飾三角 -->
+  <polygon points="1920,0 1920,150 1770,0" fill="#4299E1" opacity="0.1"/>
+  
+  <!-- 左下角裝飾三角 -->
+  <polygon points="0,1080 0,930 150,1080" fill="#4299E1" opacity="0.1"/>
+</svg>
