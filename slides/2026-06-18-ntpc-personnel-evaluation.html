@@ -116,14 +116,37 @@
         /* ═══════════════════════════════════════════════════════════════
            Individual Slide Structure
         ═══════════════════════════════════════════════════════════════ */
-        .slide {
+        .presentation {
             position: relative;
+            width: 100%;
             min-height: 100vh;
-            padding: var(--space-lg);
             display: flex;
             flex-direction: column;
-            background: var(--color-bg);
-            overflow: hidden;
+            align-items: center;
+            padding: var(--space-xl) var(--space-md);
+            padding-bottom: 120px;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            max-width: 900px;
+            min-height: 80vh;
+            background: var(--color-card);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            padding: var(--space-xl);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+            transform: translateX(30px);
+ overflow: hidden;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
         }
 
         /* Corner Border Decorations */
