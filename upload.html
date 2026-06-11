@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>檔案分享 - 熊熊博物館</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Inter', 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+      background: #FFF8F0;
+      color: #5D4E37;
+      min-height: 100vh;
+      padding: 80px 20px 40px;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #7F4F24;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h1::before { content: '📂'; }
+
+    .subtitle {
+      color: #A1887F;
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    /* 上傳區域 */
+    .upload-zone {
+      border: 2px dashed #D4C4A8;
+      border-radius: 16px;
+      padding: 48px 24px;
+      text-align: center;
+      background: rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 32px;
+    }
+
+    .upload-zone:hover,
+    .upload-zone.dragover {
+      border-color: #A1887F;
+      background: rgba(161,136,127,0.1);
+    }
+
+    .upload-zone .icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .upload-zone h3 {
+      font-size: 1.1rem;
+      color: #7F4F24;
+      margin-bottom: 8px;
+    }
+
+    .upload-zone p {
+      font-size: 0.85rem;
+      color: #A1887F;
+    }
+
+    .upload-zone input[type="file"] {
+      display: none;
+    }
+
+    /* 已上傳檔案列表 */
+    .uploaded-list {
+      margin-bottom: 32px;
+    }
+
+    .uploaded-list h2 {
+      font-size: 1rem;
+      color: #7F4F24;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .file-item {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .file-item .file-icon {
+      font-size: 1.8rem;
+    }
+
+    .file-item .file-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .file-item .file-name {
+      font-weight: 600;
+      color: #5D4E37;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-item .file-size {
+      font-size: 0.8rem;
+      color: #A1887F;
+    }
+
+    .file-item .file-url {
+      font-size: 0.75rem;
+      color: #7F4F24;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 4px;
+    }
+
+    .copy-btn {
+      background: #A1887F;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: #8D6E63;
+    }
+
+    .copy-btn.copied {
+      background: #7F4F24;
+    }
+
+    .remove-btn {
+      background: transparent;
+      color: #D4A574;
+      border: 1px solid #D4A574;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .remove-btn:hover {
+      background: #D4A574;
+      color: white;
+    }
+
+    /* 空狀態 */
+    .empty-state {
+      text-align: center;
+      padding: 32px;
+      color: #A1887F;
+      font-size: 0.9rem;
+    }
+
+    /* 說明卡片 */
+    .info-card {
+      background: rgba(127,79,36,0.08);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+    }
+
+    .info-card h3 {
+      font-size: 0.9rem;
+      color: #7F4F24;
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      font-size: 0.8rem;
+      color: #A1887F;
+      line-height: 1.6;
+    }
+
+    /* 進度條 */
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #D4C4A8;
+      border-radius: 3px;
+      margin-top: 12px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .progress-bar.active {
+      display: block;
+    }
+
+    .progress-bar .progress {
+      height: 100%;
+      background: #A1887F;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* 提示訊息 */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #7F4F24;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>檔案分享</h1>
+    <p class="subtitle">上傳檔案並分享下載連結</p>
+
+    <!-- 上傳區域 -->
+    <div class="upload-zone" id="uploadZone">
+      <div class="icon">📤</div>
+      <h3>拖放檔案到此處</h3>
+      <p>或點擊選擇檔案</p>
+      <input type="file" id="fileInput" multiple>
+      <div class="progress-bar" id="progressBar">
+        <div class="progress" id="progress"></div>
+      </div>
+    </div>
+
+    <!-- 已上傳檔案列表 -->
+    <div class="uploaded-list">
+      <h2>📋 已上傳檔案</h2>
+      <div id="fileList"></div>
+    </div>
+
+    <!-- 說明 -->
+    <div class="info-card">
+      <h3>💡 使用說明</h3>
+      <p>
+        上傳後產生的連結可以複製分享給其他人。<br>
+        檔案會在 tmpfiles.org 保留一段時間。<br>
+        連結有效期約 30 天，請儘早下載。
+      </p>
+    </div>
+  </div>
+
+  <!-- 提示訊息 -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const STORAGE_KEY = 'kuma-uploaded-files';
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+    const progressBar = document.getElementById('progressBar');
+    const progress = document.getElementById('progress');
+    const toast = document.getElementById('toast');
+
+    // 讀取已儲存的檔案列表
+    function getStoredFiles() {
+      const data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    }
+
+    // 儲存檔案列表
+    function saveStoredFiles(files) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(files));
+    }
+
+    // 顯示檔案列表
+    function renderFileList() {
+      const files = getStoredFiles();
+      
+      if (files.length === 0) {
+        fileList.innerHTML = '<div class="empty-state">還沒有上傳任何檔案</div>';
+        return;
+      }
+
+      fileList.innerHTML = files.map((file, index) => `
+        <div class="file-item" data-index="${index}">
+          <div class="file-icon">${getFileIcon(file.name)}</div>
+          <div class="file-info">
+            <div class="file-name">${escapeHtml(file.name)}</div>
+            <div class="file-size">${formatFileSize(file.size)}</div>
+            <div class="file-url">${file.url}</div>
+          </div>
+          <button class="copy-btn" onclick="copyUrl('${file.url}', this)">複製連結</button>
+          <button class="remove-btn" onclick="removeFile(${index})">移除</button>
+        </div>
+      `).join('');
+    }
+
+    // 複製網址
+    async function copyUrl(url, btn) {
+      try {
+        await navigator.clipboard.writeText(url);
+        btn.textContent = '已複製!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '複製連結';
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        showToast('複製失敗，請手動選取網址');
+      }
+    }
+
+    // 刪除檔案
+    function removeFile(index) {
+      const files = getStoredFiles();
+      files.splice(index, 1);
+      saveStoredFiles(files);
+      renderFileList();
+      showToast('已移除');
+    }
+
+    // 上傳檔案到 tmpfiles.org
+    async function uploadFile(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await fetch('https://tmpfiles.org/api/v1/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          throw new Error('上傳失敗');
+        }
+
+        const data = await response.json();
+        
+        if (data.status !== 'success') {
+          throw new Error('上傳失敗');
+        }
+
+        // tmpfiles.org 返回的 URL 格式是 https://tmpfiles.org/xxx/file.ext
+        // 我們需要轉換為直接下載連結
+        let url = data.data.url;
+        // 轉換為下載連結（tmpfiles.org 的下載格式）
+        url = url.replace('https://tmpfiles.org/', 'https://tmpfiles.org/dl/');
+        
+        return {
+          name: file.name,
+          size: file.size,
+          url: url,
+          uploadedAt: new Date().toISOString()
+        };
+      } catch (err) {
+        console.error('上傳錯誤:', err);
+        throw err;
+      }
+    }
+
+    // 處理上傳
+    async function handleFiles(files) {
+      if (!files || files.length === 0) return;
+
+      progressBar.classList.add('active');
+      
+      const storedFiles = getStoredFiles();
+      
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        progress.style.width = `${((i + 1) / files.length) * 100}%`;
+        
+        try {
+          const uploadedFile = await uploadFile(file);
+          storedFiles.push(uploadedFile);
+          showToast(`已上傳: ${file.name}`);
+        } catch (err) {
+          showToast(`上傳失敗: ${file.name}`);
+        }
+      }
+
+      saveStoredFiles(storedFiles);
+      renderFileList();
+      
+      setTimeout(() => {
+        progressBar.classList.remove('active');
+        progress.style.width = '0%';
+      }, 1000);
+    }
+
+    // 拖放事件
+    uploadZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadZone.classList.add('dragover');
+    });
+
+    uploadZone.addEventListener('dragleave', () => {
+      uploadZone.classList.remove('dragover');
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+
+    // 點擊上傳
+    uploadZone.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      handleFiles(e.target.files);
+    });
+
+    // 工具函數
+    function getFileIcon(filename) {
+      const ext = filename.split('.').pop().toLowerCase();
+      const icons = {
+        pdf: '📄',
+        doc: '📝', docx: '📝',
+        xls: '📊', xlsx: '📊',
+        ppt: '📊', pptx: '📊',
+        jpg: '🖼️', jpeg: '🖼️', png: '🖼️', gif: '🖼️', webp: '🖼️',
+        mp4: '🎬', mov: '🎬', avi: '🎬',
+        mp3: '🎵', wav: '🎵',
+        zip: '📦', rar: '📦',
+        txt: '📃'
+      };
+      return icons[ext] || '📁';
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // 初始化
+    renderFileList();
+  </script>
+</body>
+</html>

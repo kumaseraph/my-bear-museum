@@ -399,6 +399,11 @@ class NavBar extends HTMLElement {
             <a href="/test-selection.html" class="nav-link"><span class="icon">✨</span>圖片選擇</a>
             <a href="/test-stripe.html" class="nav-link"><span class="icon">🎨</span>設計系統</a>
           </div>
+
+          <div class="nav-group">
+            <div class="group-label">📂 檔案分享</div>
+            <a href="/upload.html" class="nav-link"><span class="icon">📤</span>上傳下載</a>
+          </div>
         </div>
       </nav>
     `;
