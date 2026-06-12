@@ -90,7 +90,7 @@ def split_story_to_frames(story_text):
     # 優先：按換行分（熊熊的故事格式：每行一句）
     lines = [l.strip() for l in story_text.split('\n') if l.strip()]
     if len(lines) >= 4:
-        return [l + '。' if not l.endswith('。') else l for l in lines[:4]]
+        return [l + '。' if not l.endswith('。') and not l.endswith('！') and not l.endswith('？') else l for l in lines[:4]]
 
     # 根據句號分
     if '。' in story_text:
