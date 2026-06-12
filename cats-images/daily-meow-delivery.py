@@ -473,6 +473,8 @@ def prepare_meow_metadata(type_name, style, story_text=None, story_type=None, fr
         "style": style,
         "mode": mode,
         "scene": scene,
+        "breed": "橘貓",
+        "theme": scene,
     }
     if story_text is not None:
         result["story_text"] = story_text
