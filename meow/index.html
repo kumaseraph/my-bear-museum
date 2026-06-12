@@ -1351,7 +1351,7 @@
         }
 
         function getCarouselItems() {
-            return catsData.cats.filter(c => c.type !== '4grid' && c.type !== 'single' && c.type !== 'story');
+            return catsData.cats.filter(c => c.type === 'multi' || !c.type);
         }
 
         // 加载喵漫（单图显示）
