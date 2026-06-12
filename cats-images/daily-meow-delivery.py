@@ -732,7 +732,7 @@ def step_update_meow_time(generated, today, config):
         log(f"已複製: {filename} → {dest}")
 
         metadata = item["metadata"]
-        if metadata.get("type") in ("4grid", "single"):
+        if metadata.get("type") in ("4grid", "single", "story"):
             new_cats.append(make_meow_record(metadata, today, len(new_cats) + 1, config, filename))
         else:
             new_cats.append(make_cat_record(metadata, today, len(new_cats) + 1, config, filename))
