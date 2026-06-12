@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新北市115年員額評鑑（風格v5）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* 大地色系 */
+      --earth-1: #5D4037;   /* 深咖啡 */
+      --earth-2: #795548;   /* 中咖啡 */
+      --earth-3: #A1887F;   /* 淺咖啡 */
+      --earth-4: #D7CCC8;   /* 淡咖啡 */
+      --earth-5: #EFEBE9;   /* 米白 */
+      --earth-accent: #8D6E63;
+      
+      /* 背景 */
+      --bg: #FAFAF8;
+      --card: #FFFFFF;
+      
+      /* 文字 */
+      --text-primary: #3E2723;
+      --text-mute: #8D6E63;
+      
+      /* 六角強調色 */
+      --hex-accent: #6D4C41;
+      --hex-light: #D7CCC8;
+      
+      /* 切角角度 */
+      --bevel-angle: 3deg;
+      
+      /* 圓角 */
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      
+      /* 陰影 */
+      --shadow-sm: 0 2px 8px rgba(93, 64, 55, 0.08);
+      --shadow-md: 0 4px 20px rgba(93, 64, 55, 0.12);
+      --shadow-lg: 0 8px 40px rgba(93, 64, 55, 0.16);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
+    .slide {
+      min-height: 100vh;
+      padding: clamp(2rem, 5vw, 4rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide::after {
+      content: attr(data-slide);
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      font-size: 0.875rem;
+      color: var(--earth-3);
+      font-weight: 300;
+    }
+
+    /* ── SLIDE 1: 封面（切角設計）── */
+    .slide-cover {
+      background: var(--earth-1);
+      color: white;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--bevel-angle)), calc(100% - var(--bevel-angle) * 8) 100%, 0 100%);
+    }
+
+    .slide-cover .bg-text {
+      position: absolute;
+      right: -2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: clamp(8rem, 25vw, 18rem);
+      font-weight: 900;
+      color: rgba(255,255,255,0.05);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 999px;
+      font-size: 0.875rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .cover-title {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cover-subtitle {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+      font-weight: 300;
+      opacity: 0.85;
+      margin-bottom: 3rem;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.9375rem;
+      opacity: 0.7;
+    }
+
+    /* ── SLIDE 2: 六角蜂巢佈局 ── */
+    .slide-hex {
+      background: var(--bg);
+    }
+
+    .slide-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .slide-title::before {
+      content: '';
+      width: 4px;
+      height: 1.2em;
+      background: var(--earth-2);
+      border-radius: 2px;
+    }
+
+    .hex-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      max-width: 1100px;
+      justify-content: center;
+    }
+
+    .hex-card {
+      width: 200px;
+      height: 230px;
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hex-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hex-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--earth-2);
+      opacity: 0.3;
+      position: absolute;
+      top: 1rem;
+      left: 1.5rem;
+    }
+
+    .hex-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .hex-card h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--earth-1);
+      margin-bottom: 0.5rem;
+    }
+
+    .hex-card p {
+      font-size: 0.8125rem;
+      color: var(--text-mute);
+      line-height: 1.5;
+    }
+
+    /* ── SLIDE 3: 大地色系圖表 ── */
+    .slide-earth {
+      background: var(--earth-5);
+    }
+
+    .earth-card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      max-width: 1000px;
+      box-shadow: var(--shadow-md);
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--bevel-angle)), calc(100% - var(--bevel-angle) * 6) 100%, 0 100%);
+    }
+
+    .earth-label {
+      display: inline-block;
+      padding: 0.375rem 1rem;
+      background: var(--earth-4);
+      color: var(--earth-1);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .earth-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--earth-1);
+    }
+
+    .earth-desc {
+      font-size: 1.0625rem;
+      color: var(--text-mute);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+    }
+
+    .earth-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .earth-stat {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--bg);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--earth-4);
+    }
+
+    .earth-stat-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--earth-1);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .earth-stat-label {
+      font-size: 0.875rem;
+      color: var(--text-mute);
+    }
+
+    /* ── SLIDE 4: 軌道式時間軸 ── */
+    .slide-timeline {
+      background: var(--bg);
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 800px;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .timeline-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .timeline-dot {
+      width: 20px;
+      height: 20px;
+      background: var(--earth-2);
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 0 6px var(--bg), 0 0 0 8px var(--earth-3);
+    }
+
+    .timeline-content {
+      flex: 1;
+      background: var(--card);
+      padding: 1.5rem 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .timeline-content::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 10px solid transparent;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::before {
+      right: -20px;
+      border-left-color: var(--card);
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::before {
+      left: -20px;
+      border-right-color: var(--card);
+    }
+
+    .timeline-year {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--earth-3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--earth-1);
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.9375rem;
+      color: var(--text-mute);
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--earth-4);
+      transform: translateX(-50%);
+    }
+
+    /* ── SLIDE 5: 節點式流程 ── */
+    .slide-nodes {
+      background: var(--earth-1);
+      color: white;
+    }
+
+    .node-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      max-width: 1000px;
+    }
+
+    .node {
+      flex: 1;
+      text-align: center;
+      padding: 2rem 1rem;
+      position: relative;
+    }
+
+    .node-circle {
+      width: 80px;
+      height: 80px;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      margin: 0 auto 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .node:hover .node-circle {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.6);
+      transform: scale(1.1);
+    }
+
+    .node-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .node-desc {
+      font-size: 0.8125rem;
+      opacity: 0.7;
+    }
+
+    .node-arrow {
+      font-size: 1.5rem;
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+
+    /* ── SLIDE 6: 膠囊狀態標籤 ── */
+    .slide-badges {
+      background: var(--bg);
+    }
+
+    .badge-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 900px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .badge:hover {
+      transform: translateY(-2px);
+    }
+
+    .badge-primary {
+      background: var(--earth-2);
+      color: white;
+    }
+
+    .badge-outline {
+      background: transparent;
+      border: 2px solid var(--earth-3);
+      color: var(--earth-2);
+    }
+
+    .badge-light {
+      background: var(--earth-4);
+      color: var(--earth-1);
+    }
+
+    .badge-icon {
+      font-size: 1.125rem;
+    }
+
+    .badge-desc {
+      font-size: 0.8125rem;
+      opacity: 0.7;
+      margin-top: 0.5rem;
+      color: var(--text-mute);
+    }
+
+    .badge-wrap {
+      text-align: center;
+    }
+
+    /* ── SLIDE 7: 結尾 ── */
+    .slide-end {
+      background: var(--earth-1);
+      color: white;
+      text-align: center;
+    }
+
+    .end-icon {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+
+    .end-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .end-subtitle {
+      font-size: clamp(1.125rem, 2vw, 1.375rem);
+      opacity: 0.7;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    .end-contact {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      font-size: 0.9375rem;
+      opacity: 0.6;
+    }
+
+    /* ── 響應式 ── */
+    @media (max-width: 768px) {
+      .earth-stats {
+        grid-template-columns: 1fr;
+      }
+      .node-flow {
+        flex-direction: column;
+      }
+      .node-arrow {
+        transform: rotate(90deg);
+      }
+      .hex-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hex-card {
+        width: 100%;
+        max-width: 280px;
+        clip-path: none;
+        border-radius: var(--radius-lg);
+      }
+      .timeline-item,
+      .timeline-item:nth-child(even) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .timeline-content::before {
+        display: none;
+      }
+    }
+
+    /* ── 導航 ── */
+    .nav {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      box-shadow: var(--shadow-md);
+      z-index: 100;
+    }
+
+    .nav a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: var(--earth-2);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: var(--earth-2);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 1: 封面 -->
+  <section class="slide slide-cover" data-slide="01">
+    <div class="bg-text">115</div>
+    <div class="cover-content">
+      <span class="cover-badge">📋 新北市政府人事處</span>
+      <h1 class="cover-title">新北市115年<br>員額評鑑報告</h1>
+      <p class="cover-subtitle">組織效能優化 · 人力資源盤點 · 未來發展規劃</p>
+      <div class="cover-meta">
+        <span>📅 2026年6月</span>
+        <span>📍 新北市政府</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: 六角蜂巢 -->
+  <section class="slide slide-hex" data-slide="02">
+    <h2 class="slide-title">評鑑重點項目</h2>
+    <div class="hex-grid">
+      <div class="hex-card">
+        <span class="hex-number">01</span>
+        <div class="hex-icon">👥</div>
+        <h3>員額配置</h3>
+        <p>各機關編制人數與實際進用情形分析</p>
+      </div>
+      <div class="hex-card">
+        <span class="hex-number">02</span>
+        <div class="hex-icon">📊</div>
+        <h3>組織效能</h3>
+        <p>機關業務量與人力配置合理性檢視</p>
+      </div>
+      <div class="hex-card">
+        <span class="hex-number">03</span>
+        <div class="hex-icon">🎯</div>
+        <h3>職掌釐清</h3>
+        <p>跨機關業務職掌分工與協調機制</p>
+      </div>
+      <div class="hex-card">
+        <span class="hex-number">04</span>
+        <div class="hex-icon">📈</div>
+        <h3>發展建議</h3>
+        <p>未來組織調整方向與員額管控策略</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: 大地色系 -->
+  <section class="slide slide-earth" data-slide="03">
+    <h2 class="slide-title">本市員額概況</h2>
+    <div class="earth-card">
+      <span class="earth-label">統計數據</span>
+      <h3 class="earth-title">持續優化員額管理</h3>
+      <p class="earth-desc">
+        新北市政府透过定期員額評鑑，確保各機關人力配置與業務需求相符，
+        提升組織運作效能與公共服務品質。
+      </p>
+      <div class="earth-stats">
+        <div class="earth-stat">
+          <div class="earth-stat-value">98.2%</div>
+          <div class="earth-stat-label">編制達成率</div>
+        </div>
+        <div class="earth-stat">
+          <div class="earth-stat-value">12</div>
+          <div class="earth-stat-label">待優化機關</div>
+        </div>
+        <div class="earth-stat">
+          <div class="earth-stat-value">+3.5%</div>
+          <div class="earth-stat-label">服務效能提升</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: 軌道式時間軸 -->
+  <section class="slide slide-timeline" data-slide="04">
+    <h2 class="slide-title">評鑑時程規劃</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">第一階段</div>
+          <div class="timeline-title">啟動整備</div>
+          <div class="timeline-desc">成立評鑑小組、蒐集基本資料、確認評鑑範圍</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">第二階段</div>
+          <div class="timeline-title">實地評鑑</div>
+          <div class="timeline-desc">訪談機關主管、分析業務量、檢視組織效能</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">第三階段</div>
+          <div class="timeline-title">綜合建議</div>
+          <div class="timeline-desc">彙整問題提出建議、研擬改善方案</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">第四階段</div>
+          <div class="timeline-title">追蹤考核</div>
+          <div class="timeline-desc">後續輔導與改善情形追蹤考核</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: 節點式流程 -->
+  <section class="slide slide-nodes" data-slide="05">
+    <h2 class="slide-title" style="color: white;">評鑑作業流程</h2>
+    <div class="node-flow">
+      <div class="node">
+        <div class="node-circle">📋</div>
+        <div class="node-title">資料蒐集</div>
+        <div class="node-desc">編制與預算資料</div>
+      </div>
+      <div class="node-arrow">→</div>
+      <div class="node">
+        <div class="node-circle">🔍</div>
+        <div class="node-title">分析檢視</div>
+        <div class="node-desc">業務量與人力比對</div>
+      </div>
+      <div class="node-arrow">→</div>
+      <div class="node">
+        <div class="node-circle">💬</div>
+        <div class="node-title">實地訪談</div>
+        <div class="node-desc">與機關座談</div>
+      </div>
+      <div class="node-arrow">→</div>
+      <div class="node">
+        <div class="node-circle">📝</div>
+        <div class="node-title">建議提出</div>
+        <div class="node-desc">綜合評估與建議</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: 膠囊狀態標籤 -->
+  <section class="slide slide-badges" data-slide="06">
+    <h2 class="slide-title">重點業務指標</h2>
+    <div class="badge-grid">
+      <div class="badge-wrap">
+        <span class="badge badge-primary">
+          <span class="badge-icon">✅</span>
+          編制員額管控
+        </span>
+        <p class="badge-desc">依業務需求精實員額</p>
+      </div>
+      <div class="badge-wrap">
+        <span class="badge badge-outline">
+          <span class="badge-icon">🔄</span>
+          組織活化
+        </span>
+        <p class="badge-desc">提升組織運作效能</p>
+      </div>
+      <div class="badge-wrap">
+        <span class="badge badge-light">
+          <span class="badge-icon">📊</span>
+          數據驅動
+        </span>
+        <p class="badge-desc">以數據輔助決策</p>
+      </div>
+      <div class="badge-wrap">
+        <span class="badge badge-primary">
+          <span class="badge-icon">🤝</span>
+          橫向整合
+        </span>
+        <p class="badge-desc">促進跨機關協調</p>
+      </div>
+      <div class="badge-wrap">
+        <span class="badge badge-outline">
+          <span class="badge-icon">📚</span>
+          學習成長
+        </span>
+        <p class="badge-desc">建立持續改善機制</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: 結尾 -->
+  <section class="slide slide-end" data-slide="07">
+    <div class="end-icon">🐻</div>
+    <h1 class="end-title">謝謝聆聽</h1>
+    <p class="end-subtitle">新北市政府人事處 誠摯邀請</p>
+    <div class="end-contact">
+      <span>📧 contact@ntpc.gov.tw</span>
+      <span>📞 02-2960-3456</span>
+    </div>
+  </section>
+
+  <!-- 導航 -->
+  <nav class="nav">
+    <a href="#">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a>
+    <a href="#">7</a>
+  </nav>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const navLinks = document.querySelectorAll('.nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      slides.forEach((slide, index) => {
+        const slideTop = slide.offsetTop;
+        if (scrollY >= slideTop - window.innerHeight / 2) {
+          current = index + 1;
+        }
+      });
+      navLinks.forEach((link, index) => {
+        link.classList.toggle('active', index + 1 === current);
+      });
+    });
+
+    navLinks.forEach((link, index) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        slides[index].scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
