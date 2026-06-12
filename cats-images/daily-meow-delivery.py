@@ -87,30 +87,41 @@ def generate_story_from_vocab(story_type):
 
 def split_story_to_frames(story_text):
     """將故事切割為4個分鏡"""
-    # 簡單切割：根據句號、頓號、或直接均分
-    if "、" in story_text:
-        parts = story_text.split("、")
+    # 優先：按換行分（熊熊的故事格式：每行一句）
+    lines = [l.strip() for l in story_text.split('\n') if l.strip()]
+    if len(lines) >= 4:
+        return [l + '。' if not l.endswith('。') else l for l in lines[:4]]
+
+    # 根據句號分
+    if '。' in story_text:
+        parts = [p.strip() for p in story_text.split('。') if p.strip()]
         if len(parts) >= 4:
-            return [p.strip() + "。" for p in parts[:4]]
+            return [p + '。' for p in parts[:4]]
+
+    # 根據頓號分
+    if '、' in story_text:
+        parts = story_text.split('、')
+        if len(parts) >= 4:
+            return [p.strip() + '。' for p in parts[:4]]
 
     # 均分為4句
-    words = story_text.replace("的", "的 ").split()
+    words = story_text.replace('的', '的 ').split()
     if len(words) >= 4:
         frame_size = len(words) // 4
         frames = []
         for i in range(4):
             start = i * frame_size
             end = start + frame_size if i < 3 else len(words)
-            frame = "".join(words[start:end])
-            frames.append(frame + "。")
+            frame = ''.join(words[start:end])
+            frames.append(frame + '。')
         return frames
 
     # 回退：如果無法切割，返回4個相同的框架描述
     return [
-        story_text + "的開始。",
-        story_text + "的發展。",
-        story_text + "的高潮。",
-        story_text + "的結局。"
+        story_text + '的開始。',
+        story_text + '的發展。',
+        story_text + '的高潮。',
+        story_text + '的結局。'
     ]
 
 import random
