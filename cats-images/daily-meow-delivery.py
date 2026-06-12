@@ -512,7 +512,7 @@ def make_meow_record(metadata, today, index, config, filename):
         "type": metadata["type"],
         "date": today,
         "checkIn": today.replace("-", "") + f"-{index:02d}",
-        "title": metadata.get("scene", metadata.get("story_text", "")),
+        "title": metadata.get("story_text") or metadata.get("scene", ""),
         "style": metadata["style"],
         "mode": metadata.get("mode", ""),
         "img": meow_img_path(config, today, filename),
@@ -793,9 +793,9 @@ def main(config):
     # ===== 1. 喵漫配送（story）- 4張分鏡圖 =====
     for i, frame_text in enumerate(story_frames):
         metadata_story = prepare_meow_metadata(
-            "story", 
-            styles[i], 
-            story_text=story_text,
+            "story",
+            styles[i],
+            story_text=frame_text,
             story_type=story_type,
             frame_num=i+1
         )
