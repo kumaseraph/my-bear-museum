@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026簡報設計趨勢 — 熊熊博物館</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0f0f14;
+      --bg-card: #1a1a24;
+      --text-primary: #ffffff;
+      --text-mute: #8a8a9a;
+      --accent: #5A9A9A;
+      --accent-glow: rgba(90, 154, 154, 0.3);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .slide {
+      min-height: 100vh;
+      padding: clamp(2rem, 5vw, 4rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* 頁碼 */
+    .slide::after {
+      content: attr(data-slide);
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      font-size: 0.875rem;
+      color: var(--text-mute);
+      font-weight: 300;
+    }
+
+    /* ==================== SLIDE 1: 封面 ==================== */
+    .slide-cover {
+      background: var(--bg-dark);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .slide-cover::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 20%, var(--accent-glow) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 80%, rgba(90, 154, 154, 0.15) 0%, transparent 40%);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(2%, 2%) rotate(1deg); }
+    }
+
+    .slide-cover .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      font-size: 0.875rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title .accent {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 300;
+      color: var(--text-mute);
+      margin-bottom: 3rem;
+    }
+
+    .hero-meta {
+      font-size: 0.875rem;
+      color: var(--text-mute);
+    }
+
+    /* ==================== SLIDE 2: 便當盒佈局 ==================== */
+    .slide-bento {
+      background: var(--bg-dark);
+    }
+
+    .slide-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .slide-title::before {
+      content: '';
+      width: 4px;
+      height: 1.2em;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 1200px;
+    }
+
+    .bento-item {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .bento-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .bento-item.large {
+      grid-column: span 2;
+    }
+
+    .bento-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-glow);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .bento-item h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .bento-item p {
+      font-size: 0.9375rem;
+      color: var(--text-mute);
+      line-height: 1.7;
+    }
+
+    .bento-number {
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--accent);
+      opacity: 0.3;
+      position: absolute;
+      right: 2rem;
+      top: 1.5rem;
+    }
+
+    .bento-item {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ==================== SLIDE 3: 深色模式 ==================== */
+    .slide-darkmode {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
+
+    .dark-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      max-width: 900px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dark-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #8B5CF6);
+    }
+
+    .dark-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .dark-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .dark-body {
+      font-size: 1.125rem;
+      color: var(--text-mute);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .dark-stats {
+      display: flex;
+      gap: 3rem;
+    }
+
+    .dark-stat {
+      text-align: center;
+    }
+
+    .dark-stat-value {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--text-primary);
+    }
+
+    .dark-stat-label {
+      font-size: 0.875rem;
+      color: var(--text-mute);
+    }
+
+    /* ==================== SLIDE 4: 表情字體 ==================== */
+    .slide-type {
+      background: var(--bg-dark);
+      text-align: center;
+    }
+
+    .type-showcase {
+      margin: 3rem 0;
+    }
+
+    .type-line {
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    .type-line.accent {
+      color: var(--accent);
+    }
+
+    .type-line.muted {
+      color: var(--text-mute);
+      font-weight: 300;
+    }
+
+    .type-description {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .type-description p {
+      font-size: 1.125rem;
+      color: var(--text-mute);
+      line-height: 1.8;
+    }
+
+    /* ==================== SLIDE 5: 數據簡化 ==================== */
+    .slide-data {
+      background: var(--bg-dark);
+    }
+
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1100px;
+    }
+
+    .data-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .donut {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent) 0% 35%, rgba(90,154,154,0.2) 35% 100%);
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .donut::after {
+      content: '';
+      width: 70px;
+      height: 70px;
+      background: var(--bg-card);
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .donut-value {
+      position: absolute;
+      font-size: 1.5rem;
+      font-weight: 700;
+      z-index: 1;
+    }
+
+    .data-card h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .data-card p {
+      font-size: 0.875rem;
+      color: var(--text-mute);
+    }
+
+    /* ==================== SLIDE 6: 圖片優於文字 ==================== */
+    .slide-visual {
+      background: linear-gradient(135deg, #1a1a24 0%, #0f0f14 100%);
+    }
+
+    .visual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3rem;
+      max-width: 1100px;
+      align-items: center;
+    }
+
+    .visual-content h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .visual-content p {
+      font-size: 1.125rem;
+      color: var(--text-mute);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .visual-points {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .visual-point {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1rem;
+    }
+
+    .visual-point-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-glow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .visual-image {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent-glow) 0%, transparent 60%);
+    }
+
+    .visual-image-text {
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--accent);
+      opacity: 0.5;
+      z-index: 1;
+    }
+
+    /* ==================== SLIDE 7: 結尾 ==================== */
+    .slide-end {
+      background: var(--bg-dark);
+      text-align: center;
+    }
+
+    .end-title {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .end-subtitle {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 300;
+      color: var(--text-mute);
+      margin-bottom: 3rem;
+    }
+
+    .trend-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+
+    .trend-tag {
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      font-size: 0.9375rem;
+      color: var(--text-mute);
+      transition: all 0.3s ease;
+    }
+
+    .trend-tag:hover {
+      background: var(--accent-glow);
+      border-color: var(--accent);
+      color: var(--text-primary);
+    }
+
+    .end-footer {
+      font-size: 0.875rem;
+      color: var(--text-mute);
+    }
+
+    /* ==================== 響應式 ==================== */
+    @media (max-width: 768px) {
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .bento-item.large {
+        grid-column: span 1;
+      }
+      .data-grid {
+        grid-template-columns: 1fr;
+      }
+      .visual-grid {
+        grid-template-columns: 1fr;
+      }
+      .dark-stats {
+        flex-direction: column;
+        gap: 2rem;
+      }
+    }
+
+    /* ==================== 導航 ==================== */
+    .nav {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(26, 26, 36, 0.9);
+      backdrop-filter: blur(10px);
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      z-index: 100;
+    }
+
+    .nav a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: var(--text-mute);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: var(--accent);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 1: 封面 -->
+  <section class="slide slide-cover" data-slide="01">
+    <div class="content">
+      <span class="badge">2026 簡報設計趨勢</span>
+      <h1 class="hero-title">
+        簡報設計<br>
+        <span class="accent">新風格</span>
+      </h1>
+      <p class="hero-subtitle">便當盒佈局 · 深色模式 · 表情字體 · 數據簡化</p>
+      <p class="hero-meta">熊熊博物館 Design Daily Report · 2026-06-13</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: 便當盒佈局 -->
+  <section class="slide slide-bento" data-slide="02">
+    <h2 class="slide-title">便當盒佈局 Bento Box</h2>
+    <div class="bento-grid">
+      <div class="bento-item">
+        <span class="bento-number">01</span>
+        <div class="bento-icon">📊</div>
+        <h3>模組化內容</h3>
+        <p>用矩形模組排列不同內容——圖表、引言、照片——讓每項資訊各有歸屬，不顯雜亂。</p>
+      </div>
+      <div class="bento-item">
+        <span class="bento-number">02</span>
+        <div class="bento-icon">🎯</div>
+        <h3>視覺聚焦</h3>
+        <p>便當盒設計強迫設計師取捨，讓觀眾一眼就能看見重點。</p>
+      </div>
+      <div class="bento-item large">
+        <span class="bento-number">03</span>
+        <div class="bento-icon">✨</div>
+        <h3>2026 設計主流</h3>
+        <p>不同於傳統一個標題加一串文字的簡報，便當盒式佈局讓投影片更像一個精心安排的展示架。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: 深色模式 -->
+  <section class="slide slide-darkmode" data-slide="03">
+    <h2 class="slide-title">深色模式 Dark Mode</h2>
+    <div class="dark-card">
+      <span class="dark-label">2026 主流趨勢</span>
+      <h3 class="dark-title">深色背景搭配<br>動態配色</h3>
+      <p class="dark-body">
+        深色模式不再只是設計師的偏好，而是 2026 年會議室的主流。
+        黑色或炭灰背景，加上高對比配色，創造出視覺衝擊力強且易於閱讀的投影片。
+      </p>
+      <div class="dark-stats">
+        <div class="dark-stat">
+          <div class="dark-stat-value">73%</div>
+          <div class="dark-stat-label">設計師偏好深色主題</div>
+        </div>
+        <div class="dark-stat">
+          <div class="dark-stat-value">2x</div>
+          <div class="dark-stat-label">閱讀專注度提升</div>
+        </div>
+        <div class="dark-stat">
+          <div class="dark-stat-value">40%</div>
+          <div class="dark-stat-label">OLED 節電效果</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: 表情字體 -->
+  <section class="slide slide-type" data-slide="04">
+    <h2 class="slide-title">表情字體 Expressive Typography</h2>
+    <div class="type-showcase">
+      <p class="type-line">字體不只是文字</p>
+      <p class="type-line accent">而是視覺主角</p>
+      <p class="type-line muted">Typography as Hero</p>
+    </div>
+    <div class="type-description">
+      <p>粗體幾何字體主導視覺，字體本身成為設計元素。一頁只有一個大標題，配上 24-32pt 的內文，這就是 2026 的主流做法。</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: 數據簡化 -->
+  <section class="slide slide-data" data-slide="05">
+    <h2 class="slide-title">數據簡化 Data Simplification</h2>
+    <div class="data-grid">
+      <div class="data-card">
+        <div class="donut">
+          <span class="donut-value">35%</span>
+        </div>
+        <h3>甜甜圈圖</h3>
+        <p>用視覺化取代Excel截圖</p>
+      </div>
+      <div class="data-card">
+        <div class="donut">
+          <span class="donut-value">60%</span>
+        </div>
+        <h3>漏斗圖</h3>
+        <p>一頁只呈現一個核心數據</p>
+      </div>
+      <div class="data-card">
+        <div class="donut">
+          <span class="donut-value">85%</span>
+        </div>
+        <h3>Sankey 圖</h3>
+        <p>複雜數據的視覺化呈現</p>
+      </div>
+    </div>
+    <p style="text-align: center; color: var(--text-mute); margin-top: 2rem; font-size: 0.875rem;">
+      「Excel 截圖被視為簡報罪」— SlideEgg 2026 Trend Report
+    </p>
+  </section>
+
+  <!-- SLIDE 6: 圖片優於文字 -->
+  <section class="slide slide-visual" data-slide="06">
+    <div class="visual-grid">
+      <div class="visual-content">
+        <h2>圖片優於文字<br><span class="accent">Picture Superiority</span></h2>
+        <p>根據研究，圖片比文字更容易被記住。在簡報中優先用圖像傳達訊息，讓觀眾在有限的專注時間內，獲得最有效的資訊傳遞。</p>
+        <div class="visual-points">
+          <div class="visual-point">
+            <span class="visual-point-icon">✓</span>
+            <span>一圖一訊息原則</span>
+          </div>
+          <div class="visual-point">
+            <span class="visual-point-icon">✓</span>
+            <span>圖表加上結論性標題</span>
+          </div>
+          <div class="visual-point">
+            <span class="visual-point-icon">✓</span>
+            <span>留白增強視覺效果</span>
+          </div>
+        </div>
+      </div>
+      <div class="visual-image">
+        <span class="visual-image-text">VISUAL</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: 結尾 -->
+  <section class="slide slide-end" data-slide="07">
+    <h1 class="end-title">2026 簡報<br><span class="accent">四大趨勢</span></h1>
+    <p class="end-subtitle">從今天開始，試著改變你的簡報設計方式</p>
+    <div class="trend-tags">
+      <span class="trend-tag">便當盒佈局</span>
+      <span class="trend-tag">深色模式</span>
+      <span class="trend-tag">表情字體</span>
+      <span class="trend-tag">數據簡化</span>
+      <span class="trend-tag">一頁一焦點</span>
+      <span class="trend-tag">圖片優於文字</span>
+    </div>
+    <p class="end-footer">熊熊博物館 Design Daily Report · 2026-06-13</p>
+  </section>
+
+  <!-- 導航 -->
+  <nav class="nav">
+    <a href="#">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a>
+    <a href="#">7</a>
+  </nav>
+
+  <script>
+    // 簡單的滑動導航
+    const slides = document.querySelectorAll('.slide');
+    const navLinks = document.querySelectorAll('.nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      slides.forEach((slide, index) => {
+        const slideTop = slide.offsetTop;
+        if (scrollY >= slideTop - window.innerHeight / 2) {
+          current = index + 1;
+        }
+      });
+      navLinks.forEach((link, index) => {
+        link.classList.toggle('active', index + 1 === current);
+      });
+    });
+
+    navLinks.forEach((link, index) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        slides[index].scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
