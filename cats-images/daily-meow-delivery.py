@@ -28,6 +28,10 @@ from datetime import datetime, date
 from pathlib import Path
 
 
+# ===== 圖片類型枚舉 =====
+# 所有圖片 type 值必須在這裡定義，確保 switch/if 完整性
+MEOW_TYPES = ("4grid", "single", "story", "multi")
+
 # ===== 故事類型配置 =====
 STORY_TYPES = ["日常生活", "冒險", "探險", "悠閒生活", "炸毛生活"]
 STORY_TYPE_FILE = None  # 稍後在 setup_variables() 中設定
@@ -257,35 +261,6 @@ def generate_story_from_vocab(story_type):
     return generate_story_fallback(story_type)
 
 
-def split_story_to_frames(story_text):
-    """將故事切割為4個分鏡"""
-    # 簡單切割：根據句號、頓號、或直接均分
-    if "、" in story_text:
-        parts = story_text.split("、")
-        if len(parts) >= 4:
-            return [p.strip() + "。" for p in parts[:4]]
-
-    # 均分為4句
-    words = story_text.replace("的", "的 ").split()
-    if len(words) >= 4:
-        frame_size = len(words) // 4
-        frames = []
-        for i in range(4):
-            start = i * frame_size
-            end = start + frame_size if i < 3 else len(words)
-            frame = "".join(words[start:end])
-            frames.append(frame + "。")
-        return frames
-
-    # 回退：如果無法切割，返回4個相同的框架描述
-    return [
-        story_text + "的開始。",
-        story_text + "的發展。",
-        story_text + "的高潮。",
-        story_text + "的結局。"
-    ]
-
-
 import random
 
 
@@ -507,6 +482,12 @@ def prepare_cat_metadata(breed, style, theme):
 
 
 def make_meow_record(metadata, today, index, config, filename):
+    """
+    建立喵時光 record（type 為 4grid/single/story/multi 的圖片專用）
+
+    title 優先順序：story_text > scene
+    原因：story type 的標題應該是故事內容，不是場景描述
+    """
     record = {
         "name": metadata["name"],
         "type": metadata["type"],
@@ -732,7 +713,7 @@ def step_update_meow_time(generated, today, config):
         log(f"已複製: {filename} → {dest}")
 
         metadata = item["metadata"]
-        if metadata.get("type") in ("4grid", "single", "story"):
+        if metadata.get("type") in MEOW_TYPES:
             new_cats.append(make_meow_record(metadata, today, len(new_cats) + 1, config, filename))
         else:
             new_cats.append(make_cat_record(metadata, today, len(new_cats) + 1, config, filename))
