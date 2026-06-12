@@ -1442,7 +1442,7 @@
                 track.innerHTML = carouselItems.map((item, index) => `
                     <div class="carousel-item">
                         <div class="hand-drawn-card carousel-card" data-carousel-index="${index}">
-                            <div class="carousel-card-image" style="background-image: url('${item.img}');">
+                            <div class="carousel-card-image" style="background-image: url('/${item.img}');">
                             </div>
                             <div class="carousel-card-meta">
                                 ${item.title}<br>
@@ -1762,7 +1762,8 @@
                 if (card) {
                     const imageEl = card.querySelector('.character-card-image');
                     if (imageEl) {
-                        imageEl.style.backgroundImage = `url('${singleItem.img}')`;
+                        const imgPath = singleItem.img.startsWith('/') ? singleItem.img : '/' + singleItem.img;
+                        imageEl.style.backgroundImage = `url('${imgPath}')`;
                     }
                 }
             }
