@@ -523,7 +523,7 @@ def make_cat_record(metadata, today, index, config, filename):
         "checkIn": today.replace("-", "") + f"-{index:02d}",
         "title": metadata["theme"],
         "style": metadata["style"],
-        "breed": metadata["breed"],
+        "type": metadata.get("type", "multi"),
         "img": meow_img_path(config, today, filename),
     }
 
