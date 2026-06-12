@@ -411,12 +411,9 @@
         .dimension-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, var(--color-accent) 0%, #d4b896100%);
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
             margin-bottom: var(--space-xs);
         }
 
@@ -765,9 +762,9 @@
             color: var(--color-primary);
         }
 
-        .group-cell--1 { background: #e8dcc8; color: #5d4a00; }
-        .group-cell--2 { background: #d0d0d0; color: #3a3a3a; }
-        .group-cell--3 { background: #c8c8c8; color: #3a3a3a; }
+        .group-cell--1 { background: #f5e6d3; color: #5d4a00; }
+        .group-cell--2 { background: #e6e6e6; color: #3a3a3a; }
+        .group-cell--3 { background: #d9e6f2; color: #3a3a3a; }
 
         /* ═══════════════════════════════════════════════════════════════
            Slide 7: End Slide
@@ -878,42 +875,54 @@
             <p class="slide-header__subtitle">六大評鑑核心維度</p>
             <div class="dimensions-grid">
                 <div class="dimension-card">
-                    <div class="dimension-icon">🏛️</div>
+                    <div class="dimension-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="#4a4a4a"><path d="M3 3v8h8V3H3zm66H5V5h4v4zm-6 4v8h8v-8H3zm6 6H5v-4h4v4zm4-16v8h8V3h-8zm6 6h-4V5h4v4zm-6 4v8h8v-8h-8zm6 6h-4v-4h4v4z"/></svg>
+                    </div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">組織架構</h3>
                         <p class="dimension-desc">檢視機關組織編制與架構合理性</p>
                     </div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-icon">👥</div>
+                    <div class="dimension-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="#4a4a4a"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.051.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    </div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">員額配置</h3>
                         <p class="dimension-desc">分析實際員額配置與業務需求之匹配</p>
                     </div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-icon">⚖️</div>
+                    <div class="dimension-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="#4a4a4a"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-215l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">工作負荷</h3>
                         <p class="dimension-desc">評估各單位工作負荷分配情形</p>
                     </div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-icon">📚</div>
+                    <div class="dimension-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="#4a4a4a"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+                    </div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">人才培育</h3>
                         <p class="dimension-desc">檢視人才培育與陞遷制度</p>
                     </div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-icon">🚀</div>
+                    <div class="dimension-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="#4a4a4a"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                    </div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">效能提升</h3>
                         <p class="dimension-desc">評估機關效能提升策略與執行</p>
                     </div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-icon">🔭</div>
+                    <div class="dimension-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="#4a4a4a"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </div>
                     <div class="dimension-content">
                         <h3 class="dimension-title">未來展望</h3>
                         <p class="dimension-desc">規劃未來人力運用發展方向</p>
@@ -987,13 +996,13 @@
                         </div>
                         <div class="org-group-content">
                             <div class="org-group-section">
-                                <div class="org-group-section__label">體育局</div>
+                                <div class="org-group-section__label">上午時段</div>
                                 <div class="org-group-members">
                                     <span class="org-member">唐薇甯 科長</span>
-                                </div>
+ </div>
                             </div>
                             <div class="org-group-section">
-                                <div class="org-group-section__label">動保處</div>
+                                <div class="org-group-section__label">下午時段</div>
                                 <div class="org-group-members">
                                     <span class="org-member">蔡孟倫 股長</span>
                                     <span class="org-member">洪舒菁 科員</span>
