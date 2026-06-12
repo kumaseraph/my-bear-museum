@@ -845,7 +845,9 @@ def main(config):
         return
 
     log("\n--- 步驟 6: Git Commit ---")
-    run_cmd(f"cd {PROJECT_DIR} && git add cats-images/cats.json cats-images/ vocabulary/meow-style-rotation.json vocabulary/story-type-tracker.json cats-images/daily-meow-delivery.py")
+    run_cmd(f"cd {PROJECT_DIR} && git add cats-images/cats.json cats-images/daily-meow-delivery.py")
+    # 確保新圖片也被加入
+    run_cmd(f"cd {PROJECT_DIR} && git add cats-images/{today}/ 2>/dev/null || true")
     run_cmd(f'cd {PROJECT_DIR} && git commit -m "新增 {today} 喵時光"')
     run_cmd(f"cd {PROJECT_DIR} && git push")
     log("Git push 完成")
