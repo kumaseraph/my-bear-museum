@@ -269,6 +269,11 @@ def prepare_bear_metadata(name, style):
 
 
 def make_bear_record(metadata, today, collection_no, daily_index, config):
+    img_path = bear_img_path(config, today, collection_no, metadata["name"])
+    # 產生縮圖路徑
+    filename_prefix = f"{collection_no}-{metadata['name']}"
+    small_path = f"bears/{today}/thumbs/{filename_prefix}-s.png"
+    medium_path = f"bears/{today}/thumbs/{filename_prefix}-m.png"
     return {
         "name": metadata["name"],
         "date": today,
@@ -279,7 +284,9 @@ def make_bear_record(metadata, today, collection_no, daily_index, config):
         "birthday": today,
         "personality": metadata["personality"],
         "quote": metadata["quote"],
-        "img": bear_img_path(config, today, collection_no, metadata["name"]),
+        "img": img_path,
+        "imgS": small_path,
+        "imgM": medium_path,
     }
 
 
@@ -580,6 +587,16 @@ def step_update_museum(generated, today, config):
         dest = museum_dir / filename
         shutil.copy2(item["temp_path"], dest)
         log(f"已複製: {filename} → {dest}")
+        
+        # 生成縮圖
+        try:
+            small_path, medium_path = generate_thumbnails(
+                dest, today, item["collection_no"], item["metadata"]["name"]
+            )
+            log(f"  已生成縮圖: {small_path}, {medium_path}")
+        except Exception as e:
+            log(f"  縮圖生成失敗: {e}")
+        
         new_bears.append(make_bear_record(
             item["metadata"], today, item["collection_no"], len(new_bears) + 1, config
         ))
@@ -703,3 +720,44 @@ if __name__ == "__main__":
         mode=args.mode,
     )
     main(config)
+
+
+# === 縮圖生成功能 ===
+def generate_thumbnails(source_path, today, collection_no, name):
+    """生成小圖和中圖縮圖
+    
+    Args:
+        source_path: 原始圖片路徑
+        today: 日期
+        collection_no: 館藏編號
+        name: 熊熊名字
+    
+    Returns:
+        (small_path, medium_path): 小圖和中圖的路徑
+    """
+    from PIL import Image
+    
+    thumbs_dir = PROJECT_DIR / "bears" / today / "thumbs"
+    thumbs_dir.mkdir(parents=True, exist_ok=True)
+    
+    small_size = (100, 100)
+    medium_size = (400, 225)
+    
+    filename_prefix = f"{collection_no}-{name}"
+    small_path = thumbs_dir / f"{filename_prefix}-s.png"
+    medium_path = thumbs_dir / f"{filename_prefix}-m.png"
+    
+    with Image.open(source_path) as img:
+        # 小圖：100x100
+        small_img = img.copy()
+        small_img.thumbnail(small_size, Image.LANCZOS)
+        small_img.save(small_path, "PNG")
+        small_img.close()
+        
+        # 中圖：400x225
+        medium_img = img.copy()
+        medium_img.thumbnail(medium_size, Image.LANCZOS)
+        medium_img.save(medium_path, "PNG")
+        medium_img.close()
+    
+    return str(small_path.relative_to(PROJECT_DIR)).replace("\\", "/"), str(medium_path.relative_to(PROJECT_DIR)).replace("\\", "/")

@@ -37,6 +37,7 @@
     v6.62 - 館藏數量改為 K4 大數字極簡風格（只保留館藏數量）
     v6.70 - 深色模式：CSS變數架構、主題切換按鈕、localStorage記憶、Linear風格深灰紫配色
     v6.82 - 手機底部導航：固定底部列、4圖示導航、iPhone安全區域
+    v6.95 - 效能優化：縮圖生成（小圖100x100 / 中圖400x225）
     v6.94 - 效能優化：全部熊熊分頁機制（每頁30隻 + 載入更多）
     v6.93 - 修復喵漫區塊漫畫圖片載入路徑（修正 cats.json 中與實際檔案不符的路徑）
 -->
@@ -45,7 +46,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>熊熊博物館 v2.5</title>
+    <title>熊熊博物館 v2.6</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -2969,7 +2970,7 @@
     </nav>
 
     <footer>
-        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.94
+        由 熊熊(Kuma) 盡心經營 ʕっ•ᴥ•ʔっ | v6.95
     </footer>
 
     <script>
@@ -3736,7 +3737,7 @@
             thumb.onclick = () => openBearModalByBear(bear, group);
             thumb.innerHTML = `
                 <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
-                <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy" decoding="async"></div>
+                <div class="thumb-circle"><img src="${bear.imgS || bear.img}" alt="${bear.name}" loading="lazy" decoding="async"></div>
                 <div class="thumb-name">${bear.name}</div>
             `;
             return thumb;
@@ -3949,7 +3950,7 @@
                 thumb.onclick = () => openBearModalByBear(bear, todayBearsList);
                 thumb.innerHTML = `
                     <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
-                    <div class="thumb-circle"><img src="${bear.img}" alt="${bear.name}" loading="lazy" decoding="async"></div>
+                    <div class="thumb-circle"><img src="${bear.imgS || bear.img}" alt="${bear.name}" loading="lazy" decoding="async"></div>
                     <div class="thumb-name">${bear.name}</div>
                     <span class="category-badge" data-series="${bear.series}">${bear.series}</span>
                 `;
@@ -4262,7 +4263,7 @@
                 card.dataset.index = i;
                 card.innerHTML = `
                     <button class="star-btn ${isStarred ? 'starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${isStarred ? '★' : '☆'}</button>
-                    <img class="card-image" src="${bear.img}" alt="${bear.name}" loading="lazy" decoding="async">
+                    <img class="card-image" src="${bear.imgM || bear.img}" alt="${bear.name}" loading="lazy" decoding="async">
                     <div class="card-info">
                         <div class="card-name">${bear.name}</div>
                         <div class="card-series">${bear.series}</div>
