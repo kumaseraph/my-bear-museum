@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120" width="500" height="120">
+  <!-- 熊熊標題框 - 工作報告大口 -->
+  <defs>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5A2B"/>
+      <stop offset="50%" style="stop-color:#D2691E"/>
+      <stop offset="100%" style="stop-color:#A0522D"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="100%" style="stop-color:#FFA500"/>
+    </linearGradient>
+    <linearGradient id="innerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFEF0"/>
+      <stop offset="100%" style="stop-color:#FFF8DC"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 左側裝飾邊 -->
+  <path d="M0 20 Q20 0 50 0 L80 0 Q90 10 90 25 L90 95 Q90 110 80 120 L50 120 Q20 120 0 100 Z" fill="url(#titleGrad)"/>
+  
+  <!-- 熊熊頭部裝飾 -->
+  <circle cx="45" cy="60" r="35" fill="url(#titleGrad)"/>
+  <circle cx="25" cy="35" r="14" fill="url(#titleGrad)"/>
+  <circle cx="65" cy="35" r="14" fill="url(#titleGrad)"/>
+  <circle cx="25" cy="35" r="8" fill="#DEB887"/>
+  <circle cx="65" cy="35" r="8" fill="#DEB887"/>
+  <ellipse cx="45" cy="65" rx="22" ry="17" fill="#DEB887"/>
+  <circle cx="36" cy="58" r="4.5" fill="#2C1810"/>
+  <circle cx="54" cy="58" r="4.5" fill="#2C1810"/>
+  <circle cx="37" cy="56" r="1.5" fill="white"/>
+  <circle cx="55" cy="56" r="1.5" fill="white"/>
+  <ellipse cx="45" cy="68" rx="5.5" ry="3.5" fill="#2C1810"/>
+  <path d="M40 74 Q45 79 50 74" stroke="#2C1810" stroke-width="2" fill="none"/>
+  <!-- 腮紅 -->
+  <ellipse cx="22" cy="68" rx="6" ry="4" fill="#FFB6C1" opacity="0.5"/>
+  <ellipse cx="68" cy="68" rx="6" ry="4" fill="#FFB6C1" opacity="0.5"/>
+  
+  <!-- 主標題框 -->
+  <rect x="85" y="10" width="400" height="100" rx="12" fill="url(#innerGrad)" stroke="url(#goldGrad)" stroke-width="3"/>
+  
+  <!-- 標題文字 -->
+  <text x="285" y="68" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="url(#titleGrad)" text-anchor="middle">工作報告</text>
+  
+  <!-- 右側星星裝飾 -->
+  <polygon points="460,25 463,35 473,35 465,42 468,52 460,45 452,52 455,42 447,35 457,35" fill="url(#goldGrad)"/>
+  <polygon points="480,70 482,76 488,76 483,80 485,86 480,82 475,86 477,80 472,76 478,76" fill="url(#goldGrad)"/>
+  
+  <!-- 四角金幣裝飾 -->
+  <circle cx="105" cy="25" r="8" fill="url(#goldGrad)"/>
+  <circle cx="465" cy="25" r="8" fill="url(#goldGrad)"/>
+  <circle cx="105" cy="95" r="8" fill="url(#goldGrad)"/>
+  <circle cx="465" cy="95" r="8" fill="url(#goldGrad)"/>
+</svg>

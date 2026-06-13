@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 熊熊工作報告背景 - 暖暖棕金風 -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF8DC"/>
+      <stop offset="30%" style="stop-color:#FFE4B5"/>
+      <stop offset="70%" style="stop-color:#FFDEAD"/>
+      <stop offset="100%" style="stop-color:#F5DEB3"/>
+    </linearGradient>
+    <linearGradient id="goldLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:0"/>
+      <stop offset="20%" style="stop-color:#FFD700"/>
+      <stop offset="80%" style="stop-color:#FFD700"/>
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="bearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5A2B"/>
+      <stop offset="100%" style="stop-color:#D2691E"/>
+    </linearGradient>
+    <pattern id="pawPattern" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      <ellipse cx="60" cy="70" rx="25" ry="18" fill="#D2691E" opacity="0.08"/>
+      <circle cx="45" cy="50" r="10" fill="#D2691E" opacity="0.08"/>
+      <circle cx="60" cy="45" r="10" fill="#D2691E" opacity="0.08"/>
+      <circle cx="75" cy="50" r="10" fill="#D2691E" opacity="0.08"/>
+    </pattern>
+    <pattern id="dotsPattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="30" r="3" fill="#FFD700" opacity="0.15"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景填充 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  <rect width="1920" height="1080" fill="url(#pawPattern)"/>
+  <rect width="1920" height="1080" fill="url(#dotsPattern)"/>
+  
+  <!-- 頂部金邊裝飾 -->
+  <rect x="0" y="0" width="1920" height="8" fill="url(#goldLine)"/>
+  
+  <!-- 底部金邊裝飾 -->
+  <rect x="0" y="1072" width="1920" height="8" fill="url(#goldLine)"/>
+  
+  <!-- 左側垂直裝飾 -->
+  <rect x="0" y="0" width="8" height="1080" fill="url(#goldLine)" transform="rotate(90 0 0)"/>
+  
+  <!-- 右側垂直裝飾 -->
+  <rect x="1912" y="0" width="8" height="1080" fill="url(#goldLine)" transform="rotate(90 1920 0)"/>
+  
+  <!-- 四角熊熊裝飾 - 左上 -->
+  <g transform="translate(60, 60)">
+    <circle cx="30" cy="30" r="25" fill="url(#bearGrad)" opacity="0.3"/>
+    <circle cx="15" cy="15" r="10" fill="url(#bearGrad)" opacity="0.3"/>
+    <circle cx="45" cy="15" r="10" fill="url(#bearGrad)" opacity="0.3"/>
+    <ellipse cx="30" cy="35" rx="15" ry="12" fill="#DEB887" opacity="0.3"/>
+  </g>
+  
+  <!-- 四角熊熊裝飾 - 右上 -->
+  <g transform="translate(1800, 60)">
+    <circle cx="30" cy="30" r="25" fill="url(#bearGrad)" opacity="0.3"/>
+    <circle cx="15" cy="15" r="10" fill="url(#bearGrad)" opacity="0.3"/>
+    <circle cx="45" cy="15" r="10" fill="url(#bearGrad)" opacity="0.3"/>
+    <ellipse cx="30" cy="35" rx="15" ry="12" fill="#DEB887" opacity="0.3"/>
+  </g>
+  
+  <!-- 四角熊熊裝飾 - 左下 -->
+  <g transform="translate(60, 950)">
+    <circle cx="30" cy="30" r="25" fill="url(#bearGrad)" opacity="0.3"/>
+    <circle cx="15" cy="15" r="10" fill="url(#bearGrad)" opacity="0.3"/>
+    <circle cx="45" cy="15" r="10" fill="url(#bearGrad)" opacity="0.3"/>
+    <ellipse cx="30" cy="35" rx="15" ry="12" fill="#DEB887" opacity="0.3"/>
+  </g>
+  
+  <!-- 四角熊熊裝飾 - 右下 -->
+  <g transform="translate(1800, 950)">
+    <circle cx="30" cy="30" r="25" fill="url(#bearGrad)" opacity="0.3"/>
+    <circle cx="15" cy="15" r="10" fill="url(#bearGrad)" opacity="0.3"/>
+    <circle cx="45" cy="15" r="10" fill="url(#bearGrad)" opacity="0.3"/>
+    <ellipse cx="30" cy="35" rx="15" ry="12" fill="#DEB887" opacity="0.3"/>
+  </g>
+  
+  <!-- 中心區域標示（內容區） -->
+  <rect x="150" y="100" width="1620" height="880" rx="20" fill="white" opacity="0.4"/>
+  <rect x="150" y="100" width="1620" height="880" rx="20" fill="none" stroke="#D2691E" stroke-width="2" stroke-dasharray="8,4" opacity="0.3"/>
+  
+  <!-- 星星裝飾 -->
+  <polygon points="960,80 965,100 985,100 970,112 975,132 960,120 945,132 950,112 935,100 955,100" fill="#FFD700" opacity="0.4"/>
+  <polygon points="200,540 203,552 215,552 206,560 209,572 200,564 191,572 194,560 185,552 197,552" fill="#FFD700" opacity="0.3"/>
+  <polygon points="1720,540 1723,552 1735,552 1726,560 1729,572 1720,564 1711,572 1714,560 1705,552 1717,552" fill="#FFD700" opacity="0.3"/>
+</svg>
