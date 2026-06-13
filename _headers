@@ -1,3 +1,13 @@
+# HTML 檔案不緩存（即時更新）
+/meow/*
+  Cache-Control: no-cache
+
 # 熊熊圖片快取優化 - 1年過期
 /bears/*
   Cache-Control: public, max-age=31536000, immutable
+
+# cats.json 不緩存（即時更新）
+/cats-images/cats.json
+  Cache-Control: no-cache
+/meow/cats.json
+  Cache-Control: no-cache

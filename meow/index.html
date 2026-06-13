@@ -210,10 +210,10 @@
         /* ===== Fixed Character Section ===== */
         .fixed-character-grid {
             display: flex;
-            gap: 30px;
+            flex-direction: column;
+            gap: 24px;
             padding: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
+            align-items: stretch;
         }
 
         .character-card {
@@ -251,6 +251,22 @@
             background: var(--color-bg);
             border-radius: 20px;
             border: 2px dashed var(--color-border);
+        }
+
+        /* ===== Comic Card Layout ===== */
+        .character-card.card-comic {
+            flex: none;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .character-card.card-comic .comic-strip {
+            min-height: auto;
+        }
+
+        .character-card.card-comic .comic-frame {
+            flex: 1;
+            min-width: 0;
         }
 
         /* Single card: 1:1 ratio */
@@ -363,6 +379,57 @@
         }
         .character-card.card-single .character-card-image {
             aspect-ratio: 1;
+        }
+        
+        /* 喵圖瀑布流樣式 */
+        .single-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .single-masonry-container {
+            column-count: 3;
+            column-gap: 10px;
+            padding: 10px 0;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .single-masonry-item {
+            break-inside: avoid;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            background: var(--color-card);
+            border: 3px solid var(--color-border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .single-masonry-item:hover {
+            transform: scale(1.02);
+        }
+        .single-masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .load-more-btn {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 8px 16px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+        .load-more-btn:hover {
+            background: var(--color-primary-dark);
         }
 
         /* 漫畫標題樣式 */
@@ -1017,8 +1084,7 @@
             }
 
             .character-card {
-                max-width: 400px;
-                margin: 0 auto;
+                width: 100%;
             }
 
             .carousel-item {
@@ -1089,7 +1155,7 @@
             <h2 class="section-title">喵喵日常</h2>
             <div class="fixed-character-grid" id="fixedCharacterGrid">
                 <!-- 漫畫卡片：單圖顯示 -->
-                <div class="hand-drawn-card character-card card-single" id="comicCard" data-index="0">
+                <div class="hand-drawn-card character-card card-comic" id="comicCard" data-index="0">
                     <div class="character-card-image" id="comicImageContainer">
                     </div>
                     <div class="comic-title-container" id="comicTitleContainer" style="display:none;">
@@ -1097,6 +1163,9 @@
                         <span class="comic-title-text" id="comicTitle"></span>
                         <span class="comic-title-decoration"> ✿</span>
                     </div>
+                    <select id="historyComicSelect" style="display:none; margin-left: 10px; padding: 4px 8px; border-radius: 12px; border: 2px solid var(--color-border); font-size: 0.85rem; cursor: pointer;">
+                        <option value="">今日</option>
+                    </select>
                     <h3 class="character-card-title">喵漫</h3>
                     <p class="character-card-desc">喵喵公主的生活小故事</p>
                 </div>
@@ -1105,8 +1174,17 @@
                 <div class="hand-drawn-card character-card card-single" data-index="1">
                     <div class="character-card-image" id="cardSingle">
                     </div>
-                    <h3 class="character-card-title">喵圖</h3>
+                    <div class="single-title-row">
+                        <h3 class="character-card-title">喵圖</h3>
+                        <select id="historySingleSelect" style="display:none; margin-left: 8px; padding: 4px 8px; border-radius: 12px; border: 2px solid var(--color-border); font-size: 0.8rem; cursor: pointer;">
+                            <option value="">今日</option>
+                        </select>
+                    </div>
                     <p class="character-card-desc">今天的心情與情境</p>
+                    <!-- 瀑布流容器 -->
+                    <div id="singleMasonryContainer" class="single-masonry-container" style="display:none;"></div>
+                    <!-- 載入更多按鈕 -->
+                    <div id="loadMoreBtn" class="load-more-btn" style="display:none;">載入更多</div>
                 </div>
             </div>
             <p style="text-align: center; margin-top: 15px; font-size: 0.85rem; color: var(--color-text-muted);">
@@ -1116,7 +1194,12 @@
 
         <!-- Multi-Content Carousel Section -->
         <section class="section">
-            <h2 class="section-title">今日多元內容</h2>
+            <h2 class="section-title">
+                ✿ 今日罐罐 ✿
+                <select id="historyMultiSelect" style="margin-left: 10px; padding: 4px 10px; border-radius: 12px; border: 2px solid var(--color-border); font-size: 0.85rem; cursor: pointer; background: var(--color-card); color: var(--color-text);">
+                    <option value="">今日</option>
+                </select>
+            </h2>
             <div class="carousel-container">
                 <button class="carousel-arrow prev" id="carouselPrev" aria-label="上一張">←</button>
                 <div class="carousel-track" id="carouselTrack">
@@ -1126,36 +1209,6 @@
             </div>
             <div class="carousel-indicators" id="carouselIndicators">
                 <!-- Indicators will be dynamically generated -->
-            </div>
-        </section>
-
-        <!-- History Footprint Section -->
-        <section class="section">
-            <h2 class="section-title">📅 歷史足跡</h2>
-            <div class="history-filter-tabs" id="historyFilterTabs">
-                <button class="filter-tab active" data-filter="all">全部</button>
-                <button class="filter-tab" data-filter="story">喵漫</button>
-                <button class="filter-tab" data-filter="single">喵圖</button>
-                <button class="filter-tab" data-filter="multi">多元內容</button>
-            </div>
-            <div class="history-calendar">
-                <div class="calendar-nav">
-                    <button class="calendar-nav-btn" id="prevMonth" aria-label="上個月">◀</button>
-                    <div class="calendar-month" id="currentMonth">
-                        <span>🌙</span>
-                        <span>2026年六月</span>
-                        <span>🌙</span>
-                    </div>
-                    <button class="calendar-nav-btn" id="nextMonth" aria-label="下個月">▶</button>
-                </div>
-                <div class="calendar-grid" id="calendarGrid">
-                    <!-- Calendar will be dynamically generated -->
-                </div>
-                <div class="view-all-link">
-                    <a href="/cats-archive.html" class="view-all-btn">
-                        查看完整列表 →
-                    </a>
-                </div>
             </div>
         </section>
 
@@ -1344,39 +1397,36 @@
         }
         
         // 获取今日喵漫故事（story 类型）
-        function getTodayStory() {
-            const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
-            const stories = catsData.cats.filter(c => c.type === 'story' && c.date === today);
-            return stories.sort((a, b) => (a.frame_num || 1) - (b.frame_num || 1));
+        function getTodayStory(targetDate) {
+            const date = targetDate || new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
+            const stories = catsData.cats.filter(c => c.type === 'story' && c.date === date);
+            return stories.sort((a, b) => (a.frameNum || 1) - (b.frameNum || 1));
         }
 
         function getCarouselItems() {
             return catsData.cats.filter(c => c.type === 'multi' || !c.type);
         }
 
-        // 加载喵漫（单图显示）
-        function loadComicStrip() {
-            console.log("[DEBUG] loadComicStrip called");
-            const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
-            const stories = getTodayStory();
+        // 加载喵漫（4格分镜直接显示）
+        function loadComicStrip(targetDate) {
+            console.log("[DEBUG] loadComicStrip called with date:", targetDate);
+            const stories = getTodayStory(targetDate);
             const container = document.getElementById('comicImageContainer');
             const titleContainer = document.getElementById('comicTitleContainer');
             const titleEl = document.getElementById('comicTitle');
             const comicCard = document.getElementById('comicCard');
+            const historySelect = document.getElementById('historyComicSelect');
             
             if (stories.length > 0) {
-                // 使用第一張漫畫圖片
-                const firstStory = stories[0];
-                const imgPath = firstStory.img;
-                // 確保路徑是絕對路徑（以 / 開頭）
-                const fullPath = imgPath.startsWith('/') ? imgPath : '/' + imgPath;
-                
-                container.style.backgroundImage = `url('${fullPath}')`;
-                container.style.backgroundSize = 'cover';
-                container.style.backgroundPosition = 'center';
-                container.style.cursor = 'pointer';
+                // 取得指定日期所有漫畫幀
+                const date = targetDate || new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
+                const comicIndices = allImages
+                    .map((item, idx) => ({item, idx}))
+                    .filter(({item}) => item.type === 'story' && item.date === date)
+                    .map(({idx}) => idx);
                 
                 // 顯示漫畫標題
+                const firstStory = stories[0];
                 if (firstStory.title) {
                     titleEl.textContent = firstStory.title;
                     titleContainer.style.display = 'flex';
@@ -1385,25 +1435,170 @@
                     titleContainer.style.marginBottom = '8px';
                 }
                 
-                // 找到對應的 allImages 索引，點擊打開 Lightbox
-                const catItem = catsData.cats.find(c => c.img === imgPath);
-                if (catItem) {
-                    const imgIndex = allImages.indexOf(catItem);
-                    // 獲取當日所有漫畫（4grid）的索引範圍
-                    const today = new Date().toLocaleDateString('zh-TW', {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}).replace(/\//g, '-');
-                    const comicIndices = allImages
-                        .map((item, idx) => ({item, idx}))
-                        .filter(({item}) => item.type === 'story' && item.date === today)
-                        .map(({idx}) => idx);
-                    
-                    comicCard.dataset.imageIndex = imgIndex;
-                    comicCard.addEventListener('click', () => {
-                        Modal.open(imgIndex, comicIndices);
-                    });
+                // 顯示歷史選擇器
+                if (historySelect) {
+                    historySelect.style.display = 'inline-block';
                 }
+                
+                // 建立漫畫分鏡 strip
+                const strip = document.createElement('div');
+                strip.className = 'comic-strip';
+                
+                stories.forEach((story, idx) => {
+                    const imgPath = story.img;
+                    const fullPath = imgPath.startsWith('/') ? imgPath : '/' + imgPath;
+                    
+                    const frame = document.createElement('div');
+                    frame.className = 'comic-frame';
+                    frame.dataset.index = idx;
+                    
+                    const img = document.createElement('img');
+                    img.src = fullPath;
+                    img.alt = `第${idx + 1}格`;
+                    img.loading = 'lazy';
+                    
+                    const number = document.createElement('span');
+                    number.className = 'comic-frame-number';
+                    number.textContent = idx + 1;
+                    
+                    frame.appendChild(img);
+                    frame.appendChild(number);
+                    
+                    // 點擊開啟 Lightbox
+                    const globalIndex = comicIndices[idx] ?? -1;
+                    frame.addEventListener('click', () => {
+                        if (globalIndex >= 0) {
+                            Modal.open(globalIndex, comicIndices);
+                        }
+                    });
+                    
+                    strip.appendChild(frame);
+                });
+                
+                // 清空容器並插入分鏡
+                container.innerHTML = '';
+                container.style.backgroundImage = '';
+                container.style.cursor = '';
+                container.appendChild(strip);
             } else {
                 comicCard.style.display = 'none';
             }
+        }
+        
+        // 填充歷史喵漫日期下拉選單
+        function populateHistoryComicSelect() {
+            const historySelect = document.getElementById('historyComicSelect');
+            if (!historySelect || !catsData.cats) return;
+            
+            // 取得所有 story 類型的日期，去重並排序
+            const dates = [...new Set(
+                catsData.cats
+                    .filter(c => c.type === 'story')
+                    .map(c => c.date)
+            )].sort().reverse(); // 新日期在前
+            
+            // 清空現有選項（保留「今日」）
+            historySelect.innerHTML = '<option value="">今日</option>';
+            
+            // 加入歷史日期選項
+            dates.forEach(date => {
+                const option = document.createElement('option');
+                option.value = date;
+                option.textContent = date;
+                historySelect.appendChild(option);
+            });
+            
+            // 選中今日（value=""）
+            historySelect.value = '';
+        }
+        
+        // 填充歷史罐罐日期下拉選單
+        function populateHistoryMultiSelect() {
+            const historySelect = document.getElementById('historyMultiSelect');
+            if (!historySelect || !catsData.cats) return;
+            
+            // 取得所有 multi 類型的日期，去重並排序
+            const dates = [...new Set(
+                catsData.cats
+                    .filter(c => c.type === 'multi')
+                    .map(c => c.date)
+            )].sort().reverse(); // 新日期在前
+            
+            // 清空現有選項（保留「今日」）
+            historySelect.innerHTML = '<option value="">今日</option>';
+            
+            // 加入歷史日期選項
+            dates.forEach(date => {
+                const option = document.createElement('option');
+                option.value = date;
+                option.textContent = date;
+                historySelect.appendChild(option);
+            });
+            
+            // 選中今日（value=""）
+            historySelect.value = '';
+        }
+        
+        // 根據選擇的日期載入罐罐輪播
+        function loadMultiCarousel(targetDate) {
+            const track = document.getElementById('carouselTrack');
+            const indicators = document.getElementById('carouselIndicators');
+            
+            // 根據日期篩選 multi 類型，若無則顯示全部
+            const carouselItems = targetDate 
+                ? catsData.cats.filter(c => c.type === 'multi' && c.date === targetDate)
+                : getCarouselItems();
+
+            track.innerHTML = carouselItems.map((item, index) => `
+                <div class="carousel-item">
+                    <div class="hand-drawn-card carousel-card" data-carousel-index="${index}">
+                        <div class="carousel-card-image" style="background-image: url('/${item.img}');">
+                        </div>
+                        <div class="carousel-card-meta">
+                            ${item.title}<br>
+                            <span style="font-size: 0.65rem;">${item.title} · ${item.style}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            indicators.innerHTML = carouselItems.map((_, index) => `
+                <span class="indicator ${index === 0 ? 'active' : ''}" data-indicator-index="${index}">
+                    ${index === 0 ? '♥' : '♡'}
+                </span>
+            `).join('');
+
+            // 更新 allImages：fixed characters + filtered carousel items
+            allImages = [...getFixedCharacters(), ...carouselItems];
+            
+            // 重新綁定點擊事件
+            document.querySelectorAll('.carousel-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const idx = parseInt(card.dataset.carouselIndex);
+                    const fixedCount = getFixedCharacters().length;
+                    // 針對歷史選擇，只允許該日multi的索引範圍
+                    if (targetDate) {
+                        const multiItems = catsData.cats.filter(c => c.type === 'multi' && c.date === targetDate);
+                        const multiIndices = allImages
+                            .map((item, i) => ({item, i}))
+                            .filter(({item}) => item.type === 'multi' && item.date === targetDate)
+                            .map(({i}) => i);
+                        Modal.open(idx + fixedCount, multiIndices);
+                    } else {
+                        Modal.open(idx + fixedCount);
+                    }
+                });
+            });
+            
+            // 更新 indicators 點擊事件
+            document.querySelectorAll('.indicator').forEach(ind => {
+                ind.addEventListener('click', () => {
+                    const idx = parseInt(ind.dataset.indicatorIndex);
+                    Carousel.goTo(idx);
+                });
+            });
+            
+            Carousel.currentIndex = 0;
         }
         
         function getCalendarData() {
@@ -1746,6 +1941,143 @@
                 accordion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         };
+        
+        // ===== 喵圖瀑布流歷史瀏覽 =====
+        const SINGLE_PER_PAGE = 9;
+        let singleMasonryState = {
+            currentDate: null,
+            allSingleImages: [],
+            displayedCount: 0
+        };
+        
+        function populateHistorySingleSelect() {
+            const historySelect = document.getElementById('historySingleSelect');
+            if (!historySelect || !catsData.cats) return;
+            
+            // 取得所有 single 類型的日期，去重並排序
+            const dates = [...new Set(
+                catsData.cats
+                    .filter(c => c.type === 'single')
+                    .map(c => c.date)
+            )].sort().reverse(); // 新日期在前
+            
+            // 清空現有選項（保留「今日」）
+            historySelect.innerHTML = '<option value="">今日</option>';
+            
+            // 加入歷史日期選項
+            dates.forEach(date => {
+                const option = document.createElement('option');
+                option.value = date;
+                option.textContent = date;
+                historySelect.appendChild(option);
+            });
+            
+            // 選中今日（value=""）
+            historySelect.value = '';
+        }
+        
+        function loadSingleMasonry(dateStr, startIndex, count) {
+            const container = document.getElementById('singleMasonryContainer');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const cardSingle = document.getElementById('cardSingle');
+            const historySelect = document.getElementById('historySingleSelect');
+            
+            // 取得所有 single 圖片（指定日期或全部歷史）
+            let images;
+            if (dateStr) {
+                images = catsData.cats
+                    .filter(c => c.type === 'single' && c.date === dateStr)
+                    .sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else {
+                images = catsData.cats
+                    .filter(c => c.type === 'single')
+                    .sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+            
+            singleMasonryState.allSingleImages = images;
+            
+            // 隱藏原本的卡片，顯示瀑布流容器
+            if (cardSingle) cardSingle.style.display = '';
+            if (container) {
+                container.style.display = 'block';
+                container.innerHTML = '';
+            }
+            if (loadMoreBtn) loadMoreBtn.style.display = 'block';
+            if (historySelect) historySelect.style.display = 'inline-block';
+            
+            // 渲染圖片
+            const endIndex = Math.min(startIndex + count, images.length);
+            for (let i = startIndex; i < endIndex; i++) {
+                const item = images[i];
+                const div = document.createElement('div');
+                div.className = 'single-masonry-item';
+                
+                const img = document.createElement('img');
+                const imgPath = item.img.startsWith('/') ? item.img : '/' + item.img;
+                img.src = imgPath;
+                img.alt = item.title || '喵圖';
+                img.loading = 'lazy';
+                
+                div.appendChild(img);
+                
+                // 點擊開燈箱
+                div.addEventListener('click', () => {
+                    const idx = allImages.findIndex(c => c.img === item.img);
+                    if (idx >= 0) {
+                        // 取得該日期範圍內的所有 single 圖片索引
+                        const validIndices = allImages
+                            .map((c, i) => ({c, i}))
+                            .filter(({c}) => c.type === 'single' && (!dateStr || c.date === dateStr))
+                            .map(({i}) => i);
+                        Modal.open(idx, validIndices);
+                    }
+                });
+                
+                if (container) container.appendChild(div);
+            }
+            
+            singleMasonryState.displayedCount = endIndex;
+            
+            // 隱藏載入更多按鈕（如果已載入全部）
+            if (loadMoreBtn) {
+                if (endIndex >= images.length) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    loadMoreBtn.style.display = 'block';
+                }
+            }
+        }
+        
+        function setupSingleMasonryObserver() {
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (!loadMoreBtn) return;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadSingleMasonry(
+                            singleMasonryState.currentDate,
+                            singleMasonryState.displayedCount,
+                            SINGLE_PER_PAGE
+                        );
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            observer.observe(loadMoreBtn);
+        }
+        
+        function resetSingleMasonry() {
+            const container = document.getElementById('singleMasonryContainer');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            const historySelect = document.getElementById('historySingleSelect');
+            
+            if (container) container.style.display = 'none';
+            if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+            if (historySelect) historySelect.style.display = 'none';
+            singleMasonryState.currentDate = null;
+            singleMasonryState.displayedCount = 0;
+        }
 
         // Modal is defined above (lines 953-1007)
 
@@ -1794,6 +2126,55 @@
             console.log("[DEBUG] Initializing components...");
             Carousel.init();
             loadComicStrip();
+            // 填充歷史喵漫下拉選單
+            populateHistoryComicSelect();
+            // 歷史日期下拉選單事件監聽
+            const historyComicSelect = document.getElementById('historyComicSelect');
+            if (historyComicSelect) {
+                historyComicSelect.addEventListener('change', (e) => {
+                    const selectedDate = e.target.value;
+                    loadComicStrip(selectedDate || null);
+                });
+            }
+            // 填充歷史罐罐下拉選單
+            populateHistoryMultiSelect();
+            // 歷史罐罐下拉選單事件監聽
+            const historyMultiSelect = document.getElementById('historyMultiSelect');
+            if (historyMultiSelect) {
+                historyMultiSelect.addEventListener('change', (e) => {
+                    const selectedDate = e.target.value;
+                    loadMultiCarousel(selectedDate || null);
+                });
+            }
+            // 填充歷史喵圖下拉選單
+            populateHistorySingleSelect();
+            // 歷史喵圖下拉選單事件監聽
+            const historySingleSelect = document.getElementById('historySingleSelect');
+            if (historySingleSelect) {
+                historySingleSelect.addEventListener('change', (e) => {
+                    const selectedDate = e.target.value;
+                    if (selectedDate) {
+                        // 顯示歷史瀑布流
+                        singleMasonryState.currentDate = selectedDate;
+                        loadSingleMasonry(selectedDate, 0, SINGLE_PER_PAGE);
+                        setupSingleMasonryObserver();
+                    } else {
+                        // 回到今日模式（隱藏瀑布流）
+                        resetSingleMasonry();
+                    }
+                });
+            }
+            // 載入更多按鈕點擊事件
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', () => {
+                    loadSingleMasonry(
+                        singleMasonryState.currentDate,
+                        singleMasonryState.displayedCount,
+                        SINGLE_PER_PAGE
+                    );
+                });
+            }
             Calendar.init();
             Modal.init();
             setupFixedCharacterCards();
