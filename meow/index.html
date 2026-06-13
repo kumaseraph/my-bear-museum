@@ -2022,6 +2022,8 @@
 
             // 只保留 multi 類型
             masonryState.allImages = catsData.cats.filter(c => c.type === 'multi');
+            // 同步到 Modal.allImages
+            Modal.allImages = masonryState.allImages;
 
             // 初始載入 6 張
             loadMasonryItems(0, masonryState.perPage);
