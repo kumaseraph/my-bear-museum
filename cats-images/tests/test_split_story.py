@@ -77,4 +77,17 @@ if __name__ == "__main__":
     test_no_punctuation()
     test_exclamation_question()
     test_empty_lines()
+
+    # 測試 read_story_from_file（使用真實的 story-today.txt）
+    dm.setup_variables()
+    result = dm.read_story_from_file('冒險', '2026-06-13')
+    lines = result.split('\n')
+    # 應該只有 4 行故事，不包含 header 註解
+    assert len(lines) == 4, f"預期 4 行故事，實際 {len(lines)}"
+    assert lines[0] == "在月光下醒來，橘貓妹妹看見窗外有光。"
+    assert not any('故事類型' in l for l in lines), "不應包含『故事類型』"
+    assert not any('日期' in l for l in lines), "不應包含『日期』"
+    assert not any(l.startswith('#') for l in lines), "不應包含註解行"
+    print("✅ test_read_story_from_file 通過")
+
     print("\n🎉 所有測試通過！")
