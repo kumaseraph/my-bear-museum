@@ -851,7 +851,7 @@ def main(config):
     )
 
     log("\n===== 完成 =====")
-    log("到 https://kumaweb.pages.dev/cats.html 觀看結果")
+    log("到 https://kumaweb.pages.dev/meow/ 觀看結果")
 
 
 if __name__ == "__main__":
