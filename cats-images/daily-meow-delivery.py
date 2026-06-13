@@ -320,8 +320,8 @@ class DeliveryConfig:
         minimax_size="1:1",
         comfy_width=1024,
         comfy_height=1024,
-        comfy_count=0,
-        minimax_count=7,
+        comfy_count=9,
+        minimax_count=0,
         comfyui_url=COMFYUI_URL,
         mode="",
     ):
@@ -379,6 +379,59 @@ def check_comfyui(config):
         resp = requests.get(f"{config.comfyui_url}/system_stats", timeout=5)
         return resp.status_code == 200
     except Exception:
+        return False
+
+
+def _load_comfy_helpers():
+    if str(COMFY_SCRIPT_DIR) not in sys.path:
+        sys.path.insert(0, str(COMFY_SCRIPT_DIR))
+    from gen_image import (
+        load_workflow,
+        patch_workflow,
+        submit_workflow,
+        poll_status,
+        get_output_images,
+        download_image,
+    )
+    return load_workflow, patch_workflow, submit_workflow, poll_status, get_output_images, download_image
+
+
+def generate_comfyui_image(prompt, cat_name, style, output_path, idx, config):
+    """使用 ComfyUI 生成圖片，失敗時返回 False"""
+    log(f"ComfyUI #{idx+1}: {cat_name} ({style}) [{config.comfy_width}x{config.comfy_height}]")
+
+    if not COMFY_WORKFLOW.exists():
+        log("  ComfyUI workflow 不存在，跳過")
+        return False
+
+    try:
+        load_workflow, patch_workflow, submit_workflow, poll_status, get_output_images, download_image = _load_comfy_helpers()
+        wf = load_workflow(str(COMFY_WORKFLOW))
+        client_id = str(uuid.uuid4())
+        patched, _seed = patch_workflow(
+            wf, prompt, width=config.comfy_width, height=config.comfy_height
+        )
+        result = submit_workflow(config.comfyui_url, patched, client_id)
+        prompt_id = result.get("prompt_id")
+        if not prompt_id:
+            log(f"  ComfyUI 無 prompt_id: {result}")
+            return False
+
+        status = poll_status(config.comfyui_url, prompt_id)
+        if status.get("status", {}).get("status_str") != "success":
+            log("  ComfyUI 生成未成功")
+            return False
+
+        images = get_output_images(config.comfyui_url, status)
+        if not images:
+            log("  ComfyUI 無輸出圖片")
+            return False
+
+        download_image(images[0]["url"], str(output_path))
+        log(f"  已保存: {output_path.name}")
+        return True
+    except Exception as e:
+        log(f"  ComfyUI 生成失敗: {e}")
         return False
 
 
@@ -671,16 +724,21 @@ def add_cats_to_json(new_cats):
 
 
 def step_generate_images(items, today, config, comfyui_online):
-    """步驟 4：產生圖片到暫存目錄"""
+    """步驟 4：產生圖片到暫存目錄（ComfyUI 優先，失敗則 MiniMax fallback）"""
     today_dir = config.temp_dir / today
     today_dir.mkdir(parents=True, exist_ok=True)
 
-    log(f"配送計畫: MiniMax {len(items)} 張（ComfyUI {'在線' if comfyui_online else '離線'}）")
+    log(
+        f"配送計畫: ComfyUI {config.comfy_count} 張 + MiniMax {config.minimax_count} 張 "
+        f"（ComfyUI {'在線' if comfyui_online else '離線'}）"
+    )
 
     generated = []
     slot = 0
 
-    for item in items:
+    # 前 config.comfy_count 張：ComfyUI，失敗改 MiniMax
+    for i in range(min(config.comfy_count, len(items))):
+        item = items[i]
         metadata = item["metadata"]
         output = today_dir / item["filename"]
 
@@ -692,7 +750,47 @@ def step_generate_images(items, today, config, comfyui_online):
             metadata.get("scene", metadata.get("theme", "日常")),
         )
 
-        if generate_minimax_image(prompt, metadata.get("name", "喵喵"), metadata.get("style", "水彩"), output, slot, config):
+        ok = False
+        if comfyui_online:
+            ok = generate_comfyui_image(
+                prompt, metadata.get("name", "喵喵"), metadata.get("style", "水彩"),
+                output, slot, config
+            )
+        if not ok:
+            if comfyui_online:
+                log(f"  ComfyUI 無效，改用 MiniMax: {metadata.get('name', '喵喵')}")
+            ok = generate_minimax_image(
+                prompt, metadata.get("name", "喵喵"), metadata.get("style", "水彩"),
+                output, slot, config
+            )
+
+        if ok:
+            generated.append({
+                "metadata": metadata,
+                "filename": item["filename"],
+                "temp_path": output,
+                "prompt": prompt,
+            })
+            slot += 1
+
+    # 其餘圖片：MiniMax
+    for i in range(config.comfy_count, len(items)):
+        item = items[i]
+        metadata = item["metadata"]
+        output = today_dir / item["filename"]
+
+        prompt = generate_prompt_via_minimax(
+            metadata.get("name", "喵喵"),
+            metadata.get("type", "single"),
+            metadata.get("style", "水彩"),
+            metadata.get("mode", "日常"),
+            metadata.get("scene", metadata.get("theme", "日常")),
+        )
+
+        if generate_minimax_image(
+            prompt, metadata.get("name", "喵喵"), metadata.get("style", "水彩"),
+            output, slot, config
+        ):
             generated.append({
                 "metadata": metadata,
                 "filename": item["filename"],
@@ -872,8 +970,8 @@ if __name__ == "__main__":
     parser.add_argument("--dest-dir", default=str(DEFAULT_DEST_DIR), help="圖片目的目錄")
     parser.add_argument("--minimax-size", default="1:1", help="MiniMax 圖片比例，如 16:9 或 1:1")
     parser.add_argument("--comfy-size", default="1024x1024", type=parse_size, help="ComfyUI 圖片尺寸 WIDTHxHEIGHT")
-    parser.add_argument("--comfy-count", type=int, default=0, help="ComfyUI 配送數量")
-    parser.add_argument("--minimax-count", type=int, default=7, help="MiniMax 配送數量")
+    parser.add_argument("--comfy-count", type=int, default=9, help="ComfyUI 配送數量")
+    parser.add_argument("--minimax-count", type=int, default=0, help="MiniMax 配送數量")
     parser.add_argument("--comfyui-url", default=COMFYUI_URL, help="ComfyUI server URL")
     args = parser.parse_args()
 
