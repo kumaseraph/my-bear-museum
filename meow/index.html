@@ -979,6 +979,49 @@
             cursor: not-allowed;
         }
 
+        /* Side navigation buttons */
+        .modal-side-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 80px;
+            background: rgba(255, 140, 66, 0.85);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .modal-side-prev {
+            left: 10px;
+        }
+
+        .modal-side-next {
+            right: 10px;
+        }
+
+        .modal-content:hover .modal-side-btn {
+            opacity: 1;
+        }
+
+        .modal-side-btn:hover:not(:disabled) {
+            background: rgba(255, 140, 66, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .modal-side-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
         /* ===== Footer ===== */
         .footer {
             text-align: center;
@@ -1101,6 +1144,8 @@
         <div class="modal-content" id="modalContent">
             <button class="modal-close" id="modalClose" aria-label="關閉">✕</button>
             <img class="modal-image" id="modalImage" src="" alt="">
+            <button class="modal-side-btn modal-side-prev" id="modalSidePrev" aria-label="上一張">‹</button>
+            <button class="modal-side-btn modal-side-next" id="modalSideNext" aria-label="下一張">›</button>
             <div class="modal-info">
                 <h3 class="modal-title" id="modalTitle">標題</h3>
                 <div class="modal-caption" id="modalCaption" style="display: none; color: var(--color-text-muted); font-size: 0.9rem; margin: 8px 0; font-style: italic; line-height: 1.5;"></div>
@@ -1207,6 +1252,8 @@
                 // 根據 validIndices 決定導航按鈕狀態
                 document.getElementById('modalPrevBtn').disabled = this.isFirst();
                 document.getElementById('modalNextBtn').disabled = this.isLast();
+                document.getElementById('modalSidePrev').disabled = this.isFirst();
+                document.getElementById('modalSideNext').disabled = this.isLast();
             },
 
             prev() {
@@ -1232,6 +1279,8 @@
                 });
                 document.getElementById('modalPrevBtn').addEventListener('click', () => this.prev());
                 document.getElementById('modalNextBtn').addEventListener('click', () => this.next());
+                document.getElementById('modalSidePrev').addEventListener('click', () => this.prev());
+                document.getElementById('modalSideNext').addEventListener('click', () => this.next());
                 document.addEventListener('keydown', (e) => {
                     if (!document.getElementById('modalOverlay').classList.contains('active')) return;
                     if (e.key === 'Escape') this.close();
