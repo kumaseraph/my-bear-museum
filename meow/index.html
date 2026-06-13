@@ -1255,6 +1255,19 @@
                 document.getElementById('modalNextBtn').disabled = this.isLast();
                 document.getElementById('modalSidePrev').disabled = this.isFirst();
                 document.getElementById('modalSideNext').disabled = this.isLast();
+
+                // 生成 meta 資訊
+                const metaEl = document.getElementById('modalMeta');
+                const dateEl = document.getElementById('modalDate');
+                if (metaEl) {
+                    const breed = item.breed ? `<span class="modal-meta-item">🐱 ${item.breed}</span>` : '';
+                    const style = item.style ? `<span class="modal-meta-item">🎨 ${item.style}</span>` : '';
+                    metaEl.innerHTML = breed + style;
+                }
+                if (dateEl) {
+                    const dateStr = item.date ? `🌙 ${item.date.replace('2026-', '')}` : '';
+                    dateEl.textContent = dateStr;
+                }
             },
 
             prev() {
