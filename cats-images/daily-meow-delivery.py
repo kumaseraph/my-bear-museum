@@ -320,7 +320,7 @@ class DeliveryConfig:
         minimax_size="1:1",
         comfy_width=1024,
         comfy_height=1024,
-        comfy_count=9,
+        comfy_count=6,
         minimax_count=0,
         comfyui_url=COMFYUI_URL,
         mode="",
@@ -855,68 +855,33 @@ def main(config):
     log(f"ComfyUI: {'✓ 在線' if comfyui_online else '✗ 離線'}")
 
     log("\n--- 步驟 2: 取得風格 ---")
-    styles = get_next_styles(9)  # 4 story + 1 single + 4 diverse = 9張圖
+    styles = get_next_styles(6)  # 6張 multi 圖片
     log(f"風格 ({len(styles)}): {styles}")
 
-    # 建立配送項目：三種配送
-    # 1. 喵漫配送（story）- 4張分鏡圖
-    # 2. 喵圖配送（single）- 1張圖片
-    # 3. 多元內容配送（multi）- 4張圖片
+    # 建立配送項目：6張罐罐圖片
     log("\n--- 步驟 3: 準備配送項目 ---")
     items = []
 
-    # 取得故事類型
+    # 生成每日小語（場景描述）
     story_type = get_next_story_type()
     log(f"  今日故事類型: {story_type}")
-    
-    # 生成故事（使用 MiniMax Chat API）
     story_text = generate_story_via_minimax(story_type)
-    story_frames = split_story_to_frames(story_text)
     log(f"  故事內容: {story_text}")
-    log(f"  分鏡數: {len(story_frames)}")
 
-    # ===== 1. 喵漫配送（story）- 4張分鏡圖 =====
-    for i, frame_text in enumerate(story_frames):
-        metadata_story = prepare_meow_metadata(
-            "story",
-            styles[i],
-            story_text=frame_text,
-            story_type=story_type,
-            frame_num=i+1
-        )
-        filename_story = meow_filename("story", today, 1, frame_num=i+1)
-        items.append({
-            "metadata": metadata_story,
-            "filename": filename_story,
-            "story_text": story_text,
-            "story_type": story_type,
-            "frame_num": i+1
-        })
-        log(f"  喵漫{i+1}: {filename_story} ({styles[i]})")
-
-    # ===== 2. 喵圖配送（single）- 1張圖片 =====
-    metadata_single = prepare_meow_metadata("single", styles[4])
-    filename_single = meow_filename("single", today, 1)
-    items.append({
-        "metadata": metadata_single,
-        "filename": filename_single,
-    })
-    log(f"  喵圖: {filename_single} ({styles[4]})")
-
-    # ===== 3. 多元內容配送（multi）- 4張圖片 =====
-    breeds = ["英國短毛貓", "布偶貓", "黑貓", "三花貓"]
-    for i in range(4):
-        breed = breeds[i] if i < len(breeds) else get_random_breed()
-        theme = get_random_theme()
-        metadata = prepare_cat_metadata(breed, styles[5 + i], theme)
-        # 使用新的多元內容命名
-        filename = f"cat_{styles[5 + i].replace(' ', '')[:4]}_{today.replace('-', '')}_0{i+1}.jpg"
+    # ===== 罐罐配送（multi）- 6張圖片，共享同一故事主題 =====
+    for i in range(6):
+        breed = get_random_breed()  # 隨機貓咪品種
+        metadata = prepare_cat_metadata(breed, styles[i], story_text)
+        filename = f"cat_{styles[i].replace(' ', '')[:4]}_{today.replace('-', '')}_0{i+1}.jpg"
         items.append({
             "metadata": metadata,
             "filename": filename,
-            "type": "multi"
+            "type": "multi",
+            "story_text": story_text,
+            "style": styles[i],
+            "breed": breed
         })
-        log(f"  多元{i+1}: {filename} ({breed}/{styles[5 + i]})")
+        log(f"  罐罐{i+1}: {filename} ({breed}/{styles[i]})")
 
     if config.mode == "step2":
         log("\n[step2] 預覽完成，未生圖")
@@ -970,7 +935,7 @@ if __name__ == "__main__":
     parser.add_argument("--dest-dir", default=str(DEFAULT_DEST_DIR), help="圖片目的目錄")
     parser.add_argument("--minimax-size", default="1:1", help="MiniMax 圖片比例，如 16:9 或 1:1")
     parser.add_argument("--comfy-size", default="1024x1024", type=parse_size, help="ComfyUI 圖片尺寸 WIDTHxHEIGHT")
-    parser.add_argument("--comfy-count", type=int, default=9, help="ComfyUI 配送數量")
+    parser.add_argument("--comfy-count", type=int, default=6, help="ComfyUI 配送數量")
     parser.add_argument("--minimax-count", type=int, default=0, help="MiniMax 配送數量")
     parser.add_argument("--comfyui-url", default=COMFYUI_URL, help="ComfyUI server URL")
     args = parser.parse_args()
