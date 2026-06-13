@@ -530,13 +530,13 @@ def prepare_meow_metadata(type_name, style, story_text=None, story_type=None, fr
     return result
 
 
-def prepare_cat_metadata(breed, style, theme):
+def prepare_cat_metadata(breed, style, theme=None):
     """產生多元內容的 metadata"""
     return {
         "name": f"{breed}的日常",
         "breed": breed,
         "style": style,
-        "theme": theme,
+        "theme": theme or style,
     }
 
 
@@ -862,22 +862,15 @@ def main(config):
     log("\n--- 步驟 3: 準備配送項目 ---")
     items = []
 
-    # 生成每日小語（場景描述）
-    story_type = get_next_story_type()
-    log(f"  今日故事類型: {story_type}")
-    story_text = generate_story_via_minimax(story_type)
-    log(f"  故事內容: {story_text}")
-
-    # ===== 罐罐配送（multi）- 6張圖片，共享同一故事主題 =====
+    # ===== 罐罐配送（multi）- 6張圖片，各自有不同風格與品種 =====
     for i in range(6):
         breed = get_random_breed()  # 隨機貓咪品種
-        metadata = prepare_cat_metadata(breed, styles[i], story_text)
+        metadata = prepare_cat_metadata(breed, styles[i])
         filename = f"cat_{styles[i].replace(' ', '')[:4]}_{today.replace('-', '')}_0{i+1}.jpg"
         items.append({
             "metadata": metadata,
             "filename": filename,
             "type": "multi",
-            "story_text": story_text,
             "style": styles[i],
             "breed": breed
         })
