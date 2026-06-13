@@ -1461,7 +1461,6 @@
                 strip.className = 'comic-strip';
                 
                 stories.forEach((story, idx) => {
-                    const imgPath = story.img;
                     const imgPath = toThumbPath(story.img);
                     const fullPath = imgPath.startsWith('/') ? imgPath : '/' + imgPath;
                     const frame = document.createElement('div');
