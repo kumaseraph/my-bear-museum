@@ -159,19 +159,25 @@ def read_story_from_file(story_type, today):
     lines = content.split('\n')
     story_lines = []
     in_poem = False
-    for i, line in enumerate(lines):
-        # 跳過前3行的 metadata
-        if i < 3:
-            continue
+    # 跳過 header/metadata 行
+    skip_patterns = (
+        '#',             # 註解行
+        '故事類型：',     # 故事類型：冒險
+        '日期：',         # 日期：2026-06-13
+        '---',           # 分隔線
+    )
+    for line in lines:
+        stripped = line.strip()
         # 跳過空行
-        if line.strip() == '' and not in_poem:
+        if not stripped:
             continue
         # 跳過詩的標題行（以《》包圍）
-        if line.strip().startswith('《') and line.strip().endswith('》'):
-            in_poem = True
+        if stripped.startswith('《') and stripped.endswith('》'):
             continue
-        if line.strip():
-            story_lines.append(line.strip())
+        # 跳過 header/metadata 行
+        if any(stripped.startswith(p) for p in skip_patterns):
+            continue
+        story_lines.append(stripped)
     
     if story_lines:
         story_text = '\n'.join(story_lines)
