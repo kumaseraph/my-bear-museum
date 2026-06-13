@@ -714,13 +714,89 @@
     50% { transform: scale(1.5); text-shadow: 0 0 25px var(--star-color); }
     100% { transform: scale(1); }
 }
-        /* 新入住熊熊 - 加大間距 */
-        .bear-grid {
+        /* 新入住熊熊 - 橫向滑動卡片 */
+        .new-bears-scroll {
             display: flex;
-            flex-wrap: wrap;
-            gap: 45px;
-            justify-content: center;
-            padding: 10px 0;
+            gap: 50px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 15px 10px;
+            margin: 0 -10px;
+        }
+        .new-bears-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .new-bears-scroll .bear-thumb {
+            flex-shrink: 0;
+            scroll-snap-align: start;
+        }
+        .new-bears-scroll .thumb-circle {
+            width: 100px !important;
+            height: 100px !important;
+        }
+        .new-bears-scroll .thumb-name {
+            font-size: 16px !important;
+        }
+        .new-bears-scroll .category-badge {
+            font-size: 14px !important;
+        }
+
+        /* 星星成就系統 */
+        .achievement-star {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            position: relative;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .achievement-star:hover {
+            transform: scale(1.15);
+        }
+        .achievement-star.bronze { color: #CD7F32; text-shadow: 0 0 10px rgba(205, 127, 50, 0.5); }
+        .achievement-star.silver { color: #C0C0C0; text-shadow: 0 0 10px rgba(192, 192, 192, 0.5); }
+        .achievement-star.gold { color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        .achievement-star.diamond { color: #B9F2FF; text-shadow: 0 0 15px rgba(185, 242, 255, 0.8), 0 0 25px rgba(185, 242, 255, 0.4); }
+        .achievement-star.rainbow {
+            background: linear-gradient(90deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #8B00FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 8px rgba(255, 0, 128, 0.5)) drop-shadow(0 0 12px rgba(0, 0, 255, 0.5));
+        }
+        .achievement-tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 15px 18px;
+            box-shadow: var(--shadow-deep);
+            z-index: 100;
+            white-space: pre-line;
+            font-size: 0.85rem;
+            color: var(--color-primary);
+            min-width: 220px;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .achievement-star:hover .achievement-tooltip {
+            display: block;
+        }
+        .achievement-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: var(--color-card);
         }
         .bear-thumb {
             width: 120px;
@@ -2755,6 +2831,10 @@
             <div class="k4-label">館藏數量</div>
             <div class="k4-sublabel">熊熊博物館</div>
         </div>
+        <div class="achievement-star" id="achievementStar" onclick="updateAchievementStar()">
+            <span id="achievementIcon">☆</span>
+            <div class="achievement-tooltip" id="achievementTooltip"></div>
+        </div>
     </div>
     <div class="info-footer">
         ✨ <span id="openDateFull">2026年6月3日</span> 熊熊博物館正式開幕！
@@ -2764,9 +2844,6 @@
     <div class="series-section" id="seriesSection">
         <div class="section-title">
             🏷️ 熊熊系列
-        </div>
-        <div class="series-search-wrap">
-            <input type="text" class="series-search" id="seriesSearch" placeholder="🔍 搜尋系列..." oninput="filterSeriesSearch(this.value)">
         </div>
         <div class="series-carousel" id="seriesCarousel">
             <div class="series-carousel-track" id="seriesTrack"></div>
@@ -2837,7 +2914,7 @@
             <img src="images/icon-bear-heart.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
             新入住熊熊
         </div>
-        <div class="bear-grid" id="todayBears"></div>
+        <div class="new-bears-scroll" id="todayBears"></div>
     </div>
 
     <!-- Bear Yearbook -->
@@ -2848,7 +2925,7 @@
         </div>
         <!-- Search Box -->
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="🔍 搜尋編號、名字或日期..." oninput="handleSearch(this.value)">
+            <input type="text" id="searchInput" placeholder="🔍 搜尋編號、名字、系列或日期..." oninput="handleSearch(this.value)">
             <div class="search-results" id="searchResults"></div>
         </div>
 
@@ -3740,7 +3817,6 @@
             thumb.className = 'bear-thumb';
             thumb.onclick = () => openBearModalByBear(bear, group);
             thumb.innerHTML = `
-                <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                 <div class="thumb-circle"><img src="${bear.imgS || bear.img}" alt="${bear.name}" loading="lazy" decoding="async"></div>
                 <div class="thumb-name">${bear.name}</div>
             `;
@@ -3885,7 +3961,6 @@
                 thumb.style.cssText = 'width: 80px; height: 100px;';
                 thumb.onclick = () => { closeMonthModal(); openBearModalByRef(bear.collectionNo === featuredBear.collectionNo ? 'opening' : bear.collectionNo); };
                 thumb.innerHTML = `
-                    <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                     <div class="thumb-circle" style="width: 60px; height: 60px;"><img src="${bear.img}" alt="${bear.name}" loading="lazy" decoding="async"></div>
                     <div class="thumb-name">${bear.name}</div>
                 `;
@@ -3953,13 +4028,76 @@
                 thumb.className = 'bear-thumb';
                 thumb.onclick = () => openBearModalByBear(bear, todayBearsList);
                 thumb.innerHTML = `
-                    <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                     <div class="thumb-circle"><img src="${bear.imgS || bear.img}" alt="${bear.name}" loading="lazy" decoding="async"></div>
                     <div class="thumb-name">${bear.name}</div>
                     <span class="category-badge" data-series="${bear.series}">${bear.series}</span>
                 `;
                 grid.appendChild(thumb);
             });
+
+            // Update achievement star
+            updateAchievementStar();
+        }
+
+        // 星星成就系統
+        function updateAchievementStar() {
+            const total = bears.length + 1; // +1 for featured bear
+            const starEl = document.getElementById('achievementStar');
+            const iconEl = document.getElementById('achievementIcon');
+            const tooltipEl = document.getElementById('achievementTooltip');
+
+            let tier = '';
+            let color = '';
+            let nextTier = '';
+            let nextCount = 0;
+
+            if (total >= 250) {
+                tier = '彩虹';
+                color = 'rainbow';
+                nextTier = '已達最高成就！';
+                nextCount = 0;
+            } else if (total >= 200) {
+                tier = '鑽石';
+                color = 'diamond';
+                nextTier = '熊熊收藏王';
+                nextCount = 250;
+            } else if (total >= 150) {
+                tier = '金';
+                color = 'gold';
+                nextTier = '收藏大師';
+                nextCount = 200;
+            } else if (total >= 100) {
+                tier = '銀';
+                color = 'silver';
+                nextTier = '熊熊達人';
+                nextCount = 150;
+            } else if (total >= 50) {
+                tier = '銅';
+                color = 'bronze';
+                nextTier = '中級收藏家';
+                nextCount = 100;
+            } else {
+                tier = '';
+                color = '';
+                nextTier = '初級收藏家';
+                nextCount = 50;
+            }
+
+            // Remove all tier classes
+            starEl.className = 'achievement-star' + (color ? ' ' + color : '');
+            iconEl.textContent = total >= 50 ? '★' : '☆';
+
+            const remaining = nextCount - total;
+            const remainingText = remaining > 0 ? `\n距離「${nextTier}」還差 ${remaining} 隻！` : '';
+
+            tooltipEl.innerHTML = `🌟 成就規則━━━━━━━━━━━━━━━━
+⭐ 初級收藏家 — 館藏數量 50 隻
+⭐ 中級收藏家 — 館藏數量 100 隻
+⭐ 熊熊達人 — 館藏數量 150 隻
+⭐ 收藏大師 — 館藏數量 200 隻
+⭐ 熊熊收藏王 — 館藏數量 250 隻
+━━━━━━━━━━━━━━━━
+目前：${total} 隻${tier ? `（${tier}色）` : ''}${remainingText}`;
         }
 
         // Open month browser modal (moved to bottom)
@@ -4470,11 +4608,13 @@
             const results = bears.filter(b =>
                 String(b.collectionNo).padStart(4, '0').includes(query) ||
                 b.name.toLowerCase().includes(lowerQuery) ||
-                b.date.includes(query)
+                b.date.includes(query) ||
+                b.series.toLowerCase().includes(lowerQuery)
             );
             // Also include opening bear
             if (String(featuredBear.collectionNo).padStart(4, '0').includes(query) ||
-                featuredBear.name.toLowerCase().includes(lowerQuery)) {
+                featuredBear.name.toLowerCase().includes(lowerQuery) ||
+                featuredBear.series.toLowerCase().includes(lowerQuery)) {
                 results.unshift(featuredBear);
             }
             if (results.length === 0) {
@@ -4482,7 +4622,7 @@
             } else {
                 resultsDiv.innerHTML = results.map(b => `
                     <div class="search-result-item" onclick="openBearModalByRef('${b.collectionNo === featuredBear.collectionNo ? 'opening' : b.collectionNo}'); document.getElementById('searchResults').classList.remove('show'); document.getElementById('searchInput').value = '';">
-                        <strong>No.${String(b.collectionNo).padStart(4, '0')}</strong> ${b.name}
+                        <strong>No.${String(b.collectionNo).padStart(4, '0')}</strong> ${b.name} <span style="color:var(--color-text-light)">(${b.series})</span>
                     </div>
                 `).join('');
             }
@@ -4527,7 +4667,6 @@
             thumb.style.cssText = 'width: 150px; height: 180px;';
             thumb.onclick = () => { closeMonthModal(); openBearModalByRef(bear.collectionNo === featuredBear.collectionNo ? 'opening' : bear.collectionNo); };
             thumb.innerHTML = `
-                <button class="star-btn${starredBears.includes(bear.collectionNo) ? ' starred' : ''}" data-no="${bear.collectionNo}" onclick="toggleStar(${bear.collectionNo}, event)">${starredBears.includes(bear.collectionNo) ? '★' : '☆'}</button>
                 <div class="thumb-circle" style="width: 120px; height: 120px;"><img src="${bear.img}" alt="${bear.name}" loading="lazy" decoding="async"></div>
                 <div class="thumb-name">${bear.name}</div>
             `;
