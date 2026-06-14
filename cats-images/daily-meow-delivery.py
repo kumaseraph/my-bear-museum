@@ -300,10 +300,9 @@ PROMPT_SYSTEM = """You are an expert at writing English text-to-image prompts fo
 Given cat metadata in Traditional Chinese, write ONE detailed English image generation prompt.
 
 Rules:
-- Character description (MUST include in every prompt):
-  * Orange tabby cat with fluffy orange fur
-  * Gold bell collar with a small golden bell
-  * Milk tea colored eyes (light brown/hazel)
+- Character description (MUST include in every prompt, use the provided coat field):
+  * Replace with the "coat" description from the metadata
+  * Add a cute gold bell collar and milk tea / hazel coloured eyes
 - Translate the art style to English (e.g. 油畫=oil painting, 水墨=ink wash painting, 黏土=clay art)
 - Describe a vivid scene with atmosphere and magical lighting
 - Write as a single English paragraph
@@ -564,11 +563,41 @@ def prepare_meow_metadata(type_name, style, story_text=None, story_type=None, fr
     return result
 
 
+BREED_COATS = {
+    "橘貓": "orange tabby cat with fluffy orange fur",
+    "英國短毛貓": "British Shorthair with round face and dense blue-grey coat",
+    "美國短毛貓": "American Shorthair with classic tabby markings and robust body",
+    "蘇格蘭摺耳貓": "Scottish Fold with folded ears and round face",
+    "波斯貓": "Persian with long fluffy white fur and flat face",
+    "緬甸貓": "Burmese with sleek dark brown coat and golden eyes",
+    "俄羅斯藍貓": "Russian Blue with short dense blue-grey coat and emerald green eyes",
+    "孟加拉貓": "Bengal with golden leopard-like spotted coat",
+    "阿比西尼亞貓": "Abyssinian with ticked warm brown coat and large ears",
+    "柯尼斯卷毛貓": "Cornish Rex with soft wavy fur and large ears",
+    "蘇格蘭立耳貓": "Scottish Straight with medium-length fur and alert expression",
+    "挪威森林貓": "Norwegian Forest Cat with long thick fur and bushy tail",
+    "西伯利亞貓": "Siberian with long dense triple-layer coat and round eyes",
+    "暹羅貓": "Siamese with cream body, dark chocolate points and blue eyes",
+    "布偶貓": "Ragdoll with semi-long silky white fur and blue eyes",
+    "德文卷毛貓": "Devon Rex with soft wavy caramel-coloured fur and large ears",
+    "埃及貓": "Egyptian Mau with silver-spotted coat and gooseberry green eyes",
+    "曼赤肯貓": "Munchkin with short legs and round body, various coat colours",
+    "新加坡貓": "Singapura with ticked warm beige coat and large ears",
+    "緬因貓": "Maine Coon with long shaggy fur and bushy tail",
+    "異國短毛貓": "Exotic Shorthair with flat face and dense plush coat",
+    "塞爾凱克卷毛貓": "Selkirk Rex with dense curly羊毛卷毛 and rounded body",
+    "東方短毛貓": "Oriental Shorthair with sleek svelte body and large ears",
+    "拉波卷毛貓": "LaPerm with loose curly fur in various colours",
+    "歐洲短毛貓": "European Shorthair with short dense coat and robust body",
+}
+
 def prepare_cat_metadata(breed, style, theme=None):
     """產生多元內容的 metadata"""
+    coat = BREED_COATS.get(breed, "cute cat with fluffy fur")
     return {
         "name": f"{breed}的日常",
         "breed": breed,
+        "coat": coat,
         "style": style,
         "theme": theme or style,
     }
@@ -632,21 +661,21 @@ def clean_minimax_text(content):
     return content.strip().strip("\"'")
 
 
-def build_prompt_fallback(name, type_name, style, mode, scene):
+def build_prompt_fallback(name, type_name, style, mode, scene, coat):
     """MiniMax 失敗時的本地 fallback prompt。"""
     return (
-        f"A cute adorable orange cat, {name}, {mode} mode, "
+        f"A cute adorable {coat}, {name}, {mode} mode, "
         f"scene: {scene}, {style} art style, dreamy atmosphere, "
         f"{PROMPT_QUALITY_SUFFIX}"
     )
 
 
-def generate_prompt_via_minimax(name, type_name, style, mode, scene):
+def generate_prompt_via_minimax(name, type_name, style, mode, scene, coat):
     """用 MiniMax Chat API 依 metadata 產生英文生圖 prompt。"""
     user_content = (
         f"Cat name: {name}\n"
         f"Type: {type_name}\n"
-        f"Mode: {mode}\n"
+        f"Coat: {coat}\n"
         f"Style: {style}\n"
         f"Scene: {scene}"
     )
@@ -701,7 +730,7 @@ def generate_prompt_via_minimax(name, type_name, style, mode, scene):
         return content
     except Exception as e:
         log(f"  MiniMax prompt 生成失敗: {e}，使用 fallback")
-        fallback = build_prompt_fallback(name, type_name, style, mode, scene)
+        fallback = build_prompt_fallback(name, type_name, style, mode, scene, coat)
         log(f"  prompt (fallback): {fallback}")
         return fallback
 
@@ -782,6 +811,7 @@ def step_generate_images(items, today, config, comfyui_online):
             metadata.get("style", "水彩"),
             metadata.get("mode", "日常"),
             metadata.get("scene", metadata.get("theme", "日常")),
+            metadata.get("coat", "cute cat with fluffy fur"),
         )
 
         ok = False
@@ -819,6 +849,7 @@ def step_generate_images(items, today, config, comfyui_online):
             metadata.get("style", "水彩"),
             metadata.get("mode", "日常"),
             metadata.get("scene", metadata.get("theme", "日常")),
+            metadata.get("coat", "cute cat with fluffy fur"),
         )
 
         if generate_minimax_image(
