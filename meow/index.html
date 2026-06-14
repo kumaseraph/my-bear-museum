@@ -2134,7 +2134,8 @@
 
                 div.appendChild(img);
                 div.addEventListener('click', () => {
-                    Modal.open(start + i);
+                    // 使用当前已显示的数量 + 当前循环索引来计算正确的全局索引
+                    Modal.open(masonryState.displayedCount + (i - start));
                 });
 
                 container.appendChild(div);
