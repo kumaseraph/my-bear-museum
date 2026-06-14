@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作報告 - 熊熊簡報</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #fdf6e3 0%, #f5e6d3 50%, #fdf6e3 100%);
+            min-height: 100vh;
+            color: #5d4037;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* 背景裝飾 */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(139,90,43,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(139,90,43,0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        /* 頁碼 */
+        .page-number {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-size: 14px;
+            color: #8b5a2b;
+            font-weight: 600;
+        }
+        /* 導航欄 */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+        nav a {
+            color: #8b5a2b;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        nav a:hover { background: rgba(139,90,43,0.15); }
+        /* 通用標題 */
+        .slide-title {
+            font-size: 42px;
+            color: #5d4037;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 10;
+        }
+        .slide-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #8b5a2b, #d4a574);
+            margin-top: 15px;
+            border-radius: 2px;
+        }
+        /* ===== 第1頁：封面 ===== */
+        .cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .cover-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+        }
+        .cover h1 {
+            font-size: 56px;
+            color: #5d4037;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .cover-subtitle {
+            font-size: 24px;
+            color: #8b5a2b;
+            margin-bottom: 40px;
+        }
+        .cover-meta {
+            font-size: 16px;
+            color: #a08060;
+        }
+        .cover-date {
+            font-size: 18px;
+            color: #8b5a2b;
+            margin-top: 30px;
+        }
+        /* ===== 第2頁：目錄 ===== */
+        .agenda-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            position: relative;
+            z-index: 10;
+            margin-top: 20px;
+        }
+        .agenda-item {
+            background: white;
+            border-radius: 16px;
+            padding: 25px 30px;
+            box-shadow: 0 4px 15px rgba(139,90,43,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s;
+        }
+        .agenda-item:hover { transform: translateY(-3px); }
+        .agenda-num {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #8b5a2b, #d4a574);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .agenda-text {
+            font-size: 18px;
+            color: #5d4037;
+            font-weight: 500;
+        }
+        /* ===== 第3頁：工作概述 ===== */
+        .overview-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            position: relative;
+            z-index: 10;
+            margin-top: 30px;
+        }
+        .overview-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 6px 20px rgba(139,90,43,0.12);
+            text-align: center;
+        }
+        .overview-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        .overview-num {
+            font-size: 48px;
+            font-weight: 700;
+            color: #8b5a2b;
+            margin-bottom: 10px;
+        }
+        .overview-label {
+            font-size: 16px;
+            color: #a08060;
+        }
+        /* ===== 第4頁：成果展示 ===== */
+        .成果-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            position: relative;
+            z-index: 10;
+            margin-top: 30px;
+        }
+        .成果-item {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(139,90,43,0.1);
+            border-left: 5px solid #8b5a2b;
+        }
+        .成果-title {
+            font-size: 20px;
+            color: #5d4037;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .成果-desc {
+            font-size: 15px;
+            color: #8b7355;
+            line-height: 1.6;
+        }
+        /* ===== 第5頁：數據分析 ===== */
+        .chart-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 6px 20px rgba(139,90,43,0.12);
+            position: relative;
+            z-index: 10;
+            margin-top: 30px;
+        }
+        .chart-title {
+            font-size: 22px;
+            color: #5d4037;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 40px;
+            height: 250px;
+            padding: 20px 0;
+        }
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bar {
+            width: 60px;
+            background: linear-gradient(180deg, #d4a574 0%, #8b5a2b 100%);
+            border-radius: 8px 8px 0 0;
+            transition: height 0.5s ease;
+        }
+        .bar-label {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #8b7355;
+        }
+        .bar-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #5d4037;
+            margin-bottom: 10px;
+        }
+        /* ===== 第6頁：遇到的挑戰 ===== */
+        .挑戰-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            z-index: 10;
+            margin-top: 30px;
+        }
+        .挑戰-item {
+            background: white;
+            border-radius: 16px;
+            padding: 25px 30px;
+            box-shadow: 0 4px 15px rgba(139,90,43,0.1);
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .挑戰-icon {
+            font-size: 40px;
+        }
+        .挑戰-content h4 {
+            font-size: 18px;
+            color: #5d4037;
+            margin-bottom: 8px;
+        }
+        .挑戰-content p {
+            font-size: 14px;
+            color: #8b7355;
+        }
+        /* ===== 第7頁：解決方案 ===== */
+        .方案-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            position: relative;
+            z-index: 10;
+            margin-top: 30px;
+        }
+        .方案-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 6px 20px rgba(139,90,43,0.12);
+        }
+        .方案-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .方案-icon {
+            font-size: 35px;
+        }
+        .方案-title {
+            font-size: 20px;
+            color: #5d4037;
+            font-weight: 600;
+        }
+        .方案-list {
+            list-style: none;
+        }
+        .方案-list li {
+            padding: 8px 0;
+            font-size: 15px;
+            color: #6d5d4d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .方案-list li::before {
+            content: '✓';
+            color: #8b5a2b;
+            font-weight: 700;
+        }
+        /* ===== 第8頁：團隊協作 ===== */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            position: relative;
+            z-index: 10;
+            margin-top: 30px;
+        }
+        .team-member {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(139,90,43,0.1);
+        }
+        .team-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f5e6d3, #d4a574);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        .team-name {
+            font-size: 18px;
+            color: #5d4037;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .team-role {
+            font-size: 13px;
+            color: #a08060;
+        }
+        /* ===== 第9頁：未來規劃 ===== */
+        .timeline {
+            position: relative;
+            z-index: 10;
+            margin-top: 30px;
+            padding: 20px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b5a2b, #d4a574);
+            border-radius: 2px;
+        }
+        .timeline-items {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        .timeline-item {
+            flex: 1;
+            text-align: center;
+        }
+        .timeline-dot {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border: 4px solid #8b5a2b;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .timeline-title {
+            font-size: 16px;
+            color: #5d4037;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .timeline-desc {
+            font-size: 13px;
+            color: #8b7355;
+        }
+        /* ===== 第10頁：結語 ===== */
+        .結語 {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .結語-icon {
+            font-size: 70px;
+            margin-bottom: 30px;
+        }
+        .結語 h2 {
+            font-size: 48px;
+            color: #5d4037;
+            margin-bottom: 25px;
+        }
+        .結語 p {
+            font-size: 20px;
+            color: #8b7355;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        .結語-cta {
+            font-size: 18px;
+            color: #8b5a2b;
+            background: white;
+            padding: 18px 40px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(139,90,43,0.15);
+        }
+        /* 底部版權 */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: #c0a080;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 第1頁：封面 -->
+<div class="slide cover">
+    <div class="cover-icon">📊</div>
+    <h1>工作報告</h1>
+    <div class="cover-subtitle">年度成果與未來展望</div>
+    <div class="cover-meta">熊熊工作室</div>
+    <div class="cover-date">2026年度</div>
+    <div class="page-number">1 / 10</div>
+</div>
+
+<!-- 第2頁：目錄 -->
+<div class="slide">
+    <nav>
+        <a href="#">🏠 熊熊博物館</a>
+        <a href="#">📊 PPT素材</a>
+        <a href="#">🎬 影片素材</a>
+    </nav>
+    <h2 class="slide-title">大綱</h2>
+    <div class="agenda-grid">
+        <div class="agenda-item">
+            <div class="agenda-num">1</div>
+            <div class="agenda-text">工作概述</div>
+        </div>
+        <div class="agenda-item">
+            <div class="agenda-num">2</div>
+            <div class="agenda-text">成果展示</div>
+        </div>
+        <div class="agenda-item">
+            <div class="agenda-num">3</div>
+            <div class="agenda-text">數據分析</div>
+        </div>
+        <div class="agenda-item">
+            <div class="agenda-num">4</div>
+            <div class="agenda-text">遇到的挑戰</div>
+        </div>
+        <div class="agenda-item">
+            <div class="agenda-num">5</div>
+            <div class="agenda-text">解決方案</div>
+        </div>
+        <div class="agenda-item">
+            <div class="agenda-num">6</div>
+            <div class="agenda-text">團隊協作</div>
+        </div>
+        <div class="agenda-item">
+            <div class="agenda-num">7</div>
+            <div class="agenda-text">未來規劃</div>
+        </div>
+        <div class="agenda-item">
+            <div class="agenda-num">8</div>
+            <div class="agenda-text">結語</div>
+        </div>
+    </div>
+    <div class="page-number">2 / 10</div>
+</div>
+
+<!-- 第3頁：工作概述 -->
+<div class="slide">
+    <nav>
+        <a href="#">🏠 熊熊博物館</a>
+        <a href="#">📊 PPT素材</a>
+        <a href="#">🎬 影片素材</a>
+    </nav>
+    <h2 class="slide-title">工作概述</h2>
+    <div class="overview-cards">
+        <div class="overview-card">
+            <div class="overview-icon">📁</div>
+            <div class="overview-num">25</div>
+            <div class="overview-label">完成專案</div>
+        </div>
+        <div class="overview-card">
+            <div class="overview-icon">👥</div>
+            <div class="overview-num">8</div>
+            <div class="overview-label">合作團隊</div>
+        </div>
+        <div class="overview-card">
+            <div class="overview-icon">⏱️</div>
+            <div class="overview-num">95%</div>
+            <div class="overview-label">準時率</div>
+        </div>
+    </div>
+    <div class="page-number">3 / 10</div>
+</div>
+
+<!-- 第4頁：成果展示 -->
+<div class="slide">
+    <nav>
+        <a href="#">🏠 熊熊博物館</a>
+        <a href="#">📊 PPT素材</a>
+        <a href="#">🎬 影片素材</a>
+    </nav>
+    <h2 class="slide-title">成果展示</h2>
+    <div class="成果-grid">
+        <div class="成果-item">
+            <div class="成果-title">📱 官方網站上線</div>
+            <div class="成果-desc">全新打造的熊熊博物館網站，整合詞彙庫與素材管理系統，提升使用者體驗。</div>
+        </div>
+        <div class="成果-item">
+            <div class="成果-title">🎨 PPT素材庫</div>
+            <div class="成果-desc">建立七大分類的素材庫，至今已累積超過100種原創素材。</div>
+        </div>
+        <div class="成果-item">
+            <div class="成果-title">🤖 AI自動化</div>
+            <div class="成果-desc">每日自動生成熊熊圖片並部署上線，減少手動作業時間。</div>
+        </div>
+        <div class="成果-item">
+            <div class="成果-title">📊 數據視覺化</div>
+            <div class="成果-desc">引進多種圖表與資訊圖表工具，讓數據呈現更直觀。</div>
+        </div>
+        <div class="成果-item">
+            <div class="成果-title">🗂️ 知識管理系統</div>
+            <div class="成果-desc">建立完整的熊熊憲章與技能治理架構。</div>
+        </div>
+        <div class="成果-item">
+            <div class="成果-title">🚀 效率提升</div>
+            <div class="成果-desc">透過自動化與模板化，工作效率較去年提升40%。</div>
+        </div>
+    </div>
+    <div class="page-number">4 / 10</div>
+</div>
+
+<!-- 第5頁：數據分析 -->
+<div class="slide">
+    <nav>
+        <a href="#">🏠 熊熊博物館</a>
+        <a href="#">📊 PPT素材</a>
+        <a href="#">🎬 影片素材</a>
+    </nav>
+    <h2 class="slide-title">數據分析</h2>
+    <div class="chart-container">
+        <div class="chart-title">各季度工作產出統計</div>
+        <div class="chart-bars">
+            <div class="bar-item">
+                <div class="bar-value">Q1</div>
+                <div class="bar" style="height: 120px;"></div>
+                <div class="bar-label">18件</div>
+            </div>
+            <div class="bar-item">
+                <div class="bar-value">Q2</div>
+                <div class="bar" style="height: 180px;"></div>
+                <div class="bar-label">25件</div>
+            </div>
+            <div class="bar-item">
+                <div class="bar-value">Q3</div>
+                <div class="bar" style="height: 220px;"></div>
+                <div class="bar-label">32件</div>
+            </div>
+            <div class="bar-item">
+                <div class="bar-value">Q4</div>
+                <div class="bar" style="height: 250px;"></div>
+                <div class="bar-label">38件</div>
+            </div>
+        </div>
+    </div>
+    <div class="page-number">5 / 10</div>
+</div>
+
+<!-- 第6頁：遇到的挑戰 -->
+<div class="slide">
+    <nav>
+        <a href="#">🏠 熊熊博物館</a>
+        <a href="#">📊 PPT素材</a>
+        <a href="#">🎬 影片素材</a>
+    </nav>
+    <h2 class="slide-title">遇到的挑戰</h2>
+    <div class="挑戰-list">
+        <div class="挑戰-item">
+            <div class="挑戰-icon">⏰</div>
+            <div class="挑戰-content">
+                <h4>時間資源有限</h4>
+                <p>同時處理多個專案，需有效分配有限的人力與時間資源。</p>
+            </div>
+        </div>
+        <div class="挑戰-item">
+            <div class="挑戰-icon">🔄</div>
+            <div class="挑戰-content">
+                <h4>需求變動頻繁</h4>
+                <p>專案執行中時常收到新需求，需快速調整並保持品質。</p>
+            </div>
+        </div>
+        <div class="挑戰-item">
+            <div class="挑戰-icon">🎯</div>
+            <div class="挑戰-content">
+                <h4>技術整合困難</h4>
+                <p>多系統整合時遇到相容性問題，需找出最佳解決方案。</p>
+            </div>
+        </div>
+    </div>
+    <div class="page-number">6 / 10</div>
+</div>
+
+<!-- 第7頁：解決方案 -->
+<div class="slide">
+    <nav>
+        <a href="#">🏠 熊熊博物館</a>
+        <a href="#">📊 PPT素材</a>
+        <a href="#">🎬 影片素材</a>
+    </nav>
+    <h2 class="slide-title">解決方案</h2>
+    <div class="方案-grid">
+        <div class="方案-card">
+            <div class="方案-header">
+                <div class="方案-icon">⚡</div>
+                <div class="方案-title">敏捷工作法</div>
+            </div>
+            <ul class="方案-list">
+                <li>每週滾動式檢討進度</li>
+                <li>優先處理高價值項目</li>
+                <li>快速交付迭代版本</li>
+            </ul>
+        </div>
+        <div class="方案-card">
+            <div class="方案-header">
+                <div class="方案-icon">🔧</div>
+                <div class="方案-title">自動化工具</div>
+            </div>
+            <ul class="方案-list">
+                <li>CI/CD 自動化部署</li>
+                <li>模板系統減少重複作業</li>
+                <li>定時任務自動執行</li>
+            </ul>
+        </div>
+        <div class="方案-card">
+            <div class="方案-header">
+                <div class="方案-icon">📚</div>
+                <div class="方案-title">知識沉澱</div>
+            </div>
+            <ul class="方案-list">
+                <li>建立標準作業流程</li>
+                <li>文件化常見問題</li>
+                <li>經驗分享會議</li>
+            </ul>
+        </div>
+        <div class="方案-card">
+            <div class="方案-header">
+                <div class="方案-icon">🤝</div>
+                <div class="方案-title">跨部門協作</div>
+            </div>
+            <ul class="方案-list">
+                <li>建立溝通管道</li>
+                <li>定期同步會議</li>
+                <li>明確責任分工</li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-number">7 / 10</div>
+</div>
+
+<!-- 第8頁：團隊協作 -->
+<div class="slide">
+    <nav>
+        <a href="#">🏠 熊熊博物館</a>
+        <a href="#">📊 PPT素材</a>
+        <a href="#">🎬 影片素材</a>
+    </nav>
+    <h2 class="slide-title">團隊協作</h2>
+    <div class="team-grid">
+        <div class="team-member">
+            <div class="team-avatar">🐻</div>
+            <div class="team-name">熊熊</div>
+            <div class="team-role">策略規劃總監</div>
+        </div>
+        <div class="team-member">
+            <div class="team-avatar">🤖</div>
+            <div class="team-name">克勞熊</div>
+            <div class="team-role">網頁開發工程師</div>
+        </div>
+        <div class="team-member">
+            <div class="team-avatar">🎨</div>
+            <div class="team-name">創意熊熊</div>
+            <div class="team-role">美術設計師</div>
+        </div>
+        <div class="team-member">
+            <div class="team-avatar">📊</div>
+            <div class="team-name">分析熊熊</div>
+            <div class="team-role">數據分析師</div>
+        </div>
+    </div>
+    <div class="page-number">8 / 10</div>
+</div>
+
+<!-- 第9頁：未來規劃 -->
+<div class="slide">
+    <nav>
+        <a href="#">🏠 熊熊博物館</a>
+        <a href="#">📊 PPT素材</a>
+        <a href="#">🎬 影片素材</a>
+    </nav>
+    <h2 class="slide-title">未來規劃</h2>
+    <div class="timeline">
+        <div class="timeline-items">
+            <div class="timeline-item">
+                <div class="timeline-dot">🌱</div>
+                <div class="timeline-title">Q1</div>
+                <div class="timeline-desc">系統優化與效能提升</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">🚀</div>
+                <div class="timeline-title">Q2</div>
+                <div class="timeline-desc">新功能開發與測試</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">📈</div>
+                <div class="timeline-title">Q3</div>
+                <div class="timeline-desc">擴大素材庫規模</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot">🏆</div>
+                <div class="timeline-title">Q4</div>
+                <div class="timeline-desc">年度成果發表</div>
+            </div>
+        </div>
+    </div>
+    <div class="page-number">9 / 10</div>
+</div>
+
+<!-- 第10頁：結語 -->
+<div class="slide 結語">
+    <div class="結語-icon">🙏</div>
+    <h2>感謝聆聽</h2>
+    <p>感謝各位的支持與信任，我們將持續努力，為熊熊宇宙創造更多價值。</p>
+    <div class="結語-cta">熊熊工作室 敬上</div>
+    <div class="footer">© 2026 熊熊工作室 All Rights Reserved.</div>
+    <div class="page-number">10 / 10</div>
+</div>
+
+</body>
+</html>
