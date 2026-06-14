@@ -1000,12 +1000,8 @@
             z-index: 10;
         }
 
-        .modal-side-prev {
-            left: 10px;
-        }
-
-        .modal-side-next {
-            right: 10px;
+        .modal-side-prev, .modal-side-next {
+            display: none !important;
         }
 
         .modal-content:hover .modal-side-btn {
@@ -2138,7 +2134,7 @@
 
                 div.appendChild(img);
                 div.addEventListener('click', () => {
-                    Modal.open(i);
+                    Modal.open(start + i);
                 });
 
                 container.appendChild(div);
