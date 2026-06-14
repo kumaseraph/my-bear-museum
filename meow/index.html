@@ -2103,13 +2103,9 @@
             ThemeManager.init();
             await loadCatsData();
 
-            // 取得配送日期
-            const deliveryDate = getDeliveryDate();
-            console.log("[DEBUG] 配送日期:", deliveryDate);
-
-            // 只保留 multi 類型，並過濾配送日期
+            // 只保留 multi 類型（顯示所有歷史圖片）
             masonryState.allImages = catsData.cats
-                .filter(c => c.type === 'multi' && c.date === deliveryDate)
+                .filter(c => c.type === 'multi')
                 .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
             // 同步到 Modal.allImages
             Modal.allImages = masonryState.allImages;
