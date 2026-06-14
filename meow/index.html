@@ -2080,14 +2080,36 @@
             allImages: []
         };
 
+        // ===== 配送時間邏輯 =====
+        // 凌晨 4:00 配送新圖片
+        function getDeliveryDate() {
+            const now = new Date();
+            const taipeiTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Taipei' }));
+            const hour = taipeiTime.getHours();
+            
+            // 凌晨 4:00 後才顯示當日配送
+            if (hour >= 4) {
+                return taipeiTime.toISOString().split('T')[0];
+            } else {
+                // 凌晨 4:00 前顯示昨日配送
+                const yesterday = new Date(taipeiTime);
+                yesterday.setDate(yesterday.getDate() - 1);
+                return yesterday.toISOString().split('T')[0];
+            }
+        }
+
         (async function init() {
             console.log("[DEBUG] Starting init...");
             ThemeManager.init();
             await loadCatsData();
 
-            // 只保留 multi 類型
+            // 取得配送日期
+            const deliveryDate = getDeliveryDate();
+            console.log("[DEBUG] 配送日期:", deliveryDate);
+
+            // 只保留 multi 類型，並過濾配送日期
             masonryState.allImages = catsData.cats
-                .filter(c => c.type === 'multi')
+                .filter(c => c.type === 'multi' && c.date === deliveryDate)
                 .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
             // 同步到 Modal.allImages
             Modal.allImages = masonryState.allImages;
