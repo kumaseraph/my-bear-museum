@@ -2086,7 +2086,9 @@
             await loadCatsData();
 
             // 只保留 multi 類型
-            masonryState.allImages = catsData.cats.filter(c => c.type === 'multi');
+            masonryState.allImages = catsData.cats
+                .filter(c => c.type === 'multi')
+                .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
             // 同步到 Modal.allImages
             Modal.allImages = masonryState.allImages;
 
