@@ -1344,7 +1344,9 @@
         }
 
         function getCarouselItems() {
-            return catsData.cats.filter(c => c.type === 'multi' || !c.type);
+            return catsData.cats
+                .filter(c => c.type === 'multi' || !c.type)
+                .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
         }
 
         // 加载喵漫（4格分镜直接显示）
