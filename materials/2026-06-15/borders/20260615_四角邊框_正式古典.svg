@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C9A84C"/>
+      <stop offset="50%" style="stop-color:#E8D5A3"/>
+      <stop offset="100%" style="stop-color:#C9A84C"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#1a1a2e" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#F8F6F1"/>
+  
+  <!-- 四角邊框 - 正式古典風格 -->
+  <!-- 左上角 -->
+  <g filter="url(#shadow)">
+    <path d="M0,0 L80,0 L80,8 L8,8 L8,80 L0,80 Z" fill="url(#goldGrad)"/>
+    <path d="M20,20 L60,20 L60,24 L24,24 L24,60 L20,60 Z" fill="url(#goldGrad)" opacity="0.7"/>
+    <rect x="30" y="30" width="20" height="20" fill="url(#goldGrad)" opacity="0.5"/>
+  </g>
+  
+  <!-- 右上角 -->
+  <g filter="url(#shadow)">
+    <path d="M1920,0 L1840,0 L1840,8 L1912,8 L1912,80 L1920,80 Z" fill="url(#goldGrad)"/>
+    <path d="M1900,20 L1860,20 L1860,24 L1896,24 L1896,60 L1900,60 Z" fill="url(#goldGrad)" opacity="0.7"/>
+    <rect x="1870" y="30" width="20" height="20" fill="url(#goldGrad)" opacity="0.5"/>
+  </g>
+  
+  <!-- 左下角 -->
+  <g filter="url(#shadow)">
+    <path d="M0,1080 L80,1080 L80,1072 L8,1072 L8,1000 L0,1000 Z" fill="url(#goldGrad)"/>
+    <path d="M20,1060 L60,1060 L60,1056 L24,1056 L24,1020 L20,1020 Z" fill="url(#goldGrad)" opacity="0.7"/>
+    <rect x="30" y="1030" width="20" height="20" fill="url(#goldGrad)" opacity="0.5"/>
+  </g>
+  
+  <!-- 右下角 -->
+  <g filter="url(#shadow)">
+    <path d="M1920,1080 L1840,1080 L1840,1072 L1912,1072 L1912,1000 L1920,1000 Z" fill="url(#goldGrad)"/>
+    <path d="M1900,1060 L1860,1060 L1860,1056 L1896,1056 L1896,1020 L1900,1020 Z" fill="url(#goldGrad)" opacity="0.7"/>
+    <rect x="1870" y="1030" width="20" height="20" fill="url(#goldGrad)" opacity="0.5"/>
+  </g>
+  
+  <!-- 頂部裝飾線 -->
+  <rect x="100" y="15" width="1720" height="3" fill="url(#goldGrad)" opacity="0.6"/>
+  <rect x="150" y="22" width="1620" height="2" fill="url(#goldGrad)" opacity="0.4"/>
+  
+  <!-- 底部裝飾線 -->
+  <rect x="100" y="1062" width="1720" height="3" fill="url(#goldGrad)" opacity="0.6"/>
+  <rect x="150" y="1055" width="1620" height="2" fill="url(#goldGrad)" opacity="0.4"/>
+  
+  <!-- 左側裝飾線 -->
+  <rect x="15" y="100" width="3" height="880" fill="url(#goldGrad)" opacity="0.6"/>
+  <rect x="22" y="150" width="2" height="780" fill="url(#goldGrad)" opacity="0.4"/>
+  
+  <!-- 右側裝飾線 -->
+  <rect x="1902" y="100" width="3" height="880" fill="url(#goldGrad)" opacity="0.6"/>
+  <rect x="1895" y="150" width="2" height="780" fill="url(#goldGrad)" opacity="0.4"/>
+</svg>

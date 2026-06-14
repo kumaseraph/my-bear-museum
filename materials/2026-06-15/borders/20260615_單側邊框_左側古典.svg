@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C9A84C"/>
+      <stop offset="50%" style="stop-color:#E8D5A3"/>
+      <stop offset="100%" style="stop-color:#C9A84C"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#1a1a2e" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#F8F6F1"/>
+  
+  <!-- 左側單邊框 - 正式古典 -->
+  <g filter="url(#shadow)">
+    <!-- 主邊框線 -->
+    <rect x="0" y="0" width="8" height="1080" fill="url(#goldGrad)"/>
+    <rect x="12" y="0" width="4" height="1080" fill="url(#goldGrad)" opacity="0.7"/>
+    <rect x="20" y="0" width="2" height="1080" fill="url(#goldGrad)" opacity="0.5"/>
+    
+    <!-- 頂部裝飾 -->
+    <path d="M0,0 L50,0 L50,8 L8,8 L8,50 L0,50 Z" fill="url(#goldGrad)"/>
+    <path d="M20,20 L40,20 L40,24 L24,24 L24,40 L20,40 Z" fill="url(#goldGrad)" opacity="0.6"/>
+    
+    <!-- 底部裝飾 -->
+    <path d="M0,1080 L50,1080 L50,1072 L8,1072 L8,1030 L0,1030 Z" fill="url(#goldGrad)"/>
+    <path d="M20,1060 L40,1060 L40,1056 L24,1056 L24,1040 L20,1040 Z" fill="url(#goldGrad)" opacity="0.6"/>
+  </g>
+  
+  <!-- 右側細線呼應 -->
+  <rect x="1912" y="50" width="2" height="980" fill="url(#goldGrad)" opacity="0.3"/>
+  <rect x="1905" y="80" width="1" height="920" fill="url(#goldGrad)" opacity="0.2"/>
+</svg>

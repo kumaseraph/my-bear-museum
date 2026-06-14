@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FDF8F0"/>
+      <stop offset="50%" style="stop-color:#F5EFE6"/>
+      <stop offset="100%" style="stop-color:#EDE4D3"/>
+    </linearGradient>
+    <linearGradient id="goldLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C9A84C" stop-opacity="0.1"/>
+      <stop offset="50%" style="stop-color:#C9A84C" stop-opacity="0.4"/>
+      <stop offset="100%" style="stop-color:#C9A84C" stop-opacity="0.1"/>
+    </linearGradient>
+    <pattern id="gridPattern" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60,0 L0,0 L0,60" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity="0.15"/>
+    </pattern>
+    <pattern id="dotPattern" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="15" cy="15" r="1.5" fill="#C9A84C" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- 主背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- 格子裝飾 -->
+  <rect width="1920" height="1080" fill="url(#gridPattern)"/>
+  
+  <!-- 圓點裝飾 -->
+  <rect width="1920" height="1080" fill="url(#dotPattern)"/>
+  
+  <!-- 黃金分割線裝飾 -->
+  <line x1="0" y1="400" x2="1920" y2="400" stroke="url(#goldLine)" stroke-width="2"/>
+  <line x1="0" y1="680" x2="1920" y2="680" stroke="url(#goldLine)" stroke-width="2"/>
+  <line x1="600" y1="0" x2="600" y2="1080" stroke="url(#goldLine)" stroke-width="2"/>
+  <line x1="1320" y1="0" x2="1320" y2="1080" stroke="url(#goldLine)" stroke-width="2"/>
+  
+  <!-- 角落裝飾 -->
+  <g opacity="0.3">
+    <circle cx="100" cy="100" r="80" fill="none" stroke="#C9A84C" stroke-width="1"/>
+    <circle cx="100" cy="100" r="50" fill="none" stroke="#C9A84C" stroke-width="1"/>
+    <circle cx="1820" cy="980" r="80" fill="none" stroke="#C9A84C" stroke-width="1"/>
+    <circle cx="1820" cy="980" r="50" fill="none" stroke="#C9A84C" stroke-width="1"/>
+  </g>
+  
+  <!-- 對角線裝飾 -->
+  <line x1="0" y1="0" x2="300" y2="0" stroke="#C9A84C" stroke-width="3" opacity="0.3"/>
+  <line x1="0" y1="0" x2="0" y2="300" stroke="#C9A84C" stroke-width="3" opacity="0.3"/>
+  <line x1="1920" y1="1080" x2="1620" y2="1080" stroke="#C9A84C" stroke-width="3" opacity="0.3"/>
+  <line x1="1920" y1="1080" x2="1920" y2="780" stroke="#C9A84C" stroke-width="3" opacity="0.3"/>
+</svg>

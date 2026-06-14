@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FDF8F0"/>
+      <stop offset="100%" style="stop-color:#F5EFE6"/>
+    </linearGradient>
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C9A84C"/>
+      <stop offset="100%" style="stop-color:#E8D5A3"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#1a1a2e" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- 卡片背景 -->
+  <rect x="5" y="5" width="390" height="190" rx="12" fill="#E8D5A3" opacity="0.3"/>
+  <rect x="0" y="0" width="390" height="190" rx="12" fill="url(#cardGrad)" stroke="url(#goldAccent)" stroke-width="2" filter="url(#cardShadow)"/>
+  
+  <!-- 頂部金色標籤區 -->
+  <rect x="0" y="0" width="390" height="50" rx="12" fill="url(#goldAccent)"/>
+  <rect x="0" y="25" width="390" height="25" fill="url(#goldAccent)"/>
+  
+  <!-- 標籤文字 -->
+  <text x="195" y="35" font-family="'Noto Sans TC', sans-serif" font-size="18" font-weight="bold" fill="#FDF8F0" text-anchor="middle">工作報告</text>
+  
+  <!-- 標題區 -->
+  <text x="30" y="85" font-family="'Noto Sans TC', sans-serif" font-size="24" font-weight="bold" fill="#5C4A32">📊 本週進度總結</text>
+  
+  <!-- 分隔線 -->
+  <line x1="30" y1="105" x2="360" y2="105" stroke="#C9A84C" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- 內容區 -->
+  <text x="30" y="135" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#8B7355">• 專案進度：85%</text>
+  <text x="30" y="160" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#8B7355">• 待辦事項：3項</text>
+  <text x="200" y="135" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#8B7355">• 產出成果：12件</text>
+  <text x="200" y="160" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#8B7355">• 下週目標：完成測試</text>
+</svg>

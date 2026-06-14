@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C9A84C"/>
+      <stop offset="50%" style="stop-color:#E8D5A3"/>
+      <stop offset="100%" style="stop-color:#C9A84C"/>
+    </linearGradient>
+    <linearGradient id="warmGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FDF8F0"/>
+      <stop offset="100%" style="stop-color:#F5EFE6"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="3" dy="3" stdDeviation="5" flood-color="#1a1a2e" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#F8F6F1"/>
+  
+  <!-- 標題區 -->
+  <text x="960" y="80" font-family="'Noto Sans TC', sans-serif" font-size="36" font-weight="bold" fill="#5C4A32" text-anchor="middle">工作報告流程圖</text>
+  <rect x="760" y="95" width="400" height="3" fill="url(#goldGrad)" rx="1.5"/>
+  
+  <!-- 流程步驟 - 第一排 -->
+  <g filter="url(#shadow)">
+    <!-- 步驟1: 收集資料 -->
+    <rect x="140" y="200" width="200" height="120" rx="15" fill="url(#warmGrad)" stroke="url(#goldGrad)" stroke-width="3"/>
+    <text x="240" y="250" font-family="'Noto Sans TC', sans-serif" font-size="22" font-weight="bold" fill="#5C4A32" text-anchor="middle">1 收集資料</text>
+    <text x="240" y="285" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#8B7355" text-anchor="middle">數據彙整與分析</text>
+    
+    <!-- 步驟2: 擬定大綱 -->
+    <rect x="420" y="200" width="200" height="120" rx="15" fill="url(#warmGrad)" stroke="url(#goldGrad)" stroke-width="3"/>
+    <text x="520" y="250" font-family="'Noto Sans TC', sans-serif" font-size="22" font-weight="bold" fill="#5C4A32" text-anchor="middle">2 擬定大綱</text>
+    <text x="520" y="285" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#8B7355" text-anchor="middle">結構化呈現</text>
+    
+    <!-- 步驟3: 製作簡報 -->
+    <rect x="700" y="200" width="200" height="120" rx="15" fill="url(#warmGrad)" stroke="url(#goldGrad)" stroke-width="3"/>
+    <text x="800" y="250" font-family="'Noto Sans TC', sans-serif" font-size="22" font-weight="bold" fill="#5C4A32" text-anchor="middle">3 製作簡報</text>
+    <text x="800" y="285" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#8B7355" text-anchor="middle">視覺化設計</text>
+    
+    <!-- 步驟4: 審閱修訂 -->
+    <rect x="980" y="200" width="200" height="120" rx="15" fill="url(#warmGrad)" stroke="url(#goldGrad)" stroke-width="3"/>
+    <text x="1080" y="250" font-family="'Noto Sans TC', sans-serif" font-size="22" font-weight="bold" fill="#5C4A32" text-anchor="middle">4 審閱修訂</text>
+    <text x="1080" y="285" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#8B7355" text-anchor="middle">多方確認</text>
+    
+    <!-- 步驟5: 正式發表 -->
+    <rect x="1260" y="200" width="200" height="120" rx="15" fill="url(#warmGrad)" stroke="url(#goldGrad)" stroke-width="3"/>
+    <text x="1360" y="250" font-family="'Noto Sans TC', sans-serif" font-size="22" font-weight="bold" fill="#5C4A32" text-anchor="middle">5 正式發表</text>
+    <text x="1360" y="285" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#8B7355" text-anchor="middle">會議簡報</text>
+  </g>
+  
+  <!-- 連接箭頭 - 第一排 -->
+  <g stroke="url(#goldGrad)" stroke-width="4" fill="none">
+    <path d="M340,260 L420,260" marker-end="url(#arrowhead)"/>
+    <path d="M620,260 L700,260"/>
+    <path d="M900,260 L980,260"/>
+    <path d="M1180,260 L1260,260"/>
+  </g>
+  
+  <!-- 箭頭標記定義 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#C9A84C"/>
+    </marker>
+  </defs>
+  
+  <!-- 決策點 -->
+  <g filter="url(#shadow)">
+    <polygon points="860,450 960,400 1060,450 960,500" fill="url(#warmGrad)" stroke="url(#goldGrad)" stroke-width="3"/>
+    <text x="960" y="455" font-family="'Noto Sans TC', sans-serif" font-size="20" font-weight="bold" fill="#5C4A32" text-anchor="middle">需要修改？</text>
+  </g>
+  
+  <!-- 連接線 - 從步驟5到決策點 -->
+  <path d="M1360,320 L1360,400 L960,400" stroke="url(#goldGrad)" stroke-width="4" fill="none"/>
+  <circle cx="1360" cy="400" r="6" fill="url(#goldGrad)"/>
+  
+  <!-- 是/否標籤 -->
+  <text x="1120" y="390" font-family="'Noto Sans TC', sans-serif" font-size="18" fill="#8B7355">是</text>
+  <text x="880" y="390" font-family="'Noto Sans TC', sans-serif" font-size="18" fill="#8B7355">否</text>
+  
+  <!-- 修改流程 (回到步驟3) -->
+  <path d="M960,500 L960,580 L700,580 L700,320" stroke="url(#goldGrad)" stroke-width="4" fill="none" stroke-dasharray="10,5"/>
+  <text x="820" y="600" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#C9A84C">回饋修正</text>
+  
+  <!-- 完成標誌 -->
+  <g filter="url(#shadow)">
+    <circle cx="1400" cy="550" r="60" fill="url(#goldGrad)"/>
+    <path d="M1370,550 L1390,570 L1430,530" stroke="#FDF8F0" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <text x="1400" y="640" font-family="'Noto Sans TC', sans-serif" font-size="20" font-weight="bold" fill="#5C4A32" text-anchor="middle">完成</text>
+  
+  <!-- 否的路徑 -->
+  <path d="M1060,450 L1400,450" stroke="url(#goldGrad)" stroke-width="4" fill="none"/>
+  <circle cx="1400" cy="450" r="6" fill="url(#goldGrad)"/>
+  
+  <!-- 底部裝飾 -->
+  <rect x="100" y="900" width="1720" height="4" fill="url(#goldGrad)" opacity="0.4"/>
+  <rect x="200" y="910" width="1520" height="2" fill="url(#goldGrad)" opacity="0.2"/>
+</svg>
