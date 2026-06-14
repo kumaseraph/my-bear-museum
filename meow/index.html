@@ -487,20 +487,22 @@
 
         /* ===== 瀑布流 Masonry ===== */
         .masonry-container {
-            column-count: 4;
-            column-gap: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
             padding: 10px 0;
+            justify-content: flex-start;
         }
 
         .masonry-item {
-            break-inside: avoid;
-            margin-bottom: 16px;
             border-radius: 16px;
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             background: var(--color-card);
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            /* 响应式宽度 */
+            width: calc(25% - 12px);
         }
 
         .masonry-item:hover {
@@ -514,20 +516,20 @@
         }
 
         @media (max-width: 1024px) {
-            .masonry-container {
-                column-count: 3;
+            .masonry-item {
+                width: calc(33.333% - 11px);
             }
         }
 
         @media (max-width: 768px) {
-            .masonry-container {
-                column-count: 3;
+            .masonry-item {
+                width: calc(33.333% - 11px);
             }
         }
 
         @media (max-width: 480px) {
-            .masonry-container {
-                column-count: 3;
+            .masonry-item {
+                width: calc(33.333% - 11px);
             }
         }
 
