@@ -1139,7 +1139,7 @@
     <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content" id="modalContent">
-            <button class="modal-close" id="modalClose" aria-label="關閉">✕</button>
+            <button class="modal-close" id="modalClose" aria-label="關閉" onclick="Modal.close()">✕</button>
             <img class="modal-image" id="modalImage" src="" alt="">
             <button class="modal-side-btn modal-side-prev" id="modalSidePrev" aria-label="上一張">‹</button>
             <button class="modal-side-btn modal-side-next" id="modalSideNext" aria-label="下一張">›</button>
@@ -1154,8 +1154,8 @@
                 </div>
             </div>
             <div class="modal-nav">
-                <button class="modal-nav-btn" id="modalPrevBtn" aria-label="上一張">←</button>
-                <button class="modal-nav-btn" id="modalNextBtn" aria-label="下一張">→</button>
+                <button class="modal-nav-btn" id="modalPrevBtn" aria-label="上一張" onclick="Modal.prev()">←</button>
+                <button class="modal-nav-btn" id="modalNextBtn" aria-label="下一張" onclick="Modal.next()">→</button>
             </div>
         </div>
     </div>
@@ -1283,7 +1283,7 @@
             },
 
             init() {
-                document.getElementById('modalClose').addEventListener('click', () => this.close());
+                // document.getElementById('modalClose').addEventListener('click', () => this.close());
                 document.getElementById('modalOverlay').addEventListener('click', (e) => {
                     if (e.target === document.getElementById('modalOverlay')) this.close();
                 });
