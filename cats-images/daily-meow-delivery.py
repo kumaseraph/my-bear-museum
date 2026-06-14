@@ -458,10 +458,44 @@ def get_next_styles(n=7):
 
 
 def get_random_breed():
-    """取得隨機貓咪品種"""
+    """取得隨機貓咪品種（閒置備用）"""
     character = load_json(MEOW_CHARACTER)
     breeds = character.get("breeds", [])
     return random.choice(breeds) if breeds else "橘貓"
+
+
+def get_next_breeds(n=5):
+    """取得接下來 n 個不重複的貓咪品種（不含橘貓），並更新 index"""
+    character = load_json(MEOW_CHARACTER)
+    all_breeds = character.get("breeds", [])
+    total = len(all_breeds)
+
+    # 讀取目前的 index
+    rotation_file = PROJECT_DIR / "cats-images" / "breed-rotation.json"
+    if rotation_file.exists():
+        rotation = load_json(rotation_file)
+    else:
+        rotation = {"current_index": 0, "last_updated": ""}
+
+    current = rotation.get("current_index", 0)
+    last_date = rotation.get("last_updated", "")
+
+    # 如果日期改變，重置 index（每天新一波）
+    today = get_today()
+    if last_date != today:
+        current = 0
+
+    selected = []
+    for i in range(n):
+        idx = (current + i) % total
+        selected.append(all_breeds[idx])
+
+    # 更新 index
+    rotation["current_index"] = (current + n) % total
+    rotation["last_updated"] = today
+    save_json(rotation_file, rotation)
+
+    return selected
 
 
 def get_random_scene(scene_type="4grid"):
@@ -862,9 +896,12 @@ def main(config):
     log("\n--- 步驟 3: 準備配送項目 ---")
     items = []
 
-    # ===== 罐罐配送（multi）- 6張圖片，各自有不同風格與品種 =====
+    # ===== 罐罐配送（multi）- 6張圖片，1張橘貓 + 5張輪流品種 =====
+    breeds = get_next_breeds(5)  # 取得5個不重複品種
+    all_breeds = ["橘貓"] + breeds  # 第1張固定橘貓
+
     for i in range(6):
-        breed = get_random_breed()  # 隨機貓咪品種
+        breed = all_breeds[i]
         metadata = prepare_cat_metadata(breed, styles[i])
         filename = f"cat_{styles[i].replace(' ', '')[:4]}_{today.replace('-', '')}_0{i+1}.jpg"
         items.append({
