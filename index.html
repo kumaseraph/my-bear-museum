@@ -4028,7 +4028,7 @@
                 thumb.className = 'bear-thumb';
                 thumb.onclick = () => openBearModalByBear(bear, todayBearsList);
                 thumb.innerHTML = `
-                    <div class="thumb-circle"><img src="${bear.imgS || bear.img}" alt="${bear.name}" loading="lazy" decoding="async"></div>
+                    <div class="thumb-circle"><img src="${bear.imgM || bear.img}" alt="${bear.name}" loading="lazy" decoding="async"></div>
                     <div class="thumb-name">${bear.name}</div>
                     <span class="category-badge" data-series="${bear.series}">${bear.series}</span>
                 `;
