@@ -626,13 +626,16 @@ def make_meow_record(metadata, today, index, config, filename):
         record["story_type"] = metadata["story_type"]
     if metadata.get("frame_num"):
         record["frame_num"] = metadata["frame_num"]
+    if metadata.get("coat"):
+        record["coat"] = metadata["coat"]
     return record
 
 
 def make_cat_record(metadata, today, index, config, filename):
-    return {
+    record = {
         "name": metadata["name"],
         "breed": metadata["breed"],
+        "coat": metadata.get("coat", ""),
         "date": today,
         "checkIn": today.replace("-", "") + f"-{index:02d}",
         "title": metadata["theme"],
@@ -640,6 +643,7 @@ def make_cat_record(metadata, today, index, config, filename):
         "type": metadata.get("type", "multi"),
         "img": meow_img_path(config, today, filename),
     }
+    return record
 
 
 def clean_minimax_text(content):
