@@ -521,13 +521,13 @@
 
         @media (max-width: 768px) {
             .masonry-container {
-                column-count: 2;
+                column-count: 3;
             }
         }
 
         @media (max-width: 480px) {
             .masonry-container {
-                column-count: 1;
+                column-count: 3;
             }
         }
 
@@ -1128,8 +1128,8 @@
             <div id="masonryContainer" class="masonry-container">
                 <!-- 瀑布流圖片將動態生成 -->
             </div>
-            <div id="loadMoreIndicator" class="load-more-indicator" style="display:none; text-align:center; padding:20px; color:var(--color-text-muted);">
-                載入中...
+            <div id="loadMoreIndicator" class="load-more-btn" style="display:none; text-align:center; padding:20px;">
+                <button onclick="loadMoreItems()" class="load-more-button">載入更多</button>
             </div>
         </section>
 
@@ -2076,7 +2076,7 @@
         // 簡化版：只有瀑布流罐罐
         let masonryState = {
             displayedCount: 0,
-            perPage: 6,
+            perPage: 30,
             allImages: []
         };
 
@@ -2156,22 +2156,8 @@
             }
         }
 
-        function setupInfiniteScroll() {
-            const indicator = document.getElementById('loadMoreIndicator');
-            if (!indicator) return;
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        loadMasonryItems(
-                            masonryState.displayedCount,
-                            masonryState.perPage
-                        );
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            observer.observe(indicator);
+        function loadMoreItems() {
+            loadMasonryItems(masonryState.displayedCount, masonryState.perPage);
         }
     </script>
 </body>
