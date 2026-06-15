@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>圓角蜂巢圖組合與呈現方式 - 10種示範</title>
+<style>
+:root {
+  --bg: #f8f7f4;
+  --card: #ffffff;
+  --text: #1a1a2e;
+  --text-secondary: #6b7280;
+  --accent-violet: #7c3aed;
+  --accent-cyan: #0891b2;
+  --accent-amber: #d97706;
+  --accent-emerald: #059669;
+  --accent-rose: #db2777;
+  --accent-blue: #2563eb;
+  --accent-orange: #ea580c;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,0.12);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Presentation container */
+.presentation {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 100px;
+}
+
+/* Each slide */
+.slide {
+  position: absolute;
+  width: 100%;
+  max-width: 960px;
+  min-height: 88vh;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 40px 48px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+  transform: translateX(40px);
+  overflow: hidden;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.slide-num {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  font-size: 0.8rem;
+  color: rgba(0,0,0,0.2);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.slide-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.slide-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.slide-sub {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.slide-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 72vh;
+}
+
+/* ======= ROUNDED HEXAGON BASE CLASS ======= */
+.rhex {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+  cursor: default;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.rhex:hover {
+  transform: scale(1.06);
+  filter: brightness(1.08);
+  z-index: 3;
+}
+
+.rhex-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px;
+  /* Rounded hexagon via clip-path */
+  clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+}
+
+/* Alternate rounded hexagon (softer corners) */
+.rhex-soft .rhex-inner {
+  clip-path: polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%);
+}
+
+.rhex-text {
+  position: relative;
+  z-index: 1;
+  color: rgba(255,255,255,0.97);
+  font-size: 0.72rem;
+  line-height: 1.3;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  padding: 4px;
+}
+
+/* ======= SLIDE 1: 圓角蜂巢基礎展示 ======= */
+.s1 .rhex-1 .rhex-inner { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+.s1 .rhex-2 .rhex-inner { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+.s1 .rhex-3 .rhex-inner { background: linear-gradient(135deg, #a78bfa, #7c3aed); }
+.s1 .rhex-4 .rhex-inner { background: linear-gradient(135deg, #c4b5fd, #8b5cf6); }
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  gap: 12px;
+  width: 100%;
+}
+
+.bento-hex {
+  height: 96px;
+}
+
+.bento-hex.span2 { grid-column: span 2; height: 96px; }
+.bento-hex.tall { height: 120px; }
+
+.bento-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.bento-metrics {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 28px;
+}
+
+.bento-metric {
+  text-align: center;
+}
+
+.bento-metric-val {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bento-metric-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* ======= SLIDE 2: 圓角蜂巢 + 漂浮卡片 ======= */
+.s2 .rhex-inner { background: linear-gradient(135deg, #0891b2, #0e7490); }
+
+.float-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.float-card {
+  background: white;
+  border-radius: 20px;
+  padding: 18px 22px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.float-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.float-card-hex {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.float-card-hex .rhex-inner {
+  background: linear-gradient(135deg, #0891b2, #06b6d4);
+}
+
+.float-card-info { flex: 1; }
+
+.float-card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.float-card-desc {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.float-card-badge {
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(8,145,178,0.1);
+  color: #0891b2;
+  font-weight: 700;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+/* ======= SLIDE 3: 圓角蜂巢 + 時間軸 ======= */
+.s3 .rhex-inner { background: linear-gradient(135deg, #059669, #047857); }
+
+.tl-visual {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.tl-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.tl-hex {
+  width: 88px;
+  height: 100px;
+}
+
+.tl-year {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-align: center;
+  margin-top: 4px;
+}
+
+.tl-connector {
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #059669, #10b981);
+  border-radius: 2px;
+  position: relative;
+}
+
+.tl-connector::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: -4px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #059669;
+}
+
+.tl-dot-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.tl-dot-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.tl-dot-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #059669;
+  position: relative;
+}
+
+.tl-dot-circle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, #059669, transparent);
+}
+
+.tl-dot-item:last-child .tl-dot-circle::before { display: none; }
+
+.tl-dot-label {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ======= SLIDE 4: 圓角蜂巢 + 金字塔 ======= */
+.s4 .rhex-inner { background: linear-gradient(135deg, #d97706, #b45309); }
+
+.pyramid-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.pyr-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pyr-hex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pyr-hex-shape {
+  width: 110px;
+  height: 126px;
+}
+
+.pyr-hex-shape .rhex-inner {
+  font-size: 0.75rem;
+}
+
+.pyr-hex-label {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.pyramid-legend {
+  display: flex;
+  gap: 20px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+/* ======= SLIDE 5: 圓角蜂巢 + KPI儀表板 ======= */
+.s5 .rhex-inner { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+
+.kpi-dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+.kpi-tile {
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.kpi-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.kpi-tile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpi-tile-hex {
+  width: 40px;
+  height: 40px;
+}
+
+.kpi-tile-hex .rhex-inner {
+  font-size: 1rem;
+}
+
+.kpi-tile-icon {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.kpi-tile-value {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+.kpi-tile-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.kpi-tile-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.kpi-tile-change.up {
+  background: rgba(5,150,105,0.1);
+  color: #059669;
+}
+
+.kpi-tile-change.down {
+  background: rgba(220,38,38,0.1);
+  color: #dc2626;
+}
+
+/* ======= SLIDE 6: 圓角蜂巢 + 雷達圖 ======= */
+.s6 .rhex-inner { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+
+.radar-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.radar-svg-wrap {
+  position: relative;
+  width: 240px;
+  height: 240px;
+}
+
+.radar-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.rhex-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.rhex-overlay .rhex {
+  width: 100%;
+  height: 100%;
+}
+
+.rhex-overlay .rhex-inner {
+  background: rgba(124,58,237,0.07);
+  border: 1px solid rgba(124,58,237,0.2);
+}
+
+.radar-spoke-label {
+  position: absolute;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.rhex-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rhex-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rhex-mini {
+  width: 36px;
+  height: 36px;
+}
+
+.rhex-mini .rhex-inner {
+  font-size: 0.65rem;
+}
+
+.rhex-list-text {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.rhex-list-sub {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+}
+
+/* ======= SLIDE 7: 圓角蜂巢 + 組織架構 ======= */
+.s7 .rhex-inner { background: linear-gradient(135deg, #db2777, #be185d); }
+
+.org-viz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.org-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.org-hex {
+  width: 88px;
+  height: 88px;
+}
+
+.org-hex.lg {
+  width: 100px;
+  height: 100px;
+}
+
+.org-hex.lg .rhex-text {
+  font-size: 0.8rem;
+}
+
+.org-hex-sm {
+  width: 72px;
+  height: 72px;
+}
+
+.org-hex-sm .rhex-text {
+  font-size: 0.6rem;
+}
+
+.org-line {
+  width: 2px;
+  height: 18px;
+  background: linear-gradient(#db2777, #f472b6);
+}
+
+.org-role {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+
+.org-role-sub {
+  font-size: 0.6rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.org-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ======= SLIDE 8: 圓角蜂巢 + 流程箭頭 ======= */
+.s8 .rhex-inner { background: linear-gradient(135deg, #ea580c, #c2410c); }
+
+.flow-viz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
+
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  justify-content: center;
+}
+
+.flow-hex {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+}
+
+.flow-hex .rhex-inner {
+  font-size: 0.72rem;
+}
+
+.flow-arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 22px solid rgba(234,88,12,0.45);
+  flex-shrink: 0;
+}
+
+.flow-arrow-down {
+  width: 2px;
+  height: 22px;
+  background: linear-gradient(rgba(234,88,12,0.6), rgba(234,88,12,0.2));
+  margin: 4px 0;
+}
+
+.flow-section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 10px 0 4px;
+}
+
+/* ======= SLIDE 9: 圓角蜂巢 + 圓餅圖 ======= */
+.s9 .rhex-inner { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+
+.pie-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+.pie-card {
+  background: white;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.pie-hex-wrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pie-hex-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.pie-hex-inner {
+  position: relative;
+  z-index: 2;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.pie-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+
+.pie-sub {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.pie-segments {
+  display: flex;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.pie-seg {
+  height: 5px;
+  flex: 1;
+  border-radius: 3px;
+}
+
+/* ======= SLIDE 10: 圓角蜂巢混合呈現 ======= */
+.s10 .rhex-inner { background: linear-gradient(135deg, #059669, #047857); }
+
+.mixed-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.mixed-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.mixed-card-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.mixed-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.mixed-hex {
+  width: 52px;
+  height: 52px;
+}
+
+.mixed-hex .rhex-inner {
+  font-size: 0.58rem;
+}
+
+.mixed-hex-lg {
+  width: 72px;
+  height: 72px;
+}
+
+.mixed-hex-lg .rhex-inner {
+  font-size: 0.68rem;
+}
+
+/* Navigation bar */
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(0,0,0,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 100;
+  padding: 0 20px;
+}
+
+.nav-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  background: white;
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-btn:hover {
+  background: var(--text);
+  color: white;
+  border-color: var(--text);
+}
+
+.nav-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.page-indicator {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  min-width: 56px;
+  text-align: center;
+}
+
+.page-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: var(--accent-violet);
+  width: 22px;
+  border-radius: 4px;
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-violet), var(--accent-cyan));
+  transition: width 0.4s ease;
+  z-index: 101;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .slide { padding: 28px 20px 80px; min-height: 90vh; }
+  .slide-title { font-size: 1.4rem; }
+  .slide-sub { font-size: 0.85rem; }
+  .bento-grid { grid-template-columns: repeat(2, 1fr); }
+  .kpi-dashboard { grid-template-columns: 1fr 1fr; }
+  .pie-grid { grid-template-columns: 1fr 1fr; }
+  .mixed-grid { grid-template-columns: 1fr; }
+  .float-cards { flex-direction: column; }
+  .radar-layout { flex-direction: column; }
+  .page-dots { display: none; }
+  .bento-metrics { gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="presentation" id="presentation">
+
+  <!-- ========== SLIDE 1: 圓角蜂巢基礎展示 (Bento Grid) ========== -->
+  <div class="slide s1 active" id="slide-1">
+    <span class="slide-num">01 / 10</span>
+    <span class="slide-badge" style="background:rgba(124,58,237,0.1);color:#7c3aed;">形狀變化</span>
+    <h2 class="slide-title">圓角六邊形 Bento Grid</h2>
+    <p class="slide-sub">Rounded Hexagon Bento — 使用 clip-path: polygon(20% 0%, 80% 0%...) 製作圓角六邊形，結合便當盒網格佈局，呈現資訊模組化的現代視覺。</p>
+    <div class="slide-content">
+      <div class="bento-grid">
+        <div class="bento-hex rhex rhex-1"><div class="rhex-inner"><span class="rhex-text">策略</span></div></div>
+        <div class="bento-hex rhex rhex-2"><div class="rhex-inner"><span class="rhex-text">執行</span></div></div>
+        <div class="bento-hex rhex rhex-3 span2"><div class="rhex-inner"><span class="rhex-text">產品研發</span></div></div>
+        <div class="bento-hex rhex rhex-2 tall"><div class="rhex-inner"><span class="rhex-text">市場</span></div></div>
+        <div class="bento-hex rhex rhex-1 tall"><div class="rhex-inner"><span class="rhex-text">數據</span></div></div>
+        <div class="bento-hex rhex rhex-3"><div class="rhex-inner"><span class="rhex-text">人資</span></div></div>
+        <div class="bento-hex rhex rhex-4"><div class="rhex-inner"><span class="rhex-text">客服</span></div></div>
+        <div class="bento-hex rhex rhex-1"><div class="rhex-inner"><span class="rhex-text">財務</span></div></div>
+        <div class="bento-hex rhex rhex-4 span2"><div class="rhex-inner"><span class="rhex-text">技術架構</span></div></div>
+        <div class="bento-hex rhex rhex-2"><div class="rhex-inner"><span class="rhex-text">設計</span></div></div>
+      </div>
+      <div class="bento-metrics">
+        <div class="bento-metric">
+          <div class="bento-metric-val">10</div>
+          <div class="bento-metric-label">功能模組</div>
+        </div>
+        <div class="bento-metric">
+          <div class="bento-metric-val">6</div>
+          <div class="bento-metric-label">部門覆蓋</div>
+        </div>
+        <div class="bento-metric">
+          <div class="bento-metric-val">98%</div>
+          <div class="bento-metric-label">系統完整度</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 2: 圓角蜂巢 + 漂浮卡片 ========== -->
+  <div class="slide s2" id="slide-2">
+    <span class="slide-num">02 / 10</span>
+    <span class="slide-badge" style="background:rgba(8,145,178,0.1);color:#0891b2;">組合應用</span>
+    <h2 class="slide-title">圓角蜂巢 × 漂浮資訊卡</h2>
+    <p class="slide-sub">Float Cards — 每張卡片頂部嵌入圓角蜂窩圖示，卡片以陰影懸浮質感呈現，賦予元件視覺層次與品牌辨識度。</p>
+    <div class="slide-content">
+      <div class="float-cards">
+        <div class="float-card">
+          <div class="float-card-hex rhex rhex-soft"><div class="rhex-inner"><span class="rhex-text">策</span></div></div>
+          <div class="float-card-info">
+            <div class="float-card-title">策略規劃</div>
+            <div class="float-card-desc">制定年度目標與資源分配優先順序</div>
+            <div class="float-card-badge">核心職能</div>
+          </div>
+        </div>
+        <div class="float-card">
+          <div class="float-card-hex rhex rhex-soft"><div class="rhex-inner"><span class="rhex-text">執</span></div></div>
+          <div class="float-card-info">
+            <div class="float-card-title">執行追蹤</div>
+            <div class="float-card-desc">KPI儀表板即時監控進度與達成率</div>
+            <div class="float-card-badge">日常管理</div>
+          </div>
+        </div>
+        <div class="float-card">
+          <div class="float-card-hex rhex rhex-soft"><div class="rhex-inner"><span class="rhex-text">創</span></div></div>
+          <div class="float-card-info">
+            <div class="float-card-title">創新實驗</div>
+            <div class="float-card-desc">新產品概念驗證與快速原型測試</div>
+            <div class="float-card-badge">成長引擎</div>
+          </div>
+        </div>
+        <div class="float-card">
+          <div class="float-card-hex rhex rhex-soft"><div class="rhex-inner"><span class="rhex-text">協</span></div></div>
+          <div class="float-card-info">
+            <div class="float-card-title">協作文化</div>
+            <div class="float-card-desc">跨部門專案推動與知識共享機制</div>
+            <div class="float-card-badge">組織健康</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 3: 圓角蜂巢 + 時間軸 ========== -->
+  <div class="slide s3" id="slide-3">
+    <span class="slide-num">03 / 10</span>
+    <span class="slide-badge" style="background:rgba(5,150,105,0.1);color:#059669;">組合應用</span>
+    <h2 class="slide-title">圓角蜂巢 × 水平時間軸</h2>
+    <p class="slide-sub">Timeline — 每個時間里程碑是一個圓角六邊形，時間軸連線穿過六邊形頂點，構成路徑感的敘事結構。</p>
+    <div class="slide-content">
+      <div class="tl-dot-row">
+        <div class="tl-dot-item">
+          <div class="tl-dot-circle"></div>
+          <div class="tl-dot-label">2021<br><small style="color:#059669;font-weight:700;">調研期</small></div>
+        </div>
+        <div class="tl-dot-item">
+          <div class="tl-dot-circle"></div>
+          <div class="tl-dot-label">2022<br><small style="color:#10b981;font-weight:700;">組建期</small></div>
+        </div>
+        <div class="tl-dot-item">
+          <div class="tl-dot-circle"></div>
+          <div class="tl-dot-label">2023<br><small style="color:#34d399;font-weight:700;">產品期</small></div>
+        </div>
+        <div class="tl-dot-item">
+          <div class="tl-dot-circle"></div>
+          <div class="tl-dot-label">2024<br><small style="color:#6ee7b7;font-weight:700;">成長期</small></div>
+        </div>
+        <div class="tl-dot-item">
+          <div class="tl-dot-circle"></div>
+          <div class="tl-dot-label">2025<br><small style="color:#a7f3d0;font-weight:700;">生態期</small></div>
+        </div>
+      </div>
+      <div class="tl-visual">
+        <div class="tl-row">
+          <div class="rhex tl-hex" style="width:96px;height:96px;"><div class="rhex-inner"><span class="rhex-text">市場<br>調研</span></div></div>
+          <div class="tl-connector"></div>
+          <div class="rhex tl-hex"><div class="rhex-inner"><span class="rhex-text">團隊<br>組建</span></div></div>
+          <div class="tl-connector"></div>
+          <div class="rhex tl-hex"><div class="rhex-inner"><span class="rhex-text">MVP<br>開發</span></div></div>
+          <div class="tl-connector"></div>
+          <div class="rhex tl-hex"><div class="rhex-inner"><span class="rhex-text">市場<br>驗證</span></div></div>
+          <div class="tl-connector"></div>
+          <div class="rhex tl-hex"><div class="rhex-inner"><span class="rhex-text">規模<br>擴張</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 4: 圓角蜂巢 + 金字塔 ========== -->
+  <div class="slide s4" id="slide-4">
+    <span class="slide-num">04 / 10</span>
+    <span class="slide-badge" style="background:rgba(217,119,6,0.1);color:#d97706;">組合應用</span>
+    <h2 class="slide-title">圓角蜂巢 × 層級金字塔</h2>
+    <p class="slide-sub">Pyramid — 圓角六邊形以階層方式堆疊，由上而下遞增數量，象徵重要性從尖端到基礎的分配結構。</p>
+    <div class="slide-content">
+      <div class="pyramid-section">
+        <div class="pyr-row">
+          <div class="pyr-hex">
+            <div class="pyr-hex-shape rhex" style="width:130px;height:150px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#f59e0b,#d97706);"><span class="rhex-text">願景<br>Mission</span></div></div>
+            <div class="pyr-hex-label">策略層</div>
+          </div>
+        </div>
+        <div class="pyr-row">
+          <div class="pyr-hex">
+            <div class="pyr-hex-shape rhex" style="width:110px;height:126px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#d97706,#b45309);"><span class="rhex-text">核心<br>價值</span></div></div>
+            <div class="pyr-hex-label">價值層</div>
+          </div>
+          <div class="pyr-hex">
+            <div class="pyr-hex-shape rhex" style="width:110px;height:126px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#d97706,#b45309);"><span class="rhex-text">關鍵<br>成果</span></div></div>
+            <div class="pyr-hex-label">價值層</div>
+          </div>
+        </div>
+        <div class="pyr-row">
+          <div class="pyr-hex">
+            <div class="pyr-hex-shape rhex" style="width:100px;height:115px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#b45309,#92400e);"><span class="rhex-text">行動A</span></div></div>
+            <div class="pyr-hex-label">執行層</div>
+          </div>
+          <div class="pyr-hex">
+            <div class="pyr-hex-shape rhex" style="width:100px;height:115px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#b45309,#92400e);"><span class="rhex-text">行動B</span></div></div>
+            <div class="pyr-hex-label">執行層</div>
+          </div>
+          <div class="pyr-hex">
+            <div class="pyr-hex-shape rhex" style="width:100px;height:115px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#b45309,#92400e);"><span class="rhex-text">行動C</span></div></div>
+            <div class="pyr-hex-label">執行層</div>
+          </div>
+        </div>
+      </div>
+      <div class="pyramid-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#f59e0b;"></div>
+          <span>策略層（1格）</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#b45309;"></div>
+          <span>價值層（2格）</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#92400e;"></div>
+          <span>執行層（3格）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 5: 圓角蜂巢 + KPI儀表板 ========== -->
+  <div class="slide s5" id="slide-5">
+    <span class="slide-num">05 / 10</span>
+    <span class="slide-badge" style="background:rgba(37,99,235,0.1);color:#2563eb;">組合應用</span>
+    <h2 class="slide-title">圓角蜂巢 × KPI 儀表板</h2>
+    <p class="slide-sub">KPI Dashboard — 每個KPI方格內嵌圓角蜂窩圖示，數字+趨勢指示器+描述，三元素構成完整的指標呈現。</p>
+    <div class="slide-content">
+      <div class="kpi-dashboard">
+        <div class="kpi-tile">
+          <div class="kpi-tile-header">
+            <div class="kpi-tile-hex rhex"><div class="rhex-inner"><span class="rhex-text">¥</span></div></div>
+            <span class="kpi-tile-icon">季度</span>
+          </div>
+          <div class="kpi-tile-value">¥3.2M</div>
+          <div class="kpi-tile-label">總營收</div>
+          <div class="kpi-tile-change up">↑ 23.5%</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-tile-header">
+            <div class="kpi-tile-hex rhex"><div class="rhex-inner"><span class="rhex-text">◎</span></div></div>
+            <span class="kpi-tile-icon">每月</span>
+          </div>
+          <div class="kpi-tile-value">18,420</div>
+          <div class="kpi-tile-label">活躍用戶</div>
+          <div class="kpi-tile-change up">↑ 12.1%</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-tile-header">
+            <div class="kpi-tile-hex rhex"><div class="rhex-inner"><span class="rhex-text">♥</span></div></div>
+            <span class="kpi-tile-icon">季度</span>
+          </div>
+          <div class="kpi-tile-value">94.7%</div>
+          <div class="kpi-tile-label">用戶滿意度</div>
+          <div class="kpi-tile-change up">↑ 2.3%</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-tile-header">
+            <div class="kpi-tile-hex rhex"><div class="rhex-inner"><span class="rhex-text">⏱</span></div></div>
+            <span class="kpi-tile-icon">每日</span>
+          </div>
+          <div class="kpi-tile-value">1.2s</div>
+          <div class="kpi-tile-label">平均回應時間</div>
+          <div class="kpi-tile-change down">↓ 18%</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-tile-header">
+            <div class="kpi-tile-hex rhex"><div class="rhex-inner"><span class="rhex-text">✓</span></div></div>
+            <span class="kpi-tile-icon">每月</span>
+          </div>
+          <div class="kpi-tile-value">99.97%</div>
+          <div class="kpi-tile-label">系統可用率</div>
+          <div class="kpi-tile-change up">↑ 0.02%</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-tile-header">
+            <div class="kpi-tile-hex rhex"><div class="rhex-inner"><span class="rhex-text">★</span></div></div>
+            <span class="kpi-tile-icon">每月</span>
+          </div>
+          <div class="kpi-tile-value">4.9</div>
+          <div class="kpi-tile-label"> NPS 評分</div>
+          <div class="kpi-tile-change up">↑ 0.3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 6: 圓角蜂巢 + 雷達圖 ========== -->
+  <div class="slide s6" id="slide-6">
+    <span class="slide-num">06 / 10</span>
+    <span class="slide-badge" style="background:rgba(124,58,237,0.1);color:#7c3aed;">組合應用</span>
+    <h2 class="slide-title">圓角蜂巢 × 雷達圖</h2>
+    <p class="slide-sub">Radar Chart — 以SVG五邊形雷達圖為底層，上方覆蓋圓角六邊形裁切遮罩，形成獨特的「六角雷達」視覺融合。</p>
+    <div class="slide-content">
+      <div class="radar-layout">
+        <div class="rhex-list">
+          <div class="rhex-list-item">
+            <div class="rhex-mini rhex" style="width:40px;height:40px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#7c3aed,#5b21b6);"><span class="rhex-text">策</span></div></div>
+            <div><div class="rhex-list-text">策略思維</div><div class="rhex-list-sub">95% · 領導力維度</div></div>
+          </div>
+          <div class="rhex-list-item">
+            <div class="rhex-mini rhex" style="width:40px;height:40px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);"><span class="rhex-text">執</span></div></div>
+            <div><div class="rhex-list-text">執行力</div><div class="rhex-list-sub">88% · 交付維度</div></div>
+          </div>
+          <div class="rhex-list-item">
+            <div class="rhex-mini rhex" style="width:40px;height:40px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#db2777,#be185d);"><span class="rhex-text">創</span></div></div>
+            <div><div class="rhex-list-text">創新能力</div><div class="rhex-list-sub">92% · 創意維度</div></div>
+          </div>
+          <div class="rhex-list-item">
+            <div class="rhex-mini rhex" style="width:40px;height:40px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#059669,#047857);"><span class="rhex-text">協</span></div></div>
+            <div><div class="rhex-list-text">協作能力</div><div class="rhex-list-sub">97% · 團隊維度</div></div>
+          </div>
+          <div class="rhex-list-item">
+            <div class="rhex-mini rhex" style="width:40px;height:40px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#d97706,#b45309);"><span class="rhex-text">技</span></div></div>
+            <div><div class="rhex-list-text">技術專業</div><div class="rhex-list-sub">85% · 技術維度</div></div>
+          </div>
+        </div>
+        <div class="radar-svg-wrap">
+          <svg class="radar-svg" viewBox="0 0 200 200">
+            <!-- Grid circles -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(124,58,237,0.1)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(124,58,237,0.1)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="40" fill="none" stroke="rgba(124,58,237,0.1)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="20" fill="none" stroke="rgba(124,58,237,0.1)" stroke-width="1"/>
+            <!-- Spokes -->
+            <line x1="100" y1="100" x2="100" y2="20" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+            <line x1="100" y1="100" x2="176" y2="69" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+            <line x1="100" y1="100" x2="147" y2="169" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+            <line x1="100" y1="100" x2="53" y2="169" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+            <line x1="100" y1="100" x2="24" y2="69" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+            <!-- Fill area -->
+            <polygon points="100,22 173,71 144,167 56,167 27,71" fill="rgba(124,58,237,0.12)" stroke="rgba(124,58,237,0.4)" stroke-width="1.5"/>
+            <!-- Data points -->
+            <circle cx="100" cy="22" r="5" fill="#7c3aed"/>
+            <circle cx="173" cy="71" r="5" fill="#7c3aed"/>
+            <circle cx="144" cy="167" r="5" fill="#7c3aed"/>
+            <circle cx="56" cy="167" r="5" fill="#7c3aed"/>
+            <circle cx="27" cy="71" r="5" fill="#7c3aed"/>
+          </svg>
+          <div class="rhex-overlay">
+            <div class="rhex" style="width:100%;height:100%;"><div class="rhex-inner"><span class="rhex-text"></span></div></div>
+          </div>
+          <!-- Spoke labels -->
+          <div class="radar-spoke-label" style="top:-4px;left:50%;transform:translateX(-50%);">策略</div>
+          <div class="radar-spoke-label" style="top:28%;right:-8px;">執行</div>
+          <div class="radar-spoke-label" style="bottom:10%;right:12px;">創新</div>
+          <div class="radar-spoke-label" style="bottom:10%;left:12px;">協作</div>
+          <div class="radar-spoke-label" style="top:28%;left:-8px;">技術</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 7: 圓角蜂巢 + 組織架構 ========== -->
+  <div class="slide s7" id="slide-7">
+    <span class="slide-num">07 / 10</span>
+    <span class="slide-badge" style="background:rgba(219,39,119,0.1);color:#db2777;">組合應用</span>
+    <h2 class="slide-title">圓角蜂巢 × 組織架構</h2>
+    <p class="slide-sub">Org Chart — 組織成員以圓角六邊形呈現，尺寸區分職級高度，構成扁平且現化的視覺化組織圖。</p>
+    <div class="slide-content">
+      <div class="org-viz">
+        <div class="org-row">
+          <div class="org-hex lg" style="width:110px;height:110px;">
+            <div class="rhex-inner" style="background:linear-gradient(135deg,#f59e0b,#d97706);"><span class="rhex-text">執行長<br><small style="font-weight:400;opacity:0.8;">CEO</small></span></div>
+          </div>
+        </div>
+        <div class="org-line"></div>
+        <div class="org-row">
+          <div class="org-hex"><div class="rhex-inner" style="background:linear-gradient(135deg,#db2777,#be185d);"><span class="rhex-text">技術長<br><small style="font-weight:400;opacity:0.8;">CTO</small></span></div></div>
+          <div class="org-hex"><div class="rhex-inner" style="background:linear-gradient(135deg,#db2777,#be185d);"><span class="rhex-text">營運長<br><small style="font-weight:400;opacity:0.8;">COO</small></span></div></div>
+          <div class="org-hex"><div class="rhex-inner" style="background:linear-gradient(135deg,#db2777,#be185d);"><span class="rhex-text">財務長<br><small style="font-weight:400;opacity:0.8;">CFO</small></span></div></div>
+          <div class="org-hex"><div class="rhex-inner" style="background:linear-gradient(135deg,#db2777,#be185d);"><span class="rhex-text">行銷長<br><small style="font-weight:400;opacity:0.8;">CMO</small></span></div></div>
+        </div>
+        <div class="org-line"></div>
+        <div class="org-row">
+          <div class="org-hex-sm"><div class="rhex-inner" style="background:linear-gradient(135deg,#be185d,#9d174d);"><span class="rhex-text">工程<br><small style="font-weight:400;opacity:0.8;">12人</small></span></div></div>
+          <div class="org-hex-sm"><div class="rhex-inner" style="background:linear-gradient(135deg,#be185d,#9d174d);"><span class="rhex-text">產品<br><small style="font-weight:400;opacity:0.8;">8人</small></span></div></div>
+          <div class="org-hex-sm"><div class="rhex-inner" style="background:linear-gradient(135deg,#be185d,#9d174d);"><span class="rhex-text">市場<br><small style="font-weight:400;opacity:0.8;">10人</small></span></div></div>
+          <div class="org-hex-sm"><div class="rhex-inner" style="background:linear-gradient(135deg,#be185d,#9d174d);"><span class="rhex-text">人資<br><small style="font-weight:400;opacity:0.8;">5人</small></span></div></div>
+          <div class="org-hex-sm"><div class="rhex-inner" style="background:linear-gradient(135deg,#be185d,#9d174d);"><span class="rhex-text">財務<br><small style="font-weight:400;opacity:0.8;">6人</small></span></div></div>
+        </div>
+        <div class="org-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:3px;"></div>
+            <span>高層管理</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:linear-gradient(135deg,#db2777,#be185d);border-radius:3px;"></div>
+            <span>部門主管</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:linear-gradient(135deg,#be185d,#9d174d);border-radius:3px;"></div>
+            <span>團隊成員</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 8: 圓角蜂巢 + 流程箭頭 ========== -->
+  <div class="slide s8" id="slide-8">
+    <span class="slide-num">08 / 10</span>
+    <span class="slide-badge" style="background:rgba(234,88,12,0.1);color:#ea580c;">組合應用</span>
+    <h2 class="slide-title">圓角蜂巢 × 流程箭頭</h2>
+    <p class="slide-sub">Process Flow — 圓角六邊形之間以箭頭連接，形成Z字來回流程動線，表達階段之間的邏輯順序與回饋循環。</p>
+    <div class="slide-content">
+      <div class="flow-viz">
+        <div class="flow-section-label">上行流程</div>
+        <div class="flow-step">
+          <div class="flow-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#ea580c,#c2410c);"><span class="rhex-text">需求<br>收集</span></div></div>
+          <div class="flow-arrow-right"></div>
+          <div class="flow-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#dc2626,#b91c1c);"><span class="rhex-text">分析<br>設計</span></div></div>
+          <div class="flow-arrow-right"></div>
+          <div class="flow-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#c2410c,#9a3412);"><span class="rhex-text">開發<br>實現</span></div></div>
+        </div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-section-label">下行流程</div>
+        <div class="flow-step">
+          <div class="flow-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#9a3412,#7c2d12);"><span class="rhex-text">維運<br>監控</span></div></div>
+          <div class="flow-arrow-right" style="border-left-color:rgba(156,52,18,0.5);"></div>
+          <div class="flow-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#c2410c,#9a3412);"><span class="rhex-text">部署<br>上線</span></div></div>
+          <div class="flow-arrow-right" style="border-left-color:rgba(194,65,12,0.5);"></div>
+          <div class="flow-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#ea580c,#c2410c);"><span class="rhex-text">測試<br>驗證</span></div></div>
+        </div>
+      </div>
+      <div style="margin-top:20px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#ea580c;border-radius:3px;"></div>
+          <span>起始</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#dc2626;border-radius:3px;"></div>
+          <span>分析</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#c2410c;border-radius:3px;"></div>
+          <span>開發/部署</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#9a3412;border-radius:3px;"></div>
+          <span>維運</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 9: 圓角蜂巢 + 圓餅圖 ========== -->
+  <div class="slide s9" id="slide-9">
+    <span class="slide-num">09 / 10</span>
+    <span class="slide-badge" style="background:rgba(124,58,237,0.1);color:#7c3aed;">組合應用</span>
+    <h2 class="slide-title">圓角蜂巢 × 甜甜圈圖</h2>
+    <p class="slide-sub">Donut Chart — 圓角六邊形內嵌甜甜圈占比圖，每個六邊形卡片呈現一項資料的比例分配，構成多元占比分析牆。</p>
+    <div class="slide-content">
+      <div class="pie-grid">
+        <div class="pie-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#7c3aed 0deg 198deg,#e0e7ff 198deg 360deg);">
+            <div class="pie-hex-inner">55%</div>
+          </div>
+          <div class="pie-label">產品研發</div>
+          <div class="pie-sub">最大資源投入區塊</div>
+          <div class="pie-segments">
+            <div class="pie-seg" style="background:#7c3aed;flex:55;"></div>
+            <div class="pie-seg" style="background:#e0e7ff;flex:45;"></div>
+          </div>
+        </div>
+        <div class="pie-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#0891b2 0deg 130deg,#cffafe 130deg 360deg);">
+            <div class="pie-hex-inner">36%</div>
+          </div>
+          <div class="pie-label">市場營銷</div>
+          <div class="pie-sub">持續成長區塊</div>
+          <div class="pie-segments">
+            <div class="pie-seg" style="background:#0891b2;flex:36;"></div>
+            <div class="pie-seg" style="background:#cffafe;flex:64;"></div>
+          </div>
+        </div>
+        <div class="pie-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#d97706 0deg 216deg,#fef3c7 216deg 360deg);">
+            <div class="pie-hex-inner">60%</div>
+          </div>
+          <div class="pie-label">用戶付費率</div>
+          <div class="pie-sub">付費用戶比例</div>
+          <div class="pie-segments">
+            <div class="pie-seg" style="background:#d97706;flex:60;"></div>
+            <div class="pie-seg" style="background:#fef3c7;flex:40;"></div>
+          </div>
+        </div>
+        <div class="pie-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#059669 0deg 144deg,#d1fae5 144deg 360deg);">
+            <div class="pie-hex-inner">40%</div>
+          </div>
+          <div class="pie-label">線上通路</div>
+          <div class="pie-sub">主要營收來源</div>
+          <div class="pie-segments">
+            <div class="pie-seg" style="background:#059669;flex:40;"></div>
+            <div class="pie-seg" style="background:#d1fae5;flex:60;"></div>
+          </div>
+        </div>
+        <div class="pie-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#db2777 0deg 180deg,#fce7f3 180deg 360deg);">
+            <div class="pie-hex-inner">50%</div>
+          </div>
+          <div class="pie-label">技術人力</div>
+          <div class="pie-sub">佔全體員工比例</div>
+          <div class="pie-segments">
+            <div class="pie-seg" style="background:#db2777;flex:50;"></div>
+            <div class="pie-seg" style="background:#fce7f3;flex:50;"></div>
+          </div>
+        </div>
+        <div class="pie-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#2563eb 0deg 252deg,#dbeafe 252deg 360deg);">
+            <div class="pie-hex-inner">70%</div>
+          </div>
+          <div class="pie-label">客戶留存</div>
+          <div class="pie-sub">年度留存率</div>
+          <div class="pie-segments">
+            <div class="pie-seg" style="background:#2563eb;flex:70;"></div>
+            <div class="pie-seg" style="background:#dbeafe;flex:30;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 10: 圓角蜂巢混合呈現 ========== -->
+  <div class="slide s10" id="slide-10">
+    <span class="slide-num">10 / 10</span>
+    <span class="slide-badge" style="background:linear-gradient(135deg,rgba(5,150,105,0.12),rgba(37,99,235,0.12));color:#059669;">混合創作</span>
+    <h2 class="slide-title">圓角蜂巢混合呈現實例</h2>
+    <p class="slide-sub">Mixed Presentations — 圓角蜂巢與不同圖形、不同佈局混合創作，展示在真實簡報中的多變彈性。</p>
+    <div class="slide-content">
+      <div class="mixed-grid">
+        <div class="mixed-card">
+          <div class="mixed-card-title">A. 漸層圓角蜂巢 + 外框線</div>
+          <div class="mixed-row">
+            <div class="mixed-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#7c3aed,#2563eb);"><span class="rhex-text">設計</span></div></div>
+            <div class="mixed-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#2563eb,#0891b2);"><span class="rhex-text">工程</span></div></div>
+            <div class="mixed-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#0891b2,#059669);"><span class="rhex-text">行銷</span></div></div>
+            <div class="mixed-hex" style="width:52px;height:52px;border:2px solid #059669;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:#059669;background:transparent;">總部</div>
+          </div>
+          <div class="mixed-row">
+            <div class="mixed-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#059669,#10b981);"><span class="rhex-text">人資</span></div></div>
+            <div class="mixed-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#10b981,#34d399);"><span class="rhex-text">財務</span></div></div>
+            <div class="mixed-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);"><span class="rhex-text">客服</span></div></div>
+          </div>
+        </div>
+        <div class="mixed-card">
+          <div class="mixed-card-title">B. 圓角蜂巢 + 尺寸對比</div>
+          <div class="mixed-row" style="align-items:center;">
+            <div class="mixed-hex-lg rhex" style="width:72px;height:72px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#7c3aed,#5b21b6);"><span class="rhex-text">核心<br>產品</span></div></div>
+            <div class="mixed-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#a78bfa,#8b5cf6);font-size:0.6rem;"><span class="rhex-text">功能A</span></div></div>
+            <div class="mixed-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#a78bfa,#8b5cf6);font-size:0.6rem;"><span class="rhex-text">功能B</span></div></div>
+            <div class="mixed-hex rhex"><div class="rhex-inner" style="background:linear-gradient(135deg,#a78bfa,#8b5cf6);font-size:0.6rem;"><span class="rhex-text">功能C</span></div></div>
+          </div>
+        </div>
+        <div class="mixed-card">
+          <div class="mixed-card-title">C. 圓角蜂巢 + 水平佈局+標籤</div>
+          <div class="mixed-row">
+            <div class="rhex" style="width:64px;height:64px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#ea580c,#c2410c);"><span class="rhex-text">Q1</span></div></div>
+            <div style="display:flex;flex-direction:column;gap:4px;flex:1;">
+              <div style="height:8px;background:linear-gradient(90deg,#ea580c,#c2410c);border-radius:4px;width:75%;"></div>
+              <div style="font-size:0.7rem;color:var(--text-secondary);">達成率 75%</div>
+            </div>
+          </div>
+          <div class="mixed-row">
+            <div class="rhex" style="width:64px;height:64px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#d97706,#b45309);"><span class="rhex-text">Q2</span></div></div>
+            <div style="display:flex;flex-direction:column;gap:4px;flex:1;">
+              <div style="height:8px;background:linear-gradient(90deg,#d97706,#b45309);border-radius:4px;width:88%;"></div>
+              <div style="font-size:0.7rem;color:var(--text-secondary);">達成率 88%</div>
+            </div>
+          </div>
+          <div class="mixed-row">
+            <div class="rhex" style="width:64px;height:64px;"><div class="rhex-inner" style="background:linear-gradient(135deg,#059669,#047857);"><span class="rhex-text">Q3</span></div></div>
+            <div style="display:flex;flex-direction:column;gap:4px;flex:1;">
+              <div style="height:8px;background:linear-gradient(90deg,#059669,#047857);border-radius:4px;width:95%;"></div>
+              <div style="font-size:0.7rem;color:var(--text-secondary);">達成率 95%</div>
+            </div>
+          </div>
+        </div>
+        <div class="mixed-card">
+          <div class="mixed-card-title">D. 中心輻射 + 陰影質感</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+            <div class="rhex" style="width:80px;height:80px;filter:drop-shadow(0 4px 12px rgba(124,58,237,0.35));"><div class="rhex-inner" style="background:linear-gradient(135deg,#7c3aed,#5b21b6);"><span class="rhex-text">核心</span></div></div>
+            <div style="display:flex;gap:8px;">
+              <div class="rhex" style="width:52px;height:52px;filter:drop-shadow(0 3px 8px rgba(139,92,246,0.25));"><div class="rhex-inner" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed);"><span class="rhex-text">分店A</span></div></div>
+              <div class="rhex" style="width:52px;height:52px;filter:drop-shadow(0 3px 8px rgba(59,130,246,0.25));"><div class="rhex-inner" style="background:linear-gradient(135deg,#3b82f6,#2563eb);"><span class="rhex-text">分店B</span></div></div>
+              <div class="rhex" style="width:52px;height:52px;filter:drop-shadow(0 3px 8px rgba(16,185,129,0.25));"><div class="rhex-inner" style="background:linear-gradient(135deg,#10b981,#059669);"><span class="rhex-text">分店C</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:16px;text-align:center;font-size:0.75rem;color:var(--text-secondary);font-weight:600;">
+        圓角蜂窩的柔和幾何語言，讓任何組合都自帶親和力與現代感
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav-bar">
+  <button class="nav-btn" id="prevBtn" onclick="prevSlide()">←</button>
+  <div class="page-dots" id="pageDots"></div>
+  <span class="page-indicator" id="pageIndicator">1 / 10</span>
+  <button class="nav-btn" id="nextBtn" onclick="nextSlide()">→</button>
+</div>
+
+<script>
+const TOTAL = 10;
+let current = 1;
+
+const slides = document.querySelectorAll('.slide');
+const progressBar = document.getElementById('progressBar');
+const pageIndicator = document.getElementById('pageIndicator');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const dotsContainer = document.getElementById('pageDots');
+
+// Build dots
+for (let i = 1; i <= TOTAL; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 1 ? ' active' : '');
+  dot.onclick = () => goTo(i);
+  dotsContainer.appendChild(dot);
+}
+
+function goTo(n) {
+  slides[current - 1].classList.remove('active');
+  current = n;
+  slides[current - 1].classList.add('active');
+  const pct = ((current - 1) / (TOTAL - 1)) * 100;
+  progressBar.style.width = pct + '%';
+  pageIndicator.textContent = current + ' / ' + TOTAL;
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current - 1);
+  });
+  prevBtn.disabled = current === 1;
+  nextBtn.disabled = current === TOTAL;
+}
+
+function nextSlide() { if (current < TOTAL) goTo(current + 1); }
+function prevSlide() { if (current > 1) goTo(current - 1); }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  if (e.key === 'Home') goTo(1);
+  if (e.key === 'End') goTo(TOTAL);
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+// Touch swipe
+let touchStartX = 0;
+document.querySelector('.presentation').addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+document.querySelector('.presentation').addEventListener('touchend', (e) => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+}, { passive: true });
+
+goTo(1);
+</script>
+
+</body>
+</html>
