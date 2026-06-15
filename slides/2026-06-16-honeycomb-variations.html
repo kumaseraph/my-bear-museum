@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蜂巢圖組合與變化型態 - 10種示範</title>
+<style>
+:root {
+  --bg-dark: #0f0f1a;
+  --bg-card: #1a1a2e;
+  --accent-1: #7c3aed;
+  --accent-2: #06b6d4;
+  --accent-3: #f59e0b;
+  --accent-4: #10b981;
+  --accent-5: #ec4899;
+  --accent-6: #3b82f6;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255,255,255,0.7);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.presentation {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 120px;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  max-width: 960px;
+  min-height: 85vh;
+  background: var(--bg-card);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  padding: 48px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+  transform: translateX(40px);
+  overflow: hidden;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.slide-number {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.35);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.slide-tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.slide-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.slide-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.hex-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.hex-row {
+  display: flex;
+  gap: 8px;
+}
+
+.hex-row:nth-child(even) {
+  margin-left: 44px;
+}
+
+.hex {
+  width: 80px;
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+  cursor: default;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  position: relative;
+}
+
+.hex:hover {
+  transform: scale(1.08);
+  filter: brightness(1.15);
+  z-index: 2;
+}
+
+.hex-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  position: relative;
+}
+
+/* ===== SLIDE 1: 經典六邊形蜂巢 ===== */
+.s1 .hex-inner { background: var(--accent-1); }
+.s1 .hex-row:nth-child(1) .hex:nth-child(1) .hex-inner { background: #7c3aed; }
+.s1 .hex-row:nth-child(1) .hex:nth-child(2) .hex-inner { background: #6d28d9; }
+.s1 .hex-row:nth-child(1) .hex:nth-child(3) .hex-inner { background: #5b21b6; }
+.s1 .hex-row:nth-child(2) .hex:nth-child(1) .hex-inner { background: #8b5cf6; }
+.s1 .hex-row:nth-child(2) .hex:nth-child(2) .hex-inner { background: #7c3aed; }
+.s1 .hex-row:nth-child(2) .hex:nth-child(3) .hex-inner { background: #6d28d9; }
+.s1 .hex-row:nth-child(3) .hex:nth-child(1) .hex-inner { background: #a78bfa; }
+.s1 .hex-row:nth-child(3) .hex:nth-child(2) .hex-inner { background: #8b5cf6; }
+.s1 .hex-row:nth-child(3) .hex:nth-child(3) .hex-inner { background: #7c3aed; }
+
+/* ===== SLIDE 2: 圓角六邊形 ===== */
+.s2 .hex-inner {
+  background: var(--accent-2);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);
+  border-radius: 14px;
+}
+.s2 .hex-row:nth-child(1) .hex:nth-child(1) .hex-inner { background: #0891b2; }
+.s2 .hex-row:nth-child(1) .hex:nth-child(2) .hex-inner { background: #06b6d4; }
+.s2 .hex-row:nth-child(1) .hex:nth-child(3) .hex-inner { background: #22d3ee; }
+.s2 .hex-row:nth-child(1) .hex:nth-child(4) .hex-inner { background: #06b6d4; }
+.s2 .hex-row:nth-child(2) .hex:nth-child(1) .hex-inner { background: #22d3ee; }
+.s2 .hex-row:nth-child(2) .hex:nth-child(2) .hex-inner { background: #67e8f9; }
+.s2 .hex-row:nth-child(2) .hex:nth-child(3) .hex-inner { background: #22d3ee; }
+.s2 .hex-row:nth-child(3) .hex:nth-child(1) .hex-inner { background: #06b6d4; }
+.s2 .hex-row:nth-child(3) .hex:nth-child(2) .hex-inner { background: #0891b2; }
+.s2 .hex-row:nth-child(3) .hex:nth-child(3) .hex-inner { background: #06b6d4; }
+
+/* ===== SLIDE 3: 蜂巢+時間軸 ===== */
+.s3 .hex-row:nth-child(1) .hex:nth-child(1) .hex-inner { background: #10b981; }
+.s3 .hex-row:nth-child(1) .hex:nth-child(2) .hex-inner { background: #059669; }
+.s3 .hex-row:nth-child(1) .hex:nth-child(3) .hex-inner { background: #047857; }
+.s3 .hex-row:nth-child(2) .hex:nth-child(1) .hex-inner { background: #34d399; }
+.s3 .hex-row:nth-child(2) .hex:nth-child(2) .hex-inner { background: #10b981; }
+.s3 .hex-row:nth-child(2) .hex:nth-child(3) .hex-inner { background: #059669; }
+.s3 .hex-row:nth-child(3) .hex:nth-child(1) .hex-inner { background: #6ee7b7; }
+.s3 .hex-row:nth-child(3) .hex:nth-child(2) .hex-inner { background: #34d399; }
+.s3 .hex-row:nth-child(3) .hex:nth-child(3) .hex-inner { background: #10b981; }
+
+.timeline-line {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 20px 0;
+}
+
+.tl-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.tl-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-4);
+  position: relative;
+}
+
+.tl-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-4), transparent);
+}
+
+.tl-node:last-child .tl-dot::after { display: none; }
+
+.tl-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.tl-year {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.4);
+  margin-top: 2px;
+}
+
+/* ===== SLIDE 4: 蜂巢+金字塔 ===== */
+.s4 .hex-inner { background: var(--accent-3); }
+
+.pyramid-level {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pyramid-hex {
+  width: 100px;
+  height: 115px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.pyramid-hex span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  padding: 4px;
+}
+
+/* ===== SLIDE 5: 蜂巢+雷達圖 ===== */
+.s5 .radar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.radar-chart {
+  position: relative;
+  width: 260px;
+  height: 260px;
+}
+
+.radar-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(124,58,237,0.12) 0deg,
+    rgba(124,58,237,0.04) 60deg,
+    rgba(124,58,237,0.12) 60deg,
+    rgba(124,58,237,0.04) 120deg,
+    rgba(124,58,237,0.12) 120deg,
+    rgba(124,58,237,0.04) 180deg,
+    rgba(124,58,237,0.12) 180deg,
+    rgba(124,58,237,0.04) 240deg,
+    rgba(124,58,237,0.12) 240deg,
+    rgba(124,58,237,0.04) 300deg,
+    rgba(124,58,237,0.12) 300deg,
+    rgba(124,58,237,0.04) 360deg
+  );
+}
+
+.radar-grid {
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  border: 1px dashed rgba(124,58,237,0.25);
+}
+
+.radar-fill {
+  position: absolute;
+  inset: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%);
+}
+
+.radar-hex-overlay {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(124,58,237,0.08);
+  border: 1px solid rgba(124,58,237,0.3);
+}
+
+.radar-label {
+  position: absolute;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 600;
+}
+
+.radar-label:nth-child(1) { top: -5px; left: 50%; transform: translateX(-50%); }
+.radar-label:nth-child(2) { top: 30%; right: -10px; }
+.radar-label:nth-child(3) { bottom: 20%; right: -5px; }
+.radar-label:nth-child(4) { bottom: 20%; left: -5px; }
+.radar-label:nth-child(5) { top: 30%; left: -10px; }
+
+.hex-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.hex-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+
+.hex-legend-dot {
+  width: 28px;
+  height: 32px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  flex-shrink: 0;
+}
+
+/* ===== SLIDE 6: 蜂巢+流程箭頭 ===== */
+.s6 .hex-inner { background: var(--accent-5); }
+
+.flow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.flow-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.flow-hex {
+  width: 100px;
+  height: 115px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: var(--accent-5);
+}
+
+.flow-hex span { padding: 4px; }
+
+.flow-arrow {
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 20px solid rgba(236,72,153,0.6);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ===== SLIDE 7: 蜂巢+KPI ===== */
+.s7 .kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.kpi-card {
+  background: rgba(255,255,255,0.04);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.3s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+}
+
+.kpi-hex-wrap {
+  width: 64px;
+  height: 74px;
+  position: relative;
+}
+
+.kpi-hex-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent-1);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.kpi-hex-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 800;
+  z-index: 1;
+}
+
+.kpi-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.kpi-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.kpi-change {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.kpi-change.up { background: rgba(16,185,129,0.2); color: #34d399; }
+.kpi-change.down { background: rgba(239,68,68,0.2); color: #f87171; }
+
+/* ===== SLIDE 8: 蜂巢+組織架構 ===== */
+.s8 .org-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.org-level {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.org-hex {
+  width: 90px;
+  height: 104px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-align: center;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.org-hex span { padding: 4px; }
+
+.org-hex.head { background: #f59e0b; }
+.org-hex.mgr { background: #8b5cf6; }
+.org-hex.staff { background: #3b82f6; }
+
+.org-connector {
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+}
+
+/* ===== SLIDE 9: 蜂巢+圓餅圖 ===== */
+.s9 .pie-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.pie-hex-card {
+  background: rgba(255,255,255,0.04);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.pie-hex-wrap {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: conic-gradient(
+    #7c3aed 0deg 180deg,
+    #06b6d4 180deg 270deg,
+    #f59e0b 270deg 340deg,
+    #10b981 340deg 360deg
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pie-hex-wrap::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: var(--bg-card);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.pie-hex-center {
+  position: relative;
+  z-index: 2;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.pie-hex-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.pie-hex-pct {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+}
+
+/* ===== SLIDE 10: 蜂巢混合组合 ===== */
+.s10 .mixed-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.mixed-card {
+  background: rgba(255,255,255,0.04);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.mixed-card-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+
+.mixed-hex-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.mixed-hex {
+  width: 48px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-align: center;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.mixed-hex span { padding: 2px; }
+
+/* Hex content text */
+.hex-text {
+  position: relative;
+  z-index: 1;
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Navigation */
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  background: rgba(15,15,26,0.9);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  z-index: 100;
+  padding: 0 24px;
+}
+
+.nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.nav-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.page-indicator {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  min-width: 60px;
+  text-align: center;
+}
+
+.page-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: var(--accent-1);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Progress bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  transition: width 0.4s ease;
+  z-index: 101;
+}
+
+/* Slide content alignment */
+.slide-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+}
+
+/* RWD */
+@media (max-width: 600px) {
+  .slide { padding: 32px 20px; }
+  .slide-title { font-size: 1.4rem; }
+  .hex { width: 56px; height: 64px; font-size: 0.55rem; }
+  .hex-row:nth-child(even) { margin-left: 32px; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .pie-grid { grid-template-columns: 1fr 1fr; }
+  .mixed-grid { grid-template-columns: 1fr; }
+  .radar-container { flex-direction: column; }
+  .hex-legend { grid-template-columns: 1fr; }
+  .page-dots { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="presentation" id="presentation">
+
+  <!-- ========== SLIDE 1: 經典六邊形蜂巢 ========== -->
+  <div class="slide s1 active" id="slide-1">
+    <span class="slide-number">01 / 10</span>
+    <span class="slide-tag" style="background:rgba(124,58,237,0.2);color:#a78bfa;">形狀變化</span>
+    <h2 class="slide-title">經典六邊形蜂巢</h2>
+    <p class="slide-subtitle">Standard Hexagon — 蜂窩結構是最穩定的幾何填充方式，六邊形每相鄰三個密鋪無空隙。</p>
+    <div class="slide-content">
+      <div class="hex-grid">
+        <div class="hex-row">
+          <div class="hex"><div class="hex-inner"><span class="hex-text">設計</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">工程</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">行銷</span></div></div>
+        </div>
+        <div class="hex-row">
+          <div class="hex"><div class="hex-inner"><span class="hex-text">財務</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">人資</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">客服</span></div></div>
+        </div>
+        <div class="hex-row">
+          <div class="hex"><div class="hex-inner"><span class="hex-text">產品</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">研發</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">數據</span></div></div>
+        </div>
+      </div>
+      <div style="margin-top:32px;display:flex;gap:24px;flex-wrap:wrap;justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-size:2rem;font-weight:800;color:#a78bfa;">9</div>
+          <div style="font-size:0.75rem;color:var(--text-secondary);">部門覆蓋</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:2rem;font-weight:800;color:#22d3ee;">100%</div>
+          <div style="font-size:0.75rem;color:var(--text-secondary);">填充率</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:2rem;font-weight:800;color:#34d399;">∞</div>
+          <div style="font-size:0.75rem;color:var(--text-secondary);">擴展彈性</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 2: 圓角六邊形 ========== -->
+  <div class="slide s2" id="slide-2">
+    <span class="slide-number">02 / 10</span>
+    <span class="slide-tag" style="background:rgba(6,182,212,0.2);color:#22d3ee;">形狀變化</span>
+    <h2 class="slide-title">圓角六邊形蜂窩</h2>
+    <p class="slide-subtitle">Rounded Hexagon — 圓弧過渡頂角，柔和現代感強，適合科技、醫療、金融專業簡報。</p>
+    <div class="slide-content">
+      <div class="hex-grid">
+        <div class="hex-row">
+          <div class="hex"><div class="hex-inner"><span class="hex-text">AI</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">雲端</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">資安</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">數據</span></div></div>
+        </div>
+        <div class="hex-row">
+          <div class="hex"><div class="hex-inner"><span class="hex-text">區塊鏈</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">物聯網</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">5G</span></div></div>
+        </div>
+        <div class="hex-row">
+          <div class="hex"><div class="hex-inner"><span class="hex-text">邊緣</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">容器</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">DevOps</span></div></div>
+        </div>
+      </div>
+      <div style="margin-top:28px;font-size:0.8rem;color:var(--text-secondary);display:flex;gap:20px;flex-wrap:wrap;justify-content:center;">
+        <span>✓ clip-path: polygon(...)</span>
+        <span>✓ border-radius: 14px</span>
+        <span>✓ 科技感配色</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 3: 蜂巢+時間軸 ========== -->
+  <div class="slide s3" id="slide-3">
+    <span class="slide-number">03 / 10</span>
+    <span class="slide-tag" style="background:rgba(16,185,129,0.2);color:#34d399;">組合應用</span>
+    <h2 class="slide-title">蜂巢 × 時間軸</h2>
+    <p class="slide-subtitle">Honeycomb Timeline — 六邊形沿時間軸排列，每格里程碑＋時間標記，構成視覺化的歷程敘事。</p>
+    <div class="slide-content">
+      <div class="timeline-line" style="margin-bottom:28px;">
+        <div class="tl-node">
+          <div class="tl-dot"></div>
+          <div class="tl-label">2021<br><span class="tl-year">成立期</span></div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-dot"></div>
+          <div class="tl-label">2022<br><span class="tl-year">擴張期</span></div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-dot"></div>
+          <div class="tl-label">2023<br><span class="tl-year">產品期</span></div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-dot"></div>
+          <div class="tl-label">2024<br><span class="tl-year">國際期</span></div>
+        </div>
+        <div class="tl-node">
+          <div class="tl-dot"></div>
+          <div class="tl-label">2025<br><span class="tl-year">生態期</span></div>
+        </div>
+      </div>
+      <div class="hex-grid">
+        <div class="hex-row">
+          <div class="hex"><div class="hex-inner"><span class="hex-text">市場調研</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">團隊組建</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">MVP上線</span></div></div>
+        </div>
+        <div class="hex-row">
+          <div class="hex"><div class="hex-inner"><span class="hex-text">A輪融资</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">海外擴張</span></div></div>
+          <div class="hex"><div class="hex-inner"><span class="hex-text">生態開放</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 4: 蜂巢+金字塔 ========== -->
+  <div class="slide s4" id="slide-4">
+    <span class="slide-number">04 / 10</span>
+    <span class="slide-tag" style="background:rgba(245,158,11,0.2);color:#fbbf24;">組合應用</span>
+    <h2 class="slide-title">蜂巢 × 金字塔</h2>
+    <p class="slide-subtitle">Honeycomb Pyramid — 六邊形堆疊成金字塔形，由上而下重要性遞減，適用策略階層與優先順序。</p>
+    <div class="slide-content">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div class="pyramid-level">
+          <div class="pyramid-hex" style="background:#f59e0b;"><span>願景目標</span></div>
+        </div>
+        <div class="pyramid-level">
+          <div class="pyramid-hex" style="background:#d97706;width:110px;height:127px;"><span>核心策略</span></div>
+          <div class="pyramid-hex" style="background:#d97706;width:110px;height:127px;"><span>關鍵成果</span></div>
+        </div>
+        <div class="pyramid-level">
+          <div class="pyramid-hex" style="background:#b45309;width:120px;height:138px;"><span>行動方案 A</span></div>
+          <div class="pyramid-hex" style="background:#b45309;width:120px;height:138px;"><span>行動方案 B</span></div>
+          <div class="pyramid-hex" style="background:#b45309;width:120px;height:138px;"><span>行動方案 C</span></div>
+        </div>
+      </div>
+      <div style="margin-top:24px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+        <div style="width:16px;height:16px;background:#f59e0b;border-radius:3px;"></div>
+        <span style="font-size:0.75rem;color:var(--text-secondary);">策略層</span>
+        <div style="width:16px;height:16px;background:#d97706;border-radius:3px;"></div>
+        <span style="font-size:0.75rem;color:var(--text-secondary);">戰術層</span>
+        <div style="width:16px;height:16px;background:#b45309;border-radius:3px;"></div>
+        <span style="font-size:0.75rem;color:var(--text-secondary);">執行層</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 5: 蜂巢+雷達圖 ========== -->
+  <div class="slide s5" id="slide-5">
+    <span class="slide-number">05 / 10</span>
+    <span class="slide-tag" style="background:rgba(124,58,237,0.2);color:#a78bfa;">組合應用</span>
+    <h2 class="slide-title">蜂巢 × 雷達圖</h2>
+    <p class="slide-subtitle">Hexagonal Radar — 六邊形框架×雷達圖結合，多維度能力評估視覺化，適用人才評估與競爭分析。</p>
+    <div class="slide-content">
+      <div class="radar-container">
+        <div class="radar-chart">
+          <div class="radar-bg"></div>
+          <div class="radar-grid"></div>
+          <div class="radar-fill"></div>
+          <div class="radar-hex-overlay"></div>
+          <div class="radar-label">策略</div>
+          <div class="radar-label">執行</div>
+          <div class="radar-label">創新</div>
+          <div class="radar-label">協作</div>
+          <div class="radar-label">技術</div>
+        </div>
+        <div class="hex-legend">
+          <div class="hex-legend-item">
+            <div class="hex-legend-dot" style="background:#7c3aed;"></div>
+            <div>策略思維</div>
+          </div>
+          <div class="hex-legend-item">
+            <div class="hex-legend-dot" style="background:#06b6d4;"></div>
+            <div>執行力</div>
+          </div>
+          <div class="hex-legend-item">
+            <div class="hex-legend-dot" style="background:#f59e0b;"></div>
+            <div>創新能力</div>
+          </div>
+          <div class="hex-legend-item">
+            <div class="hex-legend-dot" style="background:#10b981;"></div>
+            <div>團隊協作</div>
+          </div>
+          <div class="hex-legend-item">
+            <div class="hex-legend-dot" style="background:#ec4899;"></div>
+            <div>技術專業</div>
+          </div>
+          <div class="hex-legend-item">
+            <div class="hex-legend-dot" style="background:#3b82f6;"></div>
+            <div>溝通表達</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 6: 蜂巢+流程箭頭 ========== -->
+  <div class="slide s6" id="slide-6">
+    <span class="slide-number">06 / 10</span>
+    <span class="slide-tag" style="background:rgba(236,72,153,0.2);color:#f472b6;">組合應用</span>
+    <h2 class="slide-title">蜂巢 × 流程箭頭</h2>
+    <p class="slide-subtitle">Honeycomb Flow — 六邊形之間以箭頭連接，表達流程的順序與方向，適用步驟分解與邏輯說明。</p>
+    <div class="slide-content">
+      <div class="flow-container">
+        <div class="flow-row">
+          <div class="flow-hex" style="background:#ec4899;"><span>需求<br>收集</span></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-hex" style="background:#db2777;"><span>分析<br>設計</span></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-hex" style="background:#be185d;"><span>開發<br>實現</span></div>
+        </div>
+        <div style="width:2px;height:20px;background:linear-gradient(rgba(236,72,153,0.5),rgba(236,72,153,0.1));margin:6px 0 6px 152px;"></div>
+        <div class="flow-row">
+          <div class="flow-hex" style="background:#9d174d;margin-left:152px;"><span>測試<br>驗證</span></div>
+          <div class="flow-arrow" style="transform:rotate(180deg);"></div>
+          <div class="flow-hex" style="background:#be185d;"><span>部署<br>上線</span></div>
+          <div class="flow-arrow" style="transform:rotate(180deg);"></div>
+          <div class="flow-hex" style="background:#ec4899;"><span>維運<br>優化</span></div>
+        </div>
+      </div>
+      <div style="margin-top:24px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:12px;height:12px;background:#ec4899;border-radius:2px;"></div>
+          <span style="font-size:0.7rem;color:var(--text-secondary);">起始</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:12px;height:12px;background:#be185d;border-radius:2px;"></div>
+          <span style="font-size:0.7rem;color:var(--text-secondary);">進行</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:12px;height:12px;background:#9d174d;border-radius:2px;"></div>
+          <span style="font-size:0.7rem;color:var(--text-secondary);">階段轉換</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 7: 蜂巢+KPI ========== -->
+  <div class="slide s7" id="slide-7">
+    <span class="slide-number">07 / 10</span>
+    <span class="slide-tag" style="background:rgba(124,58,237,0.2);color:#a78bfa;">組合應用</span>
+    <h2 class="slide-title">蜂巢 × KPI 元件</h2>
+    <p class="slide-subtitle">Honeycomb KPI — 蜂窩內放置數字、BIGNUM、環形進度，構成現代化的資料視覺化儀表板。</p>
+    <div class="slide-content">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-hex-wrap">
+            <div class="kpi-hex-inner" style="color:#a78bfa;">↑</div>
+          </div>
+          <div class="kpi-value">¥2.8M</div>
+          <div class="kpi-label">季度營收</div>
+          <div class="kpi-change up">+23.5%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-hex-wrap">
+            <div class="kpi-hex-inner" style="color:#22d3ee;">♥</div>
+          </div>
+          <div class="kpi-value">12,450</div>
+          <div class="kpi-label">活躍用戶</div>
+          <div class="kpi-change up">+8.2%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-hex-wrap">
+            <div class="kpi-hex-inner" style="color:#34d399;">★</div>
+          </div>
+          <div class="kpi-value">94.7%</div>
+          <div class="kpi-label">滿意度</div>
+          <div class="kpi-change up">+1.3%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-hex-wrap">
+            <div class="kpi-hex-inner" style="color:#fbbf24;">⏱</div>
+          </div>
+          <div class="kpi-value">1.2s</div>
+          <div class="kpi-label">平均響應</div>
+          <div class="kpi-change down">-15%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-hex-wrap">
+            <div class="kpi-hex-inner" style="color:#f472b6;">✓</div>
+          </div>
+          <div class="kpi-value">99.9%</div>
+          <div class="kpi-label">系統可用</div>
+          <div class="kpi-change up">+0.1%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-hex-wrap">
+            <div class="kpi-hex-inner" style="color:#60a5fa;">◎</div>
+          </div>
+          <div class="kpi-value">847</div>
+          <div class="kpi-label">新訂單</div>
+          <div class="kpi-change up">+31%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 8: 蜂巢+組織架構 ========== -->
+  <div class="slide s8" id="slide-8">
+    <span class="slide-number">08 / 10</span>
+    <span class="slide-tag" style="background:rgba(245,158,11,0.2);color:#fbbf24;">組合應用</span>
+    <h2 class="slide-title">蜂巢 × 組織架構</h2>
+    <p class="slide-subtitle">Honeycomb Org — 組織成員以六邊形呈現，層級清晰且視覺统一，適用團隊介紹與組織展示。</p>
+    <div class="slide-content">
+      <div class="org-container">
+        <div class="org-level">
+          <div class="org-hex head"><span>執行長<br><small style="opacity:0.7;font-weight:400;">CEO</small></span></div>
+        </div>
+        <div class="org-connector"></div>
+        <div class="org-level">
+          <div class="org-hex mgr"><span>技術長<br><small style="opacity:0.7;font-weight:400;">CTO</small></span></div>
+          <div class="org-hex mgr"><span>營運長<br><small style="opacity:0.7;font-weight:400;">COO</small></span></div>
+          <div class="org-hex mgr"><span>財務長<br><small style="opacity:0.7;font-weight:400;">CFO</small></span></div>
+        </div>
+        <div class="org-connector"></div>
+        <div class="org-level">
+          <div class="org-hex staff"><span>工程<br><small style="opacity:0.7;font-weight:400;">12人</small></span></div>
+          <div class="org-hex staff"><span>產品<br><small style="opacity:0.7;font-weight:400;">8人</small></span></div>
+          <div class="org-hex staff"><span>市場<br><small style="opacity:0.7;font-weight:400;">10人</small></span></div>
+          <div class="org-hex staff"><span>人資<br><small style="opacity:0.7;font-weight:400;">5人</small></span></div>
+          <div class="org-hex staff"><span>財務<br><small style="opacity:0.7;font-weight:400;">6人</small></span></div>
+        </div>
+      </div>
+      <div style="margin-top:20px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:14px;height:16px;background:#f59e0b;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);"></div>
+          <span style="font-size:0.7rem;color:var(--text-secondary);">高層管理</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:14px;height:16px;background:#8b5cf6;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);"></div>
+          <span style="font-size:0.7rem;color:var(--text-secondary);">部門主管</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div style="width:14px;height:16px;background:#3b82f6;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);"></div>
+          <span style="font-size:0.7rem;color:var(--text-secondary);">團隊成員</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 9: 蜂巢+圓餅圖 ========== -->
+  <div class="slide s9" id="slide-9">
+    <span class="slide-number">09 / 10</span>
+    <span class="slide-tag" style="background:rgba(16,185,129,0.2);color:#34d399;">組合應用</span>
+    <h2 class="slide-title">蜂巢 × 圓餅 / 甜甜圈</h2>
+    <p class="slide-subtitle">Honeycomb + Pie/Donut — 六邊形內嵌圓餅占比，每格代表一個資料區塊，適用多元佔比分析。</p>
+    <div class="slide-content">
+      <div class="pie-grid">
+        <div class="pie-hex-card">
+          <div class="pie-hex-wrap">
+            <div class="pie-hex-center" style="color:#7c3aed;font-size:0.9rem;">50%</div>
+          </div>
+          <div class="pie-hex-label">產品研發</div>
+          <div class="pie-hex-pct">營收佔比最高</div>
+        </div>
+        <div class="pie-hex-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#06b6d4 0deg 120deg,#f59e0b 120deg 220deg,#10b981 220deg 360deg);">
+            <div class="pie-hex-center" style="color:#06b6d4;font-size:0.9rem;">33%</div>
+          </div>
+          <div class="pie-hex-label">市場佔比</div>
+          <div class="pie-hex-pct">持續成長中</div>
+        </div>
+        <div class="pie-hex-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#f59e0b 0deg 216deg,#ec4899 216deg 306deg,#7c3aed 306deg 360deg);">
+            <div class="pie-hex-center" style="color:#f59e0b;font-size:0.9rem;">60%</div>
+          </div>
+          <div class="pie-hex-label">用戶組成</div>
+          <div class="pie-hex-pct">付費用戶比例</div>
+        </div>
+        <div class="pie-hex-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#10b981 0deg 144deg,#3b82f6 144deg 252deg,#ec4899 252deg 360deg);">
+            <div class="pie-hex-center" style="color:#10b981;font-size:0.9rem;">40%</div>
+          </div>
+          <div class="pie-hex-label">通路分布</div>
+          <div class="pie-hex-pct">線上為主</div>
+        </div>
+        <div class="pie-hex-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#3b82f6 0deg 180deg,#f59e0b 180deg 288deg,#10b981 288deg 360deg);">
+            <div class="pie-hex-center" style="color:#3b82f6;font-size:0.9rem;">50%</div>
+          </div>
+          <div class="pie-hex-label">成本結構</div>
+          <div class="pie-hex-pct">人力成本最高</div>
+        </div>
+        <div class="pie-hex-card">
+          <div class="pie-hex-wrap" style="background:conic-gradient(#ec4899 0deg 240deg,#7c3aed 240deg 300deg,#06b6d4 300deg 360deg);">
+            <div class="pie-hex-center" style="color:#ec4899;font-size:0.9rem;">67%</div>
+          </div>
+          <div class="pie-hex-label">團隊組成</div>
+          <div class="pie-hex-pct">技術團隊佔比</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 10: 蜂巢混合组合 ========== -->
+  <div class="slide s10" id="slide-10">
+    <span class="slide-number">10 / 10</span>
+    <span class="slide-tag" style="background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(6,182,212,0.3));color:#e0e7ff;">混合創作</span>
+    <h2 class="slide-title">蜂巢混合组合實例</h2>
+    <p class="slide-subtitle">Mixed Combinations — 蜂巢可與任意圖形融合，創造無限可能。以下展示五種混合創作方向。</p>
+    <div class="slide-content">
+      <div class="mixed-grid">
+        <div class="mixed-card">
+          <div class="mixed-card-title">A. 蜂巢時間軸 + KPI</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+            <div style="width:60px;height:20px;background:linear-gradient(90deg,#10b981,#059669);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;">Q1 +42%</div>
+            <div style="width:60px;height:20px;background:linear-gradient(90deg,#059669,#047857);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;">Q2 +67%</div>
+            <div style="width:60px;height:20px;background:linear-gradient(90deg,#047857,#065f46);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;">Q3 +89%</div>
+          </div>
+          <div class="mixed-hex-row">
+            <div class="mixed-hex" style="background:#10b981;"><span>調研</span></div>
+            <div class="mixed-hex" style="background:#059669;"><span>開發</span></div>
+            <div class="mixed-hex" style="background:#047857;"><span>上線</span></div>
+            <div class="mixed-hex" style="background:#065f46;"><span>成長</span></div>
+          </div>
+        </div>
+        <div class="mixed-card">
+          <div class="mixed-card-title">B. 蜂巢雷達 + 組織</div>
+          <div class="mixed-hex-row">
+            <div class="mixed-hex" style="background:#7c3aed;"><span>策略</span></div>
+            <div class="mixed-hex" style="background:#6d28d9;"><span>執行</span></div>
+            <div class="mixed-hex" style="background:#5b21b6;"><span>創新</span></div>
+          </div>
+          <div class="mixed-hex-row">
+            <div class="mixed-hex" style="background:#8b5cf6;"><span>協作</span></div>
+            <div class="mixed-hex" style="background:#a78bfa;"><span>技術</span></div>
+            <div class="mixed-hex" style="background:#c4b5fd;"><span>溝通</span></div>
+          </div>
+        </div>
+        <div class="mixed-card">
+          <div class="mixed-card-title">C. 蜂巢 + 漸層發光</div>
+          <div class="mixed-hex-row">
+            <div class="mixed-hex" style="background:linear-gradient(135deg,#06b6d4,#7c3aed);filter:drop-shadow(0 0 6px rgba(6,182,212,0.5));"><span>科技</span></div>
+            <div class="mixed-hex" style="background:linear-gradient(135deg,#7c3aed,#ec4899);filter:drop-shadow(0 0 6px rgba(124,58,237,0.5));"><span>創意</span></div>
+            <div class="mixed-hex" style="background:linear-gradient(135deg,#f59e0b,#ef4444);filter:drop-shadow(0 0 6px rgba(245,158,11,0.5));"><span>活力</span></div>
+          </div>
+          <div class="mixed-hex-row">
+            <div class="mixed-hex" style="background:linear-gradient(135deg,#10b981,#06b6d4);filter:drop-shadow(0 0 6px rgba(16,185,129,0.5));"><span>永續</span></div>
+            <div class="mixed-hex" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);filter:drop-shadow(0 0 6px rgba(59,130,246,0.5));"><span>數據</span></div>
+            <div class="mixed-hex" style="background:linear-gradient(135deg,#ec4899,#f59e0b);filter:drop-shadow(0 0 6px rgba(236,72,153,0.5));"><span>溫暖</span></div>
+          </div>
+        </div>
+        <div class="mixed-card">
+          <div class="mixed-card-title">D. 中心輻射 + 外框線</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div class="mixed-hex" style="background:#7c3aed;width:64px;height:74px;font-size:0.7rem;"><span>核心</span></div>
+            <div style="display:flex;gap:8px;">
+              <div class="mixed-hex" style="background:transparent;border:2px solid #7c3aed;width:52px;height:60px;font-size:0.6rem;color:#a78bfa;"><span>模組A</span></div>
+              <div class="mixed-hex" style="background:transparent;border:2px solid #06b6d4;width:52px;height:60px;font-size:0.6rem;color:#22d3ee;"><span>模組B</span></div>
+              <div class="mixed-hex" style="background:transparent;border:2px solid #10b981;width:52px;height:60px;font-size:0.6rem;color:#34d399;"><span>模組C</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:20px;text-align:center;font-size:0.75rem;color:var(--text-secondary);">
+        蜂巢的組合是無窮的 — 關鍵在於找到統一的幾何語言
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation Bar -->
+<div class="nav-bar">
+  <button class="nav-btn" id="prevBtn" onclick="prevSlide()">←</button>
+  <div class="page-dots" id="pageDots"></div>
+  <span class="page-indicator" id="pageIndicator">1 / 10</span>
+  <button class="nav-btn" id="nextBtn" onclick="nextSlide()">→</button>
+</div>
+
+<script>
+const TOTAL = 10;
+let current = 1;
+
+const slides = document.querySelectorAll('.slide');
+const progressBar = document.getElementById('progressBar');
+const pageIndicator = document.getElementById('pageIndicator');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const dotsContainer = document.getElementById('pageDots');
+
+// Build dots
+for (let i = 1; i <= TOTAL; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 1 ? ' active' : '');
+  dot.onclick = () => goTo(i);
+  dotsContainer.appendChild(dot);
+}
+
+function goTo(n) {
+  slides[current - 1].classList.remove('active');
+  current = n;
+  slides[current - 1].classList.add('active');
+
+  const pct = ((current - 1) / (TOTAL - 1)) * 100;
+  progressBar.style.width = pct + '%';
+  pageIndicator.textContent = current + ' / ' + TOTAL;
+
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current - 1);
+  });
+
+  prevBtn.disabled = current === 1;
+  nextBtn.disabled = current === TOTAL;
+}
+
+function nextSlide() {
+  if (current < TOTAL) goTo(current + 1);
+}
+
+function prevSlide() {
+  if (current > 1) goTo(current - 1);
+}
+
+// Keyboard
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  if (e.key === 'Home') goTo(1);
+  if (e.key === 'End') goTo(TOTAL);
+  if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+});
+
+// Touch swipe
+let touchStartX = 0;
+document.querySelector('.presentation').addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+document.querySelector('.presentation').addEventListener('touchend', (e) => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 50) {
+    diff > 0 ? nextSlide() : prevSlide();
+  }
+}, { passive: true });
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+// Init
+goTo(1);
+</script>
+
+</body>
+</html>
