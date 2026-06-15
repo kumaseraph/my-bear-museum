@@ -1,25 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- 目標達成圖標 -->
   <defs>
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#C9A84C"/>
-      <stop offset="100%" style="stop-color:#8B7355"/>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8A87C"/>
+      <stop offset="100%" style="stop-color:#F5D7B6"/>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-color="#1a1a2e" flood-opacity="0.25"/>
-    </filter>
   </defs>
-  
-  <!-- 背景圓 -->
-  <circle cx="60" cy="60" r="55" fill="#FDF8F0" stroke="url(#goldGrad)" stroke-width="3"/>
-  
+  <circle cx="40" cy="40" r="36" fill="#FFF5EB" stroke="#E8A87C" stroke-width="2"/>
   <!-- 靶心 -->
-  <g filter="url(#shadow)">
-    <circle cx="60" cy="60" r="30" stroke="url(#goldGrad)" stroke-width="4" fill="none"/>
-    <circle cx="60" cy="60" r="18" stroke="url(#goldGrad)" stroke-width="3" fill="none" opacity="0.7"/>
-    <circle cx="60" cy="60" r="6" fill="url(#goldGrad)"/>
-  </g>
-  
-  <!-- 箭頭 -->
-  <path d="M95,25 L60,60" stroke="url(#goldGrad)" stroke-width="5" stroke-linecap="round"/>
-  <path d="M95,25 L85,25 L95,35" fill="url(#goldGrad)"/>
+  <circle cx="40" cy="40" r="22" fill="none" stroke="#C68B59" stroke-width="2"/>
+  <circle cx="40" cy="40" r="14" fill="none" stroke="#C68B59" stroke-width="2"/>
+  <circle cx="40" cy="40" r="6" fill="#C68B59"/>
+  <!-- 箭 -->
+  <line x1="58" y1="22" x2="42" y2="38" stroke="#C68B59" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="40,40 58,22 52,26 54,34" fill="#E8A87C"/>
+  <!-- 對勾 -->
+  <circle cx="62" cy="58" r="10" fill="#E8A87C"/>
+  <polyline points="57,58 60,61 66,55" fill="none" stroke="#FFF5EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
