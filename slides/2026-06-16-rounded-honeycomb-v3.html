@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>圓角六邊形素材展示 - 10種呈現方式</title>
+<style>
+:root {
+  --bg: #f9f8f5;
+  --card: #ffffff;
+  --text: #1a1a2e;
+  --sub: #6b7280;
+  --violet: #7c3aed;
+  --cyan: #0891b2;
+  --amber: #d97706;
+  --emerald: #059669;
+  --rose: #db2777;
+  --blue: #2563eb;
+  --shadow: 0 4px 20px rgba(0,0,0,0.07);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.09);
+  --radius-hex: 15; /* 預設 corner radius % */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.presentation {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 16px 100px;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  max-width: 960px;
+  min-height: 88vh;
+  background: var(--card);
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+  padding: 40px 48px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease, visibility 0.45s ease, transform 0.45s ease;
+  transform: translateX(36px);
+  overflow: hidden;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.slide-num {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  font-size: 0.78rem;
+  color: rgba(0,0,0,0.18);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 4px 13px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.sub {
+  font-size: 0.93rem;
+  color: var(--sub);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.slide-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 72vh;
+}
+
+/* ===== SVG HEXAGON — 技能#77圓角六邊形 ===== */
+svg.hex-svg {
+  overflow: visible;
+  display: block;
+}
+
+.hex-shape {
+  /* stroke-linejoin="round" = 每個頂點自動變成圓角 */
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* ===== NAV ===== */
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background: rgba(255,255,255,0.93);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  z-index: 100;
+  padding: 0 20px;
+}
+
+.nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,0.1);
+  background: white;
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: var(--text);
+  color: white;
+  border-color: var(--text);
+}
+
+.nav-btn:disabled { opacity: 0.2; cursor: default; }
+
+.page-indicator {
+  font-size: 0.8rem;
+  color: var(--sub);
+  font-weight: 600;
+  min-width: 54px;
+  text-align: center;
+}
+
+.page-dots { display: flex; gap: 5px; }
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.13);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: var(--violet);
+  width: 22px;
+  border-radius: 4px;
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--violet), var(--cyan));
+  transition: width 0.4s ease;
+  z-index: 101;
+}
+
+/* ===== SLIDE 1: 圓角六邊形基礎展示（技能#77） ===== */
+.s1-intro {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  background: rgba(124,58,237,0.06);
+  border: 1px solid rgba(124,58,237,0.12);
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.78rem;
+  color: var(--sub);
+  line-height: 1.5;
+}
+
+.s1-intro code {
+  background: rgba(124,58,237,0.1);
+  color: var(--violet);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+}
+
+.s1-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+.s1-hex-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s ease;
+}
+
+.s1-hex-wrap:hover {
+  transform: translateY(-4px);
+}
+
+.s1-hex-wrap:hover svg .hex-shape {
+  stroke-width: 14;
+}
+
+.s1-hex-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--sub);
+  text-align: center;
+}
+
+.s1-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+  margin: 20px 0;
+}
+
+.s1-metrics {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.s1-metric-val {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--violet), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.s1-metric-label {
+  font-size: 0.7rem;
+  color: var(--sub);
+  margin-top: 2px;
+  text-align: center;
+}
+
+/* ===== SLIDE 2: 圓角六邊形 + 漂浮卡片 ===== */
+.s2-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.s2-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.s2-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.s2-hex-wrap { flex-shrink: 0; }
+
+.s2-card-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.s2-card-desc {
+  font-size: 0.72rem;
+  color: var(--sub);
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+
+.s2-card-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* ===== SLIDE 3: 圓角六邊形 + 時間軸 ===== */
+.s3-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.s3-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.s3-tl-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.s3-tl-year {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--sub);
+}
+
+.s3-connector {
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--emerald), rgba(5,150,105,0.3));
+  border-radius: 2px;
+  position: relative;
+  margin: 0 2px;
+}
+
+.s3-connector::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: -4px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--emerald);
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--emerald);
+}
+
+.s3-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.s3-arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid rgba(5,150,105,0.4);
+  flex-shrink: 0;
+}
+
+/* ===== SLIDE 4: 圓角六邊形 + 金字塔 ===== */
+.s4-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.s4-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.s4-legend {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.s4-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  color: var(--sub);
+  font-weight: 600;
+}
+
+.s4-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+/* ===== SLIDE 5: KPI ===== */
+.s5-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.s5-kpi {
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.25s ease;
+}
+
+.s5-kpi:hover { transform: translateY(-3px); }
+
+.s5-kpi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.s5-kpi-icon { font-size: 0.7rem; color: var(--sub); }
+
+.s5-kpi-val {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.s5-kpi-label {
+  font-size: 0.72rem;
+  color: var(--sub);
+  font-weight: 500;
+}
+
+.s5-kpi-chg {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.67rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.s5-kpi-chg.up { background: rgba(5,150,105,0.1); color: #059669; }
+.s5-kpi-chg.down { background: rgba(220,38,38,0.1); color: #dc2626; }
+
+/* ===== SLIDE 6: 雷達圖 ===== */
+.s6-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.s6-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.s6-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.s6-list-text { font-size: 0.78rem; font-weight: 700; }
+.s6-list-sub { font-size: 0.65rem; color: var(--sub); }
+
+.s6-radar-wrap {
+  position: relative;
+  width: 240px;
+  height: 240px;
+}
+
+.s6-radar-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+.radar-label {
+  position: absolute;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+/* ===== SLIDE 7: 組織架構 ===== */
+.s7-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.s7-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.s7-line {
+  width: 2px;
+  height: 18px;
+  background: linear-gradient(var(--rose), rgba(219,39,119,0.3));
+}
+
+.s7-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.s7-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  color: var(--sub);
+  font-weight: 600;
+}
+
+/* ===== SLIDE 8: 流程箭頭 ===== */
+.s8-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
+
+.s8-flow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s8-arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 20px solid rgba(234,88,12,0.45);
+  flex-shrink: 0;
+  margin: 0 4px;
+}
+
+.s8-arrow-down {
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(rgba(234,88,12,0.6), rgba(234,88,12,0.15));
+  margin: 6px 0;
+}
+
+.s8-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--sub);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 8px 0 4px;
+}
+
+.s8-legend {
+  display: flex;
+  gap: 14px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.s8-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  color: var(--sub);
+  font-weight: 600;
+}
+
+/* ===== SLIDE 9: 甜甜圈圖 ===== */
+.s9-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.s9-card {
+  background: white;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.s9-pie-wrap {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s9-pie-inner {
+  position: relative;
+  z-index: 2;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.s9-label { font-size: 0.78rem; font-weight: 700; text-align: center; }
+.s9-sub { font-size: 0.65rem; color: var(--sub); text-align: center; }
+
+.s9-segs {
+  display: flex;
+  gap: 3px;
+  width: 100%;
+}
+
+.s9-seg { height: 5px; border-radius: 3px; flex: 1; }
+
+/* ===== SLIDE 10: 混合創作 ===== */
+.s10-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.s10-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.s10-card-title {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sub);
+  margin-bottom: 12px;
+}
+
+.s10-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.s10-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.s10-bar-label { font-size: 0.7rem; font-weight: 700; width: 32px; }
+.s10-bar-track { flex: 1; height: 8px; border-radius: 4px; }
+.s10-bar-val { font-size: 0.65rem; color: var(--sub); font-weight: 600; width: 36px; text-align: right; }
+
+.s10-legend-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.s10-legend-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  color: var(--sub);
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .slide { padding: 28px 18px 80px; min-height: 90vh; }
+  .title { font-size: 1.4rem; }
+  .sub { font-size: 0.85rem; }
+  .s1-grid { grid-template-columns: repeat(3, 1fr); }
+  .s2-grid { grid-template-columns: 1fr; }
+  .s5-grid, .s9-grid { grid-template-columns: 1fr 1fr; }
+  .s10-grid { grid-template-columns: 1fr; }
+  .s6-layout { flex-direction: column; }
+  .page-dots { display: none; }
+  .s1-metrics { gap: 16px; }
+  .s1-intro { font-size: 0.72rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="presentation" id="presentation">
+
+  <!-- ========== SLIDE 1: 圓角六邊形基礎展示 ========== -->
+  <div class="slide s1 active" id="slide-1">
+    <span class="slide-num">01 / 10</span>
+    <span class="badge" style="background:rgba(124,58,237,0.1);color:#7c3aed;">形狀變化 · 技能#77</span>
+    <h2 class="title">圓角六邊形 — SVG stroke-linejoin="round"</h2>
+    <p class="sub">技能#77 · 圓角多邊形素材 — 每個頂點都是真正的圓角，stroke-width 越大圓角越大，適用 3~12 邊形。</p>
+    <div class="slide-content">
+      <div class="s1-intro">
+        <svg width="16" height="16" viewBox="0 0 16 16" style="flex-shrink:0;">
+          <circle cx="8" cy="8" r="7" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        核心語法：
+        <code>stroke-linejoin="round"</code> +
+        <code>stroke-linecap="round"</code> +
+        <code>stroke-width</code>（控制圓角半徑）
+      </div>
+      <div class="s1-grid">
+        <!-- R=26, stroke-width=5, corner≈15% -->
+        <div class="s1-hex-wrap">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#7c3aed" stroke-width="5"
+              fill="rgba(124,58,237,0.08)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="s1-hex-label">stroke=5<br/>填充0%</div>
+        </div>
+        <!-- R=26, stroke-width=8, corner≈24% -->
+        <div class="s1-hex-wrap">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#8b5cf6" stroke-width="8"
+              fill="rgba(139,92,246,0.08)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="s1-hex-label">stroke=8<br/>填充8%</div>
+        </div>
+        <!-- R=26, stroke-width=12, corner≈36% -->
+        <div class="s1-hex-wrap">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#a78bfa" stroke-width="12"
+              fill="rgba(167,139,250,0.1)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="s1-hex-label">stroke=12<br/>填充10%</div>
+        </div>
+        <!-- R=26, stroke-width=16, corner≈48% -->
+        <div class="s1-hex-wrap">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#c4b5fd" stroke-width="16"
+              fill="rgba(196,181,253,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="s1-hex-label">stroke=16<br/>填充12%</div>
+        </div>
+        <!-- R=26, stroke-width=20, corner≈60% -->
+        <div class="s1-hex-wrap">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#6d28d9" stroke-width="20"
+              fill="rgba(109,40,217,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="s1-hex-label">stroke=20<br/>填充12%</div>
+        </div>
+        <!-- Cyan 填充變化 -->
+        <div class="s1-hex-wrap">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#0891b2" stroke-width="8"
+              fill="rgba(8,145,178,0.15)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="s1-hex-label">青色<br/>stroke=8</div>
+        </div>
+        <div class="s1-hex-wrap">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#059669" stroke-width="8"
+              fill="rgba(5,150,105,0.15)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="s1-hex-label">綠色<br/>stroke=8</div>
+        </div>
+        <div class="s1-hex-wrap">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#d97706" stroke-width="8"
+              fill="rgba(217,119,6,0.15)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="s1-hex-label">橙色<br/>stroke=8</div>
+        </div>
+        <div class="s1-hex-wrap">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#db2777" stroke-width="8"
+              fill="rgba(219,39,119,0.15)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="s1-hex-label">玫瑰色<br/>stroke=8</div>
+        </div>
+        <div class="s1-hex-wrap">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#2563eb" stroke-width="8"
+              fill="rgba(37,99,235,0.15)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <div class="s1-hex-label">藍色<br/>stroke=8</div>
+        </div>
+      </div>
+      <div class="s1-divider"></div>
+      <div class="s1-metrics">
+        <div style="text-align:center;">
+          <div class="s1-metric-val">5</div>
+          <div class="s1-metric-label">種 stroke-width</div>
+        </div>
+        <div style="text-align:center;">
+          <div class="s1-metric-val">7</div>
+          <div class="s1-metric-label">種色彩</div>
+        </div>
+        <div style="text-align:center;">
+          <div class="s1-metric-val">15~60%</div>
+          <div class="s1-metric-label">Corner Radius</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 2: 圓角六邊形 + 漂浮卡片 ========== -->
+  <div class="slide s2" id="slide-2">
+    <span class="slide-num">02 / 10</span>
+    <span class="badge" style="background:rgba(8,145,178,0.1);color:#0891b2;">組合應用</span>
+    <h2 class="title">圓角六邊形 × 漂浮資訊卡</h2>
+    <p class="sub">Info Cards — 每張資訊卡左側嵌入圓角六邊形SVG圖示，頂點圓角讓卡片更有親和力。</p>
+    <div class="slide-content">
+      <div class="s2-grid">
+        <div class="s2-card">
+          <div class="s2-hex-wrap">
+            <svg width="52" height="60" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#0891b2" stroke-width="5"
+                fill="rgba(8,145,178,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="18" font-weight="800" fill="#0891b2">策</text>
+            </svg>
+          </div>
+          <div>
+            <div class="s2-card-title">策略規劃</div>
+            <div class="s2-card-desc">制定年度目標與資源分配優先順序</div>
+            <span class="s2-card-tag" style="background:rgba(8,145,178,0.1);color:#0891b2;">核心職能</span>
+          </div>
+        </div>
+        <div class="s2-card">
+          <div class="s2-hex-wrap">
+            <svg width="52" height="60" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#7c3aed" stroke-width="5"
+                fill="rgba(124,58,237,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="18" font-weight="800" fill="#7c3aed">執</text>
+            </svg>
+          </div>
+          <div>
+            <div class="s2-card-title">執行追蹤</div>
+            <div class="s2-card-desc">KPI儀表板即時監控進度與達成率</div>
+            <span class="s2-card-tag" style="background:rgba(124,58,237,0.1);color:#7c3aed;">日常管理</span>
+          </div>
+        </div>
+        <div class="s2-card">
+          <div class="s2-hex-wrap">
+            <svg width="52" height="60" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#d97706" stroke-width="5"
+                fill="rgba(217,119,6,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="18" font-weight="800" fill="#d97706">創</text>
+            </svg>
+          </div>
+          <div>
+            <div class="s2-card-title">創新實驗</div>
+            <div class="s2-card-desc">新產品概念驗證與快速原型測試</div>
+            <span class="s2-card-tag" style="background:rgba(217,119,6,0.1);color:#d97706;">成長引擎</span>
+          </div>
+        </div>
+        <div class="s2-card">
+          <div class="s2-hex-wrap">
+            <svg width="52" height="60" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#059669" stroke-width="5"
+                fill="rgba(5,150,105,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="18" font-weight="800" fill="#059669">協</text>
+            </svg>
+          </div>
+          <div>
+            <div class="s2-card-title">協作文化</div>
+            <div class="s2-card-desc">跨部門專案推動與知識共享機制</div>
+            <span class="s2-card-tag" style="background:rgba(5,150,105,0.1);color:#059669;">組織健康</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 3: 圓角六邊形 + 時間軸 ========== -->
+  <div class="slide s3" id="slide-3">
+    <span class="slide-num">03 / 10</span>
+    <span class="badge" style="background:rgba(5,150,105,0.1);color:#059669;">組合應用</span>
+    <h2 class="title">圓角六邊形 × 水平時間軸</h2>
+    <p class="sub">Timeline — 每個時間里程碑是一個圓角六邊形，頂點圓角讓敘事節奏更柔和自然。</p>
+    <div class="slide-content">
+      <div class="s3-layout">
+        <div class="s3-timeline">
+          <div class="s3-tl-node">
+            <div style="font-size:0.7rem;font-weight:700;color:#059669;">2021</div>
+            <svg width="52" height="60" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#059669" stroke-width="5"
+                fill="rgba(5,150,105,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#059669">調研</text>
+            </svg>
+            <div class="s3-tl-year">成立期</div>
+          </div>
+          <div class="s3-connector"></div>
+          <div class="s3-tl-node">
+            <div style="font-size:0.7rem;font-weight:700;color:#10b981;">2022</div>
+            <svg width="52" height="60" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#10b981" stroke-width="5"
+                fill="rgba(16,185,129,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#10b981">組建</text>
+            </svg>
+            <div class="s3-tl-year">擴張期</div>
+          </div>
+          <div class="s3-connector"></div>
+          <div class="s3-tl-node">
+            <div style="font-size:0.7rem;font-weight:700;color:#34d399;">2023</div>
+            <svg width="52" height="60" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#34d399" stroke-width="5"
+                fill="rgba(52,211,153,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#34d399">MVP</text>
+            </svg>
+            <div class="s3-tl-year">MVP期</div>
+          </div>
+          <div class="s3-connector"></div>
+          <div class="s3-tl-node">
+            <div style="font-size:0.7rem;font-weight:700;color:#6ee7b7;">2024</div>
+            <svg width="52" height="60" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#059669" stroke-width="5"
+                fill="rgba(5,150,105,0.15)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#047857">出海</text>
+            </svg>
+            <div class="s3-tl-year">國際期</div>
+          </div>
+          <div class="s3-connector"></div>
+          <div class="s3-tl-node">
+            <div style="font-size:0.7rem;font-weight:700;color:#a7f3d0;">2025</div>
+            <svg width="52" height="60" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#059669" stroke-width="5"
+                fill="rgba(5,150,105,0.2)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#047857">生態</text>
+            </svg>
+            <div class="s3-tl-year">生態期</div>
+          </div>
+        </div>
+        <div class="s3-bottom-row">
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#7c3aed" stroke-width="6"
+              fill="rgba(124,58,237,0.1)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#7c3aed">市場<br/>調研</text>
+          </svg>
+          <div class="s3-arrow-right"></div>
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#2563eb" stroke-width="6"
+              fill="rgba(37,99,235,0.1)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#2563eb">團隊<br/>組建</text>
+          </svg>
+          <div class="s3-arrow-right"></div>
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#d97706" stroke-width="6"
+              fill="rgba(217,119,6,0.1)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#d97706">MVP<br/>開發</text>
+          </svg>
+          <div class="s3-arrow-right"></div>
+          <svg width="64" height="74" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#db2777" stroke-width="6"
+              fill="rgba(219,39,119,0.1)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#db2777">規模<br/>擴張</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 4: 圓角六邊形 + 金字塔 ========== -->
+  <div class="slide s4" id="slide-4">
+    <span class="slide-num">04 / 10</span>
+    <span class="badge" style="background:rgba(217,119,6,0.1);color:#d97706;">組合應用</span>
+    <h2 class="title">圓角六邊形 × 層級金字塔</h2>
+    <p class="sub">Pyramid — 圓角六邊形以階層方式堆疊，頂點圓角讓整體柔和，適合策略層次呈現。</p>
+    <div class="slide-content">
+      <div class="s4-layout">
+        <div class="s4-row">
+          <svg width="96" height="110" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#f59e0b" stroke-width="7"
+              fill="rgba(245,158,11,0.15)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="27" text-anchor="middle" font-size="11" font-weight="800" fill="#92400e">願景</text>
+            <text x="26" y="42" text-anchor="middle" font-size="9" fill="#b45309">Mission</text>
+          </svg>
+        </div>
+        <div class="s4-row">
+          <svg width="84" height="96" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#d97706" stroke-width="7"
+              fill="rgba(217,119,6,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="27" text-anchor="middle" font-size="11" font-weight="800" fill="#78350f">核心</text>
+            <text x="26" y="42" text-anchor="middle" font-size="9" fill="#b45309">價值</text>
+          </svg>
+          <svg width="84" height="96" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#d97706" stroke-width="7"
+              fill="rgba(217,119,6,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="27" text-anchor="middle" font-size="11" font-weight="800" fill="#78350f">關鍵</text>
+            <text x="26" y="42" text-anchor="middle" font-size="9" fill="#b45309">成果</text>
+          </svg>
+        </div>
+        <div class="s4-row">
+          <svg width="72" height="82" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#b45309" stroke-width="6"
+              fill="rgba(180,83,9,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="700" fill="#78350f">行動A</text>
+          </svg>
+          <svg width="72" height="82" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#b45309" stroke-width="6"
+              fill="rgba(180,83,9,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="700" fill="#78350f">行動B</text>
+          </svg>
+          <svg width="72" height="82" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#b45309" stroke-width="6"
+              fill="rgba(180,83,9,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="700" fill="#78350f">行動C</text>
+          </svg>
+        </div>
+        <div class="s4-legend">
+          <div class="s4-legend-item">
+            <div class="s4-legend-dot" style="background:#f59e0b;"></div>
+            <span>策略層（1格）</span>
+          </div>
+          <div class="s4-legend-item">
+            <div class="s4-legend-dot" style="background:#d97706;"></div>
+            <span>價值層（2格）</span>
+          </div>
+          <div class="s4-legend-item">
+            <div class="s4-legend-dot" style="background:#b45309;"></div>
+            <span>執行層（3格）</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 5: KPI ========== -->
+  <div class="slide s5" id="slide-5">
+    <span class="slide-num">05 / 10</span>
+    <span class="badge" style="background:rgba(37,99,235,0.1);color:#2563eb;">組合應用</span>
+    <h2 class="title">圓角六邊形 × KPI 儀表板</h2>
+    <p class="sub">KPI Dashboard — 每張KPI卡右上角嵌入圓角六邊形SVG圖示，品牌化資料視覺化。</p>
+    <div class="slide-content">
+      <div class="s5-grid">
+        <div class="s5-kpi">
+          <div class="s5-kpi-top">
+            <svg width="40" height="46" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#7c3aed" stroke-width="5"
+                fill="rgba(124,58,237,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="35" text-anchor="middle" font-size="16" font-weight="800" fill="#7c3aed">¥</text>
+            </svg>
+            <span class="s5-kpi-icon">季度</span>
+          </div>
+          <div class="s5-kpi-val" style="background:linear-gradient(135deg,#7c3aed,#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">¥3.2M</div>
+          <div class="s5-kpi-label">總營收</div>
+          <span class="s5-kpi-chg up">↑ 23.5%</span>
+        </div>
+        <div class="s5-kpi">
+          <div class="s5-kpi-top">
+            <svg width="40" height="46" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#0891b2" stroke-width="5"
+                fill="rgba(8,145,178,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="35" text-anchor="middle" font-size="16" font-weight="800" fill="#0891b2">◎</text>
+            </svg>
+            <span class="s5-kpi-icon">每月</span>
+          </div>
+          <div class="s5-kpi-val" style="background:linear-gradient(135deg,#0891b2,#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">18,420</div>
+          <div class="s5-kpi-label">活躍用戶</div>
+          <span class="s5-kpi-chg up">↑ 12.1%</span>
+        </div>
+        <div class="s5-kpi">
+          <div class="s5-kpi-top">
+            <svg width="40" height="46" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#db2777" stroke-width="5"
+                fill="rgba(219,39,119,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="35" text-anchor="middle" font-size="16" font-weight="800" fill="#db2777">♥</text>
+            </svg>
+            <span class="s5-kpi-icon">季度</span>
+          </div>
+          <div class="s5-kpi-val" style="background:linear-gradient(135deg,#db2777,#be185d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">94.7%</div>
+          <div class="s5-kpi-label">用戶滿意度</div>
+          <span class="s5-kpi-chg up">↑ 2.3%</span>
+        </div>
+        <div class="s5-kpi">
+          <div class="s5-kpi-top">
+            <svg width="40" height="46" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#d97706" stroke-width="5"
+                fill="rgba(217,119,6,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="35" text-anchor="middle" font-size="16" font-weight="800" fill="#d97706">⏱</text>
+            </svg>
+            <span class="s5-kpi-icon">每日</span>
+          </div>
+          <div class="s5-kpi-val" style="background:linear-gradient(135deg,#d97706,#b45309);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">1.2s</div>
+          <div class="s5-kpi-label">平均回應時間</div>
+          <span class="s5-kpi-chg down">↓ 18%</span>
+        </div>
+        <div class="s5-kpi">
+          <div class="s5-kpi-top">
+            <svg width="40" height="46" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#059669" stroke-width="5"
+                fill="rgba(5,150,105,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="35" text-anchor="middle" font-size="16" font-weight="800" fill="#059669">✓</text>
+            </svg>
+            <span class="s5-kpi-icon">每月</span>
+          </div>
+          <div class="s5-kpi-val" style="background:linear-gradient(135deg,#059669,#047857);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">99.97%</div>
+          <div class="s5-kpi-label">系統可用率</div>
+          <span class="s5-kpi-chg up">↑ 0.02%</span>
+        </div>
+        <div class="s5-kpi">
+          <div class="s5-kpi-top">
+            <svg width="40" height="46" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#2563eb" stroke-width="5"
+                fill="rgba(37,99,235,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="35" text-anchor="middle" font-size="16" font-weight="800" fill="#2563eb">★</text>
+            </svg>
+            <span class="s5-kpi-icon">每月</span>
+          </div>
+          <div class="s5-kpi-val" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">4.9</div>
+          <div class="s5-kpi-label">NPS 評分</div>
+          <span class="s5-kpi-chg up">↑ 0.3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 6: 雷達圖 ========== -->
+  <div class="slide s6" id="slide-6">
+    <span class="slide-num">06 / 10</span>
+    <span class="badge" style="background:rgba(124,58,237,0.1);color:#7c3aed;">組合應用</span>
+    <h2 class="title">圓角六邊形 × 雷達圖</h2>
+    <p class="sub">Radar Chart — SVG五邊形雷達圖搭配圓角六邊形外框，兩個圓潤幾何重疊，有機的視覺語言。</p>
+    <div class="slide-content">
+      <div class="s6-layout">
+        <div class="s6-list">
+          <div class="s6-list-item">
+            <svg width="36" height="42" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#7c3aed" stroke-width="5"
+                fill="rgba(124,58,237,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="14" font-weight="800" fill="#7c3aed">策</text>
+            </svg>
+            <div>
+              <div class="s6-list-text">策略思維</div>
+              <div class="s6-list-sub">95% · 領導力維度</div>
+            </div>
+          </div>
+          <div class="s6-list-item">
+            <svg width="36" height="42" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#2563eb" stroke-width="5"
+                fill="rgba(37,99,235,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="14" font-weight="800" fill="#2563eb">執</text>
+            </svg>
+            <div>
+              <div class="s6-list-text">執行力</div>
+              <div class="s6-list-sub">88% · 交付維度</div>
+            </div>
+          </div>
+          <div class="s6-list-item">
+            <svg width="36" height="42" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#db2777" stroke-width="5"
+                fill="rgba(219,39,119,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="14" font-weight="800" fill="#db2777">創</text>
+            </svg>
+            <div>
+              <div class="s6-list-text">創新能力</div>
+              <div class="s6-list-sub">92% · 創意維度</div>
+            </div>
+          </div>
+          <div class="s6-list-item">
+            <svg width="36" height="42" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#059669" stroke-width="5"
+                fill="rgba(5,150,105,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="14" font-weight="800" fill="#059669">協</text>
+            </svg>
+            <div>
+              <div class="s6-list-text">協作能力</div>
+              <div class="s6-list-sub">97% · 團隊維度</div>
+            </div>
+          </div>
+          <div class="s6-list-item">
+            <svg width="36" height="42" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#d97706" stroke-width="5"
+                fill="rgba(217,119,6,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="14" font-weight="800" fill="#d97706">技</text>
+            </svg>
+            <div>
+              <div class="s6-list-text">技術專業</div>
+              <div class="s6-list-sub">85% · 技術維度</div>
+            </div>
+          </div>
+        </div>
+        <div class="s6-radar-wrap">
+          <svg viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(124,58,237,0.1)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(124,58,237,0.1)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="40" fill="none" stroke="rgba(124,58,237,0.1)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="20" fill="none" stroke="rgba(124,58,237,0.1)" stroke-width="1"/>
+            <line x1="100" y1="100" x2="100" y2="20" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+            <line x1="100" y1="100" x2="176" y2="69" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+            <line x1="100" y1="100" x2="147" y2="169" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+            <line x1="100" y1="100" x2="53" y2="169" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+            <line x1="100" y1="100" x2="24" y2="69" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+            <polygon points="100,22 173,71 144,167 56,167 27,71"
+              fill="rgba(124,58,237,0.12)"
+              stroke="rgba(124,58,237,0.4)"
+              stroke-width="1.5"/>
+            <circle cx="100" cy="22" r="5" fill="#7c3aed"/>
+            <circle cx="173" cy="71" r="5" fill="#7c3aed"/>
+            <circle cx="144" cy="167" r="5" fill="#7c3aed"/>
+            <circle cx="56" cy="167" r="5" fill="#7c3aed"/>
+            <circle cx="27" cy="71" r="5" fill="#7c3aed"/>
+          </svg>
+          <div class="radar-label" style="top:2px;left:50%;transform:translateX(-50%);color:#7c3aed;">策略</div>
+          <div class="radar-label" style="top:28%;right:2px;color:#2563eb;">執行</div>
+          <div class="radar-label" style="bottom:14%;right:14px;color:#db2777;">創新</div>
+          <div class="radar-label" style="bottom:14%;left:14px;color:#059669;">協作</div>
+          <div class="radar-label" style="top:28%;left:2px;color:#d97706;">技術</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 7: 組織架構 ========== -->
+  <div class="slide s7" id="slide-7">
+    <span class="slide-num">07 / 10</span>
+    <span class="badge" style="background:rgba(219,39,119,0.1);color:#db2777;">組合應用</span>
+    <h2 class="title">圓角六邊形 × 組織架構</h2>
+    <p class="sub">Org Chart — 組織成員以圓角六邊形呈現，頂點圓角適合扁平化組織的現代視覺化。</p>
+    <div class="slide-content">
+      <div class="s7-layout">
+        <div class="s7-row">
+          <svg width="96" height="110" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#f59e0b" stroke-width="7"
+              fill="rgba(245,158,11,0.15)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#78350f">執行長</text>
+            <text x="26" y="41" text-anchor="middle" font-size="9" fill="#b45309">CEO</text>
+          </svg>
+        </div>
+        <div class="s7-line"></div>
+        <div class="s7-row">
+          <svg width="72" height="82" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#db2777" stroke-width="6"
+              fill="rgba(219,39,119,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#9d174d">技術長</text>
+            <text x="26" y="41" text-anchor="middle" font-size="9" fill="#be185d">CTO</text>
+          </svg>
+          <svg width="72" height="82" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#db2777" stroke-width="6"
+              fill="rgba(219,39,119,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#9d174d">營運長</text>
+            <text x="26" y="41" text-anchor="middle" font-size="9" fill="#be185d">COO</text>
+          </svg>
+          <svg width="72" height="82" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#db2777" stroke-width="6"
+              fill="rgba(219,39,119,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#9d174d">財務長</text>
+            <text x="26" y="41" text-anchor="middle" font-size="9" fill="#be185d">CFO</text>
+          </svg>
+          <svg width="72" height="82" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#db2777" stroke-width="6"
+              fill="rgba(219,39,119,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#9d174d">行銷長</text>
+            <text x="26" y="41" text-anchor="middle" font-size="9" fill="#be185d">CMO</text>
+          </svg>
+        </div>
+        <div class="s7-line"></div>
+        <div class="s7-row">
+          <svg width="60" height="69" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#be185d" stroke-width="5"
+              fill="rgba(190,24,93,0.1)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="10" font-weight="800" fill="#9d174d">工程</text>
+            <text x="26" y="40" text-anchor="middle" font-size="9" fill="#be185d">12人</text>
+          </svg>
+          <svg width="60" height="69" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#be185d" stroke-width="5"
+              fill="rgba(190,24,93,0.1)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="10" font-weight="800" fill="#9d174d">產品</text>
+            <text x="26" y="40" text-anchor="middle" font-size="9" fill="#be185d">8人</text>
+          </svg>
+          <svg width="60" height="69" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#be185d" stroke-width="5"
+              fill="rgba(190,24,93,0.1)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="10" font-weight="800" fill="#9d174d">市場</text>
+            <text x="26" y="40" text-anchor="middle" font-size="9" fill="#be185d">10人</text>
+          </svg>
+          <svg width="60" height="69" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#be185d" stroke-width="5"
+              fill="rgba(190,24,93,0.1)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="10" font-weight="800" fill="#9d174d">人資</text>
+            <text x="26" y="40" text-anchor="middle" font-size="9" fill="#be185d">5人</text>
+          </svg>
+          <svg width="60" height="69" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#be185d" stroke-width="5"
+              fill="rgba(190,24,93,0.1)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="10" font-weight="800" fill="#9d174d">財務</text>
+            <text x="26" y="40" text-anchor="middle" font-size="9" fill="#be185d">6人</text>
+          </svg>
+        </div>
+        <div class="s7-legend">
+          <div class="s7-legend-item">
+            <div style="width:12px;height:12px;border:2px solid #f59e0b;border-radius:3px;background:rgba(245,158,11,0.15);"></div>
+            <span>高層管理</span>
+          </div>
+          <div class="s7-legend-item">
+            <div style="width:12px;height:12px;border:2px solid #db2777;border-radius:3px;background:rgba(219,39,119,0.12);"></div>
+            <span>部門主管</span>
+          </div>
+          <div class="s7-legend-item">
+            <div style="width:12px;height:12px;border:2px solid #be185d;border-radius:3px;background:rgba(190,24,93,0.1);"></div>
+            <span>團隊成員</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 8: 流程箭頭 ========== -->
+  <div class="slide s8" id="slide-8">
+    <span class="slide-num">08 / 10</span>
+    <span class="badge" style="background:rgba(234,88,12,0.1);color:#ea580c;">組合應用</span>
+    <h2 class="title">圓角六邊形 × 流程箭頭</h2>
+    <p class="sub">Process Flow — 圓角六邊形之間以箭頭連接，頂點圓角讓整體流程動線柔和且有節奏感。</p>
+    <div class="slide-content">
+      <div class="s8-layout">
+        <div class="s8-section-label">上行流程</div>
+        <div class="s8-flow-row">
+          <svg width="80" height="92" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#ea580c" stroke-width="6"
+              fill="rgba(234,88,12,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#9a3412">需求</text>
+            <text x="26" y="41" text-anchor="middle" font-size="10" fill="#c2410c">收集</text>
+          </svg>
+          <div class="s8-arrow-right"></div>
+          <svg width="80" height="92" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#dc2626" stroke-width="6"
+              fill="rgba(220,38,38,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#991b1b">分析</text>
+            <text x="26" y="41" text-anchor="middle" font-size="10" fill="#b91c1c">設計</text>
+          </svg>
+          <div class="s8-arrow-right"></div>
+          <svg width="80" height="92" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#c2410c" stroke-width="6"
+              fill="rgba(194,65,12,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#7c2d12">開發</text>
+            <text x="26" y="41" text-anchor="middle" font-size="10" fill="#9a3412">實現</text>
+          </svg>
+        </div>
+        <div class="s8-arrow-down"></div>
+        <div class="s8-section-label">下行流程</div>
+        <div class="s8-flow-row">
+          <svg width="80" height="92" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#9a3412" stroke-width="6"
+              fill="rgba(154,52,18,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#7c2d12">維運</text>
+            <text x="26" y="41" text-anchor="middle" font-size="10" fill="#9a3412">監控</text>
+          </svg>
+          <div class="s8-arrow-right" style="border-left-color:rgba(154,52,18,0.45);"></div>
+          <svg width="80" height="92" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#c2410c" stroke-width="6"
+              fill="rgba(194,65,12,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#7c2d12">部署</text>
+            <text x="26" y="41" text-anchor="middle" font-size="10" fill="#9a3412">上線</text>
+          </svg>
+          <div class="s8-arrow-right" style="border-left-color:rgba(194,65,12,0.45);"></div>
+          <svg width="80" height="92" viewBox="0 0 52 60">
+            <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+              stroke="#ea580c" stroke-width="6"
+              fill="rgba(234,88,12,0.12)"
+              stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="26" y="26" text-anchor="middle" font-size="11" font-weight="800" fill="#9a3412">測試</text>
+            <text x="26" y="41" text-anchor="middle" font-size="10" fill="#c2410c">驗證</text>
+          </svg>
+        </div>
+        <div class="s8-legend">
+          <div class="s8-legend-item">
+            <div style="width:10px;height:10px;border:2px solid #ea580c;border-radius:3px;background:rgba(234,88,12,0.12);"></div>
+            <span>起始</span>
+          </div>
+          <div class="s8-legend-item">
+            <div style="width:10px;height:10px;border:2px solid #dc2626;border-radius:3px;background:rgba(220,38,38,0.12);"></div>
+            <span>分析</span>
+          </div>
+          <div class="s8-legend-item">
+            <div style="width:10px;height:10px;border:2px solid #c2410c;border-radius:3px;background:rgba(194,65,12,0.12);"></div>
+            <span>開發/部署</span>
+          </div>
+          <div class="s8-legend-item">
+            <div style="width:10px;height:10px;border:2px solid #9a3412;border-radius:3px;background:rgba(154,52,18,0.12);"></div>
+            <span>維運</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 9: 甜甜圈圖 ========== -->
+  <div class="slide s9" id="slide-9">
+    <span class="slide-num">09 / 10</span>
+    <span class="badge" style="background:rgba(124,58,237,0.1);color:#7c3aed;">組合應用</span>
+    <h2 class="title">圓角六邊形 × 甜甜圈圖</h2>
+    <p class="sub">Donut Chart — 每個甜甜圈圓環上方覆蓋圓角六邊形外框，統一兩種圓潤幾何的視覺語言。</p>
+    <div class="slide-content">
+      <div class="s9-grid">
+        <div class="s9-card">
+          <div class="s9-pie-wrap" style="background:conic-gradient(#7c3aed 0% 55%, rgba(124,58,237,0.15) 55% 100%);">
+            <div class="s9-pie-inner">55%</div>
+          </div>
+          <div class="s9-label">產品研發</div>
+          <div class="s9-sub">最大資源投入</div>
+          <div class="s9-segs">
+            <div class="s9-seg" style="background:#7c3aed;flex:55;"></div>
+            <div class="s9-seg" style="background:#e0e7ff;flex:45;"></div>
+          </div>
+        </div>
+        <div class="s9-card">
+          <div class="s9-pie-wrap" style="background:conic-gradient(#0891b2 0% 36%, rgba(8,145,178,0.15) 36% 100%);">
+            <div class="s9-pie-inner">36%</div>
+          </div>
+          <div class="s9-label">市場營銷</div>
+          <div class="s9-sub">持續成長區塊</div>
+          <div class="s9-segs">
+            <div class="s9-seg" style="background:#0891b2;flex:36;"></div>
+            <div class="s9-seg" style="background:#cffafe;flex:64;"></div>
+          </div>
+        </div>
+        <div class="s9-card">
+          <div class="s9-pie-wrap" style="background:conic-gradient(#d97706 0% 60%, rgba(217,119,6,0.15) 60% 100%);">
+            <div class="s9-pie-inner">60%</div>
+          </div>
+          <div class="s9-label">用戶付費率</div>
+          <div class="s9-sub">付費用戶比例</div>
+          <div class="s9-segs">
+            <div class="s9-seg" style="background:#d97706;flex:60;"></div>
+            <div class="s9-seg" style="background:#fef3c7;flex:40;"></div>
+          </div>
+        </div>
+        <div class="s9-card">
+          <div class="s9-pie-wrap" style="background:conic-gradient(#059669 0% 40%, rgba(5,150,105,0.15) 40% 100%);">
+            <div class="s9-pie-inner">40%</div>
+          </div>
+          <div class="s9-label">線上通路</div>
+          <div class="s9-sub">主要營收來源</div>
+          <div class="s9-segs">
+            <div class="s9-seg" style="background:#059669;flex:40;"></div>
+            <div class="s9-seg" style="background:#d1fae5;flex:60;"></div>
+          </div>
+        </div>
+        <div class="s9-card">
+          <div class="s9-pie-wrap" style="background:conic-gradient(#db2777 0% 50%, rgba(219,39,119,0.15) 50% 100%);">
+            <div class="s9-pie-inner">50%</div>
+          </div>
+          <div class="s9-label">技術人力</div>
+          <div class="s9-sub">佔全體員工比例</div>
+          <div class="s9-segs">
+            <div class="s9-seg" style="background:#db2777;flex:50;"></div>
+            <div class="s9-seg" style="background:#fce7f3;flex:50;"></div>
+          </div>
+        </div>
+        <div class="s9-card">
+          <div class="s9-pie-wrap" style="background:conic-gradient(#2563eb 0% 70%, rgba(37,99,235,0.15) 70% 100%);">
+            <div class="s9-pie-inner">70%</div>
+          </div>
+          <div class="s9-label">客戶留存</div>
+          <div class="s9-sub">年度留存率</div>
+          <div class="s9-segs">
+            <div class="s9-seg" style="background:#2563eb;flex:70;"></div>
+            <div class="s9-seg" style="background:#dbeafe;flex:30;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SLIDE 10: 混合創作 ========== -->
+  <div class="slide s10" id="slide-10">
+    <span class="slide-num">10 / 10</span>
+    <span class="badge" style="background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(8,145,178,0.1));color:#7c3aed;">混合創作</span>
+    <h2 class="title">圓角六邊形混合創作實例</h2>
+    <p class="sub">技能#77 — 圓角多邊形素材混合展示，呈現圓角六邊形在真實簡報中的多元彈性。</p>
+    <div class="slide-content">
+      <div class="s10-grid">
+        <div class="s10-card">
+          <div class="s10-card-title">A. 漸層 + 尺寸對比 + 外框線</div>
+          <div class="s10-row">
+            <svg width="56" height="64" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#7c3aed" stroke-width="6"
+                fill="rgba(124,58,237,0.15)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#5b21b6">設計</text>
+            </svg>
+            <svg width="56" height="64" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#0891b2" stroke-width="6"
+                fill="rgba(8,145,178,0.15)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#0e7490">工程</text>
+            </svg>
+            <svg width="56" height="64" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#059669" stroke-width="6"
+                fill="rgba(5,150,105,0.15)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="11" font-weight="800" fill="#047857">行銷</text>
+            </svg>
+            <svg width="44" height="44" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#6b7280" stroke-width="3"
+                fill="none"
+                stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+            <span style="font-size:0.72rem;color:var(--sub);font-weight:600;">總部</span>
+          </div>
+        </div>
+        <div class="s10-card">
+          <div class="s10-card-title">B. 圓角六邊形 + 進度條</div>
+          <div class="s10-bar-row">
+            <div class="s10-bar-label">Q1</div>
+            <div class="s10-bar-track" style="background:rgba(234,88,12,0.12);">
+              <div style="height:100%;width:75%;background:linear-gradient(90deg,#ea580c,#c2410c);border-radius:4px;"></div>
+            </div>
+            <div class="s10-bar-val">75%</div>
+          </div>
+          <div class="s10-bar-row">
+            <div class="s10-bar-label">Q2</div>
+            <div class="s10-bar-track" style="background:rgba(217,119,6,0.12);">
+              <div style="height:100%;width:88%;background:linear-gradient(90deg,#d97706,#b45309);border-radius:4px;"></div>
+            </div>
+            <div class="s10-bar-val">88%</div>
+          </div>
+          <div class="s10-bar-row">
+            <div class="s10-bar-label">Q3</div>
+            <div class="s10-bar-track" style="background:rgba(5,150,105,0.12);">
+              <div style="height:100%;width:95%;background:linear-gradient(90deg,#059669,#047857);border-radius:4px;"></div>
+            </div>
+            <div class="s10-bar-val">95%</div>
+          </div>
+        </div>
+        <div class="s10-card">
+          <div class="s10-card-title">C. 中心輻射 + 發光陰影</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+            <svg width="72" height="82" viewBox="0 0 52 60" style="filter:drop-shadow(0 4px 12px rgba(124,58,237,0.3));">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#7c3aed" stroke-width="6"
+                fill="rgba(124,58,237,0.2)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+              <text x="26" y="34" text-anchor="middle" font-size="12" font-weight="800" fill="#5b21b6">核心</text>
+            </svg>
+            <div style="display:flex;gap:8px;">
+              <svg width="48" height="55" viewBox="0 0 52 60" style="filter:drop-shadow(0 3px 8px rgba(139,92,246,0.25));">
+                <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                  stroke="#8b5cf6" stroke-width="5"
+                  fill="rgba(139,92,246,0.15)"
+                  stroke-linejoin="round" stroke-linecap="round"/>
+                <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">模組A</text>
+              </svg>
+              <svg width="48" height="55" viewBox="0 0 52 60" style="filter:drop-shadow(0 3px 8px rgba(59,130,246,0.25));">
+                <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                  stroke="#3b82f6" stroke-width="5"
+                  fill="rgba(59,130,246,0.15)"
+                  stroke-linejoin="round" stroke-linecap="round"/>
+                <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="700" fill="#2563eb">模組B</text>
+              </svg>
+              <svg width="48" height="55" viewBox="0 0 52 60" style="filter:drop-shadow(0 3px 8px rgba(16,185,129,0.25));">
+                <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                  stroke="#10b981" stroke-width="5"
+                  fill="rgba(16,185,129,0.15)"
+                  stroke-linejoin="round" stroke-linecap="round"/>
+                <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="700" fill="#059669">模組C</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="s10-card">
+          <div class="s10-card-title">D. 多色並置 + 透明外框</div>
+          <div class="s10-row">
+            <svg width="48" height="55" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#7c3aed" stroke-width="6"
+                fill="rgba(124,58,237,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+            <svg width="48" height="55" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#0891b2" stroke-width="6"
+                fill="rgba(8,145,178,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+            <svg width="48" height="55" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#059669" stroke-width="6"
+                fill="rgba(5,150,105,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+            <svg width="48" height="55" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#d97706" stroke-width="6"
+                fill="rgba(217,119,6,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="s10-row">
+            <svg width="48" height="55" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#db2777" stroke-width="6"
+                fill="rgba(219,39,119,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+            <svg width="48" height="55" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#2563eb" stroke-width="6"
+                fill="rgba(37,99,235,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+            <svg width="48" height="55" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#ea580c" stroke-width="6"
+                fill="rgba(234,88,12,0.12)"
+                stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+            <svg width="48" height="55" viewBox="0 0 52 60">
+              <path class="hex-shape" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
+                stroke="#6b7280" stroke-width="6"
+                fill="none"
+                stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="s10-legend-row">
+            <div class="s10-legend-pill">
+              <div style="width:8px;height:8px;border-radius:2px;background:#7c3aed;"></div>
+              紫
+            </div>
+            <div class="s10-legend-pill">
+              <div style="width:8px;height:8px;border-radius:2px;background:#0891b2;"></div>
+              青
+            </div>
+            <div class="s10-legend-pill">
+              <div style="width:8px;height:8px;border-radius:2px;background:#059669;"></div>
+              綠
+            </div>
+            <div class="s10-legend-pill">
+              <div style="width:8px;height:8px;border-radius:2px;background:#d97706;"></div>
+              橙
+            </div>
+            <div class="s10-legend-pill">
+              <div style="width:8px;height:8px;border-radius:2px;background:#db2777;"></div>
+              玫
+            </div>
+            <div class="s10-legend-pill">
+              <div style="width:8px;height:8px;border-radius:2px;background:#2563eb;"></div>
+              藍
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:16px;text-align:center;font-size:0.75rem;color:var(--sub);font-weight:600;">
+        SVG <code style="background:rgba(124,58,237,0.1);color:var(--violet);padding:1px 6px;border-radius:4px;">stroke-linejoin="round"</code> + <code style="background:rgba(124,58,237,0.1);color:var(--violet);padding:1px 6px;border-radius:4px;">stroke-linecap="round"</code> — 讓每個頂點都自帶圓角
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav-bar">
+  <button class="nav-btn" id="prevBtn" onclick="prevSlide()">←</button>
+  <div class="page-dots" id="pageDots"></div>
+  <span class="page-indicator" id="pageIndicator">1 / 10</span>
+  <button class="nav-btn" id="nextBtn" onclick="nextSlide()">→</button>
+</div>
+
+<script>
+const TOTAL = 10;
+let current = 1;
+
+const slides = document.querySelectorAll('.slide');
+const progressBar = document.getElementById('progressBar');
+const pageIndicator = document.getElementById('pageIndicator');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const dotsContainer = document.getElementById('pageDots');
+
+for (let i = 1; i <= TOTAL; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 1 ? ' active' : '');
+  dot.onclick = () => goTo(i);
+  dotsContainer.appendChild(dot);
+}
+
+function goTo(n) {
+  slides[current - 1].classList.remove('active');
+  current = n;
+  slides[current - 1].classList.add('active');
+  progressBar.style.width = ((current - 1) / (TOTAL - 1)) * 100 + '%';
+  pageIndicator.textContent = current + ' / ' + TOTAL;
+  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current - 1));
+  prevBtn.disabled = current === 1;
+  nextBtn.disabled = current === TOTAL;
+}
+
+function nextSlide() { if (current < TOTAL) goTo(current + 1); }
+function prevSlide() { if (current > 1) goTo(current - 1); }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  if (e.key === 'Home') goTo(1);
+  if (e.key === 'End') goTo(TOTAL);
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+let touchStartX = 0;
+document.querySelector('.presentation').addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+document.querySelector('.presentation').addEventListener('touchend', (e) => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+}, { passive: true });
+
+goTo(1);
+</script>
+
+</body>
+</html>
