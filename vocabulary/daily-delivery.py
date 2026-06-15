@@ -39,7 +39,7 @@ BEAR_QUOTES = VOCAB_DIR / "bear-quotes.json"
 WORLD_BUILDING = VOCAB_DIR / "world-building.json"
 VOCABULARY = VOCAB_DIR / "vocabulary.json"
 
-COMFYUI_URL = "http://fjjhomei9.fjjhome:8188"
+COMFYUI_URL = "http://fjjhomei9.fjj.home:8188"
 COMFY_WORKFLOW = Path("/home/fjj04/comfyui/Flux.2-Klein-文生图_API.json")
 COMFY_SCRIPT_DIR = Path("/home/fjj04/.hermes/skills_custom/comfyui-gen-image/scripts")
 
@@ -52,19 +52,20 @@ PROMPT_QUALITY_SUFFIX = (
     "soft kawaii style, horizontal composition 16:9, "
     "high quality illustration, detailed fur texture"
 )
+MIN_PROMPT_LENGTH = 80
 
-PROMPT_SYSTEM = f"""You are an expert at writing English text-to-image prompts for cute kawaii bear museum characters.
+PROMPT_SYSTEM = """You are an expert at writing English text-to-image prompts for cute kawaii bear museum characters.
 
 Given bear metadata in Traditional Chinese, write ONE detailed English image generation prompt.
 
 Rules:
 - Infer fur color and scene from the bear name, personality, series, and title
-- Translate the art style to English (e.g. 油畫=oil painting, 霓虹燈=neon light, 水彩=watercolor)
+- Translate the art style to English (e.g. 油畫=oil painting, 霓虹燈=neon light, 水彩=watercolor, 故障藝術=glitch art)
 - Describe a vivid scene with atmosphere and magical lighting
-- Write as a single English paragraph
+- Write as a single English paragraph, at least 2 sentences, 80+ words
 - Do NOT include Chinese characters or the raw Chinese bear name
-- Must end with: {PROMPT_QUALITY_SUFFIX}
-- Output ONLY the prompt text, no quotes, no explanation, no markdown"""
+- Do NOT include quality tags like "16:9", "kawaii style", or "detailed fur texture" (added separately)
+- Output ONLY the prompt text, no quotes, no explanation, no markdown, no thinking"""
 
 
 class DeliveryConfig:
@@ -320,6 +321,77 @@ def build_prompt_fallback(name, style, series, personality, title):
     )
 
 
+def is_valid_prompt(content):
+    """檢查 MiniMax 回傳的 prompt 是否足夠完整。"""
+    if not content or len(content) < MIN_PROMPT_LENGTH:
+        return False
+    lower = content.lower()
+    if "bear" not in lower:
+        return False
+    # 排除被截斷的片段，如 "A cute k"
+    words = content.split()
+    if len(words) < 12:
+        return False
+    if re.search(r"\b[A-Za-z],\s*$", content):
+        return False
+    return True
+
+
+def ensure_prompt_suffix(content):
+    """補上標準品質尾綴（避免重複）。"""
+    lower = content.lower()
+    if (
+        "soft kawaii style" in lower
+        and "16:9" in lower
+        and "detailed fur texture" in lower
+    ):
+        return content
+    return f"{content.rstrip('., ')}, {PROMPT_QUALITY_SUFFIX}"
+
+
+def _call_minimax_prompt(user_content, max_tokens=1024):
+    """呼叫 MiniMax Chat API，回傳 (content, finish_reason)。"""
+    response = requests.post(
+        MINIMAX_CHAT_URL,
+        headers={
+            "Authorization": f"Bearer {MINIMAX_API_KEY}",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": MINIMAX_CHAT_MODEL,
+            "messages": [
+                {"role": "system", "content": PROMPT_SYSTEM},
+                {"role": "user", "content": user_content},
+            ],
+            "temperature": 0.8,
+            "max_completion_tokens": max_tokens,
+            "extra_body": {
+                "reasoning_split": True,
+                "thinking": {"type": "disabled"},
+            },
+        },
+        timeout=60,
+    )
+    response.raise_for_status()
+    body = response.json()
+
+    base_resp = body.get("base_resp", {})
+    if base_resp.get("status_code", 0) not in (0, None):
+        raise RuntimeError(base_resp.get("status_msg", "MiniMax chat API error"))
+
+    choices = body.get("choices", [])
+    if not choices:
+        raise RuntimeError("MiniMax chat 無 choices")
+
+    choice = choices[0]
+    message = choice.get("message", {})
+    content = clean_minimax_text(message.get("content", ""))
+    if not content and message.get("reasoning_content"):
+        content = clean_minimax_text(message.get("reasoning_content", ""))
+
+    return content, choice.get("finish_reason", "")
+
+
 def generate_prompt_via_minimax(name, style, series, personality, title):
     """用 MiniMax Chat API 依 metadata 產生英文生圖 prompt。"""
     user_content = (
@@ -332,50 +404,22 @@ def generate_prompt_via_minimax(name, style, series, personality, title):
     log(f"  MiniMax 產生 prompt: {name}")
 
     try:
-        response = requests.post(
-            MINIMAX_CHAT_URL,
-            headers={
-                "Authorization": f"Bearer {MINIMAX_API_KEY}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": MINIMAX_CHAT_MODEL,
-                "messages": [
-                    {"role": "system", "content": PROMPT_SYSTEM},
-                    {"role": "user", "content": user_content},
-                ],
-                "temperature": 0.8,
-                "max_completion_tokens": 512,
-                "extra_body": {
-                    "reasoning_split": True,
-                    "thinking": {"type": "disabled"},
-                },
-            },
-            timeout=60,
-        )
-        response.raise_for_status()
-        body = response.json()
+        content, finish_reason = _call_minimax_prompt(user_content, max_tokens=1024)
 
-        base_resp = body.get("base_resp", {})
-        if base_resp.get("status_code", 0) not in (0, None):
-            raise RuntimeError(base_resp.get("status_msg", "MiniMax chat API error"))
+        if not is_valid_prompt(content):
+            log(
+                f"  MiniMax prompt 不完整 (finish={finish_reason}, "
+                f"len={len(content)}): {content[:60]!r}，重試一次"
+            )
+            content, finish_reason = _call_minimax_prompt(user_content, max_tokens=1536)
 
-        choices = body.get("choices", [])
-        if not choices:
-            raise RuntimeError("MiniMax chat 無 choices")
+        if not is_valid_prompt(content):
+            raise RuntimeError(
+                f"prompt 仍不完整 (finish={finish_reason}, len={len(content)}): "
+                f"{content[:80]!r}"
+            )
 
-        content = clean_minimax_text(choices[0].get("message", {}).get("content", ""))
-        if not content:
-            raise RuntimeError("MiniMax chat 回傳空 prompt")
-
-        lower = content.lower()
-        if not (
-            "soft kawaii style" in lower
-            and "16:9" in lower
-            and "detailed fur texture" in lower
-        ):
-            content = f"{content.rstrip('., ')}, {PROMPT_QUALITY_SUFFIX}"
-
+        content = ensure_prompt_suffix(content)
         log(f"  prompt: {content}")
         return content
     except Exception as e:
