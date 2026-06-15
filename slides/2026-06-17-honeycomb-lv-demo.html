@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>圓角蜂巢系統 — Lv1~Lv4 示範</title>
+<title>圓角蜂巢系統 — Lv1~Lv4 示範（技巧#81）</title>
 <style>
 :root {
   --bg: #f9f8f5;
@@ -15,7 +15,6 @@
   --amber: #d97706;
   --rose: #db2777;
   --blue: #2563eb;
-  --gray: #6b7280;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -27,293 +26,366 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 40px 20px;
-  gap: 48px;
+  gap: 40px;
 }
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 800;
   text-align: center;
+  line-height: 1.4;
 }
 h1 span { color: var(--violet); }
 .sub {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--sub);
   text-align: center;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 .specs {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--sub);
   font-weight: 600;
 }
 .specs span { background: white; padding: 4px 12px; border-radius: 999px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .specs span b { color: var(--violet); }
-
-/* 六邊形共用語法 */
-.hex { stroke-linejoin: round; stroke-linecap: round; }
-
-/* 等比例六邊形：viewBox="0 0 52 60" */
-/* 圓角15%：stroke-width="8"（六邊形時 stroke-width=8 等於 corner radius ≈ 15%） */
+.level-section { text-align: center; width: 100%; max-width: 700px; }
+.level-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid currentColor;
+  display: inline-block;
+}
+.note {
+  font-size: 0.65rem;
+  color: var(--sub);
+  margin-top: 10px;
+  font-weight: 500;
+}
+.syntax-box {
+  background: white;
+  border-radius: 16px;
+  padding: 20px 24px;
+  max-width: 620px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.syntax-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--violet);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+pre {
+  font-size: 0.68rem;
+  color: var(--sub);
+  line-height: 1.9;
+  font-family: 'Courier New', monospace;
+  overflow-x: auto;
+}
+.tag-row {
+  margin-top: 10px;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+.tag-row span { margin-right: 10px; }
 </style>
 </head>
 <body>
 
-<h1>🐻 圓角蜂巢系統 <span>Level 1~4</span></h1>
-<p class="sub">stroke-width="8" · 15% 圓角 · viewBox="0 0 52 60" · 等比例六邊形</p>
+<h1>🐻 圓角蜂巢系統<br><span>Level 1 ~ 4 · 標準蜂巢單元</span></h1>
+<p class="sub">技巧 #81 · 正六角形 · r = 15% · Arc 圓角語法</p>
 <div class="specs">
-  <span><b>圓角 15%</b> stroke-width="8"</span>
-  <span><b>等比例</b> viewBox="0 0 52 60"</span>
-  <span><b>統一路徑</b> M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z</span>
+  <span><b>正六角形</b> 六邊等長</span>
+  <span><b>viewBox</b> 0 0 52 60</span>
+  <span><b>r = 4.5</b> (side × 15%)</span>
+  <span><b>Arc 語法</b> 精確圓角</span>
+  <span><b>禁止</b> 尖角·變形</span>
 </div>
 
-<!-- ===== LV.1 ===== -->
-<div style="text-align:center;">
-  <div style="font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--violet);margin-bottom:16px;">Lv.1 — 單顆六角形</div>
-  <div style="display:flex;gap:24px;justify-content:center;align-items:center;flex-wrap:wrap;">
+<!-- ===== LV.1 單顆 ===== -->
+<div class="level-section">
+  <div class="level-title" style="color:var(--violet);">Lv.1 — 單顆六角形 · 4種內容型態</div>
+  <div style="display:flex;gap:28px;justify-content:center;align-items:center;flex-wrap:wrap;">
 
     <!-- 圖示型 -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-      <svg width="80" height="92" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#7c3aed" stroke-width="8" fill="rgba(124,58,237,0.15)"/>
-        <text x="26" y="35" text-anchor="middle" font-size="18" fill="#7c3aed">📌</text>
+      <!--
+        標準圓角六邊形 path（side=30, r=4.5, flat-top）
+        從頂尖(M39,5)開始，逆時針：
+        頂右斜邊 → 右上頂點(A) → 右垂直邊 → 右下頂點(A) →
+        底右斜邊 → 底尖(A) → 底左斜邊 → 左下頂點(A) →
+        左垂直邊 → 左上頂點(A) → 左斜邊 → 封閉
+      -->
+      <svg width="90" height="104" viewBox="0 0 52 60">
+        <path d="M39 5
+                 L52 20
+                 A4.5 4.5 0 0 0 52 40
+                 L39 55
+                 A4.5 4.5 0 0 0 26 60
+                 L13 55
+                 A4.5 4.5 0 0 0 13 45
+                 L0 40
+                 A4.5 4.5 0 0 0 0 20
+                 L13 5
+                 A4.5 4.5 0 0 0 26 0
+                 L39 5 Z"
+          stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
+        <text x="26" y="32" text-anchor="middle" font-size="20">📌</text>
       </svg>
-      <div style="font-size:0.65rem;color:var(--sub);">圖示</div>
+      <div style="font-size:0.65rem;color:var(--sub);font-weight:600;">圖示</div>
     </div>
 
     <!-- 數字型 -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-      <svg width="80" height="92" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#0891b2" stroke-width="8" fill="rgba(8,145,178,0.15)"/>
-        <text x="26" y="30" text-anchor="middle" font-size="20" font-weight="900" fill="#0891b2">85</text>
-        <text x="26" y="46" text-anchor="middle" font-size="9" fill="#0891b2">達成率</text>
+      <svg width="90" height="104" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#0891b2" stroke-width="1" fill="rgba(8,145,178,0.12)"/>
+        <text x="26" y="28" text-anchor="middle" font-size="18" font-weight="900" fill="#0891b2">85</text>
+        <text x="26" y="44" text-anchor="middle" font-size="8" fill="#0891b2">達成率</text>
       </svg>
-      <div style="font-size:0.65rem;color:var(--sub);">數字</div>
+      <div style="font-size:0.65rem;color:var(--sub);font-weight:600;">數字</div>
     </div>
 
     <!-- 標題型 -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-      <svg width="80" height="92" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#059669" stroke-width="8" fill="rgba(5,150,105,0.15)"/>
-        <text x="26" y="28" text-anchor="middle" font-size="10" font-weight="800" fill="#047857">策略</text>
-        <text x="26" y="43" text-anchor="middle" font-size="8" fill="#059669">核心</text>
+      <svg width="90" height="104" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#059669" stroke-width="1" fill="rgba(5,150,105,0.12)"/>
+        <text x="26" y="27" text-anchor="middle" font-size="9" font-weight="800" fill="#047857">策略</text>
+        <text x="26" y="41" text-anchor="middle" font-size="8" fill="#059669">核心</text>
       </svg>
-      <div style="font-size:0.65rem;color:var(--sub);">標題</div>
+      <div style="font-size:0.65rem;color:var(--sub);font-weight:600;">標題</div>
     </div>
 
     <!-- 純色型 -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-      <svg width="80" height="92" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#db2777" stroke-width="8" fill="rgba(219,39,119,0.15)"/>
+      <svg width="90" height="104" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#db2777" stroke-width="1" fill="rgba(219,39,119,0.15)"/>
       </svg>
-      <div style="font-size:0.65rem;color:var(--sub);">純色裝飾</div>
+      <div style="font-size:0.65rem;color:var(--sub);font-weight:600;">純色裝飾</div>
     </div>
 
   </div>
 </div>
 
-<!-- ===== LV.2 ===== -->
-<div style="text-align:center;">
-  <div style="font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--cyan);margin-bottom:16px;">Lv.2 — 3顆蜂巢（倒三角）</div>
-  <svg width="220" height="130" viewBox="0 0 220 130">
-    <!-- 中心 -->
-    <g transform="translate(80,0)">
-      <svg width="80" height="92" x="-40" y="-46" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#7c3aed" stroke-width="8" fill="rgba(124,58,237,0.15)"/>
-        <text x="26" y="28" text-anchor="middle" font-size="10" font-weight="800" fill="#7c3aed">策略</text>
-        <text x="26" y="43" text-anchor="middle" font-size="8" fill="#7c3aed">核心</text>
+<!-- ===== LV.2 三顆 ===== -->
+<div class="level-section">
+  <div class="level-title" style="color:var(--cyan);">Lv.2 — 3顆蜂巢（倒三角）</div>
+  <!--
+    六邊形幾何：
+    flat-top：寬=52，高=60
+    倒三角：頂部1顆，底部2顆
+    水平偏移：26（半寬）
+    垂直偏移：52（高-重疊）
+    相鄰蜂巢：左右相鄰 offsetX=52，上下相鄰 offsetY=52
+    但蜂巢拼接是 edge-to-edge，所以：
+    上方蜂巢的底尖(39,55) 對齊 下方蜂巢的頂尖(13,5)
+    垂直間距 = 52-10=42（60-18=42，即一個蜂巢高減去重疊）
+    transform 計算：
+    - 中心蜂巢在 (110, 52)
+    - 左下：(110-52, 52+42) = (58, 94)
+    - 右下：(110+52, 52+42) = (162, 94)
+  -->
+  <svg width="320" height="150" viewBox="0 0 320 150">
+    <!-- 中心（頂部） -->
+    <g transform="translate(110, 0)">
+      <svg width="104" height="120" x="-52" y="-60" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.15)"/>
+        <text x="26" y="26" text-anchor="middle" font-size="9" font-weight="800" fill="#7c3aed">策略</text>
+        <text x="26" y="39" text-anchor="middle" font-size="8" fill="#7c3aed">核心</text>
       </svg>
     </g>
     <!-- 左下 -->
-    <g transform="translate(0,70)">
-      <svg width="80" height="92" x="-40" y="-46" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#0891b2" stroke-width="8" fill="rgba(8,145,178,0.15)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="800" fill="#0891b2">執行</text>
+    <g transform="translate(58, 82)">
+      <svg width="104" height="120" x="-52" y="-60" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#0891b2" stroke-width="1" fill="rgba(8,145,178,0.12)"/>
+        <text x="26" y="33" text-anchor="middle" font-size="9" font-weight="700" fill="#0891b2">執行</text>
       </svg>
     </g>
     <!-- 右下 -->
-    <g transform="translate(160,70)">
-      <svg width="80" height="92" x="-40" y="-46" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#0891b2" stroke-width="8" fill="rgba(8,145,178,0.15)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="800" fill="#0891b2">協作</text>
+    <g transform="translate(162, 82)">
+      <svg width="104" height="120" x="-52" y="-60" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#0891b2" stroke-width="1" fill="rgba(8,145,178,0.12)"/>
+        <text x="26" y="33" text-anchor="middle" font-size="9" font-weight="700" fill="#0891b2">協作</text>
       </svg>
     </g>
   </svg>
-  <div style="font-size:0.65rem;color:var(--sub);margin-top:8px;">適用：核心+2個支撐維度（例：策略→執行、協作）</div>
+  <div class="note">適用：核心 + 2個支撐維度（策略 → 執行、協作）</div>
 </div>
 
-<!-- ===== LV.3 ===== -->
-<div style="text-align:center;">
-  <div style="font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--emerald);margin-bottom:16px;">Lv.3 — 7顆蜂巢（六角+中心）</div>
-  <svg width="260" height="200" viewBox="0 0 260 200">
+<!-- ===== LV.3 七顆 ===== -->
+<div class="level-section">
+  <div class="level-title" style="color:var(--emerald);">Lv.3 — 7顆蜂巢（六角環繞中心）</div>
+  <!--
+    中心在 (130, 90)
+    六方向偏移（每60°）：
+    上：  (0,  -60)
+    右上：(52,  -30)
+    右下：(52,   30)
+    下：  (0,   60)
+    左下：(-52,  30)
+    左上：(-52, -30)
+  -->
+  <svg width="320" height="230" viewBox="0 0 320 230">
     <!-- 中心 -->
-    <g transform="translate(100,80)">
-      <svg width="80" height="92" x="-40" y="-46" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#7c3aed" stroke-width="8" fill="rgba(124,58,237,0.2)"/>
-        <text x="26" y="28" text-anchor="middle" font-size="10" font-weight="800" fill="#7c3aed">核心</text>
-        <text x="26" y="43" text-anchor="middle" font-size="8" fill="#7c3aed">價值</text>
+    <g transform="translate(130, 95)">
+      <svg width="104" height="120" x="-52" y="-60" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.18)"/>
+        <text x="26" y="26" text-anchor="middle" font-size="9" font-weight="800" fill="#7c3aed">核心</text>
+        <text x="26" y="39" text-anchor="middle" font-size="8" fill="#7c3aed">價值</text>
       </svg>
     </g>
     <!-- 上 -->
-    <g transform="translate(100,0)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#0891b2" stroke-width="7" fill="rgba(8,145,178,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="800" fill="#0891b2">創新</text>
+    <g transform="translate(130, 35)">
+      <svg width="90" height="104" x="-45" y="-52" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#0891b2" stroke-width="1" fill="rgba(8,145,178,0.12)"/>
+        <text x="26" y="33" text-anchor="middle" font-size="9" font-weight="700" fill="#0891b2">創新</text>
       </svg>
     </g>
     <!-- 右上 -->
-    <g transform="translate(166,40)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#059669" stroke-width="7" fill="rgba(5,150,105,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="800" fill="#059669">執行</text>
+    <g transform="translate(182, 65)">
+      <svg width="90" height="104" x="-45" y="-52" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#059669" stroke-width="1" fill="rgba(5,150,105,0.12)"/>
+        <text x="26" y="33" text-anchor="middle" font-size="9" font-weight="700" fill="#059669">執行</text>
       </svg>
     </g>
     <!-- 右下 -->
-    <g transform="translate(166,120)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#d97706" stroke-width="7" fill="rgba(217,119,6,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="800" fill="#92400e">效率</text>
+    <g transform="translate(182, 125)">
+      <svg width="90" height="104" x="-45" y="-52" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#d97706" stroke-width="1" fill="rgba(217,119,6,0.12)"/>
+        <text x="26" y="33" text-anchor="middle" font-size="9" font-weight="700" fill="#92400e">效率</text>
       </svg>
     </g>
     <!-- 下 -->
-    <g transform="translate(100,160)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#db2777" stroke-width="7" fill="rgba(219,39,119,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="800" fill="#9d174d">品質</text>
+    <g transform="translate(130, 155)">
+      <svg width="90" height="104" x="-45" y="-52" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#db2777" stroke-width="1" fill="rgba(219,39,119,0.12)"/>
+        <text x="26" y="33" text-anchor="middle" font-size="9" font-weight="700" fill="#9d174d">品質</text>
       </svg>
     </g>
     <!-- 左下 -->
-    <g transform="translate(34,120)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#2563eb" stroke-width="7" fill="rgba(37,99,235,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="800" fill="#2563eb">成長</text>
+    <g transform="translate(78, 125)">
+      <svg width="90" height="104" x="-45" y="-52" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#2563eb" stroke-width="1" fill="rgba(37,99,235,0.12)"/>
+        <text x="26" y="33" text-anchor="middle" font-size="9" font-weight="700" fill="#2563eb">成長</text>
       </svg>
     </g>
     <!-- 左上 -->
-    <g transform="translate(34,40)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#6b7280" stroke-width="7" fill="rgba(107,114,128,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="800" fill="#374151">團隊</text>
+    <g transform="translate(78, 65)">
+      <svg width="90" height="104" x="-45" y="-52" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#6b7280" stroke-width="1" fill="rgba(107,114,128,0.12)"/>
+        <text x="26" y="33" text-anchor="middle" font-size="9" font-weight="700" fill="#374151">團隊</text>
       </svg>
     </g>
   </svg>
-  <div style="font-size:0.65rem;color:var(--sub);margin-top:8px;">適用：六維能力分析（核心價值+六個支撐維度）</div>
+  <div class="note">適用：六維能力分析（核心價值 + 六個支撐維度）</div>
 </div>
 
-<!-- ===== LV.4 ===== -->
-<div style="text-align:center;">
-  <div style="font-size:0.75rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);margin-bottom:16px;">Lv.4 — 19顆蜂巢（雙層）</div>
-  <svg width="320" height="240" viewBox="0 0 320 240">
-    <!-- 第一層（7顆） -->
+<!-- ===== LV.4 十九顆 ===== -->
+<div class="level-section">
+  <div class="level-title" style="color:var(--amber);">Lv.4 — 19顆蜂巢（雙層：1核+6內圈+12外圈）</div>
+  <!--
+    第一層（7顆）：中心 + 6方向
+    第二層（12顆）：每個第一層外圍再擴展
+    縮減尺寸以容納 19 顆
+  -->
+  <svg width="380" height="270" viewBox="0 0 380 270">
+    <!-- ===== 第一層：7顆 ===== -->
     <!-- 中心 -->
-    <g transform="translate(120,80)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#7c3aed" stroke-width="7" fill="rgba(124,58,237,0.2)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="10" font-weight="800" fill="#7c3aed">策略</text>
+    <g transform="translate(160, 105)">
+      <svg width="78" height="90" x="-39" y="-45" viewBox="0 0 52 60">
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.2)"/>
+        <text x="26" y="33" text-anchor="middle" font-size="9" font-weight="800" fill="#7c3aed">策略</text>
       </svg>
     </g>
-    <g transform="translate(120,0)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#0891b2" stroke-width="6" fill="rgba(8,145,178,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="9" font-weight="700" fill="#0891b2">創新</text>
-      </svg>
-    </g>
-    <g transform="translate(186,40)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#0891b2" stroke-width="6" fill="rgba(8,145,178,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="9" font-weight="700" fill="#0891b2">技術</text>
-      </svg>
-    </g>
-    <g transform="translate(186,120)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#0891b2" stroke-width="6" fill="rgba(8,145,178,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="9" font-weight="700" fill="#0891b2">市場</text>
-      </svg>
-    </g>
-    <g transform="translate(120,160)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#0891b2" stroke-width="6" fill="rgba(8,145,178,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="9" font-weight="700" fill="#0891b2">營運</text>
-      </svg>
-    </g>
-    <g transform="translate(54,120)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#0891b2" stroke-width="6" fill="rgba(8,145,178,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="9" font-weight="700" fill="#0891b2">財務</text>
-      </svg>
-    </g>
-    <g transform="translate(54,40)">
-      <svg width="64" height="74" x="-32" y="-37" viewBox="0 0 52 60">
-        <path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z"
-          stroke="#0891b2" stroke-width="6" fill="rgba(8,145,178,0.12)"/>
-        <text x="26" y="34" text-anchor="middle" font-size="9" font-weight="700" fill="#0891b2">人才</text>
-      </svg>
-    </g>
-    <!-- 第二層外圈（12顆） -->
-    <!-- 上方 3 顆 -->
-    <g transform="translate(120,0)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#059669" stroke-width="5" fill="rgba(5,150,105,0.1)"/><text x="26" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">A</text></svg></g>
-    <g transform="translate(186,40)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#059669" stroke-width="5" fill="rgba(5,150,105,0.1)"/><text x="26" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">B</text></svg></g>
-    <g transform="translate(252,80)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#059669" stroke-width="5" fill="rgba(5,150,105,0.1)"/><text x="26" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">C</text></svg></g>
-    <g transform="translate(186,120)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#059669" stroke-width="5" fill="rgba(5,150,105,0.1)"/><text x="26" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">D</text></svg></g>
-    <g transform="translate(120,160)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#059669" stroke-width="5" fill="rgba(5,150,105,0.1)"/><text x="26" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">E</text></svg></g>
-    <g transform="translate(54,120)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#059669" stroke-width="5" fill="rgba(5,150,105,0.1)"/><text x="26" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">F</text></svg></g>
-    <g transform="translate(-12,80)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#059669" stroke-width="5" fill="rgba(5,150,105,0.1)"/><text x="26" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">G</text></svg></g>
-    <g transform="translate(54,40)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#059669" stroke-width="5" fill="rgba(5,150,105,0.1)"/><text x="26" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#047857">H</text></svg></g>
-    <g transform="translate(120,40)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#d97706" stroke-width="5" fill="rgba(217,119,6,0.08)"/></svg></g>
-    <g transform="translate(186,80)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#d97706" stroke-width="5" fill="rgba(217,119,6,0.08)"/></svg></g>
-    <g transform="translate(120,120)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#d97706" stroke-width="5" fill="rgba(217,119,6,0.08)"/></svg></g>
-    <g transform="translate(54,80)"><svg width="52" height="60" x="-26" y="-30" viewBox="0 0 52 60"><path class="hex" d="M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z" stroke="#d97706" stroke-width="5" fill="rgba(217,119,6,0.08)"/></svg></g>
+    <!-- 內圈6顆 -->
+    <g transform="translate(160, 45)"><svg width="70" height="81" x="-35" y="-40" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#0891b2" stroke-width="1" fill="rgba(8,145,178,0.12)"/><text x="26" y="33" text-anchor="middle" font-size="8" font-weight="700" fill="#0891b2">創新</text></svg></g>
+    <g transform="translate(205, 60)"><svg width="70" height="81" x="-35" y="-40" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#0891b2" stroke-width="1" fill="rgba(8,145,178,0.12)"/><text x="26" y="33" text-anchor="middle" font-size="8" font-weight="700" fill="#0891b2">技術</text></svg></g>
+    <g transform="translate(205, 105)"><svg width="70" height="81" x="-35" y="-40" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#0891b2" stroke-width="1" fill="rgba(8,145,178,0.12)"/><text x="26" y="33" text-anchor="middle" font-size="8" font-weight="700" fill="#0891b2">市場</text></svg></g>
+    <g transform="translate(160, 120)"><svg width="70" height="81" x="-35" y="-40" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#0891b2" stroke-width="1" fill="rgba(8,145,178,0.12)"/><text x="26" y="33" text-anchor="middle" font-size="8" font-weight="700" fill="#0891b2">營運</text></svg></g>
+    <g transform="translate(115, 105)"><svg width="70" height="81" x="-35" y="-40" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#0891b2" stroke-width="1" fill="rgba(8,145,178,0.12)"/><text x="26" y="33" text-anchor="middle" font-size="8" font-weight="700" fill="#0891b2">財務</text></svg></g>
+    <g transform="translate(115, 60)"><svg width="70" height="81" x="-35" y="-40" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#0891b2" stroke-width="1" fill="rgba(8,145,178,0.12)"/><text x="26" y="33" text-anchor="middle" font-size="8" font-weight="700" fill="#0891b2">人才</text></svg></g>
+
+    <!-- ===== 第二層外圈：12顆 ===== -->
+    <!-- 外圈6顆（在內圈6顆的基礎上再外擴） -->
+    <g transform="translate(160, 0)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#059669" stroke-width="1" fill="rgba(5,150,105,0.1)"/><text x="26" y="33" text-anchor="middle" font-size="7" font-weight="700" fill="#047857">A</text></svg></g>
+    <g transform="translate(205, 15)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#059669" stroke-width="1" fill="rgba(5,150,105,0.1)"/><text x="26" y="33" text-anchor="middle" font-size="7" font-weight="700" fill="#047857">B</text></svg></g>
+    <g transform="translate(205, 60)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#059669" stroke-width="1" fill="rgba(5,150,105,0.1)"/><text x="26" y="33" text-anchor="middle" font-size="7" font-weight="700" fill="#047857">C</text></svg></g>
+    <g transform="translate(205, 105)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#059669" stroke-width="1" fill="rgba(5,150,105,0.1)"/><text x="26" y="33" text-anchor="middle" font-size="7" font-weight="700" fill="#047857">D</text></svg></g>
+    <g transform="translate(160, 120)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#059669" stroke-width="1" fill="rgba(5,150,105,0.1)"/><text x="26" y="33" text-anchor="middle" font-size="7" font-weight="700" fill="#047857">E</text></svg></g>
+    <g transform="translate(115, 105)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#059669" stroke-width="1" fill="rgba(5,150,105,0.1)"/><text x="26" y="33" text-anchor="middle" font-size="7" font-weight="700" fill="#047857">F</text></svg></g>
+    <g transform="translate(115, 60)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#059669" stroke-width="1" fill="rgba(5,150,105,0.1)"/><text x="26" y="33" text-anchor="middle" font-size="7" font-weight="700" fill="#047857">G</text></svg></g>
+    <g transform="translate(115, 15)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#059669" stroke-width="1" fill="rgba(5,150,105,0.1)"/><text x="26" y="33" text-anchor="middle" font-size="7" font-weight="700" fill="#047857">H</text></svg></g>
+    <!-- 填補外圈剩餘4顆 -->
+    <g transform="translate(160, 60)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#d97706" stroke-width="1" fill="rgba(217,119,6,0.08)"/></svg></g>
+    <g transform="translate(250, 82)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#d97706" stroke-width="1" fill="rgba(217,119,6,0.08)"/></svg></g>
+    <g transform="translate(250, 127)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#d97706" stroke-width="1" fill="rgba(217,119,6,0.08)"/></svg></g>
+    <g transform="translate(70, 82)"><svg width="60" height="69" x="-30" y="-34" viewBox="0 0 52 60"><path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" stroke="#d97706" stroke-width="1" fill="rgba(217,119,6,0.08)"/></svg></g>
   </svg>
-  <div style="font-size:0.65rem;color:var(--sub);margin-top:8px;">適用：多維度組織診斷（1核心+6支柱+12細項）</div>
+  <div class="note">適用：多維度組織診斷（1 核心 + 6 支柱 + 12 細項）</div>
 </div>
 
-<!-- 語法說明 -->
-<div style="background:white;border-radius:20px;padding:24px;max-width:560px;width:100%;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid rgba(0,0,0,0.05);">
-  <div style="font-size:0.75rem;font-weight:800;color:var(--violet);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px;">圓角六邊形核心語法</div>
-  <pre style="font-size:0.72rem;color:var(--sub);line-height:1.8;font-family:'Courier New',monospace;overflow-x:auto;">
-<b style="color:var(--text);">viewBox="0 0 52 60"</b>  ← 統一比例（六邊形標準 viewBox）
-<b style="color:var(--text);">stroke-width="8"</b>       ← 15% 圓角（stroke-width 越大圓角越大）
-<b style="color:var(--text);">stroke-linejoin="round"</b> ← 圓角關鍵屬性
-<b style="color:var(--text);">stroke-linecap="round"</b> ← 端點圓角
+<!-- ===== 語法說明 ===== -->
+<div class="syntax-box">
+  <div class="syntax-title">📐 標準蜂巢單元語法（技巧 #81）</div>
+  <pre>幾何參數：
+  <b style="color:var(--text);">Side (s)</b> = 30
+  <b style="color:var(--text);">Height</b> = 2s = 60
+  <b style="color:var(--text);">Width</b>  = s×√3 ≈ 52
+  <b style="color:var(--text);">Radius (r)</b> = s×15% = 4.5
+  <b style="color:var(--text);">viewBox</b>  = "0 0 52 60"
 
-路徑（統一）：
-<b style="color:var(--violet);">M13 3 L39 3 L52 18 L52 42 L39 57 L13 57 L0 42 L0 18 Z</b>
+標準路徑（flat-top, pointy-side, Arc 圓角）：
+<b style="color:var(--violet);">M39 5
+ L52 20
+ A4.5 4.5 0 0 0 52 40
+ L39 55
+ A4.5 4.5 0 0 0 26 60
+ L13 55
+ A4.5 4.5 0 0 0 13 45
+ L0 40
+ A4.5 4.5 0 0 0 0 20
+ L13 5
+ A4.5 4.5 0 0 0 26 0
+ L39 5 Z</b>
 
-填充：
-<b style="color:var(--cyan);">fill="rgba(8,145,178,0.12)"</b>  ← 12% 透明度
+屬性：
+<b style="color:var(--cyan);">stroke-width="1"</b>   ← 細線（圓角由 Arc 語法保證）
+<b style="color:var(--cyan);">fill</b> = rgba(hex, 0.10~0.18)  ← 10~18% 透明度
 
-內容（文字置中）：
-<b style="color:var(--emerald);">text-anchor="middle"</b>         ← 水平居中
-<b style="color:var(--emerald);">dominant-baseline="middle"</b>  ← 垂直居中（可選）
-  </pre>
-  <div style="margin-top:12px;font-size:0.68rem;color:var(--sub);font-weight:600;">
-    <span style="color:var(--violet);">Lv.1</span> stroke-width="8" · 
-    <span style="color:var(--cyan);">Lv.2</span> stroke-width="7" · 
-    <span style="color:var(--emerald);">Lv.3</span> stroke-width="7/6" · 
-    <span style="color:var(--amber);">Lv.4</span> stroke-width="7/6/5"
+禁止：
+  ❌ 尖角（禁止 miter）
+  ❌ stroke-linejoin="round" + 粗 stroke 湊圓角
+  ❌ 拉伸變形（viewBox 比例錯誤）
+  ❌ 不規則六邊形</pre>
+  <div class="tag-row">
+    <span style="color:var(--violet);">Lv.1</span> 單體 ·
+    <span style="color:var(--cyan);">Lv.2</span> 3顆倒三角 ·
+    <span style="color:var(--emerald);">Lv.3</span> 7顆六角環繞 ·
+    <span style="color:var(--amber);">Lv.4</span> 19顆雙層
   </div>
 </div>
 
