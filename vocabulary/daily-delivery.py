@@ -14,6 +14,7 @@
 
 import argparse
 import base64
+import importlib.util
 import json
 import re
 import shutil
@@ -473,17 +474,20 @@ def generate_minimax_image(prompt, bear_name, style, output_path, idx, config):
 
 
 def _load_comfy_helpers():
-    if str(COMFY_SCRIPT_DIR) not in sys.path:
-        sys.path.insert(0, str(COMFY_SCRIPT_DIR))
-    from gen_image import (
-        load_workflow,
-        patch_workflow,
-        submit_workflow,
-        poll_status,
-        get_output_images,
-        download_image,
+    module_path = COMFY_SCRIPT_DIR / "gen_image.py"
+    spec = importlib.util.spec_from_file_location("comfy_gen_image", module_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"無法載入 gen_image: {module_path}")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return (
+        mod.load_workflow,
+        mod.patch_workflow,
+        mod.submit_workflow,
+        mod.poll_status,
+        mod.get_output_images,
+        mod.download_image,
     )
-    return load_workflow, patch_workflow, submit_workflow, poll_status, get_output_images, download_image
 
 
 def generate_comfyui_image(prompt, bear_name, style, output_path, idx, config):
@@ -522,6 +526,55 @@ def generate_comfyui_image(prompt, bear_name, style, output_path, idx, config):
     except Exception as e:
         log(f"  ComfyUI 生成失敗: {e}")
         return False
+
+
+def _load_pil_image():
+    """動態載入 Pillow（避免靜態分析器找不到 PIL 套件）。"""
+    try:
+        return importlib.import_module("PIL.Image")
+    except ModuleNotFoundError as e:
+        raise ImportError("請安裝 Pillow: pip install Pillow") from e
+
+
+def generate_thumbnails(source_path, today, collection_no, name):
+    """生成小圖和中圖縮圖
+
+    Args:
+        source_path: 原始圖片路徑
+        today: 日期
+        collection_no: 館藏編號
+        name: 熊熊名字
+
+    Returns:
+        (small_path, medium_path): 小圖和中圖的路徑
+    """
+    Image = _load_pil_image()
+
+    thumbs_dir = PROJECT_DIR / "bears" / today / "thumbs"
+    thumbs_dir.mkdir(parents=True, exist_ok=True)
+
+    small_size = (100, 100)
+    medium_size = (400, 225)
+
+    filename_prefix = f"{collection_no}-{name}"
+    small_path = thumbs_dir / f"{filename_prefix}-s.png"
+    medium_path = thumbs_dir / f"{filename_prefix}-m.png"
+
+    with Image.open(source_path) as img:
+        small_img = img.copy()
+        small_img.thumbnail(small_size, Image.LANCZOS)
+        small_img.save(small_path, "PNG")
+        small_img.close()
+
+        medium_img = img.copy()
+        medium_img.thumbnail(medium_size, Image.LANCZOS)
+        medium_img.save(medium_path, "PNG")
+        medium_img.close()
+
+    return (
+        str(small_path.relative_to(PROJECT_DIR)).replace("\\", "/"),
+        str(medium_path.relative_to(PROJECT_DIR)).replace("\\", "/"),
+    )
 
 
 def add_bears_to_json(new_bears):
@@ -764,44 +817,3 @@ if __name__ == "__main__":
         mode=args.mode,
     )
     main(config)
-
-
-# === 縮圖生成功能 ===
-def generate_thumbnails(source_path, today, collection_no, name):
-    """生成小圖和中圖縮圖
-    
-    Args:
-        source_path: 原始圖片路徑
-        today: 日期
-        collection_no: 館藏編號
-        name: 熊熊名字
-    
-    Returns:
-        (small_path, medium_path): 小圖和中圖的路徑
-    """
-    from PIL import Image
-    
-    thumbs_dir = PROJECT_DIR / "bears" / today / "thumbs"
-    thumbs_dir.mkdir(parents=True, exist_ok=True)
-    
-    small_size = (100, 100)
-    medium_size = (400, 225)
-    
-    filename_prefix = f"{collection_no}-{name}"
-    small_path = thumbs_dir / f"{filename_prefix}-s.png"
-    medium_path = thumbs_dir / f"{filename_prefix}-m.png"
-    
-    with Image.open(source_path) as img:
-        # 小圖：100x100
-        small_img = img.copy()
-        small_img.thumbnail(small_size, Image.LANCZOS)
-        small_img.save(small_path, "PNG")
-        small_img.close()
-        
-        # 中圖：400x225
-        medium_img = img.copy()
-        medium_img.thumbnail(medium_size, Image.LANCZOS)
-        medium_img.save(medium_path, "PNG")
-        medium_img.close()
-    
-    return str(small_path.relative_to(PROJECT_DIR)).replace("\\", "/"), str(medium_path.relative_to(PROJECT_DIR)).replace("\\", "/")
