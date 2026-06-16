@@ -190,7 +190,7 @@ body {
   </div>
   <div class="slide-title">
     <h1>基礎單元</h1>
-    <p>Flat-top · W:H = 1.1547:1 · r = s × 15%</p>
+    <p>Flat-top · W:H = 1.1547:1 · r = s × 15% · Outward Bulge · No Inward Fillet</p>
   </div>
   <div class="slide-body">
     <svg width="480" height="300" viewBox="0 0 480 300">
@@ -729,7 +729,7 @@ body {
   </div>
   <div class="slide-title">
     <h1>圓角六角形幾何標準</h1>
-    <p>Honeycomb Geometry Standard · 技巧 #82</p>
+    <p>Honeycomb Geometry Standard · 技巧 #82 · Outward Bulge · No Inward Fillet</p>
   </div>
   <div class="slide-body" style="flex-direction:column;align-items:center;gap:0;">
     <svg width="560" height="230" viewBox="0 0 560 230">
@@ -760,22 +760,22 @@ body {
         </g>
         <text x="75" y="200" text-anchor="middle" font-size="7.5" fill="var(--sub)">六個頂點皆為外側圓弧</text>
       </g>
-      <!-- 右側：禁止事項 -->
+      <!-- 右側：圓角類型對比 -->
       <g transform="translate(380,20)">
         <rect x="0" y="0" width="170" height="180" rx="12" fill="rgba(244,63,94,0.06)" stroke="rgba(244,63,94,0.2)" stroke-width="1"/>
-        <text x="85" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#f43f5e">禁止事項 ❌</text>
+        <text x="85" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#f43f5e">圓角類型對比</text>
         <line x1="10" y1="28" x2="160" y2="28" stroke="rgba(244,63,94,0.2)" stroke-width="0.5"/>
-        <text x="14" y="46" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>❌ 向內挖空</text>
-        <text x="14" y="62" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>❌ 凹陷形成</text>
-        <text x="14" y="78" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>❌ 破壞六角形輪廓</text>
-        <text x="14" y="94" font-size="8" fill="var(--sub)">圓弧必須向外延伸</text>
-        <text x="14" y="94" font-size="8" fill="var(--sub)">保持凸面輪廓</text>
-        <line x1="10" y1="104" x2="160" y2="104" stroke="rgba(244,63,94,0.2)" stroke-width="0.5"/>
-        <text x="14" y="120" font-size="8" fill="rgba(255,255,255,0.7)" font-weight:600>外側圓弧定義</text>
-        <text x="14" y="136" font-size="8" fill="var(--sub)">使用外側圓弧平滑</text>
-        <text x="14" y="150" font-size="8" fill="var(--sub)">連接相鄰邊線</text>
-        <text x="14" y="164" font-size="8" fill="var(--sub)">圓弧向外凸出</text>
-        <text x="14" y="178" font-size="8" fill="#10b981" font-weight:600">✅ 保持原六角形基本形狀</text>
+        <text x="14" y="46" font-size="8.5" fill="#10b981" font-weight:700>✅ Outward Bulge（正確）</text>
+        <text x="14" y="60" font-size="8" fill="var(--sub)">圓弧向外凸出</text>
+        <text x="14" y="74" font-size="8" fill="var(--sub)">像 UI 頭像框 / 蜂巢</text>
+        <text x="14" y="92" font-size="8.5" fill="#f43f5e" font-weight:700>❌ Inward Fillet（禁止）</text>
+        <text x="14" y="106" font-size="8" fill="var(--sub)">圓弧向內凹陷</text>
+        <text x="14" y="120" font-size="8" fill="var(--sub)">Chamfer / 內凹圓角</text>
+        <line x1="10" y1="128" x2="160" y2="128" stroke="rgba(244,63,94,0.2)" stroke-width="0.5"/>
+        <text x="14" y="144" font-size="8" fill="rgba(255,255,255,0.7)" font-weight:600>外側圓弧向外延伸</text>
+        <text x="14" y="158" font-size="8" fill="var(--sub)">保持凸面輪廓</text>
+        <text x="14" y="172" font-size="8" fill="var(--sub)">不可向內挖空</text>
+        <text x="14" y="178" font-size="0" fill="#10b981" font-weight:600></text>
       </g>
     </svg>
   </div>
