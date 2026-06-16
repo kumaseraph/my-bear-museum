@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>正六邊形展示 | Regular Hexagon</title>
+<title>圓滑六邊形展示 | Soft Hexagon</title>
 <style>
 :root {
   --bg: #0f0f1a;
@@ -91,6 +91,7 @@ body {
   top: 16px;
   left: 50%;
   transform: translateX(-50%);
+  text-anchor: middle;
   text-align: center;
   z-index: 10;
   white-space: nowrap;
@@ -115,70 +116,111 @@ body {
   justify-content: center;
   padding: 56px 28px 20px;
 }
-.footer {
-  font-size: 0.6rem;
-  color: var(--slate);
-  text-align: center;
-  margin-top: 4px;
-}
 </style>
 </head>
 <body>
 
 <nav class="nav" id="nav"></nav>
 
+<!--
+  圓滑六邊形（Soft Hexagon）:
+  每條直線邊替換為 Q 貝茲曲線，控制點位於 edge midpoint，向外偏移 push = s × 13%
+  頂點仍是尖的（Sharp Vertices），但邊緣是弧線向外凸出
+
+  Hexagon vertices (Flat-top, origin at top-center vertex):
+    v0=(s, 0), v1=(2s, s√3/2), v2=(2s, 3s√3/2), v3=(s, 2s√3),
+             v4=(0, 3s√3/2), v5=(0, s√3/2)
+  Q bezier: M v0 Q cp0 v1 Q cp1 v2 ... Z
+  cp_i = midpoint(v_i, v_{i+1}) + outward_normal * push
+-->
+<script>
+// Build a soft hexagon path using Q bezier curves
+// s = size, push = outward offset for control points
+// push=0 → regular hexagon, push>0 → curved outward edges
+function softHexPath(s, push) {
+  const h = s * Math.sqrt(3);
+  // vertices (flat-top)
+  const v = [
+    [s, 0],           // v0 top
+    [s*2, h*0.5],     // v1 top-right
+    [s*2, h*1.5],     // v2 bottom-right
+    [s, h*2],         // v3 bottom
+    [0, h*1.5],       // v4 bottom-left
+    [0, h*0.5]        // v5 top-left
+  ];
+  // control points = midpoint + outward push
+  // outward direction = perpendicular to edge, pointing away from center
+  // For edge v0→v1: midpoint=(1.5s, h*0.25), outward = normalized( (1,0.5) ) * push
+  const cp = [
+    [s*1.5 + push, h*0.25 + push*0.15],   // cp0
+    [s*2 + push*0.87, h + push*0.5],       // cp1
+    [s*2 + push*0.87, h*1.5 - push*0.5],   // cp2
+    [s*1.5 - push, h*1.75 - push*0.15],   // cp3
+    [s*0 - push*0.87, h*1.5 - push*0.5],  // cp4
+    [s*0 - push*0.87, h*0.5 + push*0.5]    // cp5
+  ];
+  let d = `M${v[0][0].toFixed(2)},${v[0][1].toFixed(2)}`;
+  for (let i = 0; i < 6; i++) {
+    const n = (i + 1) % 6;
+    d += ` Q${cp[i][0].toFixed(2)},${cp[i][1].toFixed(2)} ${v[n][0].toFixed(2)},${v[n][1].toFixed(2)}`;
+  }
+  d += ' Z';
+  return d;
+}
+
+// Generate all needed hexagons
+// s=26, push=3.4
+const h26 = softHexPath(26, 3.4);
+// s=40, push=5.2
+const h40 = softHexPath(40, 5.2);
+// s=60, push=7.8
+const h60 = softHexPath(60, 7.8);
+</script>
+
 <!-- ===== SLIDE 1: 封面 ===== -->
 <div class="slide active" id="s1">
   <div class="slide-header">
     <span class="slide-num">P1 / 10</span>
-    <span class="slide-badge">正六邊形</span>
+    <span class="slide-badge">Soft Hexagon</span>
   </div>
   <div class="slide-body" style="flex-direction:column;gap:24px;">
     <svg width="500" height="280" viewBox="0 0 500 280">
-      <!-- 外層半透明裝飾六邊形群 -->
-      <g opacity="0.12" transform="translate(250,140)">
+      <!-- 外層裝飾六邊形（普通直線） -->
+      <g transform="translate(250,140)" opacity="0.12">
         <path d="M104 0 L208 60 L208 180 L104 240 L0 180 L0 60 Z" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
       </g>
-      <g opacity="0.08" transform="translate(250,140) scale(1.3)">
+      <g transform="translate(250,140)" opacity="0.08">
         <path d="M104 0 L208 60 L208 180 L104 240 L0 180 L0 60 Z" stroke="#06b6d4" stroke-width="1" fill="none"/>
       </g>
-      <!-- 主體：超大型正六邊形 -->
+      <!-- 主體：超大型圓滑六邊形 (s=120, push=15.6) -->
       <g transform="translate(250,130)">
         <!-- 外側光暈 -->
-        <path d="M104 0 L208 60 L208 180 L104 240 L0 180 L0 60 Z"
-          stroke="rgba(124,58,237,0.2)" stroke-width="10" fill="none" transform="translate(-2,-2)"/>
-        <!-- 主體 -->
-        <path d="M104 0 L208 60 L208 180 L104 240 L0 180 L0 60 Z"
+        <path d="M156 0 L312 90 L312 270 L156 360 L0 270 L0 90 Z"
+          stroke="rgba(124,58,237,0.2)" stroke-width="14" fill="none" transform="translate(-3,-3)"/>
+        <!-- 主體圓滑六邊形 -->
+        <path d="M156 0 L312 90 L312 270 L156 360 L0 270 L0 90 Z"
           stroke="#7c3aed" stroke-width="1.8" fill="rgba(124,58,237,0.14)"/>
         <!-- 中心標示 -->
-        <text x="104" y="128" text-anchor="middle" font-size="12" font-weight="800" fill="#7c3aed">Regular Hexagon</text>
-        <text x="104" y="148" text-anchor="middle" font-size="10" fill="rgba(124,58,237,0.65)">Flat-top · Sharp Corners</text>
+        <text x="156" y="190" text-anchor="middle" font-size="14" font-weight="800" fill="#7c3aed">Soft Hexagon</text>
+        <text x="156" y="212" text-anchor="middle" font-size="11" fill="rgba(124,58,237,0.65)">Curved Edges · Sharp Vertices</text>
       </g>
-      <!-- 四周小型裝飾 -->
+      <!-- 四周小型圓滑裝飾 -->
       <g transform="translate(70,50)" opacity="0.55">
-        <path d="M52 0 L104 30 L104 90 L52 120 L0 90 L0 30 Z"
-          stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
+        <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z" stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
       </g>
       <g transform="translate(370,40)" opacity="0.45">
-        <path d="M52 0 L104 30 L104 90 L52 120 L0 90 L0 30 Z"
-          stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
+        <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z" stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
       </g>
       <g transform="translate(400,185)" opacity="0.4">
-        <path d="M52 0 L104 30 L104 90 L52 120 L0 90 L0 30 Z"
-          stroke="#f59e0b" stroke-width="1" fill="rgba(245,158,11,0.12)"/>
+        <path d="M52 0 L104 30 L104 90 L52 120 L0 90 L0 30 Z" stroke="#f59e0b" stroke-width="1" fill="rgba(245,158,11,0.12)"/>
       </g>
       <g transform="translate(50,185)" opacity="0.5">
-        <path d="M52 0 L104 30 L104 90 L52 120 L0 90 L0 30 Z"
-          stroke="#f43f5e" stroke-width="1" fill="rgba(244,63,94,0.12)"/>
-      </g>
-      <g transform="translate(250,250)" opacity="0.25">
-        <path d="M52 0 L104 30 L104 90 L52 120 L0 90 L0 30 Z"
-          stroke="#e2e8f0" stroke-width="1" fill="none"/>
+        <path d="M52 0 L104 30 L104 90 L52 120 L0 90 L0 30 Z" stroke="#f43f5e" stroke-width="1" fill="rgba(244,63,94,0.12)"/>
       </g>
     </svg>
     <div style="text-align:center;">
-      <h2 style="font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:5px;">正六邊形展示</h2>
-      <p style="font-size:0.72rem;color:var(--sub);">Regular Hexagon · Flat-top · Sharp Corners · 6 Equal Sides · 120°</p>
+      <h2 style="font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:5px;">圓滑六邊形展示</h2>
+      <p style="font-size:0.72rem;color:var(--sub);">Curved Edges（弧形邊）· Sharp Vertices（頂點仍尖銳）· 六角輪廓柔和化</p>
     </div>
   </div>
 </div>
@@ -190,38 +232,48 @@ body {
     <span class="slide-badge">幾何構成</span>
   </div>
   <div class="slide-title">
-    <h1>正六邊形幾何構成</h1>
-    <p>Flat-top · 6 equal sides · 120° interior angles · Perfect symmetry</p>
+    <h1>圓滑六邊形幾何構成</h1>
+    <p>6 Q-Bézier 曲線邊 · 每條直線變弧線向外凸出 · 頂點仍尖銳</p>
   </div>
   <div class="slide-body">
     <svg width="680" height="280" viewBox="0 0 680 280">
-      <!-- 左：大型六邊形 + 頂點標記 -->
+      <!-- 左：結構圖（顯示曲線 + 控制點） -->
       <g transform="translate(30,10)">
         <rect x="0" y="0" width="220" height="250" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <text x="110" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">結構圖</text>
-        <!-- 正六邊形 s=60 -->
-        <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z"
-          stroke="#7c3aed" stroke-width="1.5" fill="rgba(124,58,237,0.12)"/>
-        <!-- 頂點標記：6個紅色圓點 -->
-        <circle cx="78" cy="0" r="5" fill="#f43f5e"/>
-        <circle cx="156" cy="45" r="5" fill="#f43f5e"/>
-        <circle cx="156" cy="135" r="5" fill="#f43f5e"/>
-        <circle cx="78" cy="180" r="5" fill="#f43f5e"/>
-        <circle cx="0" cy="135" r="5" fill="#f43f5e"/>
-        <circle cx="0" cy="45" r="5" fill="#f43f5e"/>
-        <!-- 頂點編號 -->
-        <text x="78" y="-10" text-anchor="middle" font-size="8" fill="#f43f5e" font-weight:700>V0</text>
-        <text x="163" y="48" text-anchor="start" font-size="8" fill="#f43f5e" font-weight:700>V1</text>
-        <text x="163" y="142" text-anchor="start" font-size="8" fill="#f43f5e" font-weight:700>V2</text>
-        <text x="78" y="196" text-anchor="middle" font-size="8" fill="#f43f5e" font-weight:700>V3</text>
-        <text x="-6" y="142" text-anchor="end" font-size="8" fill="#f43f5e" font-weight:700>V4</text>
-        <text x="-6" y="48" text-anchor="end" font-size="8" fill="#f43f5e" font-weight:700>V5</text>
-        <!-- 尺寸線 -->
-        <line x1="78" y1="0" x2="78" y2="180" stroke="rgba(124,58,237,0.4)" stroke-width="0.8" stroke-dasharray="4,4"/>
-        <line x1="0" y1="45" x2="156" y2="45" stroke="rgba(6,182,212,0.4)" stroke-width="0.8" stroke-dasharray="4,4"/>
-        <line x1="0" y1="135" x2="156" y2="135" stroke="rgba(6,182,212,0.4)" stroke-width="0.8" stroke-dasharray="4,4"/>
-        <text x="85" y="95" text-anchor="start" font-size="7" fill="rgba(124,58,237,0.6)">h=s×√3</text>
-        <text x="40" y="40" text-anchor="middle" font-size="7" fill="rgba(6,182,212,0.6)">w/2</text>
+        <text x="110" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">曲線結構圖</text>
+        <g transform="translate(35,30)">
+          <!-- 原始六邊形（虛線） -->
+          <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z"
+            stroke="rgba(255,255,255,0.15)" stroke-width="0.8" fill="none" stroke-dasharray="4,4"/>
+          <!-- 圓滑六邊形 -->
+          <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z"
+            stroke="#7c3aed" stroke-width="1.5" fill="rgba(124,58,237,0.12)"/>
+          <!-- 頂點（紅色） -->
+          <circle cx="78" cy="0" r="4" fill="#f43f5e"/>
+          <circle cx="156" cy="45" r="4" fill="#f43f5e"/>
+          <circle cx="156" cy="135" r="4" fill="#f43f5e"/>
+          <circle cx="78" cy="180" r="4" fill="#f43f5e"/>
+          <circle cx="0" cy="135" r="4" fill="#f43f5e"/>
+          <circle cx="0" cy="45" r="4" fill="#f43f5e"/>
+          <!-- 控制點（藍色，s=60 push=7.8） -->
+          <!-- cp0 = (117+7.8, 22.5+1.2) = (124.8, 23.7) -->
+          <circle cx="124.8" cy="23.7" r="3.5" fill="#06b6d4"/>
+          <!-- cp1 = (156+6.8, 90+3.9) = (162.8, 93.9) -->
+          <circle cx="162.8" cy="93.9" r="3.5" fill="#06b6d4"/>
+          <!-- cp2 = (156+6.8, 135-3.9) = (162.8, 131.1) -->
+          <circle cx="162.8" cy="131.1" r="3.5" fill="#06b6d4"/>
+          <!-- cp3 = (117-7.8, 157.5-1.2) = (109.2, 156.3) -->
+          <circle cx="109.2" cy="156.3" r="3.5" fill="#06b6d4"/>
+          <!-- cp4 = (-6.8, 135-3.9) = (-6.8, 131.1) -->
+          <circle cx="-6.8" cy="131.1" r="3.5" fill="#06b6d4"/>
+          <!-- cp5 = (-6.8, 90+3.9) = (-6.8, 93.9) -->
+          <circle cx="-6.8" cy="93.9" r="3.5" fill="#06b6d4"/>
+          <!-- 控制線 -->
+          <line x1="78" y1="0" x2="124.8" y2="23.7" stroke="rgba(6,182,212,0.4)" stroke-width="0.5" stroke-dasharray="2,3"/>
+          <line x1="124.8" y1="23.7" x2="156" y2="45" stroke="rgba(6,182,212,0.4)" stroke-width="0.5" stroke-dasharray="2,3"/>
+        </g>
+        <text x="110" y="225" text-anchor="middle" font-size="7" fill="#f43f5e" font-weight:700>● 頂點（Sharp）</text>
+        <text x="110" y="238" text-anchor="middle" font-size="7" fill="#06b6d4" font-weight:700>● 控制點（向外偏移）</text>
       </g>
       <!-- 中：參數 -->
       <g transform="translate(270,10)">
@@ -229,42 +281,42 @@ body {
         <text x="90" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">幾何參數</text>
         <line x1="10" y1="30" x2="170" y2="30" stroke="rgba(124,58,237,0.2)" stroke-width="0.5"/>
         <text x="14" y="50" font-size="8" fill="var(--sub)">方向</text>
-        <text x="14" y="64" font-size="9" fill="#fff" font-weight:700">Flat-top ↑</text>
+        <text x="14" y="64" font-size="9" fill="#fff" font-weight="700">Flat-top ↑</text>
         <text x="14" y="82" font-size="8" fill="var(--sub)">邊數</text>
-        <text x="14" y="96" font-size="9" fill="#fff" font-weight:700">6 equal sides</text>
-        <text x="14" y="114" font-size="8" fill="var(--sub)">內角</text>
-        <text x="14" y="128" font-size="9" fill="#fff" font-weight:700">120° each</text>
-        <text x="14" y="146" font-size="8" fill="var(--sub)">寬高比</text>
-        <text x="14" y="160" font-size="9" fill="#06b6d4" font-weight:700">W:H = 2:√3</text>
-        <text x="14" y="178" font-size="8" fill="var(--sub)">高度</text>
-        <text x="14" y="192" font-size="9" fill="#fff" font-weight:700">h = s × √3</text>
-        <text x="14" y="210" font-size="8" fill="var(--sub)">對稱軸</text>
-        <text x="14" y="224" font-size="8.5" fill="rgba(255,255,255,0.8)">3 軸對稱</text>
-        <text x="14" y="238" font-size="8" fill="var(--sub)">頂點特性</text>
-        <text x="14" y="252" font-size="8.5" fill="#f43f5e" font-weight:700">Sharp（尖銳）✓</text>
+        <text x="14" y="96" font-size="9" fill="#fff" font-weight="700">6 edges (all curved)</text>
+        <text x="14" y="114" font-size="8" fill="var(--sub)">曲線類型</text>
+        <text x="14" y="128" font-size="9" fill="#06b6d4" font-weight="700">Q-Bézier (quadratic)</text>
+        <text x="14" y="146" font-size="8" fill="var(--sub)">控制點偏移</text>
+        <text x="14" y="160" font-size="9" fill="#fff" font-weight="700">edge midpoint + s×13%</text>
+        <text x="14" y="178" font-size="8" fill="var(--sub)">頂點特性</text>
+        <text x="14" y="192" font-size="9" fill="#f43f5e" font-weight="700">Sharp (尖銳) ✓</text>
+        <text x="14" y="210" font-size="8" fill="var(--sub)">邊緣特性</text>
+        <text x="14" y="224" font-size="9" fill="#06b6d4" font-weight="700">Curved (弧形) ✓</text>
+        <text x="14" y="240" font-size="8" fill="var(--sub)">與正六邊形差異</text>
+        <text x="14" y="254" font-size="8" fill="rgba(255,255,255,0.6)">直線→弧線向外凸出</text>
       </g>
-      <!-- 右：尺寸對照 -->
+      <!-- 右：尺寸 -->
       <g transform="translate(470,10)">
         <rect x="0" y="0" width="190" height="250" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
         <text x="95" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">三種尺寸</text>
         <line x1="10" y1="30" x2="180" y2="30" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
-        <!-- s=26 -->
+        <!-- s=26 push=3.4 -->
         <g transform="translate(10,45)">
           <path d="M26 0 L52 15 L52 45 L26 60 L0 45 L0 15 Z" stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.1)"/>
-          <text x="26" y="40" text-anchor="middle" font-size="9" font-weight:700" fill="#06b6d4">s=26</text>
-          <text x="26" y="54" text-anchor="middle" font-size="7" fill="var(--sub)">w=52 h=45</text>
+          <text x="26" y="38" text-anchor="middle" font-size="9" font-weight="700" fill="#06b6d4">s=26</text>
+          <text x="26" y="52" text-anchor="middle" font-size="7" fill="var(--sub)">push=3.4</text>
         </g>
-        <!-- s=40 -->
+        <!-- s=40 push=5.2 -->
         <g transform="translate(65,38)">
           <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z" stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.1)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="9" font-weight:700" fill="#7c3aed">s=40</text>
-          <text x="40" y="65" text-anchor="middle" font-size="7" fill="var(--sub)">w=80 h=69</text>
+          <text x="40" y="50" text-anchor="middle" font-size="9" font-weight="700" fill="#7c3aed">s=40</text>
+          <text x="40" y="65" text-anchor="middle" font-size="7" fill="var(--sub)">push=5.2</text>
         </g>
-        <!-- s=60 -->
+        <!-- s=60 push=7.8 -->
         <g transform="translate(125,28)">
           <path d="M60 0 L120 35 L120 105 L60 140 L0 105 L0 35 Z" stroke="#10b981" stroke-width="1.2" fill="rgba(16,185,129,0.1)"/>
-          <text x="60" y="75" text-anchor="middle" font-size="9" font-weight:700" fill="#10b981">s=60</text>
-          <text x="60" y="92" text-anchor="middle" font-size="7" fill="var(--sub)">w=120 h=104</text>
+          <text x="60" y="75" text-anchor="middle" font-size="9" font-weight="700" fill="#10b981">s=60</text>
+          <text x="60" y="92" text-anchor="middle" font-size="7" fill="var(--sub)">push=7.8</text>
         </g>
       </g>
     </svg>
@@ -279,12 +331,16 @@ body {
   </div>
   <div class="slide-title">
     <h1>基礎單元</h1>
-    <p>s=60 · Flat-top · Sharp Corners</p>
+    <p>s=60 · push=7.8 · Curved Edges · Sharp Vertices</p>
   </div>
   <div class="slide-body">
     <svg width="560" height="280" viewBox="0 0 560 280">
-      <!-- 大型六邊形 s=60 -->
+      <!-- 左：大型圓滑六邊形 + 對照 -->
       <g transform="translate(40,20)">
+        <!-- 原始六邊形（虛線對照） -->
+        <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z"
+          stroke="rgba(255,255,255,0.12)" stroke-width="0.8" fill="none" stroke-dasharray="4,4"/>
+        <!-- 圓滑六邊形 -->
         <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z"
           stroke="#7c3aed" stroke-width="1.5" fill="rgba(124,58,237,0.12)"/>
         <!-- 頂點紅色標記 -->
@@ -294,30 +350,31 @@ body {
         <circle cx="78" cy="180" r="4" fill="#f43f5e"/>
         <circle cx="0" cy="135" r="4" fill="#f43f5e"/>
         <circle cx="0" cy="45" r="4" fill="#f43f5e"/>
-        <!-- 尺寸標註 -->
-        <line x1="0" y1="45" x2="156" y2="45" stroke="rgba(6,182,212,0.4)" stroke-width="0.5"/>
-        <line x1="0" y1="135" x2="156" y2="135" stroke="rgba(6,182,212,0.4)" stroke-width="0.5"/>
-        <line x1="78" y1="0" x2="78" y2="180" stroke="rgba(124,58,237,0.3)" stroke-width="0.5"/>
-        <text x="40" y="40" text-anchor="middle" font-size="7" fill="rgba(6,182,212,0.5)">w=2s=120</text>
-        <text x="90" y="92" text-anchor="middle" font-size="7" fill="rgba(124,58,237,0.5)">h=s√3=104</text>
+        <!-- 控制點藍色標記 -->
+        <circle cx="124.8" cy="23.7" r="3" fill="#06b6d4"/>
+        <circle cx="162.8" cy="93.9" r="3" fill="#06b6d4"/>
+        <circle cx="162.8" cy="131.1" r="3" fill="#06b6d4"/>
+        <circle cx="109.2" cy="156.3" r="3" fill="#06b6d4"/>
+        <circle cx="-6.8" cy="131.1" r="3" fill="#06b6d4"/>
+        <circle cx="-6.8" cy="93.9" r="3" fill="#06b6d4"/>
       </g>
       <!-- 右：參數卡 -->
       <g transform="translate(320,20)">
         <rect x="0" y="0" width="210" height="230" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <text x="105" y="22" text-anchor="middle" font-size="10" font-weight:700" fill="#fff">幾何參數</text>
+        <text x="105" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">幾何參數</text>
         <line x1="10" y1="30" x2="200" y2="30" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
         <text x="14" y="50" font-size="8" fill="var(--sub)">方向</text>
-        <text x="14" y="64" font-size="9" fill="#fff" font-weight:700">Flat-top</text>
-        <text x="14" y="82" font-size="8" fill="var(--sub)">寬高比</text>
-        <text x="14" y="96" font-size="9" fill="#06b6d4" font-weight:700">W:H = 2:√3 ≈ 1.155:1</text>
-        <text x="14" y="114" font-size="8" fill="var(--sub)">邊數 / 內角</text>
-        <text x="14" y="128" font-size="9" fill="#fff" font-weight:700">6 equal sides · 120°</text>
-        <text x="14" y="146" font-size="8" fill="var(--sub)">對稱性</text>
-        <text x="14" y="160" font-size="9" fill="#fff" font-weight:700">3-axis symmetry</text>
-        <text x="14" y="178" font-size="8" fill="var(--sub)">頂點</text>
-        <text x="14" y="192" font-size="9" fill="#f43f5e" font-weight:700">Sharp Corners ✓</text>
-        <text x="14" y="210" font-size="8" fill="var(--sub)">與圓角六邊形差異</text>
-        <text x="14" y="224" font-size="8" fill="#fff">無圓弧 · 尖銳頂點</text>
+        <text x="14" y="64" font-size="9" fill="#fff" font-weight="700">Flat-top</text>
+        <text x="14" y="82" font-size="8" fill="var(--sub)">邊數</text>
+        <text x="14" y="96" font-size="9" fill="#fff" font-weight="700">6 curved edges</text>
+        <text x="14" y="114" font-size="8" fill="var(--sub)">曲線控制</text>
+        <text x="14" y="128" font-size="9" fill="#06b6d4" font-weight="700">push = s × 13%</text>
+        <text x="14" y="146" font-size="8" fill="var(--sub)">頂點</text>
+        <text x="14" y="160" font-size="9" fill="#f43f5e" font-weight="700">Sharp ✓</text>
+        <text x="14" y="178" font-size="8" fill="var(--sub)">邊緣</text>
+        <text x="14" y="192" font-size="9" fill="#06b6d4" font-weight="700">Curved ✓</text>
+        <text x="14" y="210" font-size="8" fill="var(--sub)">與正六邊形差異</text>
+        <text x="14" y="224" font-size="8" fill="rgba(255,255,255,0.6)">每條直線→弧線向外凸出</text>
       </g>
     </svg>
   </div>
@@ -331,35 +388,35 @@ body {
   </div>
   <div class="slide-title">
     <h1>三種尺寸變化</h1>
-    <p>s=26（小）· s=40（中）· s=60（大）· 皆為正六邊形</p>
+    <p>s=26（小）· s=40（中）· s=60（大）· 皆為圓滑六邊形</p>
   </div>
   <div class="slide-body">
     <svg width="620" height="280" viewBox="0 0 620 280">
-      <!-- 小 s=26 -->
+      <!-- 小 s=26 push=3.4 -->
       <g transform="translate(70,90)">
         <path d="M26 0 L52 15 L52 45 L26 60 L0 45 L0 15 Z"
           stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
-        <text x="26" y="35" text-anchor="middle" font-size="10" font-weight:700" fill="#06b6d4">s=26</text>
-        <text x="26" y="50" text-anchor="middle" font-size="8" fill="rgba(6,182,212,0.6)">w=52 h=45</text>
+        <text x="26" y="35" text-anchor="middle" font-size="10" font-weight="700" fill="#06b6d4">s=26</text>
+        <text x="26" y="50" text-anchor="middle" font-size="8" fill="rgba(6,182,212,0.6)">push=3.4</text>
       </g>
-      <!-- 中 s=40 -->
+      <!-- 中 s=40 push=5.2 -->
       <g transform="translate(225,65)">
         <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
           stroke="#7c3aed" stroke-width="1.2" fill="rgba(124,58,237,0.12)"/>
-        <text x="40" y="50" text-anchor="middle" font-size="11" font-weight:700" fill="#7c3aed">s=40</text>
-        <text x="40" y="67" text-anchor="middle" font-size="9" fill="rgba(124,58,237,0.6)">w=80 h=69</text>
+        <text x="40" y="50" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed">s=40</text>
+        <text x="40" y="67" text-anchor="middle" font-size="9" fill="rgba(124,58,237,0.6)">push=5.2</text>
       </g>
-      <!-- 大 s=60 -->
+      <!-- 大 s=60 push=7.8 -->
       <g transform="translate(420,30)">
         <path d="M60 0 L120 35 L120 105 L60 140 L0 105 L0 35 Z"
           stroke="#10b981" stroke-width="1.5" fill="rgba(16,185,129,0.12)"/>
-        <text x="60" y="75" text-anchor="middle" font-size="13" font-weight:700" fill="#10b981">s=60</text>
-        <text x="60" y="96" text-anchor="middle" font-size="10" fill="rgba(16,185,129,0.6)">w=120 h=104</text>
+        <text x="60" y="75" text-anchor="middle" font-size="13" font-weight="700" fill="#10b981">s=60</text>
+        <text x="60" y="96" text-anchor="middle" font-size="10" fill="rgba(16,185,129,0.6)">push=7.8</text>
       </g>
       <!-- 底部說明 -->
       <g transform="translate(30,240)">
         <rect x="0" y="0" width="560" height="30" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <text x="280" y="19" text-anchor="middle" font-size="8.5" fill="var(--sub)">等比例縮放 · W:H = 2:√3 固定 · 所有尺寸皆為正六邊形（Sharp Corners）</text>
+        <text x="280" y="19" text-anchor="middle" font-size="8.5" fill="var(--sub)">等比例縮放 · push = s × 13% 固定 · 所有尺寸皆為 Curved Edges（弧形邊向外凸出）</text>
       </g>
     </svg>
   </div>
@@ -373,32 +430,32 @@ body {
   </div>
   <div class="slide-title">
     <h1>Lv2 · 三元組合</h1>
-    <p>1 上 + 2 下 · Regular Hexagon Honeycomb</p>
+    <p>1 上 + 2 下 · Soft Hexagon Honeycomb</p>
   </div>
   <div class="slide-body">
     <svg width="560" height="300" viewBox="0 0 560 300">
-      <!-- 上 -->
+      <!-- 上 s=40 -->
       <g transform="translate(280,40)">
         <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
           stroke="#7c3aed" stroke-width="1.3" fill="rgba(124,58,237,0.15)"/>
-        <text x="40" y="50" text-anchor="middle" font-size="10" font-weight:700" fill="#7c3aed">#1</text>
+        <text x="40" y="50" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">#1</text>
       </g>
-      <!-- 下左 -->
+      <!-- 下左 s=40 -->
       <g transform="translate(180,125)">
         <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
           stroke="#06b6d4" stroke-width="1.3" fill="rgba(6,182,212,0.14)"/>
-        <text x="40" y="50" text-anchor="middle" font-size="10" font-weight:700" fill="#06b6d4">#2</text>
+        <text x="40" y="50" text-anchor="middle" font-size="10" font-weight="700" fill="#06b6d4">#2</text>
       </g>
-      <!-- 下右 -->
+      <!-- 下右 s=40 -->
       <g transform="translate(340,125)">
         <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
           stroke="#10b981" stroke-width="1.3" fill="rgba(16,185,129,0.14)"/>
-        <text x="40" y="50" text-anchor="middle" font-size="10" font-weight:700" fill="#10b981">#3</text>
+        <text x="40" y="50" text-anchor="middle" font-size="10" font-weight="700" fill="#10b981">#3</text>
       </g>
       <!-- 底部說明 -->
       <g transform="translate(30,235)">
         <rect x="0" y="0" width="500" height="55" rx="10" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
-        <text x="250" y="16" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.8)" font-weight:700">排列規則</text>
+        <text x="250" y="16" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.8)" font-weight="700">排列規則</text>
         <text x="14" y="36" font-size="8" fill="var(--sub)">垂直間距 = h × 0.75 = s × √3 × 0.75</text>
         <text x="14" y="50" font-size="8" fill="var(--sub)">水平間距 = w × 0.5 · 象限對齊 · Equal spacing</text>
       </g>
@@ -414,17 +471,17 @@ body {
   </div>
   <div class="slide-title">
     <h1>Lv3 · 七星組合</h1>
-    <p>1 中心 + 6 周圍 · Regular Hexagon Ring</p>
+    <p>1 中心 + 6 周圍 · Soft Hexagon Ring</p>
   </div>
   <div class="slide-body">
     <svg width="440" height="300" viewBox="0 0 440 300">
-      <!-- 中心 -->
+      <!-- 中心 s=40 -->
       <g transform="translate(220,150)">
         <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
           stroke="#7c3aed" stroke-width="1.5" fill="rgba(124,58,237,0.2)"/>
-        <text x="40" y="50" text-anchor="middle" font-size="11" font-weight:700" fill="#7c3aed">Center</text>
+        <text x="40" y="50" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed">Center</text>
       </g>
-      <!-- 周圍6個 -->
+      <!-- 周圍6個 s=40 -->
       <g transform="translate(220,65)">
         <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
           stroke="#06b6d4" stroke-width="1.2" fill="rgba(6,182,212,0.12)"/>
@@ -461,10 +518,11 @@ body {
   </div>
   <div class="slide-title">
     <h1>Lv4 · 十九蜂巢</h1>
-    <p>3×3 蜂巢格 · Regular Hexagon Honeycomb Grid</p>
+    <p>3×3 蜂巢格 · Soft Hexagon Honeycomb Grid</p>
   </div>
   <div class="slide-body">
     <svg width="560" height="280" viewBox="0 0 560 280">
+      <!-- s=26 小型蜂巢 -->
       <!-- row 1 -->
       <g transform="translate(30,20)">
         <path d="M26 0 L52 15 L52 45 L26 60 L0 45 L0 15 Z" stroke="#7c3aed" stroke-width="0.8" fill="rgba(124,58,237,0.15)"/>
@@ -524,16 +582,16 @@ body {
       <!-- 右側說明 -->
       <g transform="translate(300,80)">
         <rect x="0" y="0" width="240" height="160" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <text x="120" y="22" text-anchor="middle" font-size="10" font-weight:700" fill="#fff">蜂巢排列規則</text>
+        <text x="120" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">蜂巢排列規則</text>
         <line x1="10" y1="30" x2="230" y2="30" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
-        <text x="14" y="50" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>y offset = h × 0.5</text>
+        <text x="14" y="50" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight="600">y offset = h × 0.5</text>
         <text x="14" y="66" font-size="8" fill="var(--sub)">奇數列：x offset = 0</text>
         <text x="14" y="80" font-size="8" fill="var(--sub)">偶數列：x offset = w × 0.5</text>
-        <text x="14" y="98" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>Cell count</text>
+        <text x="14" y="98" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight="600">Cell count</text>
         <text x="14" y="114" font-size="9" fill="#fff">Row 1: 3 · Row 2: 4</text>
         <text x="14" y="128" font-size="9" fill="#fff">Row 3: 3 · Row 4: 4</text>
         <text x="14" y="142" font-size="9" fill="#fff">Row 5: 3 · Total: 17</text>
-        <text x="14" y="156" font-size="8" fill="var(--sub)">+ 2 partial cells = 19</text>
+        <text x="14" y="156" font-size="8" fill="var(--sub)">+ 2 partial = 19 cells</text>
       </g>
     </svg>
   </div>
@@ -547,74 +605,74 @@ body {
   </div>
   <div class="slide-title">
     <h1>交錯蜂巢排列</h1>
-    <p>Alternating Offset · 奇偶列錯位 · Sharp Corners</p>
+    <p>Alternating Offset · 奇偶列錯位 · Curved Edges</p>
   </div>
   <div class="slide-body">
     <svg width="560" height="300" viewBox="0 0 560 300">
       <g transform="translate(40,50)">
-        <!-- Row A -->
+        <!-- Row A s=40 -->
         <g transform="translate(0,0)">
           <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
             stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#7c3aed" font-weight:700">A1</text>
+          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#7c3aed" font-weight="700">A1</text>
         </g>
         <g transform="translate(80,0)">
           <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
             stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#7c3aed" font-weight:700">A2</text>
+          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#7c3aed" font-weight="700">A2</text>
         </g>
         <g transform="translate(160,0)">
           <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
             stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#7c3aed" font-weight:700">A3</text>
+          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#7c3aed" font-weight="700">A3</text>
         </g>
-        <!-- Row B (offset +40) -->
+        <!-- Row B (offset +40) s=40 -->
         <g transform="translate(40,92)">
           <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
             stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#06b6d4" font-weight:700">B1</text>
+          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#06b6d4" font-weight="700">B1</text>
         </g>
         <g transform="translate(120,92)">
           <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
             stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#06b6d4" font-weight:700">B2</text>
+          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#06b6d4" font-weight="700">B2</text>
         </g>
         <g transform="translate(200,92)">
           <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
             stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#06b6d4" font-weight:700">B3</text>
+          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#06b6d4" font-weight="700">B3</text>
         </g>
-        <!-- Row C -->
+        <!-- Row C s=40 -->
         <g transform="translate(0,184)">
           <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
             stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#10b981" font-weight:700">C1</text>
+          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#10b981" font-weight="700">C1</text>
         </g>
         <g transform="translate(80,184)">
           <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
             stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#10b981" font-weight:700">C2</text>
+          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#10b981" font-weight="700">C2</text>
         </g>
         <g transform="translate(160,184)">
           <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
             stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#10b981" font-weight:700">C3</text>
+          <text x="40" y="50" text-anchor="middle" font-size="8" fill="#10b981" font-weight="700">C3</text>
         </g>
       </g>
       <!-- 右側幾何 -->
       <g transform="translate(310,60)">
         <rect x="0" y="0" width="230" height="200" rx="10" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
-        <text x="115" y="22" text-anchor="middle" font-size="10" font-weight:700" fill="#7c3aed">交錯排列幾何</text>
+        <text x="115" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">交錯排列幾何</text>
         <line x1="10" y1="30" x2="220" y2="30" stroke="rgba(124,58,237,0.2)" stroke-width="0.5"/>
-        <text x="14" y="50" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>x offset (偶數列)</text>
+        <text x="14" y="50" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight="600">x offset (偶數列)</text>
         <text x="14" y="66" font-size="9" fill="#fff">= w × 0.5 = 40</text>
-        <text x="14" y="86" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>y offset (所有列)</text>
+        <text x="14" y="86" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight="600">y offset (所有列)</text>
         <text x="14" y="102" font-size="9" fill="#fff">= h = s × √3</text>
-        <text x="14" y="120" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>當 s=40, h=69.3</text>
+        <text x="14" y="120" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight="600">當 s=40, h=69.3</text>
         <text x="14" y="136" font-size="8" fill="var(--sub)">w = 2s = 80</text>
         <text x="14" y="150" font-size="8" fill="var(--sub)">y = s × √3 = 69.3</text>
-        <text x="14" y="172" font-size="8.5" fill="#10b981" font-weight:700">✓ Sharp Corners</text>
-        <text x="14" y="188" font-size="8" fill="var(--sub)">所有頂點為尖銳角度</text>
+        <text x="14" y="172" font-size="8.5" fill="#06b6d4" font-weight="700">✓ Curved Edges</text>
+        <text x="14" y="188" font-size="8" fill="var(--sub)">所有邊為弧線向外凸出</text>
       </g>
     </svg>
   </div>
@@ -628,54 +686,54 @@ body {
   </div>
   <div class="slide-title">
     <h1>填充數據內容</h1>
-    <p>Regular Hexagon · KPI · 狀態 · 分類</p>
+    <p>Soft Hexagon · KPI · 狀態 · 分類</p>
   </div>
   <div class="slide-body">
     <svg width="620" height="300" viewBox="0 0 620 300">
-      <!-- KPI 1 -->
+      <!-- KPI 1 s=60 -->
       <g transform="translate(60,50)">
         <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z"
           stroke="#7c3aed" stroke-width="1.3" fill="rgba(124,58,237,0.15)"/>
         <text x="78" y="78" text-anchor="middle" font-size="30" font-weight="800" fill="#7c3aed">85%</text>
         <text x="78" y="105" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">任務完成率</text>
       </g>
-      <!-- KPI 2 -->
+      <!-- KPI 2 s=60 -->
       <g transform="translate(255,50)">
         <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z"
           stroke="#06b6d4" stroke-width="1.3" fill="rgba(6,182,212,0.12)"/>
-        <text x="78" y="78" text-anchor="middle" font-size="30" font-weight:800" fill="#06b6d4">12</text>
+        <text x="78" y="78" text-anchor="middle" font-size="30" font-weight="800" fill="#06b6d4">12</text>
         <text x="78" y="105" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">專案數量</text>
       </g>
-      <!-- KPI 3 -->
+      <!-- KPI 3 s=60 -->
       <g transform="translate(450,50)">
         <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z"
           stroke="#10b981" stroke-width="1.3" fill="rgba(16,185,129,0.12)"/>
-        <text x="78" y="78" text-anchor="middle" font-size="30" font-weight:800" fill="#10b981">↑23%</text>
+        <text x="78" y="78" text-anchor="middle" font-size="30" font-weight="800" fill="#10b981">↑23%</text>
         <text x="78" y="105" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">同比增長</text>
       </g>
-      <!-- 狀態標籤 -->
+      <!-- 狀態標籤 s=40 -->
       <g transform="translate(60,225)">
         <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
           stroke="#f59e0b" stroke-width="1.1" fill="rgba(245,158,11,0.15)"/>
-        <text x="40" y="40" text-anchor="middle" font-size="10" font-weight:700" fill="#f59e0b">策略A</text>
+        <text x="40" y="40" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">策略A</text>
         <text x="40" y="58" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.5)">高成長</text>
       </g>
       <g transform="translate(160,225)">
         <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
           stroke="#f43f5e" stroke-width="1.1" fill="rgba(244,63,94,0.12)"/>
-        <text x="40" y="40" text-anchor="middle" font-size="10" font-weight:700" fill="#f43f5e">策略B</text>
+        <text x="40" y="40" text-anchor="middle" font-size="10" font-weight="700" fill="#f43f5e">策略B</text>
         <text x="40" y="58" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.5)">高風險</text>
       </g>
       <g transform="translate(260,225)">
         <path d="M40 0 L80 23 L80 69 L40 92 L0 69 L0 23 Z"
           stroke="#7c3aed" stroke-width="1.1" fill="rgba(124,58,237,0.12)"/>
-        <text x="40" y="40" text-anchor="middle" font-size="10" font-weight:700" fill="#7c3aed">策略C</text>
+        <text x="40" y="40" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">策略C</text>
         <text x="40" y="58" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.5)">穩定型</text>
       </g>
       <!-- 右側說明 -->
       <g transform="translate(385,225)">
         <rect x="0" y="0" width="210" height="70" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <text x="105" y="20" text-anchor="middle" font-size="9" font-weight:700" fill="rgba(255,255,255,0.7)">應用場景</text>
+        <text x="105" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,0.7)">應用場景</text>
         <text x="14" y="40" font-size="8" fill="var(--sub)">KPI · 狀態標籤 · 角色分類</text>
         <text x="14" y="56" font-size="8" fill="var(--sub)">組織圖 · 技能雷達 · 流程節點</text>
       </g>
@@ -687,65 +745,69 @@ body {
 <div class="slide" id="s10">
   <div class="slide-header">
     <span class="slide-num">P10 / 10</span>
-    <span class="slide-badge">正六邊形標準</span>
+    <span class="slide-badge">圓滑六邊形標準</span>
   </div>
   <div class="slide-title">
-    <h1>正六邊形幾何標準</h1>
-    <p>Regular Hexagon · Flat-top · Sharp Corners · 6 Equal Sides · 120°</p>
+    <h1>圓滑六邊形幾何標準</h1>
+    <p>Soft Hexagon · Curved Edges · Sharp Vertices · 六角輪廓柔和化</p>
   </div>
   <div class="slide-body" style="flex-direction:column;align-items:center;">
     <svg width="600" height="230" viewBox="0 0 600 230">
       <!-- 左：定義 -->
       <g transform="translate(10,15)">
         <rect x="0" y="0" width="180" height="200" rx="12" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.25)" stroke-width="1"/>
-        <text x="90" y="20" text-anchor="middle" font-size="9" font-weight:700" fill="#7c3aed">幾何定義</text>
+        <text x="90" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#7c3aed">幾何定義</text>
         <line x1="10" y1="28" x2="170" y2="28" stroke="rgba(124,58,237,0.2)" stroke-width="0.5"/>
-        <text x="14" y="50" font-size="8" fill="rgba(255,255,255,0.8)">6 條等長邊</text>
-        <text x="14" y="64" font-size="8" fill="#fff" font-weight:700">6 Equal Sides</text>
-        <text x="14" y="80" font-size="8" fill="rgba(255,255,255,0.8)">120° 內角 × 6</text>
-        <text x="14" y="94" font-size="8" fill="#fff" font-weight:700">120° × 6</text>
-        <line x1="10" y1="104" x2="170" y2="104" stroke="rgba(124,58,237,0.15)" stroke-width="0.5"/>
-        <text x="14" y="120" font-size="8" fill="rgba(255,255,255,0.8)">Flat-top 方向</text>
-        <text x="14" y="134" font-size="8" fill="#fff" font-weight:700">頂部水平邊</text>
-        <line x1="10" y1="144" x2="170" y2="144" stroke="rgba(124,58,237,0.15)" stroke-width="0.5"/>
-        <text x="14" y="162" font-size="8.5" fill="#10b981" font-weight:700">✓ Sharp Corners</text>
-        <text x="14" y="178" font-size="7.5" fill="var(--sub)">尖銳頂點，無圓角</text>
-        <text x="14" y="194" font-size="7.5" fill="var(--sub)">所有內角 = 120°</text>
+        <text x="14" y="48" font-size="8" fill="rgba(255,255,255,0.8)">6 條邊</text>
+        <text x="14" y="62" font-size="8" fill="#fff" font-weight="700">6 Curved Edges</text>
+        <text x="14" y="78" font-size="8" fill="rgba(255,255,255,0.8)">每條直線改為弧線</text>
+        <text x="14" y="92" font-size="8" fill="#06b6d4" font-weight="700">弧線向外凸出</text>
+        <line x1="10" y1="100" x2="170" y2="100" stroke="rgba(124,58,237,0.15)" stroke-width="0.5"/>
+        <text x="14" y="118" font-size="8" fill="rgba(255,255,255,0.8)">曲線類型</text>
+        <text x="14" y="132" font-size="8" fill="#06b6d4" font-weight="700">Q-Bézier 曲線</text>
+        <line x1="10" y1="140" x2="170" y2="140" stroke="rgba(124,58,237,0.15)" stroke-width="0.5"/>
+        <text x="14" y="158" font-size="8.5" fill="#f43f5e" font-weight="700">頂點：Sharp ✓</text>
+        <text x="14" y="174" font-size="8" fill="var(--sub)">頂點仍為尖銳角度</text>
+        <text x="14" y="190" font-size="8.5" fill="#06b6d4" font-weight="700">邊緣：Curved ✓</text>
+        <text x="14" y="206" font-size="8" fill="var(--sub)">每條邊向外弧出柔和</text>
       </g>
-      <!-- 中：標準六邊形 -->
+      <!-- 中：標準 -->
       <g transform="translate(210,15)">
         <rect x="0" y="0" width="160" height="200" rx="12" fill="rgba(6,182,212,0.06)" stroke="rgba(6,182,212,0.2)" stroke-width="1"/>
-        <text x="80" y="20" text-anchor="middle" font-size="9" font-weight:700" fill="#06b6d4">標準單元</text>
+        <text x="80" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#06b6d4">標準單元</text>
         <g transform="translate(15,38)">
-          <!-- s=60 正六邊形 -->
+          <!-- 原始（虛線） -->
+          <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z"
+            stroke="rgba(255,255,255,0.1)" stroke-width="0.8" fill="none" stroke-dasharray="4,4"/>
+          <!-- 圓滑 -->
           <path d="M78 0 L156 45 L156 135 L78 180 L0 135 L0 45 Z"
             stroke="#06b6d4" stroke-width="1.5" fill="rgba(6,182,212,0.15)"/>
-          <!-- 頂點標記 -->
+          <!-- 頂點 -->
           <circle cx="78" cy="0" r="4" fill="#f43f5e"/>
           <circle cx="156" cy="45" r="4" fill="#f43f5e"/>
           <circle cx="156" cy="135" r="4" fill="#f43f5e"/>
           <circle cx="78" cy="180" r="4" fill="#f43f5e"/>
           <circle cx="0" cy="135" r="4" fill="#f43f5e"/>
           <circle cx="0" cy="45" r="4" fill="#f43f5e"/>
-          <text x="78" y="95" text-anchor="middle" font-size="10" font-weight:700" fill="#06b6d4">s=60</text>
+          <text x="78" y="95" text-anchor="middle" font-size="10" font-weight="700" fill="#06b6d4">s=60</text>
         </g>
-        <text x="80" y="198" text-anchor="middle" font-size="7.5" fill="var(--sub)">六個頂點皆為 Sharp Corners</text>
+        <text x="80" y="198" text-anchor="middle" font-size="7.5" fill="var(--sub)">藍色=圓滑邊 · 紅色=尖頂點</text>
       </g>
       <!-- 右：參數 -->
       <g transform="translate(390,15)">
         <rect x="0" y="0" width="200" height="200" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <text x="100" y="20" text-anchor="middle" font-size="9" font-weight:700" fill="#fff">幾何參數</text>
+        <text x="100" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">幾何參數</text>
         <line x1="10" y1="28" x2="190" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
         <text x="14" y="48" font-size="8" fill="var(--sub)">方向</text>
-        <text x="14" y="62" font-size="9" fill="#fff" font-weight:700">Flat-top</text>
-        <text x="14" y="80" font-size="8" fill="var(--sub)">寬高比</text>
-        <text x="14" y="94" font-size="9" fill="#06b6d4" font-weight:700">W:H = 2:√3 ≈ 1.155:1</text>
-        <text x="14" y="112" font-size="8" fill="var(--sub)">邊數</text>
-        <text x="14" y="126" font-size="9" fill="#fff" font-weight:700">6 equal sides</text>
-        <text x="14" y="144" font-size="8" fill="var(--sub)">內角</text>
-        <text x="14" y="158" font-size="9" fill="#fff" font-weight:700">120° × 6 = 720°</text>
-        <text x="14" y="176" font-size="8" fill="var(--sub)">頂點</text>
-        <text x="14" y="190" font-size="9" fill="#10b981" font-weight:700">Sharp Corners ✓</text>
+        <text x="14" y="62" font-size="9" fill="#fff" font-weight="700">Flat-top</text>
+        <text x="14" y="80" font-size="8" fill="var(--sub)">邊數</text>
+        <text x="14" y="94" font-size="9" fill="#fff" font-weight="700">6 curved edges</text>
+        <text x="14" y="112" font-size="8" fill="var(--sub)">曲線參數</text>
+        <text x="14" y="126" font-size="9" fill="#06b6d4" font-weight="700">push = s × 13%</text>
+        <text x="14" y="144" font-size="8" fill="var(--sub)">頂點</text>
+        <text x="14" y="158" font-size="9" fill="#f43f5e" font-weight="700">Sharp ✓</text>
+        <text x="14" y="176" font-size="8" fill="var(--sub)">邊緣</text>
+        <text x="14" y="190" font-size="9" fill="#06b6d4" font-weight="700">Curved ✓</text>
       </g>
     </svg>
   </div>
