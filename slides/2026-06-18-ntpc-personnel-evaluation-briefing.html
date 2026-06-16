@@ -27,20 +27,18 @@ body { font-family: 'Segoe UI', 'Microsoft JhengHei', system-ui, sans-serif; bac
 .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
 .slide-tag { background: var(--primary); color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; padding: 3px 12px; border-radius: 20px; }
 .slide-number { font-size: 11px; color: var(--text-light); font-weight: 600; }
-h1 { font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 800; line-height: 1.1; }
 h2 { font-size: clamp(1.2rem, 2.2vw, 1.8rem); font-weight: 700; color: var(--text); margin-bottom: 18px; }
 h3 { font-size: 13px; font-weight: 800; color: var(--text); }
 p { font-size: 13px; color: var(--text-light); line-height: 1.7; }
-.card { background: var(--white); border-radius: var(--radius-md); box-shadow: 0 2px 12px rgba(44,74,124,0.07); }
 
-/* ===== SLIDE 1: COVER — X型構圖 + 幾何方圓對比 ===== */
+/* ===== SLIDE 1: COVER — 放射狀圓形圖騰 + 圓環疊加 ===== */
 .s1-cover { background: var(--primary); justify-content: center; align-items: center; text-align: center; }
-.s1-cover .x-tl { position: absolute; top: 0; left: 0; width: 260px; height: 260px; }
-.s1-cover .x-tr { position: absolute; top: 0; right: 0; width: 200px; height: 200px; }
-.s1-cover .x-bl { position: absolute; bottom: 0; left: 0; width: 200px; height: 200px; }
-.s1-cover .x-br { position: absolute; bottom: 0; right: 0; width: 260px; height: 260px; }
-.s1-cover .x-center-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 300px; height: 300px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.1); }
-.s1-org { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 0.2em; margin-bottom: 14px; text-transform: uppercase; }
+.s1-cover .s1-deco-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; border: 1px solid rgba(255,255,255,0.08); pointer-events: none; }
+.s1-cover .s1-deco-ring.r1 { width: 500px; height: 500px; }
+.s1-cover .s1-deco-ring.r2 { width: 700px; height: 700px; border-color: rgba(255,255,255,0.05); }
+.s1-cover .s1-deco-ring.r3 { width: 900px; height: 900px; border-color: rgba(255,255,255,0.03); }
+.s1-cover .s1-center-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+.s1-org { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 0.2em; margin-bottom: 14px; text-transform: uppercase; position: relative; z-index: 2; }
 .s1-title { font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 900; color: white; line-height: 1.15; position: relative; z-index: 2; }
 .s1-year { background: var(--accent); color: white; font-size: 1.1rem; font-weight: 900; padding: 1px 14px; border-radius: 6px; margin: 0 2px; }
 .s1-sub { font-size: 1.1rem; color: rgba(255,255,255,0.65); margin-top: 14px; position: relative; z-index: 2; }
@@ -50,102 +48,111 @@ p { font-size: 13px; color: var(--text-light); line-height: 1.7; }
 .s1-info-card .val { font-size: 13px; font-weight: 700; color: white; margin-top: 2px; }
 .s1-footer { position: absolute; bottom: 28px; font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.05em; }
 
-/* ===== SLIDE 2: STRATEGIC CHAIN — 垂直階梯時間軸 ===== */
+/* ===== SLIDE 2: STRATEGIC CHAIN — 圓形放射狀時間軸 ===== */
 .s2-chain { background: var(--bg); }
-.s2-chain-wrap { display: flex; flex-direction: column; gap: 0; flex: 1; justify-content: center; }
-.s2-stage { display: flex; align-items: stretch; margin-bottom: 10px; }
-.s2-stage-left { width: 120px; border-radius: var(--radius-md) 0 0 var(--radius-md); padding: 14px; display: flex; flex-direction: column; justify-content: center; text-align: center; flex-shrink: 0; color: white; }
-.s2-stage-left.s2a { background: var(--primary); }
-.s2-stage-left.s2b { background: var(--primary-light); }
-.s2-stage-left.s2c { background: var(--accent2); }
-.s2-stage .snum { font-size: 10px; font-weight: 700; opacity: 0.65; }
-.s2-stage .stitle { font-size: 14px; font-weight: 900; margin-top: 3px; }
-.s2-stage-right { flex: 1; background: var(--white); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 13px 22px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(44,74,124,0.06); border-left: 3px solid var(--secondary); }
-.s2-stage-right h4 { font-size: 14px; font-weight: 800; color: var(--text); }
-.s2-stage-right p { font-size: 12px; color: var(--text-light); margin-top: 2px; }
-.s2-arrow { display: flex; justify-content: center; padding: 2px 0; }
+.s2-radial { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; }
+.s2-center-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 120px; height: 120px; border-radius: 50%; background: var(--primary); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 4px 20px rgba(44,74,124,0.2); }
+.s2-center-circle .cc-title { font-size: 12px; font-weight: 900; color: white; text-align: center; line-height: 1.3; }
+.s2-orbit { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; border: 1.5px dashed rgba(44,74,124,0.15); }
+.s2-orbit.o1 { width: 340px; height: 340px; }
+.s2-orbit.o2 { width: 520px; height: 520px; }
+.s2-orbit.o3 { width: 700px; height: 700px; }
+.s2-node { position: absolute; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.s2-node .node-circle { width: 56px; height: 56px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: 800; box-shadow: 0 3px 12px rgba(0,0,0,0.12); margin-bottom: 6px; }
+.s2-node .node-circle .n-num { font-size: 14px; font-weight: 900; line-height: 1; }
+.s2-node .node-title { font-size: 12px; font-weight: 800; color: var(--text); }
+.s2-node .node-desc { font-size: 10px; color: var(--text-light); max-width: 110px; line-height: 1.4; }
+.s2-node.n1 { top: 5%; left: 50%; transform: translateX(-50%); }
+.s2-node.n2 { top: 50%; right: 3%; transform: translateY(-50%); }
+.s2-node.n3 { bottom: 5%; left: 50%; transform: translateX(-50%); }
+.s2-node.n4 { top: 50%; left: 3%; transform: translateY(-50%); }
 
-/* ===== SLIDE 3: SIX DIMS — 蜂巢六角格佈局 ===== */
+/* ===== SLIDE 3: SIX DIMS — 環形放射六格 ===== */
 .s3-dims { background: var(--bg); }
-.s3-honeycomb-grid { display: flex; flex-direction: column; align-items: center; margin-top: 10px; flex: 1; justify-content: center; }
-.s3-hex-row { display: flex; gap: 10px; margin-bottom: 8px; }
-.s3-hex-row.center-row { margin-left: 66px; }
-.s3-hex { background: var(--white); border-radius: var(--radius-md); padding: 14px 12px; width: 150px; box-shadow: 0 2px 12px rgba(44,74,124,0.07); border-top: 3px solid var(--primary); display: flex; flex-direction: column; gap: 4px; }
-.s3-hex .hnum { font-size: 22px; font-weight: 900; color: var(--secondary); line-height: 1; }
-.s3-hex .hlen { font-size: 9px; color: var(--text-light); font-weight: 600; }
-.s3-hex .htitle { font-size: 13px; font-weight: 800; color: var(--text); }
-.s3-hex .hdesc { font-size: 11px; color: var(--text-light); line-height: 1.4; }
-.s3-hex.green-top { border-top-color: var(--accent2); }
-.s3-hex.green-top .hnum { color: var(--accent2); }
-.s3-hex.orange-top { border-top-color: var(--accent); }
-.s3-hex.orange-top .hnum { color: var(--accent); }
+.s3-ring-wrap { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; }
+.s3-ring-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 130px; height: 130px; border-radius: 50%; background: var(--primary); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 4px 20px rgba(44,74,124,0.2); }
+.s3-ring-center .rc-year { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.6); letter-spacing: 0.1em; }
+.s3-ring-center .rc-org { font-size: 11px; font-weight: 900; color: white; margin-top: 2px; text-align: center; line-height: 1.3; }
+.s3-orbit-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; border: 1.5px dashed rgba(44,74,124,0.12); }
+.s3-orbit-ring.or1 { width: 360px; height: 360px; }
+.s3-orbit-ring.or2 { width: 560px; height: 560px; }
+.s3-orbit-ring.or3 { width: 760px; height: 760px; }
+.s3-hex-node { position: absolute; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.s3-hex-node .hex-badge { width: 72px; height: 72px; background: var(--white); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 3px 14px rgba(44,74,124,0.1); border: 2.5px solid var(--secondary); }
+.s3-hex-node .hex-badge .hb-num { font-size: 18px; font-weight: 900; color: var(--primary); line-height: 1; }
+.s3-hex-node .hex-badge .hb-len { font-size: 8px; color: var(--text-light); font-weight: 600; }
+.s3-hex-node .hex-title { font-size: 11px; font-weight: 800; color: var(--text); margin-top: 5px; }
+.s3-hex-node .hex-desc { font-size: 9px; color: var(--text-light); max-width: 90px; line-height: 1.4; }
+.s3-hex-node.green .hex-badge { border-color: var(--accent2); }
+.s3-hex-node.green .hex-badge .hb-num { color: var(--accent2); }
+.s3-hex-node.orange .hex-badge { border-color: var(--accent); }
+.s3-hex-node.orange .hex-badge .hb-num { color: var(--accent); }
 
-/* ===== SLIDE 4: TEAM — 三色卡片 + 圓形裝飾 ===== */
+/* ===== SLIDE 4: TEAM — 圓形人物排列 ===== */
 .s4-team { background: var(--bg); }
-.s4-team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 10px; flex: 1; }
-.s4-card { background: var(--white); border-radius: var(--radius-md); overflow: hidden; box-shadow: 0 2px 12px rgba(44,74,124,0.07); display: flex; flex-direction: column; }
-.s4-card-hdr { padding: 11px 18px; font-size: 11px; font-weight: 800; color: white; display: flex; align-items: center; gap: 8px; }
-.s4-card-hdr.blue { background: var(--primary); }
-.s4-card-hdr.orange { background: var(--accent); }
-.s4-card-hdr.green { background: var(--accent2); }
-.s4-card-body { padding: 14px 18px; flex: 1; }
-.s4-person { display: flex; flex-direction: column; gap: 1px; margin-bottom: 12px; }
-.s4-person:last-child { margin-bottom: 0; }
-.s4-person .name { font-size: 14px; font-weight: 800; color: var(--text); }
-.s4-person .role { font-size: 11px; color: var(--text-light); line-height: 1.4; }
-.s4-person .note { font-size: 10px; color: var(--accent); font-weight: 600; margin-top: 1px; }
-.s4-person .note.green { color: var(--accent2); }
-.s4-deco { position: absolute; bottom: 0; right: 0; width: 180px; height: 180px; opacity: 0.06; }
+.s4-circle-layout { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; }
+.s4-center-orbit { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 160px; height: 160px; border-radius: 50%; background: var(--primary); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; box-shadow: 0 4px 20px rgba(44,74,124,0.2); }
+.s4-center-orbit .cc-label { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: 0.1em; }
+.s4-center-orbit .cc-name { font-size: 14px; font-weight: 900; color: white; margin-top: 3px; }
+.s4-person-orbit { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; border: 1.5px dashed rgba(44,74,124,0.12); }
+.s4-person-orbit.po1 { width: 380px; height: 380px; }
+.s4-person-orbit.po2 { width: 580px; height: 580px; }
+.s4-person-card { position: absolute; background: var(--white); border-radius: var(--radius-md); padding: 10px 14px; box-shadow: 0 3px 14px rgba(44,74,124,0.08); display: flex; flex-direction: column; gap: 2px; min-width: 130px; }
+.s4-person-card .pc-role { font-size: 9px; font-weight: 700; color: white; padding: 2px 8px; border-radius: 10px; display: inline-block; width: fit-content; }
+.s4-person-card .pc-name { font-size: 13px; font-weight: 800; color: var(--text); }
+.s4-person-card .pc-title { font-size: 10px; color: var(--text-light); line-height: 1.4; }
+.s4-person-card .pc-note { font-size: 9px; font-weight: 600; margin-top: 2px; }
+.s4-person-card .pc-note.orange { color: var(--accent); }
+.s4-person-card .pc-note.green { color: var(--accent2); }
 
-/* ===== SLIDE 5: AGENDA — 雙軌時間軸 ===== */
+/* ===== SLIDE 5: AGENDA — 橢圓弧形時間軸 ===== */
 .s5-agenda { background: var(--bg); }
-.s5-timeline { position: relative; margin-top: 10px; flex: 1; display: flex; flex-direction: column; gap: 0; }
-.s5-track { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--gray); transform: translateX(-50%); }
-.s5-row { display: flex; margin-bottom: 14px; position: relative; min-height: 70px; }
-.s5-row-left { flex: 1; padding-right: 36px; text-align: right; }
-.s5-row-right { flex: 1; padding-left: 36px; }
-.s5-node { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; color: white; z-index: 2; border: 3px solid var(--bg); }
-.s5-node.blue { background: var(--primary); }
-.s5-node.green { background: var(--accent2); }
-.s5-node.orange { background: var(--accent); }
-.s5-content { background: var(--white); border-radius: var(--radius-md); padding: 12px 16px; box-shadow: 0 2px 10px rgba(44,74,124,0.06); }
-.s5-content h4 { font-size: 13px; font-weight: 800; color: var(--text); }
-.s5-content p { font-size: 11px; color: var(--text-light); margin-top: 2px; }
-.s5-content .time-tag { display: inline-block; font-size: 10px; font-weight: 800; padding: 1px 8px; border-radius: 4px; margin-right: 6px; }
-.s5-content .time-tag.blue { background: rgba(44,74,124,0.1); color: var(--primary); }
-.s5-content .time-tag.green { background: rgba(122,158,126,0.2); color: var(--accent2); }
+.s5-arc-wrap { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; }
+.s5-arc-path { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 700px; height: 280px; border: 2px solid rgba(44,74,124,0.1); border-radius: 50%; border-bottom: none; }
+.s5-arc-dot { position: absolute; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900; color: white; z-index: 2; border: 3px solid var(--bg); }
+.s5-arc-card { position: absolute; background: var(--white); border-radius: var(--radius-md); padding: 8px 14px; box-shadow: 0 3px 12px rgba(44,74,124,0.08); min-width: 130px; }
+.s5-arc-card h4 { font-size: 12px; font-weight: 800; color: var(--text); }
+.s5-arc-card p { font-size: 10px; color: var(--text-light); margin-top: 2px; }
+.s5-arc-card .time-chip { display: inline-block; font-size: 9px; font-weight: 800; padding: 1px 7px; border-radius: 4px; margin-right: 5px; }
+.s5-arc-card .time-chip.blue { background: rgba(44,74,124,0.1); color: var(--primary); }
+.s5-arc-card .time-chip.green { background: rgba(122,158,126,0.2); color: var(--accent2); }
 
-/* ===== SLIDE 6: MATRIX — 環形進度 + 卡片矩陣 ===== */
+/* ===== SLIDE 6: MATRIX — 斜向階梯卡片 ===== */
 .s6-matrix { background: var(--bg); }
-.s6-matrix-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 10px; }
-.s6-mcard { background: var(--white); border-radius: var(--radius-md); overflow: hidden; box-shadow: 0 2px 12px rgba(44,74,124,0.07); }
-.s6-mcard-hdr { padding: 10px 14px; font-size: 11px; font-weight: 800; color: white; display: flex; align-items: center; gap: 7px; }
+.s6-staggered { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 10px 0; }
+.s6-row { display: flex; gap: 14px; align-items: center; }
+.s6-row:nth-child(odd) { padding-left: 30px; }
+.s6-row:nth-child(even) { padding-left: 0; }
+.s6-row:nth-child(even) { flex-direction: row-reverse; padding-right: 30px; }
+.s6-mcard { background: var(--white); border-radius: var(--radius-md); overflow: hidden; box-shadow: 0 3px 14px rgba(44,74,124,0.08); flex: 1; min-width: 0; }
+.s6-mcard-hdr { padding: 9px 14px; font-size: 11px; font-weight: 800; color: white; display: flex; align-items: center; gap: 7px; }
 .s6-mcard-hdr.c1 { background: var(--primary); }
 .s6-mcard-hdr.c2 { background: var(--accent); }
 .s6-mcard-hdr.c3 { background: var(--accent2); }
 .s6-mcard-body { padding: 10px 14px; }
-.s6-mrow { display: flex; gap: 6px; margin-bottom: 8px; font-size: 10px; }
+.s6-mrow { display: flex; gap: 6px; margin-bottom: 7px; font-size: 10px; }
 .s6-mrow:last-child { margin-bottom: 0; }
-.s6-mrow-hdr { font-weight: 800; width: 32px; flex-shrink: 0; padding-top: 3px; }
+.s6-mrow-hdr { font-weight: 800; width: 28px; flex-shrink: 0; padding-top: 3px; }
 .s6-mrow-hdr.am { color: var(--primary); }
 .s6-mrow-hdr.pm { color: var(--accent2); }
 .s6-mcell { background: rgba(44,74,124,0.05); border-radius: 4px; padding: 3px 6px; flex: 1; min-width: 0; }
-.s6-mcell .mc-name { font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.s6-mcell .mc-name { font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 10px; }
 .s6-mcell .mc-role { color: var(--text-light); font-size: 9px; }
 .s6-mcell .mc-note { color: var(--accent2); font-size: 9px; font-weight: 600; }
 .s6-mcell .mc-note.orange { color: var(--accent); }
 
-/* ===== SLIDE 7: CLOSING — 方圓幾何裝飾 ===== */
+/* ===== SLIDE 7: CLOSING — 圓形放射 + 六邊形點綴 ===== */
 .s7-closing { background: var(--primary); justify-content: center; align-items: center; text-align: center; }
-.s7-deco-1 { position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,0.06); }
-.s7-deco-2 { position: absolute; bottom: -100px; left: -60px; width: 400px; height: 400px; border-radius: 50%; background: rgba(255,255,255,0.05); }
-.s7-deco-hex { position: absolute; top: 30px; left: 40px; opacity: 0.12; }
-.s7-deco-hex2 { position: absolute; bottom: 30px; right: 40px; opacity: 0.12; }
+.s7-deco-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; border: 1px solid rgba(255,255,255,0.07); pointer-events: none; }
+.s7-deco-ring.dr1 { width: 500px; height: 500px; }
+.s7-deco-ring.dr2 { width: 750px; height: 750px; border-color: rgba(255,255,255,0.04); }
+.s7-deco-ring.dr3 { width: 1000px; height: 1000px; border-color: rgba(255,255,255,0.02); }
+.s7-hex-deco { position: absolute; opacity: 0.15; }
 .s7-closing-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: white; position: relative; z-index: 2; }
 .s7-closing-sub { font-size: 1rem; color: rgba(255,255,255,0.6); margin-top: 12px; position: relative; z-index: 2; }
 .s7-mission { background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-md); padding: 18px 32px; margin-top: 28px; position: relative; z-index: 2; }
 .s7-mission p { font-size: 15px; color: white; font-weight: 600; line-height: 1.7; }
-.s7-tags { display: flex; gap: 10px; justify-content: center; margin-top: 16px; position: relative; z-index: 2; }
+.s7-tags { display: flex; gap: 10px; justify-content: center; margin-top: 16px; position: relative; z-index: 2; flex-wrap: wrap; }
 .s7-tag { background: rgba(255,255,255,0.1); border-radius: 20px; padding: 5px 14px; font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 600; }
 
 /* NAV */
@@ -156,30 +163,29 @@ p { font-size: 13px; color: var(--text-light); line-height: 1.7; }
 </head>
 <body>
 
-<!-- SLIDE 1: COVER — X型構圖 + 方圓幾何對比（#7 #58 #86） -->
+<!-- SLIDE 1: COVER — 放射狀圓形圖騰 + 多層圓環（#86 #7） -->
 <div class="slide s1-cover" id="s1">
-  <!-- X型四角幾何裝飾：左上圓角方、右上圓形、左下圓形、右下圓角方 -->
-  <svg class="x-tl" viewBox="0 0 260 260">
-    <rect x="10" y="10" width="240" height="240" rx="20" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-    <circle cx="130" cy="130" r="80" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-    <circle cx="130" cy="130" r="50" fill="rgba(232,168,124,0.15)"/>
+  <div class="s1-deco-ring r3"></div>
+  <div class="s1-deco-ring r2"></div>
+  <div class="s1-deco-ring r1"></div>
+  <div class="s1-center-dot"></div>
+  <!-- 放射狀小圓點裝飾 -->
+  <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(255,255,255,0.04)" stroke-width="0.3"/>
+    <line x1="5" y1="50" x2="95" y2="50" stroke="rgba(255,255,255,0.04)" stroke-width="0.3"/>
+    <line x1="15" y1="15" x2="85" y2="85" stroke="rgba(255,255,255,0.03)" stroke-width="0.3"/>
+    <line x1="85" y1="15" x2="15" y2="85" stroke="rgba(255,255,255,0.03)" stroke-width="0.3"/>
+    <circle cx="50" cy="15" r="2" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="50" cy="85" r="2" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="15" cy="50" r="2" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="85" cy="50" r="2" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="22" cy="22" r="1.5" fill="rgba(232,168,124,0.4)"/>
+    <circle cx="78" cy="22" r="1.5" fill="rgba(122,158,126,0.4)"/>
+    <circle cx="22" cy="78" r="1.5" fill="rgba(122,158,126,0.4)"/>
+    <circle cx="78" cy="78" r="1.5" fill="rgba(232,168,124,0.4)"/>
   </svg>
-  <svg class="x-tr" viewBox="0 0 200 200">
-    <circle cx="100" cy="100" r="90" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-    <rect x="30" y="30" width="140" height="140" rx="12" fill="rgba(255,255,255,0.05)"/>
-  </svg>
-  <svg class="x-bl" viewBox="0 0 200 200">
-    <circle cx="100" cy="100" r="85" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-    <circle cx="100" cy="100" r="55" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  </svg>
-  <svg class="x-br" viewBox="0 0 260 260">
-    <rect x="10" y="10" width="240" height="240" rx="30" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-    <circle cx="130" cy="130" r="60" fill="rgba(122,158,126,0.15)"/>
-    <circle cx="130" cy="130" r="35" fill="rgba(255,255,255,0.1)"/>
-  </svg>
-  <div class="x-center-circle"></div>
   <div class="s1-org">新北市政府</div>
-  <h1 class="s1-title"><span class="s1-year">115</span>年員額評鑑<br>行前會議簡報</h1>
+  <h1 class="s1-title" style="font-size:clamp(2.4rem,5vw,3.8rem);font-weight:900;color:white;line-height:1.15;position:relative;z-index:2;"><span class="s1-year">115</span>年員額評鑑<br>行前會議簡報</h1>
   <p class="s1-sub">體育局及動物保護防疫處 實地評鑑</p>
   <div class="s1-info">
     <div class="s1-info-card">
@@ -198,429 +204,311 @@ p { font-size: 13px; color: var(--text-light); line-height: 1.7; }
   <div class="s1-footer">新北市政府 115年員額評鑑行前會議</div>
 </div>
 
-<!-- SLIDE 2: STRATEGIC CHAIN — 垂直階梯時間軸 + 圓角色塊（#70 #40） -->
+<!-- SLIDE 2: STRATEGIC CHAIN — 圓形放射狀時間軸（#86 #7） -->
 <div class="slide s2-chain" id="s2">
   <div class="slide-header">
     <span class="slide-tag">評鑑戰略</span>
     <span class="slide-number">02 / 07</span>
   </div>
   <h2>評鑑戰略價值鏈：從診斷到控管</h2>
-  <div class="s2-chain-wrap">
-    <div class="s2-stage">
-      <div class="s2-stage-left s2a">
-        <div class="snum">STAGE 1</div>
-        <div class="stitle">現況診斷</div>
-      </div>
-      <div class="s2-stage-right">
-        <div>
-          <h4>實地了解機關各面向運作狀況</h4>
-          <p>發掘現行編制與實際業務之落差，全面掌握組織現況</p>
-        </div>
-      </div>
+  <div class="s2-radial">
+    <div class="s2-orbit o3"></div>
+    <div class="s2-orbit o2"></div>
+    <div class="s2-orbit o1"></div>
+    <div class="s2-center-circle">
+      <div class="cc-title">價值鏈<br>核心</div>
     </div>
-    <div class="s2-arrow">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v14M9 16l5-5M9 16L4 11" stroke="#7FB3D3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- 上 -->
+    <div class="s2-node n1">
+      <div class="node-circle" style="background:var(--primary);">
+        <div class="n-num">01</div>
+      </div>
+      <div class="node-title">現況診斷</div>
+      <div class="node-desc">發掘編制與實際業務之落差</div>
     </div>
-    <div class="s2-stage">
-      <div class="s2-stage-left s2b">
-        <div class="snum">STAGE 2</div>
-        <div class="stitle">具體改善</div>
+    <!-- 右 -->
+    <div class="s2-node n2">
+      <div class="node-circle" style="background:var(--accent);">
+        <div class="n-num">02</div>
       </div>
-      <div class="s2-stage-right">
-        <div>
-          <h4>針對機關內部人力問題</h4>
-          <p>提出具體、可執行的改善措施與解方，推動實質優化</p>
-        </div>
-      </div>
+      <div class="node-title">具體改善</div>
+      <div class="node-desc">提出具體可執行改善措施</div>
     </div>
-    <div class="s2-arrow">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v14M9 16l5-5M9 16L4 11" stroke="#7FB3D3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- 下 -->
+    <div class="s2-node n3">
+      <div class="node-circle" style="background:var(--accent2);">
+        <div class="n-num">03</div>
+      </div>
+      <div class="node-title">戰略目標</div>
+      <div class="node-desc">人力運用控管之核心決策參據</div>
     </div>
-    <div class="s2-stage">
-      <div class="s2-stage-left s2c">
-        <div class="snum">STAGE 3</div>
-        <div class="stitle">戰略目標</div>
+    <!-- 左 -->
+    <div class="s2-node n4">
+      <div class="node-circle" style="background:var(--secondary);">
+        <div class="n-num">04</div>
       </div>
-      <div class="s2-stage-right">
-        <div>
-          <h4>人力運用控管之核心決策參據</h4>
-          <p>作為市府各機關「人力運用控管」之核心決策參據，達成長期效益</p>
-        </div>
-      </div>
+      <div class="node-title">效益評估</div>
+      <div class="node-desc">長期效益追蹤與優化</div>
     </div>
   </div>
 </div>
 
-<!-- SLIDE 3: SIX DIMS — 蜂巢六角格佈局（#82 #68） -->
+<!-- SLIDE 3: SIX DIMS — 環形放射六格（#86 #68） -->
 <div class="slide s3-dims" id="s3">
   <div class="slide-header">
     <span class="slide-tag">評鑑維度</span>
     <span class="slide-number">03 / 07</span>
   </div>
   <h2>六大評鑑核心維度</h2>
-  <div class="s3-honeycomb-grid">
-    <div class="s3-hex-row">
-      <div class="s3-hex">
-        <div class="hnum">01</div>
-        <div class="hlen">Organizational</div>
-        <div class="htitle">組織面</div>
-        <div class="hdesc">檢視組織架構與層級合理性</div>
-      </div>
-      <div class="s3-hex orange-top">
-        <div class="hnum">02</div>
-        <div class="hlen">Business / Operations</div>
-        <div class="htitle">業務面</div>
-        <div class="hdesc">盤點核心業務負擔與資源配置</div>
-      </div>
-      <div class="s3-hex green-top">
-        <div class="hnum">03</div>
-        <div class="hlen">Human Resources</div>
-        <div class="htitle">人力面</div>
-        <div class="hdesc">評估現有員額運用效能</div>
-      </div>
+  <div class="s3-ring-wrap">
+    <div class="s3-orbit-ring or3"></div>
+    <div class="s3-orbit-ring or2"></div>
+    <div class="s3-orbit-ring or1"></div>
+    <div class="s3-ring-center">
+      <div class="rc-year">115年</div>
+      <div class="rc-org">體育局<br>動保處</div>
     </div>
-    <div class="s3-hex-row center-row">
-      <div class="s3-hex">
-        <div class="hnum">04</div>
-        <div class="hlen">Financial</div>
-        <div class="htitle">財務面</div>
-        <div class="hdesc">檢驗經費運用與人力成本效益</div>
+    <!-- 6個圓形節點：均分360度 -->
+    <!-- 1: 頂部 -->
+    <div class="s3-hex-node" style="top:2%;left:50%;transform:translateX(-50%);">
+      <div class="hex-badge">
+        <div class="hb-num">01</div>
+        <div class="hb-len">ORG</div>
       </div>
-      <div class="s3-hex orange-top">
-        <div class="hnum">05</div>
-        <div class="hlen">Work Methods &amp; Process</div>
-        <div class="htitle">工作方法與流程面</div>
-        <div class="hdesc">探討行政效率與流程簡化空間</div>
-      </div>
-      <div class="s3-hex green-top">
-        <div class="hnum">06</div>
-        <div class="hlen">Others / Diverse Manpower</div>
-        <div class="htitle">其他 / 多元人力運用</div>
-        <div class="hdesc">檢視非正式人力及委外業務之運用</div>
-      </div>
+      <div class="hex-title">組織面</div>
+      <div class="hex-desc">組織架構與層級合理性</div>
     </div>
-    <div class="s3-hex-row">
-      <div class="s3-hex" style="visibility:hidden;">
-        <div class="hnum">00</div>
+    <!-- 2: 右上60度 -->
+    <div class="s3-hex-node orange" style="top:12%;right:12%;">
+      <div class="hex-badge">
+        <div class="hb-num">02</div>
+        <div class="hb-len">BIZ</div>
       </div>
-      <div class="s3-hex" style="background:rgba(44,74,124,0.04); border-top:3px solid var(--gray);">
-        <div class="hlen">115年</div>
-        <div class="htitle" style="color:var(--text-light);font-size:12px;">體育局 / 動保處</div>
-        <div class="hdesc">實地評鑑</div>
+      <div class="hex-title">業務面</div>
+      <div class="hex-desc">核心業務負擔與資源配置</div>
+    </div>
+    <!-- 3: 右下120度 -->
+    <div class="s3-hex-node green" style="bottom:12%;right:12%;">
+      <div class="hex-badge">
+        <div class="hb-num">03</div>
+        <div class="hb-len">HR</div>
       </div>
-      <div class="s3-hex" style="visibility:hidden;"></div>
+      <div class="hex-title">人力面</div>
+      <div class="hex-desc">現有員額運用效能評估</div>
+    </div>
+    <!-- 4: 底部 -->
+    <div class="s3-hex-node" style="bottom:2%;left:50%;transform:translateX(-50%);">
+      <div class="hex-badge">
+        <div class="hb-num">04</div>
+        <div class="hb-len">FIN</div>
+      </div>
+      <div class="hex-title">財務面</div>
+      <div class="hex-desc">經費運用與人力成本效益</div>
+    </div>
+    <!-- 5: 左下240度 -->
+    <div class="s3-hex-node orange" style="bottom:12%;left:12%;">
+      <div class="hex-badge">
+        <div class="hb-num">05</div>
+        <div class="hb-len">PROC</div>
+      </div>
+      <div class="hex-title">工作方法與流程面</div>
+      <div class="hex-desc">行政效率與流程簡化空間</div>
+    </div>
+    <!-- 6: 左上300度 -->
+    <div class="s3-hex-node green" style="top:12%;left:12%;">
+      <div class="hex-badge">
+        <div class="hb-num">06</div>
+        <div class="hb-len">DIVERSE</div>
+      </div>
+      <div class="hex-title">其他 / 多元人力</div>
+      <div class="hex-desc">非正式人力及委外業務</div>
     </div>
   </div>
 </div>
 
-<!-- SLIDE 4: TEAM — 三色卡片 + 圓形裝飾（#76 #58） -->
+<!-- SLIDE 4: TEAM — 圓形人物排列（#86 #58） -->
 <div class="slide s4-team" id="s4">
   <div class="slide-header">
     <span class="slide-tag">評鑑小組</span>
     <span class="slide-number">04 / 07</span>
   </div>
   <h2>115年核心評鑑小組陣容</h2>
-  <div class="s4-team-grid">
-    <!-- 召集人 -->
-    <div class="s4-card">
-      <div class="s4-card-hdr blue">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="4.5" r="2.5"/><path d="M1.5 12.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
-        召集人
-      </div>
-      <div class="s4-card-body">
-        <div class="s4-person">
-          <div class="name">黃德清</div>
-          <div class="role">新北市政府 參事</div>
-        </div>
-      </div>
-      <svg class="s4-deco" viewBox="0 0 180 180">
-        <circle cx="90" cy="90" r="70" fill="none" stroke="var(--primary)" stroke-width="1"/>
-        <circle cx="90" cy="90" r="45" fill="none" stroke="var(--primary)" stroke-width="1"/>
-        <circle cx="90" cy="90" r="20" fill="var(--primary)" opacity="0.3"/>
-      </svg>
+  <div class="s4-circle-layout">
+    <div class="s4-person-orbit po2"></div>
+    <div class="s4-person-orbit po1"></div>
+    <div class="s4-center-orbit">
+      <div class="cc-label">召集人</div>
+      <div class="cc-name">黃德清</div>
     </div>
-    <!-- 專家學者 -->
-    <div class="s4-card">
-      <div class="s4-card-hdr orange">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="4.5" r="2.5"/><path d="M1.5 12.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
-        專家學者
-      </div>
-      <div class="s4-card-body">
-        <div class="s4-person">
-          <div class="name">呂育誠 教授</div>
-          <div class="role">國立臺北大學 公共行政暨政策學系</div>
-          <div class="note">全日參與</div>
-        </div>
-        <div class="s4-person">
-          <div class="name">葉公鼎 教授</div>
-          <div class="role">國立體育大學 休閒產業經營學系</div>
-          <div class="note">僅參與上午 體育局</div>
-        </div>
-        <div class="s4-person">
-          <div class="name">吳宗憲 教授</div>
-          <div class="role">國立臺南大學 行政管理學系</div>
-          <div class="note">僅參與下午 動保處</div>
-        </div>
-      </div>
-      <svg class="s4-deco" viewBox="0 0 180 180">
-        <rect x="20" y="20" width="140" height="140" rx="16" fill="none" stroke="var(--accent)" stroke-width="1"/>
-        <rect x="40" y="40" width="100" height="100" rx="10" fill="none" stroke="var(--accent)" stroke-width="1"/>
-        <circle cx="90" cy="90" r="30" fill="var(--accent)" opacity="0.25"/>
-      </svg>
+    <!-- 專家學者：上半圈 -->
+    <div class="s4-person-card" style="top:5%;left:50%;transform:translateX(-50%);">
+      <div class="pc-role" style="background:var(--accent);">專家學者</div>
+      <div class="pc-name">呂育誠 教授</div>
+      <div class="pc-title">國立臺北大學<br>公共行政暨政策學系</div>
+      <div class="pc-note orange">全日參與</div>
     </div>
-    <!-- 府內委員 -->
-    <div class="s4-card">
-      <div class="s4-card-hdr green">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="4.5" r="2.5"/><path d="M1.5 12.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
-        府內委員
-      </div>
-      <div class="s4-card-body">
-        <div class="s4-person">
-          <div class="name">王世英</div>
-          <div class="role">財政局 專門委員</div>
-        </div>
-        <div class="s4-person">
-          <div class="name">邱淑美</div>
-          <div class="role">主計處 專門委員</div>
-        </div>
-        <div class="s4-person">
-          <div class="name">王瑞玲</div>
-          <div class="role">研究發展考核委員會 主任秘書</div>
-        </div>
-        <div class="s4-person">
-          <div class="name">洪久雅</div>
-          <div class="role">人事處 副處長</div>
-        </div>
-      </div>
-      <svg class="s4-deco" viewBox="0 0 180 180">
-        <polygon points="90,10 170,55 170,125 90,170 10,125 10,55" fill="none" stroke="var(--accent2)" stroke-width="1"/>
-        <polygon points="90,35 148,68 148,112 90,145 32,112 32,68" fill="none" stroke="var(--accent2)" stroke-width="1"/>
-        <circle cx="90" cy="90" r="25" fill="var(--accent2)" opacity="0.3"/>
-      </svg>
+    <div class="s4-person-card" style="top:8%;right:10%;">
+      <div class="pc-role" style="background:var(--accent);">專家學者</div>
+      <div class="pc-name">葉公鼎 教授</div>
+      <div class="pc-title">國立體育大學<br>休閒產業經營學系</div>
+      <div class="pc-note orange">僅上午 體育局</div>
+    </div>
+    <div class="s4-person-card" style="top:8%;left:10%;">
+      <div class="pc-role" style="background:var(--accent);">專家學者</div>
+      <div class="pc-name">吳宗憲 教授</div>
+      <div class="pc-title">國立臺南大學<br>行政管理學系</div>
+      <div class="pc-note orange">僅下午 動保處</div>
+    </div>
+    <!-- 府內委員：下半圈 -->
+    <div class="s4-person-card" style="bottom:10%;left:12%;">
+      <div class="pc-role" style="background:var(--accent2);">府內委員</div>
+      <div class="pc-name">王世英</div>
+      <div class="pc-title">財政局 專門委員</div>
+    </div>
+    <div class="s4-person-card" style="bottom:5%;left:50%;transform:translateX(-50%);">
+      <div class="pc-role" style="background:var(--accent2);">府內委員</div>
+      <div class="pc-name">邱淑美</div>
+      <div class="pc-title">主計處 專門委員</div>
+    </div>
+    <div class="s4-person-card" style="bottom:10%;right:12%;">
+      <div class="pc-role" style="background:var(--accent2);">府內委員</div>
+      <div class="pc-name">王瑞玲</div>
+      <div class="pc-title">研考會 主任秘書</div>
+    </div>
+    <div class="s4-person-card" style="bottom:22%;left:50%;transform:translateX(-50%);">
+      <div class="pc-role" style="background:var(--accent2);">府內委員</div>
+      <div class="pc-name">洪久雅</div>
+      <div class="pc-title">人事處 副處長</div>
     </div>
   </div>
 </div>
 
-<!-- SLIDE 5: AGENDA — 雙軌時間軸（#40 Z字形） -->
+<!-- SLIDE 5: AGENDA — 橢圓弧形時間軸（#40 #7） -->
 <div class="slide s5-agenda" id="s5">
   <div class="slide-header">
     <span class="slide-tag">行動總覽</span>
     <span class="slide-number">05 / 07</span>
   </div>
   <h2>6月18日行動總覽全景圖</h2>
-  <div class="s5-timeline">
-    <div class="s5-track"></div>
-    <!-- 體育局上午 08:50 -->
-    <div class="s5-row">
-      <div class="s5-row-left">
-        <div class="s5-content">
-          <h4>集合出發</h4>
-          <p><span class="time-tag blue">08:50</span>B2司機休息室（人事處派車）</p>
-        </div>
-      </div>
-      <div class="s5-node blue">AM</div>
-      <div class="s5-row-right"></div>
+  <div class="s5-arc-wrap">
+    <div class="s5-arc-path"></div>
+    <!-- 左上：集合 -->
+    <div class="s5-arc-card" style="top:15%;left:8%;">
+      <h4>集合出發</h4>
+      <p><span class="time-chip blue">08:50</span>B2司機休息室</p>
     </div>
-    <!-- 體育局 09:00-09:10 -->
-    <div class="s5-row">
-      <div class="s5-row-left"></div>
-      <div class="s5-node blue">1</div>
-      <div class="s5-row-right">
-        <div class="s5-content">
-          <h4>致詞與流程說明</h4>
-          <p><span class="time-tag blue">09:00–09:10</span>體育局</p>
-        </div>
-      </div>
+    <div class="s5-arc-dot" style="background:var(--primary);top:18%;left:26%;">AM</div>
+    <!-- 頂部：致詞 -->
+    <div class="s5-arc-card" style="top:8%;left:50%;transform:translateX(-50%);">
+      <h4>致詞與流程說明</h4>
+      <p><span class="time-chip blue">09:00–09:10</span>體育局</p>
     </div>
-    <!-- 業務簡報 09:30 -->
-    <div class="s5-row">
-      <div class="s5-row-left">
-        <div class="s5-content">
-          <h4>業務簡報與座談</h4>
-          <p><span class="time-tag blue">09:30</span>體育局</p>
-        </div>
-      </div>
-      <div class="s5-node blue">2</div>
-      <div class="s5-row-right"></div>
+    <div class="s5-arc-dot" style="background:var(--primary);top:26%;left:50%;transform:translate(-50%,-50%);">1</div>
+    <!-- 右上：簡報 -->
+    <div class="s5-arc-card" style="top:15%;right:8%;">
+      <h4>業務簡報與座談</h4>
+      <p><span class="time-chip blue">09:30</span>體育局</p>
     </div>
-    <!-- 實地訪談 09:30-11:30 -->
-    <div class="s5-row">
-      <div class="s5-row-left"></div>
-      <div class="s5-node blue">3</div>
-      <div class="s5-row-right">
-        <div class="s5-content">
-          <h4>實地個別訪談</h4>
-          <p><span class="time-tag blue">09:30–11:30</span>分3組進行（體育局）</p>
-        </div>
-      </div>
+    <div class="s5-arc-dot" style="background:var(--primary);top:18%;right:26%;">2</div>
+    <!-- 右中：訪談 -->
+    <div class="s5-arc-card" style="top:38%;right:5%;">
+      <h4>實地個別訪談</h4>
+      <p><span class="time-chip blue">09:30–11:30</span>分3組（體育局）</p>
     </div>
-    <!-- 動保處 13:20-13:40 -->
-    <div class="s5-row">
-      <div class="s5-row-left">
-        <div class="s5-content">
-          <h4>集合 / 致詞說明</h4>
-          <p><span class="time-tag green">13:20 / 13:30</span>動保處</p>
-        </div>
-      </div>
-      <div class="s5-node green">PM</div>
-      <div class="s5-row-right"></div>
+    <div class="s5-arc-dot" style="background:var(--primary);top:42%;right:20%;">3</div>
+    <!-- 右下：結語上午 -->
+    <div class="s5-arc-card" style="top:60%;right:8%;">
+      <h4>交待意見 / 結語</h4>
+      <p><span class="time-chip blue">11:30</span>體育局</p>
     </div>
-    <!-- 動保處 13:40-16:00 -->
-    <div class="s5-row">
-      <div class="s5-row-left"></div>
-      <div class="s5-node green">1</div>
-      <div class="s5-row-right">
-        <div class="s5-content">
-          <h4>業務簡報 / 實地訪談</h4>
-          <p><span class="time-tag green">13:40–16:00</span>動保處（分3組）</p>
-        </div>
-      </div>
+    <div class="s5-arc-dot" style="background:var(--accent);top:63%;right:26%;">✓</div>
+    <!-- 底中：PM集合 -->
+    <div class="s5-arc-card" style="bottom:15%;left:50%;transform:translateX(-50%);">
+      <h4>集合 / 致詞說明</h4>
+      <p><span class="time-chip green">13:20 / 13:30</span>動保處</p>
     </div>
-    <!-- 結語 -->
-    <div class="s5-row">
-      <div class="s5-row-left">
-        <div class="s5-content">
-          <h4>交待意見 / 結語</h4>
-          <p><span class="time-tag green">11:30 / 16:00</span>體育局 / 動保處</p>
-        </div>
-      </div>
-      <div class="s5-node orange">✓</div>
-      <div class="s5-row-right"></div>
+    <div class="s5-arc-dot" style="background:var(--accent2);bottom:18%;left:50%;transform:translate(-50%,50%);">PM</div>
+    <!-- 左下：動保處 -->
+    <div class="s5-arc-card" style="top:60%;left:8%;">
+      <h4>業務簡報 / 實地訪談</h4>
+      <p><span class="time-chip green">13:40–16:00</span>動保處（分3組）</p>
     </div>
+    <div class="s5-arc-dot" style="background:var(--accent2);top:63%;left:26%;">1</div>
+    <!-- 左中：結語下午 -->
+    <div class="s5-arc-card" style="top:38%;left:5%;">
+      <h4>交待意見 / 結語</h4>
+      <p><span class="time-chip green">16:00</span>動保處</p>
+    </div>
+    <div class="s5-arc-dot" style="background:var(--accent);top:42%;left:20%;">✓</div>
   </div>
 </div>
 
-<!-- SLIDE 6: MATRIX — 環形卡片矩陣（#82 #68 #76） -->
+<!-- SLIDE 6: MATRIX — 斜向階梯卡片（#40 #76） -->
 <div class="slide s6-matrix" id="s6">
   <div class="slide-header">
     <span class="slide-tag">任務部署</span>
     <span class="slide-number">06 / 07</span>
   </div>
   <h2>委員任務部署矩陣</h2>
-  <div class="s6-matrix-grid">
-    <!-- 第1組 -->
-    <div class="s6-mcard">
-      <div class="s6-mcard-hdr c1">
-        <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="6" cy="6" r="2" fill="currentColor"/></svg>
-        第1組
-      </div>
-      <div class="s6-mcard-body">
-        <div class="s6-mrow">
-          <div class="s6-mrow-hdr am">上午</div>
-          <div class="s6-mcell">
-            <div class="mc-name">呂育誠 教授</div>
-            <div class="mc-role">組長</div>
-            <div class="mc-note green">全日不變</div>
-          </div>
-          <div class="s6-mcell">
-            <div class="mc-name">王世英 專委</div>
-            <div class="mc-role">委員</div>
-            <div class="mc-note green">全日不變</div>
-          </div>
-          <div class="s6-mcell">
-            <div class="mc-name">唐薇甯 科長</div>
-            <div class="mc-role">工作小組</div>
-          </div>
+  <div class="s6-staggered">
+    <div class="s6-row">
+      <div class="s6-mcard">
+        <div class="s6-mcard-hdr c1">
+          <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="6" cy="6" r="2" fill="currentColor"/></svg>
+          第1組
         </div>
-        <div class="s6-mrow">
-          <div class="s6-mrow-hdr pm">下午</div>
-          <div class="s6-mcell">
-            <div class="mc-name">呂育誠 教授</div>
-            <div class="mc-role">組長</div>
-            <div class="mc-note green">全日不變</div>
+        <div class="s6-mcard-body">
+          <div class="s6-mrow">
+            <div class="s6-mrow-hdr am">上午</div>
+            <div class="s6-mcell"><div class="mc-name">呂育誠 教授</div><div class="mc-role">組長</div><div class="mc-note green">全日不變</div></div>
+            <div class="s6-mcell"><div class="mc-name">王世英 專委</div><div class="mc-role">委員</div><div class="mc-note green">全日不變</div></div>
+            <div class="s6-mcell"><div class="mc-name">唐薇甯 科長</div><div class="mc-role">工作小組</div></div>
           </div>
-          <div class="s6-mcell">
-            <div class="mc-name">王世英 專委</div>
-            <div class="mc-role">委員</div>
-            <div class="mc-note green">全日不變</div>
-          </div>
-          <div class="s6-mcell">
-            <div class="mc-name">蔡孟倫 股長</div>
-            <div class="mc-role">工作小組</div>
+          <div class="s6-mrow">
+            <div class="s6-mrow-hdr pm">下午</div>
+            <div class="s6-mcell"><div class="mc-name">呂育誠 教授</div><div class="mc-role">組長</div><div class="mc-note green">全日不變</div></div>
+            <div class="s6-mcell"><div class="mc-name">王世英 專委</div><div class="mc-role">委員</div><div class="mc-note green">全日不變</div></div>
+            <div class="s6-mcell"><div class="mc-name">蔡孟倫 股長</div><div class="mc-role">工作小組</div></div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- 第2組 -->
-    <div class="s6-mcard">
-      <div class="s6-mcard-hdr c2">
-        <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="6" cy="6" r="2" fill="currentColor"/></svg>
-        第2組
-      </div>
-      <div class="s6-mcard-body">
-        <div class="s6-mrow">
-          <div class="s6-mrow-hdr am">上午</div>
-          <div class="s6-mcell">
-            <div class="mc-name">葉公鼎 教授</div>
-            <div class="mc-role">組長</div>
-          </div>
-          <div class="s6-mcell">
-            <div class="mc-name">邱淑美 專委</div>
-            <div class="mc-role">委員</div>
-            <div class="mc-note green">全日不變</div>
-          </div>
-          <div class="s6-mcell">
-            <div class="mc-name">蔡孟倫 股長</div>
-            <div class="mc-role">工作小組</div>
-          </div>
+      <div class="s6-mcard">
+        <div class="s6-mcard-hdr c2">
+          <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="6" cy="6" r="2" fill="currentColor"/></svg>
+          第2組
         </div>
-        <div class="s6-mrow">
-          <div class="s6-mrow-hdr pm">下午</div>
-          <div class="s6-mcell">
-            <div class="mc-name">吳宗憲 教授</div>
-            <div class="mc-role">組長</div>
+        <div class="s6-mcard-body">
+          <div class="s6-mrow">
+            <div class="s6-mrow-hdr am">上午</div>
+            <div class="s6-mcell"><div class="mc-name">葉公鼎 教授</div><div class="mc-role">組長</div></div>
+            <div class="s6-mcell"><div class="mc-name">邱淑美 專委</div><div class="mc-role">委員</div><div class="mc-note green">全日不變</div></div>
+            <div class="s6-mcell"><div class="mc-name">蔡孟倫 股長</div><div class="mc-role">工作小組</div></div>
           </div>
-          <div class="s6-mcell">
-            <div class="mc-name">邱淑美 專委</div>
-            <div class="mc-role">委員</div>
-            <div class="mc-note green">全日不變</div>
-          </div>
-          <div class="s6-mcell">
-            <div class="mc-name">陳琳蒂 股長</div>
-            <div class="mc-role">工作小組</div>
+          <div class="s6-mrow">
+            <div class="s6-mrow-hdr pm">下午</div>
+            <div class="s6-mcell"><div class="mc-name">吳宗憲 教授</div><div class="mc-role">組長</div></div>
+            <div class="s6-mcell"><div class="mc-name">邱淑美 專委</div><div class="mc-role">委員</div><div class="mc-note green">全日不變</div></div>
+            <div class="s6-mcell"><div class="mc-name">陳琳蒂 股長</div><div class="mc-role">工作小組</div></div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- 第3組 -->
-    <div class="s6-mcard">
-      <div class="s6-mcard-hdr c3">
-        <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="6" cy="6" r="2" fill="currentColor"/></svg>
-        第3組
-      </div>
-      <div class="s6-mcard-body">
-        <div class="s6-mrow">
-          <div class="s6-mrow-hdr am">上午</div>
-          <div class="s6-mcell">
-            <div class="mc-name">洪久雅 副處長</div>
-            <div class="mc-role">組長</div>
-            <div class="mc-note green">全日不變</div>
-          </div>
-          <div class="s6-mcell">
-            <div class="mc-name">王瑞玲 主秘</div>
-            <div class="mc-role">委員</div>
-            <div class="mc-note green">全日不變</div>
-          </div>
-          <div class="s6-mcell">
-            <div class="mc-name">洪舒菁 科員</div>
-            <div class="mc-role">工作小組</div>
-          </div>
+      <div class="s6-mcard">
+        <div class="s6-mcard-hdr c3">
+          <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="6" cy="6" r="2" fill="currentColor"/></svg>
+          第3組
         </div>
-        <div class="s6-mrow">
-          <div class="s6-mrow-hdr pm">下午</div>
-          <div class="s6-mcell">
-            <div class="mc-name">洪久雅 副處長</div>
-            <div class="mc-role">組長</div>
-            <div class="mc-note green">全日不變</div>
+        <div class="s6-mcard-body">
+          <div class="s6-mrow">
+            <div class="s6-mrow-hdr am">上午</div>
+            <div class="s6-mcell"><div class="mc-name">洪久雅 副處長</div><div class="mc-role">組長</div><div class="mc-note green">全日不變</div></div>
+            <div class="s6-mcell"><div class="mc-name">王瑞玲 主秘</div><div class="mc-role">委員</div><div class="mc-note green">全日不變</div></div>
+            <div class="s6-mcell"><div class="mc-name">洪舒菁 科員</div><div class="mc-role">工作小組</div></div>
           </div>
-          <div class="s6-mcell">
-            <div class="mc-name">王瑞玲 主秘</div>
-            <div class="mc-role">委員</div>
-            <div class="mc-note green">全日不變</div>
-          </div>
-          <div class="s6-mcell">
-            <div class="mc-name">馮于宣 科員</div>
-            <div class="mc-role">工作小組</div>
+          <div class="s6-mrow">
+            <div class="s6-mrow-hdr pm">下午</div>
+            <div class="s6-mcell"><div class="mc-name">洪久雅 副處長</div><div class="mc-role">組長</div><div class="mc-note green">全日不變</div></div>
+            <div class="s6-mcell"><div class="mc-name">王瑞玲 主秘</div><div class="mc-role">委員</div><div class="mc-note green">全日不變</div></div>
+            <div class="s6-mcell"><div class="mc-name">馮于宣 科員</div><div class="mc-role">工作小組</div></div>
           </div>
         </div>
       </div>
@@ -628,18 +516,27 @@ p { font-size: 13px; color: var(--text-light); line-height: 1.7; }
   </div>
 </div>
 
-<!-- SLIDE 7: CLOSING — 方圓幾何裝飾總結（#7 #86） -->
+<!-- SLIDE 7: CLOSING — 圓形放射 + 六邊形點綴（#7 #86 #82） -->
 <div class="slide s7-closing" id="s7">
-  <div class="s7-deco-1"></div>
-  <div class="s7-deco-2"></div>
+  <div class="s7-deco-ring dr3"></div>
+  <div class="s7-deco-ring dr2"></div>
+  <div class="s7-deco-ring dr1"></div>
   <!-- 六邊形裝飾 左上 -->
-  <svg class="s7-deco-hex" viewBox="0 0 52 60" width="80" height="92">
+  <svg class="s7-hex-deco" style="top:5%;left:5%;" viewBox="0 0 52 60" width="70" height="84">
     <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" fill="none" stroke="white" stroke-width="1.5"/>
   </svg>
   <!-- 六邊形裝飾 右下 -->
-  <svg class="s7-deco-hex2" viewBox="0 0 52 60" width="80" height="92">
+  <svg class="s7-hex-deco" style="bottom:5%;right:5%;" viewBox="0 0 52 60" width="70" height="84">
     <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" fill="none" stroke="white" stroke-width="1.5"/>
     <circle cx="26" cy="30" r="12" fill="white" opacity="0.15"/>
+  </svg>
+  <!-- 六邊形裝飾 右上 -->
+  <svg class="s7-hex-deco" style="top:8%;right:12%;" viewBox="0 0 52 60" width="50" height="60">
+    <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" fill="none" stroke="white" stroke-width="1.2"/>
+  </svg>
+  <!-- 六邊形裝飾 左下 -->
+  <svg class="s7-hex-deco" style="bottom:8%;left:12%;" viewBox="0 0 52 60" width="50" height="60">
+    <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z" fill="none" stroke="white" stroke-width="1.2"/>
   </svg>
   <div class="s7-closing-title">意見交流與討論</div>
   <p class="s7-closing-sub">針對評鑑內容、行程安排及相關事項交流</p>
