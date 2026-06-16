@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>圓角六角形展示 | Rounded Hexagon Showcase</title>
+<title>圓角六角形展示 | Outward Bulge Rounded Hexagon</title>
 <style>
 :root {
   --bg: #0f0f1a;
@@ -27,12 +27,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
-  padding: 32px 16px;
+  gap: 20px;
+  padding: 28px 16px;
 }
 .nav {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 960px;
@@ -41,10 +41,10 @@ body {
   background: var(--card);
   border: 1px solid var(--slate);
   color: var(--sub);
-  padding: 6px 14px;
+  padding: 5px 14px;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 0.73rem;
   transition: all 0.2s;
 }
 .nav button:hover, .nav button.active {
@@ -66,14 +66,14 @@ body {
 .slide-header {
   position: absolute;
   top: 0; left: 0; right: 0;
-  padding: 20px 28px;
+  padding: 18px 26px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   z-index: 10;
 }
 .slide-num {
-  font-size: 0.65rem;
+  font-size: 0.63rem;
   font-weight: 700;
   color: var(--violet);
   letter-spacing: 0.1em;
@@ -90,21 +90,22 @@ body {
 }
 .slide-title {
   position: absolute;
-  top: 20px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   z-index: 10;
+  white-space: nowrap;
 }
 .slide-title h1 {
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 800;
   color: #fff;
   letter-spacing: -0.02em;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 .slide-title p {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--sub);
   font-weight: 500;
 }
@@ -114,13 +115,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px 32px 24px;
+  padding: 56px 28px 20px;
 }
 .footer {
   font-size: 0.6rem;
   color: var(--slate);
   text-align: center;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 </style>
 </head>
@@ -132,246 +133,300 @@ body {
 <div class="slide active" id="s1">
   <div class="slide-header">
     <span class="slide-num">P1 / 10</span>
-    <span class="slide-badge">技巧#82 HGS</span>
+    <span class="slide-badge">技巧#82 HGS · Outward Bulge</span>
   </div>
-  <div class="slide-body" style="flex-direction:column;gap:32px;">
-    <!-- 大型圓角六邊形群組視覺 -->
-    <svg width="520" height="300" viewBox="0 0 520 300">
-      <!-- 外層裝飾六邊形（淡化） -->
-      <g opacity="0.15" transform="translate(260,150)">
-        <path d="M104 0 L208 60 L208 180 L104 240 L0 180 L0 60 Z" stroke="#7c3aed" stroke-width="1" fill="none"/>
+  <div class="slide-body" style="flex-direction:column;gap:24px;">
+    <svg width="500" height="280" viewBox="0 0 500 280">
+      <!-- 外層半透明裝飾六邊形群 -->
+      <g opacity="0.12" transform="translate(250,140)">
+        <path d="M104 0 L208 60 L208 180 L104 240 L0 180 L0 60 Z" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
       </g>
-      <!-- 主體：1大圓角六邊形居中 -->
-      <g transform="translate(260,150)">
-        <!-- 外側光暈 -->
+      <g opacity="0.08" transform="translate(250,140) scale(1.3)">
+        <path d="M104 0 L208 60 L208 180 L104 240 L0 180 L0 60 Z" stroke="#06b6d4" stroke-width="1" fill="none"/>
+      </g>
+      <!-- 主體：超大型 Outward Bulge 六邊形 -->
+      <g transform="translate(250,130)">
+        <!-- 外側光暈（Outward bulge 視覺） -->
         <path d="M78 10 L143 10 L171 58 A15 15 0 0 0 171 100 L143 148 A15 15 0 0 0 104 156 L39 148 A15 15 0 0 0 39 108 L10 100 A15 15 0 0 0 10 58 L39 10 Z"
-          stroke="rgba(124,58,237,0.2)" stroke-width="8" fill="none" transform="translate(-3,-3)"/>
+          stroke="rgba(124,58,237,0.25)" stroke-width="10" fill="none" transform="translate(-2,-2)"/>
         <!-- 主體 -->
         <path d="M78 10 L143 10 L171 58 A15 15 0 0 0 171 100 L143 148 A15 15 0 0 0 104 156 L39 148 A15 15 0 0 0 39 108 L10 100 A15 15 0 0 0 10 58 L39 10 Z"
-          stroke="#7c3aed" stroke-width="1.5" fill="rgba(124,58,237,0.12)"/>
-        <!-- 中心標記 -->
-        <text x="0" y="6" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed">Rounded</text>
-        <text x="0" y="22" text-anchor="middle" font-size="9" fill="rgba(124,58,237,0.6)">Hexagon</text>
+          stroke="#7c3aed" stroke-width="1.8" fill="rgba(124,58,237,0.14)"/>
+        <!-- 中心標示 -->
+        <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="800" fill="#7c3aed">Outward Bulge</text>
+        <text x="0" y="20" text-anchor="middle" font-size="10" fill="rgba(124,58,237,0.65)">Rounded Hexagon</text>
       </g>
-      <!-- 四周小型裝飾六邊形 -->
-      <g transform="translate(70,60)" opacity="0.5">
+      <!-- 四周小型裝飾 -->
+      <g transform="translate(70,50)" opacity="0.55">
         <path d="M39 5 L69 22 A7.5 7.5 0 0 0 69 44 L39 61 A7.5 7.5 0 0 0 13 52 L0 44 A7.5 7.5 0 0 0 0 22 L13 5 Z"
-          stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.1)"/>
+          stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
       </g>
-      <g transform="translate(390,50)" opacity="0.4">
+      <g transform="translate(370,40)" opacity="0.45">
         <path d="M39 5 L69 22 A7.5 7.5 0 0 0 69 44 L39 61 A7.5 7.5 0 0 0 13 52 L0 44 A7.5 7.5 0 0 0 0 22 L13 5 Z"
-          stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.1)"/>
+          stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
       </g>
-      <g transform="translate(420,200)" opacity="0.35">
+      <g transform="translate(400,185)" opacity="0.4">
         <path d="M39 5 L69 22 A7.5 7.5 0 0 0 69 44 L39 61 A7.5 7.5 0 0 0 13 52 L0 44 A7.5 7.5 0 0 0 0 22 L13 5 Z"
-          stroke="#f59e0b" stroke-width="1" fill="rgba(245,158,11,0.1)"/>
+          stroke="#f59e0b" stroke-width="1" fill="rgba(245,158,11,0.12)"/>
       </g>
-      <g transform="translate(60,210)" opacity="0.45">
+      <g transform="translate(50,185)" opacity="0.5">
         <path d="M39 5 L69 22 A7.5 7.5 0 0 0 69 44 L39 61 A7.5 7.5 0 0 0 13 52 L0 44 A7.5 7.5 0 0 0 0 22 L13 5 Z"
-          stroke="#f43f5e" stroke-width="1" fill="rgba(244,63,94,0.1)"/>
+          stroke="#f43f5e" stroke-width="1" fill="rgba(244,63,94,0.12)"/>
       </g>
-      <g transform="translate(260,260)" opacity="0.25">
+      <g transform="translate(250,250)" opacity="0.25">
         <path d="M39 5 L69 22 A7.5 7.5 0 0 0 69 44 L39 61 A7.5 7.5 0 0 0 13 52 L0 44 A7.5 7.5 0 0 0 0 22 L13 5 Z"
           stroke="#e2e8f0" stroke-width="1" fill="none"/>
       </g>
     </svg>
     <div style="text-align:center;">
-      <h2 style="font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:6px;">圓角六角形展示</h2>
-      <p style="font-size:0.75rem;color:var(--sub);">Rounded Hexagon Showcase · 技巧#82 HGS 標準</p>
+      <h2 style="font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:5px;">圓角六角形展示</h2>
+      <p style="font-size:0.72rem;color:var(--sub);">Outward Bulge · 溫潤平滑流線邊緣 · 現代 UI 頭像框 / 蜂巢形狀</p>
     </div>
   </div>
 </div>
 
-<!-- ===== SLIDE 2: 基礎單元 ===== -->
+<!-- ===== SLIDE 2: Outward Bulge 定義 ===== -->
 <div class="slide" id="s2">
   <div class="slide-header">
     <span class="slide-num">P2 / 10</span>
+    <span class="slide-badge">核心定義</span>
+  </div>
+  <div class="slide-title">
+    <h1>圓角六角形定義</h1>
+    <p>Outward Bulge · Smooth Rounded Corners · No Inward Fillet</p>
+  </div>
+  <div class="slide-body">
+    <svg width="680" height="280" viewBox="0 0 680 280">
+      <!-- 左：正確示範 Outward Bulge -->
+      <g transform="translate(30,20)">
+        <rect x="0" y="0" width="200" height="240" rx="12" fill="rgba(16,185,129,0.07)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+        <text x="100" y="22" text-anchor="middle" font-size="10" font-weight="800" fill="#10b981">✅ Outward Bulge（正確）</text>
+        <line x1="10" y1="30" x2="190" y2="30" stroke="rgba(16,185,129,0.2)" stroke-width="0.5"/>
+        <!-- 大六邊形 -->
+        <g transform="translate(22,50)">
+          <path d="M78 10 L143 10 L171 58 A15 15 0 0 0 171 100 L143 148 A15 15 0 0 0 104 156 L39 148 A15 15 0 0 0 39 108 L10 100 A15 15 0 0 0 10 58 L39 10 Z"
+            stroke="#10b981" stroke-width="1.5" fill="rgba(16,185,129,0.15)"/>
+          <!-- 圓弧方向箭頭（示意向外凸出） -->
+          <path d="M14 40 A11 11 0 0 1 22 35" stroke="#10b981" stroke-width="1.5" fill="none" marker-end="url(#arrowOut)"/>
+        </g>
+        <text x="100" y="215" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.7)" font-weight:600>圓弧向外凸出</text>
+        <text x="100" y="230" text-anchor="middle" font-size="8" fill="var(--sub)">保持凸面輪廓</text>
+        <!-- Outward 標籤 -->
+        <text x="100" y="195" text-anchor="middle" font-size="9" fill="#10b981" font-weight:700">→ Outward →</text>
+      </g>
+      <!-- 中間：定義文字 -->
+      <g transform="translate(250,20)">
+        <rect x="0" y="0" width="180" height="240" rx="12" fill="rgba(124,58,237,0.07)" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
+        <text x="90" y="22" text-anchor="middle" font-size="10" font-weight="800" fill="#7c3aed">幾何標準</text>
+        <line x1="10" y1="30" x2="170" y2="30" stroke="rgba(124,58,237,0.2)" stroke-width="0.5"/>
+        <text x="14" y="50" font-size="8" fill="rgba(255,255,255,0.8)" font-weight:600">1. 繪製正六邊形</text>
+        <text x="14" y="66" font-size="8" fill="rgba(255,255,255,0.8)" font-weight:600">2. 六個頂點磨為圓角</text>
+        <text x="14" y="82" font-size="8" fill="rgba(255,255,255,0.8)" font-weight:600">3. 圓弧向外凸出延伸</text>
+        <text x="14" y="98" font-size="8" fill="rgba(255,255,255,0.8)" font-weight:600">4. 呈現溫潤平滑流線</text>
+        <line x1="10" y1="110" x2="170" y2="110" stroke="rgba(124,58,237,0.15)" stroke-width="0.5"/>
+        <text x="14" y="126" font-size="8" fill="var(--sub)">Flat-top orientation</text>
+        <text x="14" y="140" font-size="8.5" fill="#06b6d4" font-weight:700">W:H = 1.1547:1</text>
+        <text x="14" y="156" font-size="8" fill="var(--sub)">Corner radius</text>
+        <text x="14" y="170" font-size="8.5" fill="#06b6d4" font-weight:700">r = s × 15%</text>
+        <text x="14" y="188" font-size="8" fill="var(--sub)">外形像</text>
+        <text x="14" y="202" font-size="8.5" fill="#fff" font-weight:700">UI 頭像框</text>
+        <text x="14" y="216" font-size="8.5" fill="#fff" font-weight:700">蜂巢形狀</text>
+        <text x="14" y="230" font-size="8" fill="rgba(255,255,255,0.5)">iOS App Icon</text>
+      </g>
+      <!-- 右：錯誤示範 Inward Fillet -->
+      <g transform="translate(450,20)">
+        <rect x="0" y="0" width="200" height="240" rx="12" fill="rgba(244,63,94,0.07)" stroke="rgba(244,63,94,0.3)" stroke-width="1"/>
+        <text x="100" y="22" text-anchor="middle" font-size="10" font-weight="800" fill="#f43f5e">❌ Inward Fillet（禁止）</text>
+        <line x1="10" y1="30" x2="190" y2="30" stroke="rgba(244,63,94,0.2)" stroke-width="0.5"/>
+        <!-- 內凹六邊形（錯誤示範） -->
+        <g transform="translate(22,50)">
+          <!-- 用貝茲曲線畫內凹效果：每個角向內凹 -->
+          <path d="M78 10 L143 10 L171 58 C168 65 163 70 156 70 L117 70 C110 70 104 76 104 83 L104 117 C104 124 98 130 91 130 L59 130 C52 130 46 124 46 117 L46 83 C46 76 40 70 33 70 L6 70 C-1 70 -6 65 -9 58 L10 10 Z"
+            stroke="#f43f5e" stroke-width="1.5" fill="rgba(244,63,94,0.1)"/>
+        </g>
+        <text x="100" y="215" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.7)" font-weight:600>圓弧向內凹陷</text>
+        <text x="100" y="230" text-anchor="middle" font-size="8" fill="var(--sub)">破壞六角形輪廓</text>
+        <text x="100" y="195" text-anchor="middle" font-size="9" fill="#f43f5e" font-weight:700">← Inward ←</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: 基礎單元 ===== -->
+<div class="slide" id="s3">
+  <div class="slide-header">
+    <span class="slide-num">P3 / 10</span>
     <span class="slide-badge">基礎單元</span>
   </div>
   <div class="slide-title">
     <h1>基礎單元</h1>
-    <p>Flat-top · W:H = 1.1547:1 · r = s × 15% · Outward Bulge · No Inward Fillet</p>
+    <p>s=60 · r=9 · Outward Bulge · Flat-top</p>
   </div>
   <div class="slide-body">
-    <svg width="480" height="300" viewBox="0 0 480 300">
-      <!-- 標準六邊形 (s=60, r=9) -->
-      <g transform="translate(120,50)">
+    <svg width="560" height="280" viewBox="0 0 560 280">
+      <!-- 左：大型六邊形 -->
+      <g transform="translate(40,20)">
         <path d="M78 10 L143 10 L171 58 A15 15 0 0 0 171 100 L143 148 A15 15 0 0 0 104 156 L39 148 A15 15 0 0 0 39 108 L10 100 A15 15 0 0 0 10 58 L39 10 Z"
-          stroke="#7c3aed" stroke-width="1.2" fill="rgba(124,58,237,0.1)"/>
-        <text x="90" y="86" text-anchor="middle" font-size="9" fill="rgba(124,58,237,0.7)" font-weight:600>s=60</text>
-        <text x="90" y="100" text-anchor="middle" font-size="8" fill="rgba(124,58,237,0.5)">r=9</text>
+          stroke="#7c3aed" stroke-width="1.5" fill="rgba(124,58,237,0.12)"/>
         <!-- 頂點標記 -->
-        <circle cx="78" cy="10" r="3" fill="#f43f5e"/>
-        <circle cx="171" cy="58" r="3" fill="#06b6d4"/>
-        <circle cx="171" cy="100" r="3" fill="#06b6d4"/>
-        <circle cx="104" cy="156" r="3" fill="#f43f5e"/>
-        <circle cx="39" cy="148" r="3" fill="#06b6d4"/>
-        <circle cx="10" cy="100" r="3" fill="#06b6d4"/>
-        <circle cx="39" cy="58" r="3" fill="#06b6d4"/>
+        <circle cx="78" cy="10" r="4" fill="#f43f5e"/>
+        <circle cx="171" cy="58" r="4" fill="#06b6d4"/>
+        <circle cx="171" cy="100" r="4" fill="#06b6d4"/>
+        <circle cx="104" cy="156" r="4" fill="#f43f5e"/>
+        <circle cx="39" cy="148" r="4" fill="#06b6d4"/>
+        <circle cx="10" cy="100" r="4" fill="#06b6d4"/>
+        <circle cx="39" cy="58" r="4" fill="#06b6d4"/>
+        <!-- 標記說明 -->
+        <text x="78" y="-4" text-anchor="middle" font-size="7" fill="#f43f5e" font-weight:700">尖頂</text>
+        <text x="183" y="66" text-anchor="start" font-size="7" fill="#06b6d4" font-weight:700">A15 圓角</text>
         <!-- 尺寸標註 -->
         <line x1="78" y1="10" x2="104" y2="156" stroke="rgba(124,58,237,0.3)" stroke-width="0.5" stroke-dasharray="3,3"/>
-        <line x1="10" y1="58" x2="171" y2="58" stroke="rgba(124,58,237,0.3)" stroke-width="0.5" stroke-dasharray="3,3"/>
-        <text x="90" y="22" text-anchor="middle" font-size="7" fill="rgba(124,58,237,0.4)">h = s × √3</text>
-        <text x="178" y="66" text-anchor="start" font-size="7" fill="rgba(124,58,237,0.4)">w = 2s</text>
+        <text x="94" y="86" text-anchor="middle" font-size="7" fill="rgba(124,58,237,0.5)">s×√3</text>
       </g>
-      <!-- 尺寸說明 -->
-      <g transform="translate(320,60)">
-        <rect x="0" y="0" width="140" height="160" rx="10" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
-        <text x="70" y="28" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">幾何參數</text>
-        <line x1="10" y1="38" x2="130" y2="38" stroke="rgba(124,58,237,0.2)" stroke-width="0.5"/>
-        <text x="14" y="58" font-size="8.5" fill="rgba(255,255,255,0.7)" font-weight:600>Flat-top orientation</text>
-        <text x="14" y="76" font-size="8" fill="var(--sub)">Width : Height</text>
-        <text x="14" y="90" font-size="9" fill="#fff" font-weight:700">1.1547 : 1</text>
-        <text x="14" y="108" font-size="8" fill="var(--sub)">Corner radius</text>
-        <text x="14" y="122" font-size="9" fill="#fff" font-weight:700">r = s × 15%</text>
-        <text x="14" y="140" font-size="8" fill="var(--sub)">All corners</text>
-        <text x="14" y="154" font-size="9" fill="#10b981" font-weight:700">✓ Identical</text>
-      </g>
-      <!-- 外側圓弧標註 -->
-      <g transform="translate(60,240)">
-        <path d="M39 10 A9 9 0 0 0 39 28" stroke="#f43f5e" stroke-width="1.5" fill="none"/>
-        <text x="50" y="22" font-size="8" fill="#f43f5e" font-weight:600>外側圓弧向外延伸</text>
-        <text x="50" y="34" font-size="7.5" fill="var(--sub)">不可向內挖空 · 無凹陷</text>
+      <!-- 右：參數卡 -->
+      <g transform="translate(320,20)">
+        <rect x="0" y="0" width="210" height="230" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <text x="105" y="22" text-anchor="middle" font-size="10" font-weight:700" fill="#fff">幾何參數</text>
+        <line x1="10" y1="30" x2="200" y2="30" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+        <text x="14" y="50" font-size="8" fill="var(--sub)">方向</text>
+        <text x="14" y="64" font-size="9" fill="#fff" font-weight:700">Flat-top</text>
+        <text x="14" y="82" font-size="8" fill="var(--sub)">寬高比</text>
+        <text x="14" y="96" font-size="9" fill="#06b6d4" font-weight:700">W:H = 1.1547 : 1</text>
+        <text x="14" y="114" font-size="8" fill="var(--sub)">圓角半徑</text>
+        <text x="14" y="128" font-size="9" fill="#10b981" font-weight:700">r = s × 15%</text>
+        <text x="14" y="146" font-size="8" fill="var(--sub)">邊數 / 內角</text>
+        <text x="14" y="160" font-size="9" fill="#fff" font-weight:700">6 equal sides · 120°</text>
+        <text x="14" y="178" font-size="8" fill="var(--sub)">對稱性</text>
+        <text x="14" y="192" font-size="9" fill="#fff" font-weight:700">Perfect symmetry</text>
+        <text x="14" y="210" font-size="8" fill="#f43f5e" font-weight:700">圓角：All identical ✓</text>
       </g>
     </svg>
   </div>
 </div>
 
-<!-- ===== SLIDE 3: 三種尺寸 ===== -->
-<div class="slide" id="s3">
+<!-- ===== SLIDE 4: 三種尺寸 ===== -->
+<div class="slide" id="s4">
   <div class="slide-header">
-    <span class="slide-num">P3 / 10</span>
+    <span class="slide-num">P4 / 10</span>
     <span class="slide-badge">尺寸變化</span>
   </div>
   <div class="slide-title">
     <h1>三種尺寸變化</h1>
-    <p>s=40（標準） · s=26（小） · s=60（大）</p>
+    <p>s=26（小）· s=40（中）· s=60（大）· 皆為 Outward Bulge</p>
   </div>
   <div class="slide-body">
-    <svg width="580" height="300" viewBox="0 0 580 300">
-      <!-- s=40, r=6 -->
-      <g transform="translate(80,110)">
-        <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-          stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
-        <text x="34.5" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">s=40</text>
-        <text x="34.5" y="58" text-anchor="middle" font-size="8" fill="rgba(124,58,237,0.6)">r=6</text>
-      </g>
-      <!-- s=26, r=3.9 -->
-      <g transform="translate(220,125)">
+    <svg width="620" height="280" viewBox="0 0 620 280">
+      <!-- 小 s=26 r=3.9 -->
+      <g transform="translate(80,80)">
         <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.1)"/>
-        <text x="22.6" y="30" text-anchor="middle" font-size="9" font-weight="700" fill="#06b6d4">s=26</text>
-        <text x="22.6" y="42" text-anchor="middle" font-size="7.5" fill="rgba(6,182,212,0.6)">r=3.9</text>
+          stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
+        <text x="22.6" y="30" text-anchor="middle" font-size="10" font-weight="700" fill="#06b6d4">s=26</text>
+        <text x="22.6" y="43" text-anchor="middle" font-size="8" fill="rgba(6,182,212,0.6)">r=3.9</text>
       </g>
-      <!-- s=60, r=9 -->
-      <g transform="translate(360,90)">
+      <!-- 中 s=40 r=6 -->
+      <g transform="translate(230,60)">
+        <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
+          stroke="#7c3aed" stroke-width="1.2" fill="rgba(124,58,237,0.12)"/>
+        <text x="34.5" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed">s=40</text>
+        <text x="34.5" y="60" text-anchor="middle" font-size="9" fill="rgba(124,58,237,0.6)">r=6</text>
+      </g>
+      <!-- 大 s=60 r=9 -->
+      <g transform="translate(430,30)">
         <path d="M78 10 L143 10 L171 58 A15 15 0 0 0 171 100 L143 148 A15 15 0 0 0 104 156 L39 148 A15 15 0 0 0 39 108 L10 100 A15 15 0 0 0 10 58 L39 10 Z"
-          stroke="#10b981" stroke-width="1.2" fill="rgba(16,185,129,0.1)"/>
-        <text x="90" y="86" text-anchor="middle" font-size="12" font-weight="700" fill="#10b981">s=60</text>
-        <text x="90" y="104" text-anchor="middle" font-size="9" fill="rgba(16,185,129,0.6)">r=9</text>
+          stroke="#10b981" stroke-width="1.5" fill="rgba(16,185,129,0.12)"/>
+        <text x="90" y="86" text-anchor="middle" font-size="13" font-weight="700" fill="#10b981">s=60</text>
+        <text x="90" y="106" text-anchor="middle" font-size="10" fill="rgba(16,185,129,0.6)">r=9</text>
       </g>
-      <!-- 底部標註線 -->
-      <line x1="80" y1="210" x2="540" y2="210" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-      <text x="80" y="224" font-size="8" fill="var(--sub)">w = 2s</text>
-      <text x="220" y="224" font-size="8" fill="var(--sub)">w = 2s</text>
-      <text x="360" y="224" font-size="8" fill="var(--sub)">w = 2s</text>
-      <text x="500" y="224" font-size="8" fill="var(--sub)">w = 2s</text>
-      <!-- 等比例說明 -->
-      <g transform="translate(50,260)">
-        <rect x="0" y="0" width="480" height="30" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <text x="240" y="19" text-anchor="middle" font-size="8.5" fill="var(--sub)">等比例縮放 · 所有尺寸保持 W:H = 1.1547:1 · r = s × 15%</text>
+      <!-- 底部說明 -->
+      <g transform="translate(30,240)">
+        <rect x="0" y="0" width="560" height="30" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <text x="280" y="19" text-anchor="middle" font-size="8.5" fill="var(--sub)">等比例縮放 · W:H = 1.1547:1 固定 · r = s × 15% 固定 · 所有尺寸皆為 Outward Bulge</text>
       </g>
     </svg>
   </div>
 </div>
 
-<!-- ===== SLIDE 4: Lv2 三元組合 ===== -->
-<div class="slide" id="s4">
+<!-- ===== SLIDE 5: Lv2 三元組合 ===== -->
+<div class="slide" id="s5">
   <div class="slide-header">
-    <span class="slide-num">P4 / 10</span>
+    <span class="slide-num">P5 / 10</span>
     <span class="slide-badge">Lv2 · 3 cells</span>
   </div>
   <div class="slide-title">
     <h1>Lv2 · 三元組合</h1>
-    <p>1 上 + 2 下 · Honeycomb Cluster</p>
+    <p>1 上 + 2 下 · Outward Bulge Honeycomb</p>
   </div>
   <div class="slide-body">
     <svg width="560" height="300" viewBox="0 0 560 300">
-      <!-- 三元組合：s=40, r=6 -->
-      <!-- 上面那顆（中心對齊） -->
-      <g transform="translate(280,50)">
+      <!-- 上 -->
+      <g transform="translate(280,40)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-          stroke="#7c3aed" stroke-width="1.2" fill="rgba(124,58,237,0.15)"/>
-        <text x="34.5" y="44" text-anchor="middle" font-size="9" font-weight="700" fill="#7c3aed">#1</text>
+          stroke="#7c3aed" stroke-width="1.3" fill="rgba(124,58,237,0.15)"/>
+        <text x="34.5" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">#1</text>
       </g>
-      <!-- 下面左 -->
-      <g transform="translate(175,130)">
+      <!-- 下左 -->
+      <g transform="translate(175,120)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-          stroke="#06b6d4" stroke-width="1.2" fill="rgba(6,182,212,0.15)"/>
-        <text x="34.5" y="44" text-anchor="middle" font-size="9" font-weight="700" fill="#06b6d4">#2</text>
+          stroke="#06b6d4" stroke-width="1.3" fill="rgba(6,182,212,0.14)"/>
+        <text x="34.5" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#06b6d4">#2</text>
       </g>
-      <!-- 下面右 -->
-      <g transform="translate(350,130)">
+      <!-- 下右 -->
+      <g transform="translate(350,120)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-          stroke="#10b981" stroke-width="1.2" fill="rgba(16,185,129,0.15)"/>
-        <text x="34.5" y="44" text-anchor="middle" font-size="9" font-weight="700" fill="#10b981">#3</text>
+          stroke="#10b981" stroke-width="1.3" fill="rgba(16,185,129,0.14)"/>
+        <text x="34.5" y="44" text-anchor="middle" font-size="10" font-weight="700" fill="#10b981">#3</text>
       </g>
-      <!-- 連接標註 -->
-      <g transform="translate(20,250)">
-        <rect x="0" y="0" width="520" height="40" rx="10" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
-        <text x="260" y="16" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.7)" font-weight:600>垂直間距 = h × 0.75 = s × √3 × 0.75</text>
-        <text x="260" y="32" text-anchor="middle" font-size="8" fill="var(--sub)">水平間距 = w × 0.5 · 象限對齊 · Equal spacing</text>
+      <!-- 底部說明 -->
+      <g transform="translate(30,230)">
+        <rect x="0" y="0" width="500" height="55" rx="10" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
+        <text x="250" y="16" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.8)" font-weight:700">排列規則</text>
+        <text x="14" y="36" font-size="8" fill="var(--sub)">垂直間距 = h × 0.75 = s × √3 × 0.75</text>
+        <text x="14" y="50" font-size="8" fill="var(--sub)">水平間距 = w × 0.5 · 象限對齊 · Equal spacing</text>
       </g>
     </svg>
   </div>
 </div>
 
-<!-- ===== SLIDE 5: Lv3 七星組合 ===== -->
-<div class="slide" id="s5">
+<!-- ===== SLIDE 6: Lv3 七星組合 ===== -->
+<div class="slide" id="s6">
   <div class="slide-header">
-    <span class="slide-num">P5 / 10</span>
+    <span class="slide-num">P6 / 10</span>
     <span class="slide-badge">Lv3 · 7 cells</span>
   </div>
   <div class="slide-title">
     <h1>Lv3 · 七星組合</h1>
-    <p>1 中心 + 6 周圍 · Hexagonal Ring</p>
+    <p>1 中心 + 6 周圍 · Outward Bulge Ring</p>
   </div>
   <div class="slide-body">
-    <svg width="420" height="320" viewBox="0 0 420 320">
-      <!-- 中心六邊形 -->
-      <g transform="translate(210,160)">
+    <svg width="440" height="300" viewBox="0 0 440 300">
+      <!-- 中心 -->
+      <g transform="translate(220,150)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
           stroke="#7c3aed" stroke-width="1.5" fill="rgba(124,58,237,0.2)"/>
         <text x="34.5" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed">Center</text>
       </g>
       <!-- 周圍6個 -->
-      <!-- 上 (0, -h) -->
-      <g transform="translate(210,66)">
+      <g transform="translate(220,66)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
           stroke="#06b6d4" stroke-width="1.2" fill="rgba(6,182,212,0.12)"/>
       </g>
-      <!-- 右上 (w*0.75, -h*0.5) -->
-      <g transform="translate(289,97)">
+      <g transform="translate(299,97)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
           stroke="#10b981" stroke-width="1.2" fill="rgba(16,185,129,0.12)"/>
       </g>
-      <!-- 右下 (w*0.75, h*0.5) -->
-      <g transform="translate(289,197)">
+      <g transform="translate(299,197)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
           stroke="#f59e0b" stroke-width="1.2" fill="rgba(245,158,11,0.12)"/>
       </g>
-      <!-- 下 (0, h) -->
-      <g transform="translate(210,228)">
+      <g transform="translate(220,228)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
           stroke="#f43f5e" stroke-width="1.2" fill="rgba(244,63,94,0.12)"/>
       </g>
-      <!-- 左下 (-w*0.75, h*0.5) -->
-      <g transform="translate(98,197)">
+      <g transform="translate(108,197)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
           stroke="#06b6d4" stroke-width="1.2" fill="rgba(6,182,212,0.12)"/>
       </g>
-      <!-- 左上 (-w*0.75, -h*0.5) -->
-      <g transform="translate(98,97)">
+      <g transform="translate(108,97)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
           stroke="#10b981" stroke-width="1.2" fill="rgba(16,185,129,0.12)"/>
       </g>
@@ -379,279 +434,159 @@ body {
   </div>
 </div>
 
-<!-- ===== SLIDE 6: Lv4 十九蜂巢 ===== -->
-<div class="slide" id="s6">
+<!-- ===== SLIDE 7: Lv4 十九蜂巢 ===== -->
+<div class="slide" id="s7">
   <div class="slide-header">
-    <span class="slide-num">P6 / 10</span>
+    <span class="slide-num">P7 / 10</span>
     <span class="slide-badge">Lv4 · 19 cells</span>
   </div>
   <div class="slide-title">
     <h1>Lv4 · 十九蜂巢</h1>
-    <p>3×3 蜂巢格 · Honeycomb Grid</p>
+    <p>3×3 蜂巢格 · Outward Bulge Honeycomb Grid</p>
   </div>
   <div class="slide-body">
-    <svg width="560" height="300" viewBox="0 0 560 300">
-      <!-- 19蜂巢: s=26, r=3.9, 3行交錯 -->
-      <!-- row 1 (3 cells) -->
+    <svg width="560" height="280" viewBox="0 0 560 280">
+      <!-- row 1 -->
       <g transform="translate(30,20)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#7c3aed" stroke-width="0.8" fill="rgba(124,58,237,0.15)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#7c3aed" stroke-width="0.8" fill="rgba(124,58,237,0.15)"/>
       </g>
       <g transform="translate(86,20)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#7c3aed" stroke-width="0.8" fill="rgba(124,58,237,0.15)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#7c3aed" stroke-width="0.8" fill="rgba(124,58,237,0.15)"/>
       </g>
       <g transform="translate(142,20)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#7c3aed" stroke-width="0.8" fill="rgba(124,58,237,0.15)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#7c3aed" stroke-width="0.8" fill="rgba(124,58,237,0.15)"/>
       </g>
-      <!-- row 2 (4 cells, offset +34) -->
+      <!-- row 2 -->
       <g transform="translate(58,62)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#06b6d4" stroke-width="0.8" fill="rgba(6,182,212,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#06b6d4" stroke-width="0.8" fill="rgba(6,182,212,0.12)"/>
       </g>
       <g transform="translate(114,62)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#06b6d4" stroke-width="0.8" fill="rgba(6,182,212,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#06b6d4" stroke-width="0.8" fill="rgba(6,182,212,0.12)"/>
       </g>
       <g transform="translate(170,62)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#06b6d4" stroke-width="0.8" fill="rgba(6,182,212,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#06b6d4" stroke-width="0.8" fill="rgba(6,182,212,0.12)"/>
       </g>
       <g transform="translate(226,62)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#06b6d4" stroke-width="0.8" fill="rgba(6,182,212,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#06b6d4" stroke-width="0.8" fill="rgba(6,182,212,0.12)"/>
       </g>
-      <!-- row 3 (3 cells) -->
+      <!-- row 3 -->
       <g transform="translate(30,104)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#10b981" stroke-width="0.8" fill="rgba(16,185,129,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#10b981" stroke-width="0.8" fill="rgba(16,185,129,0.12)"/>
       </g>
       <g transform="translate(86,104)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#10b981" stroke-width="0.8" fill="rgba(16,185,129,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#10b981" stroke-width="0.8" fill="rgba(16,185,129,0.12)"/>
       </g>
       <g transform="translate(142,104)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#10b981" stroke-width="0.8" fill="rgba(16,185,129,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#10b981" stroke-width="0.8" fill="rgba(16,185,129,0.12)"/>
       </g>
-      <!-- row 4 (4 cells) -->
+      <!-- row 4 -->
       <g transform="translate(58,146)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#f59e0b" stroke-width="0.8" fill="rgba(245,158,11,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#f59e0b" stroke-width="0.8" fill="rgba(245,158,11,0.12)"/>
       </g>
       <g transform="translate(114,146)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#f59e0b" stroke-width="0.8" fill="rgba(245,158,11,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#f59e0b" stroke-width="0.8" fill="rgba(245,158,11,0.12)"/>
       </g>
       <g transform="translate(170,146)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#f59e0b" stroke-width="0.8" fill="rgba(245,158,11,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#f59e0b" stroke-width="0.8" fill="rgba(245,158,11,0.12)"/>
       </g>
       <g transform="translate(226,146)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#f59e0b" stroke-width="0.8" fill="rgba(245,158,11,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#f59e0b" stroke-width="0.8" fill="rgba(245,158,11,0.12)"/>
       </g>
-      <!-- row 5 (3 cells) -->
+      <!-- row 5 -->
       <g transform="translate(30,188)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#f43f5e" stroke-width="0.8" fill="rgba(244,63,94,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#f43f5e" stroke-width="0.8" fill="rgba(244,63,94,0.12)"/>
       </g>
       <g transform="translate(86,188)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#f43f5e" stroke-width="0.8" fill="rgba(244,63,94,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#f43f5e" stroke-width="0.8" fill="rgba(244,63,94,0.12)"/>
       </g>
       <g transform="translate(142,188)">
-        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z"
-          stroke="#f43f5e" stroke-width="0.8" fill="rgba(244,63,94,0.12)"/>
+        <path d="M34 4.4 L45.2 17.5 A3.9 3.9 0 0 0 45.2 35 L34 48.1 A3.9 3.9 0 0 0 22.6 52 L11.4 48.1 A3.9 3.9 0 0 0 11.4 35 L0 35 A3.9 3.9 0 0 0 0 17.5 L11.4 4.4 A3.9 3.9 0 0 0 22.6 0 L34 4.4 Z" stroke="#f43f5e" stroke-width="0.8" fill="rgba(244,63,94,0.12)"/>
       </g>
       <!-- 右側說明 -->
-      <g transform="translate(310,80)">
-        <rect x="0" y="0" width="220" height="150" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <text x="110" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">蜂巢排列規則</text>
-        <line x1="10" y1="32" x2="210" y2="32" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+      <g transform="translate(300,80)">
+        <rect x="0" y="0" width="240" height="160" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <text x="120" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">蜂巢排列規則</text>
+        <line x1="10" y1="30" x2="230" y2="30" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
         <text x="14" y="50" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>y offset = h × 0.5</text>
         <text x="14" y="66" font-size="8" fill="var(--sub)">奇數列：x offset = 0</text>
         <text x="14" y="80" font-size="8" fill="var(--sub)">偶數列：x offset = w × 0.5</text>
-        <text x="14" y="96" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>Cell count</text>
-        <text x="14" y="112" font-size="9" fill="#fff">Row 1: 3 · Row 2: 4</text>
-        <text x="14" y="126" font-size="9" fill="#fff">Row 3: 3 · Row 4: 4</text>
-        <text x="14" y="140" font-size="9" fill="#fff">Row 5: 3 · Total: 17</text>
-        <text x="110" y="140" font-size="8" fill="var(--sub)">+ 2 partial = 19</text>
+        <text x="14" y="98" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>Cell count</text>
+        <text x="14" y="114" font-size="9" fill="#fff">Row 1: 3 · Row 2: 4</text>
+        <text x="14" y="128" font-size="9" fill="#fff">Row 3: 3 · Row 4: 4</text>
+        <text x="14" y="142" font-size="9" fill="#fff">Row 5: 3 · Total: 17</text>
+        <text x="14" y="156" font-size="8" fill="var(--sub)">+ 2 partial cells = 19</text>
       </g>
     </svg>
   </div>
 </div>
 
-<!-- ===== SLIDE 7: 交錯排列 ===== -->
-<div class="slide" id="s7">
+<!-- ===== SLIDE 8: 交錯排列 ===== -->
+<div class="slide" id="s8">
   <div class="slide-header">
-    <span class="slide-num">P7 / 10</span>
+    <span class="slide-num">P8 / 10</span>
     <span class="slide-badge">進階排列</span>
   </div>
   <div class="slide-title">
     <h1>交錯蜂巢排列</h1>
-    <p>Alternating Offset · 奇偶列錯位</p>
+    <p>Alternating Offset · 奇偶列錯位 · Outward Bulge</p>
   </div>
   <div class="slide-body">
     <svg width="560" height="300" viewBox="0 0 560 300">
-      <!-- 交錯說明圖 -->
-      <g transform="translate(40,60)">
+      <g transform="translate(40,50)">
         <!-- Row A -->
         <g transform="translate(0,0)">
-          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-            stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
-          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#7c3aed">A1</text>
+          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z" stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
+          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#7c3aed" font-weight="700">A1</text>
         </g>
         <g transform="translate(69,0)">
-          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-            stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
-          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#7c3aed">A2</text>
+          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z" stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
+          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#7c3aed" font-weight="700">A2</text>
         </g>
         <g transform="translate(138,0)">
-          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-            stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
-          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#7c3aed">A3</text>
+          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z" stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
+          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#7c3aed" font-weight="700">A3</text>
         </g>
         <!-- Row B (offset +34.5) -->
         <g transform="translate(34.5,80)">
-          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-            stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
-          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#06b6d4">B1</text>
+          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z" stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
+          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#06b6d4" font-weight="700">B1</text>
         </g>
         <g transform="translate(103.5,80)">
-          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-            stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
-          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#06b6d4">B2</text>
+          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z" stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
+          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#06b6d4" font-weight="700">B2</text>
         </g>
         <g transform="translate(172.5,80)">
-          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-            stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
-          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#06b6d4">B3</text>
+          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z" stroke="#06b6d4" stroke-width="1" fill="rgba(6,182,212,0.12)"/>
+          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#06b6d4" font-weight="700">B3</text>
         </g>
         <!-- Row C -->
         <g transform="translate(0,160)">
-          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-            stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
-          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#10b981">C1</text>
+          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z" stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
+          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#10b981" font-weight="700">C1</text>
         </g>
         <g transform="translate(69,160)">
-          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-            stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
-          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#10b981">C2</text>
+          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z" stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
+          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#10b981" font-weight="700">C2</text>
         </g>
         <g transform="translate(138,160)">
-          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-            stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
-          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#10b981">C3</text>
+          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z" stroke="#10b981" stroke-width="1" fill="rgba(16,185,129,0.12)"/>
+          <text x="34.5" y="44" text-anchor="middle" font-size="8" fill="#10b981" font-weight="700">C3</text>
         </g>
       </g>
-      <!-- 右側幾何說明 -->
+      <!-- 右側幾何 -->
       <g transform="translate(310,60)">
-        <rect x="0" y="0" width="220" height="200" rx="10" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
-        <text x="110" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">交錯排列幾何</text>
-        <line x1="10" y1="32" x2="210" y2="32" stroke="rgba(124,58,237,0.2)" stroke-width="0.5"/>
+        <rect x="0" y="0" width="230" height="200" rx="10" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
+        <text x="115" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">交錯排列幾何</text>
+        <line x1="10" y1="30" x2="220" y2="30" stroke="rgba(124,58,237,0.2)" stroke-width="0.5"/>
         <text x="14" y="50" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>x offset (偶數列)</text>
         <text x="14" y="66" font-size="9" fill="#fff">= w × 0.5 = 69</text>
         <text x="14" y="86" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>y offset (所有列)</text>
         <text x="14" y="102" font-size="9" fill="#fff">= h = s × √3</text>
-        <text x="14" y="118" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>當 s=40, h=69.3</text>
-        <text x="14" y="134" font-size="8" fill="var(--sub)">w = 2s = 80</text>
+        <text x="14" y="120" font-size="8.5" fill="rgba(255,255,255,0.8)" font-weight:600>當 s=40, h=69.3</text>
+        <text x="14" y="136" font-size="8" fill="var(--sub)">w = 2s = 80</text>
         <text x="14" y="150" font-size="8" fill="var(--sub)">y = s × √3 = 69.3</text>
-        <text x="14" y="170" font-size="8.5" fill="#f43f5e" font-weight:600>蜂巢週期 = (w, h)</text>
-        <text x="14" y="186" font-size="8" fill="var(--sub)">Repeating tile: (80, 69.3)</text>
-      </g>
-    </svg>
-  </div>
-</div>
-
-<!-- ===== SLIDE 8: Flat-top vs Point-top ===== -->
-<div class="slide" id="s8">
-  <div class="slide-header">
-    <span class="slide-num">P8 / 10</span>
-    <span class="slide-badge">方向對比</span>
-  </div>
-  <div class="slide-title">
-    <h1>兩種方向對比</h1>
-    <p>Flat-top vs Point-top · 皆為 HGS 標準</p>
-  </div>
-  <div class="slide-body">
-    <svg width="640" height="300" viewBox="0 0 640 300">
-      <!-- 左：Flat-top -->
-      <g transform="translate(40,20)">
-        <rect x="-5" y="-5" width="240" height="250" rx="10" fill="rgba(124,58,237,0.05)" stroke="rgba(124,58,237,0.2)" stroke-width="1"/>
-        <text x="115" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#7c3aed">Flat-top</text>
-        <text x="115" y="34" text-anchor="middle" font-size="8" fill="var(--sub)">頂部/底部為水平邊</text>
-        <!-- flat-top hexagon -->
-        <g transform="translate(75,70)">
-          <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-            stroke="#7c3aed" stroke-width="1.5" fill="rgba(124,58,237,0.15)"/>
-          <!-- 寬度標註 -->
-          <line x1="0" y1="-14" x2="69" y2="-14" stroke="rgba(124,58,237,0.4)" stroke-width="0.8"/>
-          <text x="34.5" y="-18" text-anchor="middle" font-size="7" fill="#7c3aed">w = 2s</text>
-          <!-- 高度標註 -->
-          <line x1="76" y1="0" x2="76" y2="80" stroke="rgba(124,58,237,0.4)" stroke-width="0.8"/>
-          <text x="82" y="43" text-anchor="start" font-size="7" fill="#7c3aed">h</text>
-          <!-- 方向箭頭 -->
-          <text x="34.5" y="90" text-anchor="middle" font-size="8" fill="rgba(124,58,237,0.6)">W:H = 2:1.732</text>
-        </g>
-        <!-- 小蜂巢群組 -->
-        <g transform="translate(75,165)">
-          <!-- 小 flat-top 三個 -->
-          <g transform="translate(0,0)">
-            <path d="M26 3.4 L34.7 13.4 A3 3 0 0 0 34.7 26.7 L26 36.7 A3 3 0 0 0 17.3 40 L8.7 36.7 A3 3 0 0 0 8.7 26.7 L0 26.7 A3 3 0 0 0 0 13.4 L8.7 3.4 A3 3 0 0 0 17.3 0 L26 3.4 Z"
-              stroke="#7c3aed" stroke-width="0.7" fill="rgba(124,58,237,0.12)"/>
-          </g>
-          <g transform="translate(35,20)">
-            <path d="M26 3.4 L34.7 13.4 A3 3 0 0 0 34.7 26.7 L26 36.7 A3 3 0 0 0 17.3 40 L8.7 36.7 A3 3 0 0 0 8.7 26.7 L0 26.7 A3 3 0 0 0 0 13.4 L8.7 3.4 A3 3 0 0 0 17.3 0 L26 3.4 Z"
-              stroke="#06b6d4" stroke-width="0.7" fill="rgba(6,182,212,0.1)"/>
-          </g>
-          <g transform="translate(0,40)">
-            <path d="M26 3.4 L34.7 13.4 A3 3 0 0 0 34.7 26.7 L26 36.7 A3 3 0 0 0 17.3 40 L8.7 36.7 A3 3 0 0 0 8.7 26.7 L0 26.7 A3 3 0 0 0 0 13.4 L8.7 3.4 A3 3 0 0 0 17.3 0 L26 3.4 Z"
-              stroke="#10b981" stroke-width="0.7" fill="rgba(16,185,129,0.1)"/>
-          </g>
-        </g>
-      </g>
-      <!-- 右：Point-top -->
-      <g transform="translate(320,20)">
-        <rect x="-5" y="-5" width="240" height="250" rx="10" fill="rgba(6,182,212,0.05)" stroke="rgba(6,182,212,0.2)" stroke-width="1"/>
-        <text x="115" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#06b6d4">Point-top</text>
-        <text x="115" y="34" text-anchor="middle" font-size="8" fill="var(--sub)">頂部/底部為尖角頂點</text>
-        <!-- point-top hexagon (旋轉90度) -->
-        <g transform="translate(75,70)">
-          <path d="M34.5 0 L69 26.7 A6 6 0 0 0 69 53.3 L34.5 80 L0 53.3 A6 6 0 0 0 0 26.7 Z"
-            stroke="#06b6d4" stroke-width="1.5" fill="rgba(6,182,212,0.15)"/>
-          <!-- 寬度標註 -->
-          <line x1="0" y1="-14" x2="69" y2="-14" stroke="rgba(6,182,212,0.4)" stroke-width="0.8"/>
-          <text x="34.5" y="-18" text-anchor="middle" font-size="7" fill="#06b6d4">h</text>
-          <!-- 高度標註 -->
-          <line x1="76" y1="0" x2="76" y2="80" stroke="rgba(6,182,212,0.4)" stroke-width="0.8"/>
-          <text x="82" y="43" text-anchor="start" font-size="7" fill="#06b6d4">w</text>
-          <text x="34.5" y="96" text-anchor="middle" font-size="8" fill="rgba(6,182,212,0.6)">W:H = 1.732:2</text>
-        </g>
-        <!-- 小蜂巢群組 -->
-        <g transform="translate(75,165)">
-          <!-- 小 point-top 三個 -->
-          <g transform="translate(0,0)">
-            <path d="M17.3 0 L34.7 13.4 A3 3 0 0 0 34.7 26.7 L17.3 40 L0 26.7 A3 3 0 0 0 0 13.4 Z"
-              stroke="#06b6d4" stroke-width="0.7" fill="rgba(6,182,212,0.1)"/>
-          </g>
-          <g transform="translate(20,17)">
-            <path d="M17.3 0 L34.7 13.4 A3 3 0 0 0 34.7 26.7 L17.3 40 L0 26.7 A3 3 0 0 0 0 13.4 Z"
-              stroke="#7c3aed" stroke-width="0.7" fill="rgba(124,58,237,0.1)"/>
-          </g>
-          <g transform="translate(0,34)">
-            <path d="M17.3 0 L34.7 13.4 A3 3 0 0 0 34.7 26.7 L17.3 40 L0 26.7 A3 3 0 0 0 0 13.4 Z"
-              stroke="#10b981" stroke-width="0.7" fill="rgba(16,185,129,0.1)"/>
-          </g>
-        </g>
-      </g>
-      <!-- 底部對比表格 -->
-      <g transform="translate(40,260)">
-        <rect x="0" y="0" width="520" height="30" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <text x="130" y="19" text-anchor="middle" font-size="8" fill="var(--sub)">Flat-top: 水平滾動友好</text>
-        <text x="260" y="19" text-anchor="middle" font-size="8" fill="var(--sub)">|</text>
-        <text x="390" y="19" text-anchor="middle" font-size="8" fill="var(--sub)">Point-top: 垂直堆疊友好</text>
+        <text x="14" y="172" font-size="8.5" fill="#f43f5e" font-weight:700>❌ Inward Fillet 禁止</text>
+        <text x="14" y="188" font-size="8" fill="var(--sub)">所有圓角皆為 Outward Bulge</text>
       </g>
     </svg>
   </div>
@@ -665,57 +600,56 @@ body {
   </div>
   <div class="slide-title">
     <h1>填充數據內容</h1>
-    <p>Content Cells · 圓角六邊形作為資訊容器</p>
+    <p>Outward Bulge Hexagon · KPI · 狀態 · 分類</p>
   </div>
   <div class="slide-body">
-    <svg width="580" height="300" viewBox="0 0 580 300">
-      <!-- KPI 展示 -->
+    <svg width="620" height="300" viewBox="0 0 620 300">
       <!-- KPI 1 -->
-      <g transform="translate(60,60)">
+      <g transform="translate(60,50)">
         <path d="M78 10 L143 10 L171 58 A15 15 0 0 0 171 100 L143 148 A15 15 0 0 0 104 156 L39 148 A15 15 0 0 0 39 108 L10 100 A15 15 0 0 0 10 58 L39 10 Z"
-          stroke="#7c3aed" stroke-width="1.2" fill="rgba(124,58,237,0.15)"/>
-        <text x="90" y="70" text-anchor="middle" font-size="28" font-weight="800" fill="#7c3aed">85%</text>
+          stroke="#7c3aed" stroke-width="1.3" fill="rgba(124,58,237,0.15)"/>
+        <text x="90" y="68" text-anchor="middle" font-size="30" font-weight="800" fill="#7c3aed">85%</text>
         <text x="90" y="90" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">任務完成率</text>
       </g>
       <!-- KPI 2 -->
-      <g transform="translate(240,60)">
+      <g transform="translate(250,50)">
         <path d="M78 10 L143 10 L171 58 A15 15 0 0 0 171 100 L143 148 A15 15 0 0 0 104 156 L39 148 A15 15 0 0 0 39 108 L10 100 A15 15 0 0 0 10 58 L39 10 Z"
-          stroke="#06b6d4" stroke-width="1.2" fill="rgba(6,182,212,0.12)"/>
-        <text x="90" y="70" text-anchor="middle" font-size="28" font-weight="800" fill="#06b6d4">12</text>
+          stroke="#06b6d4" stroke-width="1.3" fill="rgba(6,182,212,0.12)"/>
+        <text x="90" y="68" text-anchor="middle" font-size="30" font-weight="800" fill="#06b6d4">12</text>
         <text x="90" y="90" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">專案數量</text>
       </g>
       <!-- KPI 3 -->
-      <g transform="translate(420,60)">
+      <g transform="translate(440,50)">
         <path d="M78 10 L143 10 L171 58 A15 15 0 0 0 171 100 L143 148 A15 15 0 0 0 104 156 L39 148 A15 15 0 0 0 39 108 L10 100 A15 15 0 0 0 10 58 L39 10 Z"
-          stroke="#10b981" stroke-width="1.2" fill="rgba(16,185,129,0.12)"/>
-        <text x="90" y="70" text-anchor="middle" font-size="28" font-weight="800" fill="#10b981">↑23%</text>
+          stroke="#10b981" stroke-width="1.3" fill="rgba(16,185,129,0.12)"/>
+        <text x="90" y="68" text-anchor="middle" font-size="30" font-weight="800" fill="#10b981">↑23%</text>
         <text x="90" y="90" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)">同比增長</text>
       </g>
-      <!-- 標籤展示 -->
-      <g transform="translate(60,230)">
+      <!-- 狀態標籤 -->
+      <g transform="translate(60,210)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-          stroke="#f59e0b" stroke-width="1" fill="rgba(245,158,11,0.15)"/>
+          stroke="#f59e0b" stroke-width="1.1" fill="rgba(245,158,11,0.15)"/>
         <text x="34.5" y="36" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">策略A</text>
         <text x="34.5" y="52" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.5)">高成長</text>
       </g>
-      <g transform="translate(150,230)">
+      <g transform="translate(155,210)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-          stroke="#f43f5e" stroke-width="1" fill="rgba(244,63,94,0.12)"/>
+          stroke="#f43f5e" stroke-width="1.1" fill="rgba(244,63,94,0.12)"/>
         <text x="34.5" y="36" text-anchor="middle" font-size="10" font-weight="700" fill="#f43f5e">策略B</text>
         <text x="34.5" y="52" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.5)">高風險</text>
       </g>
-      <g transform="translate(240,230)">
+      <g transform="translate(250,210)">
         <path d="M52 6.7 L69 26.7 A6 6 0 0 0 69 53.3 L52 73.3 A6 6 0 0 0 34.7 80 L17.3 73.3 A6 6 0 0 0 17.3 53.3 L0 53.3 A6 6 0 0 0 0 26.7 L17.3 6.7 A6 6 0 0 0 34.7 0 L52 6.7 Z"
-          stroke="#7c3aed" stroke-width="1" fill="rgba(124,58,237,0.12)"/>
+          stroke="#7c3aed" stroke-width="1.1" fill="rgba(124,58,237,0.12)"/>
         <text x="34.5" y="36" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">策略C</text>
         <text x="34.5" y="52" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.5)">穩定型</text>
       </g>
       <!-- 右側說明 -->
-      <g transform="translate(340,230)">
-        <rect x="0" y="0" width="200" height="60" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <text x="100" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,0.7)">應用場景</text>
+      <g transform="translate(370,210)">
+        <rect x="0" y="0" width="210" height="70" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <text x="105" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,0.7)">應用場景</text>
         <text x="14" y="40" font-size="8" fill="var(--sub)">KPI · 狀態標籤 · 角色分類</text>
-        <text x="14" y="54" font-size="8" fill="var(--sub)">組織圖 · 技能雷達 · 流程節點</text>
+        <text x="14" y="56" font-size="8" fill="var(--sub)">組織圖 · 技能雷達 · 流程節點</text>
       </g>
     </svg>
   </div>
@@ -725,57 +659,59 @@ body {
 <div class="slide" id="s10">
   <div class="slide-header">
     <span class="slide-num">P10 / 10</span>
-    <span class="slide-badge">HGS 標準</span>
+    <span class="slide-badge">HGS #82</span>
   </div>
   <div class="slide-title">
     <h1>圓角六角形幾何標準</h1>
-    <p>Honeycomb Geometry Standard · 技巧 #82 · Outward Bulge · No Inward Fillet</p>
+    <p>技巧 #82 · Outward Bulge · No Inward Fillet · UI 頭像框 / 蜂巢形狀</p>
   </div>
   <div class="slide-body" style="flex-direction:column;align-items:center;gap:0;">
-    <svg width="560" height="230" viewBox="0 0 560 230">
-      <!-- 左側：核心參數 -->
-      <g transform="translate(10,20)">
-        <rect x="0" y="0" width="180" height="180" rx="12" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.25)" stroke-width="1"/>
-        <text x="90" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#7c3aed">核心參數</text>
+    <svg width="600" height="230" viewBox="0 0 600 230">
+      <!-- 左：定義 -->
+      <g transform="translate(10,15)">
+        <rect x="0" y="0" width="180" height="200" rx="12" fill="rgba(124,58,237,0.06)" stroke="rgba(124,58,237,0.25)" stroke-width="1"/>
+        <text x="90" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#7c3aed">定義（kuma 2026-06-17）</text>
         <line x1="10" y1="28" x2="170" y2="28" stroke="rgba(124,58,237,0.2)" stroke-width="0.5"/>
-        <text x="14" y="46" font-size="8" fill="rgba(255,255,255,0.7)" font-weight:600>Orientation</text>
-        <text x="14" y="60" font-size="8.5" fill="#fff">Flat-top（水平滾動）</text>
-        <text x="14" y="78" font-size="8" fill="rgba(255,255,255,0.7)" font-weight:600>Width : Height</text>
-        <text x="14" y="92" font-size="9" fill="#06b6d4" font-weight:700">1.1547 : 1</text>
-        <text x="14" y="110" font-size="8" fill="rgba(255,255,255,0.7)" font-weight:600>Corner radius</text>
-        <text x="14" y="124" font-size="9" fill="#10b981" font-weight:700">r = s × 15%</text>
-        <text x="14" y="142" font-size="8" fill="rgba(255,255,255,0.7)" font-weight:600>Six sides</text>
-        <text x="14" y="156" font-size="9" fill="#fff">Equal length · 120°</text>
-        <text x="14" y="172" font-size="8" fill="#f43f5e" font-weight:600>All corners identical ✓</text>
+        <text x="14" y="46" font-size="7.5" fill="rgba(255,255,255,0.8)">將六個頂點修飾為</text>
+        <text x="14" y="60" font-size="8" fill="#10b981" font-weight:700">向外凸出的圓角</text>
+        <text x="14" y="74" font-size="7.5" fill="rgba(255,255,255,0.8)">呈現溫潤平滑流線邊緣</text>
+        <line x1="10" y1="82" x2="170" y2="82" stroke="rgba(124,58,237,0.15)" stroke-width="0.5"/>
+        <text x="14" y="98" font-size="7.5" fill="rgba(255,255,255,0.8)">整體形狀像</text>
+        <text x="14" y="112" font-size="8" fill="#fff" font-weight:700">現代 UI 頭像框</text>
+        <text x="14" y="126" font-size="8" fill="#fff" font-weight:700">蜂巢形狀</text>
+        <line x1="10" y1="134" x2="170" y2="134" stroke="rgba(124,58,237,0.15)" stroke-width="0.5"/>
+        <text x="14" y="150" font-size="8" fill="#f43f5e" font-weight:700">❌ 禁止 Inward Fillet</text>
+        <text x="14" y="164" font-size="7.5" fill="var(--sub)">內凹圓角 · Chamfer</text>
+        <text x="14" y="178" font-size="7.5" fill="var(--sub)">破壞六角形輪廓</text>
+        <text x="14" y="194" font-size="7.5" fill="var(--sub)">Fillet 凹角效果</text>
       </g>
-      <!-- 中間：圓角六邊形大圖 -->
-      <g transform="translate(210,20)">
-        <rect x="0" y="0" width="150" height="180" rx="12" fill="rgba(6,182,212,0.06)" stroke="rgba(6,182,212,0.2)" stroke-width="1"/>
-        <text x="75" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#06b6d4">標準單元</text>
-        <g transform="translate(15,35)">
+      <!-- 中：標準六邊形 -->
+      <g transform="translate(210,15)">
+        <rect x="0" y="0" width="160" height="200" rx="12" fill="rgba(6,182,212,0.06)" stroke="rgba(6,182,212,0.2)" stroke-width="1"/>
+        <text x="80" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#06b6d4">標準單元</text>
+        <g transform="translate(15,38)">
           <path d="M78 10 L143 10 L171 58 A15 15 0 0 0 171 100 L143 148 A15 15 0 0 0 104 156 L39 148 A15 15 0 0 0 39 108 L10 100 A15 15 0 0 0 10 58 L39 10 Z"
             stroke="#06b6d4" stroke-width="1.5" fill="rgba(6,182,212,0.15)"/>
           <text x="90" y="86" text-anchor="middle" font-size="10" font-weight="700" fill="#06b6d4">s=60</text>
-          <text x="90" y="102" text-anchor="middle" font-size="8" fill="rgba(6,182,212,0.6)">r=9</text>
+          <text x="90" y="102" text-anchor="middle" font-size="9" fill="rgba(6,182,212,0.6)">r=9</text>
         </g>
-        <text x="75" y="200" text-anchor="middle" font-size="7.5" fill="var(--sub)">六個頂點皆為外側圓弧</text>
+        <text x="80" y="198" text-anchor="middle" font-size="7.5" fill="var(--sub)">六個頂點皆為外側圓弧向外凸出</text>
       </g>
-      <!-- 右側：圓角類型對比 -->
-      <g transform="translate(380,20)">
-        <rect x="0" y="0" width="170" height="180" rx="12" fill="rgba(244,63,94,0.06)" stroke="rgba(244,63,94,0.2)" stroke-width="1"/>
-        <text x="85" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#f43f5e">圓角類型對比</text>
-        <line x1="10" y1="28" x2="160" y2="28" stroke="rgba(244,63,94,0.2)" stroke-width="0.5"/>
-        <text x="14" y="46" font-size="8.5" fill="#10b981" font-weight:700>✅ Outward Bulge（正確）</text>
-        <text x="14" y="60" font-size="8" fill="var(--sub)">圓弧向外凸出</text>
-        <text x="14" y="74" font-size="8" fill="var(--sub)">像 UI 頭像框 / 蜂巢</text>
-        <text x="14" y="92" font-size="8.5" fill="#f43f5e" font-weight:700>❌ Inward Fillet（禁止）</text>
-        <text x="14" y="106" font-size="8" fill="var(--sub)">圓弧向內凹陷</text>
-        <text x="14" y="120" font-size="8" fill="var(--sub)">Chamfer / 內凹圓角</text>
-        <line x1="10" y1="128" x2="160" y2="128" stroke="rgba(244,63,94,0.2)" stroke-width="0.5"/>
-        <text x="14" y="144" font-size="8" fill="rgba(255,255,255,0.7)" font-weight:600>外側圓弧向外延伸</text>
-        <text x="14" y="158" font-size="8" fill="var(--sub)">保持凸面輪廓</text>
-        <text x="14" y="172" font-size="8" fill="var(--sub)">不可向內挖空</text>
-        <text x="14" y="178" font-size="0" fill="#10b981" font-weight:600></text>
+      <!-- 右：參數 -->
+      <g transform="translate(390,15)">
+        <rect x="0" y="0" width="200" height="200" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <text x="100" y="20" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">幾何參數</text>
+        <line x1="10" y1="28" x2="190" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+        <text x="14" y="48" font-size="8" fill="var(--sub)">方向</text>
+        <text x="14" y="62" font-size="9" fill="#fff" font-weight:700">Flat-top</text>
+        <text x="14" y="80" font-size="8" fill="var(--sub)">寬高比</text>
+        <text x="14" y="94" font-size="9" fill="#06b6d4" font-weight:700">W:H = 1.1547 : 1</text>
+        <text x="14" y="112" font-size="8" fill="var(--sub)">圓角半徑</text>
+        <text x="14" y="126" font-size="9" fill="#10b981" font-weight:700">r = s × 15%</text>
+        <text x="14" y="144" font-size="8" fill="var(--sub)">圓角類型</text>
+        <text x="14" y="158" font-size="9" fill="#10b981" font-weight:700">Outward Bulge ✓</text>
+        <text x="14" y="176" font-size="8" fill="var(--sub)">六邊 / 內角</text>
+        <text x="14" y="190" font-size="8.5" fill="#fff" font-weight:600">6 equal · 120°</text>
       </g>
     </svg>
   </div>
@@ -799,7 +735,6 @@ function showSlide(n) {
   nav.children[n-1].classList.add('active');
 }
 showSlide(1);
-// Keyboard nav
 document.addEventListener('keydown', e => {
   const cur = [...document.querySelectorAll('.slide')].findIndex(s => s.classList.contains('active')) + 1;
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown') showSlide(Math.min(total, cur + 1));
