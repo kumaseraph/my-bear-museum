@@ -287,7 +287,7 @@ body {
 
 <!-- ===== SIZE & CORNER ===== -->
 <div class="section">
-  <div class="section-title">📏 Size &amp; Corner — 尺寸與圓角</div>
+  <div class="section-title">📏 Size &amp; Corner — 尺寸與圓角（HGS 標準）</div>
   <div class="row">
     <!-- Size levels -->
     <div style="text-align:center;">
@@ -317,30 +317,35 @@ body {
         <text x="172" y="110" text-anchor="middle" font-size="7" fill="#64748b" font-weight="600">s=40</text>
       </svg>
     </div>
-    <!-- Corner radius demo -->
-    <div style="text-align:center;">
-      <div style="font-size:0.65rem;font-weight:800;color:var(--sub);margin-bottom:10px;">圓角半徑對照</div>
-      <svg width="180" height="100" viewBox="0 0 180 100">
-        <!-- 10% -->
-        <g transform="translate(20,20)">
-          <path d="M30 5 L45 5 L52 15 A2 2 0 0 0 52 25 L45 35 A2 2 0 0 0 30 35 L22 35 A2 2 0 0 0 22 25 L15 25 A2 2 0 0 0 15 15 L22 5 A2 2 0 0 0 30 5 Z"
-            stroke="#e11d48" stroke-width="0.7" fill="rgba(225,29,72,0.12)"/>
-          <text x="33" y="22" text-anchor="middle" font-size="7" font-weight="700" fill="#e11d48">r=10%</text>
-        </g>
-        <!-- 15% -->
-        <g transform="translate(80,10)">
-          <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
-            stroke="#7c3aed" stroke-width="0.7" fill="rgba(124,58,237,0.15)"/>
-          <text x="26" y="33" text-anchor="middle" font-size="7" font-weight="700" fill="#7c3aed">r=15% ✓</text>
-        </g>
-        <!-- 20% -->
-        <g transform="translate(140,20)">
-          <path d="M35 5 L52 12 A6 6 0 0 0 52 28 L45 40 A6 6 0 0 0 26 45 L13 40 A6 6 0 0 0 13 28 L6 28 A6 6 0 0 0 6 12 L13 5 A6 6 0 0 0 26 0 L35 5 Z"
-            stroke="#64748b" stroke-width="0.7" fill="rgba(100,116,139,0.12)"/>
-          <text x="29" y="26" text-anchor="middle" font-size="7" font-weight="700" fill="#64748b">r=20%</text>
-        </g>
-      </svg>
-      <div style="font-size:0.6rem;color:var(--sub);margin-top:4px;">15% 為 HGS 標準圓角</div>
+    <!-- Corner rules -->
+    <div>
+      <div style="font-size:0.65rem;font-weight:800;color:var(--sub);margin-bottom:10px;">🍎 iOS-Style 圓角定義</div>
+      <div style="font-size:0.68rem;color:var(--text);line-height:2;font-weight:500;">
+        <div style="margin-bottom:6px;color:var(--violet);font-weight:700;">六個頂點磨圓：</div>
+        <div style="background:rgba(124,58,237,0.06);border-radius:8px;padding:8px 10px;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+            <span style="color:var(--emerald);font-size:0.9rem;">✅</span>
+            <span><b>外側圓弧</b> — 平滑連接相鄰邊線</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+            <span style="color:var(--emerald);font-size:0.9rem;">✅</span>
+            <span><b>向外延伸</b> — 圓弧不可向內挖空</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+            <span style="color:var(--emerald);font-size:0.9rem;">✅</span>
+            <span><b>無凹陷</b> — 保持凸面輪廓</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="color:var(--emerald);font-size:0.9rem;">✅</span>
+            <span><b>輪廓不變</b> — 保持原六角形基本形狀</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+          <span style="background:rgba(5,150,105,0.1);color:#047857;padding:3px 8px;border-radius:6px;font-size:0.62rem;font-weight:700;">r = s × 15%</span>
+          <span style="background:rgba(124,58,237,0.1);color:#6d28d9;padding:3px 8px;border-radius:6px;font-size:0.62rem;font-weight:700;">All corners identical</span>
+          <span style="background:rgba(8,145,178,0.1);color:#0e7490;padding:3px 8px;border-radius:6px;font-size:0.62rem;font-weight:700;">Outward bulge</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -381,6 +386,17 @@ body {
       <div class="icon">🔺</div>
       <div class="label">尖角</div>
     </div>
+    <div class="forbidden-item" style="border-color:rgba(225,29,72,0.3);">
+      <div class="icon">⬇️</div>
+      <div class="label" style="color:#e11d48;">向內挖空</div>
+    </div>
+    <div class="forbidden-item" style="border-color:rgba(225,29,72,0.3);">
+      <div class="icon">💧</div>
+      <div class="label" style="color:#e11d48;">凹陷</div>
+    </div>
+  </div>
+  <div style="margin-top:12px;padding:10px 14px;background:rgba(225,29,72,0.06);border-radius:10px;font-size:0.65rem;color:#e11d48;line-height:1.8;">
+    <b>❌ 新增禁止：</b>圓角方向錯誤（向內挖空）· 凹陷（Inward dent）· 破壞六角形輪廓
   </div>
 </div>
 
