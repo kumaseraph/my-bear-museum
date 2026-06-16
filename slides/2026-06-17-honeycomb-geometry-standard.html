@@ -289,33 +289,36 @@ body {
 <div class="section">
   <div class="section-title">📏 Size &amp; Corner — 尺寸與圓角（HGS 標準）</div>
   <div class="row">
-    <!-- Size levels -->
+    <!-- iOS-style 大圓角六邊形視覺 -->
     <div style="text-align:center;">
-      <div style="font-size:0.65rem;font-weight:800;color:var(--sub);margin-bottom:10px;">三種尺寸等級</div>
-      <svg width="220" height="120" viewBox="0 0 220 120">
-        <!-- Small: 45x52, centered at x=37 -->
-        <g transform="translate(10,34)">
-          <path d="M19.5 2.5 L32.5 2.5 L39 13 A2.6 2.6 0 0 0 39 26 L32.5 37 A2.6 2.6 0 0 0 26 39 L19.5 37 A2.6 2.6 0 0 0 19.5 28 L13 26 A2.6 2.6 0 0 0 13 13 L19.5 2.5 Z"
-            stroke="#7c3aed" stroke-width="0.7" fill="rgba(124,58,237,0.12)"/>
-          <text x="26" y="22" text-anchor="middle" font-size="7" font-weight="700" fill="#7c3aed">小</text>
-        </g>
-        <!-- Medium: 52x60, centered at x=97 -->
-        <g transform="translate(68,20)">
-          <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
-            stroke="#0891b2" stroke-width="0.7" fill="rgba(8,145,178,0.12)"/>
-          <text x="26" y="34" text-anchor="middle" font-size="8" font-weight="700" fill="#0891b2">中</text>
-        </g>
-        <!-- Large: 69x80, centered at x=172 -->
-        <g transform="translate(135,0)">
-          <path d="M52 7 L69 27 A7.2 7.2 0 0 0 69 53 L52 73 A7.2 7.2 0 0 0 34.5 80 L17.5 73 A7.2 7.2 0 0 0 17.5 53 L0 53 A7.2 7.2 0 0 0 0 27 L17.5 7 A7.2 7.2 0 0 0 34.5 0 L52 7 Z"
-            stroke="#059669" stroke-width="0.7" fill="rgba(5,150,105,0.12)"/>
-          <text x="34.5" y="42" text-anchor="middle" font-size="9" font-weight="700" fill="#059669">大</text>
-        </g>
-        <!-- Labels -->
-        <text x="37" y="110" text-anchor="middle" font-size="7" fill="#64748b" font-weight="600">s=26</text>
-        <text x="97" y="110" text-anchor="middle" font-size="7" fill="#64748b" font-weight="600">s=30</text>
-        <text x="172" y="110" text-anchor="middle" font-size="7" fill="#64748b" font-weight="600">s=40</text>
+      <div style="font-size:0.65rem;font-weight:800;color:var(--sub);margin-bottom:10px;">🍎 iOS-Style 圓角六邊形（s=30, r=4.5）</div>
+      <svg width="180" height="160" viewBox="0 0 90 100">
+        <!-- 大六邊形：r=4.5, viewBox="0 0 52 60"，scale 1.5 放大顯示 -->
+        <!-- 外側陰影（Outward bulge 視覺效果） -->
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="rgba(124,58,237,0.15)" stroke-width="4" fill="none" transform="translate(2,2)"/>
+        <!-- 主體 -->
+        <path d="M39 5 L52 20 A4.5 4.5 0 0 0 52 40 L39 55 A4.5 4.5 0 0 0 26 60 L13 55 A4.5 4.5 0 0 0 13 45 L0 40 A4.5 4.5 0 0 0 0 20 L13 5 A4.5 4.5 0 0 0 26 0 L39 5 Z"
+          stroke="#7c3aed" stroke-width="1.2" fill="rgba(124,58,237,0.12)"/>
+        <!-- 頂點標記：6個圓角位置 -->
+        <!-- 頂尖(26,0) -->
+        <circle cx="26" cy="0" r="2.5" fill="#e11d48"/>
+        <text x="26" y="-6" text-anchor="middle" font-size="6" fill="#e11d48" font-weight="700">頂尖</text>
+        <!-- 右上(52,20) -->
+        <circle cx="52" cy="20" r="2.5" fill="#0891b2"/>
+        <text x="62" y="20" text-anchor="start" font-size="6" fill="#0891b2" font-weight="700">A4.5</text>
+        <!-- 右下(52,40) -->
+        <circle cx="52" cy="40" r="2.5" fill="#0891b2"/>
+        <!-- 底尖(26,60) -->
+        <circle cx="26" cy="60" r="2.5" fill="#e11d48"/>
+        <text x="26" y="72" text-anchor="middle" font-size="6" fill="#e11d48" font-weight="700">底尖</text>
+        <!-- 左下(13,45) -->
+        <circle cx="13" cy="45" r="2.5" fill="#0891b2"/>
+        <!-- 左上(0,20) -->
+        <circle cx="0" cy="20" r="2.5" fill="#0891b2"/>
+        <text x="-8" y="20" text-anchor="end" font-size="6" fill="#0891b2" font-weight="700">A4.5</text>
       </svg>
+      <div style="font-size:0.62rem;color:var(--sub);margin-top:4px;">紅色=尖頂 · 藍色=圓角(A4.5) · 外側陰影=Outward bulge</div>
     </div>
     <!-- Corner rules -->
     <div>
