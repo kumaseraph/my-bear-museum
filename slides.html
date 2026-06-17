@@ -186,21 +186,7 @@
 <script>
 // 熊熊簡報展示列表
 const presentations = [
-    { name: 'slides/2026-06-18-honeycomb-variations-showcase', title: '🟡 蜂巢圖形變化展示', desc: '7頁·32種組合：實心亮色/深色/半透明/漸層填充×極細/標準/粗/極粗邊框×實線/虛線/點線/雙線/對比色×七格叢集×2.5D疊加×KPI卡片×狀態指示·暗色背景·引用技巧#115#82#106#107', icon: '🟡' },
-    { name: 'slides/2026-01-27-civil-servant-transfer-rules', title: '📘 公務人員任用小常識 — 商調函規定', desc: '9頁：商調函回復期限與過調日期規定·應用技巧#106單一強調色(#FF6B35)·#107大數字留白(1個月/3個月)·#108模糊幾何背景·#109三分法·#113漸層三層次·#76三色卡片·#70時間軸·暖橘+深藍配色', icon: '📘' },
-    { name: 'slides/2026-06-18-ntpc-personnel-evaluation-briefing', title: '📋 新北市115年員額評鑑行前會議', desc: '7頁：封面放射狀圓環圖騰×圓形放射狀時間軸×環形放射六格×圓形人物排列×橢圓弧形時間軸×斜向階梯卡片×圓形放射六邊形結語·引用技巧#86#7#68#58#40#76#82·每頁不同排列', icon: '📋' },
-    { name: 'slides/2026-06-18-geometric-design-system', title: '🔷 幾何圖形設計系統', desc: '10頁·圓形七大變體×多邊形圓潤化×圓角蜂巢標準×方圓組合×三角圓組合×階梯時間軸×雙軌時間軸×圖形變化矩陣·莫蘭迪淺色系·引用技巧#86#87#82#58#59#70#40#76#80', icon: '🔷' },
-    { name: 'slides/2026-06-18-smooth-hexagon-showcase', title: '🔷 圓角蜂巢展示', desc: '10頁圓角蜂巢·G1連續Cubic Bézier曲線·無尖銳折點·正六角形輪廓·C1封閉路徑·R=0.18標準圓角·基礎單元×蜂巢組合×時間軸×彩色蜂巢牆×流程軸×KPI卡片×19格蜂巢牆，淡色系背景', icon: '🔷' },
-    { name: 'slides/2026-06-18-geometric-shapes-showcase', title: '🔷 幾何圖形視覺系統', desc: '10頁幾何圖形視覺系統·技巧#86圓形七大變體（Annulus/Sector/Segment/Crescent/Semicircle/Reuleaux/Oval）×#87多邊形圓潤化演變圖譜（3-12邊×R值階梯）×#88特殊曲線圖形（Reuleaux/Cardioid/Rose/Catenary）×圖形語義對照表·淡色系背景，引用技巧86-88', icon: '🔷' },
-    { name: 'slides/2026-06-17-rounded-hexagon-showcase', title: '🔷 圓角六角形展示', desc: '10頁圓角六角形展示·技巧#82 HGS標準·基礎單元×三種尺寸×三元組合×七星組合×十九蜂巢×交錯排列×方向對比×應用展示·Flat-top·W:H=1.1547:1·r=s×15%·Outward Bulge向外凸出圓角·No Inward Fillet·像UI頭像框/蜂巢·溫潤平滑流線邊緣', icon: '🔷' },
-    { name: 'slides/2026-06-17-honeycomb-geometry-standard', title: '📐 Honeycomb Geometry Standard', desc: '技巧#82 HGS終極標準·Flat-top·w:h=0.866:1·正六角形幾何·r=s×15%·Arc圓角語法·禁止3D/透視/有機形狀·PowerPoint商務風格·Clean Vector', icon: '📐' },
-    { name: 'slides/2026-06-16-rounded-polygon-engine', title: '🔶 圓角多邊形組合引擎', desc: '12頁技能#79·RPCE引擎·12種排列×混合技法×優先六邊/五邊/八邊形，引用技巧79', icon: '🔶' },
-    { name: 'slides/2026-06-16-honeycomb-system', title: '🔷 蜂巢圖系統 Honeycomb', desc: '10頁技能#78蜂巢圖系統·Lv1單體/Lv2三元/Lv3七星/Lv4十九蜂巢·圓角15%·等比例·圖示/數字/標題，引用技巧78', icon: '🔷' },
-    { name: 'slides/2026-06-16-rounded-honeycomb-v3', title: '🔷 圓角六邊形素材展示', desc: '10種圓角六邊形呈現·技能#77圓角多邊形素材·SVG stroke-linejoin=round真正頂點圓角·基礎展示×漂浮卡片×時間軸×金字塔×KPI×雷達圖×組織架構×流程箭頭×甜甜圈圖×混合創作，引用技巧77', icon: '🔷' },
-    { name: 'slides/2026-06-16-honeycomb-variations', title: '🟠 蜂巢圖組合與變化型態', desc: '10種示範·經典蜂巢·圓角蜂巢·蜂巢+時間軸·蜂巢+金字塔·蜂巢+雷達圖·蜂巢+流程箭頭·蜂巢+KPI·蜂巢+組織架構·蜂巢+圓餅圖·混合創作，引用技巧68', icon: '🟠' },
-    { name: 'slides/2026-06-16-graphic-combinations', title: '📐 圖形元件組合應用', desc: '十種常見圖形的組合可能性與實務應用·時間軸×流程·KPI卡片·放射圖·Z-Roadmap·蜂巢圖·金字塔·漏斗·儀表板，熊熊博物館2026策略工作坊', icon: '📐' },
-    { name: 'slides/2026-06-15-geometric-shapes', title: '🔷 幾何圖形的組合設計與應用', desc: '極簡幾何風格·統計分析·時間軸·布爾運算·同形重複·異形並置·重疊交集，應用技巧56-60', icon: '🔷' },
-    { name: 'slides/2026-06-15-staff-review', title: '📋 新北市115年員額評鑑行前會議', desc: '政府正式風格·六大評鑑維度·委員任務部署矩陣·莫蘭迪色系', icon: '📋' },
+    { name: 'slides/2026-06-19-ntpc-personnel-evaluation-meeting', title: '📋 新北市115年員額評鑑行前會議', desc: '8頁·暖色調·導航列數字1-8·引用技巧#7#70#82#48#58#40#72#109#86：封面X型斜切×三大階段菱形階梯×六大維度正六邊形蜂巢×評鑑小組圓形人像×體育局Z字交替時間軸×動保處漏斗圖×三組分工棋盤深淺交替×結語方圓幾何', icon: '📋' },
     { name: 'slides/work-report-2026', title: '📊 工作報告', desc: '年度成果與未來展望·暖色系專業風格', icon: '📋' },
     { name: 'slides/bear-museum-2026-review', title: '🏛️ 熊熊博物館2026年度回顧', desc: '暖色系大地色·Z字形Roadmap·BCG矩陣·冰山模型·甘特圖，應用8個新技巧', icon: '🐻' },
     { name: 'slides/2026-06-13-ntpc-personnel-evaluation-v5', title: '📊 新北市115年員額評鑑（風格v5）', desc: '大地色系·六角蜂巢·切角設計·軌道時間軸，應用新技巧', icon: '🌰' },
