@@ -24,563 +24,152 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: 'Notot Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
   background: #1a1208;
   color: var(--text);
   font-size: 26px;
   line-height: 1.6;
 }
 
-/* ===== NAV — 數字顯示 ===== */
+/* ===== NAV ===== */
 .nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
+  position: fixed; top: 0; left: 0; right: 0;
   height: var(--nav-h);
   background: rgba(61,35,20,0.95);
   backdrop-filter: blur(12px);
-  display: flex;
-  align-items: center;
-  padding: 0 32px;
-  z-index: 100;
-  border-bottom: 1px solid rgba(210,105,30,0.2);
-  gap: 0;
+  display: flex; align-items: center;
+  padding: 0 32px; z-index: 100;
+  border-bottom: 1px solid rgba(210,105,30,0.2); gap: 0;
 }
-.nav-brand {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 36px;
-  font-weight: 900;
-  color: #E8A838;
-  letter-spacing: 0.08em;
-  margin-right: 32px;
-  white-space: nowrap;
-}
-.nav-items {
-  display: flex;
-  flex: 1;
-  gap: 4px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
+.nav-brand { font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900; color: #E8A838; letter-spacing: 0.08em; margin-right: 32px; white-space: nowrap; }
+.nav-items { display: flex; flex: 1; gap: 4px; overflow-x: auto; scrollbar-width: none; }
 .nav-items::-webkit-scrollbar { display: none; }
 .nav-item {
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  font-size: 26px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.45);
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s;
-  border: 1px solid transparent;
-  flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
+  width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+  border-radius: 8px; font-size: 26px; font-weight: 700; color: rgba(255,255,255,0.45);
+  cursor: pointer; text-decoration: none; transition: all 0.2s; border: 1px solid transparent; flex-shrink: 0; font-variant-numeric: tabular-nums;
 }
 .nav-item:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.06); }
-.nav-item.active {
-  color: var(--accent2);
-  background: rgba(232,168,56,0.12);
-  border-color: rgba(232,168,56,0.25);
-}
-.nav-progress {
-  font-size: 26px;
-  color: rgba(255,255,255,0.3);
-  margin-left: 20px;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
+.nav-item.active { color: var(--accent2); background: rgba(232,168,56,0.12); border-color: rgba(232,168,56,0.25); }
+.nav-progress { font-size: 26px; color: rgba(255,255,255,0.3); margin-left: 20px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 /* ===== SLIDE BASE ===== */
 .slide {
-  width: 1280px;
-  height: 720px;
-  background: var(--bg);
-  position: relative;
-  overflow: hidden;
+  width: 1280px; height: 720px; background: var(--bg);
+  position: relative; overflow: hidden;
   margin: calc(var(--nav-h) + 24px) auto 24px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
-.slide::after {
-  content: attr(data-page);
-  position: absolute;
-  bottom: 16px;
-  right: 24px;
-  font-size: 36px;
-  color: var(--muted);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  opacity: 0.5;
-}
-.deco-corner-tl {
-  position: absolute;
-  top: 0; left: 0;
-  width: 120px; height: 120px;
-  overflow: hidden;
-  pointer-events: none;
-}
-.deco-corner-tl::before {
-  content: '';
-  position: absolute;
-  top: -60px; left: -60px;
-  width: 120px; height: 120px;
-  background: linear-gradient(135deg, rgba(200,98,30,0.08) 0%, transparent 60%);
-  border-radius: 50%;
-}
-.deco-corner-br {
-  position: absolute;
-  bottom: 0; right: 0;
-  width: 120px; height: 120px;
-  overflow: hidden;
-  pointer-events: none;
-}
-.deco-corner-br::before {
-  content: '';
-  position: absolute;
-  bottom: -60px; right: -60px;
-  width: 120px; height: 120px;
-  background: linear-gradient(315deg, rgba(232,168,56,0.06) 0%, transparent 60%);
-  border-radius: 50%;
-}
-.page-title-bar {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: var(--nav-h);
-  display: flex;
-  align-items: center;
-  padding: 0 36px;
-  gap: 12px;
-}
-.page-title-bar .page-icon {
-  width: 30px; height: 30px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  flex-shrink: 0;
-}
-.page-title-bar h2 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 36px;
-  font-weight: 900;
-  color: var(--white);
-  letter-spacing: 0.04em;
-}
+.slide::after { content: attr(data-page); position: absolute; bottom: 16px; right: 24px; font-size: 36px; color: var(--muted); font-weight: 500; letter-spacing: 0.08em; opacity: 0.5; }
+.deco-corner-tl { position: absolute; top: 0; left: 0; width: 120px; height: 120px; overflow: hidden; pointer-events: none; }
+.deco-corner-tl::before { content: ''; position: absolute; top: -60px; left: -60px; width: 120px; height: 120px; background: linear-gradient(135deg, rgba(200,98,30,0.08) 0%, transparent 60%); border-radius: 50%; }
+.deco-corner-br { position: absolute; bottom: 0; right: 0; width: 120px; height: 120px; overflow: hidden; pointer-events: none; }
+.deco-corner-br::before { content: ''; position: absolute; bottom: -60px; right: -60px; width: 120px; height: 120px; background: linear-gradient(315deg, rgba(232,168,56,0.06) 0%, transparent 60%); border-radius: 50%; }
+.page-title-bar { position: absolute; top: 0; left: 0; right: 0; height: var(--nav-h); display: flex; align-items: center; padding: 0 36px; gap: 12px; }
+.page-title-bar .page-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+.page-title-bar h2 { font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900; color: var(--white); letter-spacing: 0.04em; }
 
-/* ===== SLIDE 1: 封面 — X型構圖 + 六邊形 ===== */
-.s1-bg {
-  background: linear-gradient(145deg, #2A1508 0%, #3D2314 40%, #5C3320 70%, #C8621E 100%);
-}
-.s1-x-left {
-  position: absolute;
-  width: 640px; height: 720px;
-  top: 0; left: -160px;
-  background: linear-gradient(-40deg, transparent 30%, rgba(200,98,30,0.18) 55%, rgba(232,168,56,0.12) 100%);
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-}
-.s1-x-right {
-  position: absolute;
-  width: 640px; height: 720px;
-  top: 0; right: -160px;
-  background: linear-gradient(220deg, transparent 30%, rgba(200,98,30,0.12) 55%, rgba(232,168,56,0.06) 100%);
-  clip-path: polygon(100% 0, 100% 100%, 0 100%);
-}
-.s1-deco-hex {
-  position: absolute;
-  top: 60px; right: 80px;
-}
-.s1-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 760px;
-}
-.s1-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 20px;
-  padding: 5px 18px;
-  margin-bottom: 24px;
-}
-.s1-eyebrow-dot {
-  width: 6px; height: 6px;
-  background: var(--accent2);
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(232,168,56,0.7);
-}
-.s1-eyebrow span {
-  color: rgba(255,255,255,0.85);
-  font-size: 36px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-}
-.s1-title {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 64px;
-  font-weight: 900;
-  color: var(--white);
-  line-height: 1.25;
-  margin-bottom: 16px;
-  text-shadow: 0 4px 24px rgba(0,0,0,0.35);
-}
+/* ===== SLIDE 1: 封面 ===== */
+.s1-bg { background: linear-gradient(145deg, #2A1508 0%, #3D2314 40%, #5C3320 70%, #C8621E 100%); }
+.s1-x-left { position: absolute; width: 640px; height: 720px; top: 0; left: -160px; background: linear-gradient(-40deg, transparent 30%, rgba(200,98,30,0.18) 55%, rgba(232,168,56,0.12) 100%); clip-path: polygon(0 0, 100% 0, 0 100%); }
+.s1-x-right { position: absolute; width: 640px; height: 720px; top: 0; right: -160px; background: linear-gradient(220deg, transparent 30%, rgba(200,98,30,0.12) 55%, rgba(232,168,56,0.06) 100%); clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.s1-deco-hex { position: absolute; top: 60px; right: 80px; }
+.s1-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 760px; }
+.s1-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 5px 18px; margin-bottom: 24px; }
+.s1-eyebrow-dot { width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; box-shadow: 0 0 8px rgba(232,168,56,0.7); }
+.s1-eyebrow span { color: rgba(255,255,255,0.85); font-size: 36px; font-weight: 600; letter-spacing: 0.12em; }
+.s1-title { font-family: 'Noto Serif TC', serif; font-size: 64px; font-weight: 900; color: var(--white); line-height: 1.25; margin-bottom: 16px; text-shadow: 0 4px 24px rgba(0,0,0,0.35); }
 .s1-title .accent { color: var(--accent2); }
-.s1-subtitle {
-  font-size: 36px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.8);
-  margin-bottom: 36px;
-  letter-spacing: 0.06em;
-}
-.s1-divider {
-  width: 56px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent2), var(--accent));
-  border-radius: 2px;
-  margin: 0 auto 32px;
-}
-.s1-meta {
-  display: flex;
-  justify-content: center;
-  gap: 44px;
-}
+.s1-subtitle { font-size: 36px; font-weight: 500; color: rgba(255,255,255,0.8); margin-bottom: 36px; letter-spacing: 0.06em; }
+.s1-divider { width: 56px; height: 3px; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 2px; margin: 0 auto 32px; }
+.s1-meta { display: flex; justify-content: center; gap: 44px; }
 .s1-meta-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.s1-meta-label {
-  font-size: 36px;
-  color: rgba(255,255,255,0.4);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-}
+.s1-meta-label { font-size: 36px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.15em; }
 .s1-meta-value { font-size: 36px; color: rgba(255,255,255,0.9); font-weight: 500; }
-.s1-corner-text {
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
-  font-size: 26px;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.1em;
-}
-.s1-hex-stamp {
-  position: absolute;
-  bottom: 48px;
-  right: 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  opacity: 0.4;
-}
-.s1-hex-stamp-label {
-  font-size: 26px;
-  color: var(--accent2);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
+.s1-corner-text { position: absolute; bottom: 40px; left: 40px; font-size: 26px; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; }
+.s1-hex-stamp { position: absolute; bottom: 48px; right: 48px; display: flex; flex-direction: column; align-items: center; gap: 4px; opacity: 0.4; }
+.s1-hex-stamp-label { font-size: 26px; color: var(--accent2); letter-spacing: 0.2em; text-transform: uppercase; }
 
-/* ===== SLIDE 2: 三大階段 — 菱形數字 + 階梯 ===== */
+/* ===== SLIDE 2: 三大階段 ===== */
 .s2-bg { background: linear-gradient(160deg, #FFFBF5 0%, #FFF5E6 100%); }
-.s2-deco-tri {
-  position: absolute;
-  bottom: 0; right: 0;
-  width: 400px; height: 400px;
-  overflow: hidden;
-}
-.s2-deco-tri::before {
-  content: '';
-  position: absolute;
-  bottom: -200px; right: -200px;
-  width: 400px; height: 400px;
-  background: linear-gradient(135deg, rgba(200,98,30,0.05) 0%, transparent 60%);
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-}
 .s2-content {
   position: absolute;
   top: calc(var(--nav-h) + 24px);
-  left: 48px;
-  right: 48px;
-  bottom: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  left: 36px; right: 36px; bottom: 32px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
 }
-.s2-step {
-  display: flex;
-  align-items: stretch;
-  flex: 1;
-}
-.s2-left {
-  width: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 4px;
-  flex-shrink: 0;
-}
-.s2-num {
-  width: 52px; height: 52px;
-  background: var(--accent);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Noto Serif TC', serif;
-  font-size: 36px;
-  font-weight: 900;
-  color: var(--white);
-  flex-shrink: 0;
-  filter: drop-shadow(0 4px 8px rgba(200,98,30,0.3));
-}
-.s2-step:nth-child(2) .s2-num { background: var(--accent2); filter: drop-shadow(0 4px 8px rgba(232,168,56,0.3)); }
-.s2-step:nth-child(3) .s2-num { background: var(--accent3); filter: drop-shadow(0 4px 8px rgba(139,94,60,0.3)); }
-.s2-connector {
-  width: 2px;
-  flex: 1;
-  background: linear-gradient(180deg, var(--accent), var(--border));
-  margin: 4px 0;
-}
-.s2-step:last-child .s2-connector { display: none; }
-.s2-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px 20px;
-}
-.s2-card {
-  background: var(--white);
-  border-radius: var(--r-md);
-  padding: 14px 20px;
-  border: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(61,35,20,0.06);
-}
-.s2-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 4px;
-  background: var(--accent);
-  border-radius: 4px 0 0 4px;
-}
-.s2-step:nth-child(2) .s2-card::before { background: var(--accent2); }
-.s2-step:nth-child(3) .s2-card::before { background: var(--accent3); }
-.s2-card::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0;
-  width: 60px; height: 60px;
-  background: linear-gradient(135deg, rgba(200,98,30,0.04) 0%, transparent 60%);
-  border-radius: 0 0 0 60px;
-}
-.s2-card-label {
-  font-size: 36px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--accent);
-  margin-bottom: 3px;
-}
-.s2-step:nth-child(2) .s2-card-label { color: #C17A00; }
-.s2-step:nth-child(3) .s2-card-label { color: var(--accent3); }
-.s2-card-title {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--text);
-  font-family: 'Noto Serif TC', serif;
-  margin-bottom: 4px;
-}
-.s2-card-desc {
-  font-size: 36px;
-  color: #6B4A2E;
-  line-height: 1.5;
-}
-.s2-card-tags {
-  display: flex;
-  gap: 6px;
-  margin-top: 8px;
-  flex-wrap: wrap;
-}
-.s2-tag {
-  font-size: 36px;
-  font-weight: 500;
-  background: rgba(200,98,30,0.08);
-  color: var(--accent);
-  padding: 2px 8px;
-  border-radius: 10px;
-}
-.s2-step:nth-child(2) .s2-tag { background: rgba(232,168,56,0.1); color: #C17A00; }
-.s2-step:nth-child(3) .s2-tag { background: rgba(139,94,60,0.08); color: var(--accent3); }
+.s2-col { display: flex; flex-direction: column; background: var(--white); border-radius: var(--r-md); border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 16px rgba(61,35,20,0.08); }
+.s2-col-header { padding: 14px 18px 10px; display: flex; align-items: center; gap: 12px; position: relative; }
+.s2-col:nth-child(1) .s2-col-header { background: linear-gradient(135deg, var(--accent), #A8501A); }
+.s2-col:nth-child(2) .s2-col-header { background: linear-gradient(135deg, var(--accent2), #C17A00); }
+.s2-col:nth-child(3) .s2-col-header { background: linear-gradient(135deg, var(--accent3), #6B4A2E); }
+.s2-col-num { font-family: 'Noto Serif TC', serif; font-size: 64px; font-weight: 900; color: rgba(255,255,255,0.25); line-height: 1; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); }
+.s2-col-label { font-size: 36px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.9); position: relative; z-index: 1; }
+.s2-col-body { flex: 1; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px; }
+.s2-col-title { font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 8px; }
+.s2-col-desc { font-size: 26px; color: #6B4A2E; line-height: 1.55; flex: 1; }
+.s2-col-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+/* 修正：tag 應比 card title 小 */
+.s2-tag { font-size: 26px; font-weight: 500; padding: 3px 10px; border-radius: 10px; }
+.s2-col:nth-child(1) .s2-tag { background: rgba(200,98,30,0.1); color: var(--accent); }
+.s2-col:nth-child(2) .s2-tag { background: rgba(232,168,56,0.12); color: #C17A00; }
+.s2-col:nth-child(3) .s2-tag { background: rgba(139,94,60,0.1); color: var(--accent3); }
+.s2-col-footer { padding: 8px 18px 12px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 6px; }
+.s2-col-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+.s2-col:nth-child(1) .s2-col-icon { background: rgba(200,98,30,0.12); }
+.s2-col:nth-child(2) .s2-col-icon { background: rgba(232,168,56,0.15); }
+.s2-col:nth-child(3) .s2-col-icon { background: rgba(139,94,60,0.12); }
+.s2-col-footer-text { font-size: 36px; color: var(--muted); }
 
-/* ===== SLIDE 3: 六大維度 — 正六邊形蜂巢 ===== */
-/* 正六邊形：flat-topped, side=30, width=52=2*side, height=60=sqrt(3)*side */
+/* ===== SLIDE 3: 六大維度 — 蜂巢放大 220px ===== */
+/* 正六邊形：flat-topped, side=60, viewBox="0 0 120 138" */
 .s3-bg { background: linear-gradient(160deg, #FFF8F0 0%, #FFF3E6 100%); }
 .s3-content {
   position: absolute;
-  top: calc(var(--nav-h) + 24px);
-  left: 40px;
-  right: 40px;
-  bottom: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: calc(var(--nav-h) + 20px);
+  left: 36px; right: 36px; bottom: 32px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
 }
-.s3-hex-row {
-  display: flex;
-  gap: 12px;
-  margin-top: -16px;
-}
-.s3-hex-row:first-child { margin-top: 0; }
-.s3-hex-wrap {
-  width: 140px;
-  height: 162px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.s3-hex-wrap svg {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-}
-.s3-hex-fill-a { fill: #FDE8C8; stroke: #E8C89A; stroke-width: 1.5; }
-.s3-hex-fill-b { fill: #FCD9A0; stroke: #E8C089; stroke-width: 1.5; }
-.s3-hex-inner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  text-align: center;
-}
-.s3-hex-num {
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Noto Serif TC', serif;
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--white);
-}
+.s3-hex-row { display: flex; gap: 18px; justify-content: center; }
+.s3-hex-row:nth-child(2) { margin-left: 128px; }
+.s3-hex-wrap { width: 220px; height: 254px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.s3-hex-wrap svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.s3-hex-fill-a { fill: #FDE8C8; stroke: #D4A870; stroke-width: 2; }
+.s3-hex-fill-b { fill: #FCD9A0; stroke: #C49060; stroke-width: 2; }
+.s3-hex-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-align: center; padding: 0 10px; }
+.s3-hex-num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900; color: var(--white); }
 .s3-hex-row:nth-child(1) .s3-hex-wrap:nth-child(1) .s3-hex-num { background: linear-gradient(135deg, var(--accent), #A8501A); }
 .s3-hex-row:nth-child(1) .s3-hex-wrap:nth-child(2) .s3-hex-num { background: linear-gradient(135deg, #C17A00, #A66600); }
 .s3-hex-row:nth-child(1) .s3-hex-wrap:nth-child(3) .s3-hex-num { background: linear-gradient(135deg, var(--accent3), #6B4A2E); }
-.s3-hex-row:nth-child(2) { margin-left: 80px; }
 .s3-hex-row:nth-child(2) .s3-hex-wrap:nth-child(1) .s3-hex-num { background: linear-gradient(135deg, #8B6914, #7A5A10); }
 .s3-hex-row:nth-child(2) .s3-hex-wrap:nth-child(2) .s3-hex-num { background: linear-gradient(135deg, var(--accent), #A8501A); }
-.s3-hex-row:nth-child(2) .s3-hex-wrap:nth-child(3) .s3-hex-num { background: linear-gradient(135deg, #C17A00, #A66600); }
-.s3-hex-row:nth-child(3) { margin-left: 80px; }
-.s3-hex-row:nth-child(3) .s3-hex-wrap:nth-child(1) .s3-hex-num { background: linear-gradient(135deg, var(--accent3), #6B4A2E); }
-.s3-hex-row:nth-child(3) .s3-hex-wrap:nth-child(2) .s3-hex-num { background: linear-gradient(135deg, #8B6914, #7A5A10); }
-.s3-hex-label {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--text);
-  font-family: 'Noto Serif TC', serif;
-}
-.s3-hex-en {
-  font-size: 26px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.s3-hex-desc {
-  font-size: 36px;
-  color: #6B4A2E;
-  line-height: 1.35;
-  padding: 0 8px;
-}
-.s3-hex-bars {
-  display: flex;
-  gap: 2px;
-  margin-top: 2px;
-}
-.s3-hex-bar {
-  width: 12px; height: 3px;
-  background: var(--border);
-  border-radius: 2px;
-}
+.s3-hex-row:nth-child(3) .s3-hex-wrap:nth-child(1) .s3-hex-num { background: linear-gradient(135deg, #C17A00, #A66600); }
+/* 修正：label 30px（原36太），desc 26px（原36太） */
+.s3-hex-label { font-size: 30px; font-weight: 700; color: var(--text); font-family: 'Noto Serif TC', serif; }
+.s3-hex-en { font-size: 24px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.s3-hex-desc { font-size: 26px; color: #6B4A2E; line-height: 1.4; }
 
-/* ===== SLIDE 4: 評鑑小組 — 圓形人像卡 ===== */
+/* ===== SLIDE 4: 評鑑小組 ===== */
 .s4-bg { background: linear-gradient(160deg, #FFF5E6 0%, #FFF0DC 100%); }
 .s4-content {
   position: absolute;
   top: calc(var(--nav-h) + 24px);
-  left: 40px;
-  right: 40px;
-  bottom: 32px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto 1fr 1fr;
-  gap: 10px;
+  left: 40px; right: 40px; bottom: 32px;
+  display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto 1fr 1fr; gap: 10px;
 }
-.s4-section-label {
-  grid-column: 1 / -1;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  padding: 6px 12px;
-  border-bottom: 2px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.s4-section-label { grid-column: 1 / -1; font-size: 36px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.18em; padding: 6px 12px; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 8px; }
 .s4-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.s4-person-card {
-  background: var(--white);
-  border-radius: var(--r-md);
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  position: relative;
-  overflow: hidden;
-}
-.s4-person-card::before {
-  content: '';
-  position: absolute;
-  top: 0; right: 0;
-  width: 80px; height: 80px;
-  border-radius: 0 0 0 80px;
-}
+.s4-person-card { background: var(--white); border-radius: var(--r-md); padding: 14px 16px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; }
+.s4-person-card::before { content: ''; position: absolute; top: 0; right: 0; width: 80px; height: 80px; border-radius: 0 0 0 80px; }
 .s4-card-g1::before { background: linear-gradient(135deg, rgba(200,98,30,0.08) 0%, transparent 60%); }
 .s4-card-g2::before { background: linear-gradient(135deg, rgba(232,168,56,0.1) 0%, transparent 60%); }
 .s4-card-g3::before { background: linear-gradient(135deg, rgba(139,94,60,0.08) 0%, transparent 60%); }
 .s4-card-top { display: flex; align-items: center; gap: 10px; }
-.s4-avatar {
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  flex-shrink: 0;
-  position: relative;
-}
+.s4-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; position: relative; }
 .s4-card-g1 .s4-avatar { background: rgba(200,98,30,0.12); border: 2px solid rgba(200,98,30,0.25); }
 .s4-card-g2 .s4-avatar { background: rgba(232,168,56,0.15); border: 2px solid rgba(232,168,56,0.25); }
 .s4-card-g3 .s4-avatar { background: rgba(139,94,60,0.1); border: 2px solid rgba(139,94,60,0.2); }
-.s4-avatar-hex {
-  position: absolute;
-  top: -6px; left: -6px;
-  width: 60px; height: 69px;
-}
+.s4-avatar-hex { position: absolute; top: -6px; left: -6px; width: 60px; height: 69px; }
 .s4-card-g1 .s4-avatar-hex { fill: none; stroke: rgba(200,98,30,0.15); stroke-width: 1; }
 .s4-card-g2 .s4-avatar-hex { fill: none; stroke: rgba(232,168,56,0.15); stroke-width: 1; }
 .s4-card-g3 .s4-avatar-hex { fill: none; stroke: rgba(139,94,60,0.12); stroke-width: 1; }
@@ -592,405 +181,148 @@ body {
 .s4-name { font-size: 26px; font-weight: 700; color: var(--text); }
 .s4-org { font-size: 26px; color: var(--muted); line-height: 1.4; }
 
-/* ===== SLIDE 5: 體育局時程 — 垂直時間軸（交錯左右） ===== */
+/* ===== SLIDE 5: 體育局時程 — 字體調為 28px ===== */
 .s5-bg { background: linear-gradient(160deg, #FFFBF5 0%, #FFF5E6 100%); }
 .s5-content {
   position: absolute;
-  top: calc(var(--nav-h) + 20px);
-  left: 60px;
-  right: 60px;
-  bottom: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  top: calc(var(--nav-h) + 24px);
+  left: 36px; right: 36px; bottom: 32px;
+  display: flex; flex-direction: column; gap: 10px;
 }
-.s5-timeline {
-  position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.s5-tline {
-  position: absolute;
-  left: 50%;
-  top: 0; bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, var(--accent), var(--border));
-  transform: translateX(-50%);
-}
-.s5-item {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-.s5-item-left {
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 24px;
-}
-.s5-item-right {
-  width: 50%;
-  display: flex;
-  align-items: center;
-  padding-left: 24px;
-}
-.s5-item:nth-child(even) { flex-direction: row-reverse; }
-.s5-item:nth-child(even) .s5-item-left { justify-content: flex-start; padding-right: 0; padding-left: 24px; }
-.s5-item:nth-child(even) .s5-item-right { justify-content: flex-end; padding-left: 0; padding-right: 24px; }
-.s5-time-badge {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  background: var(--white);
-  border: 2px solid var(--accent);
-  border-radius: 20px;
-  padding: 4px 12px;
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(200,98,30,0.15);
-}
-.s5-item:nth-child(even) .s5-time-badge {
-  border-color: var(--accent2);
-  color: #C17A00;
-}
-.s5-card {
-  background: var(--white);
-  border-radius: var(--r-sm);
-  border: 1px solid var(--border);
-  padding: 8px 14px;
-  box-shadow: 0 2px 6px rgba(61,35,20,0.06);
-  max-width: 320px;
-}
-.s5-card.highlight {
-  border-color: rgba(200,98,30,0.3);
-  background: linear-gradient(135deg, rgba(200,98,30,0.04), rgba(232,168,56,0.03));
-}
-.s5-card.highlight::before {
-  content: '';
-  display: block;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 2px;
-  margin-bottom: 6px;
-}
-.s5-item:nth-child(even) .s5-card.highlight::before { background: var(--accent2); }
-.s5-item-label { font-size: 26px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1px; }
-.s5-item-title { font-size: 26px; font-weight: 700; color: var(--text); }
-.s5-item-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 26px;
-  font-weight: 500;
-  background: rgba(200,98,30,0.08);
-  color: var(--accent);
-  padding: 2px 7px;
-  border-radius: 10px;
-  margin-top: 4px;
-}
-.s5-item:nth-child(even) .s5-item-pill { background: rgba(232,168,56,0.1); color: #C17A00; }
-.s5-dot {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px; height: 12px;
-  background: var(--accent);
-  border-radius: 50%;
-  border: 3px solid var(--bg);
-  box-shadow: 0 0 0 3px rgba(200,98,30,0.15);
-  z-index: 3;
-}
-.s5-item:nth-child(even) .s5-dot { background: var(--accent2); box-shadow: 0 0 0 3px rgba(232,168,56,0.15); }
-.s5-summary {
-  position: absolute;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  background: rgba(200,98,30,0.06);
-  border: 1px solid rgba(200,98,30,0.15);
-  border-radius: 8px;
-  padding: 6px 16px;
-  font-size: 26px;
-  color: var(--muted);
-  white-space: nowrap;
-}
-.s5-summary span { color: var(--text); font-weight: 700; }
+.s5-header { display: flex; align-items: center; gap: 12px; padding: 0 4px; }
+.s5-ruler { flex: 1; height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3)); border-radius: 2px; position: relative; }
+.s5-ruler::before { content: '08:50'; position: absolute; left: 0; top: -20px; font-size: 28px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.s5-ruler::after { content: '12:00'; position: absolute; right: 0; top: -20px; font-size: 28px; font-weight: 700; color: var(--accent3); font-variant-numeric: tabular-nums; }
+.s5-ruler-center { position: absolute; left: 50%; top: -20px; transform: translateX(-50%); font-size: 28px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.s5-grid { flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+/* 修正：time/title/label/pill 全部 28px */
+.s5-card { background: var(--white); border-radius: var(--r-md); border: 1px solid var(--border); padding: 10px 12px; display: flex; flex-direction: column; gap: 5px; box-shadow: 0 2px 8px rgba(61,35,20,0.06); position: relative; overflow: hidden; }
+.s5-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+.s5-card:nth-child(1)::before { background: var(--accent); }
+.s5-card:nth-child(2)::before { background: var(--accent2); }
+.s5-card:nth-child(3)::before { background: #C17A00; }
+.s5-card:nth-child(4)::before { background: var(--accent3); }
+.s5-card:nth-child(5)::before { background: #8B6914; }
+.s5-card.highlight { border-color: rgba(200,98,30,0.25); background: linear-gradient(180deg, rgba(200,98,30,0.03) 0%, rgba(232,168,56,0.02) 100%); }
+.s5-time { font-size: 28px; font-weight: 900; font-variant-numeric: tabular-nums; color: var(--accent); }
+.s5-card:nth-child(2) .s5-time { color: #C17A00; }
+.s5-card:nth-child(3) .s5-time { color: #A66600; }
+.s5-card:nth-child(4) .s5-time { color: var(--accent3); }
+.s5-card:nth-child(5) .s5-time { color: #8B6914; }
+.s5-label { font-size: 26px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.s5-title { font-size: 28px; font-weight: 700; color: var(--text); line-height: 1.35; }
+.s5-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 26px; font-weight: 500; background: rgba(200,98,30,0.08); color: var(--accent); padding: 2px 8px; border-radius: 10px; margin-top: auto; }
+.s5-card:nth-child(2) .s5-pill { background: rgba(232,168,56,0.1); color: #C17A00; }
+.s5-card:nth-child(3) .sill { background: rgba(193,122,0,0.1); color: #A66600; }
+.s5-card:nth-child(4) .s5-pill { background: rgba(139,94,60,0.08); color: var(--accent3); }
+.s5-card:nth-child(5) .s5-pill { background: rgba(139,105,20,0.08); color: #8B6914; }
+.s5-footer { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 7px 16px; background: rgba(200,98,30,0.05); border: 1px solid rgba(200,98,30,0.12); border-radius: var(--r-sm); }
+.s5-footer-text { font-size: 26px; color: var(--muted); }
+.s5-footer-text strong { color: var(--text); font-weight: 700; }
 
-/* ===== SLIDE 6: 動保處時程 — 漏斗圖 ===== */
+/* ===== SLIDE 6: 動保處時程 — 字體調為 28px ===== */
 .s6-bg { background: linear-gradient(160deg, #FFF5E6 0%, #FFEFE0 100%); }
-.s6-content {
-  position: absolute;
-  top: calc(var(--nav-h) + 20px);
-  left: 80px;
-  right: 80px;
-  bottom: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.s6-funnel {
-  position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 16px;
-}
-.s6-stage {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  position: relative;
-}
-.s6-funnel-path {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 0;
-}
-.s6-funnel-line {
-  width: 2px;
-  flex: 1;
-  background: linear-gradient(180deg, var(--accent2), rgba(232,168,56,0.2));
-}
-.s6-stage-card {
-  flex: 1;
-  background: var(--white);
-  border-radius: var(--r-sm);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-  gap: 12px;
-  position: relative;
-  z-index: 1;
-  margin: 3px 0;
-}
-.s6-stage-card.left-card { justify-content: flex-end; }
-.s6-stage-card.right-card { justify-content: flex-start; }
-.s6-stage:nth-child(odd) .s6-stage-card { max-width: calc(50% - 20px); }
-.s6-stage:nth-child(even) .s6-stage-card { max-width: calc(50% - 20px); margin-left: auto; }
-.s6-stage-badge {
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--white);
-  flex-shrink: 0;
-}
-.s6-stage:nth-child(1) .s6-stage-badge { background: var(--accent); }
-.s6-stage:nth-child(2) .s6-stage-badge { background: var(--accent2); }
-.s6-stage:nth-child(3) .s6-stage-badge { background: #C17A00; }
-.s6-stage:nth-child(4) .s6-stage-badge { background: var(--accent3); }
-.s6-stage:nth-child(5) .s6-stage-badge { background: #8B6914; }
-.s6-stage-info { flex: 1; }
-.s6-stage-label { font-size: 26px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1px; }
-.s6-stage-title { font-size: 26px; font-weight: 700; color: var(--text); }
-.s6-stage-note { font-size: 36px; color: #6B4A2E; margin-top: 1px; }
-.s6-stage-highlight {
-  background: rgba(200,98,30,0.07);
-  border: 1px solid rgba(200,98,30,0.15);
-  border-radius: 6px;
-  padding: 4px 10px;
-  flex-shrink: 0;
-}
-.s6-stage-highlight-label { font-size: 26px; color: var(--accent); font-weight: 600; }
-.s6-stage-highlight-val { font-size: 26px; font-weight: 700; color: var(--text); }
-.s6-stage:nth-child(1) .s6-stage-card { border-left: 3px solid var(--accent); }
-.s6-stage:nth-child(2) .s6-stage-card { border-left: 3px solid var(--accent2); }
-.s6-stage:nth-child(3) .s6-stage-card { border-left: 3px solid #C17A00; }
-.s6-stage:nth-child(4) .s6-stage-card { border-left: 3px solid var(--accent3); }
-.s6-stage:nth-child(5) .s6-stage-card { border-left: 3px solid #8B6914; }
-.s6-connector {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 2px;
-  height: 8px;
-  background: var(--border);
-  z-index: 2;
-}
+.s6-content { position: absolute; top: calc(var(--nav-h) + 20px); left: 36px; right: 36px; bottom: 32px; display: flex; flex-direction: column; gap: 10px; }
+.s6-header { display: flex; align-items: center; gap: 12px; }
+.s6-ruler { flex: 1; height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), #8B6914); border-radius: 2px; position: relative; }
+.s6-ruler::before { content: '13:15'; position: absolute; left: 0; top: -20px; font-size: 28px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.s6-ruler::after { content: '17:30'; position: absolute; right: 0; top: -20px; font-size: 28px; font-weight: 700; color: #8B6914; font-variant-numeric: tabular-nums; }
+.s6-funnel-grid { flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; align-items: stretch; }
+.s6-funnel-card { background: var(--white); border-radius: var(--r-md); padding: 12px 12px; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; border-top: 5px solid; }
+.s6-funnel-card:nth-child(1) { border-color: var(--accent); }
+.s6-funnel-card:nth-child(2) { border-color: var(--accent2); }
+.s6-funnel-card:nth-child(3) { border-color: #C17A00; }
+.s6-funnel-card:nth-child(4) { border-color: var(--accent3); }
+.s6-funnel-card:nth-child(5) { border-color: #8B6914; }
+.s6-badge { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; color: var(--white); }
+.s6-funnel-card:nth-child(1) .s6-badge { background: var(--accent); }
+.s6-funnel-card:nth-child(2) .s6-badge { background: var(--accent2); }
+.s6-funnel-card:nth-child(3) .s6-badge { background: #C17A00; }
+.s6-funnel-card:nth-child(4) .s6-badge { background: var(--accent3); }
+.s6-funnel-card:nth-child(5) .s6-badge { background: #8B6914; }
+.s6-time { font-size: 28px; font-weight: 900; font-variant-numeric: tabular-nums; color: var(--accent); }
+.s6-funnel-card:nth-child(2) .s6-time { color: var(--accent2); }
+.s6-funnel-card:nth-child(3) .s6-time { color: #C17A00; }
+.s6-funnel-card:nth-child(4) .s6-time { color: var(--accent3); }
+.s6-funnel-card:nth-child(5) .s6-time { color: #8B6914; }
+.s6-label { font-size: 26px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.s6-title { font-size: 28px; font-weight: 700; color: var(--text); line-height: 1.35; flex: 1; }
+.s6-hl { background: rgba(200,98,30,0.07); border: 1px solid rgba(200,98,30,0.12); border-radius: 6px; padding: 3px 8px; font-size: 26px; font-weight: 600; color: var(--accent); }
+.s6-funnel-card:nth-child(2) .s6-hl { background: rgba(232,168,56,0.08); border-color: rgba(232,168,56,0.15); color: #C17A00; }
+.s6-funnel-card:nth-child(3) .s6-hl { background: rgba(193,122,0,0.08); border-color: rgba(193,122,0,0.15); color: #A66600; }
+.s6-funnel-card:nth-child(4) .s6-hl { background: rgba(139,94,60,0.08); border-color: rgba(139,94,60,0.12); color: var(--accent3); }
+.s6-funnel-card:nth-child(5) .s6-hl { background: rgba(139,105,20,0.08); border-color: rgba(139,105,20,0.12); color: #8B6914; }
+.s6-note { font-size: 26px; color: #6B4A2E; line-height: 1.4; }
+.s6-footer { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 7px 16px; background: rgba(139,94,60,0.05); border: 1px solid rgba(139,94,60,0.12); border-radius: var(--r-sm); }
+.s6-footer-text { font-size: 26px; color: var(--muted); }
+.s6-footer-text strong { color: var(--text); font-weight: 700; }
 
-/* ===== SLIDE 7: 三組分工 — 棋盤深淺交替 ===== */
+/* ===== SLIDE 7: 三組分工 — 重新設計：上下兩排時段表 ===== */
 .s7-bg { background: linear-gradient(160deg, #FFFBF5 0%, #FFF5E6 100%); }
 .s7-content {
   position: absolute;
   top: calc(var(--nav-h) + 20px);
-  left: 40px;
-  right: 40px;
-  bottom: 28px;
+  left: 36px; right: 36px; bottom: 32px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto 1fr 1fr;
-  gap: 8px;
+  grid-template-rows: 34px 1fr 6px 1fr 28px;
+  gap: 0;
 }
-.s7-col-head {
-  border-radius: var(--r-sm);
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.s7-col-head-light { background: var(--accent); }
-.s7-col-head-dark { background: linear-gradient(135deg, var(--accent2), #C17A00); }
-.s7-col-head-darker { background: linear-gradient(135deg, var(--accent3), #5C3320); }
-.s7-col-num { font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900; color: rgba(255,255,255,0.45); }
-.s7-col-name { font-size: 26px; font-weight: 700; color: rgba(255,255,255,0.95); }
-.s7-cell {
-  border-radius: var(--r-sm);
-  padding: 12px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.s7-cell-light { background: var(--white); }
-.s7-cell-dark { background: var(--card2); }
-.s7-row-label {
-  font-size: 26px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.s7-row-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.s7-col-head { border-radius: var(--r-sm) var(--r-sm) 0 0; padding: 0 14px; display: flex; align-items: center; gap: 10px; }
+.s7-col-head:nth-child(1) { background: linear-gradient(135deg, var(--accent), #A8501A); }
+.s7-col-head:nth-child(2) { background: linear-gradient(135deg, var(--accent2), #C17A00); }
+.s7-col-head:nth-child(3) { background: linear-gradient(135deg, var(--accent3), #5C3320); }
+.s7-col-num { font-family: 'Noto Serif TC', serif; font-size: 30px; font-weight: 900; color: rgba(255,255,255,0.35); }
+.s7-col-name { font-size: 30px; font-weight: 700; color: rgba(255,255,255,0.95); }
+.s7-cell { background: var(--white); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; padding: 8px 12px; overflow: hidden; }
+.s7-cell-dark { background: var(--card2); border-color: #D4B896; }
+.s7-row-label { font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding-bottom: 4px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 5px; }
+.s7-row-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.s7-row-label.am { color: var(--accent); }
+.s7-row-label.am::before { background: var(--accent); }
 .s7-row-label.pm { color: #C17A00; }
 .s7-row-label.pm::before { background: var(--accent2); }
-.s7-person-row { display: flex; align-items: center; gap: 8px; }
-.s7-role-tag {
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--white);
-  flex-shrink: 0;
-}
-.s7-group-1 .s7-role-tag { background: var(--accent); }
-.s7-group-2 .s7-role-tag { background: var(--accent2); }
-.s7-group-3 .s7-role-tag { background: var(--accent3); }
-.s7-role-text { font-size: 36px; color: var(--muted); width: 52px; flex-shrink: 0; }
+.s7-person-row { display: flex; align-items: center; gap: 6px; padding: 2px 0; }
+.s7-role-tag { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: var(--white); flex-shrink: 0; }
+.s7-col-head:nth-child(1) ~ .s7-cell .s7-role-tag,
+.s7-cell:nth-child(4) .s7-role-tag,
+.s7-cell:nth-child(7) .s7-role-tag { background: var(--accent); }
+.s7-col-head:nth-child(2) ~ .s7-cell .s7-role-tag,
+.s7-cell:nth-child(5) .s7-role-tag,
+.s7-cell:nth-child(8) .s7-role-tag { background: var(--accent2); }
+.s7-col-head:nth-child(3) ~ .s7-cell .s7-role-tag,
+.s7-cell:nth-child(6) .s7-role-tag,
+.s7-cell:nth-child(9) .s7-role-tag { background: var(--accent3); }
+.s7-role-text { font-size: 22px; color: var(--muted); width: 44px; flex-shrink: 0; }
 .s7-person-name { font-size: 26px; font-weight: 600; color: var(--text); }
-.s7-legend {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 36px;
-  color: var(--muted);
-  padding: 0 4px;
-}
-.s7-legend-swatch { width: 14px; height: 14px; border-radius: 3px; }
+.s7-gap-row { /* gap filler */ }
+.s7-legend { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; font-size: 24px; color: var(--muted); padding: 0 4px; }
+.s7-legend-swatch { width: 14px; height: 14px; border-radius: 4px; }
 .s7-legend-swatch.light { background: var(--white); border: 1px solid var(--border); }
-.s7-legend-swatch.dark { background: var(--card2); border: 1px solid var(--border); }
+.s7-legend-swatch.dark { background: var(--card2); border: 1px solid #D4B896; }
+.s7-legend-note { margin-left: auto; font-size: 24px; color: var(--accent); font-weight: 600; }
 
-/* ===== SLIDE 8: 結語 — 方圓幾何 ===== */
-.s8-bg {
-  background: linear-gradient(145deg, #2A1508 0%, #3D2314 50%, #5C3320 100%);
-}
-.s8-deco {
-  position: absolute;
-  top: 0; right: 0;
-  width: 600px; height: 720px;
-  overflow: hidden;
-}
+/* ===== SLIDE 8: 結語 ===== */
+.s8-bg { background: linear-gradient(145deg, #2A1508 0%, #3D2314 50%, #5C3320 100%); }
+.s8-deco { position: absolute; top: 0; right: 0; width: 600px; height: 720px; overflow: hidden; }
 .s8-deco svg { width: 100%; height: 100%; }
-.s8-deco-sq {
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 350px; height: 350px;
-  overflow: hidden;
-}
+.s8-deco-sq { position: absolute; bottom: 0; left: 0; width: 350px; height: 350px; overflow: hidden; }
 .s8-deco-sq svg { width: 100%; height: 100%; }
-.s8-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 680px;
-}
-.s8-icon {
-  width: 64px; height: 64px;
-  background: rgba(232,168,56,0.12);
-  border: 2px solid rgba(232,168,56,0.3);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  margin: 0 auto 24px;
-}
-.s8-title {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 52px;
-  font-weight: 900;
-  color: var(--white);
-  line-height: 1.3;
-  margin-bottom: 16px;
-}
+.s8-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 680px; }
+.s8-icon { width: 64px; height: 64px; background: rgba(232,168,56,0.12); border: 2px solid rgba(232,168,56,0.3); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 24px; }
+.s8-title { font-family: 'Noto Serif TC', serif; font-size: 52px; font-weight: 900; color: var(--white); line-height: 1.3; margin-bottom: 16px; }
 .s8-title .hl { color: var(--accent2); }
-.s8-quote {
-  font-size: 36px;
-  color: rgba(255,255,255,0.65);
-  font-style: italic;
-  margin-bottom: 36px;
-  line-height: 1.7;
-}
-.s8-divider {
-  width: 56px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent2), var(--accent));
-  border-radius: 2px;
-  margin: 0 auto 28px;
-}
+.s8-quote { font-size: 36px; color: rgba(255,255,255,0.65); font-style: italic; margin-bottom: 36px; line-height: 1.7; }
+.s8-divider { width: 56px; height: 3px; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 2px; margin: 0 auto 28px; }
 .s8-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-.s8-tag {
-  font-size: 36px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.8);
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 5px 14px;
-  border-radius: 20px;
-}
-.s8-footer {
-  position: absolute;
-  bottom: 24px; left: 0; right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  font-size: 26px;
-  color: rgba(255,255,255,0.35);
-}
+.s8-tag { font-size: 36px; font-weight: 500; color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); padding: 5px 14px; border-radius: 20px; }
+.s8-footer { position: absolute; bottom: 24px; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 14px; font-size: 26px; color: rgba(255,255,255,0.35); }
 .s8-footer-sep { width: 4px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 50%; }
 </style>
 </head>
 <body>
 
-<!-- NAV — 數字顯示 -->
+<!-- NAV -->
 <nav class="nav">
   <div class="nav-brand">新北市政府</div>
   <div class="nav-items">
@@ -1003,48 +335,29 @@ body {
     <a class="nav-item" href="#s7">7</a>
     <a class="nav-item" href="#s8">8</a>
   </div>
-  <div class="nav-progress">8 / 8</div>
+  <div class="nav-progress">1 / 8</div>
 </nav>
 
 <!-- SLIDE 1: 封面 -->
 <div class="slide s1-bg" id="s1" data-page="1 / 8">
   <div class="s1-x-left"></div>
   <div class="s1-x-right"></div>
-  <div class="s1-deco-hex">
-    <svg width="180" height="208" viewBox="0 0 52 60">
-      <path d="M26 2 A4.5 4.5 0 0 1 34.5 6.5 L47.5 19.5 A4.5 4.5 0 0 1 47.5 28.5 L34.5 41.5 A4.5 4.5 0 0 1 26 45.5 L17.5 41.5 A4.5 4.5 0 0 1 8.5 41.5 L2 28.5 A4.5 4.5 0 0 1 2 19.5 L8.5 6.5 A4.5 4.5 0 0 1 17.5 2 A4.5 4.5 0 0 1 26 2 Z" fill="rgba(232,168,56,0.12)" stroke="rgba(232,168,56,0.2)" stroke-width="1"/>
-      <path d="M26 8 A4.5 4.5 0 0 1 30.5 10 L40.5 20 A4.5 4.5 0 0 1 40.5 27 L30.5 37 A4.5 4.5 0 0 1 26 39 L22 37 A4.5 4.5 0 0 1 17.5 37 L11.5 27 A4.5 4.5 0 0 1 11.5 20 L17.5 10 A4.5 4.5 0 0 1 22 8 Z" fill="rgba(232,168,56,0.08)" stroke="rgba(232,168,56,0.15)" stroke-width="0.75"/>
-    </svg>
-  </div>
+  <div class="s1-deco-hex"><svg width="80" height="92" viewBox="0 0 52 60"><path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z" fill="rgba(232,168,56,0.15)" stroke="rgba(232,168,56,0.3)" stroke-width="1"/></svg></div>
   <div class="s1-content">
-    <div class="s1-eyebrow">
-      <div class="s1-eyebrow-dot"></div>
-      <span>115 年 度 評 鑑 行 前 會 議</span>
-    </div>
-    <h1 class="s1-title">新北市政府<br><span class="accent">員額評鑑</span>行前會議</h1>
-    <p class="s1-subtitle">體育局及動物保護防疫處 實地評鑑</p>
+    <div class="s1-eyebrow"><div class="s1-eyebrow-dot"></div><span>115年 員額評鑑行前會議</span></div>
+    <h1 class="s1-title">新北市政府<br><span class="accent">員額評鑑</span>工作簡報</h1>
     <div class="s1-divider"></div>
+    <p class="s1-subtitle">評鑑核心小組 · 體育局 · 動保處</p>
     <div class="s1-meta">
-      <div class="s1-meta-item">
-        <span class="s1-meta-label">日期</span>
-        <span class="s1-meta-value">115年6月18日（星期四）</span>
-      </div>
-      <div class="s1-meta-item">
-        <span class="s1-meta-label">地點</span>
-        <span class="s1-meta-value">市府行政大樓 27樓</span>
-      </div>
-      <div class="s1-meta-item">
-        <span class="s1-meta-label">召集人</span>
-        <span class="s1-meta-value">黃德清 參事</span>
-      </div>
+      <div class="s1-meta-item"><span class="s1-meta-label">DATE</span><span class="s1-meta-value">115.06.24</span></div>
+      <div class="s1-meta-item"><span class="s1-meta-label">VENUE</span><span class="s1-meta-value">人事處 2701 會議室</span></div>
+      <div class="s1-meta-item"><span class="s1-meta-label">TIME</span><span class="s1-meta-value">09:00 – 17:30</span></div>
     </div>
   </div>
   <div class="s1-corner-text">新北市政府人事處</div>
   <div class="s1-hex-stamp">
-    <svg width="40" height="46" viewBox="0 0 52 60">
-      <path d="M26 2 A4.5 4.5 0 0 1 34.5 6.5 L47.5 19.5 A4.5 4.5 0 0 1 47.5 28.5 L34.5 41.5 A4.5 4.5 0 0 1 26 45.5 L17.5 41.5 A4.5 4.5 0 0 1 8.5 41.5 L2 28.5 A4.5 4.5 0 0 1 2 19.5 L8.5 6.5 A4.5 4.5 0 0 1 17.5 2 A4.5 4.5 0 0 1 26 2 Z" fill="none" stroke="rgba(232,168,56,0.4)" stroke-width="1"/>
-    </svg>
-    <div class="s1-hex-stamp-label">評鑑</div>
+    <svg width="48" height="55" viewBox="0 0 52 60"><path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+    <div class="s1-hex-stamp-label">NPC</div>
   </div>
 </div>
 
@@ -1052,66 +365,51 @@ body {
 <div class="slide s2-bg" id="s2" data-page="2 / 8">
   <div class="deco-corner-tl"></div>
   <div class="deco-corner-br"></div>
-  <div class="s2-deco-tri"></div>
   <div class="page-title-bar" style="background:linear-gradient(135deg,var(--accent) 0%,#A8501A 100%)">
     <div class="page-icon" style="background:rgba(255,255,255,0.15)">⬡</div>
     <h2>三大評鑑階段</h2>
   </div>
   <div class="s2-content">
-    <div class="s2-step">
-      <div class="s2-left">
-        <div class="s2-num">1</div>
-        <div class="s2-connector"></div>
-      </div>
-      <div class="s2-right">
-        <div class="s2-card">
-          <div class="s2-card-label">階段一</div>
-          <div class="s2-card-title">現況診斷</div>
-          <div class="s2-card-desc">實地了解機關各面向運作狀況，發掘現行編制與實際業務之落差</div>
-          <div class="s2-card-tags">
-            <span class="s2-tag">實地訪查</span>
-            <span class="s2-tag">編制檢視</span>
-          </div>
+    <div class="s2-col">
+      <div class="s2-col-header"><div class="s2-col-label">階段一</div><div class="s2-col-num">1</div></div>
+      <div class="s2-col-body">
+        <div class="s2-col-title">現況診斷</div>
+        <div class="s2-col-desc">實地了解機關各面向運作狀況，發掘現行編制與實際業務之落差</div>
+        <div class="s2-col-tags">
+          <span class="s2-tag">實地訪查</span>
+          <span class="s2-tag">編制檢視</span>
         </div>
       </div>
+      <div class="s2-col-footer"><div class="s2-col-icon">🔍</div><div class="s2-col-footer-text">深度了解現況</div></div>
     </div>
-    <div class="s2-step">
-      <div class="s2-left">
-        <div class="s2-num">2</div>
-        <div class="s2-connector"></div>
-      </div>
-      <div class="s2-right">
-        <div class="s2-card">
-          <div class="s2-card-label">階段二</div>
-          <div class="s2-card-title">具體改善</div>
-          <div class="s2-card-desc">針對機關內部人力問題，提出具體、可執行的改善措施與解方</div>
-          <div class="s2-card-tags">
-            <span class="s2-tag">可行性評估</span>
-            <span class="s2-tag">行動方案</span>
-          </div>
+    <div class="s2-col">
+      <div class="s2-col-header"><div class="s2-col-label">階段二</div><div class="s2-col-num">2</div></div>
+      <div class="s2-col-body">
+        <div class="s2-col-title">具體改善</div>
+        <div class="s2-col-desc">針對機關內部人力問題，提出具體、可執行的改善措施與解方</div>
+        <div class="s2-col-tags">
+          <span class="s2-tag">可行性評估</span>
+          <span class="s2-tag">行動方案</span>
         </div>
       </div>
+      <div class="s2-col-footer"><div class="s2-col-icon">📋</div><div class="s2-col-footer-text">提出改善建議</div></div>
     </div>
-    <div class="s2-step">
-      <div class="s2-left">
-        <div class="s2-num">3</div>
-      </div>
-      <div class="s2-right">
-        <div class="s2-card">
-          <div class="s2-card-label">階段三</div>
-          <div class="s2-card-title">戰略目標</div>
-          <div class="s2-card-desc">作為市府各機關「人力運用控管」之核心決策參據</div>
-          <div class="s2-card-tags">
-            <span class="s2-tag">決策支援</span>
-            <span class="s2-tag">長期目標</span>
-          </div>
+    <div class="s2-col">
+      <div class="s2-col-header"><div class="s2-col-label">階段三</div><div class="s2-col-num">3</div></div>
+      <div class="s2-col-body">
+        <div class="s2-col-title">戰略目標</div>
+        <div class="s2-col-desc">作為市府各機關「人力運用控管」之核心決策參據</div>
+        <div class="s2-col-tags">
+          <span class="s2-tag">決策支援</span>
+          <span class="s2-tag">長期目標</span>
         </div>
       </div>
+      <div class="s2-col-footer"><div class="s2-col-icon">🎯</div><div class="s2-col-footer-text">助攻市府決策</div></div>
     </div>
   </div>
 </div>
 
-<!-- SLIDE 3: 六大維度 — 正六邊形蜂巢 -->
+<!-- SLIDE 3: 六大維度 — 蜂巢 220px -->
 <div class="slide s3-bg" id="s3" data-page="3 / 8">
   <div class="deco-corner-tl"></div>
   <div class="page-title-bar" style="background:linear-gradient(135deg,#5C3320 0%,#7A4528 100%)">
@@ -1119,79 +417,34 @@ body {
     <h2>六大評鑑核心維度</h2>
   </div>
   <div class="s3-content">
-    <!-- Row 1: 3 hexagons -->
     <div class="s3-hex-row">
       <div class="s3-hex-wrap">
-        <svg viewBox="0 0 52 60">
-          <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z" class="s3-hex-fill-a"/>
-        </svg>
-        <div class="s3-hex-inner">
-          <div class="s3-hex-num">1</div>
-          <div class="s3-hex-label">組織面</div>
-          <div class="s3-hex-en">Organizational</div>
-          <div class="s3-hex-desc">檢視組織架構與層級合理性</div>
-        </div>
+        <svg viewBox="0 0 120 138"><path d="M60 4 L105 25 L105 75 L60 96 L15 75 L15 25 Z" class="s3-hex-fill-a"/></svg>
+        <div class="s3-hex-inner"><div class="s3-hex-num">1</div><div class="s3-hex-label">組織面</div><div class="s3-hex-en">Organizational</div><div class="s3-hex-desc">檢視組織架構與層級合理性</div></div>
       </div>
       <div class="s3-hex-wrap">
-        <svg viewBox="0 0 52 60">
-          <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z" class="s3-hex-fill-b"/>
-        </svg>
-        <div class="s3-hex-inner">
-          <div class="s3-hex-num">2</div>
-          <div class="s3-hex-label">業務面</div>
-          <div class="s3-hex-en">Business</div>
-          <div class="s3-hex-desc">盤點核心業務負擔與資源配置</div>
-        </div>
+        <svg viewBox="0 0 120 138"><path d="M60 4 L105 25 L105 75 L60 96 L15 75 L15 25 Z" class="s3-hex-fill-b"/></svg>
+        <div class="s3-hex-inner"><div class="s3-hex-num">2</div><div class="s3-hex-label">業務面</div><div class="s3-hex-en">Business</div><div class="s3-hex-desc">盤點核心業務負擔與資源配置</div></div>
       </div>
       <div class="s3-hex-wrap">
-        <svg viewBox="0 0 52 60">
-          <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z" class="s3-hex-fill-a"/>
-        </svg>
-        <div class="s3-hex-inner">
-          <div class="s3-hex-num">3</div>
-          <div class="s3-hex-label">人力面</div>
-          <div class="s3-hex-en">Human Resources</div>
-          <div class="s3-hex-desc">評估現有員額運用效能</div>
-        </div>
+        <svg viewBox="0 0 120 138"><path d="M60 4 L105 25 L105 75 L60 96 L15 75 L15 25 Z" class="s3-hex-fill-a"/></svg>
+        <div class="s3-hex-inner"><div class="s3-hex-num">3</div><div class="s3-hex-label">人力面</div><div class="s3-hex-en">Human Resources</div><div class="s3-hex-desc">評估現有員額運用效能</div></div>
       </div>
     </div>
-    <!-- Row 2: 2 hexagons, offset right -->
     <div class="s3-hex-row">
       <div class="s3-hex-wrap">
-        <svg viewBox="0 0 52 60">
-          <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z" class="s3-hex-fill-b"/>
-        </svg>
-        <div class="s3-hex-inner">
-          <div class="s3-hex-num">4</div>
-          <div class="s3-hex-label">財務面</div>
-          <div class="s3-hex-en">Financial</div>
-          <div class="s3-hex-desc">檢驗經費運用與人力成本效益</div>
-        </div>
+        <svg viewBox="0 0 120 138"><path d="M60 4 L105 25 L105 75 L60 96 L15 75 L15 25 Z" class="s3-hex-fill-b"/></svg>
+        <div class="s3-hex-inner"><div class="s3-hex-num">4</div><div class="s3-hex-label">財務面</div><div class="s3-hex-en">Financial</div><div class="s3-hex-desc">檢驗經費運用與人力成本效益</div></div>
       </div>
       <div class="s3-hex-wrap">
-        <svg viewBox="0 0 52 60">
-          <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z" class="s3-hex-fill-a"/>
-        </svg>
-        <div class="s3-hex-inner">
-          <div class="s3-hex-num">5</div>
-          <div class="s3-hex-label">工作方法</div>
-          <div class="s3-hex-en">Work Methods</div>
-          <div class="s3-hex-desc">探討行政效率與流程簡化空間</div>
-        </div>
+        <svg viewBox="0 0 120 138"><path d="M60 4 L105 25 L105 75 L60 96 L15 75 L15 25 Z" class="s3-hex-fill-a"/></svg>
+        <div class="s3-hex-inner"><div class="s3-hex-num">5</div><div class="s3-hex-label">工作方法</div><div class="s3-hex-en">Work Methods</div><div class="s3-hex-desc">探討行政效率與流程簡化空間</div></div>
       </div>
     </div>
-    <!-- Row 3: 1 hexagon, offset right -->
     <div class="s3-hex-row">
       <div class="s3-hex-wrap">
-        <svg viewBox="0 0 52 60">
-          <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z" class="s3-hex-fill-b"/>
-        </svg>
-        <div class="s3-hex-inner">
-          <div class="s3-hex-num">6</div>
-          <div class="s3-hex-label">多元人力</div>
-          <div class="s3-hex-en">Diverse Manpower</div>
-          <div class="s3-hex-desc">檢視非正式人力及委外業務之運用狀況</div>
-        </div>
+        <svg viewBox="0 0 120 138"><path d="M60 4 L105 25 L105 75 L60 96 L15 75 L15 25 Z" class="s3-hex-fill-b"/></svg>
+        <div class="s3-hex-inner"><div class="s3-hex-num">6</div><div class="s3-hex-label">多元人力</div><div class="s3-hex-en">Diverse Manpower</div><div class="s3-hex-desc">檢視非正式人力及委外業務之運用狀況</div></div>
       </div>
     </div>
   </div>
@@ -1207,172 +460,25 @@ body {
   </div>
   <div class="s4-content">
     <div class="s4-section-label">召集人</div>
-    <div class="s4-person-card s4-card-g1">
-      <div class="s4-card-top">
-        <div class="s4-avatar">
-          <svg class="s4-avatar-hex" viewBox="0 0 52 60">
-            <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/>
-          </svg>
-          👤
-        </div>
-        <div class="s4-info">
-          <div class="s4-role">召集人</div>
-          <div class="s4-name">黃德清</div>
-          <div class="s4-org">新北市政府 參事</div>
-        </div>
-      </div>
-    </div>
-    <div class="s4-person-card s4-card-g1">
-      <div class="s4-card-top">
-        <div class="s4-avatar">⭐</div>
-        <div class="s4-info">
-          <div class="s4-role">協調窗口</div>
-          <div class="s4-name">人事處</div>
-          <div class="s4-org">統籌協調評鑑事宜</div>
-        </div>
-      </div>
-    </div>
-    <div class="s4-person-card s4-card-g1">
-      <div class="s4-card-top">
-        <div class="s4-avatar">📋</div>
-        <div class="s4-info">
-          <div class="s4-role">執行窗口</div>
-          <div class="s4-name">相關科室</div>
-          <div class="s4-org">配合實地評鑑作業</div>
-        </div>
-      </div>
-    </div>
-
+    <div class="s4-person-card s4-card-g1"><div class="s4-card-top"><div class="s4-avatar"><svg class="s4-avatar-hex" viewBox="0 0 52 60"><path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/></svg>👤</div><div class="s4-info"><div class="s4-role">召集人</div><div class="s4-name">黃德清</div><div class="s4-org">新北市政府 參事</div></div></div></div>
+    <div class="s4-person-card s4-card-g1"><div class="s4-card-top"><div class="s4-avatar">⭐</div><div class="s4-info"><div class="s4-role">協調窗口</div><div class="s4-name">人事處</div><div class="s4-org">統籌協調評鑑事宜</div></div></div></div>
+    <div class="s4-person-card s4-card-g1"><div class="s4-card-top"><div class="s4-avatar">📋</div><div class="s4-info"><div class="s4-role">執行窗口</div><div class="s4-name">相關科室</div><div class="s4-org">配合實地評鑑作業</div></div></div></div>
     <div class="s4-section-label">專家學者</div>
-    <div class="s4-person-card s4-card-g2">
-      <div class="s4-card-top">
-        <div class="s4-avatar">
-          <svg class="s4-avatar-hex" viewBox="0 0 52 60">
-            <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/>
-          </svg>
-          🎓
-        </div>
-        <div class="s4-info">
-          <div class="s4-role">教授 · 全日</div>
-          <div class="s4-name">呂育誠 教授</div>
-          <div class="s4-org">國立臺北大學 公共行政暨政策學系</div>
-        </div>
-      </div>
-    </div>
-    <div class="s4-person-card s4-card-g2">
-      <div class="s4-card-top">
-        <div class="s4-avatar">
-          <svg class="s4-avatar-hex" viewBox="0 0 52 60">
-            <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/>
-          </svg>
-          🏃
-        </div>
-        <div class="s4-info">
-          <div class="s4-role">教授 · 上午</div>
-          <div class="s4-name">葉公鼎 教授</div>
-          <div class="s4-org">國立體育大學 休閒產業經營學系</div>
-        </div>
-      </div>
-    </div>
-    <div class="s4-person-card s4-card-g2">
-      <div class="s4-card-top">
-        <div class="s4-avatar">
-          <svg class="s4-avatar-hex" viewBox="0 0 52 60">
-            <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/>
-          </svg>
-          🐾
-        </div>
-        <div class="s4-info">
-          <div class="s4-role">教授 · 下午</div>
-          <div class="s4-name">吳宗憲 教授</div>
-          <div class="s4-org">國立臺南大學 行政管理學系</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="s4-section-label">府內委員</div>
-    <div class="s4-person-card s4-card-g3">
-      <div class="s4-card-top">
-        <div class="s4-avatar">
-          <svg class="s4-avatar-hex" viewBox="0 0 52 60">
-            <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/>
-          </svg>
-          💰
-        </div>
-        <div class="s4-info">
-          <div class="s4-role">府內委員</div>
-          <div class="s4-name">王世英</div>
-          <div class="s4-org">財政局 專門委員</div>
-        </div>
-      </div>
-    </div>
-    <div class="s4-person-card s4-card-g3">
-      <div class="s4-card-top">
-        <div class="s4-avatar">
-          <svg class="s4-avatar-hex" viewBox="0 0 52 60">
-            <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/>
-          </svg>
-          📊
-        </div>
-        <div class="s4-info">
-          <div class="s4-role">府內委員</div>
-          <div class="s4-name">邱淑美</div>
-          <div class="s4-org">主計處 專門委員</div>
-        </div>
-      </div>
-    </div>
-    <div class="s4-person-card s4-card-g3">
-      <div class="s4-card-top">
-        <div class="s4-avatar">
-          <svg class="s4-avatar-hex" viewBox="0 0 52 60">
-            <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/>
-          </svg>
-          👔
-        </div>
-        <div class="s4-info">
-          <div class="s4-role">府內委員</div>
-          <div class="s4-name">洪久雅</div>
-          <div class="s4-org">人事處 副處長</div>
-        </div>
-      </div>
-    </div>
-
+    <div class="s4-person-card s4-card-g2"><div class="s4-card-top"><div class="s4-avatar"><svg class="s4-avatar-hex" viewBox="0 0 52 60"><path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/></svg>🎓</div><div class="s4-info"><div class="s4-role">專家學者</div><div class="s4-name">呂育誠 教授</div><div class="s4-org">國立臺北大學</div></div></div></div>
+    <div class="s4-person-card s4-card-g2"><div class="s4-card-top"><div class="s4-avatar"><svg class="s4-avatar-hex" viewBox="0 0 52 60"><path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/></svg>🎓</div><div class="s4-info"><div class="s4-role">專家學者</div><div class="s4-name">葉公鼎 教授</div><div class="s4-org">國立臺灣大學</div></div></div></div>
+    <div class="s4-person-card s4-card-g2"><div class="s4-card-top"><div class="s4-avatar"><svg class="s4-avatar-hex" viewBox="0 0 52 60"><path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/></svg>🎓</div><div class="s4-info"><div class="s4-role">專家學者</div><div class="s4-name">吳宗憲 教授</div><div class="s4-org">銘傳大學</div></div></div></div>
     <div class="s4-section-label" style="visibility:hidden"></div>
-    <div class="s4-person-card s4-card-g3">
-      <div class="s4-card-top">
-        <div class="s4-avatar">
-          <svg class="s4-avatar-hex" viewBox="0 0 52 60">
-            <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/>
-          </svg>
-          📋
-        </div>
-        <div class="s4-info">
-          <div class="s4-role">府內委員</div>
-          <div class="s4-name">王瑞玲</div>
-          <div class="s4-org">研考會 主任秘書</div>
-        </div>
-      </div>
-    </div>
-    <div class="s4-person-card s4-card-g3">
-      <div class="s4-card-top">
-        <div class="s4-avatar">
-          <svg class="s4-avatar-hex" viewBox="0 0 52 60">
-            <path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/>
-          </svg>
-          🔗
-        </div>
-        <div class="s4-info">
-          <div class="s4-role">副處長</div>
-          <div class="s4-name">洪久雅</div>
-          <div class="s4-org">人事處 副處長（全日參與）</div>
-        </div>
-      </div>
-    </div>
+    <div class="s4-person-card s4-card-g3"><div class="s4-card-top"><div class="s4-avatar"><svg class="s4-avatar-hex" viewBox="0 0 52 60"><path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/></svg>💰</div><div class="s4-info"><div class="s4-role">府內委員</div><div class="s4-name">王世英</div><div class="s4-org">財政局 專門委員</div></div></div></div>
+    <div class="s4-person-card s4-card-g3"><div class="s4-card-top"><div class="s4-avatar"><svg class="s4-avatar-hex" viewBox="0 0 52 60"><path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/></svg>📊</div><div class="s4-info"><div class="s4-role">府內委員</div><div class="s4-name">邱淑美</div><div class="s4-org">主計處 專門委員</div></div></div></div>
+    <div class="s4-person-card s4-card-g3"><div class="s4-card-top"><div class="s4-avatar"><svg class="s4-avatar-hex" viewBox="0 0 52 60"><path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/></svg>👔</div><div class="s4-info"><div class="s4-role">府內委員</div><div class="s4-name">洪久雅</div><div class="s4-org">人事處 副處長</div></div></div></div>
+    <div class="s4-section-label" style="visibility:hidden"></div>
+    <div class="s4-person-card s4-card-g3"><div class="s4-card-top"><div class="s4-avatar"><svg class="s4-avatar-hex" viewBox="0 0 52 60"><path d="M26 2 L43.5 10 L43.5 34 L26 42 L8.5 34 L8.5 10 Z"/></svg>📋</div><div class="s4-info"><div class="s4-role">府內委員</div><div class="s4-name">王瑞玲</div><div class="s4-org">研考會 主任秘書</div></div></div></div>
+    <div class="s4-person-card s4-card-g3" style="visibility:hidden"></div>
     <div class="s4-person-card s4-card-g3" style="visibility:hidden"></div>
   </div>
 </div>
 
-<!-- SLIDE 5: 體育局時程 — 交錯垂直時間軸 -->
+<!-- SLIDE 5: 體育局時程 -->
 <div class="slide s5-bg" id="s5" data-page="5 / 8">
   <div class="deco-corner-tl"></div>
   <div class="page-title-bar" style="background:linear-gradient(135deg,var(--accent) 0%,#A8501A 100%)">
@@ -1380,79 +486,38 @@ body {
     <h2>體育局 評鑑行程</h2>
   </div>
   <div class="s5-content">
-    <div class="s5-timeline">
-      <div class="s5-tline"></div>
-      <!-- Item 1: left -->
-      <div class="s5-item">
-        <div class="s5-item-left">
-          <div class="s5-card">
-            <div class="s5-item-label">集合</div>
-            <div class="s5-item-title">B2 司機休息室集合出發</div>
-            <div class="s5-item-pill">人事處派車</div>
-          </div>
-        </div>
-        <div class="s5-time-badge">08:50</div>
-        <div class="s5-dot" style="top:auto;bottom:0;transform:translateX(-50%)"></div>
-        <div class="s5-item-right"></div>
+    <div class="s5-header">
+      <div class="s5-ruler"><span class="s5-ruler-center">10:10</span></div>
+    </div>
+    <div class="s5-grid">
+      <div class="s5-card">
+        <div class="s5-time">08:50</div><div class="s5-label">集合</div><div class="s5-title">B2 司機休息室集合出發</div>
+        <div class="s5-pill">人事處派車</div>
       </div>
-      <!-- Item 2: right -->
-      <div class="s5-item">
-        <div class="s5-item-left"></div>
-        <div class="s5-time-badge">09:00</div>
-        <div class="s5-item-right">
-          <div class="s5-card highlight">
-            <div class="s5-item-label">致詞</div>
-            <div class="s5-item-title">致詞與流程說明</div>
-            <div class="s5-item-pill">⏱ 10 min</div>
-          </div>
-        </div>
-        <div class="s5-dot" style="top:50%;transform:translateX(-50%)"></div>
+      <div class="s5-card highlight">
+        <div class="s5-time">09:00</div><div class="s5-label">致詞</div><div class="s5-title">致詞與流程說明</div>
+        <div class="s5-pill">⏱ 10 min</div>
       </div>
-      <!-- Item 3: left -->
-      <div class="s5-item">
-        <div class="s5-item-left">
-          <div class="s5-card highlight">
-            <div class="s5-item-label">簡報</div>
-            <div class="s5-item-title">業務簡報與座談</div>
-            <div class="s5-item-pill">⏱ 20 min</div>
-          </div>
-        </div>
-        <div class="s5-time-badge">09:10</div>
-        <div class="s5-item-right"></div>
-        <div class="s5-dot" style="top:50%;transform:translateX(-50%)"></div>
+      <div class="s5-card highlight">
+        <div class="s5-time">09:10</div><div class="s5-label">簡報</div><div class="s5-title">業務簡報與座談</div>
+        <div class="s5-pill">⏱ 20 min</div>
       </div>
-      <!-- Item 4: right -->
-      <div class="s5-item">
-        <div class="s5-item-left"></div>
-        <div class="s5-time-badge">09:30</div>
-        <div class="s5-item-right">
-          <div class="s5-card">
-            <div class="s5-item-label">訪談</div>
-            <div class="s5-item-title">實地個別訪談（分3組）</div>
-            <div class="s5-item-pill">⏱ 2 hr</div>
-          </div>
-        </div>
-        <div class="s5-dot" style="top:50%;transform:translateX(-50%)"></div>
+      <div class="s5-card">
+        <div class="s5-time">09:30</div><div class="s5-label">訪談</div><div class="s5-title">實地個別訪談（分3組）</div>
+        <div class="s5-pill">⏱ 2 hr</div>
       </div>
-      <!-- Item 5: left -->
-      <div class="s5-item">
-        <div class="s5-item-left">
-          <div class="s5-card highlight">
-            <div class="s5-item-label">結語</div>
-            <div class="s5-item-title">交換意見與結語</div>
-            <div class="s5-item-pill">⏱ 30 min</div>
-          </div>
-        </div>
-        <div class="s5-time-badge">11:30</div>
-        <div class="s5-item-right"></div>
-        <div class="s5-dot" style="top:0;bottom:auto;transform:translateX(-50%)"></div>
+      <div class="s5-card highlight">
+        <div class="s5-time">11:30</div><div class="s5-label">結語</div><div class="s5-title">交換意見與結語</div>
+        <div class="s5-pill">⏱ 30 min</div>
       </div>
     </div>
-    <div class="s5-summary">體育局全程評鑑 <span>08:50 – 12:00（3 小時 10 分）</span></div>
+    <div class="s5-footer">
+      <div class="s5-footer-text">體育局全程評鑑 <strong>08:50 – 12:00（3 小時 10 分）</strong></div>
+    </div>
   </div>
 </div>
 
-<!-- SLIDE 6: 動保處時程 — 漏斗圖 -->
+<!-- SLIDE 6: 動保處時程 -->
 <div class="slide s6-bg" id="s6" data-page="6 / 8">
   <div class="deco-corner-tl"></div>
   <div class="page-title-bar" style="background:linear-gradient(135deg,#5C3320 0%,#7A4528 100%)">
@@ -1460,87 +525,42 @@ body {
     <h2>動物保護防疫處 評鑑行程</h2>
   </div>
   <div class="s6-content">
-    <div class="s6-funnel">
-      <!-- Stage 1 -->
-      <div class="s6-stage">
-        <div class="s6-stage-card left-card">
-          <div class="s6-stage-badge">1</div>
-          <div class="s6-stage-info">
-            <div class="s6-stage-label">集合出發</div>
-            <div class="s6-stage-title">B2 司機休息室集合出發</div>
-            <div class="s6-stage-note">※ 13:15 可先於 2701 會議室集合</div>
-          </div>
-          <div class="s6-stage-highlight">
-            <div class="s6-stage-highlight-label">地點</div>
-            <div class="s6-stage-highlight-val">B2 / 2701</div>
-          </div>
-        </div>
+    <div class="s6-header"><div class="s6-ruler"></div></div>
+    <div class="s6-funnel-grid">
+      <div class="s6-funnel-card">
+        <div class="s6-badge">1</div><div class="s6-time">13:15</div><div class="s6-label">集合出發</div>
+        <div class="s6-title">B2 司機休息室集合出發</div>
+        <div class="s6-hl">地點：B2 / 2701</div>
+        <div class="s6-note">※ 13:15 可先於 2701 會議室集合</div>
       </div>
-      <div class="s6-connector"></div>
-      <!-- Stage 2 -->
-      <div class="s6-stage">
-        <div class="s6-stage-card right-card">
-          <div class="s6-stage-badge">2</div>
-          <div class="s6-stage-info">
-            <div class="s6-stage-label">致詞說明</div>
-            <div class="s6-stage-title">致詞與流程說明</div>
-          </div>
-          <div class="s6-stage-highlight">
-            <div class="s6-stage-highlight-label">時長</div>
-            <div class="s6-stage-highlight-val">10 min</div>
-          </div>
-        </div>
+      <div class="s6-funnel-card">
+        <div class="s6-badge">2</div><div class="s6-time">13:30</div><div class="s6-label">致詞說明</div>
+        <div class="s6-title">致詞與流程說明</div>
+        <div class="s6-hl">時長：10 min</div>
       </div>
-      <div class="s6-connector"></div>
-      <!-- Stage 3 -->
-      <div class="s6-stage">
-        <div class="s6-stage-card left-card">
-          <div class="s6-stage-badge">3</div>
-          <div class="s6-stage-info">
-            <div class="s6-stage-label">業務簡報座談</div>
-            <div class="s6-stage-title">業務簡報與座談</div>
-          </div>
-          <div class="s6-stage-highlight">
-            <div class="s6-stage-highlight-label">時長</div>
-            <div class="s6-stage-highlight-val">20 min</div>
-          </div>
-        </div>
+      <div class="s6-funnel-card">
+        <div class="s6-badge">3</div><div class="s6-time">13:40</div><div class="s6-label">業務簡報座談</div>
+        <div class="s6-title">業務簡報與座談</div>
+        <div class="s6-hl">時長：20 min</div>
       </div>
-      <div class="s6-connector"></div>
-      <!-- Stage 4 -->
-      <div class="s6-stage">
-        <div class="s6-stage-card right-card">
-          <div class="s6-stage-badge">4</div>
-          <div class="s6-stage-info">
-            <div class="s6-stage-label">實地訪談</div>
-            <div class="s6-stage-title">實地個別訪談（分3組）</div>
-          </div>
-          <div class="s6-stage-highlight">
-            <div class="s6-stage-highlight-label">時長</div>
-            <div class="s6-stage-highlight-val">2 小時</div>
-          </div>
-        </div>
+      <div class="s6-funnel-card">
+        <div class="s6-badge">4</div><div class="s6-time">14:00</div><div class="s6-label">實地訪談</div>
+        <div class="s6-title">實地個別訪談（分3組）</div>
+        <div class="s6-hl">時長：2 小時</div>
       </div>
-      <div class="s6-connector"></div>
-      <!-- Stage 5 -->
-      <div class="s6-stage">
-        <div class="s6-stage-card left-card">
-          <div class="s6-stage-badge">5</div>
-          <div class="s6-stage-info">
-            <div class="s6-stage-label">結語座談</div>
-            <div class="s6-stage-title">意見交流與結語</div>
-          </div>
-          <div class="s6-stage-highlight">
-            <div class="s6-stage-highlight-label">時長</div>
-            <div class="s6-stage-highlight-val">30 min</div>
-          </div>
-        </div>
+      <div class="s6-funnel-card">
+        <div class="s6-badge">5</div><div class="s6-time">16:00</div><div class="s6-label">結語座談</div>
+        <div class="s6-title">意見交流與結語</div>
+        <div class="s6-hl">時長：30 min</div>
       </div>
+    </div>
+    <div class="s6-footer">
+      <div class="s6-footer-text">動保處全程評鑑 <strong>13:15 – 17:30（4 小時 15 分）</strong></div>
     </div>
   </div>
 </div>
 
-<!-- SLIDE 7: 三組分工 — 棋盤深淺交替 -->
+<!-- SLIDE 7: 三組分工 — 重新設計：3列×上下AM/PM時段表 -->
 <div class="slide s7-bg" id="s7" data-page="7 / 8">
   <div class="deco-corner-tl"></div>
   <div class="page-title-bar" style="background:linear-gradient(135deg,var(--accent2) 0%,#C17A00 100%)">
@@ -1548,176 +568,105 @@ body {
     <h2>實地訪談 — 三組分工</h2>
   </div>
   <div class="s7-content">
-    <!-- Column headers -->
-    <div class="s7-col-head s7-col-head-light">
-      <div class="s7-col-num">01</div>
-      <div class="s7-col-name">第 1 組</div>
-    </div>
-    <div class="s7-col-head s7-col-head-dark">
-      <div class="s7-col-num">02</div>
-      <div class="s7-col-name">第 2 組</div>
-    </div>
-    <div class="s7-col-head s7-col-head-darker">
-      <div class="s7-col-num">03</div>
-      <div class="s7-col-name">第 3 組</div>
-    </div>
+    <!-- 3 column headers -->
+    <div class="s7-col-head"><div class="s7-col-num">01</div><div class="s7-col-name">第 1 組</div></div>
+    <div class="s7-col-head"><div class="s7-col-num">02</div><div class="s7-col-name">第 2 組</div></div>
+    <div class="s7-col-head"><div class="s7-col-num">03</div><div class="s7-col-name">第 3 組</div></div>
 
-    <!-- AM row — odd pattern: light, dark, light -->
-    <div class="s7-cell s7-cell-light">
-      <div class="s7-row-label">上午 · 體育局</div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">組</div>
-        <div class="s7-role-text">組長</div>
-        <div class="s7-person-name">呂育誠 教授</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">委</div>
-        <div class="s7-role-text">委員</div>
-        <div class="s7-person-name">王世英 專委</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">小</div>
-        <div class="s7-role-text">工作小組</div>
-        <div class="s7-person-name">唐薇甯 科長</div>
-      </div>
+    <!-- AM Row: 3 cells, each with 3 persons -->
+    <div class="s7-cell">
+      <div class="s7-row-label am">上午 · 體育局</div>
+      <div class="s7-person-row"><div class="s7-role-tag">組</div><div class="s7-role-text">組長</div><div class="s7-person-name">呂育誠 教授</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">委</div><div class="s7-role-text">委員</div><div class="s7-person-name">王世英 專委</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">小</div><div class="s7-role-text">工作小組</div><div class="s7-person-name">唐薇甯 科長</div></div>
     </div>
     <div class="s7-cell s7-cell-dark">
-      <div class="s7-row-label">上午 · 體育局</div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">組</div>
-        <div class="s7-role-text">組長</div>
-        <div class="s7-person-name">葉公鼎 教授</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">委</div>
-        <div class="s7-role-text">委員</div>
-        <div class="s7-person-name">邱淑美 專委</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">小</div>
-        <div class="s7-role-text">工作小組</div>
-        <div class="s7-person-name">蔡孟倫 股長</div>
-      </div>
+      <div class="s7-row-label am">上午 · 體育局</div>
+      <div class="s7-person-row"><div class="s7-role-tag">組</div><div class="s7-role-text">組長</div><div class="s7-person-name">葉公鼎 教授</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">委</div><div class="s7-role-text">委員</div><div class="s7-person-name">邱淑美 專委</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">小</div><div class="s7-role-text">工作小組</div><div class="s7-person-name">蔡孟倫 股長</div></div>
     </div>
-    <div class="s7-cell s7-cell-light">
-      <div class="s7-row-label">上午 · 體育局</div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">組</div>
-        <div class="s7-role-text">組長</div>
-        <div class="s7-person-name">洪久雅 副處長</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">委</div>
-        <div class="s7-role-text">委員</div>
-        <div class="s7-person-name">王瑞玲 主秘</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">小</div>
-        <div class="s7-role-text">工作小組</div>
-        <div class="s7-person-name">洪舒菁 科員</div>
-      </div>
+    <div class="s7-cell">
+      <div class="s7-row-label am">上午 · 體育局</div>
+      <div class="s7-person-row"><div class="s7-role-tag">組</div><div class="s7-role-text">組長</div><div class="s7-person-name">洪久雅 副處長</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">委</div><div class="s7-role-text">委員</div><div class="s7-person-name">王瑞玲 主秘</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">小</div><div class="s7-role-text">工作小組</div><div class="s7-person-name">洪舒菁 科員</div></div>
     </div>
 
-    <!-- PM row — even pattern: dark, light, dark -->
+    <!-- Gap row (spacer between AM and PM) -->
+    <div class="s7-gap-row"></div>
+    <div class="s7-gap-row"></div>
+    <div class="s7-gap-row"></div>
+
+    <!-- PM Row: 3 cells, each with 3 persons -->
     <div class="s7-cell s7-cell-dark">
       <div class="s7-row-label pm">下午 · 動保處</div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">組</div>
-        <div class="s7-role-text">組長</div>
-        <div class="s7-person-name">呂育誠 教授</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">委</div>
-        <div class="s7-role-text">委員</div>
-        <div class="s7-person-name">王世英 專委</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">小</div>
-        <div class="s7-role-text">工作小組</div>
-        <div class="s7-person-name">蔡孟倫 股長</div>
-      </div>
+      <div class="s7-person-row"><div class="s7-role-tag">組</div><div class="s7-role-text">組長</div><div class="s7-person-name">呂育誠 教授</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">委</div><div class="s7-role-text">委員</div><div class="s7-person-name">王世英 專委</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">小</div><div class="s7-role-text">工作小組</div><div class="s7-person-name">蔡孟倫 股長</div></div>
     </div>
-    <div class="s7-cell s7-cell-light">
+    <div class="s7-cell">
       <div class="s7-row-label pm">下午 · 動保處</div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">組</div>
-        <div class="s7-role-text">組長</div>
-        <div class="s7-person-name">吳宗憲 教授</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">委</div>
-        <div class="s7-role-text">委員</div>
-        <div class="s7-person-name">邱淑美 專委</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">小</div>
-        <div class="s7-role-text">工作小組</div>
-        <div class="s7-person-name">陳琳蒂 股長</div>
-      </div>
+      <div class="s7-person-row"><div class="s7-role-tag">組</div><div class="s7-role-text">組長</div><div class="s7-person-name">吳宗憲 教授</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">委</div><div class="s7-role-text">委員</div><div class="s7-person-name">邱淑美 專委</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">小</div><div class="s7-role-text">工作小組</div><div class="s7-person-name">陳琳蒂 股長</div></div>
     </div>
     <div class="s7-cell s7-cell-dark">
       <div class="s7-row-label pm">下午 · 動保處</div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">組</div>
-        <div class="s7-role-text">組長</div>
-        <div class="s7-person-name">洪久雅 副處長</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">委</div>
-        <div class="s7-role-text">委員</div>
-        <div class="s7-person-name">王瑞玲 主秘</div>
-      </div>
-      <div class="s7-person-row">
-        <div class="s7-role-tag">小</div>
-        <div class="s7-role-text">工作小組</div>
-        <div class="s7-person-name">馮于宣 科員</div>
-      </div>
+      <div class="s7-person-row"><div class="s7-role-tag">組</div><div class="s7-role-text">組長</div><div class="s7-person-name">洪久雅 副處長</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">委</div><div class="s7-role-text">委員</div><div class="s7-person-name">王瑞玲 主秘</div></div>
+      <div class="s7-person-row"><div class="s7-role-tag">小</div><div class="s7-role-text">工作小組</div><div class="s7-person-name">馮于宣 科員</div></div>
     </div>
 
+    <!-- Legend -->
     <div class="s7-legend">
-      <div class="s7-legend-swatch light"></div><span>深色列</span>
-      <div class="s7-legend-swatch dark"></div><span>淺色列</span>
-      <span style="margin-left:auto;font-size: 26px;color:var(--accent);font-weight:600">⚠ 第2組下午改為吳宗憲教授（替代葉公鼎教授）</span>
+      <div class="s7-legend-swatch light"></div><span>淺色列</span>
+      <div class="s7-legend-swatch dark"></div><span>深色列</span>
+      <span class="s7-legend-note">⚠ 第2組下午改為吳宗憲教授（替代葉公鼎教授）</span>
     </div>
   </div>
 </div>
 
 <!-- SLIDE 8: 結語 -->
 <div class="slide s8-bg" id="s8" data-page="8 / 8">
-  <div class="s8-deco">
-    <svg viewBox="0 0 600 720">
-      <circle cx="600" cy="0" r="320" fill="rgba(200,98,30,0.1)"/>
-      <circle cx="520" cy="80" r="200" fill="rgba(232,168,56,0.07)"/>
-      <circle cx="480" cy="30" r="130" fill="rgba(232,168,56,0.05)"/>
-      <path d="M100,360 A30 30 0 0 1 130 372 L160 412 A30 30 0 0 1 160 448 L130 488 A30 30 0 0 1 100 500 L70 488 A30 30 0 0 1 70 452 L40 412 A30 30 0 0 1 40 376 Z" fill="none" stroke="rgba(232,168,56,0.08)" stroke-width="1"/>
-      <path d="M180,260 A20 20 0 0 1 195 268 L210 296 A20 20 0 0 1 210 312 L195 340 A20 20 0 0 1 180 348 L165 340 A20 20 0 0 1 165 312 L150 296 A20 20 0 0 1 150 280 Z" fill="rgba(200,98,30,0.06)" stroke="rgba(200,98,30,0.1)" stroke-width="0.75"/>
-    </svg>
-  </div>
-  <div class="s8-deco-sq">
-    <svg viewBox="0 0 350 350">
-      <rect x="0" y="200" width="220" height="220" rx="12" fill="rgba(232,168,56,0.05)" stroke="rgba(232,168,56,0.08)" stroke-width="1"/>
-      <rect x="60" y="120" width="180" height="180" rx="10" fill="rgba(200,98,30,0.04)" stroke="rgba(200,98,30,0.06)" stroke-width="0.75"/>
-    </svg>
-  </div>
+  <div class="s8-deco"><svg viewBox="0 0 600 720"><circle cx="600" cy="0" r="320" fill="rgba(200,98,30,0.1)"/><circle cx="520" cy="80" r="200" fill="rgba(232,168,56,0.07)"/><circle cx="480" cy="30" r="130" fill="rgba(232,168,56,0.05)"/><path d="M100,360 A30 30 0 0 1 130 372 L160 412 A30 30 0 0 1 160 448 L130 488 A30 30 0 0 1 100 500 L70 488 A30 30 0 0 1 70 452 L40 412 A30 30 0 0 1 40 376 Z" fill="none" stroke="rgba(232,168,56,0.08)" stroke-width="1"/></svg></div>
+  <div class="s8-deco-sq"><svg viewBox="0 0 350 350"><rect x="0" y="200" width="220" height="220" rx="12" fill="rgba(232,168,56,0.05)" stroke="rgba(232,168,56,0.08)" stroke-width="1"/><rect x="60" y="120" width="180" height="180" rx="10" fill="rgba(200,98,30,0.04)" stroke="rgba(200,98,30,0.06)" stroke-width="0.75"/></svg></div>
   <div class="s8-content">
-    <div class="s8-icon">🎯</div>
-    <h2 class="s8-title">共同優化<br><span class="hl">新北市政府</span>人力結構與效能</h2>
-    <p class="s8-quote">「人力運用控管之核心決策參據」</p>
+    <div class="s8-icon">⬡</div>
+    <h2 class="s8-title">攜手精進<br><span class="hl">員額效能</span></h2>
     <div class="s8-divider"></div>
-    <div class="s8-tags">
-      <div class="s8-tag">現況診斷</div>
-      <div class="s8-tag">具體改善</div>
-      <div class="s8-tag">戰略目標</div>
-    </div>
+    <p class="s8-quote">「以有限的人力，創造最大的施政價值」</p>
+    <div class="s8-tags"><span class="s8-tag">現況診斷</span><span class="s8-tag">具體改善</span><span class="s8-tag">戰略目標</span><span class="s8-tag">評鑑圓滿</span></div>
   </div>
-  <div class="s8-footer">
-    <span>新北市政府人事處</span>
-    <div class="s8-footer-sep"></div>
-    <span>115年6月18日</span>
-    <div class="s8-footer-sep"></div>
-    <span>體育局 · 動保處</span>
-  </div>
+  <div class="s8-footer"><span>新北市政府人事處</span><div class="s8-footer-sep"></div><span>115年員額評鑑</span><div class="s8-footer-sep"></div><span>2026.06.24</span></div>
 </div>
 
+<script>
+// 導航切換
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+// 更新目前頁碼
+const slides = document.querySelectorAll('.slide');
+const navItems = document.querySelectorAll('.nav-item');
+const navProgress = document.querySelector('.nav-progress');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const page = entry.target.dataset.page;
+      if (navProgress) navProgress.textContent = page;
+      const idx = parseInt(page.split('/')[0].trim()) - 1;
+      navItems.forEach((ni, i) => ni.classList.toggle('active', i === idx));
+    }
+  });
+}, { threshold: 0.5 });
+slides.forEach(slide => observer.observe(slide));
+</script>
 </body>
 </html>
