@@ -11,3 +11,9 @@
   Cache-Control: no-cache
 /meow/cats.json
   Cache-Control: no-cache
+
+# 貓圖片 Cloudflare Polish 優化（自動 WebP + 壓縮）
+/cats-images/*
+  Cache-Control: public, max-age=31536000, immutable
+  CF-Polish: lossy
+  CF-ImageQoS: maximum

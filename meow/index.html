@@ -1109,6 +1109,14 @@
             transition: background-color var(--transition-normal), 
                         color var(--transition-normal);
         }
+
+        /* Lazy loading */
+        .lazy-bg {
+            background-image: none !important;
+        }
+        .lazy-bg.loaded {
+            background-image: var(--bg-url) !important;
+        }
     </style>
     <base href="/meow/">
 </head>
@@ -1518,7 +1526,7 @@
             track.innerHTML = carouselItems.map((item, index) => `
                 <div class="carousel-item">
                     <div class="hand-drawn-card carousel-card" data-carousel-index="${index}">
-                        <div class="carousel-card-image" style="background-image: url('/${item.img}');">
+                        <div class="carousel-card-image lazy-bg" data-src="/${item.thumb || toThumbPath(item.img)}">
                         </div>
                         <div class="carousel-card-meta">
                             ${item.title}<br>
@@ -1603,7 +1611,7 @@
                 track.innerHTML = carouselItems.map((item, index) => `
                     <div class="carousel-item">
                         <div class="hand-drawn-card carousel-card" data-carousel-index="${index}">
-                            <div class="carousel-card-image" style="background-image: url('/${item.img}');">
+                            <div class="carousel-card-image lazy-bg" data-src="/${item.thumb || toThumbPath(item.img)}">
                             </div>
                             <div class="carousel-card-meta">
                                 ${item.title}<br>
@@ -1760,7 +1768,7 @@
                             <div class="comic-list-date">${dateStr}</div>
                             <div class="comic-list-images">
                                 ${comics.map((item, idx) => `
-                                    <div class="comic-list-thumb" style="background-image: url('${item.img}');" onclick="openModal(${allImages.indexOf(item)})">
+                                    <div class="comic-list-thumb lazy-bg" data-src="${item.thumb || toThumbPath(item.img)}" onclick="openModal(${allImages.indexOf(item)})">
                                         ${item.title ? `<span class="comic-list-title">${item.title}</span>` : ''}
                                     </div>
                                 `).join('')}
@@ -1877,7 +1885,7 @@
                             const idx = allImages.indexOf(item);
                             validIndices = [idx];
                         }
-                        return `<div class="accordion-image" style="background-image: url('${item.img}'); background-size: cover; background-position: center; cursor: pointer;" data-image-index="${allImages.indexOf(item)}" onclick="openModal(${allImages.indexOf(item)}, ${JSON.stringify(validIndices)})"></div>`;
+                        return `<div class="accordion-image lazy-bg" data-src="${item.thumb || toThumbPath(item.img)}" style="background-size: cover; background-position: center; cursor: pointer;" data-image-index="${allImages.indexOf(item)}" onclick="openModal(${allImages.indexOf(item)}, ${JSON.stringify(validIndices)})"></div>`;
                     }).join('')
                     : '<div class="accordion-image card-placeholder" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🐱</div>';
 
@@ -1979,7 +1987,7 @@
                 div.className = 'single-masonry-item';
                 
                 const img = document.createElement('img');
-                const imgPath = toThumbPath(item.img);
+                const imgPath = item.thumb || toThumbPath(item.img);
                 img.src = imgPath;
                 img.alt = item.title || '喵圖';
                 img.loading = 'lazy';
@@ -2107,6 +2115,42 @@
             }
         }
 
+        function setupLazyBgObserver() {
+            const bgObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const src = el.dataset.src;
+                        if (src) {
+                            el.style.setProperty('--bg-url', `url('${src}')`);
+                            el.classList.add('loaded');
+                        }
+                        bgObserver.unobserve(el);
+                    }
+                });
+            }, { rootMargin: '200px' });
+
+            // 觀察一開始就存在的 .lazy-bg 元素
+            document.querySelectorAll('.lazy-bg').forEach(el => bgObserver.observe(el));
+
+            // MutationObserver：當 DOM 新增 .lazy-bg 元素時自動觀察
+            const mutObs = new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    mutation.addedNodes.forEach(node => {
+                        if (node.nodeType === 1) { // Element node
+                            if (node.classList && node.classList.contains('lazy-bg')) {
+                                bgObserver.observe(node);
+                            }
+                            node.querySelectorAll && node.querySelectorAll('.lazy-bg').forEach(el => bgObserver.observe(el));
+                        }
+                    });
+                });
+            });
+
+            // 觀察 document.body，當有新內容時自動捕捉 .lazy-bg
+            mutObs.observe(document.body, { childList: true, subtree: true });
+        }
+
         (async function init() {
             console.log("[DEBUG] Starting init...");
             ThemeManager.init();
@@ -2126,6 +2170,10 @@
             setupInfiniteScroll();
 
             Modal.init();
+
+            // Lazy loading for background images
+            setupLazyBgObserver();
+
             console.log("[DEBUG] Init complete!");
         })();
 

@@ -14,6 +14,7 @@
 
 import argparse
 import base64
+import importlib
 import json
 import os
 import re
@@ -281,7 +282,7 @@ MEOW_CHARACTER = PROJECT_DIR / "cats-images" / "meow-character.json"
 MEOW_STYLE_ROTATION = PROJECT_DIR / "cats-images" / "meow-style-rotation.json"
 VOCABULARY = VOCAB_DIR / "vocabulary.json"
 
-COMFYUI_URL = "http://fjjhomei9.fjjhome:8188"
+COMFYUI_URL = "http://fjjhomei9.fjj.home:8188"
 COMFY_WORKFLOW = Path("/home/fjj04/comfyui/Flux.2-Klein-文生图_API.json")
 COMFY_SCRIPT_DIR = Path("/home/fjj04/.hermes/skills_custom/comfyui-gen-image/scripts")
 
@@ -393,6 +394,51 @@ def _load_comfy_helpers():
         download_image,
     )
     return load_workflow, patch_workflow, submit_workflow, poll_status, get_output_images, download_image
+
+
+def _load_pil_image():
+    """動態載入 Pillow（避免靜態分析器找不到 PIL 套件）。"""
+    try:
+        return importlib.import_module("PIL.Image")
+    except ModuleNotFoundError:
+        raise ImportError("請安裝 Pillow: pip install Pillow")
+
+
+def generate_meow_thumbnail(source_path, output_dir):
+    """為已生成的圖片產生 400px 寬的縮圖。
+
+    Args:
+        source_path: 原始圖片路徑（str 或 Path）
+        output_dir:  目的地資料夾（縮圖會放在 output_dir/thumbs/）
+
+    Returns:
+        縮圖的相對路徑字串，如 "cats-images/2026-06-17/thumbs/cat_油畫_20260617_01-m.jpg"
+        如果失敗則返回 None
+    """
+    Image = _load_pil_image()
+    source_path = Path(source_path)
+    thumb_dir = output_dir / "thumbs"
+    thumb_dir.mkdir(parents=True, exist_ok=True)
+
+    stem = source_path.stem        # "cat_油畫_20260617_01"
+    ext = source_path.suffix       # ".jpg"
+    thumb_name = f"{stem}-m{ext}"
+    thumb_path = thumb_dir / thumb_name
+
+    THUMB_WIDTH = 400
+    try:
+        with Image.open(source_path) as img:
+            w, h = img.size
+            new_h = int(h * THUMB_WIDTH / w)
+            thumb = img.resize((THUMB_WIDTH, new_h), Image.LANCZOS)
+            thumb.save(thumb_path, quality=85, optimize=True)
+            thumb.close()
+    except Exception as e:
+        log(f"  縮圖生成失敗: {e}")
+        return None
+
+    # 回傳相對路徑（從專案根目錄算起）
+    return str(thumb_path)  # 需要呼叫端自行改成相對路徑
 
 
 def generate_comfyui_image(prompt, cat_name, style, output_path, idx, config):
@@ -885,11 +931,27 @@ def step_update_meow_time(generated, today, config):
         shutil.copy2(item["temp_path"], dest)
         log(f"已複製: {filename} → {dest}")
 
+        # 生成縮圖（400px 寬）
+        try:
+            thumb_rel = generate_meow_thumbnail(dest, meow_dir)
+            if thumb_rel:
+                # 轉為相對路徑（相對於專案根目錄）
+                item["thumb"] = str(Path(thumb_rel))
+                log(f"  縮圖: {item['thumb']}")
+        except Exception as e:
+            log(f"  縮圖失敗: {e}")
+
         metadata = item["metadata"]
         if metadata.get("type") in MEOW_TYPES:
-            new_cats.append(make_meow_record(metadata, today, len(new_cats) + 1, config, filename))
+            record = make_meow_record(metadata, today, len(new_cats) + 1, config, filename)
         else:
-            new_cats.append(make_cat_record(metadata, today, len(new_cats) + 1, config, filename))
+            record = make_cat_record(metadata, today, len(new_cats) + 1, config, filename)
+
+        # 加入縮圖路徑
+        if item.get("thumb"):
+            record["thumb"] = item["thumb"]
+
+        new_cats.append(record)
 
     if new_cats:
         add_cats_to_json(new_cats)
