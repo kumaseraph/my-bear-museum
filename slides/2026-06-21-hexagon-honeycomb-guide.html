@@ -6,16 +6,17 @@
 <title>蜂巢圖聖典 | 熊熊簡報</title>
 <style>
 :root {
-  --bg: #F0FBF4;
+  --bg: #FAF5FF;
   --card: #FFFFFF;
-  --primary: #2E7D32;
-  --secondary: #81C784;
-  --accent: #A5D6A7;
-  --pale: #E8F5E9;
+  --primary: #6A1B9A;
+  --secondary: #CE93D8;
+  --accent: #E1BEE7;
+  --pale: #F3E5F5;
   --text: #1A1A1A;
-  --text-light: #546E54;
+  --text-light: #7B1FA2;
+  --accent2: #00ACC1;
   --radius: 20px;
-  --shadow: 0 6px 28px rgba(46,125,50,0.1);
+  --shadow: 0 6px 28px rgba(106,27,154,0.12);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -34,7 +35,7 @@ body {
   right: 0;
   background: rgba(255,255,255,0.95);
   backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(46,125,50,0.12);
+  border-top: 1px solid rgba(106,27,154,0.12);
   padding: 12px 20px;
   display: flex;
   justify-content: center;
@@ -115,7 +116,7 @@ body {
 .hbox-solid .hbox-inner { background: linear-gradient(145deg, var(--primary) 0%, var(--secondary) 100%); }
 
 /* 深色實心 */
-.hbox-dark .hbox-inner { background: linear-gradient(145deg, #1B5E20, var(--primary)); }
+.hbox-dark .hbox-inner { background: linear-gradient(145deg, #4A148C, var(--primary)); }
 
 /* 淺色實心 */
 .hbox-light .hbox-inner { background: linear-gradient(145deg, var(--secondary), var(--accent)); }
@@ -144,7 +145,7 @@ body {
   position: absolute;
   top: 6px; left: 6px; right: 6px; bottom: 6px;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: linear-gradient(145deg, #1B5E20, var(--primary));
+  background: linear-gradient(145deg, #4A148C, var(--primary));
   z-index: -1;
 }
 
@@ -826,22 +827,22 @@ body {
   <!-- KUMA 四字母，每個不同深淺 -->
   <div style="display:flex;justify-content:center;gap:8px;margin:18px 0;">
     <div style="position:relative;width:70px;height:80px;">
-      <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#1B5E20;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#4A148C;display:flex;align-items:center;justify-content:center;">
         <span style="position:relative;z-index:2;font-size:30px;font-weight:900;color:white;">K</span>
       </div>
     </div>
     <div style="position:relative;width:70px;height:80px;">
-      <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#2E7D32;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#6A1B9A;display:flex;align-items:center;justify-content:center;">
         <span style="position:relative;z-index:2;font-size:30px;font-weight:900;color:white;">U</span>
       </div>
     </div>
     <div style="position:relative;width:70px;height:80px;">
-      <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#43A047;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#8E24AA;display:flex;align-items:center;justify-content:center;">
         <span style="position:relative;z-index:2;font-size:30px;font-weight:900;color:white;">M</span>
       </div>
     </div>
     <div style="position:relative;width:70px;height:80px;">
-      <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#66BB6A;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#BA68C8;display:flex;align-items:center;justify-content:center;">
         <span style="position:relative;z-index:2;font-size:30px;font-weight:900;color:white;">A</span>
       </div>
     </div>
@@ -892,28 +893,28 @@ body {
   <div class="geo-circle" style="bottom:-80px;left:-80px;width:240px;height:240px;opacity:0.3;"></div>
 
   <div style="position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;min-height:75vh;text-align:center;">
-    <!-- 七格蜂巢，全部不同深淺綠 -->
+    <!-- 七格蜂巢，全部不同深淺紫 -->
     <div style="display:flex;justify-content:center;gap:10px;margin:24px 0;flex-wrap:wrap;">
       <div style="position:relative;width:80px;height:92px;">
-        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#1B5E20;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;">⬢</span></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#4A148C;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;color:white;">⬢</span></div>
       </div>
       <div style="position:relative;width:80px;height:92px;">
-        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#2E7D32;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;">⬢</span></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#6A1B9A;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;color:white;">⬢</span></div>
       </div>
       <div style="position:relative;width:80px;height:92px;">
-        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#388E3C;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;">⬢</span></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#7B1FA2;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;color:white;">⬢</span></div>
       </div>
       <div style="position:relative;width:80px;height:92px;">
-        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#43A047;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;">⬢</span></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#8E24AA;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;color:white;">⬢</span></div>
       </div>
       <div style="position:relative;width:80px;height:92px;">
-        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#66BB6A;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;">⬢</span></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#AB47BC;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;color:white;">⬢</span></div>
       </div>
       <div style="position:relative;width:80px;height:92px;">
-        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#81C784;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;">⬢</span></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#CE93D8;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;color:#4A148C;">⬢</span></div>
       </div>
       <div style="position:relative;width:80px;height:92px;">
-        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#A5D6A7;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;">⬢</span></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);background:#E1BEE7;display:flex;align-items:center;justify-content:center;"><span style="position:relative;z-index:2;font-size:22px;color:#6A1B9A;">⬢</span></div>
       </div>
     </div>
 
