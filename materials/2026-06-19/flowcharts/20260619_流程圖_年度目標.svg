@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="warmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4C1D95"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#fef7ed"/>
+  
+  <!-- 蜂巢叢集背景裝飾 -->
+  <g opacity="0.12" transform="translate(80, 80)">
+    <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" fill="#6B5CE7"/>
+    <path d="M150,5 L193.3,27.5 L193.3,72.5 L150,95 L106.7,72.5 L106.7,27.5 Z" fill="#A78BFA"/>
+    <path d="M100,52.5 L143.3,75 L143.3,120 L100,142.5 L56.7,120 L56.7,75 Z" fill="#4ECDC4"/>
+    <path d="M200,52.5 L243.3,75 L243.3,120 L200,142.5 L156.7,120 L156.7,75 Z" fill="#FF8C00"/>
+  </g>
+  
+  <g opacity="0.1" transform="translate(1500, 800)">
+    <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" fill="#6B5CE7"/>
+    <path d="M150,5 L193.3,27.5 L193.3,72.5 L150,95 L106.7,72.5 L106.7,27.5 Z" fill="#FF8C00"/>
+    <path d="M100,52.5 L143.3,75 L143.3,120 L100,142.5 L56.7,120 L56.7,75 Z" fill="#4ECDC4"/>
+  </g>
+  
+  <!-- 標題區 -->
+  <text x="960" y="100" fill="#4C1D95" font-size="40" font-weight="bold" text-anchor="middle">年度目標達成流程</text>
+  <text x="960" y="140" fill="#6B5CE7" font-size="18" text-anchor="middle">Annual Goal Achievement Process</text>
+  
+  <!-- 中央六邊形焦點（技巧#120 組合#9：叢集與單一） -->
+  <g transform="translate(860, 450)">
+    <!-- 外圍六邊形叢集 -->
+    <g transform="translate(-200, -150)">
+      <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" fill="#6B5CE7" fill-opacity="0.3"/>
+    </g>
+    <g transform="translate(150, -150)">
+      <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" fill="#A78BFA" fill-opacity="0.3"/>
+    </g>
+    <g transform="translate(-250, 55)">
+      <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" fill="#4ECDC4" fill-opacity="0.3"/>
+    </g>
+    <g transform="translate(200, 55)">
+      <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" fill="#FF8C00" fill-opacity="0.3"/>
+    </g>
+    
+    <!-- 中央大六邊形（實心） -->
+    <path d="M100,10 L186.6,55 L186.6,145 L100,190 L13.4,145 L13.4,55 Z" 
+          fill="url(#purpleGrad)" stroke="#4C1D95" stroke-width="3"/>
+    
+    <!-- 內部強調 -->
+    <path d="M100,40 L160,70 L160,130 L100,160 L40,130 L40,70 Z" 
+          fill="none" stroke="#fff" stroke-width="2" opacity="0.6"/>
+    
+    <!-- 中心文字 -->
+    <text x="100" y="90" fill="#fff" font-size="20" font-weight="bold" text-anchor="middle">目標</text>
+    <text x="100" y="115" fill="#fff" font-size="14" text-anchor="middle">GOAL</text>
+    <text x="100" y="145" fill="#A78BFA" font-size="12" text-anchor="middle">★★★</text>
+  </g>
+  
+  <!-- 左側：輸入節點（技巧#124 組合#9） -->
+  <g transform="translate(200, 400)">
+    <polygon points="80,0 200,0 180,80 60,80" fill="url(#warmGrad)" opacity="0.9"/>
+    <text x="130" y="35" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">年度願景</text>
+    <text x="130" y="60" fill="#fff" font-size="12" text-anchor="middle">Vision</text>
+    <circle cx="130" cy="40" r="8" fill="#fff"/>
+  </g>
+  
+  <g transform="translate(200, 550)">
+    <polygon points="80,0 200,0 180,80 60,80" fill="#6B5CE7" opacity="0.85"/>
+    <text x="130" y="35" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">關鍵成果</text>
+    <text x="130" y="60" fill="#fff" font-size="12" text-anchor="middle">KR</text>
+    <circle cx="130" cy="40" r="8" fill="#A78BFA"/>
+  </g>
+  
+  <!-- 右側：輸出節點 -->
+  <g transform="translate(1500, 400)">
+    <polygon points="80,0 200,0 180,80 60,80" fill="#4ECDC4" opacity="0.9"/>
+    <text x="130" y="35" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">行動方案</text>
+    <text x="130" y="60" fill="#fff" font-size="12" text-anchor="middle">Action</text>
+    <circle cx="130" cy="40" r="8" fill="#fff"/>
+  </g>
+  
+  <g transform="translate(1500, 550)">
+    <polygon points="80,0 200,0 180,80 60,80" fill="#4C1D95" opacity="0.85"/>
+    <text x="130" y="35" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">定期檢視</text>
+    <text x="130" y="60" fill="#fff" font-size="12" text-anchor="middle">Review</text>
+    <circle cx="130" cy="40" r="8" fill="#A78BFA"/>
+  </g>
+  
+  <!-- 連接線（曲線組合：剛柔並濟） -->
+  <g fill="none" stroke="#6B5CE7" stroke-width="2">
+    <path d="M380 440 Q600 440 800 480" stroke-dasharray="8,4"/>
+    <path d="M380 590 Q600 590 800 530" stroke-dasharray="8,4"/>
+    <path d="M1020 540 Q1200 540 1460 480" stroke-dasharray="8,4"/>
+    <path d="M1020 590 Q1200 590 1460 590" stroke-dasharray="8,4"/>
+  </g>
+  
+  <!-- 底部標語 -->
+  <rect x="660" y="880" width="600" height="50" rx="25" fill="#6B5CE7" fill-opacity="0.1" stroke="#6B5CE7" stroke-width="2"/>
+  <text x="960" y="913" fill="#4C1D95" font-size="18" font-weight="bold" text-anchor="middle">聚焦 × 執行 × 追蹤 × 調整</text>
+</svg>

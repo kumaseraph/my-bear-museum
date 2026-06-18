@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 200">
+  <defs>
+    <linearGradient id="pageGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="200" fill="#fef7ed"/>
+  
+  <!-- 旋轉角度對比六邊形（技巧#120 組合#2） -->
+  <g transform="translate(200, 100)">
+    <g transform="rotate(0, 40, 40)">
+      <path d="M40,5 L75,22.5 L75,57.5 L40,75 L5,57.5 L5,22.5 Z" 
+            fill="#6B5CE7" fill-opacity="0.15" stroke="#6B5CE7" stroke-width="2"/>
+    </g>
+    <g transform="rotate(30, 40, 40)">
+      <path d="M40,5 L75,22.5 L75,57.5 L40,75 L5,57.5 L5,22.5 Z" 
+            fill="#A78BFA" fill-opacity="0.2" stroke="#A78BFA" stroke-width="2"/>
+    </g>
+    <g transform="rotate(60, 40, 40)">
+      <path d="M40,5 L75,22.5 L75,57.5 L40,75 L5,57.5 L5,22.5 Z" 
+            fill="#4ECDC4" fill-opacity="0.15" stroke="#4ECDC4" stroke-width="2"/>
+    </g>
+  </g>
+  
+  <!-- 頁碼數字 -->
+  <text x="960" y="125" fill="url(#pageGrad2)" font-size="90" font-weight="bold" text-anchor="middle" font-family="Georgia, serif">08</text>
+  
+  <!-- 右側裝飾 -->
+  <g transform="translate(1680, 100)">
+    <g transform="rotate(0, 40, 40)">
+      <path d="M40,5 L75,22.5 L75,57.5 L40,75 L5,57.5 L5,22.5 Z" 
+            fill="#4ECDC4" fill-opacity="0.15" stroke="#4ECDC4" stroke-width="2"/>
+    </g>
+    <g transform="rotate(30, 40, 40)">
+      <path d="M40,5 L75,22.5 L75,57.5 L40,75 L5,57.5 L5,22.5 Z" 
+            fill="#FF8C00" fill-opacity="0.2" stroke="#FF8C00" stroke-width="2"/>
+    </g>
+    <g transform="rotate(60, 40, 40)">
+      <path d="M40,5 L75,22.5 L75,57.5 L40,75 L5,57.5 L5,22.5 Z" 
+            fill="#6B5CE7" fill-opacity="0.15" stroke="#6B5CE7" stroke-width="2"/>
+    </g>
+  </g>
+  
+  <!-- 底部波浪線 -->
+  <path d="M400,180 Q500,160 600,180 T800,180 T1000,180 T1200,180 T1400,180 T1600,180" 
+        fill="none" stroke="#6B5CE7" stroke-width="2" opacity="0.3"/>
+</svg>

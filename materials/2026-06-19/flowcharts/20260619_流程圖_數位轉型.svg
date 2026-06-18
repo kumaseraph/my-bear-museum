@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="techGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="50%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 深色背景 -->
+  <rect width="1920" height="1080" fill="#0f172a"/>
+  
+  <!-- 透視線裝飾（技巧#124 組合#8） -->
+  <g stroke="#6B5CE7" stroke-width="1" opacity="0.2">
+    <line x1="960" y1="1080" x2="960" y2="0"/>
+    <line x1="960" y1="1080" x2="0" y2="400"/>
+    <line x1="960" y1="1080" x2="1920" y2="400"/>
+    <line x1="960" y1="1080" x2="300" y2="200"/>
+    <line x1="960" y1="1080" x2="1620" y2="200"/>
+  </g>
+  
+  <!-- 主標題 -->
+  <text x="960" y="80" fill="#fff" font-size="36" font-weight="bold" text-anchor="middle">數位轉型四階段</text>
+  <text x="960" y="120" fill="#94a3b8" font-size="18" text-anchor="middle">Digital Transformation Journey</text>
+  
+  <!-- 階段1 -->
+  <g transform="translate(150, 250)">
+    <polygon points="100,0 300,0 260,120 60,120" fill="none" stroke="#0EA5E9" stroke-width="3"/>
+    <polygon points="100,0 300,0 260,120 60,120" fill="#0EA5E9" fill-opacity="0.15"/>
+    <text x="180" y="50" fill="#fff" font-size="22" font-weight="bold" text-anchor="middle">評估現況</text>
+    <text x="180" y="85" fill="#22D3EE" font-size="14" text-anchor="middle">Assess Current State</text>
+    <circle cx="180" cy="60" r="25" fill="none" stroke="#0EA5E9" stroke-width="2"/>
+    <text x="180" y="67" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">1</text>
+  </g>
+  
+  <!-- 連接線1->2 -->
+  <g stroke="#F97316" stroke-width="3">
+    <line x1="410" y1="310" x2="530" y2="310"/>
+    <polygon points="530,310 510,300 510,320" fill="#F97316"/>
+  </g>
+  
+  <!-- 階段2 -->
+  <g transform="translate(550, 400)">
+    <polygon points="100,0 300,0 260,120 60,120" fill="none" stroke="#6B5CE7" stroke-width="3"/>
+    <polygon points="100,0 300,0 260,120 60,120" fill="#6B5CE7" fill-opacity="0.15"/>
+    <text x="180" y="50" fill="#fff" font-size="22" font-weight="bold" text-anchor="middle">策略規劃</text>
+    <text x="180" y="85" fill="#A78BFA" font-size="14" text-anchor="middle">Strategy Planning</text>
+    <circle cx="180" cy="60" r="25" fill="none" stroke="#6B5CE7" stroke-width="2"/>
+    <text x="180" y="67" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">2</text>
+  </g>
+  
+  <!-- 連接線2->3 -->
+  <g stroke="#F97316" stroke-width="3">
+    <line x1="810" y1="460" x2="930" y2="460"/>
+    <polygon points="930,460 910,450 910,470" fill="#F97316"/>
+  </g>
+  
+  <!-- 階段3 -->
+  <g transform="translate(950, 550)">
+    <polygon points="100,0 300,0 260,120 60,120" fill="none" stroke="#4ECDC4" stroke-width="3"/>
+    <polygon points="100,0 300,0 260,120 60,120" fill="#4ECDC4" fill-opacity="0.15"/>
+    <text x="180" y="50" fill="#fff" font-size="22" font-weight="bold" text-anchor="middle">系統導入</text>
+    <text x="180" y="85" fill="#4ECDC4" font-size="14" text-anchor="middle">System Implementation</text>
+    <circle cx="180" cy="60" r="25" fill="none" stroke="#4ECDC4" stroke-width="2"/>
+    <text x="180" y="67" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">3</text>
+  </g>
+  
+  <!-- 連接線3->4 -->
+  <g stroke="#F97316" stroke-width="3">
+    <line x1="1210" y1="610" x2="1330" y2="610"/>
+    <polygon points="1330,610 1310,600 1310,620" fill="#F97316"/>
+  </g>
+  
+  <!-- 階段4 -->
+  <g transform="translate(1350, 700)">
+    <polygon points="100,0 300,0 260,120 60,120" fill="none" stroke="#F97316" stroke-width="4"/>
+    <polygon points="100,0 300,0 260,120 60,120" fill="#F97316" fill-opacity="0.2"/>
+    <text x="180" y="50" fill="#fff" font-size="22" font-weight="bold" text-anchor="middle">優化迭代</text>
+    <text x="180" y="85" fill="#FF8C00" font-size="14" text-anchor="middle">Optimization &amp; Iteration</text>
+    <circle cx="180" cy="60" r="25" fill="#F97316"/>
+    <text x="180" y="67" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">4</text>
+  </g>
+  
+  <!-- 右側脈衝動畫裝飾（技巧#124 組合#10） -->
+  <g transform="translate(1600, 200)">
+    <circle cx="50" cy="50" r="30" fill="none" stroke="#4ECDC4" stroke-width="2" opacity="0.8"/>
+    <circle cx="50" cy="50" r="50" fill="none" stroke="#4ECDC4" stroke-width="1.5" opacity="0.5"/>
+    <circle cx="50" cy="50" r="70" fill="none" stroke="#4ECDC4" stroke-width="1" opacity="0.3"/>
+    <circle cx="50" cy="50" r="10" fill="#4ECDC4"/>
+  </g>
+  
+  <!-- 底部強調文字 -->
+  <rect x="660" y="920" width="600" height="60" rx="30" fill="#6B5CE7" fill-opacity="0.2" stroke="#6B5CE7" stroke-width="2"/>
+  <text x="960" y="958" fill="#fff" font-size="20" font-weight="bold" text-anchor="middle">持續改進 × 數位創新</text>
+</svg>

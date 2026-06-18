@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="50%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景襯底 -->
+  <rect width="960" height="540" fill="#f8f6ff"/>
+  
+  <!-- 尺寸漸層蜂巢叢集 - 技巧#122 變化6 -->
+  <g transform="translate(480,270)">
+    <!-- 中心大六邊形 -->
+    <path d="M0,-80 L69.3,-40 L69.3,40 L0,80 L-69.3,40 L-69.3,-40 Z" 
+          fill="url(#hexGrad)" opacity="0.95"/>
+    <path d="M0,-80 L69.3,-40 L69.3,40 L0,80 L-69.3,40 L-69.3,-40 Z" 
+          fill="none" stroke="#ffffff" stroke-width="2"/>
+    
+    <!-- 中環 6個 -->
+    <g opacity="0.85">
+      <path d="M0,-60 L51.9,-30 L51.9,30 L0,60 L-51.9,30 L-51.9,-30 Z" 
+            fill="#6B5CE7" transform="rotate(0) translate(0,-104)"/>
+      <path d="M0,-60 L51.9,-30 L51.9,30 L0,60 L-51.9,30 L-51.9,-30 Z" 
+            fill="#6B5CE7" transform="rotate(60) translate(0,-104)"/>
+      <path d="M0,-60 L51.9,-30 L51.9,30 L0,60 L-51.9,30 L-51.9,-30 Z" 
+            fill="#6B5CE7" transform="rotate(120) translate(0,-104)"/>
+      <path d="M0,-60 L51.9,-30 L51.9,30 L0,60 L-51.9,30 L-51.9,-30 Z" 
+            fill="#6B5CE7" transform="rotate(180) translate(0,-104)"/>
+      <path d="M0,-60 L51.9,-30 L51.9,30 L0,60 L-51.9,30 L-51.9,-30 Z" 
+            fill="#6B5CE7" transform="rotate(240) translate(0,-104)"/>
+      <path d="M0,-60 L51.9,-30 L51.9,30 L0,60 L-51.9,30 L-51.9,-30 Z" 
+            fill="#6B5CE7" transform="rotate(300) translate(0,-104)"/>
+    </g>
+    
+    <!-- 外環 12個小六邊形 -->
+    <g opacity="0.7">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(30) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(60) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(90) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(120) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(150) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(180) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(210) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(240) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(270) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(300) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(330) translate(0,-150)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="#A78BFA" transform="rotate(360) translate(0,-150)"/>
+    </g>
+  </g>
+  
+  <!-- 標題區 -->
+  <text x="480" y="520" text-anchor="middle" font-family="Noto Sans TC, sans-serif" 
+        font-size="18" font-weight="600" fill="#4C1D95">蜂巢尺寸漸層</text>
+</svg>

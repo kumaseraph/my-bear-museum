@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+  <defs>
+    <linearGradient id="btnGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4C1D95"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 按鈕主體（平行四邊形 + 邊界引導線 技巧#124） -->
+  <g transform="translate(0, 10)">
+    <!-- 主體 -->
+    <polygon points="30,0 370,0 340,100 0,100" fill="url(#btnGrad1)"/>
+    
+    <!-- 邊界引導線裝飾 -->
+    <line x1="30" y1="0" x2="0" y2="100" stroke="#A78BFA" stroke-width="2" opacity="0.6"/>
+    <line x1="370" y1="0" x2="340" y2="100" stroke="#A78BFA" stroke-width="2" opacity="0.6"/>
+    
+    <!-- 內部條紋疊加 -->
+    <g opacity="0.15" stroke="#fff" stroke-width="1">
+      <line x1="60" y1="0" x2="30" y2="100"/>
+      <line x1="100" y1="0" x2="70" y2="100"/>
+      <line x1="140" y1="0" x2="110" y2="100"/>
+      <line x1="180" y1="0" x2="150" y2="100"/>
+      <line x1="220" y1="0" x2="190" y2="100"/>
+      <line x1="260" y1="0" x2="230" y2="100"/>
+      <line x1="300" y1="0" x2="270" y2="100"/>
+      <line x1="340" y1="0" x2="310" y2="100"/>
+    </g>
+    
+    <!-- 文字 -->
+    <text x="185" y="55" fill="#fff" font-size="22" font-weight="bold" text-anchor="middle">了解更多</text>
+    <text x="185" y="78" fill="#A78BFA" font-size="12" text-anchor="middle">LEARN MORE →</text>
+  </g>
+</svg>
