@@ -423,19 +423,45 @@ body {
 /* ============================================================
    S5 RADAR — 技能雷達
    ============================================================ */
-.s5 { background: linear-gradient(165deg, #EDE7F6 0%, #F3E5F5 50%, #FCE4EC 100%); }
-.s5 { --text: #ffffff; --text-light: rgba(255,255,255,0.75); }
+.s5 .s5-label {
+  position: absolute;
+  font-size: 13px;
+  color: var(--primary);
+  white-space: nowrap;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.s5 .s5-center-stat {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 40px rgba(106,27,154,0.4);
+}
+.s5 .s5-pct { font-size: 40px; font-weight: 900; color: var(--white); line-height: 1; }
+.s5 .s5-pct span { font-size: 0.5em; }
+.s5 .s5-pct-lbl { font-size: 11px; color: rgba(255,255,255,0.85); margin-top: 2px; }
+.s5 .s5-chart {
+  background: rgba(255,255,255,0.65);
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+}
 .s5-content { flex: 1; display: flex; align-items: center; justify-content: center; }
 .s5-chart {
   position: relative;
   width: 380px;
   height: 380px;
-}
-.s5-ring {
-  position: absolute;
-  inset: 0;
-  border: 2px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.65);
   border-radius: 50%;
+  backdrop-filter: blur(4px);
+}
 }
 .s5-ring:nth-child(2) { inset: 50px; }
 .s5-ring:nth-child(3) { inset: 100px; }
@@ -637,8 +663,11 @@ body {
 .s9-step:nth-child(2) .s9-h { height: 130px; }
 .s9-step:nth-child(3) .s9-h { height: 170px; }
 .s9-step:nth-child(4) .s9-h { height: 210px; }
-.s9-label { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-.s9-note { font-size: 11px; color: var(--text-light); }
+.s9-label { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.s9-note { font-size: 12px; color: var(--text-light); }
+.s9 .page-header .page-eyebrow { color: var(--primary); }
+.s9 .page-header .page-title { color: var(--primary); }
+.s9 .page-header .page-subtitle { color: var(--text-light); }
 
 /* ============================================================
    S10 ENDING — 幾何迴響
