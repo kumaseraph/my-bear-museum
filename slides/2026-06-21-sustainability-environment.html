@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>永續未來：環境保護行動 | 熊熊簡報</title>
+<style>
+:root {
+  --bg: #E8F5E9;
+  --card: #FFFFFF;
+  --primary: #2E7D32;
+  --secondary: #81C784;
+  --accent: #1B5E20;
+  --text: #1A1A1A;
+  --text-light: #555;
+  --radius: 16px;
+  --shadow: 0 4px 20px rgba(46,125,50,0.12);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans TC', 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ── 導航列 ── */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(46,125,50,0.15);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--secondary);
+  background: transparent;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-dot.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+.nav-dot:hover {
+  background: var(--secondary);
+  color: white;
+  border-color: var(--secondary);
+}
+
+/* ── 簡報區 ── */
+.presentation {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding-bottom: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide {
+  position: absolute;
+  width: 95%;
+  max-width: 1000px;
+  min-height: 80vh;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 48px 56px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s, visibility 0.4s, transform 0.4s;
+  transform: translateX(40px);
+  overflow: hidden;
+}
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* ── 頁碼 ── */
+.page-num {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+/* ── 幾何裝飾 ── */
+.geo-deco {
+  position: absolute;
+  opacity: 0.08;
+  z-index: 0;
+}
+.geo-deco.circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.geo-deco.triangle {
+  width: 0;
+  height: 0;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 140px solid var(--primary);
+}
+.geo-deco.square {
+  width: 120px;
+  height: 120px;
+  background: var(--primary);
+  transform: rotate(45deg);
+}
+
+/* ── 標題區塊 ── */
+.title-section {
+  margin-bottom: 36px;
+}
+.title-badge {
+  display: inline-block;
+  background: var(--bg);
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 30px;
+  margin-bottom: 16px;
+  border: 2px solid var(--secondary);
+}
+.title-main {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1.2;
+  text-shadow: 0 2px 0 rgba(46,125,50,0.1);
+}
+.title-sub {
+  font-size: 1.3rem;
+  color: var(--text-light);
+  margin-top: 10px;
+}
+
+/* ── 通用內容區 ── */
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 蜂巢六邊形 ── */
+.hex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin: 24px 0;
+}
+.hex {
+  position: relative;
+  width: 120px;
+  height: 138px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  cursor: default;
+}
+.hex-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+.hex-num {
+  position: relative;
+  z-index: 2;
+  font-size: 22px;
+  font-weight: 900;
+  color: white;
+  line-height: 1.2;
+}
+.hex-label {
+  position: relative;
+  z-index: 2;
+  font-size: 13px;
+  color: rgba(255,255,255,0.9);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* 單排蜂巢 */
+.single-row {
+  flex-wrap: nowrap;
+  gap: 16px;
+}
+.single-row .hex {
+  width: 150px;
+  height: 173px;
+}
+.single-row .hex-num {
+  font-size: 26px;
+}
+.single-row .hex-label {
+  font-size: 15px;
+}
+
+/* 花瓣蜂巢 */
+.flower-row {
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 10px;
+}
+.flower-row .hex {
+  width: 130px;
+  height: 150px;
+}
+.flower-row .hex:nth-child(1),
+.flower-row .hex:nth-child(3) {
+  margin-top: 30px;
+}
+.flower-row .hex-num {
+  font-size: 24px;
+}
+
+/* 雙排蜂巢 */
+.double-row {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.double-row .hex {
+  width: 130px;
+  height: 150px;
+}
+
+/* ── 統計圖 ── */
+.chart-container {
+  margin: 20px 0;
+}
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  height: 260px;
+  padding: 20px 0;
+  border-bottom: 3px solid var(--secondary);
+}
+.bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.bar {
+  width: 60px;
+  background: linear-gradient(180deg, var(--secondary) 0%, var(--primary) 100%);
+  border-radius: 8px 8px 0 0;
+  transition: height 0.8s ease;
+  position: relative;
+}
+.bar-value {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.bar-label {
+  font-size: 15px;
+  color: var(--text-light);
+  text-align: center;
+  max-width: 80px;
+  line-height: 1.3;
+}
+.bar-unit {
+  font-size: 12px;
+  color: var(--secondary);
+}
+
+/* ── 時間軸 ── */
+.timeline {
+  position: relative;
+  margin: 30px 0;
+  padding-left: 40px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--primary), var(--secondary));
+  border-radius: 2px;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 28px;
+  padding-left: 20px;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -32px;
+  top: 6px;
+  width: 16px;
+  height: 16px;
+  background: var(--primary);
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px var(--secondary);
+}
+.timeline-year {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+.timeline-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.timeline-desc {
+  font-size: 18px;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* ── 流程圖 ── */
+.flow-chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0;
+}
+.flow-step {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 20px 28px;
+  border-radius: var(--radius);
+  text-align: center;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(46,125,50,0.2);
+}
+.flow-step-num {
+  font-size: 28px;
+  font-weight: 900;
+  opacity: 0.6;
+  margin-bottom: 4px;
+}
+.flow-step-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+.flow-step-desc {
+  font-size: 15px;
+  opacity: 0.85;
+  margin-top: 4px;
+}
+.flow-arrow {
+  font-size: 28px;
+  color: var(--secondary);
+  font-weight: 900;
+}
+
+/* ── 雙排統計圖 ── */
+.comparison-chart {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin: 24px 0;
+}
+.comparison-item {
+  flex: 1;
+  max-width: 360px;
+}
+.comparison-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 16px;
+}
+.horizontal-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.horizontal-bar-label {
+  width: 100px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+  flex-shrink: 0;
+}
+.horizontal-bar-track {
+  flex: 1;
+  height: 32px;
+  background: var(--bg);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+.horizontal-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+}
+.horizontal-bar-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+}
+
+/* ── 結尾頁裝飾 ── */
+.ending-graphic {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 40px 0;
+}
+.ending-shape {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+.ending-shape.green { background: #C8E6C9; }
+.ending-shape.dark { background: #2E7D32; color: white; }
+.ending-shape.light { background: #E8F5E9; }
+
+/* ── 通用卡片 ── */
+.info-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin: 16px 0;
+  border-left: 5px solid var(--primary);
+}
+.info-card-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.info-card-text {
+  font-size: 20px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ── 導航按鈕 ── */
+.nav-buttons {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+}
+.nav-buttons.prev { left: 16px; }
+.nav-buttons.next { right: 16px; }
+.nav-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--secondary);
+  background: rgba(255,255,255,0.9);
+  color: var(--primary);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  backdrop-filter: blur(8px);
+}
+.nav-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* ── RWD ── */
+@media (max-width: 768px) {
+  .slide { padding: 32px 24px; }
+  .title-main { font-size: 2rem; }
+  .bar-chart { height: 200px; gap: 12px; }
+  .bar { width: 40px; }
+  .flow-chart { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); }
+  .comparison-chart { flex-direction: column; }
+  .hex { width: 100px; height: 115px; }
+  .single-row .hex { width: 120px; height: 138px; }
+  .double-row { gap: 8px; }
+  .navbar { gap: 4px; padding: 8px 12px; }
+  .nav-dot { width: 30px; height: 30px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 導航按鈕 -->
+<button class="nav-buttons prev nav-btn" onclick="prevSlide()">‹</button>
+<button class="nav-buttons next nav-btn" onclick="nextSlide()">›</button>
+
+<div class="presentation">
+
+<!-- ════════════════════════════════════
+     第 1 頁：封面
+     圖形：幾何裝飾
+═══════════════════════════════════════ -->
+<div class="slide active" id="slide-1">
+  <span class="page-num">1</span>
+  <!-- 幾何裝飾 -->
+  <div class="geo-deco circle" style="top:-80px;right:-80px;"></div>
+  <div class="geo-deco square" style="bottom:60px;left:-40px;"></div>
+  <div class="geo-deco circle" style="bottom:-120px;left:30%;width:200px;height:200px;opacity:0.05;"></div>
+
+  <div class="content" style="display:flex;flex-direction:column;justify-content:center;min-height:70vh;text-align:center;">
+    <div style="margin-bottom:32px;">
+      <div style="font-size:80px;margin-bottom:20px;">🌱</div>
+      <div style="display:inline-block;background:var(--bg);border:3px solid var(--secondary);border-radius:40px;padding:10px 28px;margin-bottom:32px;">
+        <span style="font-size:20px;font-weight:700;color:var(--primary);">2026 環境永續報告</span>
+      </div>
+    </div>
+    <h1 style="font-size:3.2rem;font-weight:900;color:var(--accent);line-height:1.2;margin-bottom:20px;text-shadow:0 3px 0 rgba(46,125,50,0.1);">
+      永續未來<br>環境保護行動
+    </h1>
+    <p style="font-size:1.4rem;color:var(--text-light);margin-bottom:48px;">
+      Corporate Memphis 風格 · 淺色系設計
+    </p>
+    <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;">
+      <div style="background:var(--primary);color:white;padding:14px 32px;border-radius:30px;font-size:20px;font-weight:700;">🌍 全球視野</div>
+      <div style="background:var(--secondary);color:var(--accent);padding:14px 32px;border-radius:30px;font-size:20px;font-weight:700;">📊 數據支持</div>
+      <div style="background:white;color:var(--primary);padding:14px 32px;border-radius:30px;font-size:20px;font-weight:700;border:2px solid var(--secondary);">💪 實際行動</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     第 2 頁：什麼是永續發展？
+     圖形：單排蜂巢（5格）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-2">
+  <span class="page-num">2</span>
+  <div class="geo-deco circle" style="top:-60px;right:-60px;width:200px;height:200px;opacity:0.06;"></div>
+
+  <div class="content">
+    <div class="title-section">
+      <span class="title-badge">永續發展基礎</span>
+      <h2 class="title-main">什麼是永續發展？</h2>
+      <p class="title-sub">Sustainable Development — 滿足當代需求，同時不危及後代滿足其需求的發展</p>
+    </div>
+
+    <div class="hex-container single-row">
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num">🌍</span>
+        <span class="hex-label">環境保護</span>
+      </div>
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num">💰</span>
+        <span class="hex-label">經濟成長</span>
+      </div>
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num">🤝</span>
+        <span class="hex-label">社會公平</span>
+      </div>
+    </div>
+
+    <div class="info-card" style="margin-top:32px;">
+      <div class="info-card-title">熊熊小知識</div>
+      <div class="info-card-text">聯合國於 1987 年發表《我們的共同未來》報告，正式定義「永續發展」概念，並在 2015 年提出 17 項永續發展目標（SDGs）。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     第 3 頁：全球環境危機
+     圖形：柱狀統計圖
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-3">
+  <span class="page-num">3</span>
+  <div class="geo-deco circle" style="top:-40px;right:-40px;width:180px;height:180px;opacity:0.05;"></div>
+
+  <div class="content">
+    <div class="title-section">
+      <span class="title-badge">數據視覺化</span>
+      <h2 class="title-main">全球環境危機</h2>
+      <p class="title-sub">五大環境指標呈現當代挑戰</p>
+    </div>
+
+    <div class="chart-container">
+      <div class="bar-chart">
+        <div class="bar-item">
+          <div class="bar" style="height:180px;"></div>
+          <div class="bar-value">90<span class="bar-unit">%</span></div>
+          <div class="bar-label">海洋塑料污染</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar" style="height:220px;"></div>
+          <div class="bar-value">100<span class="bar-unit">萬</span></div>
+          <div class="bar-label">物種瀕危</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar" style="height:200px;"></div>
+          <div class="bar-value">33<span class="bar-unit">%</span></div>
+          <div class="bar-label">土地退化</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar" style="height:240px;"></div>
+          <div class="bar-value">1.5<span class="bar-unit">°C</span></div>
+          <div class="bar-label">升溫警戒線</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar" style="height:160px;"></div>
+          <div class="bar-value">25<span class="bar-unit">%</span></div>
+          <div class="bar-label">乾淨水源短缺</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     第 4 頁：SDGs 永續發展目標
+     圖形：花瓣蜂巢（5格，3+2排列）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-4">
+  <span class="page-num">4</span>
+  <div class="geo-deco square" style="bottom:-20px;right:-20px;opacity:0.06;"></div>
+
+  <div class="content">
+    <div class="title-section">
+      <span class="title-badge">聯合國目標</span>
+      <h2 class="title-main">SDGs 永續發展目標</h2>
+      <p class="title-sub">17 項全球共同努力的永續發展目標（2015-2030）</p>
+    </div>
+
+    <div class="hex-container flower-row">
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num">1</span>
+        <span class="hex-label">消除貧窮</span>
+      </div>
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num">2</span>
+        <span class="hex-label">消除飢餓</span>
+      </div>
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num">3</span>
+        <span class="hex-label">健康福祉</span>
+      </div>
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num">4</span>
+        <span class="hex-label">優質教育</span>
+      </div>
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num">5</span>
+        <span class="hex-label">性別平等</span>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:28px;">
+      <div style="display:inline-flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+        <div style="background:var(--bg);padding:10px 20px;border-radius:20px;font-size:18px;font-weight:600;color:var(--primary);">🌊 海洋生態 #14</div>
+        <div style="background:var(--bg);padding:10px 20px;border-radius:20px;font-size:18px;font-weight:600;color:var(--primary);">🌳 陸地生態 #15</div>
+        <div style="background:var(--bg);padding:10px 20px;border-radius:20px;font-size:18px;font-weight:600;color:var(--primary);">⚖️ 和平正義 #16</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     第 5 頁：我們的行動時程
+     圖形：時間軸（Z字左右交錯）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-5">
+  <span class="page-num">5</span>
+  <div class="geo-deco circle" style="top:-50px;right:-50px;width:160px;height:160px;opacity:0.05;"></div>
+
+  <div class="content">
+    <div class="title-section">
+      <span class="title-badge"> Roadmap </span>
+      <h2 class="title-main">我們的行動時程</h2>
+      <p class="title-sub">永續行動的關鍵里程碑</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">2030</div>
+        <div class="timeline-title">🌡️ 全球升溫控制 1.5°C</div>
+        <div class="timeline-desc">依《巴黎協定》目標，全球共同減少碳排放</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2040</div>
+        <div class="timeline-title">🔋 全面電動化時代</div>
+        <div class="timeline-desc">交通、工業、家用全面朝向零碳排放</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2050</div>
+        <div class="timeline-title">🌍 淨零排放 Net Zero</div>
+        <div class="timeline-desc">全球達到碳中和，實現永續發展願景</div>
+      </div>
+      <div class="timeline-item" style="margin-bottom:0;">
+        <div class="timeline-year">2100</div>
+        <div class="timeline-title">🌳 地球復育計畫</div>
+        <div class="timeline-desc">植樹造林、海洋復育、生態系統完整恢復</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     第 6 頁：減碳行動流程
+     圖形：流程圖（線性）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-6">
+  <span class="page-num">6</span>
+  <div class="geo-deco circle" style="bottom:-60px;left:-60px;width:220px;height:220px;opacity:0.05;"></div>
+
+  <div class="content">
+    <div class="title-section">
+      <span class="title-badge"> 碳減排指南 </span>
+      <h2 class="title-main">減碳行動流程</h2>
+      <p class="title-sub">企業與個人可以執行的減碳步驟</p>
+    </div>
+
+    <div class="flow-chart">
+      <div class="flow-step">
+        <div class="flow-step-num">01</div>
+        <div class="flow-step-title">碳排放審計</div>
+        <div class="flow-step-desc">盤點碳足跡現況</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-step-num">02</div>
+        <div class="flow-step-title">設定目標</div>
+        <div class="flow-step-desc">SBTi 科學基礎目標</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-step-num">03</div>
+        <div class="flow-step-title">執行減排</div>
+        <div class="flow-step-desc">節能、綠能、效率提升</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-step-num">04</div>
+        <div class="flow-step-title">認證與揭露</div>
+        <div class="flow-step-desc">第三方驗證、ESG報告</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:20px;justify-content:center;margin-top:28px;flex-wrap:wrap;">
+      <div class="info-card" style="flex:1;min-width:220px;margin:0;">
+        <div class="info-card-title">企業層面</div>
+        <div class="info-card-text">設定 Scope 1/2/3 減排目標<br>採購綠色電力<br>供應鏈碳管理</div>
+      </div>
+      <div class="info-card" style="flex:1;min-width:220px;margin:0;">
+        <div class="info-card-title">個人層面</div>
+        <div class="info-card-text">低碳通勤、減少一次性<br>支持在地食材<br>節能家電選擇</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     第 7 頁：各國案例比較
+     圖形：橫條比較圖
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-7">
+  <span class="page-num">7</span>
+  <div class="geo-deco square" style="top:-20px;right:-20px;opacity:0.05;"></div>
+
+  <div class="content">
+    <div class="title-section">
+      <span class="title-badge"> 國際比較 </span>
+      <h2 class="title-main">各國減碳表現</h2>
+      <p class="title-sub">主要國家再生能源佔比與減碳承諾</p>
+    </div>
+
+    <div class="comparison-chart">
+      <div class="comparison-item">
+        <div class="comparison-title">🌞 再生能源佔比</div>
+        <div class="horizontal-bar">
+          <div class="horizontal-bar-label">歐盟</div>
+          <div class="horizontal-bar-track">
+            <div class="horizontal-bar-fill" style="width:80%;"><span class="horizontal-bar-value">80%</span></div>
+          </div>
+        </div>
+        <div class="horizontal-bar">
+          <div class="horizontal-bar-label">中國</div>
+          <div class="horizontal-bar-track">
+            <div class="horizontal-bar-fill" style="width:45%;"><span class="horizontal-bar-value">45%</span></div>
+          </div>
+        </div>
+        <div class="horizontal-bar">
+          <div class="horizontal-bar-label">台灣</div>
+          <div class="horizontal-bar-track">
+            <div class="horizontal-bar-fill" style="width:12%;"><span class="horizontal-bar-value">12%</span></div>
+          </div>
+        </div>
+        <div class="horizontal-bar">
+          <div class="horizontal-bar-label">美國</div>
+          <div class="horizontal-bar-track">
+            <div class="horizontal-bar-fill" style="width:40%;"><span class="horizontal-bar-value">40%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;padding:20px;background:var(--bg);border-radius:var(--radius);">
+      <div style="font-size:22px;font-weight:700;color:var(--primary);margin-bottom:12px;">🐼 熊熊觀點</div>
+      <div style="font-size:20px;line-height:1.6;color:var(--text);">各國減碳進度差異大，台灣需加快再生能源建設與能源轉型腳步，才能在 2050 年前達成淨零排放目標。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     第 8 頁：企業社會責任
+     圖形：雙排蜂巢（6格）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-8">
+  <span class="page-num">8</span>
+  <div class="geo-deco circle" style="bottom:-40px;right:-40px;width:180px;height:180px;opacity:0.05;"></div>
+
+  <div class="content">
+    <div class="title-section">
+      <span class="title-badge"> ESG 企業責任 </span>
+      <h2 class="title-main">企業社會責任三大支柱</h2>
+      <p class="title-sub">Environmental · Social · Governance</p>
+    </div>
+
+    <div class="hex-container double-row" style="gap:16px;margin-top:24px;">
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num" style="font-size:30px;">🌿</span>
+        <span class="hex-label">Environmental<br>環境保護</span>
+      </div>
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num" style="font-size:30px;">🤝</span>
+        <span class="hex-label">Social<br>社會責任</span>
+      </div>
+      <div class="hex">
+        <div class="hex-inner"></div>
+        <span class="hex-num" style="font-size:30px;">⚖️</span>
+        <span class="hex-label">Governance<br>公司治理</span>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px;">
+      <div style="background:var(--bg);padding:16px;border-radius:12px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">🏭</div>
+        <div style="font-size:20px;font-weight:700;color:var(--primary);">碳中和承諾</div>
+        <div style="font-size:16px;color:var(--text-light);margin-top:4px;">RE100 企業聯盟</div>
+      </div>
+      <div style="background:var(--bg);padding:16px;border-radius:12px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">💼</div>
+        <div style="font-size:20px;font-weight:700;color:var(--primary);">員工照護</div>
+        <div style="font-size:16px;color:var(--text-light);margin-top:4px;">DEI 多元共融政策</div>
+      </div>
+      <div style="background:var(--bg);padding:16px;border-radius:12px;text-align:center;">
+        <div style="font-size:24px;margin-bottom:8px;">📊</div>
+        <div style="font-size:20px;font-weight:700;color:var(--primary);">資訊透明</div>
+        <div style="font-size:16px;color:var(--text-light);margin-top:4px;">TCFD 氣候相關揭露</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     第 9 頁：你我可以做的事
+     圖形：流程圖（階梯式）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-9">
+  <span class="page-num">9</span>
+  <div class="geo-deco circle" style="top:-60px;left:-60px;width:200px;height:200px;opacity:0.05;"></div>
+
+  <div class="content">
+    <div class="title-section">
+      <span class="title-badge"> 行動指南 </span>
+      <h2 class="title-main">你我可以做的事</h2>
+      <p class="title-sub">從日常生活實踐永續，從小地方改變世界</p>
+    </div>
+
+    <div class="flow-chart" style="flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:16px;align-items:center;">
+        <div class="flow-step" style="min-width:200px;background:linear-gradient(135deg,#2E7D32,#1B5E20);">
+          <div class="flow-step-num">STEP 1</div>
+          <div class="flow-step-title">🌱 日常減碳行動</div>
+          <div class="flow-step-desc">随手關灯、公共交通、素食一天</div>
+        </div>
+        <div class="flow-arrow" style="font-size:24px;">→</div>
+        <div class="flow-step" style="min-width:200px;background:linear-gradient(135deg,#66BB6A,#2E7D32);">
+          <div class="flow-step-num">STEP 2</div>
+          <div class="flow-step-title">🛒 負責任消費</div>
+          <div class="flow-step-desc">環保袋、環保杯、支持在地農產</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:16px;align-items:center;">
+        <div class="flow-step" style="min-width:200px;background:linear-gradient(135deg,#81C784,#43A047);">
+          <div class="flow-step-num">STEP 3</div>
+          <div class="flow-step-title">📢 影響他人</div>
+          <div class="flow-step-desc">分享環保知識、倡議永續議題</div>
+        </div>
+        <div class="flow-arrow" style="font-size:24px;">→</div>
+        <div class="flow-step" style="min-width:200px;background:linear-gradient(135deg,#A5D6A7,#66BB6A);">
+          <div class="flow-step-num">STEP 4</div>
+          <div class="flow-step-title">🏆 加入倡議</div>
+          <div class="flow-step-desc">志工行動、環保團體、政策監督</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:28px;">
+      <div style="display:inline-block;background:var(--primary);color:white;padding:16px 40px;border-radius:30px;font-size:22px;font-weight:700;">
+        🌟 每一個小行動，都是改變世界的力量 🌟
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     第 10 頁：結尾頁
+     圖形：幾何裝飾
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-10">
+  <span class="page-num">10</span>
+  <div class="geo-deco circle" style="top:-60px;right:-60px;width:200px;height:200px;opacity:0.08;"></div>
+  <div class="geo-deco square" style="bottom:80px;left:-30px;opacity:0.06;"></div>
+  <div class="geo-deco circle" style="bottom:-80px;right:20%;width:300px;height:300px;opacity:0.04;"></div>
+
+  <div class="content" style="display:flex;flex-direction:column;justify-content:center;min-height:70vh;text-align:center;">
+    <div style="margin-bottom:32px;">
+      <div style="font-size:90px;margin-bottom:20px;">🌍</div>
+    </div>
+    <h2 style="font-size:3rem;font-weight:900;color:var(--accent);margin-bottom:20px;">
+      一起守護<br>我們的地球
+    </h2>
+    <p style="font-size:1.3rem;color:var(--text-light);margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto;">
+      永續發展不是選項，而是唯一的未來。從今天開始，為下一代留下一個更好的世界。
+    </p>
+
+    <div class="ending-graphic" style="margin-bottom:40px;">
+      <div class="ending-shape green">🌱</div>
+      <div class="ending-shape dark">🌊</div>
+      <div class="ending-shape light">🐻</div>
+      <div class="ending-shape green">☀️</div>
+      <div class="ending-shape dark">🌳</div>
+    </div>
+
+    <div style="display:inline-flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:32px;">
+      <div style="background:var(--bg);padding:12px 24px;border-radius:20px;font-size:20px;font-weight:600;color:var(--primary);border:2px solid var(--secondary);">
+        熊熊簡報 · 2026
+      </div>
+    </div>
+
+    <div style="font-size:18px;color:var(--secondary);margin-top:20px;">
+      感謝觀看 ❤️
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- 導航列 -->
+<div class="navbar">
+  <button class="nav-dot active" onclick="goTo(1)">1</button>
+  <button class="nav-dot" onclick="goTo(2)">2</button>
+  <button class="nav-dot" onclick="goTo(3)">3</button>
+  <button class="nav-dot" onclick="goTo(4)">4</button>
+  <button class="nav-dot" onclick="goTo(5)">5</button>
+  <button class="nav-dot" onclick="goTo(6)">6</button>
+  <button class="nav-dot" onclick="goTo(7)">7</button>
+  <button class="nav-dot" onclick="goTo(8)">8</button>
+  <button class="nav-dot" onclick="goTo(9)">9</button>
+  <button class="nav-dot" onclick="goTo(10)">10</button>
+</div>
+
+<script>
+// 投影片控制
+let current = 1;
+const total = 10;
+
+function showSlide(n) {
+  if (n < 1) n = 1;
+  if (n > total) n = total;
+  current = n;
+
+  document.querySelectorAll('.slide').forEach((s, i) => {
+    s.classList.toggle('active', i + 1 === current);
+  });
+  document.querySelectorAll('.nav-dot').forEach((d, i) => {
+    d.classList.toggle('active', i + 1 === current);
+  });
+}
+
+function nextSlide() { showSlide(current + 1); }
+function prevSlide() { showSlide(current - 1); }
+function goTo(n) { showSlide(n); }
+
+// 鍵盤控制
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  if (e.key === 'Home') { e.preventDefault(); goTo(1); }
+  if (e.key === 'End') { e.preventDefault(); goTo(total); }
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+});
+
+// 觸控滑動
+let touchStartX = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) nextSlide();
+    else prevSlide();
+  }
+}, { passive: true });
+</script>
+</body>
+</html>
