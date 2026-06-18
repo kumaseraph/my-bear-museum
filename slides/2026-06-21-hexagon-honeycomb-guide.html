@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蜂巢圖聖典 | 熊熊簡報</title>
+<style>
+:root {
+  --bg: #F0FBF4;
+  --card: #FFFFFF;
+  --primary: #2E7D32;
+  --secondary: #81C784;
+  --accent: #A5D6A7;
+  --pale: #E8F5E9;
+  --text: #1A1A1A;
+  --text-light: #546E54;
+  --radius: 20px;
+  --shadow: 0 6px 28px rgba(46,125,50,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans TC', 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ── 導航列 ── */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(46,125,50,0.12);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-dot.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+.nav-dot:hover {
+  background: var(--secondary);
+  color: white;
+  border-color: var(--secondary);
+}
+
+/* ── 簡報區 ── */
+.presentation {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding-bottom: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slide {
+  position: absolute;
+  width: 95%;
+  max-width: 1000px;
+  min-height: 82vh;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 44px 52px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s, visibility 0.4s, transform 0.4s;
+  transform: translateX(40px);
+  overflow: hidden;
+}
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+.page-num {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.page-type {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--secondary);
+  background: var(--pale);
+  padding: 4px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ── 頁面標題 ── */
+.title-section {
+  margin-bottom: 28px;
+}
+.title-badge {
+  display: inline-block;
+  background: var(--pale);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 30px;
+  margin-bottom: 12px;
+  border: 2px solid var(--accent);
+  letter-spacing: 0.5px;
+}
+.title-main {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1.2;
+}
+.title-sub {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ── 蜂巢六邊形 ── */
+.hex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+.hex {
+  position: relative;
+  width: 110px;
+  height: 127px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 8px;
+}
+.hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(145deg, var(--primary) 0%, var(--secondary) 100%);
+}
+.hex-icon {
+  position: relative;
+  z-index: 2;
+  font-size: 28px;
+  margin-bottom: 2px;
+}
+.hex-num {
+  position: relative;
+  z-index: 2;
+  font-size: 18px;
+  font-weight: 900;
+  color: white;
+  line-height: 1.2;
+}
+.hex-label {
+  position: relative;
+  z-index: 2;
+  font-size: 12px;
+  color: rgba(255,255,255,0.92);
+  margin-top: 3px;
+  line-height: 1.3;
+}
+
+/* 六邊形尺寸變化 */
+.hex-l { width: 130px; height: 150px; }
+.hex-l .hex-icon { font-size: 34px; }
+.hex-l .hex-num { font-size: 22px; }
+.hex-l .hex-label { font-size: 14px; }
+
+.hex-xl { width: 150px; height: 173px; }
+.hex-xl .hex-icon { font-size: 40px; }
+.hex-xl .hex-num { font-size: 26px; }
+.hex-xl .hex-label { font-size: 15px; }
+
+.hex-s { width: 90px; height: 104px; }
+.hex-s .hex-icon { font-size: 22px; }
+.hex-s .hex-num { font-size: 15px; }
+.hex-s .hex-label { font-size: 11px; }
+
+/* 蜂巢排列佈局 */
+.single-row { flex-wrap: nowrap; gap: 14px; }
+.double-row { flex-wrap: wrap; gap: 10px; }
+.flower-row { flex-wrap: nowrap; justify-content: center; gap: 8px; }
+.flower-row .hex:nth-child(2) { margin-top: 30px; }
+.center-hive { flex-direction: column; align-items: center; }
+.stack-row { flex-wrap: nowrap; gap: 8px; }
+
+/* ── 頁面 1：封面 ── */
+.cover-graphic {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 32px 0;
+  flex-wrap: wrap;
+}
+.cover-hex {
+  position: relative;
+  width: 100px;
+  height: 115px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.cover-hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.cover-hex:nth-child(1) .cover-hex-inner { background: #2E7D32; }
+.cover-hex:nth-child(2) .cover-hex-inner { background: #388E3C; }
+.cover-hex:nth-child(3) .cover-hex-inner { background: #43A047; }
+.cover-hex:nth-child(4) .cover-hex-inner { background: #66BB6A; }
+.cover-hex:nth-child(5) .cover-hex-inner { background: #81C784; }
+.cover-hex:nth-child(6) .cover-hex-inner { background: #A5D6A7; }
+.cover-hex span {
+  position: relative;
+  z-index: 2;
+  font-size: 28px;
+}
+.cover-hex-num {
+  position: relative;
+  z-index: 2;
+  font-size: 16px;
+  font-weight: 900;
+  color: white;
+}
+
+/* ── 頁面內容卡片 ── */
+.info-card {
+  background: var(--pale);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin: 14px 0;
+  border-left: 5px solid var(--secondary);
+}
+.info-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+.info-card-text {
+  font-size: 20px;
+  color: var(--text);
+  line-height: 1.6;
+}
+.tip-box {
+  background: linear-gradient(135deg, var(--pale), #fff);
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  padding: 18px 24px;
+  margin: 14px 0;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.tip-icon { font-size: 28px; flex-shrink: 0; }
+.tip-text { font-size: 20px; color: var(--text); line-height: 1.6; }
+
+/* ── 頁面 3：雙排 ── */
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 16px;
+}
+.grid-card {
+  background: var(--pale);
+  border-radius: 14px;
+  padding: 18px 20px;
+  border-top: 4px solid var(--secondary);
+}
+.grid-card-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.grid-card-text {
+  font-size: 20px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.grid-card-icon { font-size: 32px; margin-bottom: 8px; }
+
+/* ── 頁面 4：中心蜂巢 ── */
+.center-hive-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 16px 0;
+}
+.center-hive-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+.center-hex {
+  position: relative;
+  width: 140px;
+  height: 161px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.center-hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.center-hex.special .center-hex-inner { background: linear-gradient(145deg, #1B5E20, #2E7D32); }
+.center-hex.normal .center-hex-inner { background: linear-gradient(145deg, var(--secondary), var(--accent)); }
+.center-hex span { position: relative; z-index: 2; }
+.center-hex-num { font-size: 20px; font-weight: 900; color: white; }
+.center-hex-icon { font-size: 30px; margin-bottom: 4px; }
+
+/* ── 頁面 5：放射蜂巢 ── */
+.radial-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 16px 0;
+}
+.radial-center {
+  position: relative;
+  width: 130px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.radial-center-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(145deg, #1B5E20, #2E7D32);
+}
+.radial-center span { position: relative; z-index: 2; font-size: 36px; }
+.radial-center-num { position: relative; z-index: 2; font-size: 18px; font-weight: 900; color: white; }
+.radial-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.radial-hex {
+  position: relative;
+  width: 100px;
+  height: 115px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.radial-hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(145deg, var(--secondary), var(--accent));
+}
+.radial-hex span { position: relative; z-index: 2; font-size: 24px; }
+.radial-hex-num { font-size: 14px; font-weight: 700; color: var(--primary); margin-top: 2px; }
+
+/* ── 頁面 6：線性流程蜂巢 ── */
+.flow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.flow-hex {
+  position: relative;
+  width: 140px;
+  height: 161px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.flow-hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(145deg, var(--primary), var(--secondary));
+}
+.flow-hex span { position: relative; z-index: 2; font-size: 30px; }
+.flow-hex-num { position: relative; z-index: 2; font-size: 16px; font-weight: 900; color: white; margin-top: 4px; }
+.flow-arrow { font-size: 32px; color: var(--secondary); font-weight: 900; }
+
+/* ── 頁面 7：階梯蜂巢 ── */
+.stair-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0;
+}
+.stair-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.stair-hex {
+  position: relative;
+  width: 110px;
+  height: 127px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.stair-hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(145deg, var(--primary), var(--secondary));
+}
+.stair-hex span { position: relative; z-index: 2; font-size: 24px; }
+.stair-hex-num { position: relative; z-index: 2; font-size: 14px; font-weight: 700; color: white; margin-top: 3px; }
+
+/* ── 頁面 8：金字塔蜂巢 ── */
+.pyramid-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 16px 0;
+}
+.pyramid-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+.pyramid-hex {
+  position: relative;
+  width: 110px;
+  height: 127px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pyramid-hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(145deg, var(--primary), var(--secondary));
+}
+.pyramid-hex.top .pyramid-hex-inner { background: linear-gradient(145deg, #1B5E20, #2E7D32); }
+.pyramid-hex span { position: relative; z-index: 2; font-size: 24px; }
+.pyramid-hex-num { position: relative; z-index: 2; font-size: 14px; font-weight: 700; color: white; margin-top: 3px; }
+
+/* ── 頁面 9：花瓣蜂巢 ── */
+.petal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+}
+.petal-top-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.petal-center-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.petal-hex {
+  position: relative;
+  width: 120px;
+  height: 138px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.petal-hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(145deg, var(--secondary), var(--accent));
+}
+.petal-hex.center .petal-hex-inner { background: linear-gradient(145deg, #1B5E20, #2E7D32); }
+.petal-hex span { position: relative; z-index: 2; font-size: 26px; }
+.petal-hex-num { position: relative; z-index: 2; font-size: 15px; font-weight: 700; color: var(--primary); margin-top: 3px; }
+.petal-hex.center span { color: white; }
+
+/* ── 頁面 10：圓環蜂巢 ── */
+.ring-container {
+  display: grid;
+  grid-template-columns: repeat(3, 110px);
+  gap: 8px;
+  justify-content: center;
+  margin: 16px 0;
+}
+.ring-hex {
+  position: relative;
+  width: 110px;
+  height: 127px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.ring-hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(145deg, var(--secondary), var(--accent));
+}
+.ring-hex.outline .ring-hex-inner {
+  background: transparent;
+  border: 3px solid var(--secondary);
+}
+.ring-hex.outline .ring-hex-inner::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: var(--bg);
+}
+.ring-hex span { position: relative; z-index: 2; font-size: 24px; }
+.ring-hex-num { position: relative; z-index: 2; font-size: 13px; font-weight: 700; color: var(--primary); margin-top: 3px; }
+.ring-hex.outline span, .ring-hex.outline .ring-hex-num { color: var(--primary); }
+
+/* ── 頁面 11：蜂巢字母 ── */
+.letter-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+.letter-hex {
+  position: relative;
+  width: 80px;
+  height: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.letter-hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.letter-hex:nth-child(1) .letter-hex-inner { background: #2E7D32; }
+.letter-hex:nth-child(2) .letter-hex-inner { background: #388E3C; }
+.letter-hex:nth-child(3) .letter-hex-inner { background: #43A047; }
+.letter-hex:nth-child(4) .letter-hex-inner { background: #66BB6A; }
+.letter-hex span { position: relative; z-index: 2; font-size: 30px; font-weight: 900; color: white; }
+
+/* ── 頁面 12：結尾 ── */
+.ending-hex-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 32px 0;
+  flex-wrap: wrap;
+}
+.ending-hex {
+  position: relative;
+  width: 90px;
+  height: 104px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ending-hex-inner {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.ending-hex:nth-child(1) .ending-hex-inner { background: #1B5E20; }
+.ending-hex:nth-child(2) .ending-hex-inner { background: #2E7D32; }
+.ending-hex:nth-child(3) .ending-hex-inner { background: #388E3C; }
+.ending-hex:nth-child(4) .ending-hex-inner { background: #43A047; }
+.ending-hex:nth-child(5) .ending-hex-inner { background: #66BB6A; }
+.ending-hex:nth-child(6) .ending-hex-inner { background: #81C784; }
+.ending-hex:nth-child(7) .ending-hex-inner { background: #A5D6A7; }
+.ending-hex span { position: relative; z-index: 2; font-size: 24px; }
+
+/* ── 導航按鈕 ── */
+.nav-buttons { position: fixed; top: 50%; transform: translateY(-50%); z-index: 200; }
+.nav-buttons.prev { left: 14px; }
+.nav-buttons.next { right: 14px; }
+.nav-btn {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: rgba(255,255,255,0.92);
+  color: var(--primary);
+  font-size: 22px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+  backdrop-filter: blur(8px);
+}
+.nav-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+/* ── 幾何裝飾 ── */
+.geo-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--pale);
+  z-index: 0;
+}
+
+/* ── RWD ── */
+@media (max-width: 768px) {
+  .slide { padding: 28px 20px; }
+  .title-main { font-size: 1.9rem; }
+  .hex { width: 88px; height: 101px; }
+  .hex-l { width: 100px; height: 115px; }
+  .hex-xl { width: 110px; height: 127px; }
+  .hex-s { width: 70px; height: 80px; }
+  .hex-num { font-size: 15px !important; }
+  .hex-label { font-size: 10px !important; }
+  .single-row { flex-wrap: wrap; gap: 8px; }
+  .flow-row { flex-wrap: wrap; }
+  .flow-arrow { transform: rotate(90deg); }
+  .stair-container { flex-wrap: wrap; }
+  .pyramid-row { flex-wrap: wrap; }
+  .petal-container { flex-wrap: wrap; }
+  .grid-2col { grid-template-columns: 1fr; }
+  .navbar { gap: 4px; padding: 8px 10px; }
+  .nav-dot { width: 28px; height: 28px; font-size: 11px; }
+  .letter-hex { width: 60px; height: 69px; }
+  .ring-container { grid-template-columns: repeat(3, 88px); }
+  .cover-hex { width: 72px; height: 83px; }
+  .center-hex { width: 100px; height: 115px; }
+  .radial-hex { width: 76px; height: 87px; }
+}
+</style>
+</head>
+<body>
+
+<button class="nav-buttons prev nav-btn" onclick="prevSlide()">‹</button>
+<button class="nav-buttons next nav-btn" onclick="nextSlide()">›</button>
+
+<div class="presentation">
+
+<!-- ═══════════════════════════════════════
+     第 1 頁：封面
+     蜂巢圖：無（純幾何裝飾）
+═══════════════════════════════════════ -->
+<div class="slide active" id="slide-1">
+  <span class="page-num">1</span>
+  <span class="page-type">COVER</span>
+  <div class="geo-circle" style="top:-80px;right:-80px;width:280px;height:280px;opacity:0.5;"></div>
+  <div class="geo-circle" style="bottom:-60px;left:-60px;width:200px;height:200px;opacity:0.35;"></div>
+
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;min-height:75vh;text-align:center;">
+    <div class="cover-graphic">
+      <div class="cover-hex"><div class="cover-hex-inner"></div><span>⬢</span></div>
+      <div class="cover-hex"><div class="cover-hex-inner"></div><span>⬢</span></div>
+      <div class="cover-hex"><div class="cover-hex-inner"></div><span>⬢</span></div>
+      <div class="cover-hex"><div class="cover-hex-inner"></div><span>⬢</span></div>
+      <div class="cover-hex"><div class="cover-hex-inner"></div><span>⬢</span></div>
+      <div class="cover-hex"><div class="cover-hex-inner"></div><span>⬢</span></div>
+    </div>
+    <h1 style="font-size:3rem;font-weight:900;color:var(--primary);line-height:1.2;margin:20px 0 12px;text-shadow:0 3px 0 rgba(46,125,50,0.08);">
+      蜂巢圖聖典
+    </h1>
+    <p style="font-size:1.4rem;color:var(--text-light);margin-bottom:28px;">
+      16 種排列類型完整指南
+    </p>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:32px;">
+      <div style="background:var(--pale);padding:12px 24px;border-radius:30px;font-size:20px;font-weight:600;color:var(--primary);border:2px solid var(--accent);">⬢ 分類</div>
+      <div style="background:var(--pale);padding:12px 24px;border-radius:30px;font-size:20px;font-weight:600;color:var(--primary);border:2px solid var(--accent);">⬢ 流程</div>
+      <div style="background:var(--pale);padding:12px 24px;border-radius:30px;font-size:20px;font-weight:600;color:var(--primary);border:2px solid var(--accent);">⬢ 關聯</div>
+      <div style="background:var(--pale);padding:12px 24px;border-radius:30px;font-size:20px;font-weight:600;color:var(--primary);border:2px solid var(--accent);">⬢ 架構</div>
+    </div>
+    <p style="font-size:1.1rem;color:var(--text-light);">熊熊簡報 · 淺色系 Corporate Memphis 風格</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 2 頁：什麼是蜂巢圖
+     蜂巢圖：單排蜂巢（Single Row）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-2">
+  <span class="page-num">2</span>
+  <span class="page-type">單排蜂巢 · SINGLE ROW</span>
+
+  <div class="title-section">
+    <span class="title-badge">蜂巢圖基礎</span>
+    <h2 class="title-main">什麼是蜂巢圖？</h2>
+    <p class="title-sub">六邊形 — 簡報中變化最多的圖形之一</p>
+  </div>
+
+  <div class="hex-container single-row">
+    <div class="hex hex-l">
+      <div class="hex-inner"></div>
+      <span class="hex-icon">📂</span>
+      <span class="hex-num">分類</span>
+      <span class="hex-label">資訊分組</span>
+    </div>
+    <div class="hex hex-l">
+      <div class="hex-inner"></div>
+      <span class="hex-icon">🔄</span>
+      <span class="hex-num">流程</span>
+      <span class="hex-label">階段步驟</span>
+    </div>
+    <div class="hex hex-l">
+      <div class="hex-inner"></div>
+      <span class="hex-icon">🔗</span>
+      <span class="hex-num">關聯</span>
+      <span class="hex-label">概念串連</span>
+    </div>
+    <div class="hex hex-l">
+      <div class="hex-inner"></div>
+      <span class="hex-icon">🏗️</span>
+      <span class="hex-num">架構</span>
+      <span class="hex-label">層級組織</span>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-icon">💡</div>
+    <div class="tip-text"><strong>單排蜂巢</strong>適合：功能介紹、五大策略、五大目標。對等並列，清楚比較。所有元素處於同一視覺層級。</div>
+  </div>
+  <div class="info-card">
+    <div class="info-card-title">技巧對應</div>
+    <div class="info-card-text">#139（蜂巢排列十六式）· #82（蜂巢幾何標準 path 語法）· #115（蜂巢填充與邊框變化）</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 3 頁：雙排蜂巢
+     蜂巢圖：雙排蜂巢（Double Row）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-3">
+  <span class="page-num">3</span>
+  <span class="page-type">雙排蜂巢 · DOUBLE ROW</span>
+
+  <div class="title-section">
+    <span class="title-badge">基礎排列</span>
+    <h2 class="title-main">雙排蜂巢</h2>
+    <p class="title-sub">上下兩排，視覺平衡，適合 6 項分類</p>
+  </div>
+
+  <div class="hex-container double-row">
+    <div class="hex hex-l"><div class="hex-inner"></div><span class="hex-icon">💼</span><span class="hex-num">策略一</span><span class="hex-label">策略規劃</span></div>
+    <div class="hex hex-l"><div class="hex-inner"></div><span class="hex-icon">🤝</span><span class="hex-num">策略二</span><span class="hex-label">夥伴關係</span></div>
+    <div class="hex hex-l"><div class="hex-inner"></div><span class="hex-icon">📈</span><span class="hex-num">策略三</span><span class="hex-label">成長動能</span></div>
+    <div class="hex hex-l"><div class="hex-inner"></div><span class="hex-icon">🔬</span><span class="hex-num">策略四</span><span class="hex-label">創新研發</span></div>
+    <div class="hex hex-l"><div class="hex-inner"></div><span class="hex-icon">👥</span><span class="hex-num">策略五</span><span class="hex-label">人才培育</span></div>
+    <div class="hex hex-l"><div class="hex-inner"></div><span class="hex-icon">🌍</span><span class="hex-num">策略六</span><span class="hex-label">永續責任</span></div>
+  </div>
+
+  <div class="grid-2col">
+    <div class="grid-card">
+      <div class="grid-card-icon">✅</div>
+      <div class="grid-card-title">適用場景</div>
+      <div class="grid-card-text">六大能力、六大維度、六大面向——數量與排列完美匹配</div>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-icon">🎯</div>
+      <div class="grid-card-title">設計技巧</div>
+      <div class="grid-card-text">上排由左至右、下排由左至右，賦予視覺動線</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 4 頁：中心蜂巢
+     蜂巢圖：中心蜂巢（Central Hexagon）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-4">
+  <span class="page-num">4</span>
+  <span class="page-type">中心蜂巢 · CENTRAL HEXAGON</span>
+
+  <div class="title-section">
+    <span class="title-badge">中心輻射</span>
+    <h2 class="title-main">中心蜂巢</h2>
+    <p class="title-sub">核心概念居中，周邊概念環繞，適合聚焦效果</p>
+  </div>
+
+  <div class="center-hive-container">
+    <div class="center-hive-row">
+      <div class="center-hex normal"><div class="center-hex-inner"></div><span class="center-hex-icon">🔵</span><span class="center-hex-num">支撐</span></div>
+      <div class="center-hex normal"><div class="center-hex-inner"></div><span class="center-hex-icon">🔵</span><span class="center-hex-num">支撐</span></div>
+    </div>
+    <div class="center-hive-row">
+      <div class="center-hex normal"><div class="center-hex-inner"></div><span class="center-hex-icon">🔵</span><span class="center-hex-num">支撐</span></div>
+      <div class="center-hex special"><div class="center-hex-inner"></div><span class="center-hex-icon">⭐</span><span class="center-hex-num" style="color:#fff;">核心</span></div>
+      <div class="center-hex normal"><div class="center-hex-inner"></div><span class="center-hex-icon">🔵</span><span class="center-hex-num">支撐</span></div>
+    </div>
+    <div class="center-hive-row">
+      <div class="center-hex normal"><div class="center-hex-inner"></div><span class="center-hex-icon">🔵</span><span class="center-hex-num">支撐</span></div>
+      <div class="center-hex normal"><div class="center-hex-inner"></div><span class="center-hex-icon">🔵</span><span class="center-hex-num">支撐</span></div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-icon">💡</div>
+    <div class="tip-text">中心蜂巢的 <strong>核心格</strong>（中心六邊形）使用深色系，<strong>周邊格</strong>使用淺色系，突顯聚焦效果。適合：核心能力、使命宣言、品牌價值觀。</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 5 頁：放射蜂巢
+     蜂巢圖：放射蜂巢（Radial Hexagon）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-5">
+  <span class="page-num">5</span>
+  <span class="page-type">放射蜂巢 · RADIAL HEXAGON</span>
+
+  <div class="title-section">
+    <span class="title-badge">中心輻射</span>
+    <h2 class="title-main">放射蜂巢</h2>
+    <p class="title-sub">中心向外擴散，適合策略展開與能力延伸</p>
+  </div>
+
+  <div class="radial-container">
+    <div class="radial-row">
+      <div class="radial-hex"><div class="radial-hex-inner"></div><span>🌱</span><span class="radial-hex-num">基礎</span></div>
+      <div class="radial-hex"><div class="radial-hex-inner"></div><span>🌱</span><span class="radial-hex-num">基礎</span></div>
+    </div>
+    <div class="radial-center">
+      <div class="radial-center-inner"></div>
+      <span>🚀</span>
+      <span class="radial-center-num" style="color:white;">戰略核心</span>
+    </div>
+    <div class="radial-row">
+      <div class="radial-hex"><div class="radial-hex-inner"></div><span>🎯</span><span class="radial-hex-num">目標</span></div>
+      <div class="radial-hex"><div class="radial-hex-inner"></div><span>🎯</span><span class="radial-hex-num">目標</span></div>
+    </div>
+  </div>
+
+  <div class="grid-2col" style="margin-top:16px;">
+    <div class="grid-card">
+      <div class="grid-card-icon">📊</div>
+      <div class="grid-card-title">能力展開</div>
+      <div class="grid-card-text">核心能力 → 延伸能力 → 應用場景，視覺上呈現由內而外的擴散感</div>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-icon">🗺️</div>
+      <div class="grid-card-title">策略地圖</div>
+      <div class="grid-card-text">中心是願景，四周是實踐路徑，清楚呈現戰略佈局</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 6 頁：線性流程蜂巢
+     蜂巢圖：線性流程蜂巢（Linear Flow）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-6">
+  <span class="page-num">6</span>
+  <span class="page-type">線性流程蜂巢 · LINEAR FLOW</span>
+
+  <div class="title-section">
+    <span class="title-badge">流程型</span>
+    <h2 class="title-main">線性流程蜂巢</h2>
+    <p class="title-sub">六邊形 + 箭頭，適合 SOP 與工作流程</p>
+  </div>
+
+  <div class="flow-row">
+    <div class="flow-hex">
+      <div class="flow-hex-inner"></div>
+      <span>📋</span>
+      <span class="flow-hex-num">Step 1</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-hex">
+      <div class="flow-hex-inner"></div>
+      <span>🔍</span>
+      <span class="flow-hex-num">Step 2</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-hex">
+      <div class="flow-hex-inner"></div>
+      <span>⚙️</span>
+      <span class="flow-hex-num">Step 3</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-hex">
+      <div class="flow-hex-inner"></div>
+      <span>✅</span>
+      <span class="flow-hex-num">Step 4</span>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-icon">💡</div>
+    <div class="tip-text">線性流程蜂巢結合 <strong>#69（流程箭頭技巧）</strong>，方向性強。適合：作業流程、審查流程、專案管理。蜂巢內可嵌入數字步驟或圖示。</div>
+  </div>
+  <div class="info-card">
+    <div class="info-card-title">技巧對應</div>
+    <div class="info-card-text">#40（Z字形 Roadmap）· #69（流程箭頭）· #82（蜂巢幾何標準）</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 7 頁：階梯蜂巢
+     蜂巢圖：階梯蜂巢（Stair Hexagon）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-7">
+  <span class="page-num">7</span>
+  <span class="page-type">階梯蜂巢 · STAIR HEXAGON</span>
+
+  <div class="title-section">
+    <span class="title-badge">流程型</span>
+    <h2 class="title-main">階梯蜂巢</h2>
+    <p class="title-sub">由下而上，適合成長歷程與升級路徑</p>
+  </div>
+
+  <div class="stair-container">
+    <div class="stair-col">
+      <div class="stair-hex">
+        <div class="stair-hex-inner"></div>
+        <span>🏆</span>
+        <span class="stair-hex-num">Level 4</span>
+      </div>
+    </div>
+    <div class="stair-col">
+      <div class="stair-hex">
+        <div class="stair-hex-inner"></div>
+        <span>⭐</span>
+        <span class="stair-hex-num">Level 3</span>
+      </div>
+    </div>
+    <div class="stair-col">
+      <div class="stair-hex">
+        <div class="stair-hex-inner"></div>
+        <span>🌟</span>
+        <span class="stair-hex-num">Level 2</span>
+      </div>
+    </div>
+    <div class="stair-col">
+      <div class="stair-hex">
+        <div class="stair-hex-inner"></div>
+        <span>✨</span>
+        <span class="stair-hex-num">Level 1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2col" style="margin-top:20px;">
+    <div class="grid-card">
+      <div class="grid-card-icon">📈</div>
+      <div class="grid-card-title">成長歷程</div>
+      <div class="grid-card-text">由下而上、由左至右，視覺上呈現持續上升的進步感。適合：人才晉升、技能提升、階段目標。</div>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-icon">🔝</div>
+      <div class="grid-card-title">升級路徑</div>
+      <div class="grid-card-text">每個階梯代表一個里程碑，結合 <strong>#70（垂直階梯）</strong>與 <strong>#34（台階圖）</strong>效果更佳。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 8 頁：金字塔蜂巢
+     蜂巢圖：金字塔蜂巢（Pyramid Hexagon）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-8">
+  <span class="page-num">8</span>
+  <span class="page-type">金字塔蜂巢 · PYRAMID HEXAGON</span>
+
+  <div class="title-section">
+    <span class="title-badge">架構型</span>
+    <h2 class="title-main">金字塔蜂巢</h2>
+    <p class="title-sub">上小下大，自然層次，適合戰略架構</p>
+  </div>
+
+  <div class="pyramid-container">
+    <div class="pyramid-row">
+      <div class="pyramid-hex top">
+        <div class="pyramid-hex-inner"></div>
+        <span>👑</span>
+        <span class="pyramid-hex-num" style="color:#fff;">最高策略</span>
+      </div>
+    </div>
+    <div class="pyramid-row">
+      <div class="pyramid-hex"><div class="pyramid-hex-inner"></div><span>📋</span><span class="pyramid-hex-num">戰術</span></div>
+      <div class="pyramid-hex"><div class="pyramid-hex-inner"></div><span>📋</span><span class="pyramid-hex-num">戰術</span></div>
+    </div>
+    <div class="pyramid-row">
+      <div class="pyramid-hex"><div class="pyramid-hex-inner"></div><span>🔧</span><span class="pyramid-hex-num">執行</span></div>
+      <div class="pyramid-hex"><div class="pyramid-hex-inner"></div><span>🔧</span><span class="pyramid-hex-num">執行</span></div>
+      <div class="pyramid-hex"><div class="pyramid-hex-inner"></div><span>🔧</span><span class="pyramid-hex-num">執行</span></div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-icon">💡</div>
+    <div class="tip-text">金字塔蜂巢結合 <strong>#63（金字塔圖）</strong>與 <strong>#71（金字塔變化）</strong>。頂端格用深色，其餘用漸層色，強化頂層優越感。適合：策略階層、願景目標、層級架構。</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 9 頁：花瓣蜂巢
+     蜂巢圖：花瓣蜂巢（Flower Hexagon）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-9">
+  <span class="page-num">9</span>
+  <span class="page-type">花瓣蜂巢 · FLOWER HEXAGON</span>
+
+  <div class="title-section">
+    <span class="title-badge">圓形組</span>
+    <h2 class="title-main">花瓣蜂巢</h2>
+    <p class="title-sub">五片花瓣 + 中心，適合五力分析與核心能力</p>
+  </div>
+
+  <div class="petal-container">
+    <div class="petal-top-row">
+      <div class="petal-hex"><div class="petal-hex-inner"></div><span>⚔️</span><span class="petal-hex-num">競爭者</span></div>
+      <div class="petal-hex"><div class="petal-hex-inner"></div><span>🛒</span><span class="petal-hex-num">買方</span></div></div>
+    </div>
+    <div class="petal-center-row">
+      <div class="petal-hex"><div class="petal-hex-inner"></div><span>🏭</span><span class="petal-hex-num">供應商</span></div>
+      <div class="petal-hex center"><div class="petal-hex-inner"></div><span>⭐</span><span class="petal-hex-num" style="color:white;">核心</span></div>
+      <div class="petal-hex"><div class="petal-hex-inner"></div><span>🔄</span><span class="petal-hex-num">替代品</span></div></div>
+    </div>
+    <div class="petal-top-row">
+      <div class="petal-hex" style="visibility:hidden;"></div>
+      <div class="petal-hex"><div class="petal-hex-inner"></div><span>🆕</span><span class="petal-hex-num">新進者</span></div>
+      <div class="petal-hex" style="visibility:hidden;"></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2col" style="margin-top:12px;">
+    <div class="grid-card">
+      <div class="grid-card-title">五力分析</div>
+      <div class="grid-card-text">波特五力（競爭者、買方、供應商、替代品、新進者）以花瓣形式圍繞核心</div>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">核心能力模型</div>
+      <div class="grid-card-text">中心是核心能力，四周是支撐要素，形成花瓣般的輻射狀結構</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 10 頁：圓環蜂巢
+     蜂巢圖：圓環蜂巢（Ring Hexagon）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-10">
+  <span class="page-num">10</span>
+  <span class="page-type">圓環蜂巢 · RING HEXAGON</span>
+
+  <div class="title-section">
+    <span class="title-badge">圓形組</span>
+    <h2 class="title-main">圓環蜂巢</h2>
+    <p class="title-sub">外框空心 + 內部實心，適合生態系統與循環流程</p>
+  </div>
+
+  <div class="ring-container">
+    <div class="ring-hex outline"><div class="ring-hex-inner"></div><span>🌱</span><span class="ring-hex-num">播種</span></div>
+    <div class="ring-hex"><div class="ring-hex-inner"></div><span>🌿</span><span class="ring-hex-num">生長</span></div>
+    <div class="ring-hex outline"><div class="ring-hex-inner"></div><span>☀️</span><span class="ring-hex-num">光合</span></div>
+    <div class="ring-hex"><div class="ring-hex-inner"></div><span>💧</span><span class="ring-hex-num">灌溉</span></div>
+    <div class="ring-hex outline"><div class="ring-hex-inner"></div><span>🍃</span><span class="ring-hex-num">結果</span></div>
+    <div class="ring-hex"><div class="ring-hex-inner"></div><span>♻️</span><span class="ring-hex-num">循環</span></div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-icon">💡</div>
+    <div class="tip-text"><strong>外框空心</strong>代表輸入或外部要素，<strong>內部實心</strong>代表內化或核心流程。交替使用形成節奏感。適合：循環經濟、價值鏈、生態系統。</div>
+  </div>
+  <div class="info-card">
+    <div class="info-card-title">技巧對應</div>
+    <div class="info-card-text">#115（蜂巢填充與邊框變化）— 實心/透明/漸層/雙層疊加</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 11 頁：蜂巢字母
+     蜂巢圖：蜂巢字母（Hexagon Text）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-11">
+  <span class="page-num">11</span>
+  <span class="page-type">蜂巢字母 · HEXAGON TEXT</span>
+
+  <div class="title-section">
+    <span class="title-badge">創意組</span>
+    <h2 class="title-main">蜂巢字母</h2>
+    <p class="title-sub">用六邊形拼出文字，適合品牌標誌與封面設計</p>
+  </div>
+
+  <div class="letter-container">
+    <div class="letter-hex"><div class="letter-hex-inner"></div><span>K</span></div>
+    <div class="letter-hex"><div class="letter-hex-inner"></div><span>U</span></div>
+    <div class="letter-hex"><div class="letter-hex-inner"></div><span>M</span></div>
+    <div class="letter-hex"><div class="letter-hex-inner"></div><span>A</span></div>
+  </div>
+
+  <div class="hex-container" style="margin-top:24px;">
+    <div class="hex hex-l"><div class="hex-inner"></div><span class="hex-icon">📊</span><span class="hex-num">AI</span><span class="hex-label">人工智慧</span></div>
+    <div class="hex hex-l"><div class="hex-inner"></div><span class="hex-icon">📋</span><span class="hex-num">GOV</span><span class="hex-label">政府</span></div>
+    <div class="hex hex-l"><div class="hex-inner"></div><span class="hex-icon">💼</span><span class="hex-num">Biz</span><span class="hex-label">商務</span></div>
+    <div class="hex hex-l"><div class="hex-inner"></div><span class="hex-icon">🏭</span><span class="hex-num">ESG</span><span class="hex-label">永續</span></div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-icon">💡</div>
+    <div class="tip-text">蜂巢字母非常吸睛，常用於：<strong>封面主視覺</strong>（拼出品牌名）、<strong>LOGO 設計</strong>（替代傳統文字）、<strong>頁面標題裝飾</strong>。每個字母使用不同深淺的綠色增加層次。</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     第 12 頁：結尾頁
+     蜂巢圖：無（純幾何裝飾）
+═══════════════════════════════════════ -->
+<div class="slide" id="slide-12">
+  <span class="page-num">12</span>
+  <span class="page-type">ENDING</span>
+  <div class="geo-circle" style="top:-80px;right:-80px;width:280px;height:280px;opacity:0.4;"></div>
+  <div class="geo-circle" style="bottom:-80px;left:-80px;width:240px;height:240px;opacity:0.3;"></div>
+
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;min-height:75vh;text-align:center;">
+    <div class="ending-hex-row">
+      <div class="ending-hex"><div class="ending-hex-inner"></div><span>⬢</span></div>
+      <div class="ending-hex"><div class="ending-hex-inner"></div><span>⬢</span></div>
+      <div class="ending-hex"><div class="ending-hex-inner"></div><span>⬢</span></div>
+      <div class="ending-hex"><div class="ending-hex-inner"></div><span>⬢</span></div>
+      <div class="ending-hex"><div class="ending-hex-inner"></div><span>⬢</span></div>
+      <div class="ending-hex"><div class="ending-hex-inner"></div><span>⬢</span></div>
+      <div class="ending-hex"><div class="ending-hex-inner"></div><span>⬢</span></div>
+    </div>
+    <h2 style="font-size:2.8rem;font-weight:900;color:var(--primary);margin:24px 0 16px;">
+      16 種排列<br>無限可能
+    </h2>
+    <p style="font-size:1.3rem;color:var(--text-light);max-width:520px;margin:0 auto 32px;line-height:1.6;">
+      蜂巢圖是簡報中變化最多的圖形之一，從分類到流程，從關聯到架構，靈活運用創造視覺驚艷。
+    </p>
+    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:28px;">
+      <div style="background:var(--primary);color:white;padding:12px 28px;border-radius:30px;font-size:20px;font-weight:700;">⬢ 基礎排列 3 種</div>
+      <div style="background:var(--secondary);color:var(--primary);padding:12px 28px;border-radius:30px;font-size:20px;font-weight:700;">⬢ 中心輻射 2 種</div>
+      <div style="background:white;color:var(--primary);padding:12px 28px;border-radius:30px;font-size:20px;font-weight:700;border:2px solid var(--accent);">⬢ 流程型 3 種</div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+      <div style="background:var(--pale);color:var(--primary);padding:12px 28px;border-radius:30px;font-size:20px;font-weight:700;border:2px solid var(--accent);">⬢ 架構型 3 種</div>
+      <div style="background:var(--pale);color:var(--primary);padding:12px 28px;border-radius:30px;font-size:20px;font-weight:700;border:2px solid var(--accent);">⬢ 圓形組 2 種</div>
+      <div style="background:var(--pale);color:var(--primary);padding:12px 28px;border-radius:30px;font-size:20px;font-weight:700;border:2px solid var(--accent);">⬢ 創意組 3 種</div>
+    </div>
+    <p style="font-size:1rem;color:var(--secondary);margin-top:28px;">熊熊簡報 · 蜂巢圖聖典 · 技巧庫 #139 #140</p>
+  </div>
+</div>
+
+</div>
+
+<!-- 導航列 -->
+<div class="navbar">
+  <button class="nav-dot active" onclick="goTo(1)">1</button>
+  <button class="nav-dot" onclick="goTo(2)">2</button>
+  <button class="nav-dot" onclick="goTo(3)">3</button>
+  <button class="nav-dot" onclick="goTo(4)">4</button>
+  <button class="nav-dot" onclick="goTo(5)">5</button>
+  <button class="nav-dot" onclick="goTo(6)">6</button>
+  <button class="nav-dot" onclick="goTo(7)">7</button>
+  <button class="nav-dot" onclick="goTo(8)">8</button>
+  <button class="nav-dot" onclick="goTo(9)">9</button>
+  <button class="nav-dot" onclick="goTo(10)">10</button>
+  <button class="nav-dot" onclick="goTo(11)">11</button>
+  <button class="nav-dot" onclick="goTo(12)">12</button>
+</div>
+
+<script>
+let current = 1;
+const total = 12;
+
+function showSlide(n) {
+  if (n < 1) n = 1;
+  if (n > total) n = total;
+  current = n;
+  document.querySelectorAll('.slide').forEach((s, i) => {
+    s.classList.toggle('active', i + 1 === current);
+  });
+  document.querySelectorAll('.nav-dot').forEach((d, i) => {
+    d.classList.toggle('active', i + 1 === current);
+  });
+}
+function nextSlide() { showSlide(current + 1); }
+function prevSlide() { showSlide(current - 1); }
+function goTo(n) { showSlide(n); }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  if (e.key === 'Home') { e.preventDefault(); goTo(1); }
+  if (e.key === 'End') { e.preventDefault(); goTo(total); }
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+let touchStartX = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) nextSlide();
+    else prevSlide();
+  }
+}, { passive: true });
+</script>
+</body>
+</html>
