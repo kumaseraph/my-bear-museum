@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>熊熊的 AI 成長之路</title>
+<style>
+:root {
+  --primary: #6A1B9A;
+  --secondary: #9C27B0;
+  --accent: #CE93D8;
+  --accent2: #00ACC1;
+  --accent3: #FF7043;
+  --bg: #FAF5FF;
+  --bg-dark: #1a1a2e;
+  --text: #2d2d44;
+  --text-light: #666;
+  --white: #FFFFFF;
+  --shadow: 0 4px 24px rgba(106, 27, 154, 0.12);
+  --shadow-lg: 0 8px 40px rgba(106, 27, 154, 0.20);
+  --glow: 0 0 40px rgba(106, 27, 154, 0.25);
+  --rounded-sm: 12px;
+  --rounded-md: 20px;
+  --rounded-lg: 28px;
+  --font-sans: 'Noto Sans CJK TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  --font-display: 'Noto Sans CJK TC', 'PingFang TC', sans-serif;
+}
+
+/* 全域基礎 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ===== 統一天地背景 ===== */
+.page-wrap {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.page-wrap::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(165deg, #F3E5F5 0%, #EDE7F6 40%, #FCE4EC 100%);
+  z-index: -2;
+}
+.page-wrap::after {
+  content: '';
+  position: fixed;
+  top: -30%;
+  right: -20%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(156, 39, 176, 0.06) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ===== 統一頂部裝飾列 ===== */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary), var(--accent2), var(--accent3), var(--secondary));
+  z-index: 100;
+}
+
+/* ===== 統一角落熊熊裝飾 ===== */
+.bear-corner {
+  position: fixed;
+  bottom: 80px;
+  font-size: 28px;
+  opacity: 0.18;
+  z-index: 5;
+  pointer-events: none;
+  filter: grayscale(0.3);
+}
+.bear-corner-1 { left: 20px; transform: rotate(-15deg); }
+.bear-corner-2 { right: 20px; transform: rotate(15deg) scaleX(-1); }
+.bear-corner-3 { left: 50%; transform: translateX(-50%) rotate(5deg); bottom: 90px; }
+
+/* ===== 統一頁面標題區 ===== */
+.page-header {
+  padding: 40px 60px 20px;
+  position: relative;
+}
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 60px;
+  right: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.page-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.page-title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1.2;
+}
+.page-subtitle {
+  font-size: 16px;
+  color: var(--text-light);
+  margin-top: 8px;
+}
+
+/* ===== 統一內容區 ===== */
+.page-content {
+  padding: 20px 60px 120px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== 統一半透明卡片 ===== */
+.card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: var(--rounded-md);
+  border: 1px solid rgba(106, 27, 154, 0.08);
+  box-shadow: var(--shadow);
+  transition: all 0.3s;
+}
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* ===== 統一數字樣式 ===== */
+.big-num {
+  font-size: 64px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+/* ===== 統一標籤 ===== */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, rgba(106,27,154,0.08), rgba(156,39,176,0.08));
+  border: 1px solid rgba(106,27,154,0.15);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary);
+}
+.tag-accent2 {
+  background: linear-gradient(135deg, rgba(0,172,193,0.08), rgba(0,172,193,0.05));
+  border-color: rgba(0,172,193,0.2);
+  color: var(--accent2);
+}
+.tag-accent3 {
+  background: linear-gradient(135deg, rgba(255,112,67,0.08), rgba(255,112,67,0.05));
+  border-color: rgba(255,112,67,0.2);
+  color: #E65100;
+}
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(106,27,154,0.1);
+  padding: 10px 24px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  z-index: 1000;
+  overflow-x: auto;
+}
+.nav a {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav a:hover { background: rgba(106,27,154,0.06); color: var(--primary); }
+.nav a.active { background: var(--primary); color: var(--white); }
+
+/* ===== 響應式 ===== */
+@media (max-width: 768px) {
+  .page-header { padding: 32px 24px 16px; }
+  .page-header::after { left: 24px; right: 24px; }
+  .page-content { padding: 16px 24px 90px; }
+  .bear-corner { display: none; }
+}
+
+/* ============================================================
+   S1 COVER — 幾何叢集（但統一背景 + 熊掌疊加）
+   ============================================================ */
+.s1 {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.s1::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #4A148C 0%, #6A1B9A 40%, #7B1FA2 70%, #9C27B0 100%);
+  z-index: -3;
+}
+.s1-paw {
+  position: fixed;
+  font-size: 40px;
+  opacity: 0.12;
+  z-index: 1;
+  pointer-events: none;
+  filter: brightness(3);
+}
+.s1-paw:nth-child(1) { top: 8%; left: 5%; transform: rotate(-20deg); }
+.s1-paw:nth-child(2) { top: 15%; right: 8%; transform: rotate(15deg); }
+.s1-paw:nth-child(3) { bottom: 20%; left: 10%; transform: rotate(-10deg); }
+.s1-paw:nth-child(4) { bottom: 15%; right: 12%; transform: rotate(25deg); }
+.s1-paw:nth-child(5) { top: 50%; left: 3%; transform: rotate(-30deg); }
+.s1-paw:nth-child(6) { top: 60%; right: 5%; transform: rotate(10deg); }
+
+.s1-shapes {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+.s1-shape {
+  position: absolute;
+  opacity: 0.12;
+  animation: s1-float 7s ease-in-out infinite;
+}
+.s1-shape:nth-child(1) { top: 10%; left: 5%; width: 120px; height: 120px; background: #00ACC1; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; animation-delay: 0s; }
+.s1-shape:nth-child(2) { top: 55%; left: 8%; width: 80px; height: 80px; background: #FF7043; border-radius: 50%; animation-delay: 1.5s; }
+.s1-shape:nth-child(3) { top: 18%; right: 10%; width: 100px; height: 100px; background: #CE93D8; transform: rotate(45deg); animation-delay: 0.8s; }
+.s1-shape:nth-child(4) { bottom: 22%; right: 12%; width: 90px; height: 90px; background: #00ACC1; border-radius: 30% 70% 30% 70% / 70% 30% 70% 30%; animation-delay: 2.2s; }
+.s1-shape:nth-child(5) { bottom: 35%; left: 55%; width: 60px; height: 60px; background: #FF7043; border-radius: 50%; animation-delay: 0.4s; }
+@keyframes s1-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(6deg); }
+}
+.s1-content { position: relative; z-index: 10; padding: 0 24px; }
+.s1-title {
+  font-size: clamp(44px, 9vw, 96px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 40px rgba(0,0,0,0.25);
+}
+.s1-sub {
+  font-size: clamp(16px, 3vw, 24px);
+  color: rgba(255,255,255,0.88);
+  font-weight: 400;
+  letter-spacing: 3px;
+  margin-bottom: 28px;
+}
+.s1-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 28px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 30px;
+  color: var(--white);
+  font-size: 14px;
+  backdrop-filter: blur(12px);
+}
+.s1-badge::before { content: '✦'; opacity: 0.7; }
+
+/* ============================================================
+   S2 ABOUT — 中心輻射圓形
+   ============================================================ */
+.s2-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+.s2-radial-wrap { position: relative; width: 340px; height: 340px; }
+.s2-orbit {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px dashed rgba(106,27,154,0.18);
+  border-radius: 50%;
+}
+.s2-orbit:nth-child(1) { width: 230px; height: 230px; animation: s2-spin 22s linear infinite; }
+.s2-orbit:nth-child(2) { width: 330px; height: 330px; animation: s2-spin 32s linear infinite reverse; }
+@keyframes s2-spin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+.s2-core {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130px; height: 130px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--glow);
+  z-index: 10;
+}
+.s2-core-avatar { font-size: 60px; }
+.s2-node {
+  position: absolute;
+  width: 68px; height: 68px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: var(--shadow);
+  border: 3px solid var(--accent);
+  font-size: 22px;
+}
+.s2-node span { font-size: 10px; color: var(--text-light); margin-top: 2px; }
+.s2-node:nth-child(1) { top: -34px; left: 50%; transform: translateX(-50%); border-color: var(--primary); }
+.s2-node:nth-child(2) { top: 50%; right: -34px; transform: translateY(-50%); border-color: var(--accent2); }
+.s2-node:nth-child(3) { bottom: -34px; left: 50%; transform: translateX(-50%); border-color: var(--accent3); }
+.s2-node:nth-child(4) { top: 50%; left: -34px; transform: translateY(-50%); border-color: var(--secondary); }
+.s2-info { text-align: center; max-width: 560px; }
+.s2-info h3 { font-size: 26px; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+.s2-info p { font-size: 15px; color: var(--text-light); line-height: 1.7; }
+
+/* ============================================================
+   S3 TIMELINE — 學習歷程
+   ============================================================ */
+.s3-content { flex: 1; display: flex; align-items: center; justify-content: center; }
+.s3-track {
+  display: flex;
+  gap: 0;
+  position: relative;
+  padding: 32px 0;
+}
+.s3-track::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent3), var(--primary), var(--accent2));
+  border-radius: 2px;
+  transform: translateY(-50%);
+  z-index: 0;
+}
+.s3-step { flex: 1; max-width: 200px; text-align: center; position: relative; z-index: 2; padding: 0 12px; }
+.s3-dot {
+  width: 54px; height: 54px;
+  background: var(--white);
+  border: 4px solid var(--primary);
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s;
+}
+.s3-step:nth-child(2) .s3-dot { border-color: var(--accent3); }
+.s3-step:nth-child(3) .s3-dot { border-color: var(--accent2); }
+.s3-step:nth-child(4) .s3-dot { border-color: var(--secondary); }
+.s3-year { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 5px; letter-spacing: 1px; }
+.s3-label { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.s3-note { font-size: 12px; color: var(--text-light); }
+
+/* ============================================================
+   S4 HONEYCOMB — AI工具箱
+   ============================================================ */
+.s4-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.s4-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 720px;
+  width: 100%;
+}
+.s4-hex {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s;
+  cursor: default;
+}
+.s4-hex:hover { transform: scale(1.06); filter: brightness(1.08); }
+.s4-hex:nth-child(2), .s4-hex:nth-child(5) { background: linear-gradient(135deg, var(--accent2), #00838F); }
+.s4-hex:nth-child(3), .s4-hex:nth-child(6) { background: linear-gradient(135deg, var(--accent3), #E64A19); }
+.s4-hex-icon { font-size: 34px; margin-bottom: 8px; }
+.s4-hex-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.s4-hex-desc { font-size: 11px; opacity: 0.85; }
+
+/* ============================================================
+   S5 RADAR — 技能雷達
+   ============================================================ */
+.s5 { background: linear-gradient(165deg, #EDE7F6 0%, #F3E5F5 50%, #FCE4EC 100%); }
+.s5 { --text: #ffffff; --text-light: rgba(255,255,255,0.75); }
+.s5-content { flex: 1; display: flex; align-items: center; justify-content: center; }
+.s5-chart {
+  position: relative;
+  width: 380px;
+  height: 380px;
+}
+.s5-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(255,255,255,0.12);
+  border-radius: 50%;
+}
+.s5-ring:nth-child(2) { inset: 50px; }
+.s5-ring:nth-child(3) { inset: 100px; }
+.s5-ring:nth-child(4) { inset: 150px; }
+.s5-ring { background: rgba(106,27,154,0.08); border-color: rgba(106,27,154,0.15); }
+.s5-ring:nth-child(2), .s5-ring:nth-child(3), .s5-ring:nth-child(4) { background: transparent; border-color: rgba(255,255,255,0.1); }
+.s5-axis {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 45%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  transform-origin: left center;
+}
+.s5-chart > .s5-ring { background: rgba(106,27,154,0.06); border-color: rgba(106,27,154,0.12); }
+.s5-chart > .s5-ring:nth-child(2) { background: transparent; border-color: rgba(255,255,255,0.08); }
+.s5-chart > .s5-ring:nth-child(3) { background: transparent; border-color: rgba(255,255,255,0.06); }
+.s5-chart > .s5-ring:nth-child(4) { background: transparent; border-color: rgba(255,255,255,0.04); }
+.s5-center-stat {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--glow);
+}
+.s5-pct { font-size: 36px; font-weight: 900; color: var(--white); line-height: 1; }
+.s5-pct-lbl { font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 2px; }
+.s5-label {
+  position: absolute;
+  font-size: 12px;
+  color: var(--text-light);
+  white-space: nowrap;
+  font-weight: 500;
+}
+.s5-label:nth-of-type(1) { top: 15px; left: 50%; transform: translateX(-50%); }
+.s5-label:nth-of-type(2) { top: 38%; right: 8px; }
+.s5-label:nth-of-type(3) { bottom: 18%; right: 20px; }
+.s5-label:nth-of-type(4) { bottom: 18%; left: 20px; }
+.s5-label:nth-of-type(5) { top: 38%; left: 8px; }
+
+/* ============================================================
+   S6 KPI — 成果展示
+   ============================================================ */
+.s6-content { flex: 1; display: flex; align-items: center; justify-content: center; }
+.s6-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 960px;
+  width: 100%;
+}
+.s6-card {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(8px);
+  border-radius: var(--rounded-md);
+  padding: 28px 20px;
+  text-align: center;
+  border: 1px solid rgba(106,27,154,0.08);
+  box-shadow: var(--shadow);
+  transition: all 0.3s;
+}
+.s6-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.s6-num {
+  font-size: 52px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.s6-card:nth-child(2) .s6-num { background: linear-gradient(135deg, var(--accent2), #00838F); -webkit-text-fill-color: transparent; background-clip: text; }
+.s6-card:nth-child(3) .s6-num { background: linear-gradient(135deg, var(--accent3), #E64A19); -webkit-text-fill-color: transparent; background-clip: text; }
+.s6-card:nth-child(4) .s6-num { background: linear-gradient(135deg, var(--secondary), var(--accent)); -webkit-text-fill-color: transparent; background-clip: text; }
+.s6-lbl { font-size: 14px; color: var(--text-light); margin-bottom: 14px; }
+.s6-bar { height: 5px; background: rgba(106,27,154,0.1); border-radius: 3px; overflow: hidden; }
+.s6-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 3px;
+}
+.s6-card:nth-child(2) .s6-fill { background: linear-gradient(90deg, var(--accent2), #4DD0E1); }
+.s6-card:nth-child(3) .s6-fill { background: linear-gradient(90deg, var(--accent3), #FF8A65); }
+.s6-card:nth-child(4) .s6-fill { background: linear-gradient(90deg, var(--secondary), var(--accent)); }
+
+/* ============================================================
+   S7 FUNNEL — 每日系統
+   ============================================================ */
+.s7-content { flex: 1; display: flex; align-items: center; justify-content: center; }
+.s7-funnel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 600px;
+}
+.s7-stage {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  padding: 22px 32px;
+  border-radius: var(--rounded-sm);
+  color: var(--white);
+  transition: all 0.3s;
+}
+.s7-stage:hover { transform: translateX(6px); }
+.s7-stage:nth-child(1) { width: 100%; background: linear-gradient(90deg, var(--accent2), #00838F); }
+.s7-stage:nth-child(2) { width: 84%; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+.s7-stage:nth-child(3) { width: 68%; background: linear-gradient(90deg, var(--accent3), #E64A19); }
+.s7-icon { font-size: 30px; flex-shrink: 0; }
+.s7-info h4 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+.s7-info p { font-size: 13px; opacity: 0.85; }
+
+/* ============================================================
+   S8 PROCESS — 熊熊心法
+   ============================================================ */
+.s8-content { flex: 1; display: flex; align-items: center; justify-content: center; }
+.s8-flow {
+  display: flex;
+  gap: 14px;
+  max-width: 960px;
+  width: 100%;
+  align-items: stretch;
+}
+.s8-step {
+  flex: 1;
+  background: rgba(255,255,255,0.88);
+  border-radius: var(--rounded-md);
+  padding: 24px 16px;
+  text-align: center;
+  border: 1px solid rgba(106,27,154,0.08);
+  box-shadow: var(--shadow);
+  position: relative;
+  border-top: 4px solid var(--primary);
+  transition: all 0.3s;
+}
+.s8-step:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+.s8-step:nth-child(2) { border-top-color: var(--accent2); }
+.s8-step:nth-child(3) { border-top-color: var(--accent3); }
+.s8-step:nth-child(4) { border-top-color: var(--secondary); }
+.s8-step:nth-child(5) { border-top-color: var(--primary); }
+.s8-num {
+  width: 38px; height: 38px;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; font-weight: 700;
+  margin: 0 auto 14px;
+}
+.s8-step:nth-child(2) .s8-num { background: var(--accent2); }
+.s8-step:nth-child(3) .s8-num { background: var(--accent3); }
+.s8-step:nth-child(4) .s8-num { background: var(--secondary); }
+.s8-t { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.s8-d { font-size: 12px; color: var(--text-light); }
+.s8-arrow { display: flex; align-items: center; color: var(--accent); font-size: 22px; flex-shrink: 0; }
+
+/* ============================================================
+   S9 ROADMAP — 未來藍圖
+   ============================================================ */
+.s9-content { flex: 1; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 40px; }
+.s9-steps {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+}
+.s9-step { text-align: center; width: 150px; }
+.s9-bar {
+  background: rgba(255,255,255,0.12);
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 10px;
+  transition: all 0.3s;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.s9-bar:hover { background: rgba(255,255,255,0.18); }
+.s9-h {
+  width: 72px;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  border-radius: 8px 8px 0 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--white);
+  font-size: 20px; font-weight: 900;
+}
+.s9-step:nth-child(1) .s9-h { height: 90px; }
+.s9-step:nth-child(2) .s9-h { height: 130px; }
+.s9-step:nth-child(3) .s9-h { height: 170px; }
+.s9-step:nth-child(4) .s9-h { height: 210px; }
+.s9-label { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.s9-note { font-size: 11px; color: var(--text-light); }
+
+/* ============================================================
+   S10 ENDING — 幾何迴響
+   ============================================================ */
+.s10 {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.s10::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #4A148C 0%, #6A1B9A 40%, #7B1FA2 70%, #9C27B0 100%);
+  z-index: -3;
+}
+.s10-echo {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+.s10-echo-el {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  animation: s10-pulse 4s ease-in-out infinite;
+}
+.s10-echo-el:nth-child(1) { width: 600px; height: 600px; border: 3px solid rgba(255,255,255,0.2); animation-delay: 0s; }
+.s10-echo-el:nth-child(2) { width: 380px; height: 380px; background: rgba(255,255,255,0.06); border-radius: 50%; animation-delay: 1.2s; }
+.s10-echo-el:nth-child(3) { width: 800px; height: 800px; border: 2px solid rgba(255,255,255,0.08); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; animation-delay: 2.4s; }
+@keyframes s10-pulse {
+  0%, 100% { opacity: 0.15; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.3; transform: translate(-50%, -50%) scale(1.04); }
+}
+.s10-paw {
+  position: fixed;
+  font-size: 36px;
+  opacity: 0.12;
+  z-index: 1;
+  pointer-events: none;
+  filter: brightness(3);
+}
+.s10-paw:nth-child(1) { top: 10%; left: 8%; transform: rotate(-15deg); }
+.s10-paw:nth-child(2) { top: 20%; right: 10%; transform: rotate(20deg); }
+.s10-paw:nth-child(3) { bottom: 25%; left: 12%; transform: rotate(-8deg); }
+.s10-paw:nth-child(4) { bottom: 18%; right: 8%; transform: rotate(12deg); }
+.s10-content { position: relative; z-index: 10; padding: 0 24px; }
+.s10-thanks {
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 40px rgba(0,0,0,0.2);
+}
+.s10-sub {
+  font-size: clamp(16px, 3vw, 24px);
+  color: rgba(255,255,255,0.88);
+  margin-bottom: 36px;
+}
+.s10-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.s10-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 30px;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 14px;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s;
+}
+.s10-link:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+
+/* 響應式加強 */
+@media (max-width: 768px) {
+  .s4-grid { grid-template-columns: repeat(2, 1fr); }
+  .s6-grid { grid-template-columns: repeat(2, 1fr); }
+  .s8-flow { flex-wrap: wrap; }
+  .s8-arrow { display: none; }
+  .s9-steps { flex-wrap: wrap; gap: 14px; justify-content: center; }
+  .s9-step { width: 42%; }
+}
+</style>
+</head>
+<body>
+
+<!-- 統一天地 -->
+<div class="top-bar"></div>
+
+<!-- 統一角落熊熊裝飾 -->
+<div class="bear-corner bear-corner-1">🐾</div>
+<div class="bear-corner bear-corner-2">🐾</div>
+<div class="bear-corner bear-corner-3">🐾</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#s1" class="active">封面</a>
+  <a href="#s2">關於我</a>
+  <a href="#s3">學習</a>
+  <a href="#s4">工具</a>
+  <a href="#s5">技能</a>
+  <a href="#s6">成果</a>
+  <a href="#s7">系統</a>
+  <a href="#s8">心法</a>
+  <a href="#s9">藍圖</a>
+  <a href="#s10">結尾</a>
+</nav>
+
+<!-- S1 COVER -->
+<section class="page-wrap s1" id="s1">
+  <div class="s1-paw">🐾</div>
+  <div class="s1-paw">🐾</div>
+  <div class="s1-paw">🐾</div>
+  <div class="s1-paw">🐾</div>
+  <div class="s1-paw">🐾</div>
+  <div class="s1-paw">🐾</div>
+  <div class="s1-shapes">
+    <div class="s1-shape"></div>
+    <div class="s1-shape"></div>
+    <div class="s1-shape"></div>
+    <div class="s1-shape"></div>
+    <div class="s1-shape"></div>
+  </div>
+  <div class="s1-content">
+    <h1 class="s1-title">熊熊的<br>AI 成長之路</h1>
+    <p class="s1-sub">從零開始，成為設計好幫手</p>
+    <div class="s1-badge">🎨 設計　🤖 AI　📈 成長</div>
+  </div>
+</section>
+
+<!-- S2 ABOUT -->
+<section class="page-wrap" id="s2">
+  <div class="page-header">
+    <div class="page-eyebrow">ABOUT ME</div>
+    <h2 class="page-title">關於熊熊</h2>
+    <p class="page-subtitle">燃燒熊熊，照亮設計之路</p>
+  </div>
+  <div class="page-content s2-content">
+    <div class="s2-radial-wrap">
+      <div class="s2-orbit"></div>
+      <div class="s2-orbit"></div>
+      <div class="s2-core"><span class="s2-core-avatar">🐻</span></div>
+      <div class="s2-node">🎨<span>設計</span></div>
+      <div class="s2-node">🤖<span>AI</span></div>
+      <div class="s2-node">📝<span>內容</span></div>
+      <div class="s2-node">⚡<span>效率</span></div>
+    </div>
+    <div class="s2-info">
+      <h3>🐻 熊熊工作室</h3>
+      <p>專注於簡報設計與 AI 工具應用，透過每日研究與實作，將複雜資訊轉化為視覺化的美麗簡報。</p>
+    </div>
+  </div>
+</section>
+
+<!-- S3 TIMELINE -->
+<section class="page-wrap" id="s3">
+  <div class="page-header">
+    <div class="page-eyebrow">JOURNEY</div>
+    <h2 class="page-title">學習歷程</h2>
+    <p class="page-subtitle">每一個腳步，都是成長的累積</p>
+  </div>
+  <div class="page-content s3-content">
+    <div class="s3-track">
+      <div class="s3-step">
+        <div class="s3-dot">🌱</div>
+        <div class="s3-year">2024 Q1</div>
+        <div class="s3-label">初探 AI</div>
+        <div class="s3-note">開始使用 ChatGPT</div>
+      </div>
+      <div class="s3-step">
+        <div class="s3-dot">📚</div>
+        <div class="s3-year">2024 Q2</div>
+        <div class="s3-label">系統學習</div>
+        <div class="s3-note">Prompt 工程研究</div>
+      </div>
+      <div class="s3-step">
+        <div class="s3-dot">🎨</div>
+        <div class="s3-year">2024 Q3</div>
+        <div class="s3-label">設計實作</div>
+        <div class="s3-note">簡報設計實戰</div>
+      </div>
+      <div class="s3-step">
+        <div class="s3-dot">🚀</div>
+        <div class="s3-year">2025</div>
+        <div class="s3-label">持續進化</div>
+        <div class="s3-note">每日研究新工具</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S4 HONEYCOMB -->
+<section class="page-wrap" id="s4">
+  <div class="page-header">
+    <div class="page-eyebrow">TOOLS</div>
+    <h2 class="page-title">AI 工具箱</h2>
+    <p class="page-subtitle">日常使用的主力工具</p>
+  </div>
+  <div class="page-content s4-content">
+    <div class="s4-grid">
+      <div class="s4-hex">
+        <span class="s4-hex-icon">🤖</span>
+        <div class="s4-hex-title">ChatGPT</div>
+        <div class="s4-hex-desc">文字生成與對話</div>
+      </div>
+      <div class="s4-hex">
+        <span class="s4-hex-icon">🎨</span>
+        <div class="s4-hex-title">Midjourney</div>
+        <div class="s4-hex-desc">創意圖片生成</div>
+      </div>
+      <div class="s4-hex">
+        <span class="s4-hex-icon">📊</span>
+        <div class="s4-hex-title">Tableau</div>
+        <div class="s4-hex-desc">數據視覺化</div>
+      </div>
+      <div class="s4-hex">
+        <span class="s4-hex-icon">✍️</span>
+        <div class="s4-hex-title">Copilot</div>
+        <div class="s4-hex-desc">文件與簡報輔助</div>
+      </div>
+      <div class="s4-hex">
+        <span class="s4-hex-icon">🎬</span>
+        <div class="s4-hex-title">Runway</div>
+        <div class="s4-hex-desc">影片生成與編輯</div>
+      </div>
+      <div class="s4-hex">
+        <span class="s4-hex-icon">🖼️</span>
+        <div class="s4-hex-title">Stable Diffusion</div>
+        <div class="s4-hex-desc">本地 AI 圖像生成</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S5 RADAR -->
+<section class="page-wrap s5" id="s5">
+  <div class="page-header">
+    <div class="page-eyebrow" style="color: var(--secondary);">SKILLS</div>
+    <h2 class="page-title" style="color: var(--primary);">技能雷達</h2>
+    <p class="page-subtitle" style="color: var(--text-light);">全面發展，重點突破</p>
+  </div>
+  <div class="page-content s5-content">
+    <div class="s5-chart">
+      <div class="s5-ring"></div>
+      <div class="s5-ring"></div>
+      <div class="s5-ring"></div>
+      <div class="s5-ring"></div>
+      <div class="s5-axis" style="transform: rotate(0deg);"></div>
+      <div class="s5-axis" style="transform: rotate(72deg);"></div>
+      <div class="s5-axis" style="transform: rotate(144deg);"></div>
+      <div class="s5-axis" style="transform: rotate(216deg);"></div>
+      <div class="s5-axis" style="transform: rotate(288deg);"></div>
+      <span class="s5-label">簡報設計</span>
+      <span class="s5-label">Prompt 設計</span>
+      <span class="s5-label">視覺化</span>
+      <span class="s5-label">自動化</span>
+      <span class="s5-label">內容創作</span>
+      <div class="s5-center-stat">
+        <span class="s5-pct">85<span>%</span></span>
+        <span class="s5-pct-lbl">總能力值</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S6 KPI -->
+<section class="page-wrap" id="s6">
+  <div class="page-header">
+    <div class="page-eyebrow">RESULTS</div>
+    <h2 class="page-title">成果展示</h2>
+    <p class="page-subtitle">用數字說故事</p>
+  </div>
+  <div class="page-content s6-content">
+    <div class="s6-grid">
+      <div class="s6-card">
+        <div class="s6-num">156<span style="font-size:0.5em">+</span></div>
+        <div class="s6-lbl">完成簡報</div>
+        <div class="s6-bar"><div class="s6-fill" style="width:85%"></div></div>
+      </div>
+      <div class="s6-card">
+        <div class="s6-num">52</div>
+        <div class="s6-lbl">技巧學習</div>
+        <div class="s6-bar"><div class="s6-fill" style="width:70%"></div></div>
+      </div>
+      <div class="s6-card">
+        <div class="s6-num">89<span style="font-size:0.5em">%</span></div>
+        <div class="s6-lbl">效率提升</div>
+        <div class="s6-bar"><div class="s6-fill" style="width:89%"></div></div>
+      </div>
+      <div class="s6-card">
+        <div class="s6-num">24<span style="font-size:0.5em">/7</span></div>
+        <div class="s6-lbl">自動化系統</div>
+        <div class="s6-bar"><div class="s6-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S7 FUNNEL -->
+<section class="page-wrap" id="s7">
+  <div class="page-header">
+    <div class="page-eyebrow">SYSTEM</div>
+    <h2 class="page-title">每日系統</h2>
+    <p class="page-subtitle">輸入 → 處理 → 輸出</p>
+  </div>
+  <div class="page-content s7-content">
+    <div class="s7-funnel">
+      <div class="s7-stage">
+        <span class="s7-icon">📥</span>
+        <div class="s7-info">
+          <h4>輸入 Input</h4>
+          <p>研究新工具、觀察趨勢、收集靈感</p>
+        </div>
+      </div>
+      <div class="s7-stage">
+        <span class="s7-icon">⚙️</span>
+        <div class="s7-info">
+          <h4>處理 Process</h4>
+          <p>分析、分類、存入知識庫與技巧庫</p>
+        </div>
+      </div>
+      <div class="s7-stage">
+        <span class="s7-icon">📤</span>
+        <div class="s7-info">
+          <h4>輸出 Output</h4>
+          <p>生成簡報、更新網站、交付成果</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S8 PROCESS -->
+<section class="page-wrap" id="s8">
+  <div class="page-header">
+    <div class="page-eyebrow">METHOD</div>
+    <h2 class="page-title">熊熊心法</h2>
+    <p class="page-subtitle">五步驟循環成長</p>
+  </div>
+  <div class="page-content s8-content">
+    <div class="s8-flow">
+      <div class="s8-step">
+        <div class="s8-num">1</div>
+        <div class="s8-t">研究</div>
+        <div class="s8-d">每日探索新工具與設計趨勢</div>
+      </div>
+      <div class="s8-arrow">→</div>
+      <div class="s8-step">
+        <div class="s8-num">2</div>
+        <div class="s8-t">分類</div>
+        <div class="s8-d">整理進知識庫與技巧庫系統</div>
+      </div>
+      <div class="s8-arrow">→</div>
+      <div class="s8-step">
+        <div class="s8-num">3</div>
+        <div class="s8-t">應用</div>
+        <div class="s8-d">將所學實際用於簡報製作</div>
+      </div>
+      <div class="s8-arrow">→</div>
+      <div class="s8-step">
+        <div class="s8-num">4</div>
+        <div class="s8-t">迭代</div>
+        <div class="s8-d">根據回饋持續優化與修正</div>
+      </div>
+      <div class="s8-arrow">→</div>
+      <div class="s8-step">
+        <div class="s8-num">5</div>
+        <div class="s8-t">分享</div>
+        <div class="s8-d">將經驗沉澱為洞察報告</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S9 ROADMAP -->
+<section class="page-wrap" id="s9">
+  <div class="page-header">
+    <div class="page-eyebrow">FUTURE</div>
+    <h2 class="page-title">未來藍圖</h2>
+    <p class="page-subtitle">持續進化，打造熊熊生態系</p>
+  </div>
+  <div class="page-content s9-content">
+    <div class="s9-steps">
+      <div class="s9-step">
+        <div class="s9-bar"><div class="s9-h">Q1</div></div>
+        <div class="s9-label">技巧庫擴展</div>
+        <div class="s9-note">200+ 技巧</div>
+      </div>
+      <div class="s9-step">
+        <div class="s9-bar"><div class="s9-h">Q2</div></div>
+        <div class="s9-label">自動化系統</div>
+        <div class="s9-note">每日簡報生成</div>
+      </div>
+      <div class="s9-step">
+        <div class="s9-bar"><div class="s9-h">Q3</div></div>
+        <div class="s9-label">跨領域整合</div>
+        <div class="s9-note">政府 + 商業 + 教育</div>
+      </div>
+      <div class="s9-step">
+        <div class="s9-bar"><div class="s9-h">Q4</div></div>
+        <div class="s9-label">熊熊生態系</div>
+        <div class="s9-note">完整工具鏈</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S10 ENDING -->
+<section class="page-wrap s10" id="s10">
+  <div class="s10-paw">🐾</div>
+  <div class="s10-paw">🐾</div>
+  <div class="s10-paw">🐾</div>
+  <div class="s10-paw">🐾</div>
+  <div class="s10-echo">
+    <div class="s10-echo-el"></div>
+    <div class="s10-echo-el"></div>
+    <div class="s10-echo-el"></div>
+  </div>
+  <div class="s10-content">
+    <h2 class="s10-thanks">謝謝聆聽</h2>
+    <p class="s10-sub">熊熊的 AI 成長之路，期待與你一起前行</p>
+    <div class="s10-links">
+      <a href="#" class="s10-link">🐻 熊熊官網</a>
+      <a href="#" class="s10-link">📧 聯絡熊熊</a>
+      <a href="#" class="s10-link">📚 技巧庫</a>
+    </div>
+  </div>
+</section>
+
+<script>
+// Nav active state
+const navLinks = document.querySelectorAll('.nav a');
+const sections = document.querySelectorAll('.page-wrap');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop;
+    if (scrollY >= top - 250) current = section.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
