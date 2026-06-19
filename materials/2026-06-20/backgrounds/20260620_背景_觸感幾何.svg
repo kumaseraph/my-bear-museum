@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <title>觸感幾何背景</title>
+  <desc>結合人性觸感與幾何設計的創意背景，採用手繪風格與抗AI不完美元素</desc>
+  <defs>
+    <!-- 溫暖配色漸層 -->
+    <linearGradient id="warmGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FF8C00" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="warmGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#A78BFA" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="warmGrad3" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4ECDC4" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0.4"/>
+    </linearGradient>
+    <!-- 手繪筆觸濾鏡 -->
+    <filter id="sketchEffect" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- 柔和發光 -->
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景底色 -->
+  <rect width="1920" height="1080" fill="#1E1B2E"/>
+  
+  <!-- 手繪感圓形裝飾（觸感野獸派風格） -->
+  <g filter="url(#softGlow)" opacity="0.25">
+    <ellipse cx="300" cy="250" rx="180" ry="170" fill="#F59E0B" transform="rotate(-5,300,250)"/>
+    <ellipse cx="1600" cy="200" rx="200" ry="190" fill="#6B5CE7" transform="rotate(8,1600,200)"/>
+    <ellipse cx="900" cy="800" rx="250" ry="240" fill="#4ECDC4" transform="rotate(-3,900,800)"/>
+  </g>
+  
+  <!-- 不完美六邊形叢集 - 左上 -->
+  <g transform="translate(150,150)" filter="url(#sketchEffect)">
+    <!-- 稍微不完美的六邊形（手繪感） -->
+    <path d="M80,5 L158,48 L155,135 L78,181 L3,138 L8,47 Z" 
+          fill="url(#warmGrad1)" opacity="0.9"/>
+    <!-- 連接的小元素 -->
+    <path d="M180,80 L230,105 L225,155 L175,175 L130,150 L135,100 Z" 
+          fill="url(#warmGrad2)" opacity="0.7"/>
+    <!-- 游離的小六邊形 -->
+    <path d="M60,160 L95,180 L90,215 L55,230 L20,210 L25,175 Z" 
+          fill="#FF8C00" fill-opacity="0.4"/>
+  </g>
+  
+  <!-- 不完美圓形叢集 - 右上 -->
+  <g transform="translate(1400,100)">
+    <!-- 主導圓形（手繪感） -->
+    <ellipse cx="120" cy="120" rx="110" ry="115" fill="url(#warmGrad2)" opacity="0.8"/>
+    <!-- 內部圓環裝飾 -->
+    <ellipse cx="120" cy="120" rx="70" ry="72" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.3"/>
+    <ellipse cx="120" cy="120" rx="40" ry="42" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.2"/>
+    <!-- 小圓點裝飾 -->
+    <circle cx="50" cy="200" r="20" fill="#A78BFA" fill-opacity="0.5"/>
+    <circle cx="200" cy="220" r="15" fill="#A78BFA" fill-opacity="0.3"/>
+    <circle cx="250" cy="80" r="25" fill="#4ECDC4" fill-opacity="0.4"/>
+  </g>
+  
+  <!-- 中央視覺焦點 - 大型不規則圖形 -->
+  <g transform="translate(700,350)" filter="url(#softGlow)">
+    <!-- 主要六邊形 -->
+    <path d="M150,10 L290,85 L280,255 L145,330 L5,260 L15,90 Z" 
+          fill="url(#warmGrad1)" opacity="0.85"/>
+    <!-- 內部交錯排列 -->
+    <g transform="translate(75,85)">
+      <path d="M75,0 L150,43 L150,130 L75,173 L0,130 L0,43 Z" 
+            fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.25"/>
+    </g>
+    <g transform="translate(40,150)">
+      <path d="M50,0 L100,29 L100,87 L50,116 L0,87 L0,29 Z" 
+            fill="#FFFFFF" fill-opacity="0.1"/>
+    </g>
+    <!-- 交錯的小元素 -->
+    <circle cx="220" cy="280" r="35" fill="#F59E0B" fill-opacity="0.5"/>
+    <circle cx="280" cy="320" r="20" fill="#FF8C00" fill-opacity="0.4"/>
+    <circle cx="40" cy="300" r="25" fill="#4ECDC4" fill-opacity="0.5"/>
+  </g>
+  
+  <!-- 底部裝飾叢集 -->
+  <g transform="translate(100,850)">
+    <!-- 左下角六邊形組 -->
+    <path d="M60,0 L120,35 L120,105 L60,140 L0,105 L0,35 Z" 
+          fill="url(#warmGrad3)" opacity="0.6"/>
+    <path d="M150,40 L190,60 L185,100 L145,115 L105,95 L110,55 Z" 
+          fill="#22D3EE" fill-opacity="0.4"/>
+    <path d="M220,20 L255,40 L250,75 L215,90 L180,70 L185,35 Z" 
+          fill="none" stroke="#4ECDC4" stroke-width="1.5" opacity="0.5"/>
+  </g>
+  
+  <!-- 右下角裝飾 -->
+  <g transform="translate(1500,800)">
+    <!-- 不規則圓形 -->
+    <ellipse cx="100" cy="80" rx="90" ry="85" fill="url(#warmGrad2)" opacity="0.6"/>
+    <ellipse cx="100" cy="80" rx="55" ry="52" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.2"/>
+    <!-- 小六邊形裝飾 -->
+    <path d="M40,150 L65,165 L60,190 L35,200 L10,185 L15,160 Z" 
+          fill="#A78BFA" fill-opacity="0.5"/>
+    <path d="M150,170 L175,185 L170,210 L145,220 L120,205 L125,180 Z" 
+          fill="#4ECDC4" fill-opacity="0.4"/>
+  </g>
+  
+  <!-- Human Scribble 裝飾線條 -->
+  <g stroke="#FFFFFF" stroke-width="1" fill="none" opacity="0.15" stroke-linecap="round">
+    <!-- 游離的曲線裝飾 -->
+    <path d="M50,400 Q100,380 150,420 T250,400"/>
+    <path d="M1650,600 Q1700,580 1750,620 T1850,600"/>
+    <path d="M400,950 Q450,930 500,970 T600,950"/>
+    <path d="M1300,100 Q1350,80 1400,120 T1500,100"/>
+  </g>
+  
+  <!-- 散落的小圓點裝飾 -->
+  <g fill="#FFFFFF" opacity="0.2">
+    <circle cx="500" cy="300" r="3"/>
+    <circle cx="520" cy="320" r="2"/>
+    <circle cx="480" cy="310" r="2.5"/>
+    <circle cx="1200" cy="500" r="3"/>
+    <circle cx="1220" cy="520" r="2"/>
+    <circle cx="1180" cy="510" r="2.5"/>
+    <circle cx="800" cy="150" r="2"/>
+    <circle cx="820" cy="170" r="2.5"/>
+    <circle cx="780" cy="160" r="3"/>
+  </g>
+</svg>

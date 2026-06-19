@@ -437,8 +437,8 @@ def generate_meow_thumbnail(source_path, output_dir):
         log(f"  縮圖生成失敗: {e}")
         return None
 
-    # 回傳相對路徑（從專案根目錄算起）
-    return str(thumb_path)  # 需要呼叫端自行改成相對路徑
+    # 回傳相對路徑（從 output_dir 的父目錄算起，即專案根目錄）
+    return str(thumb_path.relative_to(output_dir.parent))
 
 
 def generate_comfyui_image(prompt, cat_name, style, output_path, idx, config):

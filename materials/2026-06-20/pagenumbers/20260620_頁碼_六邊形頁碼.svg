@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <title>六邊形頁碼設計</title>
+  <desc>採用六邊形大小對比與旋轉角度變化的頁碼設計</desc>
+  <defs>
+    <linearGradient id="hexGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+    <linearGradient id="hexGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 頁碼01 -->
+  <g transform="translate(60,50)">
+    <!-- 大六邊形（實心） -->
+    <path d="M0,-35 L30.4,-17.5 L30.4,17.5 L0,35 L-30.4,17.5 L-30.4,-17.5 Z" 
+          fill="url(#hexGrad1)" opacity="0.9"/>
+    <!-- 小六邊形（空心疊加） -->
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+          fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.8"/>
+    <text x="0" y="6" fill="#FFFFFF" font-family="Arial, sans-serif" 
+          font-size="16" font-weight="bold" text-anchor="middle">01</text>
+  </g>
+  
+  <!-- 頁碼02 -->
+  <g transform="translate(160,50)">
+    <!-- 大六邊形（旋轉30度） -->
+    <g transform="rotate(30,0,0)">
+      <path d="M0,-35 L30.4,-17.5 L30.4,17.5 L0,35 L-30.4,17.5 L-30.4,-17.5 Z" 
+            fill="url(#hexGrad2)" opacity="0.85"/>
+    </g>
+    <!-- 實心圓形靶心 -->
+    <circle cx="0" cy="0" r="12" fill="#FFFFFF" opacity="0.9"/>
+    <text x="0" y="5" fill="#6B5CE7" font-family="Arial, sans-serif" 
+          font-size="14" font-weight="bold" text-anchor="middle">02</text>
+  </g>
+  
+  <!-- 頁碼03 -->
+  <g transform="translate(260,50)">
+    <!-- 外粗空心六邊形（2.5D效果） -->
+    <path d="M0,-38 L33,-19 L33,19 L0,38 L-33,-19 L-33,-19 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="4"/>
+    <!-- 內實心半透明 -->
+    <path d="M0,-38 L33,-19 L33,19 L0,38 L-33,-19 L-33,-19 Z" 
+          fill="#6B5CE7" fill-opacity="0.25"/>
+    <text x="0" y="7" fill="#6B5CE7" font-family="Arial, sans-serif" 
+          font-size="18" font-weight="bold" text-anchor="middle">03</text>
+  </g>
+  
+  <!-- 頁碼04 -->
+  <g transform="translate(360,50)">
+    <!-- 虛實對比：外空心內實心 -->
+    <path d="M0,-35 L30.4,-17.5 L30.4,17.5 L0,35 L-30.4,17.5 L-30.4,-17.5 Z" 
+          fill="#4ECDC4" fill-opacity="0.6"/>
+    <path d="M0,-35 L30.4,-17.5 L30.4,17.5 L0,35 L-30.4,17.5 L-30.4,-17.5 Z" 
+          fill="none" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="0" y="6" fill="#FFFFFF" font-family="Arial, sans-serif" 
+          font-size="16" font-weight="bold" text-anchor="middle">04</text>
+  </g>
+</svg>

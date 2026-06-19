@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <title>星形頁碼設計</title>
+  <desc>採用六邊形與星形組合的頁碼設計，強調聚焦效果</desc>
+  <defs>
+    <linearGradient id="starGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="starGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <filter id="starGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 頁碼05 - 六芒星核心 -->
+  <g transform="translate(60,50)" filter="url(#starGlow)">
+    <!-- 六芒星（兩個三角形疊加） -->
+    <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" 
+             fill="none" stroke="#FF8C00" stroke-width="2"/>
+    <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" 
+             fill="url(#starGrad1)" fill-opacity="0.3" transform="rotate(60,0,0)"/>
+    <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" 
+             fill="url(#starGrad1)" fill-opacity="0.3" transform="rotate(-60,0,0)"/>
+    <!-- 中心實心 -->
+    <circle cx="0" cy="0" r="8" fill="#FF8C00"/>
+    <text x="0" y="4" fill="#FFFFFF" font-family="Arial, sans-serif" 
+          font-size="12" font-weight="bold" text-anchor="middle">05</text>
+  </g>
+  
+  <!-- 頁碼06 - 六角星裝飾 -->
+  <g transform="translate(160,50)">
+    <!-- 外圈裝飾線 -->
+    <circle cx="0" cy="0" r="35" fill="none" stroke="#6B5CE7" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+    <!-- 六個頂點裝飾三角 -->
+    <polygon points="0,-38 4,-30 -4,-30" fill="#4ECDC4"/>
+    <polygon points="33,-19 38,-15 28,-15" fill="#4ECDC4"/>
+    <polygon points="33,19 38,15 28,15" fill="#4ECDC4"/>
+    <polygon points="0,38 -4,30 4,30" fill="#4ECDC4"/>
+    <polygon points="-33,19 -28,15 -38,15" fill="#4ECDC4"/>
+    <polygon points="-33,-19 -28,-15 -38,-15" fill="#4ECDC4"/>
+    <!-- 實心圓 -->
+    <circle cx="0" cy="0" r="20" fill="url(#starGrad2)" opacity="0.9"/>
+    <circle cx="0" cy="0" r="14" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.6"/>
+    <text x="0" y="5" fill="#FFFFFF" font-family="Arial, sans-serif" 
+          font-size="14" font-weight="bold" text-anchor="middle">06</text>
+  </g>
+  
+  <!-- 頁碼07 - 菱形交錯 -->
+  <g transform="translate(260,50)">
+    <!-- 背景菱形（旋轉45度）-->
+    <rect x="-25" y="-25" width="50" height="50" rx="4"
+          fill="#6B5CE7" fill-opacity="0.2" transform="rotate(45,0,0)"/>
+    <rect x="-25" y="-25" width="50" height="50" rx="4"
+          fill="none" stroke="#6B5CE7" stroke-width="2" transform="rotate(45,0,0)"/>
+    <!-- 前景菱形 -->
+    <rect x="-18" y="-18" width="36" height="36" rx="3"
+          fill="url(#starGrad2)" transform="rotate(45,0,0)"/>
+    <text x="0" y="5" fill="#FFFFFF" font-family="Arial, sans-serif" 
+          font-size="14" font-weight="bold" text-anchor="middle">07</text>
+  </g>
+  
+  <!-- 頁碼08 - 放射光芒 -->
+  <g transform="translate(360,50)">
+    <!-- 放射線 -->
+    <g opacity="0.4">
+      <line x1="0" y1="-35" x2="0" y2="-42" stroke="#FF8C00" stroke-width="2"/>
+      <line x1="25" y1="-25" x2="30" y2="-30" stroke="#FF8C00" stroke-width="2"/>
+      <line x1="35" y1="0" x2="42" y2="0" stroke="#FF8C00" stroke-width="2"/>
+      <line x1="25" y1="25" x2="30" y2="30" stroke="#FF8C00" stroke-width="2"/>
+      <line x1="0" y1="35" x2="0" y2="42" stroke="#FF8C00" stroke-width="2"/>
+      <line x1="-25" y1="25" x2="-30" y2="30" stroke="#FF8C00" stroke-width="2"/>
+      <line x1="-35" y1="0" x2="-42" y2="0" stroke="#FF8C00" stroke-width="2"/>
+      <line x1="-25" y1="-25" x2="-30" y2="-30" stroke="#FF8C00" stroke-width="2"/>
+    </g>
+    <!-- 實心圓 -->
+    <circle cx="0" cy="0" r="22" fill="url(#starGrad1)"/>
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7"/>
+    <text x="0" y="5" fill="#FFFFFF" font-family="Arial, sans-serif" 
+          font-size="14" font-weight="bold" text-anchor="middle">08</text>
+  </g>
+</svg>
