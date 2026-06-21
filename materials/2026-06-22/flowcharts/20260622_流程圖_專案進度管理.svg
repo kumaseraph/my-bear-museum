@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="flowGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+    <linearGradient id="flowGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="flowGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ECDC4"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#1a1a2e"/>
+  
+  <!-- 標題 -->
+  <text x="960" y="80" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#FFFFFF" text-anchor="middle">專案進度管理流程</text>
+  
+  <!-- 階梯流程：3步驟 -->
+  <!-- 步驟1：規劃 -->
+  <g transform="translate(200, 200)">
+    <polygon points="20,0 220,0 180,100 0,100" fill="url(#flowGrad1)" opacity="0.9"/>
+    <text x="110" y="55" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF" text-anchor="middle">📋 規劃</text>
+  </g>
+  
+  <!-- 連接線1 -->
+  <line x1="380" y1="250" x2="500" y2="250" stroke="#FF8C00" stroke-width="3" stroke-dasharray="10,5"/>
+  <polygon points="500,245 520,250 500,255" fill="#FF8C00"/>
+  
+  <!-- 步驟2：執行 -->
+  <g transform="translate(500, 350)">
+    <polygon points="20,0 220,0 180,100 0,100" fill="url(#flowGrad2)" opacity="0.9"/>
+    <text x="110" y="55" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF" text-anchor="middle">⚙️ 執行</text>
+  </g>
+  
+  <!-- 連接線2 -->
+  <line x1="680" y1="400" x2="800" y2="400" stroke="#FF8C00" stroke-width="3" stroke-dasharray="10,5"/>
+  <polygon points="800,395 820,400 800,405" fill="#FF8C00"/>
+  
+  <!-- 步驟3：完成 -->
+  <g transform="translate(800, 500)">
+    <polygon points="20,0 220,0 180,100 0,100" fill="url(#flowGrad3)" opacity="0.9"/>
+    <text x="110" y="55" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF" text-anchor="middle">✅ 完成</text>
+  </g>
+  
+  <!-- 右側：節點網絡 -->
+  <g transform="translate(1100, 200)">
+    <!-- 節點網絡背景框 -->
+    <rect x="0" y="0" width="650" height="500" fill="#16213e" rx="15" stroke="#6B5CE7" stroke-width="2"/>
+    
+    <!-- 網絡節點1：主管 -->
+    <g transform="translate(100, 80)">
+      <circle cx="0" cy="0" r="40" fill="#FF8C00"/>
+      <text x="0" y="8" font-family="Arial, sans-serif" font-size="28" fill="#FFFFFF" text-anchor="middle">👔</text>
+      <text x="0" y="65" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">專案主管</text>
+    </g>
+    
+    <!-- 連接線：主管→成員1 -->
+    <line x1="140" y1="100" x2="250" y2="180" stroke="#A78BFA" stroke-width="2"/>
+    <line x1="140" y1="110" x2="250" y2="190" stroke="#A78BFA" stroke-width="2"/>
+    <line x1="140" y1="120" x2="250" y2="200" stroke="#A78BFA" stroke-width="2"/>
+    
+    <!-- 網絡節點2：成員1 -->
+    <g transform="translate(300, 200)">
+      <circle cx="0" cy="0" r="35" fill="#4ECDC4"/>
+      <text x="0" y="8" font-family="Arial, sans-serif" font-size="24" fill="#FFFFFF" text-anchor="middle">👤</text>
+      <text x="0" y="60" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">開發組</text>
+    </g>
+    
+    <!-- 連接線：主管→成員2 -->
+    <line x1="140" y1="100" x2="400" y2="280" stroke="#A78BFA" stroke-width="2"/>
+    
+    <!-- 網絡節點3：成員2 -->
+    <g transform="translate(450, 300)">
+      <circle cx="0" cy="0" r="35" fill="#4ECDC4"/>
+      <text x="0" y="8" font-family="Arial, sans-serif" font-size="24" fill="#FFFFFF" text-anchor="middle">👤</text>
+      <text x="0" y="60" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">設計組</text>
+    </g>
+    
+    <!-- 連接線：成員1→成員3 -->
+    <line x1="335" y1="230" x2="415" y2="280" stroke="#A78BFA" stroke-width="2"/>
+    
+    <!-- 網絡節點4：成員3 -->
+    <g transform="translate(300, 400)">
+      <circle cx="0" cy="0" r="35" fill="#4ECDC4"/>
+      <text x="0" y="8" font-family="Arial, sans-serif" font-size="24" fill="#FFFFFF" text-anchor="middle">👤</text>
+      <text x="0" y="60" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">測試組</text>
+    </g>
+    
+    <!-- 連接線：成員2→成員3 -->
+    <line x1="415" y1="320" x2="335" y2="370" stroke="#A78BFA" stroke-width="2"/>
+  </g>
+  
+  <!-- 底部裝飾線 -->
+  <line x1="100" y1="950" x2="1820" y2="950" stroke="#6B5CE7" stroke-width="2" opacity="0.5"/>
+  <text x="960" y="1000" font-family="Arial, sans-serif" font-size="16" fill="#A78BFA" text-anchor="middle">2026-06-22 工作報告素材 | 熊熊PPT素材庫</text>
+</svg>

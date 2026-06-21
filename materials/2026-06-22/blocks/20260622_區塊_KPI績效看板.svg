@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="kpiGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+    <linearGradient id="kpiGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="kpiGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+    <linearGradient id="kpiGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#F8FAFC"/>
+  
+  <!-- 標題區 -->
+  <g transform="translate(100, 80)">
+    <rect x="0" y="0" width="450" height="70" rx="15" fill="url(#kpiGrad1)"/>
+    <text x="225" y="45" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF" text-anchor="middle">📊 KPI 績效儀表板</text>
+  </g>
+  
+  <!-- KPI 卡片群（蜂巢叢集排列） -->
+  <!-- KPI 1: 銷售額 -->
+  <g transform="translate(100, 220)">
+    <path d="M100,0 L186.6,50 L186.6,150 L100,200 L13.4,150 L13.4,50 Z" fill="url(#kpiGrad1)"/>
+    <text x="100" y="70" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#FFFFFF" text-anchor="middle">$2.5M</text>
+    <text x="100" y="110" font-family="Arial, sans-serif" font-size="16" fill="#E9D5FF" text-anchor="middle">銷售額</text>
+    <text x="100" y="145" font-family="Arial, sans-serif" font-size="14" fill="#34D399" text-anchor="middle">↑ 18%</text>
+  </g>
+  
+  <!-- KPI 2: 客戶數 -->
+  <g transform="translate(300, 220)">
+    <path d="M100,0 L186.6,50 L186.6,150 L100,200 L13.4,150 L13.4,50 Z" fill="url(#kpiGrad2)"/>
+    <text x="100" y="70" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#FFFFFF" text-anchor="middle">1,234</text>
+    <text x="100" y="110" font-family="Arial, sans-serif" font-size="16" fill="#A5F3FC" text-anchor="middle">活躍客戶</text>
+    <text x="100" y="145" font-family="Arial, sans-serif" font-size="14" fill="#34D399" text-anchor="middle">↑ 12%</text>
+  </g>
+  
+  <!-- KPI 3: 完成率 -->
+  <g transform="translate(500, 220)">
+    <path d="M100,0 L186.6,50 L186.6,150 L100,200 L13.4,150 L13.4,50 Z" fill="url(#kpiGrad3)"/>
+    <text x="100" y="70" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#FFFFFF" text-anchor="middle">92%</text>
+    <text x="100" y="110" font-family="Arial, sans-serif" font-size="16" fill="#A7F3D0" text-anchor="middle">任務完成率</text>
+    <text x="100" y="145" font-family="Arial, sans-serif" font-size="14" fill="#34D399" text-anchor="middle">↑ 5%</text>
+  </g>
+  
+  <!-- KPI 4:響應時間 -->
+  <g transform="translate(200, 420)">
+    <path d="M100,0 L186.6,50 L186.6,150 L100,200 L13.4,150 L13.4,50 Z" fill="url(#kpiGrad4)"/>
+    <text x="100" y="70" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#FFFFFF" text-anchor="middle">2.3s</text>
+    <text x="100" y="110" font-family="Arial, sans-serif" font-size="16" fill="#FEF3C7" text-anchor="middle">平均響應</text>
+    <text x="100" y="145" font-family="Arial, sans-serif" font-size="14" fill="#10B981" text-anchor="middle">↓ 0.8s</text>
+  </g>
+  
+  <!-- KPI 5: NPS分數 -->
+  <g transform="translate(400, 420)">
+    <path d="M100,0 L186.6,50 L186.6,150 L100,200 L13.4,150 L13.4,50 Z" fill="url(#kpiGrad1)"/>
+    <text x="100" y="70" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#FFFFFF" text-anchor="middle">72</text>
+    <text x="100" y="110" font-family="Arial, sans-serif" font-size="16" fill="#E9D5FF" text-anchor="middle">NPS 分數</text>
+    <text x="100" y="145" font-family="Arial, sans-serif" font-size="14" fill="#34D399" text-anchor="middle">↑ 8</text>
+  </g>
+  
+  <!-- 右側：趨勢圖區塊 -->
+  <g transform="translate(800, 220)">
+    <rect x="0" y="0" width="500" height="400" rx="20" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+    
+    <text x="250" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#1E293B" text-anchor="middle">📈 月度趨勢</text>
+    
+    <!-- 簡易柱狀圖 -->
+    <g transform="translate(50, 80)">
+      <!-- 1月 -->
+      <rect x="0" y="180" width="40" height="80" rx="5" fill="#6B5CE7"/>
+      <text x="20" y="280" font-family="Arial, sans-serif" font-size="12" fill="#64748B" text-anchor="middle">1月</text>
+      
+      <!-- 2月 -->
+      <rect x="60" y="150" width="40" height="110" rx="5" fill="#6B5CE7"/>
+      <text x="80" y="280" font-family="Arial, sans-serif" font-size="12" fill="#64748B" text-anchor="middle">2月</text>
+      
+      <!-- 3月 -->
+      <rect x="120" y="120" width="40" height="140" rx="5" fill="#6B5CE7"/>
+      <text x="140" y="280" font-family="Arial, sans-serif" font-size="12" fill="#64748B" text-anchor="middle">3月</text>
+      
+      <!-- 4月 -->
+      <rect x="180" y="100" width="40" height="160" rx="5" fill="#A78BFA"/>
+      <text x="200" y="280" font-family="Arial, sans-serif" font-size="12" fill="#64748B" text-anchor="middle">4月</text>
+      
+      <!-- 5月 -->
+      <rect x="240" y="70" width="40" height="190" rx="5" fill="#A78BFA"/>
+      <text x="260" y="280" font-family="Arial, sans-serif" font-size="12" fill="#64748B" text-anchor="middle">5月</text>
+      
+      <!-- 6月 -->
+      <rect x="300" y="40" width="40" height="220" rx="5" fill="#4ECDC4"/>
+      <text x="320" y="280" font-family="Arial, sans-serif" font-size="12" fill="#64748B" text-anchor="middle">6月</text>
+      
+      <!-- 趨勢線 -->
+      <polyline points="20,180 80,150 140,120 200,100 260,70 320,40" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+      
+      <!-- 趨勢箭頭 -->
+      <polygon points="320,30 330,45 310,45" fill="#F59E0B"/>
+    </g>
+  </g>
+  
+  <!-- 底部：熊熊裝飾 + 總結 -->
+  <g transform="translate(100, 700)">
+    <rect x="0" y="0" width="1720" height="250" rx="20" fill="#1E293B"/>
+    
+    <!-- 熊熊 -->
+    <g transform="translate(150, 80)">
+      <circle cx="0" cy="0" r="40" fill="#6B5CE7"/>
+      <circle cx="-15" cy="-15" r="10" fill="#4C1D95"/>
+      <circle cx="15" cy="-15" r="10" fill="#4C1D95"/>
+      <circle cx="0" cy="5" r="12" fill="#A78BFA"/>
+      <circle cx="-5" cy="0" r="3" fill="#000"/>
+      <circle cx="5" cy="0" r="3" fill="#000"/>
+      <ellipse cx="0" cy="8" rx="5" ry="4" fill="#4C1D95"/>
+    </g>
+    
+    <!-- 總結文字 -->
+    <text x="960" y="120" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF" text-anchor="middle">🎯 本月績效總結</text>
+    <text x="960" y="160" font-family="Arial, sans-serif" font-size="16" fill="#A78BFA" text-anchor="middle">各項指標均呈現正向成長，整體業務表現超預期達標</text>
+    <text x="960" y="200" font-family="Arial, sans-serif" font-size="14" fill="#64748B" text-anchor="middle">📅 報告日期：2026年6月22日 | 熊熊PPT素材庫</text>
+  </g>
+</svg>

@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bearGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#92400E"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="bearGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="bearGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="100%" stop-color="#FCD34D"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#FFFBEB"/>
+  
+  <!-- 頂部熊熊裝飾 -->
+  <g transform="translate(1700, 50)">
+    <circle cx="0" cy="0" r="35" fill="#92400E"/>
+    <circle cx="-12" cy="-12" r="8" fill="#78350F"/>
+    <circle cx="12" cy="-12" r="8" fill="#78350F"/>
+    <circle cx="0" cy="5" r="10" fill="#D97706"/>
+    <circle cx="-5" cy="2" r="2" fill="#000"/>
+    <circle cx="5" cy="2" r="2" fill="#000"/>
+    <ellipse cx="0" cy="7" rx="4" ry="3" fill="#78350F"/>
+  </g>
+  
+  <!-- 標題區塊 -->
+  <g transform="translate(100, 100)">
+    <rect x="0" y="0" width="400" height="80" rx="15" fill="url(#bearGrad1)"/>
+    <text x="200" y="50" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#FFFFFF" text-anchor="middle">🐻 工作報告摘要</text>
+  </g>
+  
+  <!-- 主要內容區塊（蜂巢排列） -->
+  <!-- 區塊1：專案進度 -->
+  <g transform="translate(100, 250)">
+    <path d="M75,0 L140,40 L140,110 L75,150 L10,110 L10,40 Z" fill="url(#bearGrad1)" opacity="0.9"/>
+    <text x="75" y="70" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">📊</text>
+    <text x="75" y="100" font-family="Arial, sans-serif" font-size="14" fill="#FDE68A" text-anchor="middle">專案進度</text>
+    <text x="75" y="125" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">85%</text>
+  </g>
+  
+  <!-- 區塊2：完成項目 -->
+  <g transform="translate(280, 250)">
+    <path d="M75,0 L140,40 L140,110 L75,150 L10,110 L10,40 Z" fill="url(#bearGrad2)" opacity="0.9"/>
+    <text x="75" y="70" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">✅</text>
+    <text x="75" y="100" font-family="Arial, sans-serif" font-size="14" fill="#FEF3C7" text-anchor="middle">完成項目</text>
+    <text x="75" y="125" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">12個</text>
+  </g>
+  
+  <!-- 區塊3：進行中 -->
+  <g transform="translate(460, 250)">
+    <path d="M75,0 L140,40 L140,110 L75,150 L10,110 L10,40 Z" fill="url(#bearGrad3)" opacity="0.9"/>
+    <text x="75" y="70" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#78350F" text-anchor="middle">⚡</text>
+    <text x="75" y="100" font-family="Arial, sans-serif" font-size="14" fill="#92400E" text-anchor="middle">進行中</text>
+    <text x="75" y="125" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#78350F" text-anchor="middle">5個</text>
+  </g>
+  
+  <!-- 區塊4：待優化 -->
+  <g transform="translate(190, 430)">
+    <path d="M75,0 L140,40 L140,110 L75,150 L10,110 L10,40 Z" fill="url(#bearGrad1)" opacity="0.7"/>
+    <text x="75" y="70" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">🔧</text>
+    <text x="75" y="100" font-family="Arial, sans-serif" font-size="14" fill="#FDE68A" text-anchor="middle">待優化</text>
+    <text x="75" y="125" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">3個</text>
+  </g>
+  
+  <!-- 區塊5：團隊成員 -->
+  <g transform="translate(370, 430)">
+    <path d="M75,0 L140,40 L140,110 L75,150 L10,110 L10,40 Z" fill="url(#bearGrad2)" opacity="0.7"/>
+    <text x="75" y="70" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">👥</text>
+    <text x="75" y="100" font-family="Arial, sans-serif" font-size="14" fill="#FEF3C7" text-anchor="middle">團隊成員</text>
+    <text x="75" y="125" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">8人</text>
+  </g>
+  
+  <!-- 右側：摘要文字區 -->
+  <g transform="translate(700, 250)">
+    <rect x="0" y="0" width="600" height="400" rx="20" fill="#FFFFFF" stroke="#D97706" stroke-width="3"/>
+    
+    <text x="300" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#92400E" text-anchor="middle">📝 本週重點摘要</text>
+    
+    <line x1="50" y1="75" x2="550" y2="75" stroke="#FDE68A" stroke-width="2"/>
+    
+    <g transform="translate(50, 100)">
+      <circle cx="10" cy="10" r="8" fill="#F59E0B"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="16" fill="#334155">完成了第一階段的系統測試</text>
+    </g>
+    
+    <g transform="translate(50, 150)">
+      <circle cx="10" cy="10" r="8" fill="#F59E0B"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="16" fill="#334155">優化了用戶介面響應速度</text>
+    </g>
+    
+    <g transform="translate(50, 200)">
+      <circle cx="10" cy="10" r="8" fill="#F59E0B"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="16" fill="#334155">新增了數據分析儀表板功能</text>
+    </g>
+    
+    <g transform="translate(50, 250)">
+      <circle cx="10" cy="10" r="8" fill="#F59E0B"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="16" fill="#334155">修復了已知的6個錯誤問題</text>
+    </g>
+    
+    <g transform="translate(50, 300)">
+      <circle cx="10" cy="10" r="8" fill="#10B981"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="16" fill="#334155">團隊協作效率提升了20%</text>
+    </g>
+    
+    <g transform="translate(50, 350)">
+      <circle cx="10" cy="10" r="8" fill="#10B981"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="16" fill="#334155">下週將進入用戶驗收測試階段</text>
+    </g>
+  </g>
+  
+  <!-- 右下角熊熊裝飾 -->
+  <g transform="translate(100, 700)">
+    <ellipse cx="50" cy="50" rx="50" ry="40" fill="#92400E"/>
+    <circle cx="0" cy="0" r="20" fill="#78350F"/>
+    <circle cx="100" cy="0" r="20" fill="#78350F"/>
+    <ellipse cx="50" cy="60" rx="25" ry="20" fill="#D97706"/>
+    <circle cx="35" cy="45" r="5" fill="#000"/>
+    <circle cx="65" cy="45" r="5" fill="#000"/>
+    <ellipse cx="50" cy="60" rx="8" ry="6" fill="#78350F"/>
+  </g>
+  
+  <!-- 底部 -->
+  <text x="960" y="1020" font-family="Arial, sans-serif" font-size="16" fill="#92400E" text-anchor="middle">2026-06-22 工作報告素材 | 熊熊PPT素材庫</text>
+</svg>

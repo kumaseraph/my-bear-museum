@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="decisionGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="decisionGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+    <linearGradient id="decisionGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#f8fafc"/>
+  
+  <!-- 標題 -->
+  <text x="960" y="80" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="#1E293B" text-anchor="middle">決策流程</text>
+  
+  <!-- 開始節點 -->
+  <g transform="translate(200, 300)">
+    <ellipse cx="60" cy="30" rx="60" ry="30" fill="url(#decisionGrad1)"/>
+    <text x="60" y="38" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">開始</text>
+  </g>
+  
+  <!-- 連接線：開始→決策點 -->
+  <line x1="320" y1="330" x2="420" y2="330" stroke="#64748B" stroke-width="2"/>
+  <polygon points="420,325 440,330 420,335" fill="#64748B"/>
+  
+  <!-- 決策點（菱形）-->
+  <g transform="translate(450, 280)">
+    <polygon points="70,0 140,50 70,100 0,50" fill="#F59E0B"/>
+    <text x="70" y="55" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">需要</text>
+    <text x="70" y="72" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">核准？</text>
+  </g>
+  
+  <!-- 是→主管核准 -->
+  <line x1="520" y1="380" x2="620" y2="450" stroke="#059669" stroke-width="2"/>
+  <text x="555" y="420" font-family="Arial, sans-serif" font-size="14" fill="#059669">是</text>
+  
+  <g transform="translate(630, 470)">
+    <rect x="0" y="0" width="160" height="70" rx="10" fill="url(#decisionGrad1)"/>
+    <text x="80" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">👔 主管核准</text>
+    <text x="80" y="50" font-family="Arial, sans-serif" font-size="12" fill="#E2E8F0" text-anchor="middle">1-2 工作天</text>
+  </g>
+  
+  <!-- 連接線：主管→結束 -->
+  <line x1="790" y1="505" x2="900" y2="505" stroke="#64748B" stroke-width="2"/>
+  <polygon points="900,500 920,505 900,510" fill="#64748B"/>
+  
+  <!-- 否→自行決定 -->
+  <line x1="590" y1="280" x2="750" y2="180" stroke="#3B82F6" stroke-width="2"/>
+  <text x="650" y="220" font-family="Arial, sans-serif" font-size="14" fill="#3B82F6">否</text>
+  
+  <g transform="translate(760, 130)">
+    <rect x="0" y="0" width="160" height="70" rx="10" fill="url(#decisionGrad3)"/>
+    <text x="80" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#FFFFFF" text-anchor="middle">⚡ 自行決定</text>
+    <text x="80" y="50" font-family="Arial, sans-serif" font-size="12" fill="#D1FAE5" text-anchor="middle">立即執行</text>
+  </g>
+  
+  <!-- 連接線：自行決定→結束 -->
+  <line x1="920" y1="165" x2="1000" y2="165" stroke="#64748B" stroke-width="2"/>
+  <line x1="1000" y1="165" x2="1000" y2="505" stroke="#64748B" stroke-width="2"/>
+  <line x1="1000" y1="505" x2="1100" y2="505" stroke="#64748B" stroke-width="2"/>
+  <polygon points="1100,500 1120,505 1100,510" fill="#64748B"/>
+  
+  <!-- 結束節點 -->
+  <g transform="translate(1130, 475)">
+    <ellipse cx="60" cy="30" rx="60" ry="30" fill="#EF4444"/>
+    <text x="60" y="38" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">結束</text>
+  </g>
+  
+  <!-- 右側：流程說明區塊 -->
+  <g transform="translate(1350, 200)">
+    <rect x="0" y="0" width="450" height="400" rx="15" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="2"/>
+    <text x="225" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#1E293B" text-anchor="middle">📋 流程說明</text>
+    
+    <g transform="translate(30, 70)">
+      <rect x="0" y="0" width="20" height="20" rx="4" fill="#3B82F6"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="14" fill="#334155">評估選項</text>
+    </g>
+    
+    <g transform="translate(30, 120)">
+      <rect x="0" y="0" width="20" height="20" rx="4" fill="#F59E0B"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="14" fill="#334155">判斷是否需要核准</text>
+    </g>
+    
+    <g transform="translate(30, 170)">
+      <rect x="0" y="0" width="20" height="20" rx="4" fill="#059669"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="14" fill="#334155">依權限執行或提交</text>
+    </g>
+    
+    <g transform="translate(30, 220)">
+      <rect x="0" y="0" width="20" height="20" rx="4" fill="#8B5CF6"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="14" fill="#334155">記錄結果</text>
+    </g>
+    
+    <g transform="translate(30, 270)">
+      <rect x="0" y="0" width="20" height="20" rx="4" fill="#EC4899"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="14" fill="#334155">歸檔追蹤</text>
+    </g>
+  </g>
+  
+  <!-- 底部 -->
+  <text x="960" y="1000" font-family="Arial, sans-serif" font-size="16" fill="#94A3B8" text-anchor="middle">2026-06-22 工作報告素材 | 熊熊PPT素材庫</text>
+</svg>

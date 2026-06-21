@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="pathGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+    <linearGradient id="pathGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="pathGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#C4B5FD"/>
+    </linearGradient>
+    <linearGradient id="targetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#0F172A"/>
+  
+  <!-- 星空裝飾 -->
+  <circle cx="100" cy="100" r="2" fill="#FFFFFF" opacity="0.5"/>
+  <circle cx="300" cy="150" r="1.5" fill="#FFFFFF" opacity="0.3"/>
+  <circle cx="500" cy="80" r="2" fill="#FFFFFF" opacity="0.4"/>
+  <circle cx="700" cy="120" r="1" fill="#FFFFFF" opacity="0.3"/>
+  <circle cx="900" cy="60" r="2" fill="#FFFFFF" opacity="0.5"/>
+  <circle cx="1100" cy="140" r="1.5" fill="#FFFFFF" opacity="0.4"/>
+  <circle cx="1300" cy="90" r="2" fill="#FFFFFF" opacity="0.3"/>
+  <circle cx="1500" cy="130" r="1" fill="#FFFFFF" opacity="0.5"/>
+  <circle cx="1700" cy="70" r="2" fill="#FFFFFF" opacity="0.4"/>
+  <circle cx="1800" cy="150" r="1.5" fill="#FFFFFF" opacity="0.3"/>
+  
+  <!-- 標題 -->
+  <text x="960" y="100" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="#FFFFFF" text-anchor="middle">🎯 目標達成路徑</text>
+  
+  <!-- 主路徑：Z字形上升 -->
+  <!-- 階段1：起點 -->
+  <g transform="translate(150, 500)">
+    <circle cx="0" cy="0" r="30" fill="url(#pathGrad1)" opacity="0.8"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="28" fill="#FFFFFF" text-anchor="middle">1️⃣</text>
+    <text x="0" y="55" font-family="Arial, sans-serif" font-size="16" fill="#A78BFA" text-anchor="middle">設定目標</text>
+  </g>
+  
+  <!-- 連接線：階段1→階段2 -->
+  <line x1="180" y1="500" x2="280" y2="420" stroke="#6B5CE7" stroke-width="3" stroke-dasharray="8,4"/>
+  <polygon points="280,415 295,420 280,425" fill="#6B5CE7"/>
+  
+  <!-- 階段2：規劃 -->
+  <g transform="translate(300, 380)">
+    <circle cx="0" cy="0" r="30" fill="url(#pathGrad1)" opacity="0.8"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="28" fill="#FFFFFF" text-anchor="middle">2️⃣</text>
+    <text x="0" y="55" font-family="Arial, sans-serif" font-size="16" fill="#A78BFA" text-anchor="middle">制定計劃</text>
+  </g>
+  
+  <!-- 連接線：階段2→階段3 -->
+  <line x1="330" y1="380" x2="530" y2="380" stroke="#A78BFA" stroke-width="3"/>
+  <polygon points="530,375 550,380 530,385" fill="#A78BFA"/>
+  
+  <!-- 階段3：執行 -->
+  <g transform="translate(560, 350)">
+    <circle cx="0" cy="0" r="35" fill="url(#pathGrad2)" opacity="0.9"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="28" fill="#FFFFFF" text-anchor="middle">3️⃣</text>
+    <text x="0" y="60" font-family="Arial, sans-serif" font-size="16" fill="#C4B5FD" text-anchor="middle">付諸行動</text>
+  </g>
+  
+  <!-- 連接線：階段3→階段4 -->
+  <line x1="595" y1="350" x2="795" y2="300" stroke="#C4B5FD" stroke-width="3" stroke-dasharray="8,4"/>
+  <polygon points="795,295 815,300 795,305" fill="#C4B5FD"/>
+  
+  <!-- 階段4：檢視 -->
+  <g transform="translate(820, 260)">
+    <circle cx="0" cy="0" r="35" fill="url(#pathGrad2)" opacity="0.9"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="28" fill="#FFFFFF" text-anchor="middle">4️⃣</text>
+    <text x="0" y="60" font-family="Arial, sans-serif" font-size="16" fill="#C4B5FD" text-anchor="middle">定期檢視</text>
+  </g>
+  
+  <!-- 連接線：階段4→階段5 -->
+  <line x1="855" y1="260" x2="1055" y2="260" stroke="#FBBF24" stroke-width="3"/>
+  <polygon points="1055,255 1075,260 1055,265" fill="#FBBF24"/>
+  
+  <!-- 階段5：調整 -->
+  <g transform="translate(1080, 220)">
+    <circle cx="0" cy="0" r="40" fill="url(#pathGrad3)" opacity="0.9"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="28" fill="#FFFFFF" text-anchor="middle">5️⃣</text>
+    <text x="0" y="65" font-family="Arial, sans-serif" font-size="16" fill="#FDE68A" text-anchor="middle">優化調整</text>
+  </g>
+  
+  <!-- 連接線：階段5→目標 -->
+  <line x1="1120" y1="220" x2="1350" y2="180" stroke="#F59E0B" stroke-width="4"/>
+  <polygon points="1350,175 1375,180 1350,185" fill="#F59E0B"/>
+  
+  <!-- 終點：目標達成 -->
+  <g transform="translate(1400, 140)">
+    <circle cx="0" cy="0" r="50" fill="url(#targetGrad)"/>
+    <text x="0" y="10" font-family="Arial, sans-serif" font-size="48" fill="#FFFFFF" text-anchor="middle">🏆</text>
+    <text x="0" y="75" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#FBBF24" text-anchor="middle">目標達成</text>
+  </g>
+  
+  <!-- 右側：KPI指標卡 -->
+  <g transform="translate(100, 700)">
+    <rect x="0" y="0" width="500" height="250" rx="15" fill="#1E293B" stroke="#6B5CE7" stroke-width="2"/>
+    <text x="250" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">📊 關鍵指標</text>
+    
+    <!-- KPI 1 -->
+    <g transform="translate(30, 70)">
+      <rect x="0" y="0" width="130" height="70" rx="10" fill="#4C1D95" opacity="0.5"/>
+      <text x="65" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF" text-anchor="middle">85%</text>
+      <text x="65" y="52" font-family="Arial, sans-serif" font-size="12" fill="#A78BFA" text-anchor="middle">進度達成</text>
+    </g>
+    
+    <!-- KPI 2 -->
+    <g transform="translate(180, 70)">
+      <rect x="0" y="0" width="130" height="70" rx="10" fill="#4ECDC4" opacity="0.5"/>
+      <text x="65" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF" text-anchor="middle">12</text>
+      <text x="65" y="52" font-family="Arial, sans-serif" font-size="12" fill="#A78BFA" text-anchor="middle">已完成項目</text>
+    </g>
+    
+    <!-- KPI 3 -->
+    <g transform="translate(330, 70)">
+      <rect x="0" y="0" width="130" height="70" rx="10" fill="#F59E0B" opacity="0.5"/>
+      <text x="65" y="30" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF" text-anchor="middle">3</text>
+      <text x="65" y="52" font-family="Arial, sans-serif" font-size="12" fill="#A78BFA" text-anchor="middle">待優化項目</text>
+    </g>
+    
+    <!-- 進度條 -->
+    <g transform="translate(30, 160)">
+      <rect x="0" y="0" width="440" height="12" rx="6" fill="#334155"/>
+      <rect x="0" y="0" width="374" height="12" rx="6" fill="url(#pathGrad1)"/>
+      <text x="440" y="35" font-family="Arial, sans-serif" font-size="14" fill="#A78BFA" text-anchor="end">85%</text>
+    </g>
+  </g>
+  
+  <!-- 右側：里程碑 -->
+  <g transform="translate(650, 700)">
+    <rect x="0" y="0" width="500" height="250" rx="15" fill="#1E293B" stroke="#4ECDC4" stroke-width="2"/>
+    <text x="250" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">🏁 里程碑</text>
+    
+    <g transform="translate(30, 70)">
+      <circle cx="10" cy="10" r="8" fill="#10B981"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="14" fill="#10B981">✓ Q1 目標達成</text>
+    </g>
+    
+    <g transform="translate(30, 110)">
+      <circle cx="10" cy="10" r="8" fill="#10B981"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="14" fill="#10B981">✓ Q2 目標達成</text>
+    </g>
+    
+    <g transform="translate(30, 150)">
+      <circle cx="10" cy="10" r="8" fill="#F59E0B"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="14" fill="#F59E0B">⏳ Q3 進行中</text>
+    </g>
+    
+    <g transform="translate(30, 190)">
+      <circle cx="10" cy="10" r="8" fill="#64748B"/>
+      <text x="30" y="16" font-family="Arial, sans-serif" font-size="14" fill="#64748B">○ Q4 待執行</text>
+    </g>
+  </g>
+  
+  <!-- 底部 -->
+  <text x="960" y="1020" font-family="Arial, sans-serif" font-size="16" fill="#64748B" text-anchor="middle">2026-06-22 工作報告素材 | 熊熊PPT素材庫</text>
+</svg>
