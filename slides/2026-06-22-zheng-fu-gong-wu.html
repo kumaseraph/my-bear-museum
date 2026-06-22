@@ -55,67 +55,70 @@ body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background:
 .toc-text { font-size: 22px; color: var(--text); }
 .toc-icon { font-size: 28px; margin-left: auto; opacity: 0.6; }
 
-/* ===== SLIDE 3: KPI — 三種不同顏色靶心 ===== */
+/* ===== SLIDE 3: KPI — 實心圓餅，大小比例象徵金額 ===== */
 .s3 { background: var(--bg2); justify-content: center; }
 .s3::before { content:''; position:absolute; inset:0; background-image: radial-gradient(circle, rgba(42,109,184,0.2) 1px, transparent 1px); background-size: 32px 32px; pointer-events: none; }
-.s3 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 50px; }
-.kpi-row { display: flex; justify-content: center; gap: 100px; }
-.kpi { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.kpi-rings { position: relative; width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; }
-.kpi-rings svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
-.kpi:nth-child(1) .ring-track { stroke: rgba(212,168,67,0.2); }
-.kpi:nth-child(1) .ring-prog  { stroke: var(--accent); }
-.kpi:nth-child(2) .ring-track { stroke: rgba(42,109,184,0.3); }
-.kpi:nth-child(2) .ring-prog  { stroke: var(--blue); }
-.kpi:nth-child(3) .ring-track { stroke: rgba(76,175,130,0.3); }
-.kpi:nth-child(3) .ring-prog  { stroke: var(--green); }
-.kpi-rings .core { position: absolute; inset: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; }
-.kpi-val { font-size: 38px; font-weight: 900; }
-.kpi:nth-child(1) .kpi-val { color: var(--accent); }
-.kpi:nth-child(2) .kpi-val { color: var(--blue); }
-.kpi:nth-child(3) .kpi-val { color: var(--green); }
-.kpi-sub { font-size: 12px; color: var(--text2); opacity: 0.7; }
-.kpi-label { font-size: 20px; color: var(--text2); text-align: center; max-width: 220px; }
+.s3 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 40px; }
+/* 底部說明列 */
+.s3 .legend { display: flex; justify-content: center; gap: 40px; margin-top: 32px; }
+.s3 .legend-item { display: flex; align-items: center; gap: 8px; font-size: 18px; color: var(--text2); }
+.s3 .legend-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+.kpi-row { display: flex; justify-content: center; align-items: flex-end; gap: 0; flex: 1; }
+/* 三個實心圓：直徑比例近似金額比例（6K:18K:50K ≈ 1:3:8，取近似比 2:3.5:5） */
+.kpi { display: flex; flex-direction: column; align-items: center; gap: 0; position: relative; }
+.kpi-circle { border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 30px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.05); }
+.kpi:nth-child(1) .kpi-circle { width: 160px; height: 160px; background: radial-gradient(circle at 35% 35%, #F0C050, var(--accent), #A07820); }
+.kpi:nth-child(2) .kpi-circle { width: 240px; height: 240px; background: radial-gradient(circle at 35% 35%, #5AAED8, var(--blue), #1A5090); }
+.kpi:nth-child(3) .kpi-circle { width: 320px; height: 320px; background: radial-gradient(circle at 35% 35%, #7DE8A8, var(--green), #2A8050); }
+.kpi-val { font-size: 34px; font-weight: 900; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+.kpi:nth-child(1) .kpi-val { font-size: 30px; }
+.kpi:nth-child(2) .kpi-val { font-size: 44px; }
+.kpi:nth-child(3) .kpi-val { font-size: 58px; }
+.kpi-sub2 { font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 400; }
+.kpi-label { font-size: 20px; color: var(--text2); text-align: center; max-width: 200px; margin-top: 14px; line-height: 1.4; }
 
-/* ===== SLIDE 4: 流程圖 — 對稱雙欄 + 右側摘要 ===== */
+/* ===== SLIDE 4: 流程圖 — Z字形蛇行，左右充分利用 ===== */
 .s4 { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
-.s4::before { content:''; position:absolute; right:0; top:0; bottom:0; width:260px; background: linear-gradient(to left, rgba(42,109,184,0.1), transparent); pointer-events: none; }
-.s4 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 36px; }
-.flow-wrap { display: flex; gap: 60px; flex: 1; align-items: stretch; }
-/* 左欄：步驟1-3 */ .flow-col-l { display: flex; flex-direction: column; gap: 0; justify-content: center; flex: 1; }
-/* 右欄：步驟4-5 */ .flow-col-r { display: flex; flex-direction: column; gap: 0; justify-content: center; flex: 1; }
-.flow-step { display: flex; align-items: center; gap: 20px; }
-.flow-num { width: 52px; height: 52px; border-radius: 50%; color: var(--navy); font-size: 26px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.flow-col-l .flow-step:nth-child(1) .flow-num { background: var(--accent); }
-.flow-col-l .flow-step:nth-child(3) .flow-num { background: var(--blue); color: #fff; }
-.flow-col-l .flow-step:nth-child(5) .flow-num { background: var(--green); }
-.flow-col-r .flow-step:nth-child(1) .flow-num { background: var(--accent); }
-.flow-col-r .flow-step:nth-child(3) .flow-num { background: var(--blue); color: #fff; }
-.flow-text { font-size: 22px; color: var(--text); background: var(--card); padding: 18px 28px; border-radius: 10px; flex: 1; }
-.flow-col-l .flow-step:nth-child(1) .flow-text { border-left: 5px solid var(--accent); }
-.flow-col-l .flow-step:nth-child(3) .flow-text { border-left: 5px solid var(--blue); }
-.flow-col-l .flow-step:nth-child(5) .flow-text { border-left: 5px solid var(--green); }
-.flow-col-r .flow-step:nth-child(1) .flow-text { border-left: 5px solid var(--accent); }
-.flow-col-r .flow-step:nth-child(3) .flow-text { border-left: 5px solid var(--blue); }
-.flow-conn { display: flex; align-items: center; padding-left: 26px; gap: 0; }
-.flow-conn .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.flow-conn .line { flex: 1; height: 2px; margin: 0 8px; }
-.flow-col-l .flow-conn .dot,
-.flow-col-l .flow-conn .line { background: var(--accent); }
-.flow-col-r .flow-conn .dot,
-.flow-col-r .flow-conn .line { background: var(--accent); }
-/* 右側摘要卡 */
-.flow-summary { width: 220px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
-.flow-sum-card { background: var(--card); border-radius: 12px; padding: 18px 20px; border-top: 4px solid var(--accent); }
-.flow-sum-title { font-size: 16px; color: var(--accent); font-weight: 900; margin-bottom: 6px; }
-.flow-sum-body { font-size: 17px; color: var(--text2); line-height: 1.4; }
+.s4::before { content:''; position:absolute; inset:0; background: repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(42,109,184,0.04) 60px, rgba(42,109,184,0.04) 61px); pointer-events: none; }
+.s4 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 24px; }
+.flow-wrap { display: flex; gap: 40px; flex: 1; align-items: stretch; }
+/* 左2步 */ .flow-l { display: flex; flex-direction: column; justify-content: space-around; flex: 1; }
+/* 中3步 */ .flow-m { display: flex; flex-direction: column; justify-content: space-around; flex: 1.2; }
+/* 右3摘要卡 */ .flow-r { display: flex; flex-direction: column; justify-content: space-around; width: 220px; flex-shrink: 0; }
+.flow-step { display: flex; align-items: center; gap: 18px; }
+.flow-num { width: 50px; height: 50px; border-radius: 50%; color: var(--navy); font-size: 24px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.flow-l .flow-step:nth-child(1) .flow-num { background: var(--accent); }
+.flow-l .flow-step:nth-child(3) .flow-num { background: var(--blue); color: #fff; }
+.flow-m .flow-step:nth-child(1) .flow-num { background: var(--green); }
+.flow-m .flow-step:nth-child(3) .flow-num { background: var(--accent); }
+.flow-m .flow-step:nth-child(5) .flow-num { background: var(--blue); color: #fff; }
+.flow-text { font-size: 21px; color: var(--text); background: var(--card); padding: 16px 22px; border-radius: 10px; flex: 1; }
+.flow-l .flow-step:nth-child(1) .flow-text { border-left: 5px solid var(--accent); }
+.flow-l .flow-step:nth-child(3) .flow-text { border-left: 5px solid var(--blue); }
+.flow-m .flow-step:nth-child(1) .flow-text { border-left: 5px solid var(--green); }
+.flow-m .flow-step:nth-child(3) .flow-text { border-left: 5px solid var(--accent); }
+.flow-m .flow-step:nth-child(5) .flow-text { border-left: 5px solid var(--blue); }
+/* Z字形連接線：L右側→M左側→L右側→M左側 */
+.z-conn { display: flex; align-items: center; }
+.z-conn-r { justify-content: flex-end; padding-right: 4px; }
+.z-conn-l { justify-content: flex-start; padding-left: 4px; }
+.z-conn .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.z-conn .line { height: 2px; flex: 1; }
+.z-conn-r .line { background: linear-gradient(to left, var(--accent), rgba(212,168,67,0.2)); margin-right: 8px; }
+.z-conn-l .line { background: linear-gradient(to right, var(--blue), rgba(42,109,184,0.2)); margin-left: 8px; }
+/* 分隔線 */
+.flow-divider { width: 2px; background: linear-gradient(to bottom, transparent, rgba(212,168,67,0.3), transparent); flex-shrink: 0; }
+/* 摘要卡 */
+.flow-sum-card { background: rgba(18,46,85,0.8); border-radius: 12px; padding: 16px 18px; border-top: 4px solid var(--accent); flex: 1; backdrop-filter: blur(6px); }
 .flow-sum-card:nth-child(2) { border-top-color: var(--blue); }
-.flow-sum-card:nth-child(2) .flow-sum-title { color: var(--blue); }
 .flow-sum-card:nth-child(3) { border-top-color: var(--green); }
+.flow-sum-title { font-size: 15px; color: var(--accent); font-weight: 900; margin-bottom: 4px; }
+.flow-sum-card:nth-child(2) .flow-sum-title { color: var(--blue); }
 .flow-sum-card:nth-child(3) .flow-sum-title { color: var(--green); }
+.flow-sum-body { font-size: 16px; color: var(--text2); line-height: 1.4; }
 
 /* ===== SLIDE 5: 橫式時間軸 ===== */
-.s5 { background: var(--bg2); }
+.s5 { background: var(--bg2); justify-content: center; }
 .s5::before { content:''; position:absolute; bottom:-80px; left:50%; width:600px; height:200px; transform:translateX(-50%); background: radial-gradient(ellipse, rgba(212,168,67,0.08), transparent); pointer-events: none; }
 .s5 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 50px; }
 .timeline-h { display: flex; align-items: center; justify-content: space-between; position: relative; padding: 0 60px; flex: 1; }
@@ -127,50 +130,48 @@ body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background:
 .tl-year { font-size: 26px; font-weight: 900; color: var(--accent); margin-top: 4px; }
 .tl-label { font-size: 17px; color: var(--text2); text-align: center; max-width: 130px; line-height: 1.4; }
 
-/* ===== SLIDE 6: 蜂巢圖 — 加大尺寸更飽滿 ===== */
+/* ===== SLIDE 6: 蜂巢圖 — 擴大至幾乎填滿 ===== */
 .s6 { background: linear-gradient(135deg, #0B1D3A, #0F2744); }
-.s6::before { content:''; position:absolute; top:50%; left:50%; width:700px; height:500px; transform:translate(-50%,-50%); background: radial-gradient(ellipse, rgba(42,109,184,0.15), transparent); pointer-events: none; }
-.s6 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 8px; }
-.s6 .subtitle { font-size: 18px; color: var(--text2); margin-bottom: 20px; }
-.hex-section { display: flex; flex-direction: column; flex: 1; justify-content: center; gap: 16px; }
-/* 三排：上(大補助)/中(中補助)/下(小補助) */
-.hex-row { display: flex; justify-content: center; gap: 18px; }
+.s6::before { content:''; position:absolute; top:50%; left:50%; width:800px; height:600px; transform:translate(-50%,-50%); background: radial-gradient(ellipse, rgba(42,109,184,0.12), transparent); pointer-events: none; }
+.s6 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 6px; }
+.s6 .subtitle { font-size: 18px; color: var(--text2); margin-bottom: 16px; }
+.hex-section { display: flex; flex-direction: column; flex: 1; justify-content: center; gap: 14px; }
+.hex-row { display: flex; justify-content: center; gap: 16px; }
 .hex-wrap { position: relative; }
-.hex-xl { width: 180px; height: 206px; }
-.hex-lg { width: 152px; height: 174px; }
-.hex-md { width: 130px; height: 149px; }
-.hex-sm { width: 112px; height: 128px; }
+.hex-xl { width: 210px; height: 240px; }
+.hex-lg { width: 178px; height: 204px; }
+.hex-md { width: 152px; height: 174px; }
+.hex-sm { width: 130px; height: 149px; }
 .hex-wrap::before { content:''; position:absolute; inset:0; background: var(--accent); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); opacity: 0.85; }
 .hex-inner { position: absolute; inset: 4px; background: var(--bg2); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px; }
 .hex-amount { font-weight: 900; color: var(--accent); }
-.hex-xl .hex-amount { font-size: 30px; }
-.hex-lg .hex-amount { font-size: 26px; }
-.hex-md .hex-amount { font-size: 22px; }
-.hex-sm .hex-amount { font-size: 19px; }
-.hex-label { font-size: 13px; color: var(--text2); text-align: center; line-height: 1.3; }
+.hex-xl .hex-amount { font-size: 34px; }
+.hex-lg .hex-amount { font-size: 28px; }
+.hex-md .hex-amount { font-size: 24px; }
+.hex-sm .hex-amount { font-size: 20px; }
+.hex-label { font-size: 14px; color: var(--text2); text-align: center; line-height: 1.3; }
 
-/* ===== SLIDE 7: 柱狀圖 — 目標線統一頂端，縣市標籤移至柱內底部 ===== */
-.s7 { background: var(--bg2); justify-content: center; }
-.s7::before { content:''; position:absolute; inset:0; background-image: radial-gradient(circle, rgba(42,109,184,0.15) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
-.s7 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 12px; }
-.s7 .target-line-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-.s7 .target-pill { background: rgba(212,168,67,0.15); border: 2px solid var(--accent); border-radius: 20px; padding: 6px 18px; font-size: 16px; color: var(--accent); font-weight: 700; white-space: nowrap; }
-.chart-area { display: flex; flex-direction: column; flex: 1; justify-content: flex-end; padding-bottom: 10px; }
-.chart { display: flex; align-items: flex-end; justify-content: center; gap: 20px; position: relative; z-index: 1; padding: 0 30px; }
-.bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; position: relative; flex: 1; max-width: 120px; }
-/* 縣市名稱寫在柱內底部（柱從0往上長，縣市名疊在柱子上） */
-.bar { width: 72px; border-radius: 8px 8px 0 0; background: linear-gradient(to top, var(--accent), var(--accent2)); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 10px; position: relative; }
+/* ===== SLIDE 7: 柱狀圖 — 撐滿高度，目標線貫穿全圖 ===== */
+.s7 { background: var(--bg2); flex: 1; }
+.s7::before { content:''; position:absolute; inset:0; background-image: radial-gradient(circle, rgba(42,109,184,0.12) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
+.s7 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 10px; }
+.target-pill { background: rgba(212,168,67,0.15); border: 2px solid var(--accent); border-radius: 20px; padding: 6px 18px; font-size: 16px; color: var(--accent); font-weight: 700; display: inline-block; margin-bottom: 10px; }
+.chart-outer { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; position: relative; }
+/* 15K目標水平線：絕對定位於chart-outer容器，高度比例上15K/20K≈75%位置 */
+.chart-outer .goal-line { position: absolute; left: 60px; right: 60px; height: 2px; background: repeating-linear-gradient(to right, var(--accent), var(--accent) 8px, transparent 8px, transparent 12px); top: 25%; z-index: 2; }
+.chart-outer .goal-label { position: absolute; top: calc(25% - 26px); right: 56px; font-size: 14px; color: var(--accent); font-weight: 700; background: rgba(212,168,67,0.15); padding: 3px 10px; border-radius: 12px; border: 1px solid rgba(212,168,67,0.4); }
+.chart { display: flex; align-items: flex-end; justify-content: center; gap: 24px; position: relative; z-index: 3; padding-bottom: 0; }
+.bar-wrap { display: flex; flex-direction: column; align-items: center; position: relative; flex: 1; max-width: 130px; }
+.bar { width: 72px; border-radius: 8px 8px 0 0; background: linear-gradient(to top, var(--accent), var(--accent2)); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 8px; }
 .bar-exceed { background: linear-gradient(to top, var(--green), #76E4A6) !important; }
 .bar-mid    { background: linear-gradient(to top, var(--blue), #5A9BD5) !important; }
 .bar-val { font-size: 18px; font-weight: 900; color: var(--navy); }
-.bar-label-overlay { font-size: 15px; color: #fff; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,0.5); margin-top: auto; padding-bottom: 8px; }
-/* 達標：柱頂加 ✓ 標記 */ 
-.bar-wrap.exceed::after { content:'✓'; position:absolute; top:-30px; left:50%; transform:translateX(-50%); font-size:20px; color:var(--green); font-weight:900; }
-/* 未達：柱頂 ↑ 標記 */
-.bar-wrap.below::after  { content:'↑'; position:absolute; top:-30px; left:50%; transform:translateX(-50%); font-size:18px; color:var(--accent); font-weight:900; }
-.chart-note { text-align: center; font-size: 16px; color: var(--text2); margin-top: 12px; opacity: 0.7; position: relative; z-index: 1; }
+.bar-label-overlay { font-size: 15px; color: #fff; font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,0.6); margin-top: auto; padding-bottom: 8px; }
+.bar-wrap.exceed::after { content:'✓'; position:absolute; top:-28px; left:50%; transform:translateX(-50%); font-size:20px; color:var(--green); font-weight:900; }
+.bar-wrap.below::after  { content:'↑'; position:absolute; top:-28px; left:50%; transform:translateX(-50%); font-size:18px; color:var(--accent); font-weight:900; }
+.chart-note { text-align: center; font-size: 16px; color: var(--text2); margin-top: 12px; opacity: 0.8; }
 
-/* ===== SLIDE 8: 表格 — 縮小留白，底部加備註 ===== */
+/* ===== SLIDE 8: 表格 ===== */
 .s8 { background: var(--bg2); }
 .s8::before { content:''; position:absolute; inset:0; background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(42,109,184,0.04) 40px, rgba(42,109,184,0.04) 41px); pointer-events: none; }
 .s8 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 20px; }
@@ -181,21 +182,20 @@ td { padding: 16px 24px; border-bottom: 1px solid rgba(212,168,67,0.2); color: v
 tr:last-child td { border-bottom: none; }
 tr:nth-child(even) td { background: rgba(42,109,184,0.15); }
 .plus { color: #5DDB7A; font-weight: bold; }
-.table-note { margin-top: 14px; font-size: 16px; color: var(--text2); display: flex; gap: 20px; }
+.table-note { margin-top: 14px; font-size: 16px; color: var(--text2); display: flex; gap: 20px; flex-wrap: wrap; }
 .table-note span { display: flex; align-items: center; gap: 6px; }
 .table-note .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .table-note .dot-a { background: var(--accent); } .table-note .dot-b { background: var(--green); } .table-note .dot-c { background: var(--blue); }
 
-/* ===== SLIDE 9: 總結 — 四卡高度一致+結論句 ===== */
+/* ===== SLIDE 9: 總結 ===== */
 .s9 { background: linear-gradient(135deg, #0B1D3A, #1A3A6B); justify-content: center; }
 .s9::before { content:''; position:absolute; top:-100px; left:-100px; width:400px; height:400px; background: radial-gradient(circle, rgba(212,168,67,0.08), transparent); border-radius:50%; pointer-events: none; }
 .s9::after  { content:''; position:absolute; bottom:-100px; right:-100px; width:400px; height:400px; background: radial-gradient(circle, rgba(42,109,184,0.1), transparent); border-radius:50%; pointer-events: none; }
-.s9 h2 { font-size: 40px; color: var(--accent); font-weight: 900; margin-bottom: 28px; text-align: center; }
-.s9 .conclusion { text-align: center; font-size: 20px; color: var(--text2); margin-bottom: 24px; background: rgba(18,46,85,0.5); padding: 14px 28px; border-radius: 30px; display: inline-block; border: 1px solid rgba(212,168,67,0.3); align-self: center; }
-.summary-wrap { display: flex; flex-direction: column; gap: 16px; max-width: 1100px; margin: 0 auto; width: 100%; }
-.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.s9 h2 { font-size: 40px; color: var(--accent); font-weight: 900; margin-bottom: 20px; text-align: center; }
+.s9 .conclusion { text-align: center; font-size: 20px; color: var(--text2); margin-bottom: 20px; background: rgba(18,46,85,0.5); padding: 14px 28px; border-radius: 30px; border: 1px solid rgba(212,168,67,0.3); align-self: center; }
+.summary-wrap { display: flex; flex-direction: column; gap: 14px; max-width: 1100px; margin: 0 auto; width: 100%; }
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .summary-card { background: rgba(18,46,85,0.75); border-radius: 16px; padding: 22px 24px; display: flex; gap: 16px; align-items: flex-start; backdrop-filter: blur(8px); min-height: 100px; position: relative; overflow: hidden; }
-/* 四張卡片左側漸層邊界各不同 */
 .summary-card::before { content:''; position:absolute; top:0; left:0; bottom:0; width: 7px; }
 .summary-card:nth-child(1)::before { background: linear-gradient(to bottom, var(--accent), rgba(212,168,67,0.2)); width: 8px; }
 .summary-card:nth-child(2)::before { background: linear-gradient(to bottom, var(--blue), rgba(42,109,184,0.2)); border-radius: 0 4px 4px 0; }
@@ -237,7 +237,7 @@ tr:nth-child(even) td { background: rgba(42,109,184,0.15); }
   <div class="corner-hex ch4"></div>
   <div class="fg-hex"></div>
   <h1>2026年政府新制<br>惠民措施總整理</h1>
-  <div class="sub">V2 · 2026 Q2</div>
+  <div class="sub">V3 · 2026 Q2</div>
   <div class="tagline">熊熊每日簡報 · 政府公務</div>
   <div class="tag">01 / 10</div>
 </div>
@@ -257,72 +257,67 @@ tr:nth-child(even) td { background: rgba(42,109,184,0.15); }
   <div class="tag">02 / 10</div>
 </div>
 
-<!-- SLIDE 3: KPI — 三色靶心 -->
+<!-- SLIDE 3: KPI — 實心漸層圓，大小比例象徵金額（不誤導） -->
 <div class="slide s3" data-slide="3">
   <h2>三大惠民成果</h2>
   <div class="kpi-row">
     <div class="kpi">
-      <div class="kpi-rings">
-        <svg viewBox="0 0 200 200"><circle class="ring-track" cx="100" cy="100" r="82" fill="none" stroke-width="12"/><circle class="ring-prog" cx="100" cy="100" r="82" fill="none" stroke-width="12" stroke-dasharray="360 515" stroke-linecap="round"/></svg>
-        <div class="core"><span class="kpi-val">6K</span><span class="kpi-sub">/ 月</span></div>
-      </div>
+      <div class="kpi-circle"><span class="kpi-val">6K</span><span class="kpi-sub2">/ 月</span></div>
       <div class="kpi-label">基本工資月薪<br>調整至 6,000 元</div>
     </div>
     <div class="kpi">
-      <div class="kpi-rings">
-        <svg viewBox="0 0 200 200"><circle class="ring-track" cx="100" cy="100" r="82" fill="none" stroke-width="12"/><circle class="ring-prog" cx="100" cy="100" r="82" fill="none" stroke-width="12" stroke-dasharray="480 515" stroke-linecap="round"/></svg>
-        <div class="core"><span class="kpi-val">18K</span><span class="kpi-sub">/ 月</span></div>
-      </div>
+      <div class="kpi-circle"><span class="kpi-val">18K</span><span class="kpi-sub2">/ 月</span></div>
       <div class="kpi-label">低收入戶補助<br>調增達 18,000 元</div>
     </div>
     <div class="kpi">
-      <div class="kpi-rings">
-        <svg viewBox="0 0 200 200"><circle class="ring-track" cx="100" cy="100" r="82" fill="none" stroke-width="12"/><circle class="ring-prog" cx="100" cy="100" r="82" fill="none" stroke-width="12" stroke-dasharray="200 515" stroke-linecap="round"/></svg>
-        <div class="core"><span class="kpi-val">50K</span><span class="kpi-sub">/ 月</span></div>
-      </div>
+      <div class="kpi-circle"><span class="kpi-val">50K</span><span class="kpi-sub2">/ 月</span></div>
       <div class="kpi-label">幼兒津貼<br>每月資助 50,000 元</div>
     </div>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent);"></div>基本工資</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue);"></div>低收入補助</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div>幼兒津貼</div>
   </div>
   <div class="tag">03 / 10</div>
 </div>
 
-<!-- SLIDE 4: 流程圖 — 左右對稱雙欄 + 右側摘要 -->
+<!-- SLIDE 4: 流程圖 — Z字形蛇行，充分利用左右空間 -->
 <div class="slide s4" data-slide="4">
   <h2>補助申請流程</h2>
   <div class="flow-wrap">
-    <!-- 左欄：步驟 1-3 -->
-    <div class="flow-col-l">
+    <!-- 左欄：步驟 1, 3 -->
+    <div class="flow-l">
       <div class="flow-step">
         <div class="flow-num">1</div>
         <div class="flow-text">備妥身份證、戶口名簿、帳戶影本</div>
       </div>
-      <div class="flow-conn"><div class="dot"></div><div class="line"></div></div>
-      <div class="flow-step">
-        <div class="flow-num">2</div>
-        <div class="flow-text">至戶籍所在地公所或線上平台提出申請</div>
-      </div>
-      <div class="flow-conn"><div class="dot"></div><div class="line"></div></div>
       <div class="flow-step">
         <div class="flow-num">3</div>
         <div class="flow-text">主管機關審核（ 約 14 個工作天 ）</div>
       </div>
     </div>
-    <!-- 分隔線 -->
-    <div style="width:2px; background:linear-gradient(to bottom, transparent, rgba(212,168,67,0.3), transparent); flex-shrink:0;"></div>
-    <!-- 右欄：步驟 4-5 -->
-    <div class="flow-col-r">
+    <div class="flow-divider"></div>
+    <!-- 中欄：步驟 2, 4, 5（Z字形走位） -->
+    <div class="flow-m">
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-text">至戶籍所在地公所或線上平台提出申請</div>
+      </div>
+      <div class="z-conn z-conn-r"><div class="line"></div><div class="dot"></div></div>
       <div class="flow-step">
         <div class="flow-num">4</div>
         <div class="flow-text">核定後直接匯入指定帳戶</div>
       </div>
-      <div class="flow-conn"><div class="dot"></div><div class="line"></div></div>
+      <div class="z-conn z-conn-l"><div class="dot"></div><div class="line"></div></div>
       <div class="flow-step">
         <div class="flow-num">5</div>
         <div class="flow-text">收到通知簡訊，上網查詢核付進度</div>
       </div>
     </div>
-    <!-- 右側摘要 -->
-    <div class="flow-summary">
+    <div class="flow-divider"></div>
+    <!-- 右欄：摘要卡 -->
+    <div class="flow-r">
       <div class="flow-sum-card">
         <div class="flow-sum-title">所需證件</div>
         <div class="flow-sum-body">身份證、戶口名簿、帳戶影本</div>
@@ -373,17 +368,17 @@ tr:nth-child(even) td { background: rgba(42,109,184,0.15); }
   <div class="tag">05 / 10</div>
 </div>
 
-<!-- SLIDE 6: 蜂巢圖 — 加大尺寸 -->
+<!-- SLIDE 6: 蜂巢圖 — 擴大至填滿 -->
 <div class="slide s6" data-slide="6">
   <h2>各項補助金額一覽</h2>
-  <div class="subtitle">2026 年各項補助項目（大小代表補助金額高低）</div>
+  <div class="subtitle">補助項目 — 六角形大小象徵補助金額高低</div>
   <div class="hex-section">
-    <!-- 第一排：最大補助（幼兒津貼50K、低收入18K） -->
+    <!-- 第一排：最大補助 -->
     <div class="hex-row">
-      <div class="hex-wrap hex-lg"><div class="hex-inner"><span class="hex-amount">6,000</span><span class="hex-label">基本工資/月</span></div></div>
+      <div class="hex-wrap hex-md"><div class="hex-inner"><span class="hex-amount">6,000</span><span class="hex-label">基本工資/月</span></div></div>
       <div class="hex-wrap hex-xl"><div class="hex-inner"><span class="hex-amount">18,000</span><span class="hex-label">低收入戶/月</span></div></div>
       <div class="hex-wrap hex-xl"><div class="hex-inner"><span class="hex-amount">50,000</span><span class="hex-label">幼兒津貼/月</span></div></div>
-      <div class="hex-wrap hex-lg"><div class="hex-inner"><span class="hex-amount">8,000</span><span class="hex-label">租屋補貼/月</span></div></div>
+      <div class="hex-wrap hex-md"><div class="hex-inner"><span class="hex-amount">8,000</span><span class="hex-label">租屋補貼/月</span></div></div>
     </div>
     <!-- 第二排：中等補助 -->
     <div class="hex-row">
@@ -401,13 +396,14 @@ tr:nth-child(even) td { background: rgba(42,109,184,0.15); }
   <div class="tag">06 / 10</div>
 </div>
 
-<!-- SLIDE 7: 柱狀圖 — 目標線統一頂端，縣市放柱內，達標/未達標標記 -->
+<!-- SLIDE 7: 柱狀圖 — 目標水平線貫穿全圖，柱撐滿高度 -->
 <div class="slide s7" data-slide="7">
   <h2>各縣市補助金額比較</h2>
-  <div class="target-line-wrap">
-    <div class="target-pill">★ 補助目標：15K</div>
-  </div>
-  <div class="chart-area">
+  <div class="target-pill">★ 補助目標：15K</div>
+  <div class="chart-outer">
+    <!-- 15K 目標水平線：top:25% 表示 15K/20K=75%（從底部算），實際在 75% 高度位置 -->
+    <div class="goal-line"></div>
+    <div class="goal-label">目標 15K</div>
     <div class="chart">
       <!-- 新北 8K → 未達 -->
       <div class="bar-wrap below" style="align-items:center;">
@@ -434,12 +430,12 @@ tr:nth-child(even) td { background: rgba(42,109,184,0.15); }
         <div class="bar bar-exceed" style="height:213px;"><span class="bar-val">16K</span><span class="bar-label-overlay">高雄</span></div>
       </div>
     </div>
-    <div class="chart-note">✓ 臺北、高雄超越目標　↑ 其餘縣市低於目標，仍有努力空間</div>
+    <div class="chart-note">✓ 臺北(18K)、高雄(16K)超越目標　↑ 其餘縣市低於目標，仍有努力空間</div>
   </div>
   <div class="tag">07 / 10</div>
 </div>
 
-<!-- SLIDE 8: 表格 — 縮小留白，底部加備註 -->
+<!-- SLIDE 8: 表格 -->
 <div class="slide s8" data-slide="8">
   <h2>五大福利新規定</h2>
   <div class="table-wrap">
@@ -460,7 +456,7 @@ tr:nth-child(even) td { background: rgba(42,109,184,0.15); }
   <div class="tag">08 / 10</div>
 </div>
 
-<!-- SLIDE 9: 總結 — 結論句 + 四卡高度一致 -->
+<!-- SLIDE 9: 總結 -->
 <div class="slide s9" data-slide="9">
   <h2>本週重點回顧</h2>
   <div class="summary-wrap">
@@ -492,7 +488,7 @@ tr:nth-child(even) td { background: rgba(42,109,184,0.15); }
   <h2>感謝聆聽</h2>
   <div class="divider"></div>
   <p>2026 年政府新制惠民措施</p>
-  <div class="date">熊熊每日簡報 · 政府公務 · V2 · 2026/06/22</div>
+  <div class="date">熊熊每日簡報 · 政府公務 · V3 · 2026/06/22</div>
   <div class="tag">10 / 10</div>
 </div>
 
