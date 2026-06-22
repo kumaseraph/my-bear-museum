@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊溫暖棕金色系 -->
+    <linearGradient id="diamondBrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5D4037"/>
+      <stop offset="50%" stop-color="#8D6E63"/>
+      <stop offset="100%" stop-color="#5D4037"/>
+    </linearGradient>
+    <linearGradient id="starGold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient>
+    
+    <!-- 菱形圖案 -->
+    <pattern id="diamondPattern" x="0" y="0" width="60" height="80" patternUnits="userSpaceOnUse">
+      <polygon points="30,0 60,40 30,80 0,40" fill="none" stroke="#5D4037" stroke-width="2" opacity="0.5"/>
+      <polygon points="30,10 50,40 30,70 10,40" fill="#8D6E63" fill-opacity="0.3"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景襯底 -->
+  <rect width="1920" height="1080" fill="#F5F5DC"/>
+  
+  <!-- 頂部邊框 - 菱形條帶 -->
+  <rect x="30" y="30" width="1860" height="60" fill="url(#diamondPattern)"/>
+  <rect x="30" y="30" width="1860" height="4" fill="url(#diamondBrown)"/>
+  <rect x="30" y="86" width="1860" height="4" fill="url(#diamondBrown)"/>
+  
+  <!-- 底部邊框 - 菱形條帶 -->
+  <rect x="30" y="990" width="1860" height="60" fill="url(#diamondPattern)"/>
+  <rect x="30" y="990" width="1860" height="4" fill="url(#diamondBrown)"/>
+  <rect x="30" y="1046" width="1860" height="4" fill="url(#diamondBrown)"/>
+  
+  <!-- 左側邊框 -->
+  <rect x="30" y="30" width="60" height="1020" fill="url(#diamondPattern)" transform="rotate(90, 60, 540)"/>
+  <rect x="30" y="30" width="4" height="1020" fill="url(#diamondBrown)"/>
+  <rect x="86" y="30" width="4" height="1020" fill="url(#diamondBrown)"/>
+  
+  <!-- 右側邊框 -->
+  <rect x="1830" y="30" width="60" height="1020" fill="url(#diamondPattern)" transform="rotate(90, 1860, 540)"/>
+  <rect x="1830" y="30" width="4" height="1020" fill="url(#diamondBrown)"/>
+  <rect x="1886" y="30" width="4" height="1020" fill="url(#diamondBrown)"/>
+  
+  <!-- 四角裝飾 - 菱形包圍五角星 -->
+  <!-- 左上角 -->
+  <g transform="translate(60, 60)">
+    <polygon points="40,0 80,40 40,80 0,40" fill="none" stroke="#5D4037" stroke-width="3"/>
+    <polygon points="40,15 50,35 70,35 55,48 60,68 40,55 20,68 25,48 10,35 30,35" 
+             fill="url(#starGold)" stroke="#5D4037" stroke-width="1.5"/>
+  </g>
+  
+  <!-- 右上角 -->
+  <g transform="translate(1820, 60)">
+    <polygon points="40,0 80,40 40,80 0,40" fill="none" stroke="#5D4037" stroke-width="3"/>
+    <polygon points="40,15 50,35 70,35 55,48 60,68 40,55 20,68 25,48 10,35 30,35" 
+             fill="url(#starGold)" stroke="#5D4037" stroke-width="1.5"/>
+  </g>
+  
+  <!-- 左下角 -->
+  <g transform="translate(60, 940)">
+    <polygon points="40,0 80,40 40,80 0,40" fill="none" stroke="#5D4037" stroke-width="3"/>
+    <polygon points="40,15 50,35 70,35 55,48 60,68 40,55 20,68 25,48 10,35 30,35" 
+             fill="url(#starGold)" stroke="#5D4037" stroke-width="1.5"/>
+  </g>
+  
+  <!-- 右下角 -->
+  <g transform="translate(1820, 940)">
+    <polygon points="40,0 80,40 40,80 0,40" fill="none" stroke="#5D4037" stroke-width="3"/>
+    <polygon points="40,15 50,35 70,35 55,48 60,68 40,55 20,68 25,48 10,35 30,35" 
+             fill="url(#starGold)" stroke="#5D4037" stroke-width="1.5"/>
+  </g>
+</svg>

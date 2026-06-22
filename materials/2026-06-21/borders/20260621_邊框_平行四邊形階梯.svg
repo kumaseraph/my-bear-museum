@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊溫暖棕金色系 -->
+    <linearGradient id="stepBrown" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5D4037"/>
+      <stop offset="100%" stop-color="#8D6E63"/>
+    </linearGradient>
+    <linearGradient id="stepGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFB300"/>
+      <stop offset="100%" stop-color="#FFD54F"/>
+    </linearGradient>
+    
+    <!-- 條紋圖案 -->
+    <pattern id="diagonalStripes" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="20" stroke="#FFD54F" stroke-width="4" opacity="0.6"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景襯底 -->
+  <rect width="1920" height="1080" fill="#F5F5DC"/>
+  
+  <!-- 頂部階梯式邊框 -->
+  <g transform="translate(30, 25)">
+    <!-- 第一層階梯 -->
+    <polygon points="0,0 400,0 380,40 0,50" fill="url(#stepBrown)"/>
+    <polygon points="400,0 800,0 780,40 380,50" fill="#6D4C41"/>
+    <polygon points="800,0 1200,0 1180,40 780,50" fill="url(#stepBrown)"/>
+    <polygon points="1200,0 1600,0 1580,40 1180,50" fill="#6D4C41"/>
+    <polygon points="1600,0 1860,0 1860,50 1580,50" fill="url(#stepBrown)"/>
+    <!-- 條紋疊加 -->
+    <polygon points="0,0 1860,0 1860,50 0,50" fill="url(#diagonalStripes)" opacity="0.4"/>
+  </g>
+  
+  <!-- 底部階梯式邊框 -->
+  <g transform="translate(30, 1005)">
+    <!-- 第一層階梯 -->
+    <polygon points="0,0 400,0 380,40 0,50" fill="url(#stepBrown)" transform="scale(1,-1) translate(0,-50)"/>
+    <polygon points="400,0 800,0 780,40 380,50" fill="#6D4C41" transform="scale(1,-1) translate(0,-50)"/>
+    <polygon points="800,0 1200,0 1180,40 780,50" fill="url(#stepBrown)" transform="scale(1,-1) translate(0,-50)"/>
+    <polygon points="1200,0 1600,0 1580,40 1180,50" fill="#6D4C41" transform="scale(1,-1) translate(0,-50)"/>
+    <polygon points="1600,0 1860,0 1860,50 1580,50" fill="url(#stepBrown)" transform="scale(1,-1) translate(0,-50)"/>
+    <!-- 條紋疊加 -->
+    <polygon points="0,0 1860,0 1860,50 0,50" fill="url(#diagonalStripes)" opacity="0.4" transform="scale(1,-1) translate(0,-50)"/>
+  </g>
+  
+  <!-- 左側邊框 -->
+  <g transform="translate(25, 75)">
+    <polygon points="0,0 50,0 40,200 0,220" fill="url(#stepBrown)"/>
+    <polygon points="0,200 40,200 30,400 0,420" fill="#6D4C41"/>
+    <polygon points="0,400 30,400 20,600 0,620" fill="url(#stepBrown)"/>
+    <polygon points="0,600 20,600 10,800 0,820" fill="#6D4C41"/>
+    <polygon points="0,800 10,800 0,930 0,820" fill="url(#stepBrown)"/>
+  </g>
+  
+  <!-- 右側邊框 -->
+  <g transform="translate(1845, 75)">
+    <polygon points="0,0 50,0 50,220 40,200" fill="url(#stepBrown)"/>
+    <polygon points="40,200 50,220 50,420 30,400" fill="#6D4C41"/>
+    <polygon points="30,400 50,420 50,620 20,600" fill="url(#stepBrown)"/>
+    <polygon points="20,600 50,620 50,820 10,800" fill="#6D4C41"/>
+    <polygon points="10,800 50,820 50,930 0,930" fill="url(#stepBrown)"/>
+  </g>
+  
+  <!-- 連接線裝飾 - 邊界引導線效果 -->
+  <line x1="75" y1="75" x2="75" y2="1005" stroke="#FFB300" stroke-width="2" stroke-dasharray="10,5" opacity="0.6"/>
+  <line x1="1845" y1="75" x2="1845" y2="1005" stroke="#FFB300" stroke-width="2" stroke-dasharray="10,5" opacity="0.6"/>
+</svg>

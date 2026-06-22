@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" width="500" height="400">
+  <defs>
+    <!-- 熊熊溫暖棕金色系 -->
+    <linearGradient id="honeyCenter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5D4037"/>
+      <stop offset="100%" stop-color="#8D6E63"/>
+    </linearGradient>
+    <linearGradient id="honeyRing1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8D6E63"/>
+      <stop offset="100%" stop-color="#A1887F"/>
+    </linearGradient>
+    <linearGradient id="honeyRing2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB300"/>
+      <stop offset="100%" stop-color="#FFD54F"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景襯底 -->
+  <rect width="500" height="400" fill="#FFF8E1"/>
+  
+  <!-- 蜂巢叢集 - 尺寸漸層效果 -->
+  <g transform="translate(250, 200)">
+    <!-- 中心大六邊形 -->
+    <g>
+      <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z" 
+            fill="url(#honeyCenter)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" 
+            fill="none" stroke="#FFD54F" stroke-width="2"/>
+      <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#FFD54F">核心</text>
+    </g>
+    
+    <!-- 中環 - 6個六邊形 -->
+    <g transform="rotate(0) translate(0, -86.6)">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="url(#honeyRing1)"/>
+    </g>
+    <g transform="rotate(60) translate(0, -86.6)">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="url(#honeyRing1)"/>
+    </g>
+    <g transform="rotate(120) translate(0, -86.6)">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="url(#honeyRing1)"/>
+    </g>
+    <g transform="rotate(180) translate(0, -86.6)">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="url(#honeyRing1)"/>
+    </g>
+    <g transform="rotate(240) translate(0, -86.6)">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="url(#honeyRing1)"/>
+    </g>
+    <g transform="rotate(300) translate(0, -86.6)">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+            fill="url(#honeyRing1)"/>
+    </g>
+    
+    <!-- 外環 - 12個小六邊形 -->
+    <g transform="rotate(30) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+    <g transform="rotate(60) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+    <g transform="rotate(90) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+    <g transform="rotate(120) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+    <g transform="rotate(150) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+    <g transform="rotate(180) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+    <g transform="rotate(210) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+    <g transform="rotate(240) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+    <g transform="rotate(270) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+    <g transform="rotate(300) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+    <g transform="rotate(330) translate(0, -150)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" 
+            fill="url(#honeyRing2)" opacity="0.8"/>
+    </g>
+  </g>
+  
+  <!-- 標題 -->
+  <text x="250" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#5D4037">蜂巢叢集資訊架構</text>
+</svg>

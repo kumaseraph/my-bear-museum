@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊溫暖棕金色系 -->
+    <linearGradient id="brownGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5D4037"/>
+      <stop offset="50%" stop-color="#8D6E63"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient>
+    <linearGradient id="goldShine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient>
+    
+    <!-- 六邊形蜂巢圖案 -->
+    <pattern id="honeycombBorder" x="0" y="0" width="86.6" height="100" patternUnits="userSpaceOnUse">
+      <!-- 大六邊形 (s=50) -->
+      <path d="M43.3,5 L78,27.5 L78,72.5 L43.3,95 L8.6,72.5 L8.6,27.5 Z" 
+            fill="none" stroke="#5D4037" stroke-width="3"/>
+      <!-- 內部實心六邊形 (2.5D效果) -->
+      <path d="M43.3,15 L70,33.5 L70,66.5 L43.3,85 L16.6,66.5 L16.6,33.5 Z" 
+            fill="#8D6E63" fill-opacity="0.4"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景襯底 -->
+  <rect width="1920" height="1080" fill="#F5F5DC"/>
+  
+  <!-- 頂部邊框 -->
+  <rect x="30" y="30" width="1860" height="80" fill="url(#honeycombBorder)" opacity="0.9"/>
+  <rect x="30" y="30" width="1860" height="5" fill="#5D4037"/>
+  <rect x="30" y="105" width="1860" height="5" fill="#5D4037"/>
+  
+  <!-- 底部邊框 -->
+  <rect x="30" y="970" width="1860" height="80" fill="url(#honeycombBorder)" opacity="0.9"/>
+  <rect x="30" y="970" width="1860" height="5" fill="#5D4037"/>
+  <rect x="30" y="1045" width="1860" height="5" fill="#5D4037"/>
+  
+  <!-- 左側邊框 -->
+  <rect x="30" y="30" width="80" height="1020" fill="url(#honeycombBorder)" opacity="0.9" transform="rotate(90, 70, 540)"/>
+  <rect x="30" y="30" width="5" height="1020" fill="#5D4037"/>
+  <rect x="105" y="30" width="5" height="1020" fill="#5D4037"/>
+  
+  <!-- 右側邊框 -->
+  <rect x="1810" y="30" width="80" height="1020" fill="url(#honeycombBorder)" opacity="0.9" transform="rotate(90, 1850, 540)"/>
+  <rect x="1810" y="30" width="5" height="1020" fill="#5D4037"/>
+  <rect x="1885" y="30" width="5" height="1020" fill="#5D4037"/>
+  
+  <!-- 四角裝飾 - 金色五角星 -->
+  <g transform="translate(70, 70)">
+    <polygon points="30,5 36,22 55,22 40,33 46,50 30,40 14,50 20,33 5,22 24,22" 
+             fill="url(#goldShine)" stroke="#5D4037" stroke-width="2"/>
+  </g>
+  <g transform="translate(1850, 70)">
+    <polygon points="30,5 36,22 55,22 40,33 46,50 30,40 14,50 20,33 5,22 24,22" 
+             fill="url(#goldShine)" stroke="#5D4037" stroke-width="2"/>
+  </g>
+  <g transform="translate(70, 1010)">
+    <polygon points="30,5 36,22 55,22 40,33 46,50 30,40 14,50 20,33 5,22 24,22" 
+             fill="url(#goldShine)" stroke="#5D4037" stroke-width="2"/>
+  </g>
+  <g transform="translate(1850, 1010)">
+    <polygon points="30,5 36,22 55,22 40,33 46,50 30,40 14,50 20,33 5,22 24,22" 
+             fill="url(#goldShine" stroke="#5D4037" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <!-- 熊熊溫暖棕金色系 -->
+    <linearGradient id="iconBrown" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8D6E63"/>
+      <stop offset="100%" stop-color="#5D4037"/>
+    </linearGradient>
+    <linearGradient id="iconGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD54F"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景圓形 -->
+  <circle cx="50" cy="50" r="45" fill="#FFF8E1" stroke="#5D4037" stroke-width="2"/>
+  
+  <!-- 文件主體 - 平行四邊形效果 -->
+  <g transform="translate(50, 55)">
+    <!-- 文件背景 -->
+    <polygon points="-20,-25 20,-25 25,25 -25,25" fill="url(#iconBrown)" transform="skewX(-10)"/>
+    <!-- 文件內容線 -->
+    <line x1="-12" y1="-10" x2="15" y2="-10" stroke="#FFD54F" stroke-width="2" transform="skewX(-10)"/>
+    <line x1="-12" y1="0" x2="15" y2="0" stroke="#FFD54F" stroke-width="2" transform="skewX(-10)"/>
+    <line x1="-12" y1="10" x2="8" y2="10" stroke="#FFD54F" stroke-width="2" transform="skewX(-10)"/>
+  </g>
+  
+  <!-- 五角星裝飾 - 位於右上角 -->
+  <g transform="translate(72, 28)">
+    <polygon points="15,2 18,10 27,10 20,15 23,24 15,19 7,24 10,15 3,10 12,10" 
+             fill="url(#iconGold)" stroke="#5D4037" stroke-width="1"/>
+  </g>
+  
+  <!-- 底部曲線裝飾 -->
+  <path d="M25,75 Q50,85 75,75" fill="none" stroke="#8D6E63" stroke-width="2" stroke-linecap="round"/>
+</svg>

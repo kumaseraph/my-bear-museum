@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <!-- 熊熊溫暖棕金色系 -->
+    <linearGradient id="cardBrown" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8D6E63"/>
+      <stop offset="100%" stop-color="#5D4037"/>
+    </linearGradient>
+    <linearGradient id="cardGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFB300"/>
+      <stop offset="100%" stop-color="#FFD54F"/>
+    </linearGradient>
+    <!-- 六邊形陰影 -->
+    <filter id="hexShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="4" flood-color="#3E2723" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景襯底 -->
+  <rect width="400" height="300" fill="#FFF8E1"/>
+  
+  <!-- 主六邊形卡片 - 2.5D效果 -->
+  <g transform="translate(200, 150)" filter="url(#hexShadow)">
+    <!-- 外框 - 空心粗線 -->
+    <path d="M0,-100 L86.6,-50 L86.6,50 L0,100 L-86.6,50 L-86.6,-50 Z" 
+          fill="none" stroke="#5D4037" stroke-width="6"/>
+    <!-- 內部實心 -->
+    <path d="M0,-90 L77.9,-45 L77.9,45 L0,90 L-77.9,45 L-77.9,-45 Z" 
+          fill="url(#cardBrown)"/>
+    <!-- 金色強調線 -->
+    <path d="M0,-80 L69.3,-40 L69.3,40 L0,80 L-69.3,40 L-69.3,-40 Z" 
+          fill="none" stroke="#FFD54F" stroke-width="2" opacity="0.7"/>
+  </g>
+  
+  <!-- 標題區域 -->
+  <g transform="translate(200, 80)">
+    <rect x="-120" y="-20" width="240" height="40" rx="5" fill="url(#cardGold)"/>
+    <text x="0" y="8" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#5D4037">工作報告</text>
+  </g>
+  
+  <!-- 內容區域 - 三個小六邊形裝飾 -->
+  <g transform="translate(200, 180)">
+    <g transform="translate(-80, 0)">
+      <path d="M0,-25 L21.7,-12.5 L21.7,12.5 L0,25 L-21.7,12.5 L-21.7,-12.5 Z" 
+            fill="#FFB300" opacity="0.8"/>
+    </g>
+    <g transform="translate(0, 0)">
+      <path d="M0,-25 L21.7,-12.5 L21.7,12.5 L0,25 L-21.7,12.5 L-21.7,-12.5 Z" 
+            fill="#FFD54F"/>
+    </g>
+    <g transform="translate(80, 0)">
+      <path d="M0,-25 L21.7,-12.5 L21.7,12.5 L0,25 L-21.7,12.5 L-21.7,-12.5 Z" 
+            fill="#FFB300" opacity="0.8"/>
+    </g>
+  </g>
+  
+  <!-- 底部標籤 -->
+  <g transform="translate(200, 260)">
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#8D6E63">2026-06-21</text>
+  </g>
+</svg>
