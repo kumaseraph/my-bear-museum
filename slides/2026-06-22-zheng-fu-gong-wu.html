@@ -157,11 +157,11 @@ body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background:
 .s7 { background: var(--bg2); flex: 1; }
 .s7::before { content:''; position:absolute; inset:0; background-image: radial-gradient(circle, rgba(42,109,184,0.12) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
 .s7 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 10px; }
-.chart-outer { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; position: relative; }
-/* 15K目標水平線：top:8% 固定在圖表最上方，高於所有柱子（無論是否達標） */
-.chart-outer .goal-line { position: absolute; left: 60px; right: 60px; height: 2px; background: repeating-linear-gradient(to right, var(--accent), var(--accent) 8px, transparent 8px, transparent 12px); top: 8%; z-index: 2; }
-.chart-outer .goal-label { position: absolute; top: calc(8% - 28px); left: 56px; font-size: 14px; color: var(--accent); font-weight: 700; background: rgba(212,168,67,0.15); padding: 3px 10px; border-radius: 12px; border: 1px solid rgba(212,168,67,0.4); }
-.chart-outer .goal-note { position: absolute; top: calc(8% - 28px); right: 56px; font-size: 13px; color: rgba(200,216,238,0.65); font-style: italic; }
+.chart-outer { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; position: relative; min-height: 380px; }
+/* 15K目標線：top:0 絕對固定在 chart-outer 最頂端，高於所有柱子（無論是否達標） */
+.chart-outer .goal-line { position: absolute; left: 60px; right: 60px; height: 2px; background: repeating-linear-gradient(to right, var(--accent), var(--accent) 8px, transparent 8px, transparent 12px); top: 0; z-index: 2; }
+.chart-outer .goal-label { position: absolute; top: 4px; left: 56px; font-size: 14px; color: var(--accent); font-weight: 700; background: rgba(212,168,67,0.15); padding: 3px 10px; border-radius: 12px; border: 1px solid rgba(212,168,67,0.4); }
+.chart-outer .goal-note { position: absolute; top: 4px; right: 56px; font-size: 13px; color: rgba(200,216,238,0.65); font-style: italic; white-space: nowrap; }
 .chart { display: flex; align-items: flex-end; justify-content: center; gap: 24px; position: relative; z-index: 3; padding-bottom: 0; }
 .bar-wrap { display: flex; flex-direction: column; align-items: center; position: relative; flex: 1; max-width: 130px; }
 .bar { width: 72px; border-radius: 8px 8px 0 0; background: linear-gradient(to top, var(--accent), var(--accent2)); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 8px; }
