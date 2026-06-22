@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  
+  <!-- 高效執行圖標：菱形 + 五角星虛實對比 -->
+  <g transform="translate(960,540)">
+    <!-- 大菱形（實心） -->
+    <polygon points="0,-140 140,0 0,140 -140,0" fill="#6366F1"/>
+    <!-- 小菱形（空心線條） -->
+    <polygon points="0,-100 100,0 0,100 -100,0" 
+             fill="none" stroke="#C7D2FE" stroke-width="4"/>
+    <!-- 五角星（實心，金色） -->
+    <polygon points="0,-55 16,-17 55,-17 25,6 35,45 0,25 -35,45 -25,6 -55,-17 -16,-17" 
+             fill="#F59E0B"/>
+    <!-- 裝飾小星 -->
+    <polygon points="0,-15 5,-5 15,-5 7,2 10,12 0,7 -10,12 -7,2 -15,-5 -5,-5" 
+             fill="#FCD34D" transform="translate(100,80)"/>
+    <polygon points="0,-15 5,-5 15,-5 7,2 10,12 0,7 -10,12 -7,2 -15,-5 -5,-5" 
+             fill="#FCD34D" transform="translate(-100,80)"/>
+    <polygon points="0,-15 5,-5 15,-5 7,2 10,12 0,7 -10,12 -7,2 -15,-5 -5,-5" 
+             fill="#FCD34D" transform="translate(100,-80)"/>
+    <polygon points="0,-15 5,-5 15,-5 7,2 10,12 0,7 -10,12 -7,2 -15,-5 -5,-5" 
+             fill="#FCD34D" transform="translate(-100,-80)"/>
+  </g>
+</svg>

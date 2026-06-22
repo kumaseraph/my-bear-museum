@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大地暖色系封面示範 | 熊熊簡報</title>
+<style>
+:root {
+  --bg: #FFF8F0;         /* 米白/奶油 */
+  --bg2: #F5F0E8;       /* 暖灰米 */
+  --card: #EDE5DA;       /* 卡片背景 */
+  --accent: #A26769;    /* 陶土玫瑰 */
+  --accent2: #7F4F24;   /* 深棕 */
+  --brown: #7F4F24;     /* 深棕/文字 */
+  --warm-light: #C4A882; /* 淡褐 */
+  --text: #7F4F24;       /* 深棕文字 */
+  --text2: #9A7B5A;      /* 淺棕副文字 */
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); color: var(--text); font-size: 22px; line-height: 1.6; }
+.slide { width: 100vw; height: 100vh; display: flex; flex-direction: column; padding: 60px 80px; position: relative; overflow: hidden; }
+
+/* ===== 封面 ===== */
+.s1 { background: var(--bg); justify-content: center; align-items: center; text-align: center; }
+
+/* 背景襯托：淡褐斜紋（極淡） */
+.s1::before { content:''; position:absolute; inset:0; background: repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(196,168,130,0.06) 60px, rgba(196,168,130,0.06) 61px); pointer-events: none; }
+
+/* 三圓環交疊背景裝飾 */
+.circles-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0; opacity: 0.12; }
+.circles-bg circle { fill: none; stroke: var(--accent); stroke-width: 2; }
+
+/* 雙線方框裝飾 */
+.double-border { position: absolute; top: 40px; left: 40px; right: 40px; bottom: 40px; border: 1.5px solid var(--warm-light); border-radius: 4px; z-index: 1; }
+.double-border::before { content:''; position:absolute; inset: 8px; border: 1px solid rgba(196,168,130,0.5); border-radius: 3px; }
+
+/* 底部水彩暈染 */
+.s1::after { content:''; position:absolute; bottom:-100px; left:50%; transform:translateX(-50%); width:800px; height:300px; background: radial-gradient(ellipse, rgba(162,103,105,0.1), transparent); pointer-events: none; z-index: 0; }
+
+/* 前景內容 */
+.fg-content { position: relative; z-index: 2; }
+
+/* 主標題上方裝飾線 */
+.ornament { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 28px; }
+.ornament-line { width: 80px; height: 1px; background: var(--warm-light); }
+.ornament-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); opacity: 0.7; }
+
+h1 { font-size: 54px; font-weight: 900; color: var(--brown); text-shadow: 0 2px 12px rgba(127,79,36,0.08); margin-bottom: 20px; line-height: 1.3; letter-spacing: 2px; }
+.sub { font-size: 24px; color: var(--accent); letter-spacing: 6px; margin-bottom: 32px; font-weight: 500; }
+.tagline { font-size: 18px; color: var(--text2); letter-spacing: 2px; }
+
+/* 底部裝飾小字 */
+.footer-note { position: absolute; bottom: 30px; right: 40px; font-size: 13px; color: var(--warm-light); letter-spacing: 1px; }
+
+/* ===== 第二頁：配色系統 ===== */
+.s2 { background: var(--bg2); }
+.s2 h2 { font-size: 34px; color: var(--brown); font-weight: 900; margin-bottom: 8px; }
+.s2 .line { width: 100%; height: 1.5px; background: linear-gradient(to right, var(--warm-light), transparent); margin: 16px 0 28px; }
+.color-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+.color-swatch { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.color-block { width: 90px; height: 90px; border-radius: 50%; border: 2px solid rgba(196,168,130,0.3); display: flex; align-items: center; justify-content: center; font-size: 12px; color: rgba(127,79,36,0.7); font-weight: 600; }
+.color-name { font-size: 13px; color: var(--text2); text-align: center; }
+.color-hex { font-size: 11px; color: var(--warm-light); font-family: monospace; }
+
+/* 圖示展示 */
+.icon-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.icon-demo { width: 64px; height: 64px; border-radius: 16px; background: var(--card); border: 1.5px solid var(--warm-light); display: flex; align-items: center; justify-content: center; }
+.icon-demo svg { width: 36px; height: 36px; }
+
+/* 底部說明 */
+.s2 .note { position: absolute; bottom: 30px; left: 80px; font-size: 14px; color: var(--text2); }
+.s2 .note strong { color: var(--accent); }
+
+.nav { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 20px; z-index: 100; background: rgba(245,240,232,0.9); padding: 12px 28px; border-radius: 40px; border: 1.5px solid var(--warm-light); backdrop-filter: blur(8px); }
+.nav button { background: none; border: none; color: var(--brown); font-size: 24px; cursor: pointer; padding: 6px 14px; border-radius: 50%; transition: all 0.2s; }
+.nav button:hover { background: var(--accent); color: #fff; }
+.nav span { color: var(--brown); font-weight: bold; font-size: 20px; min-width: 60px; text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: 封面 -->
+<div class="slide s1 active" id="slide1">
+  <!-- 雙線方框 -->
+  <div class="double-border"></div>
+
+  <!-- 圓環交疊背景 -->
+  <svg class="circles-bg" width="700" height="350" viewBox="0 0 700 350">
+    <circle cx="220" cy="175" r="140" stroke="#A26769" stroke-width="3" fill="none" opacity="0.6"/>
+    <circle cx="350" cy="175" r="140" stroke="#7F4F24" stroke-width="3" fill="none" opacity="0.4"/>
+    <circle cx="480" cy="175" r="140" stroke="#C4A882" stroke-width="3" fill="none" opacity="0.5"/>
+  </svg>
+
+  <!-- 前景 -->
+  <div class="fg-content">
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-dot"></div>
+      <div class="ornament-line"></div>
+    </div>
+    <h1>2026年政府新制惠民措施</h1>
+    <div class="sub">大 地 暖 色 系 風 格</div>
+    <div class="tagline">極簡留白 · 有機幾何 · 禪意美學</div>
+  </div>
+
+  <div class="footer-note">熊熊每日簡報 2026-06-22</div>
+</div>
+
+<!-- SLIDE 2: 配色系統 -->
+<div class="slide s2" id="slide2">
+  <h2>大地暖色系配色系統</h2>
+  <div class="line"></div>
+
+  <div class="color-row">
+    <div class="color-swatch">
+      <div class="color-block" style="background:#FFF8F0;">TEXT</div>
+      <div class="color-name">米白背景</div>
+      <div class="color-hex">#FFF8F0</div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-block" style="background:#F5F0E8;">TEXT</div>
+      <div class="color-name">暖灰米</div>
+      <div class="color-hex">#F5F0E8</div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-block" style="background:#EDE5DA;">TEXT</div>
+      <div class="color-name">卡片背景</div>
+      <div class="color-hex">#EDE5DA</div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-block" style="background:#7F4F24; color:#FFF8F0;">TEXT</div>
+      <div class="color-name">深棕/標題</div>
+      <div class="color-hex">#7F4F24</div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-block" style="background:#A26769; color:#FFF8F0;">TEXT</div>
+      <div class="color-name">陶土玫瑰</div>
+      <div class="color-hex">#A26769</div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-block" style="background:#C4A882; color:#fff;">TEXT</div>
+      <div class="color-name">淡褐</div>
+      <div class="color-hex">#C4A882</div>
+    </div>
+    <div class="color-swatch">
+      <div class="color-block" style="background:#9A7B5A; color:#fff;">TEXT</div>
+      <div class="color-name">淺棕副文字</div>
+      <div class="color-hex">#9A7B5A</div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:16px; font-size:28px;">SVG 圖示應用（深棕線條）</h2>
+  <div class="line"></div>
+  <div class="icon-row">
+    <!-- house hex -->
+    <div class="icon-demo">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#7F4F24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 28 L32 10 L52 28"/>
+        <path d="M18 24 L18 50 L46 50 L46 24"/>
+        <rect x="26" y="36" width="12" height="14" rx="1"/>
+      </svg>
+    </div>
+    <!-- calendar circle -->
+    <div class="icon-demo">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#7F4F24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="10" y="16" width="44" height="40" rx="4"/>
+        <line x1="10" y1="28" x2="54" y2="28"/>
+        <line x1="22" y1="8" x2="22" y2="20"/>
+        <line x1="42" y1="8" x2="42" y2="20"/>
+        <circle cx="26" cy="40" r="3"/>
+        <circle cx="38" cy="40" r="3"/>
+      </svg>
+    </div>
+    <!-- coin -->
+    <div class="icon-demo">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#7F4F24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="22"/>
+        <path d="M32 20 L32 26"/>
+        <path d="M26 30 Q32 26 38 30 Q32 34 26 30"/>
+        <path d="M26 38 Q32 42 38 38"/>
+      </svg>
+    </div>
+    <!-- check circle -->
+    <div class="icon-demo">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#7F4F24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="22"/>
+        <polyline points="20,32 28,40 44,24"/>
+      </svg>
+    </div>
+    <!-- target -->
+    <div class="icon-demo">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#7F4F24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="22"/>
+        <circle cx="32" cy="32" r="13"/>
+        <circle cx="32" cy="32" r="4" fill="#A26769" stroke="#A26769"/>
+      </svg>
+    </div>
+    <!-- star -->
+    <div class="icon-demo">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#7F4F24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="32,8 37,24 54,24 41,34 46,50 32,40 18,50 23,34 10,24 27,24"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="note"><strong>對比：</strong>金色系 → 大地暖色系｜深藍背景 → 米白背景｜剛硬幾何 → 有機禪意</div>
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+document.querySelector('.nav span').textContent = `${current + 1} / ${slides.length}`;
+
+function show(idx) {
+  slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  current = idx;
+  document.querySelector('.nav span').textContent = `${current + 1} / ${slides.length}`;
+}
+
+document.querySelector('.prev').addEventListener('click', () => show((current - 1 + slides.length) % slides.length));
+document.querySelector('.next').addEventListener('click', () => show((current + 1) % slides.length));
+document.addEventListener('keydown', e => { if(e.key==='ArrowRight'||e.key===' ') show((current+1)%slides.length); if(e.key==='ArrowLeft') show((current-1+slides.length)%slides.length); });
+</script>
+
+<div class="nav">
+  <button class="prev">◀</button>
+  <span></span>
+  <button class="next">▶</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  
+  <!-- 目標導向圖標：六邊形 + 三角形方向箭頭 -->
+  <g transform="translate(960,540)">
+    <!-- 六邊形底框 -->
+    <polygon points="0,-120 104,-60 104,60 0,120 -104,60 -104,-60" 
+             fill="#EEF2FF" stroke="#6366F1" stroke-width="5"/>
+    <!-- 向上三角形箭頭 -->
+    <polygon points="0,-60 52,30 0,15 -52,30" fill="#6366F1"/>
+    <!-- 六邊形頂點裝飾 -->
+    <g fill="#F59E0B">
+      <polygon points="0,-120 -8,-130 8,-130"/>
+      <polygon points="104,-60 96,-52 112,-52"/>
+      <polygon points="104,60 96,68 112,68"/>
+      <polygon points="0,120 -8,130 8,130"/>
+      <polygon points="-104,60 -96,68 -112,68"/>
+      <polygon points="-104,-60 -96,-52 -112,-52"/>
+    </g>
+  </g>
+</svg>

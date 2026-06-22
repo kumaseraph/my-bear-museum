@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通用 SVG 圖示系統 — 全覽 | 熊熊簡報</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'PingFang TC', sans-serif; background: #0B1D3A; color: #fff; }
+h1 { text-align: center; padding: 40px 20px 10px; font-size: 28px; color: #D4A843; letter-spacing: 3px; }
+.sub { text-align: center; color: #C8D8EE; font-size: 14px; margin-bottom: 30px; }
+.section { padding: 20px 40px 10px; }
+.section h2 { font-size: 16px; color: #D4A843; margin-bottom: 14px; letter-spacing: 2px; border-bottom: 1px solid rgba(212,168,67,0.3); padding-bottom: 6px; }
+.icon-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.icon-cell { width: 72px; height: 88px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; background: rgba(255,255,255,0.05); border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); cursor: pointer; transition: all 0.2s; }
+.icon-cell:hover { background: rgba(212,168,67,0.15); border-color: rgba(212,168,67,0.5); transform: scale(1.08); }
+.icon-cell svg { width: 40px; height: 40px; }
+.icon-name { font-size: 9px; color: rgba(200,216,238,0.6); letter-spacing: 0.5px; text-align: center; }
+.icon-frame { font-size: 8px; color: rgba(212,168,67,0.5); }
+</style>
+</head>
+<body>
+<h1>🐾 通用 SVG 圖示系統 — 全覽</h1>
+<p class="sub">43 種圖示 × 3 種框架 = 120+ 個 SVG &nbsp;|&nbsp; viewBox 0 0 64 &nbsp;|&nbsp; stroke-width 3px &nbsp;|&nbsp; 線條風格</p>
+
+<!-- ═══ 交通 ═══ -->
+<div class="section">
+<h2>🚗 交通 Transportation</h2>
+<div class="icon-grid">
+<div class="icon-cell"><svg viewBox="0 0 64 64"><path d="M12 28 L32 10 L52 28" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 24 L18 50 L46 50 L46 24" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="26" y="36" width="12" height="14" rx="1" stroke="#fff" stroke-width="3" fill="none"/></svg><span class="icon-name">house</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><rect x="10" y="16" width="44" height="40" rx="4" stroke="#fff" stroke-width="3" fill="none"/><line x1="10" y1="28" x2="54" y2="28" stroke="#fff" stroke-width="3"/><line x1="22" y1="8" x2="22" y2="20" stroke="#fff" stroke-width="3"/><line x1="42" y1="8" x2="42" y2="20" stroke="#fff" stroke-width="3"/><circle cx="26" cy="40" r="3" fill="#fff"/><circle cx="38" cy="40" r="3" fill="#fff"/></svg><span class="icon-name">calendar</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><path d="M16 12 L32 6 L48 12 L48 50 L16 50 Z" stroke="#fff" stroke-width="3" fill="none" stroke-linejoin="round"/><rect x="10" y="50" width="44" height="6" rx="2" stroke="#fff" stroke-width="3" fill="none"/><circle cx="22" cy="30" r="6" stroke="#fff" stroke-width="3" fill="none"/><circle cx="42" cy="30" r="6" stroke="#fff" stroke-width="3" fill="none"/></svg><span class="icon-name">car</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><rect x="10" y="16" width="44" height="40" rx="4" stroke="#fff" stroke-width="3" fill="none"/><line x1="10" y1="28" x2="54" y2="28" stroke="#fff" stroke-width="3"/><line x1="22" y1="8" x2="22" y2="20" stroke="#fff" stroke-width="3"/><line x1="42" y1="8" x2="42" y2="20" stroke="#fff" stroke-width="3"/><circle cx="26" cy="40" r="3" fill="#fff"/><circle cx="38" cy="40" r="3" fill="#fff"/></svg><span class="icon-name">bus</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><rect x="10" y="18" width="44" height="28" rx="4" stroke="#fff" stroke-width="3" fill="none"/><path d="M54 18 L58 32 L54 46" stroke="#fff" stroke-width="3" fill="none"/><rect x="14" y="22" width="12" height="10" rx="1" stroke="#fff" stroke-width="3" fill="none"/><rect x="32" y="22" width="12" height="10" rx="1" stroke="#fff" stroke-width="3" fill="none"/><line x1="8" y1="50" x2="56" y2="50" stroke="#fff" stroke-width="3"/><line x1="8" y1="54" x2="56" y2="54" stroke="#fff" stroke-width="3"/></svg><span class="icon-name">train</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><line x1="28" y1="14" x2="28" y2="48" stroke="#fff" stroke-width="3"/><line x1="36" y1="14" x2="36" y2="48" stroke="#fff" stroke-width="3"/><path d="M32 14 L25 14 L32 8 L39 14 L32 14" stroke="#fff" stroke-width="3" fill="none"/><path d="M28 28 L12 38 L12 42 L28 34" stroke="#fff" stroke-width="3" fill="none"/><path d="M36 28 L52 38 L52 42 L36 34" stroke="#fff" stroke-width="3" fill="none"/><line x1="29" y1="46" x2="24" y2="52" stroke="#fff" stroke-width="3"/><line x1="35" y1="46" x2="40" y2="52" stroke="#fff" stroke-width="3"/></svg><span class="icon-name">airplane</span><span class="icon-frame">hex</span></div>
+</div>
+</div>
+
+<!-- ═══ 趨勢 ═══ -->
+<div class="section">
+<h2>📈 趨勢 Trends</h2>
+<div class="icon-grid">
+<div class="icon-cell"><svg viewBox="0 0 64 64"><line x1="14" y1="46" x2="50" y2="46" stroke="#fff" stroke-width="3"/><line x1="14" y1="46" x2="14" y2="16" stroke="#fff" stroke-width="3"/><path d="M16 40 C22 40 26 28 32 28 C38 28 42 20 50 20" stroke="#fff" stroke-width="3" fill="none"/><path d="M50 20 L44 22 M50 20 L46 14" stroke="#fff" stroke-width="3"/></svg><span class="icon-name">trend_up</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><line x1="14" y1="18" x2="50" y2="18" stroke="#fff" stroke-width="3"/><line x1="14" y1="50" x2="14" y2="18" stroke="#fff" stroke-width="3"/><path d="M16 22 C22 22 26 34 32 34 C38 34 42 44 50 44" stroke="#fff" stroke-width="3" fill="none"/><path d="M50 44 L44 42 M50 44 L46 50" stroke="#fff" stroke-width="3"/></svg><span class="icon-name">trend_down</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><rect x="10" y="16" width="44" height="32" rx="4" stroke="#fff" stroke-width="3" fill="none"/><line x1="10" y1="28" x2="54" y2="28" stroke="#fff" stroke-width="3"/><line x1="22" y1="8" x2="22" y2="20" stroke="#fff" stroke-width="3"/><line x1="42" y1="8" x2="42" y2="20" stroke="#fff" stroke-width="3"/><circle cx="26" cy="40" r="3" fill="#fff"/><circle cx="38" cy="40" r="3" fill="#fff"/></svg><span class="icon-name">bar_chart</span><span class="icon-frame">hex</span></div>
+</div>
+</div>
+
+<!-- ═══ 機構 ═══ -->
+<div class="section">
+<h2>🏛️ 機構 Institutions</h2>
+<div class="icon-grid">
+<div class="icon-cell"><svg viewBox="0 0 64 64"><rect x="14" y="20" width="36" height="26" rx="2" stroke="#fff" stroke-width="3" fill="none"/><path d="M12 20 L32 6 L52 20" stroke="#fff" stroke-width="3" fill="none"/><rect x="28" y="30" width="8" height="16" stroke="#fff" stroke-width="3" fill="none"/><line x1="36" y1="6" x2="36" y2="-4" stroke="#fff" stroke-width="3"/><path d="M36 -4 L46 2 L36 8" stroke="#fff" stroke-width="3" fill="none"/></svg><span class="icon-name">school</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><rect x="12" y="18" width="40" height="26" rx="2" stroke="#fff" stroke-width="3" fill="none"/><path d="M10 18 L32 4 L54 18" stroke="#fff" stroke-width="3" fill="none"/><rect x="28" y="16" width="8" height="18" rx="1" stroke="#fff" stroke-width="3" fill="none"/><rect x="24" y="28" width="16" height="6" rx="1" stroke="#fff" stroke-width="3" fill="none"/></svg><span class="icon-name">hospital</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><rect x="10" y="40" width="44" height="8" rx="1" stroke="#fff" stroke-width="3" fill="none"/><line x1="20" y1="18" x2="20" y2="40" stroke="#fff" stroke-width="3"/><line x1="32" y1="18" x2="32" y2="40" stroke="#fff" stroke-width="3"/><line x1="44" y1="18" x2="44" y2="40" stroke="#fff" stroke-width="3"/><rect x="16" y="14" width="32" height="6" rx="1" stroke="#fff" stroke-width="3" fill="none"/><path d="M10 14 L32 -2 L54 14" stroke="#fff" stroke-width="3" fill="none"/><path d="M27 40 L27 30 L32 24 L37 30 L37 40" stroke="#fff" stroke-width="3" fill="none"/></svg><span class="icon-name">government</span><span class="icon-frame">hex</span></div>
+</div>
+</div>
+
+<!-- ═══ 生活 ═══ -->
+<div class="section">
+<h2>📷 生活 Lifestyle</h2>
+<div class="icon-grid">
+<div class="icon-cell"><svg viewBox="0 0 64 64"><rect x="12" y="18" width="40" height="28" rx="4" stroke="#fff" stroke-width="3" fill="none"/><circle cx="38" cy="32" r="10" stroke="#fff" stroke-width="3" fill="none"/><circle cx="38" cy="32" r="6" stroke="#fff" stroke-width="3" fill="none"/><circle cx="38" cy="32" r="2" fill="#fff"/><rect x="16" y="22" width="8" height="6" rx="1" stroke="#fff" stroke-width="3" fill="none"/><circle cx="18" cy="12" r="4" stroke="#fff" stroke-width="3" fill="none"/></svg><span class="icon-name">camera</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><rect x="20" y="12" width="24" height="40" rx="3" stroke="#fff" stroke-width="3" fill="none"/><line x1="32" y1="12" x2="32" y2="52" stroke="#fff" stroke-width="3"/><rect x="35" y="22" width="6" height="6" rx="1" stroke="#fff" stroke-width="3" fill="none"/><rect x="35" y="32" width="6" height="6" rx="1" stroke="#fff" stroke-width="3" fill="none"/><path d="M38 16 L42 20 L38 24" stroke="#fff" stroke-width="3" fill="none"/><path d="M38 42 L42 38 L38 34" stroke="#fff" stroke-width="3" fill="none"/></svg><span class="icon-name">elevator</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><path d="M12 20 L20 14 L28 20 L36 14 L44 20 L52 14 L52 50 L12 50 Z" stroke="#fff" stroke-width="3" fill="none"/><line x1="20" y1="14" x2="20" y2="50" stroke="#fff" stroke-width="2"/><line x1="28" y1="20" x2="28" y2="50" stroke="#fff" stroke-width="2"/><line x1="36" y1="14" x2="36" y2="50" stroke="#fff" stroke-width="2"/><line x1="44" y1="20" x2="44" y2="50" stroke="#fff" stroke-width="2"/><path d="M38 26 Q38 20 42 20 Q46 20 46 26 Q46 30 42 34 Q38 30 38 26" stroke="#fff" stroke-width="3" fill="none"/><circle cx="42" cy="26" r="2" fill="#fff"/></svg><span class="icon-name">map</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><circle cx="32" cy="20" r="10" stroke="#fff" stroke-width="3" fill="none"/><circle cx="32" cy="20" r="4" fill="#fff"/><line x1="32" y1="30" x2="32" y2="52" stroke="#fff" stroke-width="3"/><path d="M28 52 L32 58 L36 52" stroke="#fff" stroke-width="3" fill="none"/></svg><span class="icon-name">pin</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><path d="M24 30 A6 4 0 1 0 24 30.01" stroke="#fff" stroke-width="3" fill="none"/><line x1="30" y1="30" x2="30" y2="14" stroke="#fff" stroke-width="3"/><path d="M30 14 Q30 10 34 12" stroke="#fff" stroke-width="3" fill="none"/><path d="M40 34 A6 4 0 1 0 40 34.01" stroke="#fff" stroke-width="3" fill="none"/><line x1="46" y1="34" x2="46" y2="18" stroke="#fff" stroke-width="3"/><path d="M46 18 Q46 14 50 16" stroke="#fff" stroke-width="3" fill="none"/><line x1="30" y1="14" x2="46" y2="18" stroke="#fff" stroke-width="3"/></svg><span class="icon-name">music_note</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64"><circle cx="28" cy="40" r="9" stroke="#fff" stroke-width="3" fill="none"/><circle cx="36" cy="40" r="9" stroke="#fff" stroke-width="3" fill="none"/><circle cx="32" cy="40" r="3" stroke="#fff" stroke-width="3" fill="none"/><rect x="29" y="12" width="6" height="28" rx="1" stroke="#fff" stroke-width="3" fill="none"/><rect x="27" y="8" width="10" height="5" rx="1" stroke="#fff" stroke-width="3" fill="none"/><line x1="30" y1="12" x2="30" y2="38" stroke="#fff" stroke-width="1.5"/><line x1="32" y1="12" x2="32" y2="38" stroke="#fff" stroke-width="1.5"/><line x1="34" y1="12" x2="34" y2="38" stroke="#fff" stroke-width="1.5"/></svg><span class="icon-name">guitar</span><span class="icon-frame">hex</span></div>
+</div>
+</div>
+
+<!-- ═══ 框架展示：car 三框架 ═══ -->
+<div class="section">
+<h2>🔲 框架組合 Frame Combinations</h2>
+<p class="sub" style="text-align:left;">每種圖示支援最多 3 種框架：hex / circle / square</p>
+<div class="icon-grid">
+<div class="icon-cell" style="background:rgba(212,168,67,0.1);border-color:rgba(212,168,67,0.3);"><svg viewBox="0 0 64 64" width="48" height="48"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18" stroke="#D4A843" stroke-width="3" fill="none" stroke-linejoin="round"/><path d="M16 28 L32 16 L48 28" stroke="#D4A843" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 24 L20 44 L44 44 L44 24" stroke="#D4A843" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="34" width="8" height="10" rx="1" stroke="#D4A843" stroke-width="3" fill="none"/></svg><span class="icon-name">car</span><span class="icon-frame">hex</span></div>
+<div class="icon-cell" style="background:rgba(212,168,67,0.1);border-color:rgba(212,168,67,0.3);"><svg viewBox="0 0 64 64" width="48" height="48"><circle cx="32" cy="32" r="28" stroke="#D4A843" stroke-width="3" fill="none"/><path d="M16 28 L32 16 L48 28" stroke="#D4A843" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 24 L20 44 L44 44 L44 24" stroke="#D4A843" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="34" width="8" height="10" rx="1" stroke="#D4A843" stroke-width="3" fill="none"/></svg><span class="icon-name">car</span><span class="icon-frame">circle</span></div>
+<div class="icon-cell" style="background:rgba(212,168,67,0.1);border-color:rgba(212,168,67,0.3);"><svg viewBox="0 0 64 64" width="48" height="48"><rect x="6" y="6" width="52" height="52" rx="10" stroke="#D4A843" stroke-width="3" fill="none"/><path d="M16 28 L32 16 L48 28" stroke="#D4A843" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 24 L20 44 L44 44 L44 24" stroke="#D4A843" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="34" width="8" height="10" rx="1" stroke="#D4A843" stroke-width="3" fill="none"/></svg><span class="icon-name">car</span><span class="icon-frame">square</span></div>
+</div>
+</div>
+
+<!-- ═══ 配色系統 ═══ -->
+<div class="section">
+<h2>🎨 配色系統 Color Palette</h2>
+<div class="icon-grid">
+<div class="icon-cell" style="background:#fff;"><svg viewBox="0 0 64 64" width="36" height="36"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18" stroke="#fff" stroke-width="3" fill="none" stroke-linejoin="round"/></svg><span class="icon-name" style="color:#999;">white</span><span class="icon-frame">#FFFFFF</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64" width="36" height="36"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18" stroke="#D4A843" stroke-width="3" fill="none" stroke-linejoin="round"/></svg><span class="icon-name">gold</span><span class="icon-frame">#D4A843</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64" width="36" height="36"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18" stroke="#2A6DB8" stroke-width="3" fill="none" stroke-linejoin="round"/></svg><span class="icon-name">blue</span><span class="icon-frame">#2A6DB8</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64" width="36" height="36"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18" stroke="#4CAF82" stroke-width="3" fill="none" stroke-linejoin="round"/></svg><span class="icon-name">green</span><span class="icon-frame">#4CAF82</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64" width="36" height="36"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18" stroke="#E85A5A" stroke-width="3" fill="none" stroke-linejoin="round"/></svg><span class="icon-name">red</span><span class="icon-frame">#E85A5A</span></div>
+<div class="icon-cell"><svg viewBox="0 0 64 64" width="36" height="36"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18" stroke="#A26769" stroke-width="3" fill="none" stroke-linejoin="round"/></svg><span class="icon-name">earth</span><span class="icon-frame">#A26769</span></div>
+</div>
+</div>
+
+<div style="padding:30px;text-align:center;color:#C8D8EE;font-size:12px;opacity:0.5;">
+通用 SVG 圖示系統 · 熊熊簡報 · 2026-06-22
+</div>
+</body>
+</html>
