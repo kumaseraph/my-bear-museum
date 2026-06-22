@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026年政府新制惠民措施 | 熊熊每日簡報</title>
+<style>
+:root {
+  --bg: #0B1D3A;
+  --bg2: #0F2744;
+  --card: #122E55;
+  --accent: #D4A843;
+  --accent2: #E8C06A;
+  --blue: #2A6DB8;
+  --green: #4CAF82;
+  --text: #FFFFFF;
+  --text2: #C8D8EE;
+  --navy: #0B1D3A;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: var(--bg); color: var(--text); font-size: 22px; line-height: 1.6; }
+.slide { width: 100vw; height: 100vh; display: none; padding: 60px 80px; position: relative; overflow: hidden; }
+.slide.active { display: flex; flex-direction: column; }
+.nav { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 20px; z-index: 100; background: rgba(11,29,58,0.9); padding: 12px 28px; border-radius: 40px; border: 1px solid var(--accent); }
+.nav button { background: none; border: none; color: var(--accent); font-size: 24px; cursor: pointer; padding: 6px 14px; border-radius: 50%; transition: all 0.2s; }
+.nav button:hover { background: var(--accent); color: var(--navy); }
+.nav span { color: var(--accent); font-weight: bold; font-size: 20px; min-width: 60px; text-align: center; }
+.tag { position: absolute; top: 28px; right: 36px; font-size: 13px; color: var(--accent); letter-spacing: 2px; }
+
+/* ===== SLIDE 1: 封面 — G7放射光芒 ===== */
+.s1 { background: linear-gradient(135deg, #0B1D3A 0%, #1A3A6B 50%, #0B1D3A 100%); justify-content: center; align-items: center; text-align: center; }
+/* 背景襯托：徑向光暈 */
+.s1::before { content:''; position:absolute; top:50%; left:50%; width:700px; height:700px; transform:translate(-50%,-50%); background: radial-gradient(circle, rgba(212,168,67,0.18) 0%, transparent 65%); border-radius:50%; }
+/* 放射光芒：粗幼交替 */
+.s1 .rays { position:absolute; top:50%; left:50%; width:800px; height:800px; transform:translate(-50%,-50%); }
+.s1 .ray { position:absolute; top:50%; left:50%; transform-origin: top center; border-radius: 2px; }
+.s1 .ray:nth-child(odd)  { width:4px; height:340px; background: linear-gradient(to bottom, transparent, rgba(212,168,67,0.45), transparent); }
+.s1 .ray:nth-child(even) { width:2px; height:280px; background: linear-gradient(to bottom, transparent, rgba(212,168,67,0.22), transparent); }
+/* 六邊形角落裝飾 */
+.s1 .corner-hex { position:absolute; width:80px; height:80px; background: var(--accent); opacity:0.12; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
+.s1 .ch1 { top:40px; left:40px; } .s1 .ch2 { top:40px; right:40px; } .s1 .ch3 { bottom:40px; left:40px; } .s1 .ch4 { bottom:40px; right:40px; }
+/* 前景六邊形 */
+.s1 .fg-hex { position:absolute; top:50%; left:50%; width:260px; height:260px; transform:translate(-50%,-50%) rotate(30deg); background: rgba(212,168,67,0.06); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); border: 2px solid rgba(212,168,67,0.2); z-index: 1; }
+.s1 h1 { font-size: 52px; font-weight: 900; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,0.5); margin-bottom: 24px; position: relative; z-index: 2; line-height: 1.3; }
+.s1 .sub { font-size: 26px; color: var(--accent); letter-spacing: 4px; margin-bottom: 40px; position: relative; z-index: 2; }
+.s1 .tagline { font-size: 20px; color: var(--text2); position: relative; z-index: 2; }
+
+/* ===== SLIDE 2: 目錄 — G1六邊形矩陣錯落 ===== */
+.s2 { background: var(--bg2); }
+/* 背景襯托：斜紋 */
+.s2::before { content:''; position:absolute; inset:0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(212,168,67,0.03) 40px, rgba(212,168,67,0.03) 41px); pointer-events: none; }
+.s2 h2 { font-size: 36px; color: var(--accent); margin-bottom: 8px; font-weight: 900; }
+.s2 .line { width: 100%; height: 2px; background: linear-gradient(to right, var(--accent), transparent); margin: 20px 0 32px; }
+/* 三欄：左右窄中寬 */
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; align-content: start; padding: 10px 0; }
+.toc-card { background: var(--card); border-radius: 16px; border-left: 6px solid var(--accent); padding: 24px 28px; display: flex; align-items: center; gap: 20px; min-height: 90px; transition: transform 0.2s; }
+/* 奇偶不同高度/圓角，打破規整 */
+.toc-card:nth-child(even) { min-height: 100px; border-left-width: 8px; border-radius: 20px 12px 12px 20px; }
+.toc-card:nth-child(odd)  { border-radius: 12px 20px 20px 12px; }
+.toc-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(212,168,67,0.15); }
+.toc-num { font-size: 32px; font-weight: 900; color: var(--accent); min-width: 52px; }
+.toc-text { font-size: 22px; color: var(--text); }
+.toc-icon { font-size: 28px; margin-left: auto; opacity: 0.6; }
+
+/* ===== SLIDE 3: KPI — G1三色大數字+玻璃卡片 ===== */
+.s3 { background: var(--bg2); justify-content: center; }
+/* 背景襯托：radial */
+.s3::before { content:''; position:absolute; inset:0; background-image: radial-gradient(circle, rgba(42,109,184,0.2) 1px, transparent 1px); background-size: 32px 32px; pointer-events: none; }
+.s3 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 50px; }
+.kpi-row { display: flex; justify-content: center; gap: 100px; }
+.kpi { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+/* 玻璃卡片本體 */
+.kpi-card { width: 200px; height: 200px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; position: relative; backdrop-filter: blur(12px); overflow: hidden; }
+/* 三色漸層玻璃 */
+.kpi:nth-child(1) .kpi-card { background: rgba(212,168,67,0.15); border: 2px solid rgba(212,168,67,0.4); box-shadow: 0 0 30px rgba(212,168,67,0.2), inset 0 0 20px rgba(212,168,67,0.1); }
+.kpi:nth-child(2) .kpi-card { background: rgba(42,109,184,0.15); border: 2px solid rgba(42,109,184,0.4); box-shadow: 0 0 30px rgba(42,109,184,0.2), inset 0 0 20px rgba(42,109,184,0.1); }
+.kpi:nth-child(3) .kpi-card { background: rgba(76,175,130,0.15); border: 2px solid rgba(76,175,130,0.4); box-shadow: 0 0 30px rgba(76,175,130,0.2), inset 0 0 20px rgba(76,175,130,0.1); }
+/* 左上角小六邊形裝飾 */
+.kpi-card::before { content:''; position:absolute; top:-10px; left:-10px; width:50px; height:50px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); opacity: 0.4; }
+.kpi:nth-child(1) .kpi-card::before { background: var(--accent); }
+.kpi:nth-child(2) .kpi-card::before { background: var(--blue); }
+.kpi:nth-child(3) .kpi-card::before { background: var(--green); }
+.kpi-amount { font-size: 46px; font-weight: 900; line-height: 1; }
+.kpi:nth-child(1) .kpi-amount { color: var(--accent); }
+.kpi:nth-child(2) .kpi-amount { color: var(--blue); }
+.kpi:nth-child(3) .kpi-amount { color: var(--green); }
+.kpi-unit { font-size: 18px; opacity: 0.8; }
+.kpi-label { font-size: 18px; color: var(--text2); text-align: center; max-width: 220px; line-height: 1.4; }
+.kpi-sublabel { font-size: 14px; color: var(--text2); opacity: 0.7; text-align: center; }
+
+/* ===== SLIDE 4: 流程圖 — G6 SVG marker箭頭 ===== */
+.s4 { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.s4::before { content:''; position:absolute; right:0; top:0; bottom:0; width:200px; background: linear-gradient(to left, rgba(42,109,184,0.08), transparent); pointer-events: none; }
+.s4 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 36px; }
+.flow-wrap { display: flex; flex-direction: column; gap: 0; flex: 1; justify-content: center; max-width: 900px; }
+/* SVG流程圖 */
+.flow-svg { width: 100%; overflow: visible; }
+.flow-step { fill: var(--card); stroke: var(--accent); stroke-width: 2; rx: 10; }
+.flow-step-num { fill: var(--accent); font-size: 22px; font-weight: 900; font-family: 'PingFang TC', sans-serif; }
+.flow-step-text { fill: #fff; font-size: 18px; font-family: 'PingFang TC', sans-serif; }
+/* 箭頭用 marker */
+.flow-wrap { position: relative; }
+.flow-wrap svg.markers { position: absolute; width: 0; height: 0; }
+
+/* ===== SLIDE 5: 時間軸 — G7橫式錯落 ===== */
+.s5 { background: var(--bg2); }
+/* 背景襯托：底部橢圓光 */
+.s5::before { content:''; position:absolute; bottom:-80px; left:50%; width:600px; height:200px; transform:translateX(-50%); background: radial-gradient(ellipse, rgba(212,168,67,0.08), transparent); pointer-events: none; }
+.s5 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 50px; }
+.tl-h { display: flex; align-items: center; justify-content: space-between; position: relative; padding: 0 60px; flex: 1; }
+/* 連線：粗幼交替虛線 */
+.tl-h::before { content:''; position:absolute; top:50%; left:60px; right:60px; height:3px; background: repeating-linear-gradient(to right, var(--accent) 0px, var(--accent) 20px, transparent 20px, transparent 30px); transform: translateY(-50%); }
+.tl-item { display: flex; flex-direction: column; align-items: center; gap: 14px; position: relative; z-index: 2; }
+/* 奇偶不同大小光暈 */
+.tl-dot { border-radius: 50%; background: var(--accent); }
+.tl-item:nth-child(odd)  .tl-dot { width: 30px; height: 30px; box-shadow: 0 0 0 5px rgba(212,168,67,0.3), 0 0 20px rgba(212,168,67,0.5); }
+.tl-item:nth-child(even) .tl-dot { width: 20px; height: 20px; box-shadow: 0 0 0 3px rgba(212,168,67,0.2); }
+.tl-year { font-size: 26px; font-weight: 900; color: var(--accent); margin-top: 4px; }
+.tl-label { font-size: 17px; color: var(--text2); text-align: center; max-width: 130px; line-height: 1.4; }
+
+/* ===== SLIDE 6: 蜂巢圖 — G3大小三層 ===== */
+.s6 { background: linear-gradient(135deg, #0B1D3A, #0F2744); }
+/* 背景襯托：中央模糊光 */
+.s6::before { content:''; position:absolute; top:50%; left:50%; width:600px; height:400px; transform:translate(-50%,-50%); background: radial-gradient(ellipse, rgba(42,109,184,0.15), transparent); pointer-events: none; }
+.s6 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 12px; }
+.s6 .subtitle { font-size: 18px; color: var(--text2); margin-bottom: 24px; }
+.hex-row { display: flex; justify-content: center; gap: 14px; margin-bottom: 14px; }
+.hex-row:last-child { margin-bottom: 0; }
+.hex-wrap { position: relative; }
+/* 三尺寸 */
+.hex-lg  { width: 148px; height: 170px; }
+.hex-md  { width: 130px; height: 150px; }
+.hex-sm  { width: 110px; height: 126px; }
+.hex-wrap::before { content:''; position:absolute; inset:0; background: var(--accent); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); opacity: 0.85; }
+/* 各自不同漸層 */
+.hex-row .hex-wrap:nth-child(1)::before { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+.hex-row .hex-wrap:nth-child(2)::before { background: linear-gradient(135deg, var(--blue), #5A9BD5); }
+.hex-row .hex-wrap:nth-child(3)::before { background: linear-gradient(135deg, var(--green), #76E4A6); }
+.hex-row .hex-wrap:nth-child(4)::before { background: linear-gradient(135deg, #8B6914, var(--accent)); }
+.hex-inner { position: absolute; inset: 4px; background: var(--bg2); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px; }
+.hex-lg .hex-inner { inset: 5px; }
+.hex-amount { font-weight: 900; }
+.hex-lg  .hex-amount { font-size: 26px; color: var(--accent); }
+.hex-md  .hex-amount { font-size: 22px; color: var(--blue); }
+.hex-sm  .hex-amount { font-size: 19px; color: var(--green); }
+.hex-label { font-size: 13px; color: var(--text2); text-align: center; line-height: 1.3; }
+
+/* ===== SLIDE 7: 柱狀圖 — G2目標線在柱上方 ===== */
+.s7 { background: var(--bg2); }
+/* 背景襯托：dot-grid */
+.s7::before { content:''; position:absolute; inset:0; background-image: radial-gradient(circle, rgba(42,109,184,0.15) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none; }
+.s7 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 16px; }
+.chart-area { display: flex; flex-direction: column; flex: 1; justify-content: flex-end; padding-bottom: 30px; position: relative; }
+/* chart-outer: min-height 固定，目標線 top:0 在最上方 */
+.chart-outer { position: relative; min-height: 380px; display: flex; align-items: flex-end; justify-content: center; gap: 28px; padding: 0 40px; }
+/* 目標線：固定在 chart-outer top:0 */
+.target-line { position: absolute; top: 0; left: 40px; right: 40px; height: 2px; background: repeating-linear-gradient(to right, var(--accent) 0px, var(--accent) 8px, transparent 8px, transparent 14px); z-index: 10; }
+.target-label { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); font-size: 13px; color: var(--accent); white-space: nowrap; }
+.bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; z-index: 2; }
+.bar { width: 80px; border-radius: 8px 8px 0 0; display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; }
+.bar-val { font-size: 20px; font-weight: 900; color: var(--navy); }
+.bar-label { font-size: 16px; color: var(--text2); text-align: center; }
+.chart-note { text-align: center; font-size: 16px; color: var(--text2); margin-top: 14px; opacity: 0.7; position: relative; z-index: 1; }
+
+/* ===== SLIDE 8: 表格 — G2玻璃效果 ===== */
+.s8 { background: var(--bg2); }
+/* 背景襯托：斜紋 */
+.s8::before { content:''; position:absolute; inset:0; background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(42,109,184,0.04) 40px, rgba(42,109,184,0.04) 41px); pointer-events: none; }
+.s8 h2 { font-size: 36px; color: var(--accent); font-weight: 900; margin-bottom: 20px; }
+.table-wrap { overflow: hidden; border-radius: 16px; border: 2px solid var(--accent); flex: 1; backdrop-filter: blur(4px); }
+table { width: 100%; border-collapse: collapse; font-size: 20px; }
+th { background: var(--accent); color: var(--navy); padding: 18px 24px; text-align: left; font-size: 22px; font-weight: 900; }
+td { padding: 18px 24px; border-bottom: 1px solid rgba(212,168,67,0.2); color: var(--text); background: rgba(18,46,85,0.6); backdrop-filter: blur(4px); }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: rgba(42,109,184,0.15); }
+.plus { color: #5DDB7A; font-weight: bold; }
+
+/* ===== SLIDE 9: 總結 — G5四色漸層邊界 ===== */
+.s9 { background: linear-gradient(135deg, #0B1D3A, #1A3A6B); justify-content: center; }
+/* 背景襯托：雙 radial 光暈 */
+.s9::before { content:''; position:absolute; top:-100px; left:-100px; width:400px; height:400px; background: radial-gradient(circle, rgba(212,168,67,0.08), transparent); border-radius:50%; pointer-events: none; }
+.s9::after  { content:''; position:absolute; bottom:-100px; right:-100px; width:400px; height:400px; background: radial-gradient(circle, rgba(42,109,184,0.1), transparent); border-radius:50%; pointer-events: none; }
+.s9 h2 { font-size: 40px; color: var(--accent); font-weight: 900; margin-bottom: 40px; text-align: center; }
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1100px; margin: 0 auto; }
+.summary-card { background: rgba(18,46,85,0.75); border-radius: 16px; padding: 28px; display: flex; gap: 18px; align-items: flex-start; backdrop-filter: blur(8px); position: relative; overflow: hidden; }
+/* 四種不同漸層邊界： */
+.summary-card:nth-child(1)::before { content:''; position:absolute; top:0; left:0; bottom:0; width:8px; background: linear-gradient(to bottom, var(--accent), rgba(212,168,67,0.3)); }
+.summary-card:nth-child(2)::before { content:''; position:absolute; top:0; left:0; bottom:0; width:6px;  background: linear-gradient(to bottom, var(--blue), rgba(42,109,184,0.3)); border-radius: 0 4px 4px 0; }
+.summary-card:nth-child(3)::before { content:''; position:absolute; top:0; left:0; bottom:0; width:10px; background: linear-gradient(to bottom, var(--green), rgba(76,175,130,0.3)); border-radius: 0 6px 6px 0; }
+.summary-card:nth-child(4)::before { content:''; position:absolute; top:0; left:0; bottom:0; width:6px;  background: linear-gradient(to right, var(--accent), var(--blue)); border-radius: 0 4px 4px 0; }
+.summary-icon { font-size: 32px; flex-shrink: 0; margin-top: 2px; }
+.summary-text { font-size: 21px; color: var(--text); line-height: 1.5; }
+
+/* ===== SLIDE 10: 結尾 — G1幾何迴響 ===== */
+.s10 { background: radial-gradient(ellipse at center, #1A3A6B, #0B1D3A); justify-content: center; align-items: center; text-align: center; }
+/* 背景襯托：中央徑向光 */
+.s10::before { content:''; position:absolute; top:50%; left:50%; width:500px; height:500px; background: radial-gradient(circle, rgba(212,168,67,0.12), transparent); transform:translate(-50%,-50%); border-radius:50%; }
+.s10 h2 { font-size: 56px; font-weight: 900; color: var(--accent); margin-bottom: 20px; position: relative; z-index: 2; }
+.s10 p { font-size: 24px; color: var(--text2); position: relative; z-index: 2; }
+.s10 .divider { width: 120px; height: 3px; background: var(--accent); margin: 30px auto; position: relative; z-index: 2; }
+.s10 .date { font-size: 18px; color: rgba(200,216,238,0.6); margin-top: 20px; position: relative; z-index: 2; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: 封面 — G7放射光芒 -->
+<div class="slide s1 active" data-slide="1">
+  <div class="rays">
+    <div class="ray" style="transform: rotate(0deg);"></div>
+    <div class="ray" style="transform: rotate(30deg);"></div>
+    <div class="ray" style="transform: rotate(60deg);"></div>
+    <div class="ray" style="transform: rotate(90deg);"></div>
+    <div class="ray" style="transform: rotate(120deg);"></div>
+    <div class="ray" style="transform: rotate(150deg);"></div>
+    <div class="ray" style="transform: rotate(180deg);"></div>
+    <div class="ray" style="transform: rotate(210deg);"></div>
+    <div class="ray" style="transform: rotate(240deg);"></div>
+    <div class="ray" style="transform: rotate(270deg);"></div>
+    <div class="ray" style="transform: rotate(300deg);"></div>
+    <div class="ray" style="transform: rotate(330deg);"></div>
+  </div>
+  <div class="corner-hex ch1"></div>
+  <div class="corner-hex ch2"></div>
+  <div class="corner-hex ch3"></div>
+  <div class="corner-hex ch4"></div>
+  <div class="fg-hex"></div>
+  <h1>2026年政府新制<br>惠民措施總整理</h1>
+  <div class="sub">V1 · 2026 Q2</div>
+  <div class="tagline">熊熊每日簡報 · 政府公務</div>
+  <div class="tag">01 / 10</div>
+</div>
+
+<!-- SLIDE 2: 目錄 — G1六邊形卡片錯落 -->
+<div class="slide s2" data-slide="2">
+  <h2>本週內容一覽</h2>
+  <div class="line"></div>
+  <div class="toc-grid">
+    <div class="toc-card"><span class="toc-num">01</span><span class="toc-text">普發現金與補助措施</span><span class="toc-icon">💰</span></div>
+    <div class="toc-card"><span class="toc-num">02</span><span class="toc-text">補助申請流程圖解</span><span class="toc-icon">📋</span></div>
+    <div class="toc-card"><span class="toc-num">03</span><span class="toc-text">政策實施時程一覽</span><span class="toc-icon">📅</span></div>
+    <div class="toc-card"><span class="toc-num">04</span><span class="toc-text">各縣市補助分布</span><span class="toc-icon">🏛️</span></div>
+    <div class="toc-card"><span class="toc-num">05</span><span class="toc-text">減稅措施比較</span><span class="toc-icon">📊</span></div>
+    <div class="toc-card"><span class="toc-num">06</span><span class="toc-text">福利新規定一覽</span><span class="toc-icon">✨</span></div>
+  </div>
+  <div class="tag">02 / 10</div>
+</div>
+
+<!-- SLIDE 3: KPI — G1三色玻璃卡片大數字 -->
+<div class="slide s3" data-slide="3">
+  <h2>三大福利補助重點</h2>
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-card">
+        <span class="kpi-amount">6,000</span>
+        <span class="kpi-unit">元 / 月</span>
+      </div>
+      <div class="kpi-sublabel">基本工資調漲</div>
+      <div class="kpi-label">月薪調整至 6,000 元<br>受惠勞工逾 300 萬人</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-card">
+        <span class="kpi-amount">18K</span>
+        <span class="kpi-unit">元 / 月</span>
+      </div>
+      <div class="kpi-sublabel">低收入戶補助</div>
+      <div class="kpi-label">弱勢家庭生活補助<br>調增達 18,000 元</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-card">
+        <span class="kpi-amount">50K</span>
+        <span class="kpi-unit">元 / 月</span>
+      </div>
+      <div class="kpi-sublabel">幼兒津貼</div>
+      <div class="kpi-label">每童每月資助 50,000 元<br>育兒家庭全面照顧</div>
+    </div>
+  </div>
+  <div class="tag">03 / 10</div>
+</div>
+
+<!-- SLIDE 4: 流程圖 — G6 SVG marker箭頭 -->
+<div class="slide s4" data-slide="4">
+  <!-- marker 定義藏在 SVG defs -->
+  <svg class="markers" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="arrow-gold" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#D4A843"/>
+      </marker>
+      <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#2A6DB8"/>
+      </marker>
+    </defs>
+  </svg>
+  <h2>補助申請流程</h2>
+  <div class="flow-wrap">
+    <!-- 步驟 1 -->
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--accent);color:var(--navy);font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+      <div style="flex:1;background:var(--card);border-radius:10px;padding:18px 28px;border-left:5px solid var(--accent);">備妥身份證、戶口名簿、帳戶影本</div>
+    </div>
+    <!-- 箭頭1 -->
+    <svg width="100%" height="36" style="display:block;margin:0;" xmlns="http://www.w3.org/2000/svg">
+      <line x1="26" y1="10" x2="26" y2="26" stroke="#D4A843" stroke-width="2" stroke-dasharray="4,3"/>
+      <polygon points="26,36 20,26 32,26" fill="#D4A843"/>
+    </svg>
+    <!-- 步驟 2 -->
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--blue);color:#fff;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+      <div style="flex:1;background:var(--card);border-radius:10px;padding:18px 28px;border-left:5px solid var(--blue);">至戶籍所在地公所或線上平台提出申請</div>
+    </div>
+    <!-- 箭頭2 -->
+    <svg width="100%" height="36" style="display:block;margin:0;" xmlns="http://www.w3.org/2000/svg">
+      <line x1="26" y1="10" x2="26" y2="26" stroke="#D4A843" stroke-width="2" stroke-dasharray="4,3"/>
+      <polygon points="26,36 20,26 32,26" fill="#D4A843"/>
+    </svg>
+    <!-- 步驟 3 -->
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--green);color:var(--navy);font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+      <div style="flex:1;background:var(--card);border-radius:10px;padding:18px 28px;border-left:5px solid var(--green);">主管機關審核（約 14 個工作天）</div>
+    </div>
+    <!-- 箭頭3 -->
+    <svg width="100%" height="36" style="display:block;margin:0;" xmlns="http://www.w3.org/2000/svg">
+      <line x1="26" y1="10" x2="26" y2="26" stroke="#D4A843" stroke-width="2" stroke-dasharray="4,3"/>
+      <polygon points="26,36 20,26 32,26" fill="#D4A843"/>
+    </svg>
+    <!-- 步驟 4 -->
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--accent);color:var(--navy);font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
+      <div style="flex:1;background:var(--card);border-radius:10px;padding:18px 28px;border-left:5px solid var(--accent);">核定後直接匯入指定帳戶</div>
+    </div>
+    <!-- 箭頭4 -->
+    <svg width="100%" height="36" style="display:block;margin:0;" xmlns="http://www.w3.org/2000/svg">
+      <line x1="26" y1="10" x2="26" y2="26" stroke="#D4A843" stroke-width="2" stroke-dasharray="4,3"/>
+      <polygon points="26,36 20,26 32,26" fill="#D4A843"/>
+    </svg>
+    <!-- 步驟 5 -->
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--blue);color:#fff;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</div>
+      <div style="flex:1;background:var(--card);border-radius:10px;padding:18px 28px;border-left:5px solid var(--blue);">收到通知簡訊，上網查詢核付進度</div>
+    </div>
+  </div>
+  <div class="tag">04 / 10</div>
+</div>
+
+<!-- SLIDE 5: 時間軸 — G7橫式錯落 -->
+<div class="slide s5" data-slide="5">
+  <h2>政策實施時程</h2>
+  <div class="tl-h">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2026/01</div>
+      <div class="tl-label">基本工資<br>正式調漲</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2026/03</div>
+      <div class="tl-label">低收入補助<br>開始發放</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2026/06</div>
+      <div class="tl-label">幼兒津貼<br>擴大適用</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2026/09</div>
+      <div class="tl-label">租屋補貼<br>上路</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2026/12</div>
+      <div class="tl-label">各項補助<br>年度總結</div>
+    </div>
+  </div>
+  <div class="tag">05 / 10</div>
+</div>
+
+<!-- SLIDE 6: 蜂巢圖 — G3三尺寸分層 -->
+<div class="slide s6" data-slide="6">
+  <h2>各項補助金額一覽</h2>
+  <div class="subtitle">補助高低直接以蜂巢大小區分</div>
+  <div style="display:flex; flex-direction:column; flex:1; justify-content:center; gap:10px;">
+    <!-- 第一排：4格 -->
+    <div class="hex-row">
+      <div class="hex-wrap hex-md"><div class="hex-inner"><span class="hex-amount">6K</span><span class="hex-label">基本工資/月</span></div></div>
+      <div class="hex-wrap hex-lg"><div class="hex-inner"><span class="hex-amount">18K</span><span class="hex-label">低收入戶/月</span></div></div>
+      <div class="hex-wrap hex-lg"><div class="hex-inner"><span class="hex-amount">50K</span><span class="hex-label">幼兒津貼/月</span></div></div>
+      <div class="hex-wrap hex-md"><div class="hex-inner"><span class="hex-amount">8K</span><span class="hex-label">租屋補貼/月</span></div></div>
+    </div>
+    <!-- 第二排：中間2格大、邊2格小 -->
+    <div class="hex-row" style="margin-left:80px;">
+      <div class="hex-wrap hex-sm"><div class="hex-inner"><span class="hex-amount">12K</span><span class="hex-label">中低收/月</span></div></div>
+      <div class="hex-wrap hex-sm"><div class="hex-inner"><span class="hex-amount">5K</span><span class="hex-label">身障津貼/月</span></div></div>
+      <div class="hex-wrap hex-sm"><div class="hex-inner"><span class="hex-amount">3K</span><span class="hex-label">老人生活/月</span></div></div>
+      <div class="hex-wrap hex-sm"><div class="hex-inner"><span class="hex-amount">20K</span><span class="hex-label">急難救助/次</span></div></div>
+    </div>
+  </div>
+  <div class="tag">06 / 10</div>
+</div>
+
+<!-- SLIDE 7: 柱狀圖 — G2目標線固定在chart-outer上方 -->
+<div class="slide s7" data-slide="7">
+  <h2>各縣市補助金額比較</h2>
+  <div class="chart-area">
+    <!-- chart-outer min-height:380px，目標線 top:0 -->
+    <div class="chart-outer">
+      <div class="target-line">
+        <div class="target-label">★ 補助目標 15K</div>
+      </div>
+      <!-- 柱子們 -->
+      <div class="bar-wrap">
+        <div class="bar" style="height:100px; background:linear-gradient(to top, var(--accent), var(--accent2));"><span class="bar-val">8K</span></div>
+        <div class="bar-label">新北</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar" style="height:220px; background:linear-gradient(to top, var(--green), #76E4A6);"><span class="bar-val">18K</span></div>
+        <div class="bar-label">臺北</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar" style="height:150px; background:linear-gradient(to top, var(--accent), var(--accent2));"><span class="bar-val">12K</span></div>
+        <div class="bar-label">桃園</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar" style="height:125px; background:linear-gradient(to top, var(--blue), #5A9BD5);"><span class="bar-val">10K</span></div>
+        <div class="bar-label">臺中</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar" style="height:110px; background:linear-gradient(to top, var(--accent), var(--accent2));"><span class="bar-val">9K</span></div>
+        <div class="bar-label">臺南</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar" style="height:200px; background:linear-gradient(to top, var(--green), #76E4A6);"><span class="bar-val">16K</span></div>
+        <div class="bar-label">高雄</div>
+      </div>
+    </div>
+    <div class="chart-note">★ 補助目標 15K — 臺北（18K）、高雄（16K）超越目標</div>
+  </div>
+  <div class="tag">07 / 10</div>
+</div>
+
+<!-- SLIDE 8: 表格 — G2玻璃卡片 -->
+<div class="slide s8" data-slide="8">
+  <h2>五大福利新規定</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>福利項目</th><th>新規定</th><th>適用對象</th></tr>
+      <tr><td>基本工資調漲</td><td class="plus">月薪調至 6,000 元</td><td>所有受僱者</td></tr>
+      <tr><td>低收入戶補助</td><td class="plus">每月 18,000 元</td><td>低收入戶家庭</td></tr>
+      <tr><td>幼兒津貼</td><td class="plus">每童每月 50,000 元</td><td>0-6 歲幼兒</td></tr>
+      <tr><td>租屋補貼</td><td class="plus">最高 8,000 元/月</td><td>租金支出家庭</td></tr>
+      <tr><td>學費補助</td><td class="plus">私立高中免學費</td><td>國私立高中生</td></tr>
+    </table>
+  </div>
+  <div class="tag">08 / 10</div>
+</div>
+
+<!-- SLIDE 9: 總結 — G5四色漸層邊界 -->
+<div class="slide s9" data-slide="9">
+  <h2>本週重點回顧</h2>
+  <div class="summary-grid">
+    <div class="summary-card">
+      <span class="summary-icon">💰</span>
+      <span class="summary-text">基本工資調漲至 6,000 元，<br>受惠勞工逾 300 萬人</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-icon">🏠</span>
+      <span class="summary-text">低收入戶補助大幅增加，<br>落實社會安全網</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-icon">👶</span>
+      <span class="summary-text">幼兒津貼提高至 50,000 元，<br>減輕年輕家庭育兒負擔</span>
+    </div>
+    <div class="summary-card">
+      <span class="summary-icon">🏘️</span>
+      <span class="summary-text">租屋補貼最高 8,000 元，<br>照顧租屋族需求</span>
+    </div>
+  </div>
+  <div class="tag">09 / 10</div>
+</div>
+
+<!-- SLIDE 10: 結尾 — G1幾何迴響 -->
+<div class="slide s10" data-slide="10">
+  <h2>感謝聆聽</h2>
+  <div class="divider"></div>
+  <p>2026 年政府新制惠民措施</p>
+  <div class="date">熊熊每日簡報 · 政府公務 · V1 · 2026/06/22</div>
+  <div class="tag">10 / 10</div>
+</div>
+
+<div class="nav">
+  <button onclick="prev()">◀</button>
+  <span id="cur">1</span>
+  <span>/</span>
+  <span id="tot">10</span>
+  <button onclick="next()">▶</button>
+</div>
+
+<script>
+let cur = 1;
+const tot = 10;
+function show(n) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.querySelector(`[data-slide="${n}"]`).classList.add('active');
+  document.getElementById('cur').textContent = n;
+}
+function next() { cur = cur < tot ? cur + 1 : 1; show(cur); }
+function prev() { cur = cur > 1 ? cur - 1 : tot; show(cur); }
+document.addEventListener('keydown', e => { if(e.key==='ArrowRight') next(); if(e.key==='ArrowLeft') prev(); });
+</script>
+</body>
+</html>
