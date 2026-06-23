@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280" width="400" height="280">
+  <title>蜂巢資訊卡片</title>
+  <desc>採用蜂巢叢集設計的資訊卡片區塊，適用於工作報告的數據展示</desc>
+  
+  <defs>
+    <!-- 卡片背景漸層 -->
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FAF0E6"/>
+    </linearGradient>
+    
+    <!-- 熊熊紫漸層 -->
+    <linearGradient id="bearPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    
+    <!-- 熊熊金漸層 -->
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#8B5A2B"/>
+    </linearGradient>
+    
+    <!-- 陰影濾鏡 -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="4" dy="6" stdDeviation="8" flood-color="#5D3A1A" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- 卡片主體 -->
+  <rect x="10" y="10" width="380" height="260" rx="20" ry="20" 
+        fill="url(#cardBg)" filter="url(#cardShadow)"/>
+  
+  <!-- 頂部標題欄（熊熊金） -->
+  <rect x="10" y="10" width="380" height="60" rx="20" ry="20" 
+        fill="url(#bearGold)"/>
+  <rect x="10" y="50" width="380" height="20" fill="url(#bearGold)"/>
+  
+  <!-- 標題文字 -->
+  <text x="30" y="48" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" 
+        font-size="22" font-weight="bold" fill="#FFFFFF">
+    📊 工作報告摘要
+  </text>
+  
+  <!-- 蜂巢圖示區（應用技巧#122蜂巢叢集 + #120大小對比） -->
+  <g transform="translate(320, 40)">
+    <!-- 大六邊形 -->
+    <path d="M0,-22 L19.05,-11 L19.05,11 L0,22 L-19.05,11 L-19.05,-11 Z" 
+          fill="#FFFFFF" opacity="0.3"/>
+    <!-- 小六邊形 -->
+    <path d="M0,-12 L10.39,-6 L10.39,6 L0,12 L-10.39,6 L-10.39,-6 Z" 
+          fill="#FFFFFF" opacity="0.5" transform="rotate(30) translate(0,-28)"/>
+  </g>
+  
+  <!-- 內容區：蜂巢排列的數據區塊（應用技巧#122分組叢集） -->
+  <g transform="translate(40, 100)">
+    <!-- 第一行：3個指標卡片 -->
+    <g>
+      <!-- 卡片1 -->
+      <rect x="0" y="0" width="100" height="70" rx="12" ry="12" fill="#6B5CE7" opacity="0.1"/>
+      <text x="50" y="30" font-family="'Noto Sans TC', sans-serif" 
+            font-size="24" font-weight="bold" fill="#6B5CE7" text-anchor="middle">92%</text>
+      <text x="50" y="52" font-family="'Noto Sans TC', sans-serif" 
+            font-size="11" fill="#6B5CE7" text-anchor="middle">任務完成率</text>
+      
+      <!-- 卡片2 -->
+      <rect x="115" y="0" width="100" height="70" rx="12" ry="12" fill="#D4A574" opacity="0.15"/>
+      <text x="165" y="30" font-family="'Noto Sans TC', sans-serif" 
+            font-size="24" font-weight="bold" fill="#8B5A2B" text-anchor="middle">15</text>
+      <text x="165" y="52" font-family="'Noto Sans TC', sans-serif" 
+            font-size="11" fill="#8B5A2B" text-anchor="middle">專案進行中</text>
+      
+      <!-- 卡片3 -->
+      <rect x="230" y="0" width="100" height="70" rx="12" ry="12" fill="#6B5CE7" opacity="0.1"/>
+      <text x="280" y="30" font-family="'Noto Sans TC', sans-serif" 
+            font-size="24" font-weight="bold" fill="#6B5CE7" text-anchor="middle">8</text>
+      <text x="280" y="52" font-family="'Noto Sans TC', sans-serif" 
+            font-size="11" fill="#6B5CE7" text-anchor="middle">團隊成員</text>
+    </g>
+    
+    <!-- 進度條區（應用技巧#124階梯排列概念） -->
+    <g transform="translate(0, 90)">
+      <text x="0" y="0" font-family="'Noto Sans TC', sans-serif" 
+            font-size="12" fill="#5D3A1A">本月進度</text>
+      
+      <!-- 進度條背景 -->
+      <rect x="0" y="10" width="330" height="16" rx="8" ry="8" fill="#E5E7EB"/>
+      
+      <!-- 進度條填充（棕金漸層） -->
+      <rect x="0" y="10" width="280" height="16" rx="8" ry="8" fill="url(#bearGold)"/>
+      
+      <!-- 進度標記（蜂巢小裝飾） -->
+      <g transform="translate(280, 18)">
+        <path d="M0,-8 L6.93,-4 L6.93,4 L0,8 L-6.93,4 L-6.93,-4 Z" 
+              fill="#FFFFFF" stroke="#8B5A2B" stroke-width="1"/>
+      </g>
+    </g>
+    
+    <!-- 底部小標籤（熊熊風格） -->
+    <g transform="translate(0, 135)">
+      <rect x="0" y="0" width="80" height="24" rx="12" ry="12" fill="#6B5CE7" opacity="0.1"/>
+      <text x="40" y="16" font-family="'Noto Sans TC', sans-serif" 
+            font-size="10" fill="#6B5CE7" text-anchor="middle">🐻 熊熊出品</text>
+      
+      <rect x="90" y="0" width="60" height="24" rx="12" ry="12" fill="#D4A574" opacity="0.2"/>
+      <text x="120" y="16" font-family="'Noto Sans TC', sans-serif" 
+            font-size="10" fill="#8B5A2B" text-anchor="middle">優質</text>
+    </g>
+  </g>
+</svg>

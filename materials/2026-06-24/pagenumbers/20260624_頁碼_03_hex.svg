@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <title>六邊形頁碼03</title>
+  <desc>採用六邊形設計的頁碼素材，結合大小對比與填充方式變化的技巧</desc>
+  
+  <defs>
+    <!-- 熊熊棕金色系 -->
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#8B5A2B"/>
+    </linearGradient>
+    <linearGradient id="bearPurple" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景：大六邊形襯底（應用技巧#120大小對比） -->
+  <g transform="translate(100, 100)">
+    <!-- 外層大六邊形：空心 -->
+    <path d="M0,-80 L69.28,-40 L69.28,40 L0,80 L-69.28,40 L-69.28,-40 Z" 
+          fill="none" stroke="#D4A574" stroke-width="3" opacity="0.6"/>
+    
+    <!-- 中層六邊形：半透明填充（應用技巧#120填充方式對比） -->
+    <path d="M0,-60 L51.96,-30 L51.96,30 L0,60 L-51.96,30 L-51.96,-30 Z" 
+          fill="url(#bearPurple)" fill-opacity="0.4"/>
+    
+    <!-- 內層小六邊形：實心（應用技巧#120虛實對比） -->
+    <path d="M0,-35 L30.31,-17.5 L30.31,17.5 L0,35 L-30.31,17.5 L-30.31,-17.5 Z" 
+          fill="url(#bearGold)"/>
+    
+    <!-- 頁碼數字 -->
+    <text x="0" y="12" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" 
+          font-size="36" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
+      03
+    </text>
+  </g>
+  
+  <!-- 裝飾小六邊形（應用技巧#122蜂巢叢集-分組叢集） -->
+  <g transform="translate(100, 100)" opacity="0.3">
+    <path d="M0,-12 L10.39,-6 L10.39,6 L0,12 L-10.39,6 L-10.39,-6 Z" 
+          fill="#6B5CE7" transform="translate(0,-95)"/>
+    <path d="M0,-12 L10.39,-6 L10.39,6 L0,12 L-10.39,6 L-10.39,-6 Z" 
+          fill="#6B5CE7" transform="rotate(60) translate(0,-95)"/>
+    <path d="M0,-12 L10.39,-6 L10.39,6 L0,12 L-10.39,6 L-10.39,-6 Z" 
+          fill="#6B5CE7" transform="rotate(120) translate(0,-95)"/>
+    <path d="M0,-12 L10.39,-6 L10.39,6 L0,12 L-10.39,6 L-10.39,-6 Z" 
+          fill="#6B5CE7" transform="rotate(180) translate(0,-95)"/>
+    <path d="M0,-12 L10.39,-6 L10.39,6 L0,12 L-10.39,6 L-10.39,-6 Z" 
+          fill="#6B5CE7" transform="rotate(240) translate(0,-95)"/>
+    <path d="M0,-12 L10.39,-6 L10.39,6 L0,12 L-10.39,6 L-10.39,-6 Z" 
+          fill="#6B5CE7" transform="rotate(300) translate(0,-95)"/>
+  </g>
+</svg>
