@@ -348,7 +348,7 @@ function renderSlides(filter) {
   const grid = document.getElementById("slides-grid");
   const filtered = filter === "all" ? SLIDES : SLIDES.filter(s => s.category === filter);
   grid.innerHTML = filtered.map(slide => `
-    <a class="slide-card" href="/presentations/${slide.file}">
+    <a class="slide-card" href="/slides/${slide.file}">
       <div class="card-thumb">
         <svg viewBox="0 0 64 64" fill="none" stroke="${slide.color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <rect x="8" y="12" width="48" height="36" rx="4"/>
