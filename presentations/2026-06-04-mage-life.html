@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧙 怪怪的魔法師 - 魔法簡報</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Quicksand:wght@400;600;700&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --text-dark: #4A148C;
+      --text-brown: #5D4037;
+      --magic-purple: #7B1FA2;
+      --magic-gold: #FFD700;
+      --magic-pink: #E91E63;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1a0a2e 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Floating sparkles */
+    .sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: var(--magic-gold);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 3s ease-in-out infinite;
+      box-shadow: 0 0 10px var(--magic-gold), 0 0 20px var(--magic-gold);
+      z-index: 0;
+    }
+
+    .sparkle::before {
+      content: '✦';
+      position: absolute;
+      font-size: 14px;
+      color: var(--magic-gold);
+      text-shadow: 0 0 10px var(--magic-gold);
+      animation: sparkle-rotate 2s linear infinite;
+    }
+
+    .sparkle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+    .sparkle:nth-child(2) { top: 20%; left: 80%; animation-delay: 0.5s; }
+    .sparkle:nth-child(3) { top: 60%; left: 5%; animation-delay: 1s; }
+    .sparkle:nth-child(4) { top: 75%; left: 90%; animation-delay: 1.5s; }
+    .sparkle:nth-child(5) { top: 40%; left: 50%; animation-delay: 0.3s; }
+    .sparkle:nth-child(6) { top: 85%; left: 30%; animation-delay: 0.8s; }
+    .sparkle:nth-child(7) { top: 5%; left: 60%; animation-delay: 1.2s; }
+    .sparkle:nth-child(8) { top: 50%; left: 95%; animation-delay: 0.6s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+    }
+
+    @keyframes sparkle-rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Presentation container */
+    .presentation {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Slide card */
+    .slide-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      max-width: 800px;
+      width: calc(100% - 40px);
+      max-height: calc(100vh - 80px);
+      overflow: hidden;
+      box-shadow:
+        0 0 40px rgba(123, 31, 162, 0.4),
+        0 0 80px rgba(123, 31, 162, 0.2),
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        inset 0 0 60px rgba(255, 255, 255, 0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      animation: card-glow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes card-glow {
+      0% { box-shadow: 0 0 40px rgba(123, 31, 162, 0.4), 0 0 80px rgba(123, 31, 162, 0.2), 0 20px 60px rgba(0, 0, 0, 0.3); }
+      100% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), 0 0 100px rgba(255, 215, 0, 0.2), 0 20px 60px rgba(0, 0, 0, 0.3); }
+    }
+
+    /* Slide content area */
+    .slide {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      height: 100%;
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* Slide backgrounds */
+    .slide-1 { background: #F0E6FF; }
+    .slide-2 { background: #FFF8E0; }
+    .slide-3 { background: #E8F5E9; }
+    .slide-4 { background: #E0F7FA; }
+    .slide-5 { background: #F3E5F5; }
+
+    /* Image area */
+    .slide-image {
+      width: 100%;
+      height: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Content area */
+    .slide-content {
+      padding: clamp(20px, 5vw, 40px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+      text-align: center;
+    }
+
+    .slide-title {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: clamp(12px, 3vw, 20px);
+      line-height: 1.3;
+      text-shadow: 2px 2px 4px rgba(123, 31, 162, 0.1);
+    }
+
+    .slide-text {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-brown);
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    /* Navigation buttons */
+    .nav-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, rgba(123, 31, 162, 0.9), rgba(156, 39, 176, 0.9));
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(123, 31, 162, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 30px rgba(123, 31, 162, 0.7);
+    }
+
+    .nav-btn.prev { left: 15px; }
+    .nav-btn.next { right: 15px; }
+
+    @media (max-width: 600px) {
+      .nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+      .nav-btn.prev { left: 8px; }
+      .nav-btn.next { right: 8px; }
+    }
+
+    /* Progress dots */
+    .progress-dots {
+      position: fixed;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      border: 2px solid rgba(123, 31, 162, 0.6);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot:hover {
+      background: rgba(123, 31, 162, 0.6);
+      transform: scale(1.2);
+    }
+
+    .dot.active {
+      background: linear-gradient(135deg, var(--magic-purple), var(--magic-gold));
+      border-color: var(--magic-purple);
+      box-shadow: 0 0 15px rgba(123, 31, 162, 0.6);
+    }
+
+    /* Page indicator */
+    .page-indicator {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 600;
+      z-index: 100;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Keyboard hint */
+    .keyboard-hint {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      z-index: 100;
+      text-align: right;
+    }
+
+    @media (max-width: 600px) {
+      .keyboard-hint { display: none; }
+    }
+
+    /* Image fallback */
+    .slide-image-wrapper {
+      width: 100%;
+      height: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      overflow: hidden;
+    }
+
+    .slide-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Fullscreen button */
+    .fullscreen-btn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: linear-gradient(135deg, rgba(123, 31, 162, 0.9), rgba(156, 39, 176, 0.9));
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(123, 31, 162, 0.4);
+    }
+
+    .fullscreen-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(123, 31, 162, 0.6);
+    }
+
+    @media (max-width: 600px) {
+      .fullscreen-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating sparkles -->
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+
+  <!-- Fullscreen button -->
+  <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ 全螢幕</button>
+
+  <!-- Keyboard hint -->
+  <div class="keyboard-hint">
+    ← → 切換頁面<br>
+    Home End 首頁末頁<br>
+    F 全螢幕
+  </div>
+
+  <!-- Presentation -->
+  <div class="presentation">
+    <div class="slide-card">
+
+      <!-- Slide 1 -->
+      <div class="slide slide-1 active" data-slide="1">
+        <div class="slide-image-wrapper">
+          <img class="slide-image" src="mage1_battle.jpg" alt="魔法師戰鬥" onerror="this.style.display='none'">
+        </div>
+        <div class="slide-content">
+          <h1 class="slide-title">🧙 怪怪的魔法師</h1>
+          <p class="slide-text">在奇幻的世界裡，
+有一個愛打怪、
+也愛煉金的魔法師。
+
+他的名字叫小埋！
+（才不是因為只會埋自己）</p>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide slide-2" data-slide="2">
+        <div class="slide-image-wrapper">
+          <img class="slide-image" src="mage2_alchemy.jpg" alt="煉金術" onerror="this.style.display='none'">
+        </div>
+        <div class="slide-content">
+          <h1 class="slide-title">⚗️ 煉金術入門</h1>
+          <p class="slide-text">小埋的實驗室，
+總是冒著奇怪的泡泡。
+
+有時候釀出感冒藥水，
+有時候做出會唱歌的蛋糕。</p>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide slide-3" data-slide="3">
+        <div class="slide-image-wrapper">
+          <img class="slide-image" src="mage3_cozy.jpg" alt="悠閒午後" onerror="this.style.display='none'">
+        </div>
+        <div class="slide-content">
+          <h1 class="slide-title">☕ 悠閒的午後</h1>
+          <p class="slide-text">沒有任務的下午，
+小埋最愛窩在魔法書屋。
+
+一邊喝茶，一邊摸貓，
+平凡的日子最快樂。</p>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="slide slide-4" data-slide="4">
+        <div class="slide-image-wrapper">
+          <img class="slide-image" src="mage4_forest_fight.jpg" alt="森林大亂鬥" onerror="this.style.display='none'">
+        </div>
+        <div class="slide-content">
+          <h1 class="slide-title">⚡ 森林大亂鬥</h1>
+          <p class="slide-text">巨型史萊姆入侵森林，
+動物們紛紛來求救！
+
+小埋與夥伴們一起出擊，
+用冰與雷的力量守護家園。</p>
+        </div>
+      </div>
+
+      <!-- Slide 5 -->
+      <div class="slide slide-5" data-slide="5">
+        <div class="slide-image-wrapper">
+          <img class="slide-image" src="mage5_secret_base.jpg" alt="秘密基地" onerror="this.style.display='none'">
+        </div>
+        <div class="slide-content">
+          <h1 class="slide-title">🔮 秘密基地</h1>
+          <p class="slide-text">穿過瀑布之後，
+是小埋專屬的魔法洞窟。
+
+閃閃發光的水晶柱，
+收藏著滿滿的珍貴寶物。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Navigation buttons -->
+  <button class="nav-btn prev" onclick="prevSlide()">◀</button>
+  <button class="nav-btn next" onclick="nextSlide()">▶</button>
+
+  <!-- Progress dots -->
+  <div class="progress-dots">
+    <div class="dot active" onclick="goToSlide(1)"></div>
+    <div class="dot" onclick="goToSlide(2)"></div>
+    <div class="dot" onclick="goToSlide(3)"></div>
+    <div class="dot" onclick="goToSlide(4)"></div>
+    <div class="dot" onclick="goToSlide(5)"></div>
+  </div>
+
+  <!-- Page indicator -->
+  <div class="page-indicator">
+    <span id="currentPage">1</span> / 5
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 5;
+
+    function showSlide(n) {
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+
+      if (n > totalSlides) currentSlide = 1;
+      if (n < 1) currentSlide = totalSlides;
+
+      slides.forEach((slide, index) => {
+        slide.classList.remove('active');
+        if (index + 1 === currentSlide) {
+          slide.classList.add('active');
+        }
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.remove('active');
+        if (index + 1 === currentSlide) {
+          dot.classList.add('active');
+        }
+      });
+
+      document.getElementById('currentPage').textContent = currentSlide;
+    }
+
+    function nextSlide() {
+      currentSlide++;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide--;
+      showSlide(currentSlide);
+    }
+
+    function goToSlide(n) {
+      currentSlide = n;
+      showSlide(currentSlide);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.log('全螢幕不可用');
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      switch(e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+          nextSlide();
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          prevSlide();
+          break;
+        case 'Home':
+          goToSlide(1);
+          break;
+        case 'End':
+          goToSlide(totalSlides);
+          break;
+        case 'f':
+        case 'F':
+          toggleFullscreen();
+          break;
+      }
+    });
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小熊的幸福物語</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Quicksand:wght@400;500;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #FFF8E8 0%, #FFE4EC 50%, #E8F4FF 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .presentation {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      min-height: 500px;
+      max-height: 90vh;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: clamp(20px, 5vw, 30px);
+      box-shadow: 0 20px 60px rgba(93, 64, 55, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: clamp(20px, 5vw, 40px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .slide-image {
+      width: 100%;
+      max-width: 350px;
+      height: clamp(180px, 35vw, 280px);
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: clamp(15px, 3vw, 25px);
+      box-shadow: 0 10px 30px rgba(93, 64, 55, 0.2);
+    }
+
+    .slide-title {
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      font-weight: 700;
+      color: #5D4037;
+      text-align: center;
+      margin-bottom: clamp(15px, 3vw, 25px);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-title .emoji {
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .slide-content {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      color: #5D4037;
+      text-align: center;
+      line-height: 1.8;
+      max-width: 100%;
+      white-space: pre-line;
+    }
+
+    .slide-content .highlight {
+      color: #8D6E63;
+      font-weight: 500;
+    }
+
+    /* Slide backgrounds */
+    .slide[data-slide="1"] { background: linear-gradient(180deg, rgba(255,248,232,0.95) 0%, rgba(255,255,255,0.95) 100%); }
+    .slide[data-slide="2"] { background: linear-gradient(180deg, rgba(255,244,204,0.95) 0%, rgba(255,255,255,0.95) 100%); }
+    .slide[data-slide="3"] { background: linear-gradient(180deg, rgba(223,245,225,0.95) 0%, rgba(255,255,255,0.95) 100%); }
+    .slide[data-slide="4"] { background: linear-gradient(180deg, rgba(232,244,255,0.95) 0%, rgba(255,255,255,0.95) 100%); }
+    .slide[data-slide="5"] { background: linear-gradient(180deg, rgba(255,228,236,0.95) 0%, rgba(255,255,255,0.95) 100%); }
+
+    /* Navigation buttons */
+    .nav-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: clamp(40px, 8vw, 60px);
+      height: clamp(40px, 8vw, 60px);
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      color: #5D4037;
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(93, 64, 55, 0.2);
+      transition: all 0.3s ease;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-btn:hover {
+      background: #5D4037;
+      color: white;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .nav-btn.prev { left: clamp(10px, 3vw, 30px); }
+    .nav-btn.next { right: clamp(10px, 3vw, 30px); }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .nav-btn:disabled:hover {
+      background: rgba(255, 255, 255, 0.9);
+      color: #5D4037;
+      transform: translateY(-50%);
+    }
+
+    /* Progress dots */
+    .progress-dots {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .dot {
+      width: clamp(10px, 2vw, 14px);
+      height: clamp(10px, 2vw, 14px);
+      border-radius: 50%;
+      background: rgba(93, 64, 55, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot:hover {
+      background: rgba(93, 64, 55, 0.6);
+      transform: scale(1.2);
+    }
+
+    .dot.active {
+      background: #5D4037;
+      transform: scale(1.2);
+    }
+
+    /* Page indicator */
+    .page-indicator {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      color: #8D6E63;
+      z-index: 100;
+    }
+
+    /* Fullscreen button */
+    .fullscreen-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #5D4037;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(93, 64, 55, 0.2);
+      transition: all 0.3s ease;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fullscreen-btn:hover {
+      background: #5D4037;
+      color: white;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+      .presentation {
+        padding: 10px;
+      }
+
+      .slide {
+        min-height: auto;
+        max-height: 85vh;
+        padding: 15px;
+      }
+
+      .nav-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+      }
+
+      .nav-btn.prev { left: 5px; }
+      .nav-btn.next { right: 5px; }
+
+      .progress-dots {
+        bottom: 20px;
+      }
+
+      .page-indicator {
+        bottom: 5px;
+      }
+    }
+
+    /* Tablet adjustments */
+    @media (min-width: 601px) and (max-width: 900px) {
+      .slide {
+        max-width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="fullscreen-btn" onclick="toggleFullscreen()" title="全螢幕 (F)">⛶</button>
+
+  <button class="nav-btn prev" onclick="prevSlide()">◀</button>
+
+  <div class="presentation">
+    <!-- Slide 1 -->
+    <div class="slide active" data-slide="1">
+      <img class="slide-image" src="page1_forest.jpg" alt="森林裡的小熊">
+      <h2 class="slide-title"><span class="emoji">🐻</span> 嗨！我是小熊熊</h2>
+      <p class="slide-content">在一片安靜又美麗的森林裡，
+住著一隻愛笑、愛冒險的小熊。
+
+每天早晨，
+牠都期待新的發現與新的朋友。</p>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide" data-slide="2">
+      <img class="slide-image" src="page2_honey.jpg" alt="小熊品嚐蜂蜜">
+      <h2 class="slide-title"><span class="emoji">🌱</span> 長大的每一天</h2>
+      <p class="slide-content">小熊學會了：
+
+<span class="highlight">自己找食物</span>
+<span class="highlight">爬樹摘蜂蜜</span>
+<span class="highlight">在草地上翻滾玩耍</span>
+
+每一天都充滿新鮮事。</p>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide" data-slide="3">
+      <img class="slide-image" src="page3_forest_friends.jpg" alt="森林朋友們">
+      <h2 class="slide-title"><span class="emoji">🌲</span> 森林大冒險</h2>
+      <p class="slide-content">有一天，
+小熊決定探索更遠的地方。
+
+牠遇見了：
+
+🦊狐狸  🐰兔子  🦉貓頭鷹
+
+也認識了許多新朋友。</p>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide" data-slide="4">
+      <img class="slide-image" src="page4_winter.jpg" alt="冬眠中的小熊">
+      <h2 class="slide-title"><span class="emoji">❄️</span> 暖暖的冬眠時光</h2>
+      <p class="slide-content">寒冷的冬天到了。
+
+小熊找到一個溫暖的洞穴，
+抱著最愛的毛毯，
+安心地進入夢鄉。
+
+等待春天再次到來。</p>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide" data-slide="5">
+      <img class="slide-image" src="page5_spring.jpg" alt="春天裡的朋友們">
+      <h2 class="slide-title"><span class="emoji">🏠</span> 最幸福的地方</h2>
+      <p class="slide-content">春天來了。
+
+小熊醒來後，
+和朋友們再次相聚。
+
+牠明白了：
+
+<span class="highlight">最美好的冒險，</span>
+<span class="highlight">是有人陪伴一起成長。</span>
+
+從此過著幸福快樂的生活。</p>
+    </div>
+  </div>
+
+  <button class="nav-btn next" onclick="nextSlide()">▶</button>
+
+  <div class="progress-dots">
+    <span class="dot active" onclick="goToSlide(1)"></span>
+    <span class="dot" onclick="goToSlide(2)"></span>
+    <span class="dot" onclick="goToSlide(3)"></span>
+    <span class="dot" onclick="goToSlide(4)"></span>
+    <span class="dot" onclick="goToSlide(5)"></span>
+  </div>
+
+  <div class="page-indicator">1 / 5</div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 5;
+
+    function showSlide(n) {
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      const indicator = document.querySelector('.page-indicator');
+      const prevBtn = document.querySelector('.nav-btn.prev');
+      const nextBtn = document.querySelector('.nav-btn.next');
+
+      if (n < 1) n = 1;
+      if (n > totalSlides) n = totalSlides;
+
+      currentSlide = n;
+
+      slides.forEach((slide, index) => {
+        slide.classList.remove('active');
+        if (index + 1 === n) {
+          slide.classList.add('active');
+        }
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.remove('active');
+        if (index + 1 === n) {
+          dot.classList.add('active');
+        }
+      });
+
+      indicator.textContent = `${currentSlide} / ${totalSlides}`;
+
+      prevBtn.disabled = currentSlide === 1;
+      nextBtn.disabled = currentSlide === totalSlides;
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function goToSlide(n) {
+      showSlide(n);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.log('Fullscreen error:', err);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    document.addEventListener('keydown', function(e) {
+      switch(e.key) {
+        case 'ArrowLeft':
+          prevSlide();
+          break;
+        case 'ArrowRight':
+          nextSlide();
+          break;
+        case 'Home':
+          goToSlide(1);
+          break;
+        case 'End':
+          goToSlide(totalSlides);
+          break;
+        case 'f':
+        case 'F':
+          toggleFullscreen();
+          break;
+      }
+    });
+
+    // Initialize
+    showSlide(1);
+  </script>
+</body>
+</html>

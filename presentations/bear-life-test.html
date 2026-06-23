@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐻 小熊的一生</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f5e6d3;
+            overflow: hidden;
+        }
+
+        /* 熊掌裝飾背景 */
+        body::before, body::after {
+            content: '🐾';
+            position: fixed;
+            font-size: 4rem;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+        body::before { top: 20px; left: 30px; transform: rotate(-20deg); }
+        body::after { bottom: 20px; right: 30px; transform: rotate(20deg); }
+
+        /* 標題 */
+        .page-title {
+            font-size: 0.9rem;
+            color: #a1887f;
+            margin-bottom: 18px;
+            letter-spacing: 2px;
+        }
+
+        /* 簡報外框 */
+        .presentation-frame {
+            width: min(90vw, 900px);
+            aspect-ratio: 16/9;
+            position: relative;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(139, 90, 43, 0.18);
+            overflow: hidden;
+        }
+
+        /* 投影片 */
+        .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* 每頁背景 */
+        .slide-1 { background: #fffbf5; }
+        .slide-2 { background: #fff9e6; }
+        .slide-3 { background: #e8f5e9; }
+        .slide-4 { background: #e3f2fd; }
+        .slide-5 { background: #fce4ec; }
+
+        /* 頁面裝飾圓形 */
+        .slide-deco {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+
+        /* 頁面內容 */
+        .slide-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .slide-title {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: bold;
+            color: #5d4037;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .slide-subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.35rem);
+            color: #8b5a2b;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .slide-bear {
+            font-size: 2.5rem;
+            margin-top: 18px;
+        }
+
+        /* 熊掌裝飾（每頁細節） */
+        .slide-trail {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-size: 1.2rem;
+            opacity: 0.3;
+        }
+
+        /* 導航列 */
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 10px 28px;
+            background: #8b5a2b;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 12px rgba(139, 90, 43, 0.25);
+        }
+        .nav-btn:hover { background: #6d4520; transform: translateY(-2px); }
+        .nav-btn:active { transform: translateY(0); }
+        .nav-btn:disabled { background: #d7ccc8; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .page-indicator {
+            font-size: 1rem;
+            color: #8b5a2b;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* 進度點 */
+        .progress-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #d7ccc8;
+            transition: all 0.3s;
+        }
+        .dot.active { background: #8b5a2b; transform: scale(1.3); }
+
+        /* 浮動熊標題列 */
+        .float-bear {
+            position: fixed;
+            top: 16px;
+            right: 24px;
+            font-size: 1.4rem;
+            opacity: 0.6;
+        }
+
+        /* 熊掌裝飾（每頁不同位置） */
+        .deco-1 { width: 120px; height: 120px; background: #8b5a2b; top: -40px; right: -30px; }
+        .deco-2 { width: 80px; height: 80px; background: #ffb74d; bottom: -25px; left: -20px; }
+        .deco-3 { width: 100px; height: 100px; background: #4caf50; top: -30px; left: -25px; }
+        .deco-4 { width: 90px; height: 90px; background: #64b5f6; bottom: -20px; right: -20px; }
+        .deco-5 { width: 110px; height: 110px; background: #f06292; top: -35px; right: -30px; }
+
+        /* 熊掌內頁裝飾（小熊排排站） */
+        .bear-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            font-size: 1.8rem;
+        }
+        .bear-row span { animation: bounce 1.5s ease-in-out infinite; }
+        .bear-row span:nth-child(2) { animation-delay: 0.2s; }
+        .bear-row span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="float-bear">🐻</div>
+    <div class="page-title">— 小熊的一生 —</div>
+
+    <div class="presentation-frame">
+
+        <!-- 第 1 頁 -->
+        <div class="slide slide-1 active" data-index="0">
+            <div class="slide-deco deco-1"></div>
+            <div class="slide-emoji">🐻</div>
+            <div class="slide-title">小熊的一生</div>
+            <div class="slide-subtitle">一個溫暖的生命故事</div>
+            <div class="bear-row"><span>🧸</span><span>🐾</span><span>🧸</span></div>
+            <div class="slide-trail">🌿</div>
+        </div>
+
+        <!-- 第 2 頁 -->
+        <div class="slide slide-2" data-index="1">
+            <div class="slide-deco deco-2"></div>
+            <div class="slide-emoji">🌱</div>
+            <div class="slide-title">成長的點點滴滴</div>
+            <div class="slide-subtitle">學習走路、尋找食物、盡情玩耍</div>
+            <div class="bear-row"><span>🐻</span><span>🍯</span><span>🐻</span></div>
+            <div class="slide-trail">🌼</div>
+        </div>
+
+        <!-- 第 3 頁 -->
+        <div class="slide slide-3" data-index="2">
+            <div class="slide-deco deco-3"></div>
+            <div class="slide-emoji">🌲</div>
+            <div class="slide-title">森林大冒險</div>
+            <div class="slide-subtitle">穿越密林、結交朋友、勇敢挑戰</div>
+            <div class="bear-row"><span>🦊</span><span>🐻</span><span>🦁</span></div>
+            <div class="slide-trail">🍂</div>
+        </div>
+
+        <!-- 第 4 頁 -->
+        <div class="slide slide-4" data-index="3">
+            <div class="slide-deco deco-4"></div>
+            <div class="slide-emoji">❄️</div>
+            <div class="slide-title">漫長的冬眠</div>
+            <div class="slide-subtitle">天氣變冷、找到溫暖的洞穴、等待春天</div>
+            <div class="bear-row"><span>❄️</span><span>🐻</span><span>❄️</span></div>
+            <div class="slide-trail">☃️</div>
+        </div>
+
+        <!-- 第 5 頁 -->
+        <div class="slide slide-5" data-index="4">
+            <div class="slide-deco deco-5"></div>
+            <div class="slide-emoji">🏠</div>
+            <div class="slide-title">溫暖的歸宿</div>
+            <div class="slide-subtitle">春天醒來、生命的延續、建立自己的家庭</div>
+            <div class="bear-row"><span>🐻</span><span>❤️</span><span>🐻</span></div>
+            <div class="slide-trail">🌸</div>
+        </div>
+
+    </div>
+
+    <!-- 導航 -->
+    <div class="nav-bar">
+        <button class="nav-btn" id="prev-btn" onclick="prevSlide()">◀ 上一頁</button>
+        <span class="page-indicator" id="page-indicator">1 / 5</span>
+        <button class="nav-btn" id="next-btn" onclick="nextSlide()">下一頁 ▶</button>
+    </div>
+
+    <!-- 進度點 -->
+    <div class="progress-dots" id="progress-dots">
+        <div class="dot active" onclick="goToSlide(0)"></div>
+        <div class="dot" onclick="goToSlide(1)"></div>
+        <div class="dot" onclick="goToSlide(2)"></div>
+        <div class="dot" onclick="goToSlide(3)"></div>
+        <div class="dot" onclick="goToSlide(4)"></div>
+    </div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const indicator = document.getElementById('page-indicator');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    let current = 0;
+    const total = slides.length;
+
+    function updateUI() {
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        indicator.textContent = `${current + 1} / ${total}`;
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === total - 1;
+    }
+
+    function nextSlide() {
+        if (current < total - 1) { current++; updateUI(); }
+    }
+
+    function prevSlide() {
+        if (current > 0) { current--; updateUI(); }
+    }
+
+    function goToSlide(index) {
+        current = index;
+        updateUI();
+    }
+
+    // 鍵盤左右方向鍵
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+    });
+
+    updateUI();
+</script>
+
+</body>
+</html>

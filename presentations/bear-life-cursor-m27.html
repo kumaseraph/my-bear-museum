@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐻 小熊的一生</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fdf6e3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .slide-container {
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16/9;
+            position: relative;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .slide.active { opacity: 1; pointer-events: auto; }
+        .slide h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .slide p {
+            font-size: 1.5rem;
+            text-align: center;
+            opacity: 0.85;
+        }
+        /* Background colors per slide */
+        .slide-1 { background: #FFF8E7; }
+        .slide-2 { background: #FFFACD; }
+        .slide-3 { background: #98FB98; }
+        .slide-4 { background: #E0FFFF; }
+        .slide-5 { background: #FFE4EC; }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .controls button {
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #8b5a2b;
+            color: white;
+        }
+        .controls button:hover { background: #6d4520; transform: scale(1.05); }
+        .controls button:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+        .page-indicator {
+            font-size: 1.1rem;
+            color: #5d4037;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+        }
+        .slide h1 { color: #5d4037; }
+        .slide p { color: #5d4037; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="slide slide-1 active" data-slide="1">
+            <h1>🐻 小熊的一生</h1>
+            <p>一個溫暖的生命故事</p>
+        </div>
+        <div class="slide slide-2" data-slide="2">
+            <h1>🌱 成長的點點滴滴</h1>
+            <p>學習走路、尋找食物、盡情玩耍</p>
+        </div>
+        <div class="slide slide-3" data-slide="3">
+            <h1>🌲 森林大冒險</h1>
+            <p>穿越密林、結交朋友、勇敢挑戰</p>
+        </div>
+        <div class="slide slide-4" data-slide="4">
+            <h1>❄️ 漫長的冬眠</h1>
+            <p>天氣變冷、找到溫暖的洞穴、等待春天</p>
+        </div>
+        <div class="slide slide-5" data-slide="5">
+            <h1>🏠 溫暖的歸宿</h1>
+            <p>春天醒來、生命的延續、建立自己的家庭</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="prevSlide()">◀ 上一頁</button>
+        <span class="page-indicator"><span id="currentPage">1</span> / <span id="totalPages">5</span></span>
+        <button id="nextBtn" onclick="nextSlide()">下一頁 ▶</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+        let current = 1;
+
+        function showSlide(n) {
+            if (n < 1) n = 1;
+            if (n > total) n = total;
+            current = n;
+            slides.forEach((s, i) => {
+                s.classList.toggle('active', i === n - 1);
+            });
+            document.getElementById('currentPage').textContent = current;
+            document.getElementById('prevBtn').disabled = current === 1;
+            document.getElementById('nextBtn').disabled = current === total;
+        }
+
+        function prevSlide() { showSlide(current - 1); }
+        function nextSlide() { showSlide(current + 1); }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
+
+        showSlide(1);
+    </script>
+</body>
+</html>

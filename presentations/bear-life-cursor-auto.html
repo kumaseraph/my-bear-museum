@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐻 小熊的一生</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, #f5e6d3 0%, #ede0d4 100%);
+            padding: 24px 16px;
+        }
+
+        body::before,
+        body::after {
+            content: '🐾';
+            position: fixed;
+            font-size: 3.5rem;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        body::before { top: 24px; left: 28px; transform: rotate(-18deg); }
+        body::after { bottom: 24px; right: 28px; transform: rotate(18deg); }
+
+        .header-label {
+            font-size: 0.85rem;
+            color: #a1887f;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+        }
+
+        .slide-container {
+            width: min(92vw, 900px);
+            aspect-ratio: 16 / 9;
+            position: relative;
+            border-radius: 24px;
+            border: 4px solid rgba(139, 90, 43, 0.15);
+            box-shadow: 0 14px 48px rgba(139, 90, 43, 0.2);
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 40px;
+            opacity: 0;
+            transition: opacity 0.45s ease;
+            pointer-events: none;
+        }
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .slide-1 { background: #FFF8E7; }
+        .slide-2 { background: #FFFACD; }
+        .slide-3 { background: #98FB98; }
+        .slide-4 { background: #E0FFFF; }
+        .slide-5 { background: #FFE4EC; }
+
+        .slide-blob {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.14;
+            pointer-events: none;
+        }
+        .blob-1 { width: 140px; height: 140px; background: #d4a574; top: -50px; right: -40px; }
+        .blob-2 { width: 100px; height: 100px; background: #ffb74d; bottom: -30px; left: -25px; }
+        .blob-3 { width: 120px; height: 120px; background: #66bb6a; top: -40px; left: -30px; }
+        .blob-4 { width: 110px; height: 110px; background: #4fc3f7; bottom: -25px; right: -20px; }
+        .blob-5 { width: 130px; height: 130px; background: #f48fb1; top: -45px; right: -35px; }
+
+        .slide-icon {
+            font-size: 3.2rem;
+            margin-bottom: 14px;
+            animation: gentle-bob 2.8s ease-in-out infinite;
+        }
+        @keyframes gentle-bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .slide h1 {
+            font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+            color: #5d4037;
+            text-align: center;
+            margin-bottom: 18px;
+            line-height: 1.35;
+        }
+
+        .slide p {
+            font-size: clamp(1rem, 2.6vw, 1.4rem);
+            color: #6d4c41;
+            text-align: center;
+            line-height: 1.75;
+            max-width: 28em;
+            opacity: 0.9;
+        }
+
+        .slide-footer-deco {
+            position: absolute;
+            bottom: 28px;
+            font-size: 1.3rem;
+            opacity: 0.35;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            margin-top: 26px;
+        }
+
+        .controls button {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: inherit;
+            border: none;
+            border-radius: 28px;
+            cursor: pointer;
+            background: #8b5a2b;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(139, 90, 43, 0.3);
+            transition: background 0.25s, transform 0.25s;
+        }
+        .controls button:hover:not(:disabled) {
+            background: #6d4520;
+            transform: translateY(-2px);
+        }
+        .controls button:disabled {
+            background: #d7ccc8;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .page-indicator {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #5d4037;
+            min-width: 64px;
+            text-align: center;
+        }
+
+        .dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #d7ccc8;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .dot.active {
+            background: #8b5a2b;
+            transform: scale(1.25);
+        }
+    </style>
+</head>
+<body>
+    <p class="header-label">— 小熊的一生 —</p>
+
+    <div class="slide-container">
+        <section class="slide slide-1 active" aria-label="第 1 頁">
+            <div class="slide-blob blob-1"></div>
+            <div class="slide-icon">🐻</div>
+            <h1>🐻 小熊的一生</h1>
+            <p>一個溫暖的生命故事</p>
+            <span class="slide-footer-deco">🧸 🐾 🧸</span>
+        </section>
+
+        <section class="slide slide-2" aria-label="第 2 頁">
+            <div class="slide-blob blob-2"></div>
+            <div class="slide-icon">🌱</div>
+            <h1>🌱 成長的點點滴滴</h1>
+            <p>學習走路、尋找食物、盡情玩耍</p>
+            <span class="slide-footer-deco">🌼 🍯</span>
+        </section>
+
+        <section class="slide slide-3" aria-label="第 3 頁">
+            <div class="slide-blob blob-3"></div>
+            <div class="slide-icon">🌲</div>
+            <h1>🌲 森林大冒險</h1>
+            <p>穿越密林、結交朋友、勇敢挑戰</p>
+            <span class="slide-footer-deco">🌿 🦋</span>
+        </section>
+
+        <section class="slide slide-4" aria-label="第 4 頁">
+            <div class="slide-blob blob-4"></div>
+            <div class="slide-icon">❄️</div>
+            <h1>❄️ 漫長的冬眠</h1>
+            <p>天氣變冷、找到溫暖的洞穴、等待春天</p>
+            <span class="slide-footer-deco">☃️ 💤</span>
+        </section>
+
+        <section class="slide slide-5" aria-label="第 5 頁">
+            <div class="slide-blob blob-5"></div>
+            <div class="slide-icon">🏠</div>
+            <h1>🏠 溫暖的歸宿</h1>
+            <p>春天醒來、生命的延續、建立自己的家庭</p>
+            <span class="slide-footer-deco">💕 🏡</span>
+        </section>
+    </div>
+
+    <div class="controls">
+        <button type="button" id="prevBtn">◀ 上一頁</button>
+        <span class="page-indicator"><span id="currentPage">1</span> / <span id="totalPages">5</span></span>
+        <button type="button" id="nextBtn">下一頁 ▶</button>
+    </div>
+
+    <div class="dots" id="dots" aria-hidden="true"></div>
+
+    <script>
+        (function () {
+            const slides = document.querySelectorAll('.slide');
+            const total = slides.length;
+            const currentPageEl = document.getElementById('currentPage');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dotsContainer = document.getElementById('dots');
+            let current = 1;
+
+            slides.forEach(function (_, i) {
+                const dot = document.createElement('span');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.dataset.index = String(i + 1);
+                dot.addEventListener('click', function () {
+                    showSlide(i + 1);
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.dot');
+
+            function showSlide(n) {
+                if (n < 1) n = 1;
+                if (n > total) n = total;
+                current = n;
+                slides.forEach(function (slide, i) {
+                    slide.classList.toggle('active', i === n - 1);
+                });
+                dots.forEach(function (dot, i) {
+                    dot.classList.toggle('active', i === n - 1);
+                });
+                currentPageEl.textContent = String(current);
+                prevBtn.disabled = current === 1;
+                nextBtn.disabled = current === total;
+            }
+
+            function prevSlide() { showSlide(current - 1); }
+            function nextSlide() { showSlide(current + 1); }
+
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowLeft') prevSlide();
+                if (e.key === 'ArrowRight') nextSlide();
+            });
+
+            showSlide(1);
+        })();
+    </script>
+</body>
+</html>
