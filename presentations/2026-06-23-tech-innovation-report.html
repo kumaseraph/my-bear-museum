@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 科技新創關鍵報告 | 熊熊每日簡報</title>
+<style>
+:root {
+  --primary: #5BB5A0;
+  --bg: #F0FBF9;
+  --bg2: #E5F5F1;
+  --surface: #FFFFFF;
+  --surface2: #E0F2ED;
+  --accent: #3D9A87;
+  --accent2: #2D7A6F;
+  --mint: #7ECFBB;
+  --mint-light: #B5E6D8;
+  --dark: #1A4A42;
+  --text: #1A4A42;
+  --text2: #3D7A70;
+  --text-light: #7AADB5;
+  --shadow: rgba(59, 154, 135, 0.12);
+  --shadow-hover: rgba(59, 154, 135, 0.22);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans TC', 'PingFang TC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== 頁面框架 ===== */
+.page {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== 背景襯托層 ===== */
+.bg-dot {
+  background-image: radial-gradient(circle, var(--mint-light) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+.bg-diagonal {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(91, 181, 160, 0.05) 20px,
+    rgba(91, 181, 160, 0.05) 40px
+  );
+}
+.bg-radial {
+  background: radial-gradient(ellipse at 30% 40%, rgba(126, 207, 187, 0.35) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 80%, rgba(91, 181, 160, 0.2) 0%, transparent 50%);
+}
+.bg-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(126, 207, 187, 0.3) 0%, var(--bg) 70%);
+}
+
+/* ===== 浮動幾何裝飾 ===== */
+.geo-float {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mint-light), rgba(126, 207, 187, 0.3));
+  animation: floatGeo 6s ease-in-out infinite;
+  pointer-events: none;
+}
+.geo-float.square { border-radius: 12px; }
+.geo-float.diamond { border-radius: 6px; transform: rotate(45deg); }
+@keyframes floatGeo {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(5deg); }
+  66% { transform: translateY(-6px) rotate(-3deg); }
+}
+
+/* ===== 發光效果 ===== */
+.glow-text {
+  text-shadow: 0 0 30px rgba(126, 207, 187, 0.6), 0 0 60px rgba(126, 207, 187, 0.3);
+}
+.glow-box {
+  box-shadow: 0 0 20px rgba(126, 207, 187, 0.4), 0 0 40px rgba(126, 207, 187, 0.15);
+}
+.glow-border {
+  border: 2px solid rgba(126, 207, 187, 0.5);
+  box-shadow: 0 0 15px rgba(126, 207, 187, 0.3), inset 0 0 15px rgba(126, 207, 187, 0.05);
+}
+
+/* ===== 玻璃效果 ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+}
+.glass-dark {
+  background: rgba(26, 74, 66, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(126, 207, 187, 0.25);
+  border-radius: 16px;
+  color: white;
+}
+
+/* ===== 標題字體 ===== */
+h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.1; }
+h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 800; line-height: 1.2; }
+h3 { font-size: clamp(20px, 2.5vw, 32px); font-weight: 700; }
+.subtitle { font-size: clamp(14px, 1.5vw, 18px); font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-light); }
+.big-num { font-size: clamp(60px, 10vw, 120px); font-weight: 900; line-height: 1; }
+.body-text { font-size: clamp(16px, 1.8vw, 22px); line-height: 1.6; font-weight: 400; }
+
+/* ===== 頁面內邊距 ===== */
+.content { padding: clamp(40px, 6vw, 80px); flex: 1; display: flex; flex-direction: column; }
+.content-center { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+
+/* ===== 標籤膠囊 ===== */
+.tag {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.tag-outline {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+}
+
+/* ===== 回到列表連結 ===== */
+.back-link {
+  position: fixed;
+  top: 16px;
+  left: 20px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  color: var(--primary);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid rgba(91,181,160,0.3);
+  transition: all 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.back-link:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* ===== 底部導航列 ===== */
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(91, 181, 160, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 1000;
+  padding: 0 20px;
+}
+.nav-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+}
+.nav-dot:hover, .nav-dot.active {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.1);
+}
+.nav-label {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.nav-dot:hover .nav-label { opacity: 1; }
+
+/* ===== 頁面陰影 ===== */
+.page-shadow {
+  box-shadow: 0 20px 60px var(--shadow);
+}
+
+/* ===== ============================== */
+/* ===== P1 封面 — 幾何叢集疊加       */
+/* ===== ============================== */
+#p1 {
+  background: linear-gradient(135deg, #E8FAF6 0%, #C5F0E8 40%, #A8E6CF 100%);
+}
+#p1 .geo-1 { width: 300px; height: 300px; top: -80px; right: -60px; animation-delay: 0s; opacity: 0.5; }
+#p1 .geo-2 { width: 180px; height: 180px; bottom: 80px; left: -40px; animation-delay: 1.5s; opacity: 0.4; }
+#p1 .geo-3 { width: 120px; height: 120px; top: 30%; left: 15%; animation-delay: 0.8s; opacity: 0.35; }
+#p1 .geo-4 { width: 80px; height: 80px; bottom: 25%; right: 20%; animation-delay: 2s; opacity: 0.3; border-radius: 12px; }
+#p1 .cover-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: min(90vw, 760px);
+}
+#p1 .cover-card .subtitle { margin-bottom: 16px; }
+#p1 .cover-card h1 { color: var(--dark); margin-bottom: 20px; }
+#p1 .cover-card .tag { margin-bottom: 28px; }
+#p1 .cover-meta { color: var(--text2); font-size: 15px; margin-top: 24px; letter-spacing: 0.5px; }
+
+/* ===== ============================== */
+/* ===== P2 議題概述 — 圓形輻射       */
+/* ===== ============================== */
+#p2 {
+  background: var(--bg);
+}
+#p2 .bg-dot { position: absolute; inset: 0; }
+#p2 .orbit-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, 80vw);
+  height: min(420px, 80vw);
+}
+#p2 .orbit-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px; height: 120px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: white;
+  box-shadow: 0 0 40px rgba(91, 181, 160, 0.5);
+  z-index: 2;
+}
+#p2 .orbit-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(91, 181, 160, 0.25);
+  border-radius: 50%;
+  animation: spin 20s linear infinite;
+}
+#p2 .orbit-ring::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 50%;
+  transform: translateX(-50%);
+  width: 16px; height: 16px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+#p2 .orbit-ring-2 {
+  inset: 40px;
+  animation: spin 14s linear infinite reverse;
+}
+#p2 .orbit-ring-2::before {
+  width: 12px; height: 12px;
+  background: var(--mint);
+}
+#p2 .orbit-content {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: min(85vw, 900px);
+  padding-top: 60px;
+}
+#p2 .orbit-content h2 { color: var(--dark); margin-bottom: 16px; }
+#p2 .orbit-content p { color: var(--text2); font-size: clamp(15px, 1.8vw, 20px); max-width: 600px; margin: 0 auto; }
+#p2 .orbit-content .subtitle { margin-bottom: 12px; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ===== ============================== */
+/* ===== P3 核心數據 — KPI 象限        */
+/* ===== ============================== */
+#p3 {
+  background: linear-gradient(160deg, #1A4A42 0%, #2D7A6F 100%);
+}
+#p3 .bg-radial { position: absolute; inset: 0; }
+#p3 .kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+#p3 .kpi-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(126, 207, 187, 0.3);
+  border-radius: 20px;
+  padding: clamp(24px, 3vw, 40px);
+  text-align: center;
+  transition: transform 0.3s, background 0.3s;
+}
+#p3 .kpi-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.16);
+}
+#p3 .kpi-card .big-num { color: white; margin-bottom: 8px; }
+#p3 .kpi-card .kpi-label { color: var(--mint-light); font-size: clamp(13px, 1.5vw, 17px); font-weight: 600; }
+#p3 .kpi-card .kpi-sub { color: rgba(181, 230, 216, 0.6); font-size: 13px; margin-top: 6px; }
+#p3 .content { justify-content: center; }
+#p3 .page-header { text-align: center; margin-bottom: clamp(32px, 4vw, 52px); }
+#p3 .page-header h2 { color: white; }
+#p3 .page-header .subtitle { color: var(--mint-light); margin-bottom: 10px; }
+
+/* ===== ============================== */
+/* ===== P4 工具介紹 — 蜂巢六邊形       */
+/* ===== ============================== */
+#p4 {
+  background: var(--bg);
+}
+#p4 .bg-dot { position: absolute; inset: 0; }
+#p4 .hex-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+}
+#p4 .hex-card {
+  background: white;
+  border-radius: 16px;
+  padding: clamp(20px, 2.5vw, 32px);
+  text-align: center;
+  border: 2px solid var(--surface2);
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px var(--shadow);
+}
+#p4 .hex-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: var(--primary);
+  box-shadow: 0 12px 32px var(--shadow-hover);
+}
+#p4 .hex-icon {
+  width: clamp(52px, 6vw, 72px);
+  height: clamp(52px, 6vw, 72px);
+  margin: 0 auto 14px;
+  background: linear-gradient(135deg, var(--mint-light), var(--primary));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+}
+#p4 .hex-card h3 { font-size: clamp(15px, 1.6vw, 20px); color: var(--dark); margin-bottom: 8px; }
+#p4 .hex-card p { font-size: clamp(12px, 1.2vw, 15px); color: var(--text2); line-height: 1.5; }
+#p4 .content { justify-content: center; }
+#p4 .page-header { text-align: center; margin-bottom: clamp(28px, 3.5vw, 48px); }
+#p4 .page-header .subtitle { color: var(--accent); margin-bottom: 8px; }
+
+/* ===== ============================== */
+/* ===== P5 流程圖 — 玻璃效果流程      */
+/* ===== ============================== */
+#p5 {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface2) 100%);
+}
+#p5 .flow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2vw, 24px);
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+}
+#p5 .flow-step {
+  flex: 1;
+  min-width: clamp(160px, 20vw, 240px);
+  max-width: 280px;
+  text-align: center;
+}
+#p5 .flow-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: clamp(20px, 2.5vw, 32px) clamp(16px, 2vw, 24px);
+  box-shadow: 0 8px 32px var(--shadow);
+  transition: transform 0.3s;
+}
+#p5 .flow-card:hover { transform: translateY(-6px); }
+#p5 .flow-num {
+  width: clamp(40px, 4.5vw, 56px);
+  height: clamp(40px, 4.5vw, 56px);
+  background: linear-gradient(135deg, var(--primary), var(--accent2));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 900;
+  margin: 0 auto 14px;
+}
+#p5 .flow-card h3 { font-size: clamp(14px, 1.5vw, 19px); color: var(--dark); margin-bottom: 8px; }
+#p5 .flow-card p { font-size: clamp(12px, 1.2vw, 15px); color: var(--text2); line-height: 1.5; }
+#p5 .flow-arrow {
+  font-size: clamp(20px, 2.5vw, 32px);
+  color: var(--primary);
+  flex-shrink: 0;
+}
+#p5 .content { justify-content: center; }
+#p5 .page-header { text-align: center; margin-bottom: clamp(32px, 4vw, 52px); }
+#p5 .page-header .subtitle { color: var(--accent); margin-bottom: 8px; }
+
+/* ===== ============================== */
+/* ===== P6 案例 — 卡片矩陣            */
+/* ===== ============================== */
+#p6 {
+  background: var(--dark);
+}
+#p6 .bg-radial { position: absolute; inset: 0; }
+#p6 .case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+}
+#p6 .case-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(126, 207, 187, 0.2);
+  border-radius: 16px;
+  padding: clamp(20px, 2.5vw, 32px);
+  transition: all 0.3s;
+}
+#p6 .case-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(126, 207, 187, 0.5);
+}
+#p6 .case-icon {
+  font-size: clamp(28px, 3vw, 40px);
+  margin-bottom: 14px;
+}
+#p6 .case-card h3 { color: white; font-size: clamp(14px, 1.5vw, 19px); margin-bottom: 10px; }
+#p6 .case-card p { color: var(--mint-light); font-size: clamp(12px, 1.2vw, 15px); line-height: 1.5; }
+#p6 .case-stat {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(126, 207, 187, 0.2);
+}
+#p6 .case-stat span { color: var(--mint); font-size: clamp(18px, 2vw, 26px); font-weight: 900; }
+#p6 .case-stat small { color: rgba(181, 230, 216, 0.6); font-size: 12px; margin-left: 6px; }
+#p6 .content { justify-content: center; }
+#p6 .page-header { text-align: center; margin-bottom: clamp(28px, 3.5vw, 48px); }
+#p6 .page-header .subtitle { color: var(--mint-light); margin-bottom: 8px; }
+#p6 .page-header h2 { color: white; }
+
+/* ===== ============================== */
+/* ===== P7 總結 — 漏斗層次           */
+/* ===== ============================== */
+#p7 {
+  background: var(--bg);
+}
+#p7 .bg-glow { position: absolute; inset: 0; }
+#p7 .funnel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+}
+#p7 .funnel-layer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  padding: clamp(18px, 2.5vw, 28px) clamp(24px, 3vw, 40px);
+  text-align: center;
+  transition: transform 0.3s;
+  width: 100%;
+}
+#p7 .funnel-layer:hover { transform: scale(1.03); }
+#p7 .fl-1 { background: var(--primary); color: white; width: 100%; }
+#p7 .fl-2 { background: var(--accent); color: white; width: 82%; }
+#p7 .fl-3 { background: var(--accent2); color: white; width: 64%; }
+#p7 .fl-4 { background: var(--dark); color: white; width: 46%; }
+#p7 .funnel-layer h3 { font-size: clamp(16px, 2vw, 24px); margin-bottom: 4px; }
+#p7 .funnel-layer p { font-size: clamp(12px, 1.2vw, 15px); opacity: 0.8; }
+#p7 .content { justify-content: center; }
+#p7 .page-header { text-align: center; margin-bottom: clamp(32px, 4vw, 52px); }
+#p7 .page-header .subtitle { color: var(--accent); margin-bottom: 8px; }
+
+/* ===== ============================== */
+/* ===== P8 結尾 — 幾何迴響           */
+/* ===== ============================== */
+#p8 {
+  background: linear-gradient(135deg, #C5F0E8 0%, #E8FAF6 50%, #F0FBF9 100%);
+}
+#p8 .echo-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 3px solid rgba(91, 181, 160, 0.25);
+  animation: echoPulse 3s ease-out infinite;
+  pointer-events: none;
+}
+#p8 .echo-ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
+#p8 .echo-ring:nth-child(2) { width: 480px; height: 480px; animation-delay: 0.6s; border-color: rgba(91, 181, 160, 0.15); }
+#p8 .echo-ring:nth-child(3) { width: 660px; height: 660px; animation-delay: 1.2s; border-color: rgba(91, 181, 160, 0.08); }
+@keyframes echoPulse {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.15); }
+}
+#p8 .end-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+#p8 .end-content h2 { color: var(--dark); margin-bottom: 20px; }
+#p8 .end-content p { color: var(--text2); font-size: clamp(14px, 1.6vw, 19px); margin-bottom: 32px; }
+#p8 .cta-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#p8 .cta-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: clamp(13px, 1.4vw, 16px);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+#p8 .cta-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 6px 24px rgba(91, 181, 160, 0.4);
+}
+#p8 .cta-primary:hover {
+  background: var(--accent2);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(91, 181, 160, 0.5);
+}
+#p8 .cta-secondary {
+  background: white;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+#p8 .cta-secondary:hover {
+  background: var(--surface2);
+  transform: translateY(-3px);
+}
+#p8 .brand {
+  margin-top: 40px;
+  color: var(--text-light);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+<style>
+.back-btn { position: fixed; top: 20px; left: 20px; z-index: 200; background: rgba(11,29,58,0.9); color: #C17F4E; padding: 10px 18px; border-radius: 25px; text-decoration: none; font-size: 16px; border: 1px solid #C17F4E; transition: all 0.2s; }
+.back-btn:hover { background: #C17F4E; color: #2C2118; }</style>
+</head>
+<body>
+<a href="/slides.html" class="back-btn">← 返回列表</a>
+
+<a href="/slides" class="back-link">← 列表</a>
+
+<!-- ===== P1 封面 ===== -->
+<div class="page" id="p1">
+  <div class="geo-float geo-1"></div>
+  <div class="geo-float geo-2"></div>
+  <div class="geo-float geo-3"></div>
+  <div class="geo-float geo-4"></div>
+  <div class="cover-card">
+    <div class="subtitle" style="color: var(--accent);">🐾 熊熊簡報 · 科技日</div>
+    <h1 class="glow-text">2026 科技新創<br>關鍵報告</h1>
+    <span class="tag">薄荷綠 · 科技新創</span>
+    <p class="cover-meta">2026 年 6 月 23 日　｜　週二科技日</p>
+  </div>
+</div>
+
+<!-- ===== P2 議題概述 ===== -->
+<div class="page" id="p2">
+  <div class="bg-dot"></div>
+  <div class="orbit-wrap">
+    <div class="orbit-ring"></div>
+    <div class="orbit-ring orbit-ring-2"></div>
+    <div class="orbit-center">🤖</div>
+  </div>
+  <div class="orbit-content content-center">
+    <div class="subtitle" style="color: var(--accent);">科技新創的現在與未來</div>
+    <h2>AI 賦能企業轉型<br>三大關鍵趨勢</h2>
+    <p style="margin-top: 16px;">從生成式 AI 到邊緣運算，從永續科技到元宇宙應用——盤點 2026 年最具影響力的科技變革。</p>
+  </div>
+</div>
+
+<!-- ===== P3 核心數據 ===== -->
+<div class="page" id="p3">
+  <div class="bg-radial"></div>
+  <div class="content">
+    <div class="page-header">
+      <div class="subtitle">核心數據</div>
+      <h2>2026 科技關鍵指標</h2>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card glow-box">
+        <div class="big-num">78%</div>
+        <div class="kpi-label">企業已部署 AI</div>
+        <div class="kpi-sub">較去年 +31%</div>
+      </div>
+      <div class="kpi-card glow-box">
+        <div class="big-num">$4.2T</div>
+        <div class="kpi-label">全球 AI 市場規模</div>
+        <div class="kpi-sub">2030 年預估值</div>
+      </div>
+      <div class="kpi-card glow-box">
+        <div class="big-num">156</div>
+        <div class="kpi-label">新創投資案件</div>
+        <div class="kpi-sub">亞太區 Q1 2026</div>
+      </div>
+      <div class="kpi-card glow-box">
+        <div class="big-num">3.2x</div>
+        <div class="kpi-label">營收成長倍數</div>
+        <div class="kpi-sub">科技新創平均</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P4 工具介紹 ===== -->
+<div class="page" id="p4">
+  <div class="bg-dot"></div>
+  <div class="content">
+    <div class="page-header">
+      <div class="subtitle">必備工具</div>
+      <h2>新創公司標配工具鏈</h2>
+    </div>
+    <div class="hex-grid">
+      <div class="hex-card">
+        <div class="hex-icon">🤖</div>
+        <h3>AI 助手</h3>
+        <p>提升 3 倍產出效率，跨部門協作無縫</p>
+      </div>
+      <div class="hex-card">
+        <div class="hex-icon">📊</div>
+        <h3>數據平台</h3>
+        <p>即時儀表板，決策有憑有據</p>
+      </div>
+      <div class="hex-card">
+        <div class="hex-icon">🔒</div>
+        <h3>資安系統</h3>
+        <p>零信任架構，滴水不漏</p>
+      </div>
+      <div class="hex-card">
+        <div class="hex-icon">☁️</div>
+        <h3>雲端協作</h3>
+        <p>跨時區、遠端團隊流暢協作</p>
+      </div>
+      <div class="hex-card">
+        <div class="hex-icon">🚀</div>
+        <h3>快速部署</h3>
+        <p>CI/CD 一鍵上線，縮短迭代週期</p>
+      </div>
+      <div class="hex-card">
+        <div class="hex-icon">🌱</div>
+        <h3>永續科技</h3>
+        <p>綠能資料中心，碳排減半</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P5 流程圖 ===== -->
+<div class="page" id="p5">
+  <div class="content">
+    <div class="page-header">
+      <div class="subtitle">執行路徑</div>
+      <h2>科技轉型四步驟</h2>
+    </div>
+    <div class="flow-row">
+      <div class="flow-step">
+        <div class="flow-card glass">
+          <div class="flow-num">1</div>
+          <h3>評估現況</h3>
+          <p>盤點現有系統與痛點，建立基線指標</p>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-card glass">
+          <div class="flow-num">2</div>
+          <h3>選定工具</h3>
+          <p>依需求配置 AI、雲端、資安工具鏈</p>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-card glass">
+          <div class="flow-num">3</div>
+          <h3>POC 驗證</h3>
+          <p>小範圍試行，驗證 ROI 與適用性</p>
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-card glass">
+          <div class="flow-num">4</div>
+          <h3>規模擴展</h3>
+          <p>全面部署，建立持續優化機制</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P6 案例 ===== -->
+<div class="page" id="p6">
+  <div class="bg-radial"></div>
+  <div class="content">
+    <div class="page-header">
+      <div class="subtitle">成功案例</div>
+      <h2>新創轉型標竿</h2>
+    </div>
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-icon">🏢</div>
+        <h3>京磚科技</h3>
+        <p>製造業者引進 AI 質檢系統，瑕疵偵測率達 99.7%</p>
+        <div class="case-stat">
+          <span>+340%</span><small>產能提升</small>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">🛒</div>
+        <h3>萊魚電商</h3>
+        <p>AI 個人化推薦引擎，轉換率提升 2.8 倍</p>
+        <div class="case-stat">
+          <span>+180%</span><small>營收成長</small>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">🏥</div>
+        <h3>明日健康</h3>
+        <p>遠距醫療平台結合 AI 診斷，服務偏鄉 50 萬人</p>
+        <div class="case-stat">
+          <span>50萬</span><small>受益人次</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P7 總結 ===== -->
+<div class="page" id="p7">
+  <div class="bg-glow"></div>
+  <div class="content">
+    <div class="page-header">
+      <div class="subtitle">總結</div>
+      <h2>科技轉型三層架構</h2>
+    </div>
+    <div class="funnel-container">
+      <div class="funnel-layer fl-1">
+        <div>
+          <h3>文化層｜以人為本</h3>
+          <p>建立學習型組織，擁抱失敗、快速迭代</p>
+        </div>
+      </div>
+      <div class="funnel-layer fl-2">
+        <div>
+          <h3>流程層｜數據驅動</h3>
+          <p>以數據做決策，流程自動化</p>
+        </div>
+      </div>
+      <div class="funnel-layer fl-3">
+        <div>
+          <h3>技術層｜AI 賦能</h3>
+          <p>工具落地，建立持續優化機制</p>
+        </div>
+      </div>
+      <div class="funnel-layer fl-4">
+        <div>
+          <h3>成果｜競爭優勢</h3>
+          <p>市場領先，規模化成長</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P8 結尾 ===== -->
+<div class="page" id="p8">
+  <div class="echo-ring"></div>
+  <div class="echo-ring"></div>
+  <div class="echo-ring"></div>
+  <div class="end-content content-center" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+    <div class="subtitle" style="color: var(--accent); margin-bottom: 16px;">🐾 熊熊簡報</div>
+    <h2 class="glow-text">掌握科技，先人一步</h2>
+    <p style="color: var(--text2); margin-top: 12px;">2026 科技新創關鍵報告<br>所有趨勢，一次掌握</p>
+    <div class="cta-row">
+      <a href="/slides" class="cta-btn cta-primary">瀏覽更多簡報</a>
+      <a href="/" class="cta-btn cta-secondary">回到首頁</a>
+    </div>
+    <div class="brand">🐾 Bear Slides · 熊熊簡報系統</div>
+  </div>
+</div>
+
+<!-- ===== 底部導航 ===== -->
+<nav class="nav-bar">
+  <a href="#p1" class="nav-dot active" onclick="showSlide('p1')">1</a>
+  <a href="#p2" class="nav-dot" onclick="showSlide('p2')">2</a>
+  <a href="#p3" class="nav-dot" onclick="showSlide('p3')">3</a>
+  <a href="#p4" class="nav-dot" onclick="showSlide('p4')">4</a>
+  <a href="#p5" class="nav-dot" onclick="showSlide('p5')">5</a>
+  <a href="#p6" class="nav-dot" onclick="showSlide('p6')">6</a>
+  <a href="#p7" class="nav-dot" onclick="showSlide('p7')">7</a>
+  <a href="#p8" class="nav-dot" onclick="showSlide('p8')">8</a>
+</nav>
+
+<script>
+const pages = ['p1','p2','p3','p4','p5','p6','p7','p8'];
+const total = pages.length;
+let current = 0;
+
+function showSlide(id) {
+  const idx = pages.indexOf(id);
+  if (idx >= 0) current = idx;
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  updateNav();
+}
+
+function updateNav() {
+  document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === current);
+  });
+}
+
+window.addEventListener('scroll', () => {
+  const viewMid = window.innerHeight / 2;
+  let closest = 0;
+  let closestDist = Infinity;
+  pages.forEach((id, i) => {
+    const el = document.getElementById(id);
+    const rect = el.getBoundingClientRect();
+    const mid = rect.top + rect.height / 2;
+    const dist = Math.abs(mid - viewMid);
+    if (dist < closestDist) {
+      closestDist = dist;
+      closest = i;
+    }
+  });
+  current = closest;
+  updateNav();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+    e.preventDefault();
+    if (current < total - 1) { current++; showSlide(pages[current]); }
+  }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (current > 0) { current--; showSlide(pages[current]); }
+  }
+});
+</script>
+</body>
+</html>

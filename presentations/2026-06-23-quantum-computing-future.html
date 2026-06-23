@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026科技新知：量子計算與未來趨勢 | 熊熊每日簡報</title>
+  <style>
+    :root {
+      --primary: #5BB5A0;
+      --primary-dark: #3D9A87;
+      --primary-light: #7DCBB5;
+      --accent: #0B1D3A;
+      --bg: #F8FAFC;
+      --bg2: #EEF2F7;
+      --surface: #FFFFFF;
+      --text: #1F2937;
+      --text-muted: #6B7280;
+      --muted: #C4A882;
+      --font-h1: clamp(2rem, 5vw, 3.5rem);
+      --font-h2: clamp(1.5rem, 3vw, 2.5rem);
+      --font-h3: clamp(1.2rem, 2vw, 1.75rem);
+      --font-body: clamp(1rem, 1.5vw, 1.125rem);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    section {
+      min-height: 100vh;
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    h1 { font-size: var(--font-h1); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+    h2 { font-size: var(--font-h2); font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem; }
+    h3 { font-size: var(--font-h3); font-weight: 600; margin-bottom: 1rem; }
+    p { font-size: var(--font-body); color: var(--text-muted); margin-bottom: 1rem; font-weight: 450; }
+
+    /* ========== P1 封面 ========== */
+    #p1 {
+      background: linear-gradient(135deg, #0B1D3A 0%, #1a365d 50%, #2d4a6f 100%);
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+    #p1::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 80%;
+      height: 150%;
+      background: radial-gradient(ellipse, rgba(91,181,160,0.3) 0%, transparent 60%);
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    #p1::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      right: -10%;
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse, rgba(91,181,160,0.2) 0%, transparent 50%);
+      animation: pulse-glow 5s ease-in-out infinite reverse;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+    #p1 .content { position: relative; z-index: 1; }
+    #p1 h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); background: linear-gradient(135deg, #fff 0%, #7DCBB5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    #p1 .subtitle { font-size: clamp(1.1rem, 2vw, 1.5rem); opacity: 0.9; margin-top: 1.5rem; color: rgba(255,255,255,0.9); }
+    #p1 .date-tag {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.5rem 1.5rem;
+      background: rgba(91,181,160,0.2);
+      border: 1px solid rgba(91,181,160,0.4);
+      border-radius: 50px;
+      font-size: 0.95rem;
+      color: var(--primary-light);
+    }
+    /* 時間軸裝飾線 */
+    .timeline-deco {
+      position: absolute;
+      bottom: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0;
+      z-index: 1;
+    }
+    .timeline-deco .dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+      position: relative;
+    }
+    .timeline-deco .line {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, var(--primary), rgba(91,181,160,0.3));
+    }
+    .timeline-deco .dot::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      animation: ripple 2s ease-out infinite;
+    }
+    @keyframes ripple {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+    }
+
+    /* ========== P2 目錄 ========== */
+    #p2 {
+      background: var(--bg);
+      padding: 4rem 2rem;
+    }
+    #p2 .container { max-width: 1000px; margin: 0 auto; width: 100%; }
+    #p2 h2 { text-align: center; color: var(--accent); }
+    .hex-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .hex-item {
+      background: var(--surface);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .hex-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(91,181,160,0.2);
+    }
+    .hex-item .num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .hex-item .title { font-size: 1rem; font-weight: 600; color: var(--accent); }
+    .hex-item .page { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+    /* ========== P3 時間軸 ========== */
+    #p3 {
+      background: linear-gradient(135deg, var(--bg2) 0%, #E5F0ED 100%);
+      position: relative;
+    }
+    #p3::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(91,181,160,0.05) 20px,
+        rgba(91,181,160,0.05) 40px
+      );
+    }
+    #p3::after {
+      content: '';
+      position: absolute;
+      top: 10%;
+      right: 5%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(91,181,160,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    #p3 .container { max-width: 1100px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+    #p3 h2 { text-align: center; color: var(--accent); }
+    .timeline-h {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 3rem;
+      position: relative;
+    }
+    .timeline-h::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: 5%;
+      right: 5%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--primary));
+      border-radius: 2px;
+    }
+    .timeline-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-node {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 4px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      box-shadow: 0 4px 15px rgba(91,181,160,0.3);
+    }
+    .timeline-label {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .timeline-label .year { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+    .timeline-label .desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; max-width: 120px; }
+
+    /* ========== P4 象限圖 ========== */
+    #p4 {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      position: relative;
+    }
+    #p4::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40%;
+      height: 40%;
+      background: radial-gradient(ellipse at top right, rgba(91,181,160,0.1) 0%, transparent 60%);
+    }
+    #p4 .container { max-width: 1000px; margin: 0 auto; width: 100%; }
+    #p4 h2 { text-align: center; color: var(--accent); }
+    .quadrant-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      height: 500px;
+    }
+    .quadrant {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .quadrant:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 30px rgba(91,181,160,0.15);
+    }
+    .quadrant::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+    .quadrant.q1::before { background: linear-gradient(90deg, #5BB5A0, #7DCBB5); }
+    .quadrant.q2::before { background: linear-gradient(90deg, #6B8FAD, #8FB5D3); }
+    .quadrant.q3::before { background: linear-gradient(90deg, #D4A843, #E8C06A); }
+    .quadrant.q4::before { background: linear-gradient(90deg, #A26769, #C48B8D); }
+    .quadrant .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .quadrant .title { font-size: 1.1rem; font-weight: 700; color: var(--accent); text-align: center; }
+    .quadrant .value { font-size: 2rem; font-weight: 900; color: var(--primary); margin-top: 0.5rem; }
+    .quadrant .desc { font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-top: 0.3rem; }
+
+    /* ========== P5 漏斗 ========== */
+    #p5 {
+      background: var(--accent);
+      color: white;
+    }
+    #p5 h2 { text-align: center; color: white; }
+    .funnel-container {
+      max-width: 800px;
+      margin: 2rem auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .funnel-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+      transition: transform 0.3s ease;
+    }
+    .funnel-stage:hover { transform: scaleX(1.02); }
+    .funnel-stage:nth-child(1) { width: 100%; height: 80px; background: linear-gradient(90deg, #5BB5A0, #4CA08A); }
+    .funnel-stage:nth-child(2) { width: 80%; height: 70px; background: linear-gradient(90deg, #6B8FAD, #5A7D9C); }
+    .funnel-stage:nth-child(3) { width: 60%; height: 60px; background: linear-gradient(90deg, #8B7EBA, #7A6DA9); }
+    .funnel-stage:nth-child(4) { width: 40%; height: 50px; background: linear-gradient(90deg, #D4A843, #C39732); }
+    .funnel-stage .percent {
+      position: absolute;
+      right: 15%;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    .funnel-labels {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 2rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .funnel-label {
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+    }
+    .funnel-label span { display: block; font-size: 1.2rem; font-weight: 700; color: var(--primary-light); }
+
+    /* ========== P6 環形 ========== */
+    #p6 {
+      background: var(--bg);
+      position: relative;
+    }
+    #p6::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(91,181,160,0.1) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    #p6 .container { max-width: 1000px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+    #p6 h2 { text-align: center; color: var(--accent); }
+    .ring-display {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .ring-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .ring-svg {
+      width: 160px;
+      height: 160px;
+      transform: rotate(-90deg);
+    }
+    .ring-bg { fill: none; stroke: var(--bg2); stroke-width: 12; }
+    .ring-fg {
+      fill: none;
+      stroke-width: 12;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s ease;
+    }
+    .ring-fg.p1 { stroke: #5BB5A0; stroke-dasharray: 408; stroke-dashoffset: calc(408 * (1 - 0.85)); }
+    .ring-fg.p2 { stroke: #6B8FAD; stroke-dasharray: 408; stroke-dashoffset: calc(408 * (1 - 0.62)); }
+    .ring-fg.p3 { stroke: #D4A843; stroke-dasharray: 408; stroke-dashoffset: calc(408 * (1 - 0.38)); }
+    .ring-label {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .ring-label .pct { font-size: 2.5rem; font-weight: 900; color: var(--accent); }
+    .ring-label .txt { font-size: 0.95rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+    /* ========== P7 便當盒 ========== */
+    #p7 {
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--bg) 50%, #E8F5F2 100%);
+      position: relative;
+    }
+    #p7::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50%;
+      height: 30%;
+      background: radial-gradient(ellipse at bottom left, rgba(91,181,160,0.1) 0%, transparent 60%);
+    }
+    #p7 .container { max-width: 1100px; margin: 0 auto; width: 100%; }
+    #p7 h2 { text-align: center; color: var(--accent); }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .bento-card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(91,181,160,0.15);
+    }
+    .bento-card.large { grid-column: span 2; }
+    .bento-card .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .bento-card .title { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+    .bento-card .value { font-size: 2rem; font-weight: 900; color: var(--primary); margin-top: 0.5rem; }
+    .bento-card .desc { font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; }
+
+    /* ========== P8 金字塔 ========== */
+    #p8 {
+      background: linear-gradient(180deg, var(--bg) 0%, #E8F5F2 100%);
+    }
+    #p8 .container { max-width: 900px; margin: 0 auto; width: 100%; }
+    #p8 h2 { text-align: center; color: var(--accent); }
+    .pyramid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    .pyramid-level {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+      transition: transform 0.3s ease;
+    }
+    .pyramid-level:hover { transform: scale(1.03); }
+    .pyramid-level:nth-child(1) { width: 35%; height: 70px; background: linear-gradient(180deg, #5BB5A0, #4CA08A); font-size: 1.1rem; }
+    .pyramid-level:nth-child(2) { width: 50%; height: 65px; background: linear-gradient(180deg, #6B8FAD, #5A7D9C); }
+    .pyramid-level:nth-child(3) { width: 65%; height: 60px; background: linear-gradient(180deg, #8B7EBA, #7A6DA9); }
+    .pyramid-level:nth-child(4) { width: 80%; height: 55px; background: linear-gradient(180deg, #A26769, #915558); }
+    .pyramid-level:nth-child(5) { width: 95%; height: 50px; background: linear-gradient(180deg, #D4A843, #C39732); }
+
+    /* ========== P9 總結 ========== */
+    #p9 {
+      background: linear-gradient(180deg, var(--bg2) 0%, #E5F0ED 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #p9::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 60%;
+      height: 150%;
+      background: radial-gradient(ellipse, rgba(91,181,160,0.2) 0%, transparent 60%);
+    }
+    #p9::after {
+      content: '';
+      position: absolute;
+      bottom: 10%;
+      left: 5%;
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, rgba(91,181,160,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    #p9 .container { max-width: 900px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+    #p9 h2 { text-align: center; color: var(--accent); }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .summary-card {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transform: rotate(0deg);
+      transition: transform 0.3s ease;
+    }
+    .summary-card:hover { transform: rotate(2deg) scale(1.02); }
+    .summary-card:nth-child(2) { transform: rotate(-1deg); }
+    .summary-card:nth-child(2):hover { transform: rotate(1deg) scale(1.02); }
+    .summary-card .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .summary-card .title { font-size: 1rem; font-weight: 700; color: var(--accent); }
+    .summary-card .value { font-size: 1.8rem; font-weight: 900; color: var(--primary); margin-top: 0.5rem; }
+
+    /* ========== P10 結尾 ========== */
+    #p10 {
+      background: linear-gradient(135deg, #0B1D3A 0%, #1a365d 50%, #0B1D3A 100%);
+      color: white;
+      text-align: center;
+    }
+    #p10::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 30%, rgba(91,181,160,0.2) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 70%, rgba(107,143,173,0.2) 0%, transparent 50%);
+    }
+    #p10 .content { position: relative; z-index: 1; }
+    #p10 h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      background: linear-gradient(135deg, #fff 0%, #7DCBB5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
+    }
+    #p10 .cta-text { font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem; }
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .cta-btn {
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cta-btn:hover { transform: translateY(-3px); }
+    .cta-btn.primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 20px rgba(91,181,160,0.4);
+    }
+    .cta-btn.secondary {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+    }
+    #p10 .footer { margin-top: 3rem; font-size: 0.9rem; opacity: 0.6; }
+
+    /* ========== 導航列 ========== */
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 12px 24px;
+      z-index: 1000;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+    .nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+    .nav a:hover, .nav a.active {
+      background: var(--primary);
+      color: white;
+    }
+    .nav .page-num {
+      font-weight: 600;
+      color: var(--accent);
+      padding: 6px 12px;
+    }
+
+    /* ========== 響應式 ========== */
+    @media (max-width: 768px) {
+      .hex-grid { grid-template-columns: repeat(2, 1fr); }
+      .quadrant-grid { height: auto; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-card.large { grid-column: span 1; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .ring-display { gap: 1.5rem; }
+      .timeline-h { flex-wrap: wrap; gap: 2rem; }
+      .timeline-h::before { display: none; }
+    }
+  <style>
+.back-btn { position: fixed; top: 20px; left: 20px; z-index: 200; background: rgba(11,29,58,0.9); color: #C17F4E; padding: 10px 18px; border-radius: 25px; text-decoration: none; font-size: 16px; border: 1px solid #C17F4E; transition: all 0.2s; }
+.back-btn:hover { background: #C17F4E; color: #2C2118; }</style>
+</head>
+<body>
+<a href="/slides.html" class="back-btn">← 返回列表</a>
+
+<!-- ========== P1 封面 ========== -->
+<section id="p1">
+  <div class="content">
+    <h1>2026科技新知</h1>
+    <p class="subtitle">量子計算與未來趨勢</p>
+    <span class="date-tag">📅 2026年6月23日・週二科技</span>
+  </div>
+  <div class="timeline-deco">
+    <div class="dot"></div>
+    <div class="line"></div>
+    <div class="dot"></div>
+    <div class="line"></div>
+    <div class="dot"></div>
+    <div class="line"></div>
+    <div class="dot"></div>
+  </div>
+</section>
+
+<!-- ========== P2 目錄 ========== -->
+<section id="p2">
+  <div class="container">
+    <h2>📋 簡報目錄</h2>
+    <div class="hex-grid">
+      <div class="hex-item">
+        <div class="num">01</div>
+        <div class="title">科技演進</div>
+        <div class="page">P3</div>
+      </div>
+      <div class="hex-item">
+        <div class="num">02</div>
+        <div class="title">技術對比</div>
+        <div class="page">P4</div>
+      </div>
+      <div class="hex-item">
+        <div class="num">03</div>
+        <div class="title">應用價值</div>
+        <div class="page">P5</div>
+      </div>
+      <div class="hex-item">
+        <div class="num">04</div>
+        <div class="title">核心原理</div>
+        <div class="page">P6</div>
+      </div>
+      <div class="hex-item">
+        <div class="num">05</div>
+        <div class="title">產業動態</div>
+        <div class="page">P7</div>
+      </div>
+      <div class="hex-item">
+        <div class="num">06</div>
+        <div class="title">發展趨勢</div>
+        <div class="page">P8</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P3 時間軸 ========== -->
+<section id="p3">
+  <div class="container">
+    <h2>⏱️ 科技演進時間軸</h2>
+    <div class="timeline-h">
+      <div class="timeline-item">
+        <div class="timeline-node">💾</div>
+        <div class="timeline-label">
+          <div class="year">1940s</div>
+          <div class="desc">真空管電腦</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-node">🧠</div>
+        <div class="timeline-label">
+          <div class="year">1980s</div>
+          <div class="desc">量子概念興起</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-node">🔓</div>
+        <div class="timeline-label">
+          <div class="year">2019</div>
+          <div class="desc">量子霸權達成</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-node">🚀</div>
+        <div class="timeline-label">
+          <div class="year">2024</div>
+          <div class="desc">千位元量子電腦</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-node">⚛️</div>
+        <div class="timeline-label">
+          <div class="year">2026</div>
+          <div class="desc">實用化元年</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P4 象限圖 ========== -->
+<section id="p4">
+  <div class="container">
+    <h2>🔬 量子 vs 傳統：四大維度對比</h2>
+    <div class="quadrant-grid">
+      <div class="quadrant q1">
+        <div class="icon">⚡</div>
+        <div class="title">運算速度</div>
+        <div class="value">1000x↑</div>
+        <div class="desc">特定問題指數加速</div>
+      </div>
+      <div class="quadrant q2">
+        <div class="icon">🔐</div>
+        <div class="title">安全性</div>
+        <div class="value">量子加密</div>
+        <div class="desc">無法被傳統電腦破解</div>
+      </div>
+      <div class="quadrant q3">
+        <div class="icon">💰</div>
+        <div class="title">成本</div>
+        <div class="value">10x↑</div>
+        <div class="desc">設備與維護費用</div>
+      </div>
+      <div class="quadrant q4">
+        <div class="icon">🌡️</div>
+        <div class="title">環境需求</div>
+        <div class="value">接近絕對零度</div>
+        <div class="desc">需-273°C極低溫</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P5 漏斗 ========== -->
+<section id="p5">
+  <div class="container">
+    <h2>🎯 量子計算應用價值鏈</h2>
+    <div class="funnel-container">
+      <div class="funnel-stage" style="position:relative">
+        <span>藥物開發與基因研究</span>
+        <span class="percent">85%</span>
+      </div>
+      <div class="funnel-stage" style="position:relative">
+        <span>金融風險分析</span>
+        <span class="percent">70%</span>
+      </div>
+      <div class="funnel-stage" style="position:relative">
+        <span>供應鏈優化</span>
+        <span class="percent">52%</span>
+      </div>
+      <div class="funnel-stage" style="position:relative">
+        <span>密碼學安全</span>
+        <span class="percent">38%</span>
+      </div>
+    </div>
+    <div class="funnel-labels">
+      <div class="funnel-label"><span>▲ 2050</span>市場規模</div>
+      <div class="funnel-label"><span>▲ 35%</span>年成長率</div>
+      <div class="funnel-label"><span>▲ 127</span>專利數量</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P6 環形 ========== -->
+<section id="p6">
+  <div class="container">
+    <h2>⚛️ 量子糾纏原理</h2>
+    <div class="ring-display">
+      <div class="ring-item">
+        <svg class="ring-svg" viewBox="0 0 140 140">
+          <circle class="ring-bg" cx="70" cy="70" r="65"/>
+          <circle class="ring-fg p1" cx="70" cy="70" r="65"/>
+        </svg>
+        <div class="ring-label">
+          <div class="pct">85%</div>
+          <div class="txt">糾纏成功率</div>
+        </div>
+      </div>
+      <div class="ring-item">
+        <svg class="ring-svg" viewBox="0 0 140 140">
+          <circle class="ring-bg" cx="70" cy="70" r="65"/>
+          <circle class="ring-fg p2" cx="70" cy="70" r="65"/>
+        </svg>
+        <div class="ring-label">
+          <div class="pct">62%</div>
+          <div class="txt">相干時間提升</div>
+        </div>
+      </div>
+      <div class="ring-item">
+        <svg class="ring-svg" viewBox="0 0 140 140">
+          <circle class="ring-bg" cx="70" cy="70" r="65"/>
+          <circle class="ring-fg p3" cx="70" cy="70" r="65"/>
+        </svg>
+        <div class="ring-label">
+          <div class="pct">38%</div>
+          <div class="txt">錯誤率下降</div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:2rem;font-size:1rem;color:var(--text-muted)">
+      量子位元可同時處於 0 和 1 的疊加態，透過量子糾纏實現平行運算
+    </p>
+  </div>
+</section>
+
+<!-- ========== P7 便當盒 ========== -->
+<section id="p7">
+  <div class="container">
+    <h2>🏢 全球量子產業版圖</h2>
+    <div class="bento-grid">
+      <div class="bento-card large">
+        <div class="icon">🇺🇸</div>
+        <div class="title">IBM Research</div>
+        <div class="value">1,121+ 量子位元</div>
+        <div class="desc">2024年發布 Condor 處理器，領先全球</div>
+      </div>
+      <div class="bento-card">
+        <div class="icon">🇨🇳</div>
+        <div class="title">中國科學院</div>
+        <div class="value">255 量子位元</div>
+        <div class="desc">九章三號光量子電腦</div>
+      </div>
+      <div class="bento-card">
+        <div class="icon">🇪🇺</div>
+        <div class="title">西門子/IQM</div>
+        <div class="value">54 量子位元</div>
+        <div class="desc">歐洲量子計算聯盟</div>
+      </div>
+      <div class="bento-card large">
+        <div class="icon">💼</div>
+        <div class="title">應用領域預測</div>
+        <div class="value">3-5年內</div>
+        <div class="desc">製藥、金融、物流將率先規模化商用</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P8 金字塔 ========== -->
+<section id="p8">
+  <div class="container">
+    <h2>📈 量子技術採用階段</h2>
+    <div class="pyramid">
+      <div class="pyramid-level">🚀 先驅企業</div>
+      <div class="pyramid-level">💡 大型科技公司</div>
+      <div class="pyramid-level">🏭 製藥與金融</div>
+      <div class="pyramid-level">🌐 政府與國防</div>
+      <div class="pyramid-level">👥 中小企業與個人</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P9 總結 ========== -->
+<section id="p9">
+  <div class="container">
+    <h2>📌 關鍵洞察</h2>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="icon">⏰</div>
+        <div class="title">時間軸</div>
+        <div class="value">2026</div>
+        <p class="desc">量子計算實用化元年</p>
+      </div>
+      <div class="summary-card">
+        <div class="icon">💵</div>
+        <div class="title">市場規模</div>
+        <div class="value">$2050億</div>
+        <p class="desc">2035年預估產值</p>
+      </div>
+      <div class="summary-card">
+        <div class="icon">🎯</div>
+        <div class="title">核心價值</div>
+        <div class="value">1000x</div>
+        <p class="desc">特定問題加速比</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P10 結尾 ========== -->
+<section id="p10">
+  <div class="content">
+    <h2>謝謝觀看</h2>
+    <p class="cta-text">開啟你的量子思維，迎接未來科技</p>
+    <div class="cta-buttons">
+      <a href="#p1" class="cta-btn primary">重新瀏覽</a>
+      <a href="/slides" class="cta-btn secondary">返回列表</a>
+    </div>
+    <p class="footer">熊熊每日簡報・2026年6月23日</p>
+  </div>
+</section>
+
+<!-- ========== 導航列 ========== -->
+<nav class="nav">
+  <a href="#p1">封面</a>
+  <a href="#p2">目錄</a>
+  <a href="#p3">時間軸</a>
+  <a href="#p4">對比</a>
+  <a href="#p5">應用</a>
+  <a href="#p6">原理</a>
+  <a href="#p7">產業</a>
+  <a href="#p8">趨勢</a>
+  <a href="#p9">總結</a>
+  <a href="#p10">結尾</a>
+  <span class="page-num" id="pageIndicator">1/10</span>
+</nav>
+
+<script>
+  // 頁面導航指示器
+  const sections = document.querySelectorAll('section');
+  const indicator = document.getElementById('pageIndicator');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        const pageNum = id.replace('p', '');
+        indicator.textContent = `${pageNum}/10`;
+        
+        // 更新導航高亮
+        document.querySelectorAll('.nav a').forEach(a => {
+          a.classList.remove('active');
+          if (a.getAttribute('href') === `#${id}`) {
+            a.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  sections.forEach(s => observer.observe(s));
+  
+  // 動畫進場效果
+  const animateEls = document.querySelectorAll('.hex-item, .timeline-item, .quadrant, .bento-card, .summary-card');
+  const animateObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.2 });
+  
+  animateEls.forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`;
+    animateObserver.observe(el);
+  });
+</script>
+
+</body>
+</html>
