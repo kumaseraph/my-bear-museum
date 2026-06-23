@@ -1009,44 +1009,80 @@ body {
   .contrast-stats { grid-template-columns: 1fr 1fr; }
   .dashboard-grid { grid-template-columns: 1fr; }
 }
-<style>
-.back-btn { position: fixed; top: 20px; left: 20px; z-index: 200; background: rgba(11,29,58,0.9); color: #C17F4E; padding: 10px 18px; border-radius: 25px; text-decoration: none; font-size: 16px; border: 1px solid #C17F4E; transition: all 0.2s; }
-.back-btn:hover { background: #C17F4E; color: #2C2118; }</style>
+
 
 /* ===== 回到列表 ===== */
-.back-link {
+#backBtn {
   position: fixed;
-  top: 16px;
+  top: 20px;
   left: 20px;
-  z-index: 999;
+  z-index: 9999;
+  text-decoration: none;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 0 0 1.5px rgba(255,255,255,0.1);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#backBtn:hover {
+  transform: translateX(-6px) scale(1.06);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.4), 0 0 0 1.5px rgba(255,255,255,0.25);
+}
+#backBtn .back-btn-inner {
   display: inline-flex;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
   align-items: center;
   gap: 6px;
-  background: rgba(30, 30, 30, 0.72);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(10, 10, 10, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: #ffffff;
-  text-decoration: none;
-  padding: 8px 16px;
+  padding: 10px 18px 10px 14px;
   border-radius: 50px;
   font-size: 13px;
   font-weight: 600;
-  border: 1.5px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
-  transition: all 0.2s;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s;
+}
+#backBtn .back-btn-inner svg {
+  opacity: 0.9;
+  transition: transform 0.3s;
+}
+#backBtn:hover .back-btn-inner svg {
+  transform: translateX(-4px);
+}
+#backBtn .back-btn-inner span {
+  background: linear-gradient(135deg, #ffffff 0%, #d4d4d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
 }
 .back-link:hover {
   background: rgba(80, 80, 80, 0.85);
   border-color: rgba(255, 255, 255, 0.5);
-  transform: translateX(-2px);
+  transform: translateX(-4px);
 }
 
 </head>
 <body>
-<a href="/slides.html" class="back-btn">← 返回列表</a>
+<a href="/slides" id="backBtn">
+  <span class="back-btn-inner">
+    <svg width="14" height="14" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40 16L24 32L40 48"/>
+    </svg>
+    <span>列表</span>
+  </span>
+</a>
 
-<a href="/slides" class="back-link">← 列表</a>
+<a href="/slides" id="backBtn">
+  <span class="back-btn-inner">
+    <svg width="14" height="14" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40 16L24 32L40 48"/>
+    </svg>
+    <span>列表</span>
+  </span>
+</a>
 
 
 
