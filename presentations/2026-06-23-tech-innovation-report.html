@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 科技新創關鍵報告 | 熊熊每日簡報</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root {
   --primary: #5BB5A0;
@@ -27,870 +29,647 @@ body {
   font-family: 'Noto Sans TC', 'PingFang TC', sans-serif;
   background: var(--bg);
   color: var(--text);
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
+/* ===== 返回列表按鈕 ===== */
+#backBtn {
+  position: fixed; top: 20px; left: 20px; z-index: 9999;
+  border-radius: 50px; overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25), 0 0 0 1.5px rgba(255,255,255,0.1);
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+#backBtn:hover { transform: translateX(-3px) scale(1.03); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+.back-btn-inner {
+  background: rgba(10,10,10,0.88); backdrop-filter: blur(12px);
+  color: #ffffff; padding: 10px 18px 10px 14px;
+  border-radius: 50px; font-size: 13px; font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.back-btn-inner:hover { background: rgba(20,20,20,0.95); }
+.back-btn-inner span {
+  background: linear-gradient(135deg,#ffffff 0%,#d4d4d4 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; font-weight: 700;
+}
+.back-btn-inner svg { transition: transform 0.3s; }
+#backBtn:hover .back-btn-inner svg { transform: translateX(-2px); }
+
 /* ===== 頁面框架 ===== */
-.page {
+section {
   width: 100vw;
   height: 100vh;
   position: relative;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  place-items: center;
 }
 
 /* ===== 背景襯托層 ===== */
-.bg-dot {
-  background-image: radial-gradient(circle, var(--mint-light) 1.5px, transparent 1.5px);
-  background-size: 28px 28px;
-}
+.bg-dot { background-image: radial-gradient(circle, var(--mint-light) 1.5px, transparent 1.5px); background-size: 28px 28px; }
 .bg-diagonal {
-  background: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 20px,
-    rgba(91, 181, 160, 0.05) 20px,
-    rgba(91, 181, 160, 0.05) 40px
-  );
+  background: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(91,181,160,0.05) 20px, rgba(91,181,160,0.05) 40px);
 }
 .bg-radial {
-  background: radial-gradient(ellipse at 30% 40%, rgba(126, 207, 187, 0.35) 0%, transparent 60%),
-              radial-gradient(ellipse at 80% 80%, rgba(91, 181, 160, 0.2) 0%, transparent 50%);
+  background: radial-gradient(ellipse at 30% 40%, rgba(126,207,187,0.35) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 80%, rgba(91,181,160,0.2) 0%, transparent 50%);
 }
-.bg-glow {
-  background: radial-gradient(circle at 50% 50%, rgba(126, 207, 187, 0.3) 0%, var(--bg) 70%);
-}
+.bg-glow { background: radial-gradient(circle at 50% 50%, rgba(126,207,187,0.3) 0%, var(--bg) 70%); }
 
 /* ===== 浮動幾何裝飾 ===== */
 .geo-float {
-  position: absolute;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--mint-light), rgba(126, 207, 187, 0.3));
-  animation: floatGeo 6s ease-in-out infinite;
-  pointer-events: none;
+  position: absolute; border-radius: 50%;
+  background: linear-gradient(135deg, var(--mint-light), rgba(126,207,187,0.3));
+  animation: geoFloat 6s ease-in-out infinite;
 }
-.geo-float.square { border-radius: 12px; }
-.geo-float.diamond { border-radius: 6px; transform: rotate(45deg); }
-@keyframes floatGeo {
+.geo-float:nth-child(odd) { animation-delay: -3s; }
+@keyframes geoFloat {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  33% { transform: translateY(-12px) rotate(5deg); }
-  66% { transform: translateY(-6px) rotate(-3deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
 }
 
-/* ===== 發光效果 ===== */
-.glow-text {
-  text-shadow: 0 0 30px rgba(126, 207, 187, 0.6), 0 0 60px rgba(126, 207, 187, 0.3);
-}
-.glow-box {
-  box-shadow: 0 0 20px rgba(126, 207, 187, 0.4), 0 0 40px rgba(126, 207, 187, 0.15);
-}
-.glow-border {
-  border: 2px solid rgba(126, 207, 187, 0.5);
-  box-shadow: 0 0 15px rgba(126, 207, 187, 0.3), inset 0 0 15px rgba(126, 207, 187, 0.05);
-}
-
-/* ===== 玻璃效果 ===== */
-.glass {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  border-radius: 16px;
-}
-.glass-dark {
-  background: rgba(26, 74, 66, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(126, 207, 187, 0.25);
-  border-radius: 16px;
-  color: white;
-}
-
-/* ===== 標題字體 ===== */
-h1 { font-size: clamp(36px, 5vw, 64px); font-weight: 900; letter-spacing: -0.5px; line-height: 1.1; }
-h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 800; line-height: 1.2; }
-h3 { font-size: clamp(20px, 2.5vw, 32px); font-weight: 700; }
-.subtitle { font-size: clamp(14px, 1.5vw, 18px); font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-light); }
-.big-num { font-size: clamp(60px, 10vw, 120px); font-weight: 900; line-height: 1; }
-.body-text { font-size: clamp(16px, 1.8vw, 22px); line-height: 1.6; font-weight: 400; }
-
-/* ===== 頁面內邊距 ===== */
-.content { padding: clamp(40px, 6vw, 80px); flex: 1; display: flex; flex-direction: column; }
+/* ===== 通用內容區 ===== */
+.content { padding: clamp(40px, 6vw, 80px); display: flex; flex-direction: column; }
 .content-center { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-
-/* ===== 標籤膠囊 ===== */
+.container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 60px); }
+.h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 900; line-height: 1.1; letter-spacing: -1px; }
+.h2 { font-size: clamp(28px, 4vw, 52px); font-weight: 800; line-height: 1.2; }
+.h3 { font-size: clamp(20px, 2.5vw, 32px); font-weight: 700; }
+.subtitle { font-size: clamp(14px, 1.5vw, 18px); font-weight: 500; color: var(--text2); letter-spacing: 2px; text-transform: uppercase; }
 .tag {
-  display: inline-block;
-  background: var(--accent);
-  color: white;
-  padding: 6px 18px;
-  border-radius: 50px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  display: inline-block; padding: 6px 16px; border-radius: 20px;
+  background: rgba(91,181,160,0.15); color: var(--accent); font-size: 14px; font-weight: 600;
+  letter-spacing: 1px; border: 1.5px solid rgba(91,181,160,0.3);
 }
-.tag-outline {
-  background: transparent;
-  border: 2px solid var(--accent);
-  color: var(--accent);
+.glow-text {
+  text-shadow: 0 0 40px rgba(91,181,160,0.5), 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* ===== 回到列表連結 ===== */
-/* ===== 回到列表 ===== */
-#backBtn {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 9999;
-  text-decoration: none;
-  border-radius: 50px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 0 0 1.5px rgba(255,255,255,0.1);
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-#backBtn:hover {
-  transform: translateX(-6px) scale(1.06);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.4), 0 0 0 1.5px rgba(255,255,255,0.25);
-}
-#backBtn .back-btn-inner {
-  display: inline-flex;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
-  align-items: center;
-  gap: 6px;
-  background: rgba(10, 10, 10, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #ffffff;
-  padding: 10px 18px 10px 14px;
-  border-radius: 50px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: all 0.3s;
-}
-#backBtn .back-btn-inner svg {
-  opacity: 0.9;
-  transition: transform 0.3s;
-}
-#backBtn:hover .back-btn-inner svg {
-  transform: translateX(-4px);
-}
-#backBtn .back-btn-inner span {
-  background: linear-gradient(135deg, #ffffff 0%, #d4d4d4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 700;
-}
-
-.back-link:hover {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
-}
-
-/* ===== 底部導航列 ===== */
-.nav-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 56px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(91, 181, 160, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  z-index: 1000;
-  padding: 0 20px;
-}
-.nav-dot {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-light);
-  cursor: pointer;
-  transition: all 0.25s;
-  text-decoration: none;
-}
-.nav-dot:hover, .nav-dot.active {
-  background: var(--primary);
-  color: white;
-  transform: scale(1.1);
-}
-.nav-label {
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--dark);
-  color: white;
-  padding: 5px 12px;
-  border-radius: 8px;
-  font-size: 12px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-}
-.nav-dot:hover .nav-label { opacity: 1; }
-
-/* ===== 頁面陰影 ===== */
-.page-shadow {
-  box-shadow: 0 20px 60px var(--shadow);
-}
-
-/* ===== ============================== */
-/* ===== P1 封面 — 幾何叢集疊加       */
-/* ===== ============================== */
-#p1 {
-  background: linear-gradient(135deg, #E8FAF6 0%, #C5F0E8 40%, #A8E6CF 100%);
-}
+/* ===== P1 封面 — 幾何叢集疊加 ===== */
+#p1 { background: linear-gradient(135deg, #E8FAF6 0%, #C5F0E8 40%, #A8E6CF 100%); }
 #p1 .geo-1 { width: 300px; height: 300px; top: -80px; right: -60px; animation-delay: 0s; opacity: 0.5; }
 #p1 .geo-2 { width: 180px; height: 180px; bottom: 80px; left: -40px; animation-delay: 1.5s; opacity: 0.4; }
 #p1 .geo-3 { width: 120px; height: 120px; top: 30%; left: 15%; animation-delay: 0.8s; opacity: 0.35; }
 #p1 .geo-4 { width: 80px; height: 80px; bottom: 25%; right: 20%; animation-delay: 2s; opacity: 0.3; border-radius: 12px; }
-#p1 .cover-card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: min(90vw, 760px);
-}
+#p1 .cover-card { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: min(90vw, 760px); }
 #p1 .cover-card .subtitle { margin-bottom: 16px; }
 #p1 .cover-card h1 { color: var(--dark); margin-bottom: 20px; }
 #p1 .cover-card .tag { margin-bottom: 28px; }
 #p1 .cover-meta { color: var(--text2); font-size: 15px; margin-top: 24px; letter-spacing: 0.5px; }
 
-/* ===== ============================== */
-/* ===== P2 議題概述 — 圓形輻射       */
-/* ===== ============================== */
-#p2 {
-  background: var(--bg);
-}
+/* ===== P2 目錄 — 圓形輻射 ===== */
+#p2 { background: var(--bg); }
 #p2 .bg-dot { position: absolute; inset: 0; }
 #p2 .orbit-wrap {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(420px, 80vw);
-  height: min(420px, 80vw);
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: min(420px, 80vw); height: min(420px, 80vw);
 }
 #p2 .orbit-center {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120px; height: 120px;
-  background: var(--primary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  color: white;
-  box-shadow: 0 0 40px rgba(91, 181, 160, 0.5);
-  z-index: 2;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 120px; height: 120px; background: var(--primary); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; box-shadow: 0 0 40px rgba(91,181,160,0.4);
+  animation: orbitPulse 3s ease-in-out infinite;
+}
+@keyframes orbitPulse {
+  0%, 100% { box-shadow: 0 0 40px rgba(91,181,160,0.4); }
+  50% { box-shadow: 0 0 60px rgba(91,181,160,0.7); }
 }
 #p2 .orbit-ring {
-  position: absolute;
-  inset: 0;
-  border: 2px solid rgba(91, 181, 160, 0.25);
-  border-radius: 50%;
-  animation: spin 20s linear infinite;
+  position: absolute; border-radius: 50%; border: 1.5px dashed rgba(91,181,160,0.4);
+  animation: orbitSpin 20s linear infinite;
 }
-#p2 .orbit-ring::before {
-  content: '';
-  position: absolute;
-  top: -8px; left: 50%;
-  transform: translateX(-50%);
-  width: 16px; height: 16px;
-  background: var(--accent);
-  border-radius: 50%;
+.orbit-ring-1 { width: 200px; height: 200px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.orbit-ring-2 { width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 30s; animation-direction: reverse; }
+.orbit-ring-3 { width: 400px; height: 400px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 40s; }
+@keyframes orbitSpin { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+#p2 .orbit-item {
+  position: absolute; width: 80px; height: 80px; background: var(--surface);
+  border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: var(--dark); box-shadow: 0 4px 16px var(--shadow);
+  border: 2px solid var(--mint); cursor: pointer; transition: all 0.3s;
 }
-#p2 .orbit-ring-2 {
-  inset: 40px;
-  animation: spin 14s linear infinite reverse;
-}
-#p2 .orbit-ring-2::before {
-  width: 12px; height: 12px;
-  background: var(--mint);
-}
-#p2 .orbit-content {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: min(85vw, 900px);
-  padding-top: 60px;
-}
-#p2 .orbit-content h2 { color: var(--dark); margin-bottom: 16px; }
-#p2 .orbit-content p { color: var(--text2); font-size: clamp(15px, 1.8vw, 20px); max-width: 600px; margin: 0 auto; }
-#p2 .orbit-content .subtitle { margin-bottom: 12px; }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+#p2 .orbit-item:hover { transform: scale(1.12); box-shadow: 0 8px 24px var(--shadow-hover); }
+#p2 .orbit-item .icon { font-size: 22px; margin-bottom: 2px; }
+#p2 .orbit-item .label { font-size: 10px; color: var(--text2); }
+.orbit-item:nth-child(1) { top: -44px; left: 50%; transform: translateX(-50%); }
+.orbit-item:nth-child(2) { top: 18%; right: -44px; }
+.orbit-item:nth-child(3) { bottom: 18%; right: -44px; }
+.orbit-item:nth-child(4) { bottom: -44px; left: 50%; transform: translateX(-50%); }
+.orbit-item:nth-child(5) { bottom: 18%; left: -44px; }
+.orbit-item:nth-child(6) { top: 18%; left: -44px; }
+#p2 .orbit-title { position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; }
 
-/* ===== ============================== */
-/* ===== P3 核心數據 — KPI 象限        */
-/* ===== ============================== */
-#p3 {
-  background: linear-gradient(160deg, #1A4A42 0%, #2D7A6F 100%);
+/* ===== P3 象限圖 — AI賦能 ===== */
+#p3 { background: linear-gradient(160deg, #E8FAF6 0%, #D0F0E8 100%); }
+#p3 .quadrant-wrap { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 16px; width: min(700px, 88vw); height: min(600px, 78vh); margin: 0 auto; }
+#p3 .quadrant {
+  background: var(--surface); border-radius: 20px; padding: clamp(16px, 2.5vw, 28px);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; box-shadow: 0 4px 20px var(--shadow);
+  transition: all 0.3s; border: 1.5px solid rgba(91,181,160,0.2);
 }
-#p3 .bg-radial { position: absolute; inset: 0; }
-#p3 .kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  width: 100%;
+#p3 .quadrant:hover { transform: scale(1.03); box-shadow: 0 8px 32px var(--shadow-hover); }
+#p3 .quadrant .q-icon { font-size: clamp(28px, 4vw, 48px); margin-bottom: 8px; }
+#p3 .quadrant .q-title { font-size: clamp(14px, 1.8vw, 20px); font-weight: 800; color: var(--dark); margin-bottom: 6px; }
+#p3 .quadrant .q-desc { font-size: clamp(11px, 1.2vw, 14px); color: var(--text2); line-height: 1.4; }
+#p3 .quadrant .q-num {
+  position: absolute; font-size: 60px; font-weight: 900; color: rgba(91,181,160,0.08);
+  top: 10px; right: 16px; line-height: 1;
 }
-#p3 .kpi-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(126, 207, 187, 0.3);
-  border-radius: 20px;
-  padding: clamp(24px, 3vw, 40px);
-  text-align: center;
-  transition: transform 0.3s, background 0.3s;
-}
-#p3 .kpi-card:hover {
-  transform: translateY(-6px);
-  background: rgba(255, 255, 255, 0.16);
-}
-#p3 .kpi-card .big-num { color: white; margin-bottom: 8px; }
-#p3 .kpi-card .kpi-label { color: var(--mint-light); font-size: clamp(13px, 1.5vw, 17px); font-weight: 600; }
-#p3 .kpi-card .kpi-sub { color: rgba(181, 230, 216, 0.6); font-size: 13px; margin-top: 6px; }
-#p3 .content { justify-content: center; }
-#p3 .page-header { text-align: center; margin-bottom: clamp(32px, 4vw, 52px); }
-#p3 .page-header h2 { color: white; }
-#p3 .page-header .subtitle { color: var(--mint-light); margin-bottom: 10px; }
+#p3 .quadrant { position: relative; overflow: hidden; }
+#p3 .page-title { position: absolute; top: clamp(16px, 3vw, 32px); left: 50%; transform: translateX(-50%); white-space: nowrap; }
 
-/* ===== ============================== */
-/* ===== P4 工具介紹 — 蜂巢六邊形       */
-/* ===== ============================== */
-#p4 {
-  background: var(--bg);
+/* ===== P4 柱狀圖 — 雲端與邊緣 ===== */
+#p4 { background: var(--bg2); }
+#p4 .chart-area { display: flex; align-items: flex-end; gap: clamp(20px, 4vw, 48px); height: min(380px, 55vh); margin-top: 24px; justify-content: center; padding: 0 20px; }
+#p4 .bar-col { display: flex; flex-direction: column; align-items: center; gap: 8px; flex: 1; max-width: 120px; }
+#p4 .bar {
+  width: 100%; border-radius: 12px 12px 4px 4px;
+  background: linear-gradient(to top, var(--accent), var(--mint));
+  transition: all 0.3s; position: relative; min-height: 40px;
 }
-#p4 .bg-dot { position: absolute; inset: 0; }
-#p4 .hex-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(16px, 2vw, 24px);
-  max-width: 860px;
-  margin: 0 auto;
-  width: 100%;
-}
-#p4 .hex-card {
-  background: white;
-  border-radius: 16px;
-  padding: clamp(20px, 2.5vw, 32px);
-  text-align: center;
-  border: 2px solid var(--surface2);
-  transition: all 0.3s;
-  box-shadow: 0 4px 16px var(--shadow);
-}
-#p4 .hex-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  border-color: var(--primary);
-  box-shadow: 0 12px 32px var(--shadow-hover);
-}
-#p4 .hex-icon {
-  width: clamp(52px, 6vw, 72px);
-  height: clamp(52px, 6vw, 72px);
-  margin: 0 auto 14px;
-  background: linear-gradient(135deg, var(--mint-light), var(--primary));
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(24px, 3vw, 36px);
-}
-#p4 .hex-card h3 { font-size: clamp(15px, 1.6vw, 20px); color: var(--dark); margin-bottom: 8px; }
-#p4 .hex-card p { font-size: clamp(12px, 1.2vw, 15px); color: var(--text2); line-height: 1.5; }
-#p4 .content { justify-content: center; }
-#p4 .page-header { text-align: center; margin-bottom: clamp(28px, 3.5vw, 48px); }
-#p4 .page-header .subtitle { color: var(--accent); margin-bottom: 8px; }
+#p4 .bar:hover { filter: brightness(1.1); transform: scaleY(1.02); transform-origin: bottom; }
+#p4 .bar-label { font-size: clamp(11px, 1.2vw, 14px); color: var(--text2); text-align: center; font-weight: 500; }
+#p4 .bar-val { position: absolute; top: -28px; left: 50%; transform: translateX(-50%); font-size: clamp(12px, 1.4vw, 16px); font-weight: 800; color: var(--dark); white-space: nowrap; }
+#p4 .bar-outer { width: 100%; }
+#p4 .grid-line { position: absolute; left: 0; right: 0; border-top: 1px dashed rgba(91,181,160,0.25); }
+#p4 .chart-wrap { position: relative; width: 100%; max-width: 800px; margin: 0 auto; }
 
-/* ===== ============================== */
-/* ===== P5 流程圖 — 玻璃效果流程      */
-/* ===== ============================== */
-#p5 {
-  background: linear-gradient(180deg, var(--bg) 0%, var(--surface2) 100%);
+/* ===== P5 蜂巢圖 — 區塊鏈 ===== */
+#p5 { background: var(--bg); }
+#p5 .hex-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 700px; margin: 0 auto; }
+#p5 .hex {
+  aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: all 0.3s; cursor: default;
 }
-#p5 .flow-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(12px, 2vw, 24px);
-  flex-wrap: wrap;
-  max-width: 1000px;
-  margin: 0 auto;
-  width: 100%;
-}
-#p5 .flow-step {
-  flex: 1;
-  min-width: clamp(160px, 20vw, 240px);
-  max-width: 280px;
-  text-align: center;
-}
-#p5 .flow-card {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  padding: clamp(20px, 2.5vw, 32px) clamp(16px, 2vw, 24px);
-  box-shadow: 0 8px 32px var(--shadow);
-  transition: transform 0.3s;
-}
-#p5 .flow-card:hover { transform: translateY(-6px); }
-#p5 .flow-num {
-  width: clamp(40px, 4.5vw, 56px);
-  height: clamp(40px, 4.5vw, 56px);
-  background: linear-gradient(135deg, var(--primary), var(--accent2));
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: clamp(18px, 2vw, 24px);
-  font-weight: 900;
-  margin: 0 auto 14px;
-}
-#p5 .flow-card h3 { font-size: clamp(14px, 1.5vw, 19px); color: var(--dark); margin-bottom: 8px; }
-#p5 .flow-card p { font-size: clamp(12px, 1.2vw, 15px); color: var(--text2); line-height: 1.5; }
-#p5 .flow-arrow {
-  font-size: clamp(20px, 2.5vw, 32px);
-  color: var(--primary);
-  flex-shrink: 0;
-}
-#p5 .content { justify-content: center; }
-#p5 .page-header { text-align: center; margin-bottom: clamp(32px, 4vw, 52px); }
-#p5 .page-header .subtitle { color: var(--accent); margin-bottom: 8px; }
+#p5 .hex:hover { transform: scale(1.08); filter: brightness(1.1); }
+#p5 .hex .hex-icon { font-size: clamp(20px, 3vw, 32px); margin-bottom: 4px; }
+#p5 .hex .hex-title { font-size: clamp(9px, 1vw, 12px); font-weight: 700; color: white; line-height: 1.2; }
+#p5 .hex .hex-sub { font-size: clamp(8px, 0.9vw, 11px); color: rgba(255,255,255,0.8); margin-top: 2px; }
+#p5 .hex-row { display: contents; }
 
-/* ===== ============================== */
-/* ===== P6 案例 — 卡片矩陣            */
-/* ===== ============================== */
-#p6 {
-  background: var(--dark);
+/* ===== P6 流程圖 — 量子計算 ===== */
+#p6 { background: linear-gradient(135deg, #E5F5F1 0%, #D0EDE5 100%); }
+#p6 .flow-wrap { display: flex; align-items: center; justify-content: center; gap: 0; max-width: 1000px; margin: 20px auto 0; flex-wrap: wrap; }
+#p6 .flow-step {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: clamp(16px, 2.5vw, 24px); min-width: clamp(140px, 20vw, 200px);
+  background: var(--surface); border-radius: 16px; box-shadow: 0 4px 16px var(--shadow);
+  border: 2px solid transparent; transition: all 0.3s;
 }
-#p6 .bg-radial { position: absolute; inset: 0; }
-#p6 .case-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(16px, 2vw, 24px);
-  max-width: 960px;
-  margin: 0 auto;
-  width: 100%;
+#p6 .flow-step:hover { border-color: var(--mint); transform: translateY(-4px); box-shadow: 0 8px 24px var(--shadow-hover); }
+#p6 .step-num {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--primary);
+  color: white; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
 }
-#p6 .case-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(126, 207, 187, 0.2);
-  border-radius: 16px;
-  padding: clamp(20px, 2.5vw, 32px);
-  transition: all 0.3s;
-}
-#p6 .case-card:hover {
-  transform: translateY(-8px);
-  background: rgba(255, 255, 255, 0.13);
-  border-color: rgba(126, 207, 187, 0.5);
-}
-#p6 .case-icon {
-  font-size: clamp(28px, 3vw, 40px);
-  margin-bottom: 14px;
-}
-#p6 .case-card h3 { color: white; font-size: clamp(14px, 1.5vw, 19px); margin-bottom: 10px; }
-#p6 .case-card p { color: var(--mint-light); font-size: clamp(12px, 1.2vw, 15px); line-height: 1.5; }
-#p6 .case-stat {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(126, 207, 187, 0.2);
-}
-#p6 .case-stat span { color: var(--mint); font-size: clamp(18px, 2vw, 26px); font-weight: 900; }
-#p6 .case-stat small { color: rgba(181, 230, 216, 0.6); font-size: 12px; margin-left: 6px; }
-#p6 .content { justify-content: center; }
-#p6 .page-header { text-align: center; margin-bottom: clamp(28px, 3.5vw, 48px); }
-#p6 .page-header .subtitle { color: var(--mint-light); margin-bottom: 8px; }
-#p6 .page-header h2 { color: white; }
+#p6 .step-icon { font-size: clamp(24px, 3.5vw, 40px); margin-bottom: 8px; }
+#p6 .step-title { font-size: clamp(13px, 1.5vw, 17px); font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+#p6 .step-desc { font-size: clamp(10px, 1vw, 13px); color: var(--text2); line-height: 1.4; }
+#p6 .flow-arrow { font-size: clamp(20px, 3vw, 32px); color: var(--mint); flex-shrink: 0; }
 
-/* ===== ============================== */
-/* ===== P7 總結 — 漏斗層次           */
-/* ===== ============================== */
-#p7 {
-  background: var(--bg);
-}
-#p7 .bg-glow { position: absolute; inset: 0; }
-#p7 .funnel-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  max-width: 700px;
-  margin: 0 auto;
-  width: 100%;
-}
+/* ===== P7 漏斗圖 — 生成式AI ===== */
+#p7 { background: var(--bg); }
+#p7 .funnel-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; width: min(600px, 90vw); margin: 16px auto 0; }
 #p7 .funnel-layer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  padding: clamp(18px, 2.5vw, 28px) clamp(24px, 3vw, 40px);
-  text-align: center;
-  transition: transform 0.3s;
-  width: 100%;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  color: white; font-weight: 700; border-radius: 8px;
+  transition: all 0.3s; cursor: default; position: relative;
 }
-#p7 .funnel-layer:hover { transform: scale(1.03); }
-#p7 .fl-1 { background: var(--primary); color: white; width: 100%; }
-#p7 .fl-2 { background: var(--accent); color: white; width: 82%; }
-#p7 .fl-3 { background: var(--accent2); color: white; width: 64%; }
-#p7 .fl-4 { background: var(--dark); color: white; width: 46%; }
-#p7 .funnel-layer h3 { font-size: clamp(16px, 2vw, 24px); margin-bottom: 4px; }
-#p7 .funnel-layer p { font-size: clamp(12px, 1.2vw, 15px); opacity: 0.8; }
-#p7 .content { justify-content: center; }
-#p7 .page-header { text-align: center; margin-bottom: clamp(32px, 4vw, 52px); }
-#p7 .page-header .subtitle { color: var(--accent); margin-bottom: 8px; }
+#p7 .funnel-layer:hover { filter: brightness(1.1); transform: scaleX(1.02); }
+#p7 .funnel-layer .fl-icon { font-size: clamp(16px, 2vw, 24px); margin-right: 8px; }
+#p7 .funnel-layer .fl-text { font-size: clamp(12px, 1.5vw, 18px); }
+#p7 .funnel-layer .fl-sub { font-size: clamp(9px, 1vw, 12px); opacity: 0.85; font-weight: 400; margin-left: 6px; }
 
-/* ===== ============================== */
-/* ===== P8 結尾 — 幾何迴響           */
-/* ===== ============================== */
-#p8 {
-  background: linear-gradient(135deg, #C5F0E8 0%, #E8FAF6 50%, #F0FBF9 100%);
+/* ===== P8 卡片矩陣 — 綠色科技 ===== */
+#p8 { background: linear-gradient(160deg, #E8FAF6 0%, #C8F0E4 100%); }
+#p8 .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 20px); width: min(700px, 90vw); margin: 16px auto 0; }
+#p8 .stat-card {
+  background: var(--surface); border-radius: 20px; padding: clamp(16px, 2.5vw, 28px);
+  box-shadow: 0 4px 16px var(--shadow); transition: all 0.3s;
+  display: flex; flex-direction: column; gap: 8px;
 }
-#p8 .echo-ring {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 3px solid rgba(91, 181, 160, 0.25);
-  animation: echoPulse 3s ease-out infinite;
-  pointer-events: none;
-}
-#p8 .echo-ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
-#p8 .echo-ring:nth-child(2) { width: 480px; height: 480px; animation-delay: 0.6s; border-color: rgba(91, 181, 160, 0.15); }
-#p8 .echo-ring:nth-child(3) { width: 660px; height: 660px; animation-delay: 1.2s; border-color: rgba(91, 181, 160, 0.08); }
-@keyframes echoPulse {
-  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.15); }
-}
-#p8 .end-content {
-  position: relative;
+#p8 .stat-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px var(--shadow-hover); }
+#p8 .stat-card .sc-icon { font-size: clamp(24px, 3vw, 40px); }
+#p8 .stat-card .sc-val { font-size: clamp(28px, 4vw, 52px); font-weight: 900; color: var(--dark); line-height: 1; }
+#p8 .stat-card .sc-label { font-size: clamp(11px, 1.2vw, 15px); color: var(--text2); font-weight: 500; }
+#p8 .stat-card .sc-bar { height: 6px; background: var(--bg2); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+#p8 .stat-card .sc-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--mint)); }
+
+/* ===== P9 時間軸 — 總結 ===== */
+#p9 { background: var(--bg2); }
+#p9 .timeline { position: relative; max-width: 700px; margin: 20px auto 0; }
+#p9 .tl-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--accent), var(--mint)); transform: translateX(-50%); border-radius: 2px; }
+#p9 .tl-item { display: flex; align-items: center; margin-bottom: clamp(20px, 3vw, 36px); position: relative; }
+#p9 .tl-item:nth-child(even) { flex-direction: row-reverse; }
+#p9 .tl-dot {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  width: 20px; height: 20px; border-radius: 50%; background: var(--primary);
+  border: 4px solid var(--bg2); box-shadow: 0 0 0 3px var(--mint);
   z-index: 2;
-  text-align: center;
 }
-#p8 .end-content h2 { color: var(--dark); margin-bottom: 20px; }
-#p8 .end-content p { color: var(--text2); font-size: clamp(14px, 1.6vw, 19px); margin-bottom: 32px; }
-#p8 .cta-row {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-#p8 .cta-btn {
-  display: inline-block;
-  padding: 12px 28px;
-  border-radius: 50px;
-  font-size: clamp(13px, 1.4vw, 16px);
-  font-weight: 700;
-  text-decoration: none;
+#p9 .tl-card {
+  width: calc(50% - 30px); background: var(--surface); border-radius: 16px;
+  padding: clamp(12px, 2vw, 20px); box-shadow: 0 4px 16px var(--shadow);
   transition: all 0.3s;
 }
-#p8 .cta-primary {
-  background: var(--primary);
-  color: white;
-  box-shadow: 0 6px 24px rgba(91, 181, 160, 0.4);
-}
-#p8 .cta-primary:hover {
-  background: var(--accent2);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 32px rgba(91, 181, 160, 0.5);
-}
-#p8 .cta-secondary {
-  background: white;
-  color: var(--primary);
-  border: 2px solid var(--primary);
-}
-#p8 .cta-secondary:hover {
-  background: var(--surface2);
-  transform: translateY(-3px);
-}
-#p8 .brand {
-  margin-top: 40px;
-  color: var(--text-light);
-  font-size: 14px;
-  letter-spacing: 0.5px;
-}
+#p9 .tl-card:hover { box-shadow: 0 8px 24px var(--shadow-hover); transform: scale(1.02); }
+#p9 .tl-title { font-size: clamp(12px, 1.4vw, 16px); font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+#p9 .tl-desc { font-size: clamp(10px, 1.1vw, 13px); color: var(--text2); }
 
+/* ===== P10 結尾 — 幾何迴響 ===== */
+#p10 { background: linear-gradient(135deg, #C5F0E8 0%, #A8E6CF 50%, #7ECFBB 100%); }
+#p10 .echo-ring {
+  position: absolute; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  animation: echoPulse 3s ease-out infinite;
+}
+#p10 .echo-ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
+#p10 .echo-ring:nth-child(2) { width: 500px; height: 500px; animation-delay: 0.5s; }
+#p10 .echo-ring:nth-child(3) { width: 700px; height: 700px; animation-delay: 1s; }
+@keyframes echoPulse {
+  0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.9); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+}
+#p10 .end-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; flex: 1; padding: 40px; }
+#p10 .cta-row { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; justify-content: center; }
+#p10 .cta-btn {
+  padding: 12px 28px; border-radius: 30px; font-size: 15px; font-weight: 700;
+  text-decoration: none; transition: all 0.3s; cursor: pointer;
+}
+#p10 .cta-primary { background: var(--dark); color: white; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+#p10 .cta-primary:hover { background: var(--primary); transform: translateY(-2px); }
+#p10 .cta-secondary { background: rgba(255,255,255,0.3); color: var(--dark); border: 1.5px solid rgba(255,255,255,0.5); backdrop-filter: blur(8px); }
+#p10 .cta-secondary:hover { background: rgba(255,255,255,0.5); }
+#p10 .brand { margin-top: 28px; font-size: 13px; color: rgba(26,74,66,0.6); letter-spacing: 1px; }
+
+/* ===== 底部導航 ===== */
+.nav-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+  display: flex; justify-content: center; gap: 6px;
+  padding: 10px 20px; z-index: 1000;
+  border-top: 1px solid rgba(91,181,160,0.15);
+}
+.nav-dot {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--text2);
+  text-decoration: none; transition: all 0.25s;
+  border: 1.5px solid transparent;
+}
+.nav-dot:hover { background: var(--bg2); color: var(--primary); border-color: var(--mint); }
+.nav-dot.active { background: var(--primary); color: white; box-shadow: 0 2px 8px var(--shadow); }
+.nav-label { display: none; }
+
+/* ===== 動畫 ===== */
+.fade-up { animation: fadeUp 0.8s ease-out forwards; opacity: 0; transform: translateY(30px); }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+</style>
 </head>
 <body>
-<a href="/slides" id="backBtn">
-  <span class="back-btn-inner">
-    <svg width="14" height="14" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M40 16L24 32L40 48"/>
-    </svg>
-    <span>列表</span>
-  </span>
-</a>
 
-<a href="/slides" id="backBtn">
-  <span class="back-btn-inner">
-    <svg width="14" height="14" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M40 16L24 32L40 48"/>
-    </svg>
+<!-- 返回列表按鈕 -->
+<div id="backBtn">
+  <a href="/slides" class="back-btn-inner">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
     <span>列表</span>
-  </span>
-</a>
+  </a>
+</div>
 
 <!-- ===== P1 封面 ===== -->
-<div class="page" id="p1">
+<section id="p1">
   <div class="geo-float geo-1"></div>
   <div class="geo-float geo-2"></div>
   <div class="geo-float geo-3"></div>
   <div class="geo-float geo-4"></div>
   <div class="cover-card">
-    <div class="subtitle" style="color: var(--accent);">🐾 熊熊簡報 · 科技日</div>
-    <h1 class="glow-text">2026 科技新創<br>關鍵報告</h1>
-    <span class="tag">薄荷綠 · 科技新創</span>
-    <p class="cover-meta">2026 年 6 月 23 日　｜　週二科技日</p>
+    <div class="subtitle fade-up" style="color: var(--accent);">🐾 熊熊簡報 · 科技日</div>
+    <h1 class="h1 glow-text fade-up delay-1">2026 科技新創<br>關鍵報告</h1>
+    <span class="tag fade-up delay-2">薄荷綠 · 科技新創</span>
+    <p class="fade-up delay-3" style="color: var(--text2); font-size: 15px; margin-top: 24px; letter-spacing: 0.5px;">2026 年 6 月 23 日　｜　週二科技日</p>
   </div>
-</div>
+</section>
 
-<!-- ===== P2 議題概述 ===== -->
-<div class="page" id="p2">
+<!-- ===== P2 目錄 ===== -->
+<section id="p2">
   <div class="bg-dot"></div>
   <div class="orbit-wrap">
-    <div class="orbit-ring"></div>
+    <div class="orbit-ring orbit-ring-1"></div>
     <div class="orbit-ring orbit-ring-2"></div>
+    <div class="orbit-ring orbit-ring-3"></div>
     <div class="orbit-center">🤖</div>
+    <div class="orbit-item"><span class="icon">📊</span><span class="label">AI 賦能</span></div>
+    <div class="orbit-item"><span class="icon">☁️</span><span class="label">雲端邊緣</span></div>
+    <div class="orbit-item"><span class="icon">⛓️</span><span class="label">區塊鏈</span></div>
+    <div class="orbit-item"><span class="icon">⚛️</span><span class="label">量子計算</span></div>
+    <div class="orbit-item"><span class="icon">✨</span><span class="label">生成式AI</span></div>
+    <div class="orbit-item"><span class="icon">🌱</span><span class="label">綠色科技</span></div>
   </div>
-  <div class="orbit-content content-center">
-    <div class="subtitle" style="color: var(--accent);">科技新創的現在與未來</div>
-    <h2>AI 賦能企業轉型<br>三大關鍵趨勢</h2>
-    <p style="margin-top: 16px;">從生成式 AI 到邊緣運算，從永續科技到元宇宙應用——盤點 2026 年最具影響力的科技變革。</p>
+  <div class="orbit-title">
+    <div class="h3 fade-up" style="color: var(--dark);">掌握六大科技趨勢</div>
+    <div class="subtitle fade-up delay-1" style="margin-top: 8px;">2026 科技新創全景地圖</div>
   </div>
-</div>
+</section>
 
-<!-- ===== P3 核心數據 ===== -->
-<div class="page" id="p3">
-  <div class="bg-radial"></div>
-  <div class="content">
-    <div class="page-header">
-      <div class="subtitle">核心數據</div>
-      <h2>2026 科技關鍵指標</h2>
+<!-- ===== P3 象限圖 — AI 賦能 ===== -->
+<section id="p3">
+  <div class="page-title"><div class="h2 fade-up">AI 賦能企業轉型</div><div class="subtitle fade-up delay-1" style="margin-top:6px;">四大關鍵應用領域</div></div>
+  <div class="quadrant-wrap">
+    <div class="quadrant fade-up delay-1">
+      <span class="q-num">01</span>
+      <span class="q-icon">💬</span>
+      <div class="q-title">智能客服</div>
+      <div class="q-desc">自然語言理解<br>即時回應效率提升 300%</div>
     </div>
-    <div class="kpi-grid">
-      <div class="kpi-card glow-box">
-        <div class="big-num">78%</div>
-        <div class="kpi-label">企業已部署 AI</div>
-        <div class="kpi-sub">較去年 +31%</div>
-      </div>
-      <div class="kpi-card glow-box">
-        <div class="big-num">$4.2T</div>
-        <div class="kpi-label">全球 AI 市場規模</div>
-        <div class="kpi-sub">2030 年預估值</div>
-      </div>
-      <div class="kpi-card glow-box">
-        <div class="big-num">156</div>
-        <div class="kpi-label">新創投資案件</div>
-        <div class="kpi-sub">亞太區 Q1 2026</div>
-      </div>
-      <div class="kpi-card glow-box">
-        <div class="big-num">3.2x</div>
-        <div class="kpi-label">營收成長倍數</div>
-        <div class="kpi-sub">科技新創平均</div>
-      </div>
+    <div class="quadrant fade-up delay-2">
+      <span class="q-num">02</span>
+      <span class="q-icon">📈</span>
+      <div class="q-title">預測分析</div>
+      <div class="q-desc">大數據驅動決策<br>準確率提升至 92%</div>
+    </div>
+    <div class="quadrant fade-up delay-3">
+      <span class="q-num">03</span>
+      <span class="q-icon">🔄</span>
+      <div class="q-title">流程自動化</div>
+      <div class="q-desc">RPA + AI 整合<br>人力成本降低 40%</div>
+    </div>
+    <div class="quadrant fade-up delay-4">
+      <span class="q-num">04</span>
+      <span class="q-icon">🎯</span>
+      <div class="q-title">個人化推薦</div>
+      <div class="q-desc">深度學習引擎<br>轉化率提升 2.5 倍</div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ===== P4 工具介紹 ===== -->
-<div class="page" id="p4">
-  <div class="bg-dot"></div>
-  <div class="content">
-    <div class="page-header">
-      <div class="subtitle">必備工具</div>
-      <h2>新創公司標配工具鏈</h2>
+<!-- ===== P4 柱狀圖 — 雲端與邊緣 ===== -->
+<section id="p4">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 8px;">
+      <div class="h2 fade-up">雲端市場爆發成長</div>
+      <div class="subtitle fade-up delay-1" style="margin-top:6px;">2022–2026 全球市場規模（十億美元）</div>
+    </div>
+    <div class="chart-wrap" style="position:relative;">
+      <div class="grid-line" style="bottom: 75%;"></div>
+      <div class="grid-line" style="bottom: 50%;"></div>
+      <div class="grid-line" style="bottom: 25%;"></div>
+      <div class="chart-area">
+        <div class="bar-col">
+          <div class="bar-outer"><div class="bar" style="height: 120px;"><span class="bar-val">450B</span></div></div>
+          <div class="bar-label">2022</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-outer"><div class="bar" style="height: 180px;"><span class="bar-val">520B</span></div></div>
+          <div class="bar-label">2023</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-outer"><div class="bar" style="height: 250px;"><span class="bar-val">600B</span></div></div>
+          <div class="bar-label">2024</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-outer"><div class="bar" style="height: 340px;"><span class="bar-val">720B</span></div></div>
+          <div class="bar-label">2025</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar-outer"><div class="bar" style="height: 420px; background: linear-gradient(to top, var(--dark), var(--primary));"><span class="bar-val">890B</span></div></div>
+          <div class="bar-label" style="font-weight:800; color:var(--dark);">2026</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top: 16px;">
+      <span class="tag fade-up">邊緣計算同步成長 47%</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== P5 蜂巢圖 — 區塊鏈 ===== -->
+<section id="p5">
+  <div class="container" style="padding-top: clamp(20px, 4vw, 40px);">
+    <div style="text-align:center; margin-bottom: 16px;">
+      <div class="h2 fade-up">區塊鏈應用版圖</div>
+      <div class="subtitle fade-up delay-1" style="margin-top:6px;">2026 年六大落地場景</div>
     </div>
     <div class="hex-grid">
-      <div class="hex-card">
-        <div class="hex-icon">🤖</div>
-        <h3>AI 助手</h3>
-        <p>提升 3 倍產出效率，跨部門協作無縫</p>
+      <div class="hex fade-up delay-1" style="background: linear-gradient(135deg, #5BB5A0, #3D9A87); grid-column: span 2; aspect-ratio: auto; padding: 20px;">
+        <span class="hex-icon">🏦</span>
+        <div class="hex-title" style="font-size:15px;">DeFi 金融</div>
+        <div class="hex-sub">去中心化借貸・TVL 超 500 億</div>
       </div>
-      <div class="hex-card">
-        <div class="hex-icon">📊</div>
-        <h3>數據平台</h3>
-        <p>即時儀表板，決策有憑有據</p>
+      <div class="hex fade-up delay-2" style="background: linear-gradient(135deg, #2D7A6F, #1A4A42);">
+        <span class="hex-icon">📦</span>
+        <div class="hex-title">供應鏈</div>
+        <div class="hex-sub">溯源追蹤</div>
       </div>
-      <div class="hex-card">
-        <div class="hex-icon">🔒</div>
-        <h3>資安系統</h3>
-        <p>零信任架構，滴水不漏</p>
+      <div class="hex fade-up delay-3" style="background: linear-gradient(135deg, #7ECFBB, #5BB5A0);">
+        <span class="hex-icon">🏥</span>
+        <div class="hex-title">健康資料</div>
+        <div class="hex-sub">病歷共享</div>
       </div>
-      <div class="hex-card">
-        <div class="hex-icon">☁️</div>
-        <h3>雲端協作</h3>
-        <p>跨時區、遠端團隊流暢協作</p>
+      <div class="hex fade-up delay-2" style="background: linear-gradient(135deg, #D4A843, #C49A38);">
+        <span class="hex-icon">🎨</span>
+        <div class="hex-title">NFT / 藝術</div>
+        <div class="hex-sub">數位創作</div>
       </div>
-      <div class="hex-card">
-        <div class="hex-icon">🚀</div>
-        <h3>快速部署</h3>
-        <p>CI/CD 一鍵上線，縮短迭代週期</p>
+      <div class="hex fade-up delay-3" style="background: linear-gradient(135deg, #6B8FAD, #4A7090);">
+        <span class="hex-icon">🗳️</span>
+        <div class="hex-title">投票系統</div>
+        <div class="hex-sub">鏈上治理</div>
       </div>
-      <div class="hex-card">
-        <div class="hex-icon">🌱</div>
-        <h3>永續科技</h3>
-        <p>綠能資料中心，碳排減半</p>
+      <div class="hex fade-up delay-4" style="background: linear-gradient(135deg, #8B7EBA, #6A5E9A);">
+        <span class="hex-icon">📜</span>
+        <div class="hex-title">數位身份</div>
+        <div class="hex-sub">DID 驗證</div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== P5 流程圖 ===== -->
-<div class="page" id="p5">
-  <div class="content">
-    <div class="page-header">
-      <div class="subtitle">執行路徑</div>
-      <h2>科技轉型四步驟</h2>
-    </div>
-    <div class="flow-row">
-      <div class="flow-step">
-        <div class="flow-card glass">
-          <div class="flow-num">1</div>
-          <h3>評估現況</h3>
-          <p>盤點現有系統與痛點，建立基線指標</p>
-        </div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="flow-card glass">
-          <div class="flow-num">2</div>
-          <h3>選定工具</h3>
-          <p>依需求配置 AI、雲端、資安工具鏈</p>
-        </div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="flow-card glass">
-          <div class="flow-num">3</div>
-          <h3>POC 驗證</h3>
-          <p>小範圍試行，驗證 ROI 與適用性</p>
-        </div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="flow-card glass">
-          <div class="flow-num">4</div>
-          <h3>規模擴展</h3>
-          <p>全面部署，建立持續優化機制</p>
-        </div>
+      <div class="hex fade-up delay-5" style="background: linear-gradient(135deg, #E07B39, #C4622A);">
+        <span class="hex-icon">⚡</span>
+        <div class="hex-title">能源交易</div>
+        <div class="hex-sub">點對點</div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ===== P6 案例 ===== -->
-<div class="page" id="p6">
-  <div class="bg-radial"></div>
-  <div class="content">
-    <div class="page-header">
-      <div class="subtitle">成功案例</div>
-      <h2>新創轉型標竿</h2>
+<!-- ===== P6 流程圖 — 量子計算 ===== -->
+<section id="p6">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 8px;">
+      <div class="h2 fade-up">量子計算發展路徑</div>
+      <div class="subtitle fade-up delay-1" style="margin-top:6px;">2026–2030 技術演進四階段</div>
     </div>
-    <div class="case-grid">
-      <div class="case-card">
-        <div class="case-icon">🏢</div>
-        <h3>京磚科技</h3>
-        <p>製造業者引進 AI 質檢系統，瑕疵偵測率達 99.7%</p>
-        <div class="case-stat">
-          <span>+340%</span><small>產能提升</small>
+    <div class="flow-wrap">
+      <div class="flow-step fade-up delay-1">
+        <div class="step-num">1</div>
+        <span class="step-icon">🧪</span>
+        <div class="step-title">NISQ 時代</div>
+        <div class="step-desc">100-1000 量子位元<br>早期商業應用</div>
+      </div>
+      <div class="flow-arrow fade-up delay-1">→</div>
+      <div class="flow-step fade-up delay-2">
+        <div class="step-num">2</div>
+        <span class="step-icon">⚛️</span>
+        <div class="step-title">錯誤更正</div>
+        <div class="step-desc">邏輯量子位元<br>容錯量子運算</div>
+      </div>
+      <div class="flow-arrow fade-up delay-2">→</div>
+      <div class="flow-step fade-up delay-3">
+        <div class="step-num">3</div>
+        <span class="step-icon">🚀</span>
+        <div class="step-title">量子優勢</div>
+        <div class="step-desc">特定任務超越<br>古典超級電腦</div>
+      </div>
+      <div class="flow-arrow fade-up delay-3">→</div>
+      <div class="flow-step fade-up delay-4">
+        <div class="step-num">4</div>
+        <span class="step-icon">🌐</span>
+        <div class="step-title">量子網路</div>
+        <div class="step-desc">量子通訊基礎<br>全球量子雲端</div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top: 20px;">
+      <span class="tag fade-up">IBM / Google / IonQ 競賽激烈</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== P7 漏斗圖 — 生成式AI ===== -->
+<section id="p7">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 8px;">
+      <div class="h2 fade-up">生成式 AI 應用版圖</div>
+      <div class="subtitle fade-up delay-1" style="margin-top:6px;">從技術到落地 — 五大應用層次</div>
+    </div>
+    <div class="funnel-wrap">
+      <div class="funnel-layer fade-up delay-1" style="width:100%; background: linear-gradient(90deg, #1A4A42, #3D9A87); padding: 18px 24px;">
+        <span class="fl-icon">🤖</span><span class="fl-text">基礎模型訓練</span><span class="fl-sub">LLM / 多模態</span>
+      </div>
+      <div class="funnel-layer fade-up delay-2" style="width:88%; background: linear-gradient(90deg, #2D7A6F, #5BB5A0); padding: 16px 20px;">
+        <span class="fl-icon">💻</span><span class="fl-text">API / SaaS 服務</span><span class="fl-sub">ChatGPT / Claude API</span>
+      </div>
+      <div class="funnel-layer fade-up delay-3" style="width:74%; background: linear-gradient(90deg, #3D9A87, #7ECFBB); padding: 14px 18px;">
+        <span class="fl-icon">📝</span><span class="fl-text">企業應用開發</span><span class="fl-sub">客服・文案・程式</span>
+      </div>
+      <div class="funnel-layer fade-up delay-4" style="width:58%; background: linear-gradient(90deg, #5BB5A0, #B5E6D8); padding: 12px 16px; color: var(--dark);">
+        <span class="fl-icon">🎨</span><span class="fl-text">垂直產業解決</span><span class="fl-sub">醫療・金融・製造</span>
+      </div>
+      <div class="funnel-layer fade-up delay-5" style="width:40%; background: linear-gradient(90deg, #7ECFBB, #E8FAF6); padding: 10px 14px; color: var(--dark);">
+        <span class="fl-icon">✨</span><span class="fl-text">個人 AI 助理</span><span class="fl-sub">每個人都有自己的 AI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== P8 卡片矩陣 — 綠色科技 ===== -->
+<section id="p8">
+  <div class="container" style="padding-top: clamp(20px, 4vw, 36px);">
+    <div style="text-align:center; margin-bottom: 12px;">
+      <div class="h2 fade-up">綠色科技關鍵指標</div>
+      <div class="subtitle fade-up delay-1" style="margin-top:6px;">2026 全球數據一覽</div>
+    </div>
+    <div class="card-grid">
+      <div class="stat-card fade-up delay-1">
+        <span class="sc-icon">⚡</span>
+        <div class="sc-val">38%</div>
+        <div class="sc-label">全球再生能源佔比</div>
+        <div class="sc-bar"><div class="sc-bar-fill" style="width: 38%;"></div></div>
+      </div>
+      <div class="stat-card fade-up delay-2">
+        <span class="sc-icon">🚗</span>
+        <div class="sc-val">42%</div>
+        <div class="sc-label">電動車渗透率（預測）</div>
+        <div class="sc-bar"><div class="sc-bar-fill" style="width: 42%;"></div></div>
+      </div>
+      <div class="stat-card fade-up delay-3">
+        <span class="sc-icon">🏭</span>
+        <div class="sc-val">2.4G</div>
+        <div class="sc-label">碳捕捉市場規模（美元）</div>
+        <div class="sc-bar"><div class="sc-bar-fill" style="width: 55%;"></div></div>
+      </div>
+      <div class="stat-card fade-up delay-4">
+        <span class="sc-icon">🌲</span>
+        <div class="sc-val">15B</div>
+        <div class="sc-label">年度綠色債券發行量</div>
+        <div class="sc-bar"><div class="sc-bar-fill" style="width: 72%;"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== P9 時間軸 — 總結 ===== -->
+<section id="p9">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 8px;">
+      <div class="h2 fade-up">2026 科技關鍵洞見</div>
+      <div class="subtitle fade-up delay-1" style="margin-top:6px;">6 大趨勢全景回顧</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-line"></div>
+      <div class="tl-item fade-up delay-1">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-title">🤖 AI 無所不在</div>
+          <div class="tl-desc">從客服到研發，AI 滲透每個營運環節</div>
         </div>
       </div>
-      <div class="case-card">
-        <div class="case-icon">🛒</div>
-        <h3>萊魚電商</h3>
-        <p>AI 個人化推薦引擎，轉換率提升 2.8 倍</p>
-        <div class="case-stat">
-          <span>+180%</span><small>營收成長</small>
+      <div class="tl-item fade-up delay-2">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-title">☁️ 雲端持續擴張</div>
+          <div class="tl-desc">市場規模將突破 8900 億美元大關</div>
         </div>
       </div>
-      <div class="case-card">
-        <div class="case-icon">🏥</div>
-        <h3>明日健康</h3>
-        <p>遠距醫療平台結合 AI 診斷，服務偏鄉 50 萬人</p>
-        <div class="case-stat">
-          <span>50萬</span><small>受益人次</small>
+      <div class="tl-item fade-up delay-3">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-title">⛓️ 區塊鏈落地</div>
+          <div class="tl-desc">DeFi / 供應鏈 / 數位身份三大場景成熟</div>
+        </div>
+      </div>
+      <div class="tl-item fade-up delay-4">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-title">⚛️ 量子元年</div>
+          <div class="tl-desc">NISQ 時代來臨，錯誤更正技術突破</div>
+        </div>
+      </div>
+      <div class="tl-item fade-up delay-5">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-title">🌱 綠色轉型</div>
+          <div class="tl-desc">38% 再生能源 + 電動車 42% 渗透率</div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ===== P7 總結 ===== -->
-<div class="page" id="p7">
-  <div class="bg-glow"></div>
-  <div class="content">
-    <div class="page-header">
-      <div class="subtitle">總結</div>
-      <h2>科技轉型三層架構</h2>
-    </div>
-    <div class="funnel-container">
-      <div class="funnel-layer fl-1">
-        <div>
-          <h3>文化層｜以人為本</h3>
-          <p>建立學習型組織，擁抱失敗、快速迭代</p>
-        </div>
-      </div>
-      <div class="funnel-layer fl-2">
-        <div>
-          <h3>流程層｜數據驅動</h3>
-          <p>以數據做決策，流程自動化</p>
-        </div>
-      </div>
-      <div class="funnel-layer fl-3">
-        <div>
-          <h3>技術層｜AI 賦能</h3>
-          <p>工具落地，建立持續優化機制</p>
-        </div>
-      </div>
-      <div class="funnel-layer fl-4">
-        <div>
-          <h3>成果｜競爭優勢</h3>
-          <p>市場領先，規模化成長</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== P8 結尾 ===== -->
-<div class="page" id="p8">
+<!-- ===== P10 結尾 ===== -->
+<section id="p10">
   <div class="echo-ring"></div>
   <div class="echo-ring"></div>
   <div class="echo-ring"></div>
-  <div class="end-content content-center" style="flex:1;display:flex;flex-direction:column;justify-content:center;">
-    <div class="subtitle" style="color: var(--accent); margin-bottom: 16px;">🐾 熊熊簡報</div>
-    <h2 class="glow-text">掌握科技，先人一步</h2>
-    <p style="color: var(--text2); margin-top: 12px;">2026 科技新創關鍵報告<br>所有趨勢，一次掌握</p>
-    <div class="cta-row">
-      <a href="/slides" class="cta-btn cta-primary">瀏覽更多簡報</a>
+  <div class="end-content">
+    <div class="subtitle fade-up" style="color: var(--dark); opacity: 0.7; margin-bottom: 12px;">🐾 熊熊簡報</div>
+    <h2 class="h1 glow-text fade-up delay-1" style="color: var(--dark);">掌握科技<br>先人一步</h2>
+    <p fade-up delay-2 class="fade-up delay-2" style="color: var(--dark); opacity: 0.75; margin-top: 12px; font-size: 16px;">2026 科技新創關鍵報告<br>所有趨勢，一次掌握</p>
+    <div class="cta-row fade-up delay-3">
+      <a href="/slides" class="cta-btn cta-primary">🐾 瀏覽更多簡報</a>
       <a href="/" class="cta-btn cta-secondary">回到首頁</a>
     </div>
-    <div class="brand">🐾 Bear Slides · 熊熊簡報系統</div>
+    <div class="brand fade-up delay-4">🐾 Bear Slides · 熊熊簡報系統</div>
   </div>
-</div>
+</section>
 
 <!-- ===== 底部導航 ===== -->
 <nav class="nav-bar">
@@ -902,10 +681,12 @@ h3 { font-size: clamp(20px, 2.5vw, 32px); font-weight: 700; }
   <a href="#p6" class="nav-dot" onclick="showSlide('p6')">6</a>
   <a href="#p7" class="nav-dot" onclick="showSlide('p7')">7</a>
   <a href="#p8" class="nav-dot" onclick="showSlide('p8')">8</a>
+  <a href="#p9" class="nav-dot" onclick="showSlide('p9')">9</a>
+  <a href="#p10" class="nav-dot" onclick="showSlide('p10')">10</a>
 </nav>
 
 <script>
-const pages = ['p1','p2','p3','p4','p5','p6','p7','p8'];
+const pages = ['p1','p2','p3','p4','p5','p6','p7','p8','p9','p10'];
 const total = pages.length;
 let current = 0;
 
@@ -928,6 +709,7 @@ window.addEventListener('scroll', () => {
   let closestDist = Infinity;
   pages.forEach((id, i) => {
     const el = document.getElementById(id);
+    if (!el) return;
     const rect = el.getBoundingClientRect();
     const mid = rect.top + rect.height / 2;
     const dist = Math.abs(mid - viewMid);
