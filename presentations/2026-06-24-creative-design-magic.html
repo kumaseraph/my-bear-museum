@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>創意設計的魔法｜熊熊簡報 2026-06-24</title>
+<style>
+:root {
+  --primary: #8B7EBA;
+  --primary-light: #CE93D8;
+  --primary-dark: #5E5A8A;
+  --accent: #E07B39;
+  --accent2: #F4A67A;
+  --gold: #b8860b;
+  --bg: #f7f3eb;
+  --bg2: #eee8dc;
+  --surface: #f0ebe0;
+  --surface2: #e8e0d0;
+  --text: #2c2c2c;
+  --text2: #6b6560;
+  --muted: rgba(44,44,44,0.08);
+  --glass: rgba(255,255,255,0.7);
+  --glass-border: rgba(197,61,67,0.3);
+  --glow: rgba(139,126,186,0.15);
+  --glow-accent: rgba(224,123,57,0.15);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif TC', 'Songti SC', 'STSong', serif;
+  overflow: hidden;
+}
+.slide {
+  width: 100vw; height: 100vh;
+  position: absolute; top: 0; left: 0;
+  display: none;
+  overflow: hidden;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(247,243,235,0.92);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--glass-border);
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; padding: 12px 24px; z-index: 100;
+}
+.nav-btn {
+  width: 40px; height: 40px;
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  background: var(--glass);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s ease;
+}
+.nav-btn:hover { background: var(--primary); border-color: var(--primary); }
+.page-num {
+  font-size: 14px; color: var(--text2);
+  min-width: 60px; text-align: center;
+}
+
+/* ===== SLIDE 1: COVER ===== */
+#s1 {
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 30%, rgba(139,126,186,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 75% 70%, rgba(197,61,67,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 35% at 50% 50%, rgba(184,134,11,0.08) 0%, transparent 45%),
+    linear-gradient(160deg, #f7f3eb 0%, #eee8dc 100%);
+  justify-content: center; align-items: center; text-align: center;
+}
+.cover-geo {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+.geo-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+.geo-1 {
+  width: 300px; height: 300px;
+  top: -80px; right: -60px;
+  background: radial-gradient(circle, rgba(139,126,186,0.4), transparent 70%);
+  animation: float1 8s ease-in-out infinite;
+}
+.geo-2 {
+  width: 200px; height: 200px;
+  bottom: 80px; left: -50px;
+  background: radial-gradient(circle, rgba(224,123,57,0.3), transparent 70%);
+  animation: float2 10s ease-in-out infinite;
+}
+.geo-3 {
+  width: 150px; height: 150px;
+  top: 40%; left: 15%;
+  background: radial-gradient(circle, rgba(206,147,216,0.25), transparent 70%);
+  border-radius: 30%;
+  animation: float3 7s ease-in-out infinite;
+}
+.geo-4 {
+  width: 100px; height: 100px;
+  bottom: 30%; right: 20%;
+  background: radial-gradient(circle, rgba(212,168,67,0.3), transparent 70%);
+  animation: float1 9s ease-in-out infinite reverse;
+}
+.geo-5 {
+  width: 60px; height: 60px;
+  top: 20%; right: 30%;
+  background: rgba(139,126,186,0.5);
+  transform: rotate(45deg);
+  animation: float2 6s ease-in-out infinite 1s;
+}
+@keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,15px)} }
+@keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(15px,-20px)} }
+@keyframes float3 { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(-10px,-15px) rotate(10deg)} }
+.cover-content { position: relative; z-index: 2; }
+.cover-tag {
+  display: inline-block;
+  background: rgba(139,126,186,0.25);
+  border: 1px solid rgba(139,126,186,0.5);
+  border-radius: 20px;
+  padding: 6px 20px;
+  font-size: 13px; color: var(--primary-light);
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+.cover-title {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #FFFFFF 0%, #CE93D8 50%, #8B7EBA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+}
+.cover-sub {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  color: var(--text2);
+  letter-spacing: 3px;
+}
+.cover-date {
+  margin-top: 32px;
+  font-size: 13px; color: rgba(255,255,255,0.4);
+  letter-spacing: 2px;
+}
+
+/* ===== SLIDE 2: TOC ===== */
+#s2 {
+  background: linear-gradient(180deg, #f7f3eb 0%, #eee8dc 100%);
+  justify-content: center; align-items: center;
+  padding: 60px 80px 80px;
+}
+.toc-header { text-align: center; margin-bottom: 48px; }
+.toc-header h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.toc-header p { color: var(--text2); font-size: 1rem; }
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.toc-card {
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.toc-card:hover { transform: translateY(-4px); border-color: var(--primary); }
+.toc-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+.toc-num {
+  font-size: 42px; font-weight: 900;
+  color: var(--primary);
+  opacity: 0.3;
+  position: absolute; top: 12px; right: 16px;
+}
+.toc-title { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.toc-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.5; }
+
+/* ===== SLIDE 3: TIMELINE ===== */
+#s3 {
+  background:
+    radial-gradient(ellipse at 30% 70%, rgba(139,126,186,0.2) 0%, transparent 50%),
+    linear-gradient(180deg, #f7f3eb 0%, #eee8dc 100%);
+  padding: 60px 80px 80px;
+  justify-content: center;
+}
+.page-label {
+  font-size: 12px; letter-spacing: 3px; color: var(--primary);
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.page-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+  font-weight: 800; color: var(--text);
+  margin-bottom: 8px;
+}
+.page-desc { color: var(--text2); font-size: 1rem; margin-bottom: 48px; }
+.timeline-h {
+  display: flex; align-items: center;
+  gap: 0; max-width: 1000px; margin: 0 auto;
+  position: relative;
+}
+.timeline-line {
+  position: absolute;
+  top: 28px; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--gold), var(--primary-light), var(--accent));
+}
+.tl-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  position: relative; z-index: 1;
+}
+.tl-node {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 3px solid var(--primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(139,126,186,0.3);
+}
+.tl-item:hover .tl-node { background: var(--primary); transform: scale(1.1); }
+.tl-label {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  margin-bottom: 4px; text-align: center;
+}
+.tl-sub { font-size: 11px; color: var(--text2); text-align: center; line-height: 1.4; }
+
+/* ===== SLIDE 4: HONEYCOMB ===== */
+#s4 {
+  background:
+    radial-gradient(ellipse at 60% 40%, rgba(139,126,186,0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(224,123,57,0.15) 0%, transparent 40%),
+    linear-gradient(160deg, #f7f3eb 0%, #eee8dc 100%);
+  padding: 60px 80px 80px;
+  justify-content: center;
+}
+.hex-grid {
+  display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+  max-width: 900px; margin: 0 auto;
+}
+.hex-card {
+  width: 150px; height: 130px;
+  background: var(--surface);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 20px 16px;
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+  cursor: default;
+  position: relative;
+}
+.hex-card::after {
+  content: '';
+  position: absolute; inset: 3px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(135deg, rgba(139,126,186,0.1), rgba(224,123,57,0.1));
+  z-index: 0;
+}
+.hex-card:hover { transform: translateY(-8px) scale(1.05); }
+.hex-card:hover::after { background: linear-gradient(135deg, rgba(139,126,186,0.25), rgba(224,123,57,0.25)); }
+.hex-icon { width: 28px; height: 28px; margin-bottom: 8px; position: relative; z-index: 1; display: block; }
+.hex-icon svg { width: 100%; height: 100%; display: block; }
+.hex-title { font-size: 13px; font-weight: 700; color: var(--text); text-align: center; position: relative; z-index: 1; }
+.hex-sub { font-size: 11px; color: var(--text2); text-align: center; margin-top: 4px; position: relative; z-index: 1; }
+
+/* ===== SLIDE 5: DIAMOND ===== */
+#s5 {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(206,147,216,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(139,126,186,0.3) 0%, transparent 40%),
+    linear-gradient(160deg, #f7f3eb 0%, #eee8dc 100%);
+  padding: 60px 80px 80px;
+  justify-content: center; align-items: center;
+}
+.diamond-container { display: flex; gap: 48px; align-items: center; max-width: 1000px; margin: 0 auto; }
+.diamond-main {
+  width: 240px; height: 240px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  transform: rotate(45deg);
+  border-radius: 24px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 60px rgba(139,126,186,0.4), 0 0 120px rgba(139,126,186,0.2);
+  animation: diamond-pulse 4s ease-in-out infinite;
+  position: relative; overflow: hidden;
+}
+.diamond-main::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border: 2px solid rgba(255,255,255,0.2);
+  transform: rotate(0deg);
+  border-radius: 16px;
+}
+@keyframes diamond-pulse {
+  0%,100% { box-shadow: 0 0 60px rgba(139,126,186,0.4), 0 0 120px rgba(139,126,186,0.2); }
+  50% { box-shadow: 0 0 80px rgba(139,126,186,0.6), 0 0 160px rgba(139,126,186,0.3); }
+}
+.diamond-main span {
+  transform: rotate(-45deg);
+  font-size: 3rem;
+}
+.diamond-list { flex: 1; }
+.dia-item {
+  display: flex; align-items: center; gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+.dia-item:last-child { border-bottom: none; }
+.dia-item:hover { padding-left: 12px; }
+.dia-num {
+  font-size: 32px; font-weight: 900;
+  color: var(--primary);
+  opacity: 0.5;
+  min-width: 48px;
+}
+.dia-text h3 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.dia-text p { font-size: 0.88rem; color: var(--text2); }
+
+/* ===== SLIDE 6: QUADRANT ===== */
+#s6 {
+  background: linear-gradient(160deg, #f7f3eb 0%, #eee8dc 60%, #f7f3eb 100%);
+  padding: 60px 80px 80px;
+  justify-content: center; align-items: center;
+}
+.quadrant-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 420px;
+}
+.quad-item {
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex; flex-direction: column;
+  transition: all 0.3s ease;
+  position: relative; overflow: hidden;
+}
+.quad-item:hover { transform: scale(1.03); border-color: var(--primary); }
+.quad-item::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 4px; height: 100%;
+}
+.q1::before { background: var(--primary); }
+.q2::before { background: var(--accent); }
+.q3::before { background: var(--gold); }
+.q4::before { background: var(--primary-light); }
+.quad-icon { width: 28px; height: 28px; margin-bottom: 12px; display: block; }
+.quad-icon svg { width: 100%; height: 100%; display: block; }
+.quad-title { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.quad-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.5; flex: 1; }
+.quad-stat {
+  font-size: 28px; font-weight: 900;
+  margin-top: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== SLIDE 7: KPI CARDS ===== */
+#s7 {
+  background:
+    radial-gradient(ellipse at 70% 30%, rgba(224,123,57,0.2) 0%, transparent 45%),
+    linear-gradient(160deg, #f7f3eb 0%, #eee8dc 100%);
+  padding: 60px 80px 80px;
+  justify-content: center; align-items: center;
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1000px; margin: 0 auto;
+}
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative; overflow: hidden;
+}
+.kpi-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.kpi-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px;
+}
+.k1::after { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
+.k2::after { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.k3::after { background: linear-gradient(90deg, var(--gold), #F4D47A); }
+.k4::after { background: linear-gradient(90deg, var(--primary-light), var(--accent)); }
+.kpi-icon { width: 32px; height: 32px; margin-bottom: 16px; display: block; }
+.kpi-icon svg { width: 100%; height: 100%; display: block; }
+.kpi-num {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+.kpi-label { font-size: 0.9rem; color: var(--text2); font-weight: 600; }
+
+/* ===== SLIDE 8: FUNNEL ===== */
+#s8 {
+  background: linear-gradient(160deg, #f7f3eb 0%, #eee8dc 100%);
+  padding: 60px 80px 80px;
+  justify-content: center; align-items: center;
+}
+.funnel-wrap { display: flex; gap: 60px; align-items: center; max-width: 900px; margin: 0 auto; }
+.funnel { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.funnel-stage {
+  height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 700; font-size: 0.95rem;
+  clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+  transition: all 0.3s ease;
+  position: relative;
+}
+.funnel-stage:hover { transform: scaleX(1.02); filter: brightness(1.15); }
+.f1 { width: 380px; background: linear-gradient(90deg, var(--primary), var(--primary-dark)); border-radius: 8px 8px 0 0; }
+.f2 { width: 300px; background: linear-gradient(90deg, var(--accent), #c0622a); }
+.f3 { width: 220px; background: linear-gradient(90deg, var(--gold), #b08a30); }
+.f4 { width: 150px; background: linear-gradient(90deg, var(--primary-light), var(--accent)); border-radius: 0 0 8px 8px; }
+.funnel-list { flex: 1; }
+.funnel-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+.funnel-item:last-child { border-bottom: none; }
+.f-circle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700;
+  flex-shrink: 0;
+}
+.f-text h4 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.f-text p { font-size: 0.8rem; color: var(--text2); }
+
+/* ===== SLIDE 9: SUMMARY ===== */
+#s9 {
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(139,126,186,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(224,123,57,0.2) 0%, transparent 40%),
+    linear-gradient(160deg, #f7f3eb 0%, #eee8dc 100%);
+  padding: 60px 80px 80px;
+  justify-content: center; align-items: center;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 950px; margin: 0 auto;
+}
+.sum-card {
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.sum-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 30px rgba(139,126,186,0.2);
+  transform: translateY(-4px);
+}
+.sum-icon { width: 36px; height: 36px; margin-bottom: 16px; display: block; }
+.sum-icon svg { width: 100%; height: 100%; display: block; }
+.sum-title { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.sum-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.5; }
+
+/* ===== SLIDE 10: ENDING ===== */
+#s10 {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(139,126,186,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 30%, rgba(206,147,216,0.2) 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 70%, rgba(224,123,57,0.25) 0%, transparent 40%),
+    linear-gradient(160deg, #f7f3eb 0%, #eee8dc 100%);
+  justify-content: center; align-items: center; text-align: center;
+}
+.end-rings {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(139,126,186,0.15);
+  animation: ring-pulse 4s ease-in-out infinite;
+}
+.r1 { width: 300px; height: 300px; animation-delay: 0s; }
+.r2 { width: 450px; height: 450px; animation-delay: 0.8s; border-color: rgba(206,147,216,0.1); }
+.r3 { width: 600px; height: 600px; animation-delay: 1.6s; border-color: rgba(224,123,57,0.08); }
+@keyframes ring-pulse {
+  0%,100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+.end-content { position: relative; z-index: 2; }
+.end-title {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #FFFFFF, #CE93D8, #8B7EBA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+}
+.end-sub {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: var(--text2);
+  margin-bottom: 40px;
+}
+.end-tag {
+  display: inline-flex; gap: 16px;
+}
+.end-tag span {
+  background: rgba(139,126,186,0.2);
+  border: 1px solid rgba(139,126,186,0.4);
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: 0.9rem; color: var(--primary-light);
+}
+
+/* ===== BACK BUTTON ===== */
+#backBtn {
+  position: fixed; top: 20px; left: 20px;
+  z-index: 200;
+}
+.back-btn-inner {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(247,243,235,0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: var(--text2);
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.back-btn-inner:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* ===== DOT GRID BG ===== */
+.dot-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(139,126,186,0.15) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none; z-index: 0;
+}
+</style>
+</head>
+<body>
+
+<div id="backBtn"><a href="/slides" class="back-btn-inner">← 列表</a></div>
+
+<!-- SLIDE 1: COVER -->
+<section id="s1" class="slide active">
+  <div class="cover-geo">
+    <div class="geo-shape geo-1"></div>
+    <div class="geo-shape geo-2"></div>
+    <div class="geo-shape geo-3"></div>
+    <div class="geo-shape geo-4"></div>
+    <div class="geo-shape geo-5"></div>
+  </div>
+  <div class="cover-content">
+    <div class="cover-tag">CREATIVE DESIGN</div>
+    <h1 class="cover-title">創意設計的魔法</h1>
+    <p class="cover-sub">從靈感到執行，打造令人驚艷的視覺作品</p>
+    <p class="cover-date">熊熊簡報 · 2026-06-24</p>
+  </div>
+</section>
+
+<!-- SLIDE 2: TOC -->
+<section id="s2" class="slide">
+  <div class="toc-header">
+    <div class="page-label">CONTENTS</div>
+    <h2>創意設計目錄</h2>
+    <p style="color:var(--text2);margin-top:8px;">六個核心面向，全面掌握創意設計</p>
+  </div>
+  <div class="toc-grid">
+    <div class="toc-card">
+      <span class="toc-num">01</span>
+      <div class="toc-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"><path d="M8 20 L28 20 L20 12"/><path d="M8 44 L28 44 L20 52"/><path d="M56 20 L36 20 L44 12"/><path d="M56 44 L36 44 L44 52"/><line x1="28" y1="20" x2="36" y2="44"/></svg> 創意流程</div>
+      <div class="toc-desc">探索從靈感發想到具體成形的五步驟方法論</div>
+    </div>
+    <div class="toc-card">
+      <span class="toc-num">02</span>
+      <div class="toc-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"><path d="M24 8 L40 8 L44 24 L52 24 L52 40 L44 40 L40 56 L24 56 L20 40 L12 40 L12 24 L20 24 Z"/></svg> 設計工具</div>
+      <div class="toc-desc">必備工具箱：海報設計、UIUX、影片剪輯、品牌識別</div>
+    </div>
+    <div class="toc-card">
+      <span class="toc-num">03</span>
+      <div class="toc-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"><polygon points="32,8 52,24 32,56 12,24"/><line x1="12" y1="24" x2="52" y2="24"/><line x1="32" y1="8" x2="24" y2="24"/><line x1="32" y1="8" x2="40" y2="24"/><line x1="24" y1="24" x2="32" y2="56"/><line x1="40" y1="24" x2="32" y2="56"/></svg> 視覺元素</div>
+      <div class="toc-desc">掌握色彩心理學、形狀語言與構圖原則</div>
+    </div>
+    <div class="toc-card">
+      <span class="toc-num">04</span>
+      <div class="toc-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"><polygon points="12,52 32,12 52,52"/><line x1="18" y1="38" x2="46" y2="38"/><line x1="12" y1="52" x2="52" y2="52"/></svg> 佈局系統</div>
+      <div class="toc-desc">對稱與不對稱、網格系統與留白美學</div>
+    </div>
+    <div class="toc-card">
+      <span class="toc-num">05</span>
+      <div class="toc-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><path d="M32 8 C32 8 48 16 48 36 L40 44 L32 36 L24 44 L16 36 C16 16 32 8 32 8 Z"/><circle cx="32" cy="28" r="6"/></svg> 執行方法</div>
+      <div class="toc-desc">從草圖到完稿的迭代優化流程</div>
+    </div>
+    <div class="toc-card">
+      <span class="toc-num">06</span>
+      <div class="toc-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"><line x1="32" y1="8" x2="32" y2="20"/><line x1="32" y1="44" x2="32" y2="56"/><line x1="8" y1="32" x2="20" y2="32"/><line x1="44" y1="32" x2="56" y2="32"/><line x1="16" y1="16" x2="24" y2="24"/><line x1="40" y1="40" x2="48" y2="48"/><line x1="48" y1="16" x2="40" y2="24"/><line x1="24" y1="40" x2="16" y2="48"/></svg> 創意精煉</div>
+      <div class="toc-desc">如何將好設計打磨成令人驚艷的精彩作品</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: TIMELINE -->
+<section id="s3" class="slide dot-bg">
+  <div style="position:relative;z-index:1;width:100%;">
+    <div class="page-label">CREATIVE PROCESS</div>
+    <h2 class="page-title">創意流程五步驟</h2>
+    <p class="page-desc">從靈感萌芽到作品完成的必經之路</p>
+    <div class="timeline-h">
+      <div class="timeline-line"></div>
+      <div class="tl-item">
+        <div class="tl-node"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"><path d="M32 8 C20 16, 12 28, 12 38 C12 50, 20 56, 32 56 C44 56, 52 50, 52 38 C52 28, 44 16, 32 8 Z"/><line x1="24" y1="56" x2="40" y2="56"/><line x1="22" y1="60" x2="42" y2="60"/></svg></div>
+        <div class="tl-label">靈感蒐集</div>
+        <div class="tl-sub">觀察世界<br>收集素材</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-node"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"><circle cx="32" cy="28" r="20"/><circle cx="32" cy="28" r="12"/><circle cx="32" cy="28" r="4"/><line x1="32" y1="48" x2="32" y2="60"/></svg></div>
+        <div class="tl-label">定義問題</div>
+        <div class="tl-sub">確認目標<br>理解受眾</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-node">✏️</div>
+        <div class="tl-label">發散創意</div>
+        <div class="tl-sub">腦力激盪<br>多元嘗試</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-node"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none" style="width:18px;height:18px;vertical-align:middle;margin-right:6px"><path d="M44 12 C36 12, 28 16, 24 24 L12 36 L28 52 L40 36 C48 32, 52 24, 52 16"/><circle cx="48" cy="16" r="6"/></svg></div>
+        <div class="tl-label">篩選精煉</div>
+        <div class="tl-sub">評估可行性<br>選擇最佳</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-node"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><path d="M32 8 L36 28 L56 28 L40 40 L46 58 L32 48 L18 58 L24 40 L8 28 L28 28 Z"/></svg></div>
+        <div class="tl-label">執行呈現</div>
+        <div class="tl-sub">完稿交付<br>持續優化</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: HONEYCOMB TOOLS -->
+<section id="s4" class="slide">
+  <div style="position:relative;z-index:1;width:100%;">
+    <div class="page-label">DESIGN TOOLS</div>
+    <h2 class="page-title">創意工具箱</h2>
+    <p class="page-desc">四大領域核心工具推薦</p>
+    <div class="hex-grid">
+      <div class="hex-card" style="background:linear-gradient(135deg,rgba(139,126,186,0.3),rgba(139,126,186,0.1));">
+        <div class="hex-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none">
+            <path d="M32 8 L36 28 L56 28 L40 40 L46 58 L32 48 L18 58 L24 40 L8 28 L28 28 Z"/>
+          </svg>
+        </div>
+        <div class="hex-title">海報設計</div>
+        <div class="hex-sub">Illustrator<br>Figma</div>
+      </div>
+      <div class="hex-card" style="background:linear-gradient(135deg,rgba(224,123,57,0.3),rgba(224,123,57,0.1));">
+        <div class="hex-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><rect x="18" y="8" width="28" height="48" rx="4"/><line x1="32" y1="48" x2="32" y2="52"/></svg></div>
+        <div class="hex-title">UI/UX</div>
+        <div class="hex-sub">Figma<br>Sketch</div>
+      </div>
+      <div class="hex-card" style="background:linear-gradient(135deg,rgba(206,147,216,0.3),rgba(206,147,216,0.1));">
+        <div class="hex-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><rect x="8" y="16" width="48" height="32" rx="3"/><polygon points="26,24 26,40 42,32"/></svg></div>
+        <div class="hex-title">影片剪輯</div>
+        <div class="hex-sub">Premiere<br>DaVinci</div>
+      </div>
+      <div class="hex-card" style="background:linear-gradient(135deg,rgba(212,168,67,0.3),rgba(212,168,67,0.1));">
+        <div class="hex-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><path d="M32 8 L56 8 L56 40 L32 56 L8 40 L8 8 Z"/><circle cx="22" cy="20" r="3"/></svg></div>
+        <div class="hex-title">品牌識別</div>
+        <div class="hex-sub">Illustrator<br>Photoshop</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: DIAMOND -->
+<section id="s5" class="slide">
+  <div style="position:relative;z-index:1;width:100%;">
+    <div class="page-label">VISUAL ELEMENTS</div>
+    <h2 class="page-title">三大視覺元素</h2>
+    <p class="page-desc">建構優秀設計的基石</p>
+    <div class="diamond-container">
+      <div class="diamond-main"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none" style="width:20px;height:20px;vertical-align:middle"><path d="M32 8 L36 28 L56 28 L40 40 L46 58 L32 48 L18 58 L24 40 L8 28 L28 28 Z"/></svg></span></div>
+      <div class="diamond-list">
+        <div class="dia-item">
+          <div class="dia-num">01</div>
+          <div class="dia-text">
+            <h3>色彩心理學</h3>
+            <p>暖色傳遞熱情活力，冷色帶來專業信任，互補色創造張力與對比</p>
+          </div>
+        </div>
+        <div class="dia-item">
+          <div class="dia-num">02</div>
+          <div class="dia-text">
+            <h3>形狀語言</h3>
+            <p>圓形柔和友善，方形穩重可靠，菱形創意動感，线条引導視覺流動</p>
+          </div>
+        </div>
+        <div class="dia-item">
+          <div class="dia-num">03</div>
+          <div class="dia-text">
+            <h3>構圖原則</h3>
+            <p>黃金比例、三分法、負空間與視覺層次，讓設計呼吸而有重點</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: QUADRANT -->
+<section id="s6" class="slide">
+  <div style="position:relative;z-index:1;width:100%;">
+    <div class="page-label">LAYOUT SYSTEM</div>
+    <h2 class="page-title">四大佈局策略</h2>
+    <p class="page-desc">根據內容性質選擇最適合的版型</p>
+    <div class="quadrant-grid">
+      <div class="quad-item q1">
+        <div class="quad-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><line x1="32" y1="8" x2="32" y2="20"/><line x1="12" y1="28" x2="52" y2="28"/><path d="M8 28 L20 52 L44 52 L56 28"/><line x1="12" y1="20" x2="12" y2="36"/><line x1="52" y1="20" x2="52" y2="36"/></svg></div>
+        <div class="quad-title">對稱平衡</div>
+        <div class="quad-desc">傳統、正式、莊重的場合用，營造和諧穩定的視覺感受</div>
+        <div class="quad-stat">Classic</div>
+      </div>
+      <div class="quad-item q2">
+        <div class="quad-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><polygon points="38,8 20,36 30,36 26,56 46,28 36,28"/></svg></div>
+        <div class="quad-title">打破平衡</div>
+        <div class="quad-desc">現代、活力、科技的表達，創造動感與驚喜的視覺體驗</div>
+        <div class="quad-stat">Modern</div>
+      </div>
+      <div class="quad-item q3">
+        <div class="quad-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><rect x="8" y="24" width="48" height="16" rx="2"/><line x1="14" y1="24" x2="14" y2="32"/><line x1="24" y1="24" x2="24" y2="29"/><line x1="34" y1="24" x2="34" y2="32"/><line x1="44" y1="24" x2="44" y2="29"/><line x1="50" y1="24" x2="50" y2="32"/></svg></div>
+        <div class="quad-title">網格系統</div>
+        <div class="quad-desc">大量資訊、組織數據、建立系統性視覺語言的基礎</div>
+        <div class="quad-stat">System</div>
+      </div>
+      <div class="quad-item q4">
+        <div class="quad-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><path d="M8 20 Q20 16, 32 20 Q44 24, 52 18"/><path d="M4 32 Q18 28, 32 32 Q46 36, 56 28"/><path d="M8 44 Q20 40, 32 44 Q44 48, 52 42"/></svg></div>
+        <div class="quad-title">留白美學</div>
+        <div class="quad-desc">極簡、高端、禪意，讓設計呼吸的重點保留手法</div>
+        <div class="quad-stat">Zen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: KPI -->
+<section id="s7" class="slide">
+  <div style="position:relative;z-index:1;width:100%;">
+    <div class="page-label">EXECUTION METHOD</div>
+    <h2 class="page-title">執行關鍵指標</h2>
+    <p class="page-desc">設計專案成功的重要數據追蹤</p>
+    <div class="kpi-grid">
+      <div class="kpi-card k1">
+        <div class="kpi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><path d="M12 52 L28 36 L20 28 L8 40 Z"/><line x1="28" y1="36" x2="44" y2="20"/><path d="M40 16 L52 8 L56 12 L48 20"/></svg></div>
+        <div class="kpi-num">5x</div>
+        <div class="kpi-label">創意發想<br>迭代次數</div>
+      </div>
+      <div class="kpi-card k2">
+        <div class="kpi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><circle cx="32" cy="32" r="24"/><line x1="32" y1="32" x2="32" y2="18"/><line x1="32" y1="32" x2="42" y2="38"/></svg></div>
+        <div class="kpi-num">3天</div>
+        <div class="kpi-label">從草圖到<br>完稿交付</div>
+      </div>
+      <div class="kpi-card k3">
+        <div class="kpi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><path d="M20 28 L20 52 L36 52 L40 36 L52 36 L52 28 L40 28 L36 16 L28 16 L24 24 Z"/></svg></div>
+        <div class="kpi-num">92%</div>
+        <div class="kpi-label">客戶<br>滿意度</div>
+      </div>
+      <div class="kpi-card k4">
+        <div class="kpi-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><path d="M32 8 C32 8 48 16 48 36 L40 44 L32 36 L24 44 L16 36 C16 16 32 8 32 8 Z"/><circle cx="32" cy="28" r="6"/></svg></div>
+        <div class="kpi-num">2週</div>
+        <div class="kpi-label">品牌識別<br>完整建立</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: FUNNEL -->
+<section id="s8" class="slide">
+  <div style="position:relative;z-index:1;width:100%;">
+    <div class="page-label">CREATIVE REFINEMENT</div>
+    <h2 class="page-title">創意精煉漏斗</h2>
+    <p class="page-desc">從大量想法中篩選並聚焦最佳創意方案</p>
+    <div class="funnel-wrap">
+      <div class="funnel">
+        <div class="funnel-stage f1">100 個靈感</div>
+        <div class="funnel-stage f2">30 個方向</div>
+        <div class="funnel-stage f3">10 個方案</div>
+        <div class="funnel-stage f4">1 個最佳</div>
+      </div>
+      <div class="funnel-list">
+        <div class="funnel-item">
+          <div class="f-circle">1</div>
+          <div class="f-text"><h4>廣泛收集</h4><p>不受限制地記錄所有想到的想法</p></div>
+        </div>
+        <div class="funnel-item">
+          <div class="f-circle">2</div>
+          <div class="f-text"><h4>快速淘汰</h4><p>刪除明顯不可行或重複的選項</p></div>
+        </div>
+        <div class="funnel-item">
+          <div class="f-circle">3</div>
+          <div class="f-text"><h4>深入發展</h4><p>選擇有潛力的方向進行深度設計</p></div>
+        </div>
+        <div class="funnel-item">
+          <div class="f-circle">4</div>
+          <div class="f-text"><h4>極致打磨</h4><p>細節優化直到無法再提升</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9: SUMMARY -->
+<section id="s9" class="slide">
+  <div style="position:relative;z-index:1;width:100%;">
+    <div class="page-label">KEY TAKEAWAYS</div>
+    <h2 class="page-title">創意設計三大心法</h2>
+    <p class="page-desc">設計之路的核心理念</p>
+    <div class="summary-grid">
+      <div class="sum-card">
+        <div class="sum-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><circle cx="26" cy="26" r="16"/><line x1="38" y1="38" x2="56" y2="56" stroke-width="4"/></svg></div>
+        <div class="sum-title">觀察力是根基</div>
+        <div class="sum-desc">好的設計師是敏銳的觀察者，從生活中汲取養分，讓創意有源頭活水</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><path d="M50 28 A18 18 0 1 1 14 38"/><polyline points="14,26 14,38 26,38"/><path d="M14 36 A18 18 0 1 1 50 26"/><polyline points="50,38 50,26 38,26"/></svg></div>
+        <div class="sum-title">迭代勝於完美</div>
+        <div class="sum-desc">不要等想到完美方案才動手，快速產出、持續迭代，在過程中趨近最佳解</div>
+      </div>
+      <div class="sum-card">
+        <div class="sum-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" stroke="#2c2c2c" stroke-width="3" fill="none"><path d="M32 52 C18 40, 8 30, 8 20 C8 12, 16 8, 24 8 C28 8, 32 12,32 16 C32 12,36 8,40 8 C48 8,56 12,56 20 C56 30,46 40,32 52 Z"/></svg></div>
+        <div class="sum-title">美感要有溫度</div>
+        <div class="sum-desc">技術可以學習，但打動人心的設計來自對使用者的理解與真誠關懷</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10: ENDING -->
+<section id="s10" class="slide">
+  <div class="end-rings">
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+  </div>
+  <div class="end-content">
+    <h1 class="end-title">謝謝聆聽</h1>
+    <p class="end-sub">讓創意，成為你最獨特的語言</p>
+    <div class="end-tag">
+      <span>#創意設計</span>
+      <span>#熊熊簡報</span>
+      <span>#2026</span>
+    </div>
+  </div>
+</section>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+function show(idx) {
+  current = idx;
+  slides.forEach((s,i)=> s.classList.toggle('active', i===idx));
+  document.querySelector('.page-num').textContent = `${idx+1} / ${slides.length}`;
+}
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){ e.preventDefault(); show(Math.min(current+1,slides.length-1)); }
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'){ e.preventDefault(); show(Math.max(current-1,0)); }
+});
+document.querySelector('.nav-btn.prev').addEventListener('click', ()=> show(Math.max(current-1,0)));
+document.querySelector('.nav-btn.next').addEventListener('click', ()=> show(Math.min(current+1,slides.length-1)));
+document.addEventListener('DOMContentLoaded', ()=> show(0));
+</script>
+
+<nav class="nav">
+  <button class="nav-btn prev" onclick="show(Math.max(current-1,0))">◀</button>
+  <span class="page-num">1 / 10</span>
+  <button class="nav-btn next" onclick="show(Math.min(current+1,slides.length-1))">▶</button>
+</nav>
+
+</body>
+</html>
