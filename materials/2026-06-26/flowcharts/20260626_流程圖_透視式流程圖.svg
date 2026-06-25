@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 140">
+  <defs>
+    <linearGradient id="fadeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E40AF;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 透視消失點區域 -->
+  <g transform="translate(200, 130)">
+    <!-- 透視線 -->
+    <line x1="0" y1="0" x2="-80" y2="-120" stroke="#3B82F6" stroke-width="1" opacity="0.3"/>
+    <line x1="0" y1="0" x2="0" y2="-130" stroke="#3B82F6" stroke-width="1" opacity="0.3"/>
+    <line x1="0" y1="0" x2="80" y2="-120" stroke="#3B82F6" stroke-width="1" opacity="0.3"/>
+    <line x1="0" y1="0" x2="-40" y2="-130" stroke="#3B82F6" stroke-width="1" opacity="0.2"/>
+    <line x1="0" y1="0" x2="40" y2="-130" stroke="#3B82F6" stroke-width="1" opacity="0.2"/>
+  </g>
+  
+  <!-- 步驟1 - 最前 -->
+  <g transform="translate(30, 10)">
+    <polygon points="20,0 120,0 100,45 0,45" fill="#1E40AF"/>
+    <text x="60" y="28" font-size="12" fill="white" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold">階段一：啟動</text>
+  </g>
+  
+  <!-- 步驟2 - 中間 -->
+  <g transform="translate(100, 40)">
+    <polygon points="20,0 120,0 100,45 0,45" fill="url(#fadeGrad)"/>
+    <text x="60" y="28" font-size="12" fill="white" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold">階段二：規劃</text>
+  </g>
+  
+  <!-- 步驟3 - 最後（透視縮小）-->
+  <g transform="translate(160, 65)">
+    <polygon points="15,0 90,0 75,40 0,40" fill="#3B82F6" fill-opacity="0.6"/>
+    <text x="45" y="25" font-size="10" fill="white" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold">階段三：執行</text>
+  </g>
+  
+  <!-- 步驟4 - 最遠（極透明）-->
+  <g transform="translate(210, 82)">
+    <polygon points="10,0 60,0 50,35 0,35" fill="#60A5FA" fill-opacity="0.4"/>
+    <text x="30" y="22" font-size="8" fill="white" text-anchor="middle" font-family="Arial, sans-serif">完成</text>
+  </g>
+  
+  <!-- 透視引導線裝飾 -->
+  <path d="M 40 55 Q 150 80 250 95" stroke="#F59E0B" stroke-width="2" fill="none" stroke-dasharray="5,3" opacity="0.6"/>
+  <circle cx="250" cy="95" r="4" fill="#F59E0B" opacity="0.6"/>
+</svg>
