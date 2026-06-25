@@ -582,6 +582,51 @@ html, body {
   background-size: 28px 28px;
   pointer-events: none; z-index: 0;
 }
+/* ===== 手機版響應式 ===== */
+@media (max-width: 768px) {
+  .nav-btn { width: 32px; height: 32px; font-size: 14px; }
+  .nav { gap: 8px; padding: 8px 0; }
+  .cover-content { padding: 40px 20px 60px !important; }
+  .cover-title { font-size: clamp(1.8rem, 6vw, 3rem) !important; }
+  .cover-sub { font-size: clamp(0.9rem, 2.5vw, 1.3rem) !important; }
+  .cover-tag { font-size: 12px; padding: 4px 12px; }
+  .cover-date { font-size: 11px; }
+  .toc-grid { grid-template-columns: 1fr !important; gap: 16px; }
+  .toc-header { margin-bottom: 24px; }
+  .toc-header h2 { font-size: 1.5rem !important; }
+  .toc-card { padding: 16px !important; }
+  .page-content { padding: 40px 16px 60px !important; }
+  .page-title { font-size: clamp(1.4rem, 4vw, 2rem) !important; }
+  .page-desc { margin-bottom: 24px; }
+  .diamond-container { flex-direction: column !important; gap: 24px !important; }
+  .diamond { width: 180px !important; height: 180px !important; }
+  .diamond-1 { width: 120px !important; height: 120px !important; }
+  .diamond-2 { width: 90px !important; height: 90px !important; }
+  .diamond-3 { width: 60px !important; height: 60px !important; }
+  .funnel-wrap { flex-direction: column !important; gap: 24px !important; }
+  .funnel-item { transform: scale(0.85); }
+  .timeline-h { flex-direction: column; gap: 16px; }
+  .timeline-line { display: none; }
+  .tl-item { width: 100%; }
+  .hex-grid { grid-template-columns: 1fr 1fr !important; }
+  .hex-card { padding: 12px !important; }
+  .quad-container { flex-direction: column !important; gap: 16px; }
+  .section-title { font-size: clamp(1.3rem, 4vw, 1.8rem) !important; }
+  .back-btn-inner { padding: 8px 16px; font-size: 13px; }
+  .dot-bg::before { background-size: 18px 18px; }
+}
+@media (max-width: 480px) {
+  .cover-content { padding: 30px 12px 40px !important; }
+  .toc-grid { grid-template-columns: 1fr !important; }
+  .hex-grid { grid-template-columns: 1fr !important; }
+  .diamond { width: 140px !important; height: 140px !important; }
+  .diamond-1 { width: 100px !important; height: 100px !important; }
+  .diamond-2 { width: 70px !important; height: 70px !important; }
+  .diamond-3 { width: 50px !important; height: 50px !important; }
+  .cover-title { font-size: 1.6rem !important; }
+  .page-title { font-size: 1.3rem !important; }
+}
+</style>
 </style>
 </head>
 <body>

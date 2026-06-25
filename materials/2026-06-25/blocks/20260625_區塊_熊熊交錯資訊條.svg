@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+  <defs>
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5A2B"/>
+      <stop offset="100%" stop-color="#D4A574"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="800" height="300" fill="#FDF8F3"/>
+  
+  <!-- 交錯排列的六邊形資訊條 - 水平交錯 -->
+  <g transform="translate(0,50)">
+    <!-- 第一行：實心 -->
+    <g fill="url(#bearGold)">
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(80,44)"/>
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(240,44)"/>
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(400,44)"/>
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(560,44)"/>
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(720,44)"/>
+    </g>
+    
+    <!-- 第二行：偏移交錯 + 空心 -->
+    <g fill="none" stroke="#8B5A2B" stroke-width="2.5">
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(160,132)"/>
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(320,132)"/>
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(480,132)"/>
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(640,132)"/>
+    </g>
+    
+    <!-- 第三行：實心 -->
+    <g fill="url(#bearGold)">
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(80,220)"/>
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(240,220)"/>
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(400,220)"/>
+      <path d="M30,0 L78,22 L78,66 L30,88 L-18,66 L-18,22 Z" transform="translate(560,220)"/>
+    </g>
+  </g>
+  
+  <!-- 標題 -->
+  <text x="400" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#8B5A2B">交錯排列 · 視覺動態</text>
+</svg>

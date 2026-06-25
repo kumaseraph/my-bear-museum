@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
+  <defs>
+    <linearGradient id="warmGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5A2B"/>
+      <stop offset="50%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#8B5A2B"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#5D4037" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景襯底 -->
+  <rect width="800" height="200" fill="#FDF8F3"/>
+  
+  <!-- 主要卡片 - 2.5D效果：外粗空心+內實心 -->
+  <g filter="url(#softShadow)">
+    <!-- 外框 - 粗空心 -->
+    <rect x="50" y="30" width="700" height="140" rx="20" ry="20" 
+          fill="none" stroke="url(#warmGrad)" stroke-width="6"/>
+    <!-- 內底 - 半透明實心 -->
+    <rect x="55" y="35" width="690" height="130" rx="16" ry="16" 
+          fill="#D4A574" fill-opacity="0.2"/>
+  </g>
+  
+  <!-- 左側裝飾六邊形叢集 -->
+  <g transform="translate(120,100)">
+    <!-- 大六邊形 -->
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="#8B5A2B"/>
+    <!-- 小六邊形裝飾 -->
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" 
+          fill="#D4A574" transform="translate(30,0)"/>
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" 
+          fill="none" stroke="#8B5A2B" stroke-width="1.5" transform="translate(0,35)"/>
+  </g>
+  
+  <!-- 右側裝飾 -->
+  <g transform="translate(680,100)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="#8B5A2B"/>
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" 
+          fill="#D4A574" transform="translate(-30,0)"/>
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" 
+          fill="none" stroke="#8B5A2B" stroke-width="1.5" transform="translate(0,-35)"/>
+  </g>
+  
+  <!-- 標題文字 -->
+  <text x="400" y="108" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#5D4037">工作報告</text>
+  
+  <!-- 副標 -->
+  <text x="400" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#8B5A2B">熊熊風格 · 溫暖專業</text>
+</svg>

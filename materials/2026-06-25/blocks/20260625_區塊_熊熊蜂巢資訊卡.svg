@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <!-- 熊熊棕金色系 -->
+    <linearGradient id="bearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5A2B"/>
+      <stop offset="100%" stop-color="#D4A574"/>
+    </linearGradient>
+    <linearGradient id="bearGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#F5DEB3"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#FDF8F3"/>
+  
+  <!-- 蜂巢叢集 - 尺寸漸層效果 -->
+  <g transform="translate(400,300)">
+    <!-- 中心大六邊形 - 實心 -->
+    <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z" 
+          fill="url(#bearGrad)" opacity="0.9"/>
+    
+    <!-- 中環 6 個六邊形 -->
+    <g fill="#D4A574">
+      <path d="M0,-70 L52,-26 L52,26 L0,52 L-52,26 L-52,-26 Z" transform="rotate(0) translate(0,-104)"/>
+      <path d="M0,-70 L52,-26 L52,26 L0,52 L-52,26 L-52,-26 Z" transform="rotate(60) translate(0,-104)"/>
+      <path d="M0,-70 L52,-26 L52,26 L0,52 L-52,26 L-52,-26 Z" transform="rotate(120) translate(0,-104)"/>
+      <path d="M0,-70 L52,-26 L52,26 L0,52 L-52,26 L-52,-26 Z" transform="rotate(180) translate(0,-104)"/>
+      <path d="M0,-70 L52,-26 L52,26 L0,52 L-52,26 L-52,-26 Z" transform="rotate(240) translate(0,-104)"/>
+      <path d="M0,-70 L52,-26 L52,26 L0,52 L-52,26 L-52,-26 Z" transform="rotate(300) translate(0,-104)"/>
+    </g>
+    
+    <!-- 外環 12 個小六邊形 - 空心描邊 -->
+    <g fill="none" stroke="#8B5A2B" stroke-width="2">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(30) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(60) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(90) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(120) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(150) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(180) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(210) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(240) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(270) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(300) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(330) translate(0,-130)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(0) translate(0,-130)"/>
+    </g>
+  </g>
+  
+  <!-- 文字標籤 -->
+  <text x="400" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#5D4037">熊熊蜂巢資訊卡</text>
+  <text x="400" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#8B5A2B">尺寸漸層 · 2.5D效果</text>
+</svg>
