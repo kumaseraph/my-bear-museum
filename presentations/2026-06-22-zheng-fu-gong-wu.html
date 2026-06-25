@@ -214,15 +214,13 @@ tr:nth-child(even) td { background: rgba(42,109,184,0.15); }
 .s10 .divider { width: 120px; height: 3px; background: var(--accent); margin: 30px auto; position: relative; z-index: 2; }
 .s10 .date { font-size: 18px; color: rgba(200,216,238,0.6); margin-top: 20px; position: relative; z-index: 2; }
 
-<style>
-/* ===== 回到列表 ===== */
+</style>
 #backBtn { position: fixed; top: 20px; left: 20px; z-index: 9999; text-decoration: none; border-radius: 50px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 0 0 1.5px rgba(255,255,255,0.1); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
 #backBtn:hover { transform: translateX(-6px) scale(1.06); box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.4), 0 0 0 1.5px rgba(255,255,255,0.25); }
 #backBtn .back-btn-inner { display: inline-flex; align-items: center; gap: 6px; background: rgba(10, 10, 10, 0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #ffffff; padding: 10px 18px 10px 14px; border-radius: 50px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; border: 1px solid rgba(255, 255, 255, 0.15); transition: all 0.3s; }
 #backBtn .back-btn-inner svg { opacity: 0.9; transition: transform 0.3s; }
 #backBtn:hover .back-btn-inner svg { transform: translateX(-4px); }
 #backBtn .back-btn-inner span { background: linear-gradient(135deg, #ffffff 0%, #d4d4d4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; }
-</style>
 </head>
 <body>
 <a href="/slides" id="backBtn">
