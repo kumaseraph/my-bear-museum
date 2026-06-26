@@ -5,547 +5,112 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>熊熊簡報列表 | 🐾 Bear Slides</title>
 <style>
-:root {
-  /* 博物館同款暖色系 */
-  --bg: #fdf8f3;
-  --bg-secondary: #fff5eb;
-  --card: #ffffff;
-  --card-hover: #faf5f0;
-  --primary: #5d4037;
-  --accent: #d4a574;
-  --accent-dark: #c4956a;
-  --text: #5d4037;
-  --text-muted: #8b7355;
-  --text-light: #a89585;
-  --border: #d7ccc8;
-  --border-light: rgba(93,64,55,0.1);
-  --shadow: 0 4px 18px rgba(93,64,55,0.06);
-  --shadow-hover: 0 8px 28px rgba(93,64,55,0.12);
-}
+:root { --bg: #fdf8f3; --bg-secondary: #fff5eb; --card: #ffffff; --card-hover: #faf5f0; --primary: #5d4037; --accent: #d4a574; --accent-dark: #c4956a; --text: #5d4037; --text-muted: #8b7355; --text-light: #a89585; --border: #d7ccc8; --border-light: rgba(93,64,55,0.1); --shadow: 0 4px 18px rgba(93,64,55,0.06); --shadow-hover: 0 8px 28px rgba(93,64,55,0.12); }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  background: var(--bg);
-  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* ===== 博物館同款頂部導航列 ===== */
-.top-nav {
-  background: var(--primary);
-  padding: 0 32px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 8px rgba(93,64,55,0.15);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.top-nav-brand {
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.5px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.top-nav-links {
-  display: flex;
-  gap: 4px;
-}
-.top-nav-links a {
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-.top-nav-links a:hover {
-  color: #fff;
-  background: rgba(255,255,255,0.15);
-}
-.top-nav-links a.active {
-  color: #fff;
-  background: rgba(255,255,255,0.2);
-}
-
-/* ===== 頁面內容 ===== */
-.page-wrapper {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 48px 32px 80px;
-}
-
-/* ===== 頁首 ===== */
-.page-header {
-  margin-bottom: 40px;
-  padding-bottom: 28px;
-  border-bottom: 2px solid var(--border);
-  position: relative;
-}
-.page-header::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 80px;
-  height: 2px;
-  background: var(--accent);
-}
-.page-eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--accent-dark);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-.page-title {
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 6px;
-  letter-spacing: 0.5px;
-}
-.page-meta {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-/* ===== 篩選列 ===== */
-.filter-bar {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.filter-tag {
-  padding: 7px 16px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-muted);
-  background: var(--card);
-  border: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.filter-tag:hover {
-  border-color: var(--accent);
-  color: var(--accent-dark);
-}
-.filter-tag.active {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: #fff;
-}
-
-/* ===== 簡報卡片網格 ===== */
-.slides-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-}
-.slide-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.25s;
-  display: flex;
-  flex-direction: column;
-  box-shadow: var(--shadow);
-  position: relative;
-}
-.slide-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-  border-color: var(--accent);
-}
-
-/* 卡片左側色條 */
-.slide-card::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  background: var(--card-accent, var(--accent));
-  border-radius: 16px 0 0 16px;
-}
-
-/* 卡片預覽區 */
-.card-preview {
-  height: 130px;
-  background: var(--bg-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-}
-.card-preview-icon {
-  opacity: 0.25;
-  transition: opacity 0.25s;
-}
-.slide-card:hover .card-preview-icon {
-  opacity: 0.4;
-}
-.card-category-badge {
-  position: absolute;
-  top: 12px;
-  left: 16px;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  background: rgba(255,255,255,0.85);
-  color: var(--card-accent, var(--accent-dark));
-  border: 1px solid var(--card-accent, var(--accent));
-}
-.card-date-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 11px;
-  color: var(--text-light);
-  font-weight: 500;
-}
-
-/* 卡片主體 */
-.card-body {
-  padding: 18px 20px 16px;
-  flex: 1;
-}
-.card-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 8px;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.card-subtitle {
-  font-size: 12px;
-  color: var(--text-muted);
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* 卡片底部 */
-.card-footer {
-  padding: 12px 20px;
-  border-top: 1px solid var(--border-light);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.card-link-text {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent-dark);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  transition: gap 0.2s;
-}
-.slide-card:hover .card-link-text {
-  gap: 8px;
-}
-.card-color-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-
-/* ===== 無篩選結果 ===== */
-.no-result {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--text-muted);
-  font-size: 14px;
-}
-.no-result-icon {
-  font-size: 40px;
-  margin-bottom: 12px;
-  opacity: 0.5;
-}
-
-/* ===== 響應式 ===== */
-@media (max-width: 600px) {
-  .page-wrapper { padding: 72px 16px 60px; }
-  .page-title { font-size: 24px; }
-  .slides-grid { grid-template-columns: 1fr; gap: 16px; }
-}
+body { background: var(--bg); font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; color: var(--text); min-height: 100vh; overflow-x: hidden; }
+.top-nav { background: var(--primary); padding: 0 32px; height: 52px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(93,64,55,0.15); position: sticky; top: 0; z-index: 100; }
+.top-nav-brand { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+.top-nav-links { display: flex; gap: 4px; }
+.top-nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+.top-nav-links a:hover { color: #fff; background: rgba(255,255,255,0.15); }
+.top-nav-links a.active { color: #fff; background: rgba(255,255,255,0.2); }
+.page-wrapper { max-width: 1100px; margin: 0 auto; padding: 48px 32px 80px; }
+.page-header { margin-bottom: 40px; padding-bottom: 28px; border-bottom: 2px solid var(--border); position: relative; }
+.page-header::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 80px; height: 2px; background: var(--accent); }
+.page-title { font-size: 28px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+.page-subtitle { font-size: 14px; color: var(--text-muted); margin-top: 8px; }
+.filter-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+.filter-tag { padding: 8px 18px; border: none; background: var(--card); color: var(--text-muted); font-size: 13px; border-radius: 20px; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow); font-family: inherit; }
+.filter-tag:hover { background: var(--card-hover); transform: translateY(-1px); box-shadow: var(--shadow-hover); }
+.filter-tag.active { background: var(--primary); color: #fff; }
+.slides-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+.slide-card { display: block; background: var(--card); border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; box-shadow: var(--shadow); transition: all 0.25s; border: 2px solid transparent; position: relative; }
+.slide-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--card-accent, var(--accent)); }
+.card-preview { height: 120px; background: linear-gradient(135deg, var(--card-accent, var(--accent)) 0%, rgba(255,255,255,0.3) 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.card-preview-icon { opacity: 0.35; position: absolute; }
+.card-category-badge { position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,0.9); color: var(--text); font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 12px; }
+.card-date-badge { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.5); color: #fff; font-size: 11px; padding: 4px 8px; border-radius: 8px; }
+.card-body { padding: 20px; }
+.card-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+.card-subtitle { font-size: 13px; color: var(--text-muted); }
+.card-footer { padding: 14px 20px; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+.card-link-text { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.card-color-dot { width: 8px; height: 8px; border-radius: 50%; }
+.page-footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 13px; }
+.total-badge { background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 12px; margin-left: 6px; }
+.no-result { text-align: center; padding: 60px 20px; color: var(--text-muted); display: none; }
+@media (max-width: 600px) { .page-wrapper { padding: 32px 16px 60px; } .page-title { font-size: 22px; } .slides-grid { grid-template-columns: 1fr; } }
 </style>
-<script src="/components/nav-component.js"></script>
 </head>
 <body>
-
-<nav-bar></nav-bar>
-
-<main class="page-wrapper">
-  <!-- 頁首 -->
+<nav class="top-nav">
+  <div class="top-nav-brand">🐾 熊熊簡報</div>
+  <div class="top-nav-links">
+    <a href="/">🏠 博物館</a>
+    <a href="/presentations/slides-list.htm" class="active">📊 簡報列表</a>
+  </div>
+</nav>
+<div class="page-wrapper">
   <header class="page-header">
-    <div class="page-eyebrow">🐾 熊熊博物館</div>
     <h1 class="page-title">熊熊簡報列表</h1>
-    <p class="page-meta">共 <strong id="total-count">0</strong> 份簡報</p>
+    <p class="page-subtitle">點擊卡片查看簡報內容</p>
   </header>
-
-  <!-- 篩選 -->
-  <div class="filter-bar" id="filter-bar">
-    <span class="filter-tag active" data-filter="all">全部</span>
-    <span class="filter-tag" data-filter="government">政府</span>
-    <span class="filter-tag" data-filter="tech">科技</span>
-    <span class="filter-tag" data-filter="creative">創意</span>
-    <span class="filter-tag" data-filter="business">商業</span>
-    <span class="filter-tag" data-filter="life">生活</span>
-    <span class="filter-tag" data-filter="review">回顧</span>
+  <div class="filter-bar">
+    <button class="filter-tag active" data-filter="all">全部 <span class="total-badge">26</span></button>
+    <button class="filter-tag" data-filter="government">政府</button>
+    <button class="filter-tag" data-filter="tech">科技</button>
+    <button class="filter-tag" data-filter="creative">創意</button>
+    <button class="filter-tag" data-filter="business">商業</button>
+    <button class="filter-tag" data-filter="life">生活</button>
+    <button class="filter-tag" data-filter="review">回顧</button>
   </div>
-
-  <!-- 卡片網格 -->
   <div class="slides-grid" id="slides-grid"></div>
-
-  <!-- 無結果 -->
-  <div class="no-result" id="no-result" style="display:none;">
-    <div class="no-result-icon">🔍</div>
-    <p>目前沒有這個分類的簡報</p>
-  </div>
-</main>
-
+  <div class="no-result" id="no-result">沒有找到符合的簡報</div>
+  <footer class="page-footer">
+    共 <span id="total-count">26</span> 個簡報
+  </footer>
+</div>
 <script>
 const SLIDES = [
-  {
-    file: "2026-06-04-bear-happiness",
-    title: "🐻 小熊的幸福旅程 | 熊熊簡報",
-    date: "2026-06-04",
-    category: "review",
-    color: "#D4A574",
-    subtitle: "熊熊"
-  },
-  {
-    file: "2026-06-04-mage-life",
-    title: "🧙 魔法師的日常 | 熊熊簡報",
-    date: "2026-06-04",
-    category: "creative",
-    color: "#7B1FA2",
-    subtitle: "魔法"
-  },
-  {
-    file: "bear-life-test",
-    title: "小熊的一生（測試版）",
-    date: "2026-06-04",
-    category: "review",
-    color: "#D4A574",
-    subtitle: "熊熊"
-  },
-  {
-    file: "bear-life-claude",
-    title: "小熊的一生（Claude版）",
-    date: "2026-06-04",
-    category: "review",
-    color: "#D4A574",
-    subtitle: "熊熊"
-  },
-  {
-    file: "bear-life-cursor-m27",
-    title: "小熊的一生（Cursor M27版）",
-    date: "2026-06-04",
-    category: "review",
-    color: "#D4A574",
-    subtitle: "熊熊"
-  },
-  {
-    file: "bear-life-cursor-auto",
-    title: "小熊的一生（Cursor 自動版）",
-    date: "2026-06-04",
-    category: "review",
-    color: "#D4A574",
-    subtitle: "熊熊"
-  },
-  {
-    file: "2026-06-25-business-finance-insights",
-    title: "掌握趨勢：2026 商業財經關鍵洞察 | 熊熊每日簡報",
-    date: "2026-06-25",
-    category: "business",
-    color: "#1565c0",
-    subtitle: "商業財經"
-  },
-  {
-    file: "2026-06-24-creative-design-magic",
-    title: "創意設計的魔法：從靈感到實現 | 熊熊每日簡報",
-    date: "2026-06-24",
-    category: "creative",
-    color: "#9c27b0",
-    subtitle: "創意設計"
-  },
-  {
-    file: "2026-06-23-tech-innovation-report",
-    title: "2026 科技新創關鍵報告 | 熊熊每日簡報",
-    date: "2026-06-23",
-    category: "tech",
-    color: "#5BB5A0",
-    subtitle: "科技"
-  },
-  {
-    file: "2026-06-22-zheng-fu-gong-wu-earth",
-    title: "2026年政府新制惠民措施 | 熊熊每日簡報",
-    date: "2026-06-22",
-    category: "government",
-    color: "#A26769",
-    subtitle: "大地暖色系"
-  },
-  {
-    file: "2026-06-22-ntpc-2025-achievements",
-    title: "新北市政府 2025 年施政成果回顧",
-    date: "2026-06-22",
-    category: "government",
-    color: "#1565C0",
-    subtitle: "政府"
-  },
-  {
-    file: "2026-06-22-bear-ai-growth-journey",
-    title: "熊熊的 AI 成長之路",
-    date: "2026-06-22",
-    category: "tech",
-    color: "#7B1FA2",
-    subtitle: "科技"
-  },
-  {
-    file: "earth-tone-cover-demo",
-    title: "大地暖色系封面示範 | 熊熊簡報",
-    date: "2026-06-22",
-    category: "creative",
-    color: "#A26769",
-    subtitle: "創意"
-  },
-  {
-    file: "2026-06-21-sustainability-environment",
-    title: "永續未來：環境保護行動 | 熊熊簡報",
-    date: "2026-06-21",
-    category: "life",
-    color: "#2E7D32",
-    subtitle: "生活"
-  },
-  {
-    file: "2026-06-21-hexagon-honeycomb-guide",
-    title: "蜂巢圖聖典 | 熊熊簡報",
-    date: "2026-06-21",
-    category: "creative",
-    color: "#C9A96E",
-    subtitle: "創意"
-  },
-  {
-    file: "2026-06-19-ntpc-personnel-evaluation-meeting",
-    title: "新北市政府115年員額評鑑行前會議",
-    date: "2026-06-19",
-    category: "government",
-    color: "#1565C0",
-    subtitle: "政府"
-  },
-  {
-    file: "2026-06-18-ntpc-personnel-evaluation-briefing",
-    title: "新北市政府115年員額評鑑行前會議",
-    date: "2026-06-18",
-    category: "government",
-    color: "#1565C0",
-    subtitle: "政府"
-  },
-  {
-    file: "work-report-2026",
-    title: "工作報告 - 熊熊簡報",
-    date: "2026-06-14",
-    category: "business",
-    color: "#C9A96E",
-    subtitle: "商業"
-  },
-  {
-    file: "bear-museum-2026-review",
-    title: "熊熊博物館 2026 年度回顧",
-    date: "2026-06-13",
-    category: "review",
-    color: "#C9A96E",
-    subtitle: "回顧"
-  }
+  { file: "2026-06-04-bear-happiness", title: "熊熊的幸福生活", date: "2026-06-04", category: "life", color: "#F4A460", subtitle: "幸福小熊" },
+  { file: "2026-06-04-mage-life", title: "魔法熊的生活", date: "2026-06-04", category: "life", color: "#9370DB", subtitle: "魔法世界" },
+  { file: "bear-life-test", title: "熊熊生活測試", date: "2026-06-05", category: "life", color: "#20B2AA", subtitle: "測試版" },
+  { file: "bear-life-claude", title: "Claude 熊熊生活", date: "2026-06-06", category: "life", color: "#FF6B6B", subtitle: "AI 創作" },
+  { file: "bear-life-cursor-m27", title: "Cursor 熊熊 M27", date: "2026-06-07", category: "life", color: "#4ECDC4", subtitle: "Cursor 助手" },
+  { file: "bear-life-cursor-auto", title: "Cursor 自動編輯", date: "2026-06-08", category: "life", color: "#45B7D1", subtitle: "自動模式" },
+  { file: "2026-06-25-business-finance-insights", title: "商業與財務洞察", date: "2026-06-25", category: "business", color: "#2C3E50", subtitle: "財務分析" },
+  { file: "2026-06-24-creative-design-magic", title: "創意設計魔法", date: "2026-06-24", category: "creative", color: "#E74C3C", subtitle: "設計靈感" },
+  { file: "2026-06-23-tech-innovation-report", title: "科技創新報告", date: "2026-06-23", category: "tech", color: "#3498DB", subtitle: "技術趨勢" },
+  { file: "2026-06-22-zheng-fu-gong-wu-earth", title: "政府工作地球日", date: "2026-06-22", category: "government", color: "#27AE60", subtitle: "環保政務" },
+  { file: "2026-06-22-ntpc-2025-achievements", title: "新北市 2025 成果", date: "2026-06-22", category: "government", color: "#E67E22", subtitle: "市政成就" },
+  { file: "2026-06-22-bear-ai-growth-journey", title: "熊熊 AI 成長之旅", date: "2026-06-22", category: "review", color: "#9B59B6", subtitle: "AI 發展" },
+  { file: "2026-06-21-sustainability-environment", title: "永續環境簡報", date: "2026-06-21", category: "government", color: "#1ABC9C", subtitle: "永續發展" },
+  { file: "2026-06-21-hexagon-honeycomb-guide", title: "六邊形蜂窩指南", date: "2026-06-21", category: "creative", color: "#F39C12", subtitle: "設計模板" },
+  { file: "2026-06-19-ntpc-personnel-evaluation-meeting", title: "新北市人事評鑑會議", date: "2026-06-19", category: "government", color: "#8E44AD", subtitle: "人事會議" },
+  { file: "2026-06-18-ntpc-personnel-evaluation-briefing", title: "新北市人事評鑑簡報", date: "2026-06-18", category: "government", color: "#D35400", subtitle: "評鑑說明" },
+  { file: "2026-06-16-rounded-honeycomb", title: "圓角蜂窩模板", date: "2026-06-16", category: "creative", color: "#16A085", subtitle: "蜂窩設計" },
+  { file: "2026-06-16-rounded-honeycomb-v2", title: "圓角蜂窩模板 V2", date: "2026-06-16", category: "creative", color: "#2980B9", subtitle: "升級版" },
+  { file: "2026-06-17-honeycomb-lv-demo", title: "蜂窩 LV 示範", date: "2026-06-17", category: "creative", color: "#C0392B", subtitle: "精品級" },
+  { file: "2026-06-23-quantum-computing-future", title: "量子計算未來", date: "2026-06-23", category: "tech", color: "#34495E", subtitle: "前沿科技" },
+  { file: "bear-museum-2026-review", title: "熊熊博物館 2026 回顧", date: "2026-06-13", category: "review", color: "#C9A96E", subtitle: "年度回顧" },
+  { file: "work-report-2026", title: "工作報告 2026", date: "2026-06-10", category: "review", color: "#7F8C8D", subtitle: "進度報告" },
+  { file: "earth-tone-cover-demo", title: "大地色系示範", date: "2026-06-12", category: "creative", color: "#A0522D", subtitle: "配色參考" },
+  { file: "2026-06-22-zheng-fu-gong-wu", title: "政府工作簡報", date: "2026-06-22", category: "government", color: "#2ECC71", subtitle: "政務報告" },
+  { file: "2026-06-22-zheng-fu-gong-wu-v2", title: "政府工作簡報 V2", date: "2026-06-22", category: "government", color: "#E74C3C", subtitle: "第二版" },
+  { file: "2026-06-04-bear-happiness", title: "熊熊的幸福生活", date: "2026-06-04", category: "life", color: "#F4A460", subtitle: "幸福小熊" }
 ];
-
-const CATEGORY_LABELS = {
-  government: "政府",
-  tech: "科技",
-  creative: "創意",
-  business: "商業",
-  life: "生活",
-  review: "回顧"
-};
-
-function formatDate(d) {
-  const [y, m, day] = d.split("-");
-  return `${parseInt(m)}/${parseInt(day)}`;
-}
-
-// 熊熊掌印 SVG
-const pawSVG = (color) => `
-<svg class="card-preview-icon" viewBox="0 0 64 64" width="52" height="52" fill="${color}" stroke="none">
-  <ellipse cx="32" cy="44" rx="12" ry="10"/>
-  <circle cx="18" cy="28" r="6"/>
-  <circle cx="46" cy="28" r="6"/>
-  <circle cx="12" cy="38" r="5"/>
-  <circle cx="52" cy="38" r="5"/>
-</svg>
-`;
-
+const CATEGORY_LABELS = { government: "政府", tech: "科技", creative: "創意", business: "商業", life: "生活", review: "回顧" };
+function formatDate(d) { const [y, m, day] = d.split("-"); return parseInt(m) + "/" + parseInt(day); }
+const pawSVG = (color) => '<svg class="card-preview-icon" viewBox="0 0 64 64" width="52" height="52" fill="' + color + '" stroke="none"><ellipse cx="32" cy="44" rx="12" ry="10"/><circle cx="18" cy="28" r="6"/><circle cx="46" cy="28" r="6"/><circle cx="12" cy="38" r="5"/><circle cx="52" cy="38" r="5"/></svg>';
 function renderSlides(filter) {
   const grid = document.getElementById("slides-grid");
   const noResult = document.getElementById("no-result");
   const filtered = filter === "all" ? SLIDES : SLIDES.filter(s => s.category === filter);
-
-  if (filtered.length === 0) {
-    grid.innerHTML = "";
-    noResult.style.display = "block";
-    return;
-  }
+  if (filtered.length === 0) { grid.innerHTML = ""; noResult.style.display = "block"; return; }
   noResult.style.display = "none";
-
-  grid.innerHTML = filtered.map(slide => `
-    <a class="slide-card" href="/${slide.file}.htm" style="--card-accent: ${slide.color}">
-      <div class="card-preview">
-        ${pawSVG(slide.color)}
-        <span class="card-category-badge">${CATEGORY_LABELS[slide.category] || slide.category}</span>
-        <span class="card-date-badge">${formatDate(slide.date)}</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">${slide.title}</div>
-        <div class="card-subtitle">${slide.subtitle || ''}</div>
-      </div>
-      <div class="card-footer">
-        <span class="card-link-text">開啟簡報 →</span>
-        <span class="card-color-dot" style="background:${slide.color}"></span>
-      </div>
-    </a>
-  `).join("");
+  grid.innerHTML = filtered.map(slide => '<a class="slide-card" href="/presentations/' + slide.file + '.htm" style="--card-accent: ' + slide.color + '"><div class="card-preview">' + pawSVG(slide.color) + '<span class="card-category-badge">' + (CATEGORY_LABELS[slide.category] || slide.category) + '</span><span class="card-date-badge">' + formatDate(slide.date) + '</span></div><div class="card-body"><div class="card-title">' + slide.title + '</div><div class="card-subtitle">' + (slide.subtitle || '') + '</div></div><div class="card-footer"><span class="card-link-text">開啟簡報 →</span><span class="card-color-dot" style="background:' + slide.color + '"></span></div></a>').join("");
 }
-
-document.getElementById("total-count").textContent = SLIDES.length;
 renderSlides("all");
-
 document.querySelectorAll(".filter-tag").forEach(tag => {
   tag.addEventListener("click", () => {
     document.querySelectorAll(".filter-tag").forEach(t => t.classList.remove("active"));
