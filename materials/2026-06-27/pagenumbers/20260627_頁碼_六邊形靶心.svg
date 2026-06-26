@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <title>六邊形靶心頁碼</title>
+  <desc>工作報告PPT頁碼設計，六邊形靶心幾何圖案</desc>
+  
+  <defs>
+    <linearGradient id="pageGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 外層六邊形（空心粗框 = 2.5D 效果） -->
+  <path d="M60,8 L108,32 L108,88 L60,112 L12,88 L12,32 Z" 
+        fill="none" 
+        stroke="#6B5CE7" 
+        stroke-width="4"/>
+  
+  <!-- 中層六邊形（半透明） -->
+  <path d="M60,20 L96,40 L96,80 L60,100 L24,80 L24,40 Z" 
+        fill="#6B5CE7" 
+        fill-opacity="0.3"/>
+  
+  <!-- 內層六邊形（實心） -->
+  <path d="M60,35 L82,48 L82,72 L60,85 L38,72 L38,48 Z" 
+        fill="url(#pageGrad1)"/>
+  
+  <!-- 靶心圓 -->
+  <circle cx="60" cy="60" r="12" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="60" cy="60" r="5" fill="#ffffff"/>
+  
+  <!-- 頁碼數字 -->
+  <text x="60" y="125" 
+        font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" 
+        font-size="16" 
+        fill="#6B5CE7" 
+        text-anchor="middle" 
+        font-weight="600">01</text>
+</svg>

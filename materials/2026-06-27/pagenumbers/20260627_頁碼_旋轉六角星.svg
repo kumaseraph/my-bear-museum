@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" width="120" height="140">
+  <title>旋轉六角星頁碼</title>
+  <desc>工作報告PPT頁碼設計，六邊形與星形組合應用</desc>
+  
+  <defs>
+    <linearGradient id="pageGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景六邊形（旋轉30度 = 透視動感） -->
+  <g transform="rotate(30, 60, 60)">
+    <path d="M60,10 L105,35 L105,85 L60,110 L15,85 L15,35 Z" 
+          fill="#FF8C00" 
+          fill-opacity="0.15"/>
+  </g>
+  
+  <!-- 六芒星核心：兩個三角形疊加 -->
+  <g transform="translate(60,55)">
+    <!-- 第一個三角形 -->
+    <polygon points="0,-35 30,-17.5 -30,-17.5" 
+             fill="none" 
+             stroke="url(#pageGrad2)" 
+             stroke-width="2"/>
+    <!-- 第二個三角形 -->
+    <polygon points="0,35 30,17.5 -30,17.5" 
+             fill="none" 
+             stroke="url(#pageGrad2)" 
+             stroke-width="2"/>
+  </g>
+  
+  <!-- 大小對比：小六邊形在中心 -->
+  <path d="M60,45 L72,52 L72,68 L60,75 L48,68 L48,52 Z" 
+        fill="url(#pageGrad2)"/>
+  
+  <!-- 旋轉角度裝飾線 -->
+  <g transform="rotate(30, 60, 55)">
+    <line x1="60" y1="20" x2="60" y2="90" stroke="#FF8C00" stroke-width="1" opacity="0.4"/>
+    <line x1="25" y1="55" x2="95" y2="55" stroke="#FF8C00" stroke-width="1" opacity="0.4"/>
+  </g>
+  
+  <!-- 頁碼數字 -->
+  <text x="60" y="130" 
+        font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" 
+        font-size="18" 
+        fill="#FF8C00" 
+        text-anchor="middle" 
+        font-weight="600">02</text>
+</svg>

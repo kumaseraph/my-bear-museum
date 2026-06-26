@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 90" width="320" height="90">
+  <title>確認提交按鈕</title>
+  <desc>工作報告PPT確認提交按鈕，採用雙重交叉線與六邊形幾何元素</desc>
+  
+  <defs>
+    <linearGradient id="btnGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <!-- 六邊形 clip -->
+    <clipPath id="hexClip">
+      <path d="M160,5 L310,45 L310,95 L160,135 L10,95 L10,45 Z"/>
+    </clipPath>
+  </defs>
+  
+  <!-- 陰影 -->
+  <path d="M160,10 L310,50 L310,100 L160,140 L10,100 L10,50 Z" 
+        fill="#1E293B" opacity="0.25" transform="translate(5,5)"/>
+  
+  <!-- 主體 -->
+  <path d="M160,5 L310,45 L310,95 L160,135 L10,95 L10,45 Z" 
+        fill="url(#btnGrad3)"/>
+  
+  <!-- 雙重交叉線 -->
+  <g clip-path="url(#hexClip)" opacity="0.2">
+    <line x1="0" y1="0" x2="320" y2="140" stroke="#ffffff" stroke-width="3"/>
+    <line x1="0" y1="70" x2="320" y2="70" stroke="#ffffff" stroke-width="2"/>
+    <line x1="320" y1="0" x2="0" y2="140" stroke="#ffffff" stroke-width="3"/>
+  </g>
+  
+  <!-- 對勾符號背景六邊形裝飾 -->
+  <path d="M145,35 L162,45 L162,65 L145,75 L128,65 L128,45 Z" 
+        fill="#ffffff" fill-opacity="0.2"/>
+  
+  <!-- 對勾 -->
+  <polyline points="135,55 148,68 175,40" 
+            fill="none" 
+            stroke="#ffffff" 
+            stroke-width="5" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"/>
+  
+  <!-- 文字：確認提交 -->
+  <text x="220" y="78" 
+        font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" 
+        font-size="24" 
+        font-weight="600" 
+        fill="#ffffff" 
+        text-anchor="middle">確認提交</text>
+</svg>

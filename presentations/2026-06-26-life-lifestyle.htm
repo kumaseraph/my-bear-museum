@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生活休閒關鍵手冊 - 2026夏</title>
+  <link rel="stylesheet" href="/studio/design/visual-templates/colors/colors-C2-warm-paper.css">
+  <link rel="stylesheet" href="/studio/design/visual-templates/v2-organic-flow.css">
+  <style>
+    :root {
+      --font-body: 22px;
+      --font-h1: clamp(2.5rem, 5vw, 4rem);
+      --font-h2: clamp(1.75rem, 3vw, 2.5rem);
+      --font-h3: clamp(1.25rem, 2vw, 1.75rem);
+      --font-caption: 18px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--v-bg-primary);
+      color: var(--v-text);
+      line-height: 1.6;
+    }
+
+    section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .content {
+      padding: clamp(40px, 6vw, 80px);
+      max-width: 1200px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== P1 封面：G7時間軸 + radial光暈 ===== */
+    #p1 {
+      text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(122,158,126,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 40% at 70% 80%, rgba(212,165,116,0.12) 0%, transparent 50%);
+    }
+    #p1::before {
+      content: '';
+      position: fixed;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(122,158,126,0.12) 0%, transparent 70%);
+      top: -200px; right: -150px;
+      animation: blob-float-1 10s ease-in-out infinite;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes blob-float-1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-40px, 30px) scale(1.08); }
+      66% { transform: translate(30px, -20px) scale(0.95); }
+    }
+    .cover-tag {
+      display: inline-block;
+      background: var(--v-accent-earth);
+      color: #fff;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+    .cover-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--v-text);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .cover-subtitle {
+      font-size: var(--font-h3);
+      color: var(--v-text-muted);
+      margin-bottom: 32px;
+    }
+    .cover-date {
+      font-size: var(--font-body);
+      color: var(--v-text-muted);
+    }
+    .cover-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 24px;
+    }
+    .cover-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== P2 目錄：G3蜂巢 ===== */
+    #p2 {
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(212,165,116,0.05) 20px,
+        rgba(212,165,116,0.05) 40px
+      );
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .toc-item {
+      background: var(--v-bg-card);
+      border: 1px solid var(--v-border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .toc-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(93,64,55,0.1);
+    }
+    .toc-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 12px;
+    }
+    .toc-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+    .toc-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--v-text);
+      margin-bottom: 8px;
+    }
+    .toc-desc {
+      font-size: var(--font-caption);
+      color: var(--v-text-muted);
+    }
+
+    /* ===== P3 菱形亮點 ===== */
+    #p3 {
+      background: radial-gradient(circle at 20% 50%, rgba(122,158,126,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 50%, rgba(212,165,116,0.08) 0%, transparent 50%);
+    }
+    .diamond-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .diamond-item {
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(135deg, var(--v-accent-earth), var(--v-accent-warm));
+      transform: rotate(45deg);
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 20px 60px rgba(93,64,55,0.15);
+      transition: transform 0.4s ease;
+    }
+    .diamond-item:hover {
+      transform: rotate(45deg) scale(1.05);
+    }
+    .diamond-content {
+      transform: rotate(-45deg);
+      text-align: center;
+      color: #fff;
+    }
+    .diamond-number {
+      font-size: 48px;
+      font-weight: 700;
+      display: block;
+    }
+    .diamond-label {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    /* ===== P4 三角形指向 ===== */
+    #p4 {
+      background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(201,160,160,0.1) 0%, transparent 50%);
+    }
+    .triangle-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .triangle-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .triangle-item {
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 600;
+      text-align: center;
+      padding: 20px;
+    }
+    .triangle-item:nth-child(1) { width: 200px; height: 120px; background: var(--v-accent-earth); }
+    .triangle-item:nth-child(2) { width: 160px; height: 100px; background: var(--v-accent-warm); }
+    .triangle-item:nth-child(3) { width: 120px; height: 80px; background: var(--v-accent-rose); }
+    .triangle-text {
+      font-size: 18px;
+      transform: translateY(10px);
+    }
+
+    /* ===== P5 圓形環形 ===== */
+    #p5 {
+      background: radial-gradient(circle at 50% 50%, rgba(122,158,126,0.12) 0%, transparent 60%);
+    }
+    .circle-showcase {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+    }
+    .ring-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+    .ring-outer {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 12px solid var(--v-accent-earth);
+      opacity: 0.3;
+    }
+    .ring-middle {
+      position: absolute;
+      inset: 20px;
+      border-radius: 50%;
+      border: 12px solid var(--v-accent-warm);
+    }
+    .ring-inner {
+      position: absolute;
+      inset: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--v-accent-earth), var(--v-accent-warm));
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+    }
+    .ring-label {
+      text-align: center;
+    }
+    .ring-label h3 {
+      font-size: var(--font-h3);
+      margin-bottom: 8px;
+    }
+    .ring-label p {
+      color: var(--v-text-muted);
+      font-size: var(--font-body);
+    }
+
+    /* ===== P6 漏斗 ===== */
+    #p6 {
+      background: radial-gradient(ellipse 80% 60% at 30% 0%, rgba(212,165,116,0.1) 0%, transparent 60%);
+    }
+    .funnel-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+      max-width: 600px;
+    }
+    .funnel-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 56px;
+      color: #fff;
+      font-weight: 600;
+      clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+      transition: transform 0.3s ease;
+    }
+    .funnel-stage:hover {
+      transform: scale(1.02);
+    }
+    .funnel-stage:nth-child(1) { width: 100%; background: var(--v-accent-earth); }
+    .funnel-stage:nth-child(2) { width: 80%; background: var(--v-accent-warm); }
+    .funnel-stage:nth-child(3) { width: 60%; background: var(--v-accent-rose); }
+    .funnel-stage:nth-child(4) { width: 40%; background: var(--v-text-muted); }
+
+    /* ===== P7 便當盒統計 ===== */
+    #p7 {
+      background: radial-gradient(circle at 70% 30%, rgba(201,160,160,0.08) 0%, transparent 50%);
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .bento-card {
+      background: var(--v-bg-card);
+      border: 1px solid var(--v-border);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(93,64,55,0.06);
+      transition: transform 0.3s ease;
+    }
+    .bento-card:hover {
+      transform: translateY(-4px);
+    }
+    .bento-number {
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--v-accent-earth);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .bento-label {
+      font-size: var(--font-body);
+      color: var(--v-text-muted);
+    }
+    .bento-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 16px;
+    }
+    .bento-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== P8 象限 ===== */
+    #p8 {
+      background: radial-gradient(circle at 50% 50%, rgba(122,158,126,0.06) 0%, transparent 60%);
+    }
+    .quadrant-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 700px;
+    }
+    .quadrant-item {
+      background: var(--v-bg-card);
+      border: 1px solid var(--v-border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .quadrant-item:nth-child(1) { border-left: 4px solid var(--v-accent-earth); }
+    .quadrant-item:nth-child(2) { border-left: 4px solid var(--v-accent-warm); }
+    .quadrant-item:nth-child(3) { border-left: 4px solid var(--v-accent-rose); }
+    .quadrant-item:nth-child(4) { border-left: 4px solid var(--v-text-muted); }
+    .quadrant-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 24px rgba(93,64,55,0.08);
+    }
+    .quadrant-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .quadrant-desc {
+      font-size: var(--font-caption);
+      color: var(--v-text-muted);
+    }
+
+    /* ===== P9 總結時間軸 ===== */
+    #p9 {
+      background: radial-gradient(ellipse 100% 60% at 50% 100%, rgba(122,158,126,0.1) 0%, transparent 50%);
+    }
+    .timeline-h {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 40px 0;
+      position: relative;
+    }
+    .timeline-h::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--v-accent-earth), var(--v-accent-warm), var(--v-accent-rose));
+      transform: translateY(-50%);
+    }
+    .timeline-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+    .timeline-node {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--v-accent-earth);
+      border: 4px solid var(--v-bg-primary);
+      margin-bottom: 12px;
+    }
+    .timeline-item:nth-child(2) .timeline-node { background: var(--v-accent-warm); }
+    .timeline-item:nth-child(3) .timeline-node { background: var(--v-accent-rose); }
+    .timeline-item:nth-child(4) .timeline-node { background: var(--v-text-muted); }
+    .timeline-text {
+      font-size: 16px;
+      color: var(--v-text);
+      text-align: center;
+      font-weight: 500;
+    }
+    .timeline-sub {
+      font-size: 14px;
+      color: var(--v-text-muted);
+    }
+
+    /* ===== P10 結尾 ===== */
+    #p10 {
+      text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(122,158,126,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 40% at 70% 80%, rgba(212,165,116,0.12) 0%, transparent 50%);
+    }
+    .end-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .end-subtitle {
+      font-size: var(--font-h3);
+      color: var(--v-text-muted);
+      margin-bottom: 40px;
+    }
+    .end-cta {
+      display: inline-block;
+      background: var(--v-accent-earth);
+      color: #fff;
+      padding: 14px 36px;
+      border-radius: 30px;
+      font-size: var(--font-body);
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .end-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(122,158,126,0.3);
+    }
+    .end-circle-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--v-accent-earth), var(--v-accent-warm));
+      display: grid;
+      place-items: center;
+    }
+    .end-circle-icon svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    /* ===== 導航列 ===== */
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250, 246, 240, 0.95);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--v-border);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+    nav a {
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: var(--v-bg-secondary);
+      color: var(--v-text);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    nav a:hover, nav a.active {
+      background: var(--v-accent-earth);
+      color: #fff;
+    }
+
+    /* 頁碼 */
+    .page-indicator {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      color: var(--v-text-muted);
+      z-index: 100;
+    }
+
+    /* 回列表按鈕 */
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+    }
+    .back-btn a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--v-bg-card);
+      border: 1px solid var(--v-border);
+      border-radius: 20px;
+      color: var(--v-text);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .back-btn a:hover {
+      background: var(--v-accent-earth);
+      color: #fff;
+    }
+    .back-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+  </style>
+</head>
+<body class="v2-organic-flow">
+
+  <!-- 回列表按鈕 -->
+  <div class="back-btn">
+    <a href="/slides-list">
+      <svg viewBox="0 0 64 64" stroke="currentColor" stroke-width="3" fill="none">
+        <path d="M40 16 L24 32 L40 48"/>
+      </svg>
+      列表
+    </a>
+  </div>
+
+  <!-- 頁碼 -->
+  <div class="page-indicator"><span id="currentPage">1</span> / 10</div>
+
+  <!-- P1 封面 -->
+  <section id="p1">
+    <div class="content">
+      <div class="cover-icon">
+        <svg viewBox="0 0 64 64" stroke="#7A9E7E" stroke-width="3" fill="none">
+          <circle cx="32" cy="32" r="24"/>
+          <path d="M32 16 L32 48 M20 28 L32 16 L44 28"/>
+        </svg>
+      </div>
+      <div class="cover-tag">2026 夏季度假生活</div>
+      <h1 class="cover-title">生活休閒關鍵手冊</h1>
+      <p class="cover-subtitle">探索日常中的小確幸，找回生活的節奏</p>
+      <p class="cover-date">2026年6月26日 週五</p>
+    </div>
+  </section>
+
+  <!-- P2 目錄 -->
+  <section id="p2">
+    <div class="content">
+      <h2 style="font-size: var(--font-h2); text-align: center; margin-bottom: 8px;">今日重點</h2>
+      <p style="text-align: center; color: var(--v-text-muted); margin-bottom: 32px;">發現生活中的四大關鍵面向</p>
+      <div class="toc-grid">
+        <div class="toc-item">
+          <div class="toc-icon">
+            <svg viewBox="0 0 64 64" stroke="#7A9E7E" stroke-width="3" fill="none">
+              <polygon points="32,8 56,24 56,48 32,56 8,48 8,24"/>
+            </svg>
+          </div>
+          <div class="toc-title">自然疗愈</div>
+          <div class="toc-desc">户外漫步与绿色呼吸</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-icon">
+            <svg viewBox="0 0 64 64" stroke="#d4a574" stroke-width="3" fill="none">
+              <path d="M32 8 L32 56 M16 24 L32 8 L48 24"/>
+            </svg>
+          </div>
+          <div class="toc-title">品味生活</div>
+          <div class="toc-desc">咖啡阅读与仪式感</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-icon">
+            <svg viewBox="0 0 64 64" stroke="#c9a0a0" stroke-width="3" fill="none">
+              <circle cx="32" cy="32" r="24"/>
+              <circle cx="32" cy="32" r="12"/>
+            </svg>
+          </div>
+          <div class="toc-title">身心平衡</div>
+          <div class="toc-desc">运动与正念的结合</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-icon">
+            <svg viewBox="0 0 64 64" stroke="#7A9E7E" stroke-width="3" fill="none">
+              <rect x="12" y="20" width="40" height="28" rx="4"/>
+              <path d="M20 20 L20 12 L44 12 L44 20"/>
+            </svg>
+          </div>
+          <div class="toc-title">空间整理</div>
+          <div class="toc-desc">极简主义生活提案</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-icon">
+            <svg viewBox="0 0 64 64" stroke="#d4a574" stroke-width="3" fill="none">
+              <path d="M16 48 L32 16 L48 48"/>
+              <path d="M20 40 L44 40"/>
+            </svg>
+          </div>
+          <div class="toc-title">创意灵感</div>
+          <div class="toc-desc">手作与表达的乐趣</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-icon">
+            <svg viewBox="0 0 64 64" stroke="#c9a0a0" stroke-width="3" fill="none">
+              <circle cx="32" cy="24" r="12"/>
+              <path d="M12 56 C12 44 52 44 52 56"/>
+            </svg>
+          </div>
+          <div class="toc-title">社交连结</div>
+          <div class="toc-desc">与亲友的美好时光</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P3 菱形亮點 -->
+  <section id="p3">
+    <div class="content">
+      <h2 style="font-size: var(--font-h2); text-align: center; margin-bottom: 48px;">每日精選目標</h2>
+      <div class="diamond-grid">
+        <div class="diamond-item">
+          <div class="diamond-content">
+            <span class="diamond-number">8</span>
+            <span class="diamond-label">杯水</span>
+          </div>
+        </div>
+        <div class="diamond-item">
+          <div class="diamond-content">
+            <span class="diamond-number">30</span>
+            <span class="diamond-label">分鐘運動</span>
+          </div>
+        </div>
+        <div class="diamond-item">
+          <div class="diamond-content">
+            <span class="diamond-number">1</span>
+            <span class="diamond-label">本好書</span>
+          </div>
+        </div>
+        <div class="diamond-item">
+          <div class="diamond-content">
+            <span class="diamond-number">5</span>
+            <span class="diamond-label">分鐘冥想</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P4 三角形 -->
+  <section id="p4">
+    <div class="content">
+      <h2 style="font-size: var(--font-h2); text-align: center; margin-bottom: 48px;">生活金字塔</h2>
+      <div class="triangle-stack">
+        <div class="triangle-item" style="width: 240px; height: 140px; background: var(--v-accent-earth);">
+          <span class="triangle-text" style="transform: translateY(15px);">成就感来源</span>
+        </div>
+        <div class="triangle-item" style="width: 180px; height: 110px; background: var(--v-accent-warm);">
+          <span class="triangle-text">意义与价值</span>
+        </div>
+        <div class="triangle-item" style="width: 120px; height: 80px; background: var(--v-accent-rose);">
+          <span class="triangle-text" style="font-size: 14px;">基础需求</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P5 圓形環形 -->
+  <section id="p5">
+    <div class="content">
+      <h2 style="font-size: var(--font-h2); text-align: center; margin-bottom: 48px;">生活滿意度</h2>
+      <div class="circle-showcase">
+        <div class="ring-container">
+          <div class="ring-outer"></div>
+          <div class="ring-middle"></div>
+          <div class="ring-inner">85%</div>
+        </div>
+        <div class="ring-label">
+          <h3>今日生活指數</h3>
+          <p>较上周提升 12%</p>
+          <p style="margin-top: 8px; color: var(--v-accent-earth);">持续成长中</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P6 漏斗 -->
+  <section id="p6">
+    <div class="content">
+      <h2 style="font-size: var(--font-h2); text-align: center; margin-bottom: 48px;">理想假期步驟</h2>
+      <div class="funnel-container">
+        <div class="funnel-stage">計畫與期待</div>
+        <div class="funnel-stage">執行與體驗</div>
+        <div class="funnel-stage">回顧與分享</div>
+        <div class="funnel-stage">沈澱與成長</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P7 便當盒統計 -->
+  <section id="p7">
+    <div class="content">
+      <h2 style="font-size: var(--font-h2); text-align: center; margin-bottom: 40px;">本週成就數據</h2>
+      <div class="bento-grid">
+        <div class="bento-card">
+          <div class="bento-icon">
+            <svg viewBox="0 0 64 64" stroke="#7A9E7E" stroke-width="3" fill="none">
+              <circle cx="32" cy="32" r="24"/>
+              <path d="M20 32 L28 40 L44 24"/>
+            </svg>
+          </div>
+          <div class="bento-number">23</div>
+          <div class="bento-label">完成事项</div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-icon">
+            <svg viewBox="0 0 64 64" stroke="#d4a574" stroke-width="3" fill="none">
+              <circle cx="32" cy="32" r="24"/>
+              <path d="M32 16 L32 32 L44 40"/>
+            </svg>
+          </div>
+          <div class="bento-number">7</div>
+          <div class="bento-label">突破性尝试</div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-icon">
+            <svg viewBox="0 0 64 64" stroke="#c9a0a0" stroke-width="3" fill="none">
+              <path d="M16 48 L32 16 L48 48"/>
+              <circle cx="32" cy="40" r="8"/>
+            </svg>
+          </div>
+          <div class="bento-number">4.5</div>
+          <div class="bento-label">小时户外时间/日</div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-icon">
+            <svg viewBox="0 0 64 64" stroke="#7A9E7E" stroke-width="3" fill="none">
+              <rect x="16" y="16" width="32" height="32" rx="8"/>
+              <circle cx="32" cy="32" r="8"/>
+            </svg>
+          </div>
+          <div class="bento-number">12</div>
+          <div class="bento-label">次正向反馈</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P8 象限 -->
+  <section id="p8">
+    <div class="content">
+      <h2 style="font-size: var(--font-h2); text-align: center; margin-bottom: 40px;">生活四象限</h2>
+      <div class="quadrant-grid">
+        <div class="quadrant-item">
+          <div class="quadrant-title">健康身体</div>
+          <div class="quadrant-desc">运动、饮食、睡眠</div>
+        </div>
+        <div class="quadrant-item">
+          <div class="quadrant-title">充实心智</div>
+          <div class="quadrant-desc">阅读、学习、思考</div>
+        </div>
+        <div class="quadrant-item">
+          <div class="quadrant-title">温暖情感</div>
+          <div class="quadrant-desc">家人、朋友、伴侣</div>
+        </div>
+        <div class="quadrant-item">
+          <div class="quadrant-title">意义使命</div>
+          <div class="quadrant-desc">价值、贡献、成长</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P9 總結時間軸 -->
+  <section id="p9">
+    <div class="content">
+      <h2 style="font-size: var(--font-h2); text-align: center; margin-bottom: 16px;">本週關鍵里程</h2>
+      <p style="text-align: center; color: var(--v-text-muted); margin-bottom: 40px;">回顾来时的每一步</p>
+      <div class="timeline-h">
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-text">週一</div>
+          <div class="timeline-sub">重新出发</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-text">週三</div>
+          <div class="timeline-sub">小有成就</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-text">週五</div>
+          <div class="timeline-sub">突破自我</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-text">週日</div>
+          <div class="timeline-sub">总结反思</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P10 結尾 -->
+  <section id="p10">
+    <div class="content">
+      <div class="end-circle-icon">
+        <svg viewBox="0 0 64 64" stroke="#fff" stroke-width="3" fill="none">
+          <path d="M20 32 L32 16 L44 32 L32 48 Z"/>
+        </svg>
+      </div>
+      <h1 class="end-title">享受當下</h1>
+      <p class="end-subtitle">每一天都是独特的生活篇章</p>
+      <a href="/slides-list" class="end-cta">返回生活之旅</a>
+    </div>
+  </section>
+
+  <!-- 導航列 -->
+  <nav>
+    <a href="#p1" onclick="showSlide('p1')">1</a>
+    <a href="#p2" onclick="showSlide('p2')">2</a>
+    <a href="#p3" onclick="showSlide('p3')">3</a>
+    <a href="#p4" onclick="showSlide('p4')">4</a>
+    <a href="#p5" onclick="showSlide('p5')">5</a>
+    <a href="#p6" onclick="showSlide('p6')">6</a>
+    <a href="#p7" onclick="showSlide('p7')">7</a>
+    <a href="#p8" onclick="showSlide('p8')">8</a>
+    <a href="#p9" onclick="showSlide('p9')">9</a>
+    <a href="#p10" onclick="showSlide('p10')">10</a>
+  </nav>
+
+  <script>
+    function showSlide(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      document.querySelector(`nav a[href="#${id}"]`).classList.add('active');
+      document.getElementById('currentPage').textContent = id.replace('p', '');
+    }
+
+    // Intersection Observer for nav highlighting
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+          const activeLink = document.querySelector(`nav a[href="#${id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+          document.getElementById('currentPage').textContent = id.replace('p', '');
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生活休閒關鍵手冊 - 2026夏</title>
+  <style>
+    :root {
+      --earth: #7A9E7E;
+      --warm: #d4a574;
+      --rose: #c9a0a0;
+      --text: #5d4037;
+      --text-muted: #9a7b5a;
+      --bg: #faf6f0;
+      --bg-card: #fff;
+      --border: rgba(93,64,55,0.1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-snap-type: y mandatory; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    /* === 全域：減少留白、加大內容區 === */
+    section { height: 100vh; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; padding: 24px 48px; position: relative; overflow: hidden; }
+    .content { max-width: 1100px; width: 100%; position: relative; z-index: 1; }
+
+    /* === P1 封面：圖形×2、標題加大 === */
+    #p1 { text-align: center; background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(122,158,126,0.15) 0%, transparent 60%); }
+    .cover-icon { width: 120px; height: 120px; margin: 0 auto 28px; background: linear-gradient(135deg, var(--earth), var(--warm)); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .cover-icon svg { width: 56px; height: 56px; stroke: #fff; fill: none; stroke-width: 3; }
+    .tag { display: inline-block; background: var(--earth); color: #fff; padding: 8px 24px; border-radius: 20px; font-size: 16px; font-weight: 600; margin-bottom: 24px; }
+    h1.cover { font-size: clamp(3rem, 6vw, 5rem); font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .cover p { font-size: 1.5rem; color: var(--text-muted); margin-bottom: 10px; }
+    .cover .date { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0; }
+
+    /* === P2 目錄：卡片加大、圖示加大 === */
+    #p2 { background: linear-gradient(180deg, var(--bg) 0%, rgba(212,165,116,0.08) 100%); }
+    .toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 32px; }
+    .toc-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px 20px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
+    .toc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(93,64,55,0.1); }
+    .toc-icon { width: 60px; height: 60px; margin: 0 auto 14px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+    .toc-icon svg { width: 34px; height: 34px; stroke-width: 2.5; fill: none; }
+    .toc-card h3 { font-size: 22px; margin-bottom: 8px; }
+    .toc-card p { font-size: 15px; color: var(--text-muted); }
+
+    /* === P3 蜂窩統計：最大化、極致緊湊 === */
+    #p3 { background: radial-gradient(ellipse 60% 40% at 30% 70%, rgba(122,158,126,0.1) 0%, transparent 50%); }
+    .honeycomb { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .h-row { display: flex; gap: 12px; margin-bottom: 6px; }
+    .h-cell { width: 188px; height: 162px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+    .h-cell svg { width: 68px; height: 68px; stroke-width: 2.5; fill: none; }
+    .h-cell span.num { font-size: 44px; font-weight: 700; }
+    .h-cell span.lbl { font-size: 15px; color: var(--text-muted); text-align: center; }
+
+    /* === P4 儀表板：尺寸×1.5 === */
+    #p4 { background: radial-gradient(ellipse 80% 60% at 70% 30%, rgba(212,165,116,0.12) 0%, transparent 50%); }
+    .gauge-row { display: flex; align-items: center; justify-content: center; gap: 56px; }
+    .gauge-main { width: 280px; height: 280px; position: relative; }
+    .gauge-main svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .gauge-bg { fill: none; stroke: rgba(93,64,55,0.08); stroke-width: 22; }
+    .gauge-fill { fill: none; stroke: var(--earth); stroke-width: 22; stroke-linecap: round; stroke-dasharray: 718; stroke-dashoffset: 108; }
+    .gauge-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .gauge-num { font-size: 64px; font-weight: 700; color: var(--text); }
+    .gauge-sub { font-size: 15px; color: var(--text-muted); }
+    .gauge-info h2 { font-size: 2.4rem; margin-bottom: 10px; }
+    .gauge-info p { font-size: 1.2rem; color: var(--text-muted); }
+    .gauge-badges { display: flex; gap: 14px; margin-top: 20px; }
+    .badge { padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+
+    /* === P5 時間軸：節點加大 === */
+    #p5 { background: linear-gradient(180deg, var(--bg) 0%, rgba(201,160,160,0.08) 100%); }
+    .timeline { display: flex; flex-direction: column; gap: 24px; max-width: 900px; margin: 0 auto; }
+    .timeline-row { display: flex; align-items: center; gap: 0; }
+    .tl-node { display: flex; flex-direction: column; align-items: center; gap: 10px; flex-shrink: 0; }
+    .tl-dot { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .tl-label { font-size: 16px; font-weight: 600; color: var(--text); text-align: center; }
+    .tl-sub { font-size: 13px; color: var(--text-muted); text-align: center; }
+    .tl-line { flex: 1; height: 6px; border-radius: 3px; margin: 0 -2px; margin-bottom: 32px; }
+    .tl-row-2 { margin-left: 48px; }
+    .tl-row-3 { margin-left: 220px; }
+    .tl-row-4 { margin-left: 392px; }
+
+    /* === P6 四象限 SVG：圓環加大 === */
+    #p6 { background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(122,158,126,0.08) 0%, transparent 60%); }
+    .quad-ring { display: flex; align-items: center; justify-content: center; gap: 56px; }
+    .quad-svg { width: 340px; height: 340px; flex-shrink: 0; }
+    .quad-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .ql-item { background: var(--bg-card); border-radius: 14px; padding: 20px 24px; border-top: 5px solid; }
+    .ql-item:nth-child(1) { border-color: var(--earth); }
+    .ql-item:nth-child(2) { border-color: var(--warm); }
+    .ql-item:nth-child(3) { border-color: var(--rose); }
+    .ql-item:nth-child(4) { border-color: var(--text-muted); }
+    .ql-item h3 { font-size: 20px; margin-bottom: 6px; }
+    .ql-item p { font-size: 14px; color: var(--text-muted); }
+
+    /* === P7 標籤雲：緊湊大尺寸 === */
+    #p7 { background: linear-gradient(180deg, var(--bg) 0%, rgba(212,165,116,0.06) 100%); }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center; max-width: 880px; margin: 0 auto; }
+    .tag-item { border-radius: 24px; padding: 14px 26px; display: flex; align-items: center; gap: 10px; }
+    .tag-item.lg { font-size: 28px; font-weight: 700; padding: 18px 36px; }
+    .tag-item.md { font-size: 22px; font-weight: 600; padding: 14px 28px; }
+    .tag-item.sm { font-size: 17px; padding: 12px 22px; }
+    .tag-item svg { width: 26px; height: 26px; stroke-width: 2.5; fill: none; }
+
+    /* === P8 氣泡網格：加大氣泡 === */
+    #p8 { background: radial-gradient(ellipse 70% 50% at 40% 60%, rgba(201,160,160,0.1) 0%, transparent 50%); }
+    .bubbles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .bubble { border-radius: 22px; padding: 28px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .bubble-icon { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .bubble-icon svg { width: 34px; height: 34px; stroke-width: 2.5; fill: none; }
+    .bubble-num { font-size: 34px; font-weight: 700; }
+    .bubble-lbl { font-size: 14px; color: var(--text-muted); }
+
+    /* === P9 金字塔 SVG：尺寸×1.5 === */
+    #p9 { background: linear-gradient(180deg, var(--bg) 0%, rgba(122,158,126,0.08) 100%); }
+    .pyramid-wrap { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+    .pyramid-svg { width: 560px; max-width: 100%; }
+    .pyramid-legend { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+    .py-l { display: flex; align-items: center; gap: 10px; font-size: 16px; color: var(--text-muted); }
+    .py-dot { width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0; }
+
+    /* === P10 結尾：圖形加大 === */
+    #p10 { text-align: center; background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(122,158,126,0.15) 0%, transparent 60%); }
+    .end-icon { width: 110px; height: 110px; margin: 0 auto 28px; border-radius: 50%; background: linear-gradient(135deg, var(--earth), var(--warm)); display: flex; align-items: center; justify-content: center; }
+    .end-icon svg { width: 52px; height: 52px; stroke: #fff; fill: none; stroke-width: 3; }
+    .end-title { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; margin-bottom: 14px; }
+    .end-sub { font-size: 1.4rem; color: var(--text-muted); margin-bottom: 36px; }
+    .end-btn { display: inline-block; background: var(--earth); color: #fff; padding: 16px 42px; border-radius: 30px; font-size: 1.1rem; font-weight: 600; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; }
+    .end-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(122,158,126,0.3); }
+
+    /* 導航列 */
+    nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: rgba(250,246,240,0.95); backdrop-filter: blur(8px); border-top: 1px solid var(--border); padding: 10px 20px; display: flex; justify-content: center; gap: 6px; }
+    nav a { padding: 6px 14px; border-radius: 16px; background: var(--bg-card); color: var(--text); text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.3s; }
+    nav a:hover, nav a.active { background: var(--earth); color: #fff; }
+    .page-num { position: fixed; top: 16px; right: 20px; font-size: 13px; color: var(--text-muted); z-index: 100; }
+    .back-btn { position: fixed; top: 16px; left: 20px; z-index: 100; }
+    .back-btn a { display: flex; align-items: center; gap: 6px; padding: 6px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; color: var(--text); text-decoration: none; font-size: 13px; transition: all 0.3s; }
+    .back-btn a:hover { background: var(--earth); color: #fff; }
+    .back-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+  </style>
+</head>
+<body>
+
+  <div class="back-btn"><a href="/slides"><svg viewBox="0 0 64 64"><path d="M40 16 L24 32 L40 48"/></svg>列表</a></div>
+  <div class="page-num"><span id="curPage">1</span> / 10</div>
+
+  <!-- P1 封面 -->
+  <section id="p1">
+    <div class="content">
+      <div class="cover-icon"><svg viewBox="0 0 64 64"><path d="M32 16 L32 48 M20 28 L32 16 L44 28"/></svg></div>
+      <div class="tag">2026 夏季度假生活</div>
+      <h1 class="cover">生活休閒關鍵手冊</h1>
+      <p>探索日常中的小確幸，找回生活的節奏</p>
+      <p style="color: var(--text-muted); font-size: 1rem;">2026年6月26日 週五</p>
+    </div>
+  </section>
+
+  <!-- P2 目錄 -->
+  <section id="p2">
+    <div class="content">
+      <h2 style="font-size: 1.75rem; text-align: center; margin-bottom: 8px;">今日重點</h2>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 8px;">發現生活中的四大關鍵面向</p>
+      <div class="toc-grid">
+        <div class="toc-card">
+          <div class="toc-icon" style="background: rgba(122,158,126,0.15);"><svg viewBox="0 0 64 64" stroke="#7A9E7E"><polygon points="32,8 56,24 56,48 32,56 8,48 8,24"/></svg></div>
+          <h3>自然療癒</h3>
+          <p>戶外漫步與綠色呼吸</p>
+        </div>
+        <div class="toc-card">
+          <div class="toc-icon" style="background: rgba(212,165,116,0.15);"><svg viewBox="0 0 64 64" stroke="#d4a574"><path d="M32 8 L32 56 M16 24 L32 8 L48 24"/></svg></div>
+          <h3>品味生活</h3>
+          <p>咖啡閱讀與儀式感</p>
+        </div>
+        <div class="toc-card">
+          <div class="toc-icon" style="background: rgba(201,160,160,0.15);"><svg viewBox="0 0 64 64" stroke="#c9a0a0"><circle cx="32" cy="32" r="24"/><circle cx="32" cy="32" r="12"/></svg></div>
+          <h3>身心平衡</h3>
+          <p>運動與正念的結合</p>
+        </div>
+        <div class="toc-card">
+          <div class="toc-icon" style="background: rgba(122,158,126,0.15);"><svg viewBox="0 0 64 64" stroke="#7A9E7E"><rect x="12" y="20" width="40" height="28" rx="4"/><path d="M20 20 L20 12 L44 12 L44 20"/></svg></div>
+          <h3>空間整理</h3>
+          <p>極簡主義生活提案</p>
+        </div>
+        <div class="toc-card">
+          <div class="toc-icon" style="background: rgba(212,165,116,0.15);"><svg viewBox="0 0 64 64" stroke="#d4a574"><path d="M16 48 L32 16 L48 48"/><path d="M20 40 L44 40"/></svg></div>
+          <h3>創意靈感</h3>
+          <p>手作與表達的樂趣</p>
+        </div>
+        <div class="toc-card">
+          <div class="toc-icon" style="background: rgba(201,160,160,0.15);"><svg viewBox="0 0 64 64" stroke="#c9a0a0"><circle cx="32" cy="24" r="12"/><path d="M12 56 C12 44 52 44 52 56"/></svg></div>
+          <h3>社交連結</h3>
+          <p>與親友的美好時光</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P3 蜂窩統計 -->
+  <section id="p3">
+    <div class="content">
+      <h2 style="font-size: 1.75rem; text-align: center; margin-bottom: 4px;">每日精選目標</h2>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 24px;">簡單生活，從今天開始</p>
+      <div class="honeycomb">
+        <div class="h-row">
+          <div class="h-cell">
+            <svg viewBox="0 0 64 64" stroke="#7A9E7E"><polygon points="32,4 60,18 60,46 32,60 4,46 4,18"/></svg>
+            <span class="num" style="color: var(--earth);">8</span>
+            <span class="lbl">杯水 / 日</span>
+          </div>
+          <div class="h-cell">
+            <svg viewBox="0 0 64 64" stroke="#d4a574"><polygon points="32,4 60,18 60,46 32,60 4,46 4,18"/></svg>
+            <span class="num" style="color: var(--warm);">30</span>
+            <span class="lbl">分鐘運動</span>
+          </div>
+          <div class="h-cell">
+            <svg viewBox="0 0 64 64" stroke="#c9a0a0"><polygon points="32,4 60,18 60,46 32,60 4,46 4,18"/></svg>
+            <span class="num" style="color: var(--rose);">1</span>
+            <span class="lbl">本好書</span>
+          </div>
+        </div>
+        <div class="h-row" style="margin-left: 100px;">
+          <div class="h-cell">
+            <svg viewBox="0 0 64 64" stroke="#9a7b5a"><polygon points="32,4 60,18 60,46 32,60 4,46 4,18"/></svg>
+            <span class="num" style="color: var(--text-muted);">5</span>
+            <span class="lbl">分鐘冥想</span>
+          </div>
+          <div class="h-cell">
+            <svg viewBox="0 0 64 64" stroke="#7A9E7E"><polygon points="32,4 60,18 60,46 32,60 4,46 4,18"/></svg>
+            <span class="num" style="color: var(--earth);">3</span>
+            <span class="lbl">項新習慣</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P4 儀表板 -->
+  <section id="p4">
+    <div class="content">
+      <h2 style="font-size: 1.75rem; text-align: center; margin-bottom: 40px;">生活滿意度</h2>
+      <div class="gauge-row">
+        <div class="gauge-main">
+          <svg viewBox="0 0 200 200">
+            <circle class="gauge-bg" cx="100" cy="100" r="90"/>
+            <circle class="gauge-fill" cx="100" cy="100" r="90"/>
+          </svg>
+          <div class="gauge-text">
+            <span class="gauge-num">85%</span>
+            <span class="gauge-sub">生活指數</span>
+          </div>
+        </div>
+        <div class="gauge-info">
+          <h2>今日生活指數</h2>
+          <p>較上週提升 12%</p>
+          <div class="gauge-badges">
+            <span class="badge" style="background: rgba(122,158,126,0.15); color: var(--earth);">▲ 持續成長中</span>
+            <span class="badge" style="background: rgba(212,165,116,0.15); color: var(--warm);">● 穩定維持</span>
+          </div>
+          <p style="margin-top: 16px; font-size: 15px; color: var(--text-muted);">睡眠品質 · 運動習慣 · 社交連結</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P5 橫向時間軸 -->
+  <section id="p5">
+    <div class="content">
+      <h2 style="font-size: 1.75rem; text-align: center; margin-bottom: 8px;">理想假期步驟</h2>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 40px;">從計劃到實踐的旅程</p>
+      <div class="timeline">
+        <div class="timeline-row tl-row-1">
+          <div class="tl-node">
+            <div class="tl-dot" style="background: var(--earth);">1</div>
+            <div class="tl-label">計畫</div>
+            <div class="tl-sub">期待著手</div>
+          </div>
+          <div class="tl-line" style="background: linear-gradient(90deg, var(--earth) 0%, var(--warm) 100%);"></div>
+          <div class="tl-node">
+            <div class="tl-dot" style="background: var(--warm);">2</div>
+            <div class="tl-label">執行</div>
+            <div class="tl-sub">付諸行動</div>
+          </div>
+        </div>
+        <div class="timeline-row tl-row-2">
+          <div class="tl-line" style="background: linear-gradient(90deg, var(--warm) 0%, var(--rose) 100%);"></div>
+          <div class="tl-node">
+            <div class="tl-dot" style="background: var(--rose);">3</div>
+            <div class="tl-label">回顧</div>
+            <div class="tl-sub">沉澱反思</div>
+          </div>
+        </div>
+        <div class="timeline-row tl-row-3">
+          <div class="tl-line" style="background: linear-gradient(90deg, var(--rose) 0%, var(--text-muted) 100%);"></div>
+          <div class="tl-node">
+            <div class="tl-dot" style="background: var(--text-muted);">4</div>
+            <div class="tl-label">沉澱</div>
+            <div class="tl-sub">重新出發</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P6 四象限 SVG 圓環 -->
+  <section id="p6">
+    <div class="content">
+      <h2 style="font-size: 1.75rem; text-align: center; margin-bottom: 32px;">生活四象限</h2>
+      <div class="quad-ring">
+        <svg class="quad-svg" viewBox="0 0 200 200">
+          <!-- 外圈背景 -->
+          <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(93,64,55,0.06)" stroke-width="36"/>
+          <!-- 四象限弧段 -->
+          <!-- 健康身體：earth #7A9E7E，覆蓋 0-90度 -->
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#7A9E7E" stroke-width="20"
+            stroke-dasharray="113 340" stroke-dashoffset="113"
+            style="transform-origin:100px 100px;transform:rotate(-90deg)"/>
+          <!-- 充實心智：warm #d4a574，覆蓋 90-180度 -->
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#d4a574" stroke-width="20"
+            stroke-dasharray="113 340" stroke-dashoffset="0"
+            style="transform-origin:100px 100px;transform:rotate(0deg)"/>
+          <!-- 溫暖情感：rose #c9a0a0，覆蓋 180-270度 -->
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#c9a0a0" stroke-width="20"
+            stroke-dasharray="113 340" stroke-dashoffset="-113"
+            style="transform-origin:100px 100px;transform:rotate(90deg)"/>
+          <!-- 意義使命：text-muted #9a7b5a，覆蓋 270-360度 -->
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#9a7b5a" stroke-width="20"
+            stroke-dasharray="113 340" stroke-dashoffset="-226"
+            style="transform-origin:100px 100px;transform:rotate(180deg)"/>
+          <!-- 中心標籤 -->
+          <text x="100" y="94" text-anchor="middle" font-size="13" font-weight="700" fill="var(--text)">生活</text>
+          <text x="100" y="112" text-anchor="middle" font-size="11" fill="var(--text-muted)">四象限</text>
+        </svg>
+        <div class="quad-legend">
+          <div class="ql-item">
+            <h3>健康身體</h3>
+            <p>運動、飲食、睡眠</p>
+          </div>
+          <div class="ql-item">
+            <h3>充實心智</h3>
+            <p>閱讀、學習、思考</p>
+          </div>
+          <div class="ql-item">
+            <h3>溫暖情感</h3>
+            <p>家人、朋友、伴侶</p>
+          </div>
+          <div class="ql-item">
+            <h3>意義使命</h3>
+            <p>價值、貢獻、成長</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P7 標籤雲 -->
+  <section id="p7">
+    <div class="content">
+      <h2 style="font-size: 1.75rem; text-align: center; margin-bottom: 8px;">本週關鍵里程</h2>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 40px;">回顧來時的每一步</p>
+      <div class="tag-cloud">
+        <div class="tag-item lg" style="background: rgba(122,158,126,0.15); color: var(--earth);">
+          <svg viewBox="0 0 64 64" stroke="#7A9E7E"><circle cx="32" cy="32" r="24"/></svg>
+          週一 · 重新出發
+        </div>
+        <div class="tag-item md" style="background: rgba(212,165,116,0.15); color: var(--warm);">
+          <svg viewBox="0 0 64 64" stroke="#d4a574"><polygon points="32,8 56,24 56,48 32,56 8,48 8,24"/></svg>
+          週三 · 小有成就
+        </div>
+        <div class="tag-item lg" style="background: rgba(201,160,160,0.15); color: var(--rose);">
+          <svg viewBox="0 0 64 64" stroke="#c9a0a0"><path d="M16 48 L32 16 L48 48"/></svg>
+          週五 · 突破自我
+        </div>
+        <div class="tag-item sm" style="background: rgba(93,64,55,0.08); color: var(--text-muted);">
+          <svg viewBox="0 0 64 64" stroke="#9a7b5a"><rect x="12" y="12" width="40" height="40" rx="8"/></svg>
+          週日 · 總結反思
+        </div>
+        <div class="tag-item md" style="background: rgba(122,158,126,0.12); color: var(--earth);">
+          每日早起 · 晨間儀式
+        </div>
+        <div class="tag-item sm" style="background: rgba(212,165,116,0.12); color: var(--warm);">
+          深度閱讀 · 30分鐘
+        </div>
+        <div class="tag-item lg" style="background: rgba(201,160,160,0.12); color: var(--rose);">
+          <svg viewBox="0 0 64 64" stroke="#c9a0a0"><circle cx="32" cy="24" r="12"/><path d="M12 56 C12 44 52 44 52 56"/></svg>
+          社交連結 · 與親友聚
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P8 氣泡網格 -->
+  <section id="p8">
+    <div class="content">
+      <h2 style="font-size: 1.75rem; text-align: center; margin-bottom: 32px;">本週成就數據</h2>
+      <div class="bubbles">
+        <div class="bubble" style="background: rgba(122,158,126,0.1);">
+          <div class="bubble-icon" style="background: rgba(122,158,126,0.2);">
+            <svg viewBox="0 0 64 64" stroke="#7A9E7E"><circle cx="32" cy="32" r="24"/><path d="M20 32 L28 40 L44 24"/></svg>
+          </div>
+          <div class="bubble-num" style="color: var(--earth);">23</div>
+          <div class="bubble-lbl">完成事項</div>
+        </div>
+        <div class="bubble" style="background: rgba(212,165,116,0.1);">
+          <div class="bubble-icon" style="background: rgba(212,165,116,0.2);">
+            <svg viewBox="0 0 64 64" stroke="#d4a574"><path d="M32 8 L32 56 M16 24 L32 8 L48 24"/></svg>
+          </div>
+          <div class="bubble-num" style="color: var(--warm);">7</div>
+          <div class="bubble-lbl">突破性嘗試</div>
+        </div>
+        <div class="bubble" style="background: rgba(201,160,160,0.1);">
+          <div class="bubble-icon" style="background: rgba(201,160,160,0.2);">
+            <svg viewBox="0 0 64 64" stroke="#c9a0a0"><circle cx="32" cy="32" r="24"/></svg>
+          </div>
+          <div class="bubble-num" style="color: var(--rose);">4.5</div>
+          <div class="bubble-lbl">小時戶外時間 / 日</div>
+        </div>
+        <div class="bubble" style="background: rgba(93,64,55,0.06);">
+          <div class="bubble-icon" style="background: rgba(93,64,55,0.1);">
+            <svg viewBox="0 0 64 64" stroke="#9a7b5a"><rect x="16" y="16" width="32" height="32" rx="8"/><circle cx="32" cy="32" r="8"/></svg>
+          </div>
+          <div class="bubble-num" style="color: var(--text-muted);">12</div>
+          <div class="bubble-lbl">次正向回饋</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P9 真正三角金字塔 -->
+  <section id="p9">
+    <div class="content">
+      <h2 style="font-size: 1.75rem; text-align: center; margin-bottom: 40px;">生活金字塔</h2>
+      <div class="pyramid-wrap">
+        <svg class="pyramid-svg" viewBox="0 0 400 260">
+          <!-- 基礎層（最大，底部） -->
+          <polygon points="200,20 380,220 20,220" fill="none" stroke="rgba(93,64,55,0.08)" stroke-width="0"/>
+          <!-- 三層金字塔，使用 path 而非 polygon -->
+          <!-- 基礎層 -->
+          <path d="M200 120 L350 220 L50 220 Z" fill="rgba(201,160,160,0.7)"/>
+          <!-- 中間層 -->
+          <path d="M200 60 L280 150 L120 150 Z" fill="rgba(212,165,116,0.8)"/>
+          <!-- 頂層 -->
+          <path d="M200 20 L250 80 L150 80 Z" fill="#7A9E7E"/>
+          <!-- 標籤 -->
+          <text x="200" y="195" text-anchor="middle" font-size="16" font-weight="700" fill="#5d4037">基礎需求</text>
+          <text x="200" y="212" text-anchor="middle" font-size="12" fill="#9a7b5a">生理·安全</text>
+          <text x="200" y="115" text-anchor="middle" font-size="16" font-weight="700" fill="#5d4037">意義</text>
+          <text x="200" y="132" text-anchor="middle" font-size="12" fill="#9a7b5a">價值與使命</text>
+          <text x="200" y="60" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">成就感</text>
+        </svg>
+        <div class="pyramid-legend">
+          <div class="py-l">
+            <div class="py-dot" style="background: #7A9E7E;"></div>
+            <span>成就感 — 自我實現</span>
+          </div>
+          <div class="py-l">
+            <div class="py-dot" style="background: #d4a574;"></div>
+            <span>意義 — 價值與使命</span>
+          </div>
+          <div class="py-l">
+            <div class="py-dot" style="background: #c9a0a0;"></div>
+            <span>基礎 — 生理與安全需求</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P10 結尾 -->
+  <section id="p10">
+    <div class="content">
+      <div class="end-icon"><svg viewBox="0 0 64 64"><path d="M20 32 L32 16 L44 32 L32 48 Z"/></svg></div>
+      <h1 class="end-title">享受當下</h1>
+      <p class="end-sub">每一天都是獨特的生活篇章</p>
+      <a href="/slides" class="end-btn">返回生活之旅</a>
+    </div>
+  </section>
+
+  <!-- 導航列 -->
+  <nav>
+    <a href="#p1" onclick="showSlide('p1')">1</a>
+    <a href="#p2" onclick="showSlide('p2')">2</a>
+    <a href="#p3" onclick="showSlide('p3')">3</a>
+    <a href="#p4" onclick="showSlide('p4')">4</a>
+    <a href="#p5" onclick="showSlide('p5')">5</a>
+    <a href="#p6" onclick="showSlide('p6')">6</a>
+    <a href="#p7" onclick="showSlide('p7')">7</a>
+    <a href="#p8" onclick="showSlide('p8')">8</a>
+    <a href="#p9" onclick="showSlide('p9')">9</a>
+    <a href="#p10" onclick="showSlide('p10')">10</a>
+  </nav>
+
+  <script>
+    function showSlide(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      document.querySelector('nav a[href="#' + id + '"]').classList.add('active');
+      document.getElementById('curPage').textContent = id.replace('p', '');
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+          const link = document.querySelector('nav a[href="#' + id + '"]');
+          if (link) link.classList.add('active');
+          document.getElementById('curPage').textContent = id.replace('p', '');
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('section').forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>
+<!-- deploy: 1782447630 -->

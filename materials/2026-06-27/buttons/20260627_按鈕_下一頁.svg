@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" width="280" height="80">
+  <title>下一頁按鈕</title>
+  <desc>工作報告PPT下一頁按鈕，採用平行四邊形skewX+20右向動感與條紋疊加</desc>
+  
+  <defs>
+    <!-- 主體漸層 -->
+    <linearGradient id="btnGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ECDC4"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <!-- 條紋圖案 -->
+    <pattern id="stripePattern" patternUnits="userSpaceOnUse" width="6" height="6">
+      <line x1="0" y1="0" x2="6" y2="6" stroke="#ffffff" stroke-width="1" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- 陰影 -->
+  <polygon points="35,8 245,8 225,72 15,72" fill="#1E293B" opacity="0.2" transform="translate(4,4)"/>
+  
+  <!-- 主體：平行四邊形 skewX=+20 右向動感 -->
+  <g>
+    <polygon points="35,0 245,0 225,64 15,64" 
+             fill="url(#btnGrad2)" 
+             transform="skewX(20)"/>
+    
+    <!-- 條紋疊加 -->
+    <polygon points="35,0 245,0 225,64 15,64" 
+             fill="url(#stripePattern)" 
+             transform="skewX(20)"/>
+    
+    <!-- 雙重交叉線裝飾 -->
+    <line x1="35" y1="0" x2="15" y2="64" stroke="#ffffff" stroke-width="1.5" opacity="0.3"/>
+    <line x1="45" y1="0" x2="25" y2="64" stroke="#ffffff" stroke-width="1" opacity="0.15"/>
+  </g>
+  
+  <!-- 右箭頭 -->
+  <polygon points="180,27 205,32 180,37 180,42 155,42 155,37 155,27" 
+           fill="#ffffff" 
+           transform="skewX(20) translate(10,0)"/>
+  
+  <!-- 文字：下一頁 -->
+  <text x="115" y="40" 
+        font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" 
+        font-size="22" 
+        font-weight="500" 
+        fill="#ffffff" 
+        text-anchor="middle"
+        transform="skewX(20)">下一頁</text>
+</svg>
