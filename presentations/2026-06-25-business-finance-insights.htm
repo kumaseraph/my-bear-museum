@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>掌握趨勢：2026 商業財經關鍵洞察</title>
+<style>
+/* === BASE RESET === */
+*{margin:0;padding:0;box-sizing:border-box}
+:root {
+  --bg: #0a1628;
+  --bg-secondary: #0d1f3c;
+  --text: #e3f2fd;
+  --text-secondary: #90caf9;
+  --accent: #1565c0;
+  --accent-alt: #42a5f5;
+  --accent-glow: rgba(21,101,192,0.35);
+  --border-color: rgba(21,101,192,0.2);
+  --card-bg: rgba(255,255,255,0.06);
+  --nav-bg: rgba(10,22,40,0.95);
+  --v-line-cream: rgba(227,242,253,0.06);
+  --gold: #D4A843;
+  --green: #4CAF82;
+}
+body {
+  background: var(--bg);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      var(--v-line-cream) 39px,
+      var(--v-line-cream) 40px
+    );
+  color: var(--text);
+  font-family: 'Noto Serif TC', 'Georgia', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+section {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(40px,6vw,80px);
+  padding-bottom: 100px;
+  position: relative;
+  overflow: hidden;
+}
+h1{font-size:clamp(3rem,7vw,5.5rem);font-weight:900;letter-spacing:-0.03em;line-height:0.95}
+h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-0.03em;line-height:0.95}
+h3{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;letter-spacing:-0.03em;line-height:0.95}
+p{font-size:clamp(20px,1.25vw,20px);line-height:1.7}
+* {font-size:clamp(20px,1.25vw,20px)}
+svg text{font-size:20px!important}
+.text-outline{-webkit-text-stroke:2px var(--text);color:transparent}
+.text-gradient{background:linear-gradient(135deg,var(--text) 0%,var(--accent-alt) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.word-massive{font-size:clamp(4rem,12vw,10rem);font-weight:900;line-height:0.9;letter-spacing:-0.04em}
+.color-block{background:var(--text);color:var(--bg);padding:0.5rem 1.5rem;display:inline-block}
+.card{background:transparent;border:2px solid var(--text);border-radius:0;box-shadow:none;padding:2rem}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--nav-bg);border-top:2px solid var(--text);padding:10px 20px;display:flex;justify-content:center;gap:8px}
+nav a{color:var(--text);text-decoration:none;font-weight:700;font-size:20px;padding:6px 12px;border-radius:4px;transition:background 0.2s}
+nav a:hover{background:rgba(255,255,255,0.1)}
+.back-btn{position:fixed;top:20px;right:20px;z-index:100}
+.back-btn a{color:var(--text);text-decoration:none;font-size:20px;padding:8px 16px;border:2px solid var(--text);border-radius:0;display:inline-block;transition:all 0.3s}
+.back-btn a:hover{background:var(--text);color:var(--bg)}
+
+/* ANIMATE IN */
+.animate-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease-out,transform 0.6s ease-out}
+.animate-in.visible{opacity:1;transform:translateY(0)}
+
+/* === PAGE 1: COVER === */
+.p1-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 30% 40%,rgba(21,101,192,0.3) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 70% 70%,rgba(66,165,245,0.15) 0%,transparent 50%);pointer-events:none}
+.p1-grid{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(66,165,245,0.12) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.p1-content{z-index:1;text-align:center;max-width:900px}
+.p1-date{display:inline-block;background:var(--accent);color:#fff;font-size:20px;font-weight:700;letter-spacing:0.1em;padding:6px 20px;margin-bottom:2rem}
+.p1-title{margin-bottom:1.5rem}
+.p1-title span{display:block}
+.p1-subtitle{font-size:clamp(20px,2vw,24px);color:var(--text-secondary);margin-top:1rem;font-weight:400}
+.p1-footer{position:absolute;bottom:80px;left:0;right:0;text-align:center;font-size:20px;color:var(--text-secondary)}
+
+/* === PAGE 2: G8 QUADRANT === */
+.p2-title{margin-bottom:3rem;text-align:center}
+.quadrant-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:24px;width:100%;max-width:900px}
+.quad{background:var(--card-bg);border:2px solid var(--border-color);padding:2rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:all 0.3s}
+.quad:hover{border-color:var(--accent-alt);background:rgba(21,101,192,0.15)}
+.quad-icon{width:72px;height:72px;margin-bottom:1.2rem}
+.quad h3{font-size:clamp(24px,2.5vw,32px);margin-bottom:0.5rem}
+.quad p{font-size:20px;color:var(--text-secondary)}
+.quad.q1{border-color:rgba(76,175,130,0.4)}
+.quad.q2{border-color:rgba(212,168,67,0.4)}
+.quad.q3{border-color:rgba(66,165,245,0.4)}
+.quad.q4{border-color:rgba(229,115,115,0.4)}
+.quad-label{position:absolute;font-size:20px;color:var(--text-secondary);letter-spacing:0.1em}
+
+/* === PAGE 3: G1 RING KPIs === */
+.p3-title{margin-bottom:2rem;text-align:center}
+.kpi-row{display:flex;gap:40px;flex-wrap:wrap;justify-content:center;align-items:center}
+.kpi-card{text-align:center;padding:2rem}
+.kpi-ring{position:relative;width:160px;height:160px;margin:0 auto 1.5rem}
+.kpi-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.kpi-ring circle{fill:none;stroke-width:10;stroke-linecap:round}
+.kpi-ring .bg{stroke:rgba(255,255,255,0.1)}
+.kpi-ring .fg{stroke:var(--accent-alt);stroke-dasharray:440;stroke-dashoffset:calc(440 * (1 - var(--p)));transition:stroke-dashoffset 1s ease}
+.kpi-ring .fg.gold{stroke:var(--gold)}
+.kpi-ring .fg.green{stroke:var(--green)}
+.kpi-ring .fg.red{stroke:#ef5350}
+.kpi-value{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.kpi-value .num{font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1}
+.kpi-value .unit{font-size:20px;color:var(--text-secondary);margin-top:4px}
+.kpi-label{font-size:clamp(1rem,1.8vw,1.2rem);font-weight:700;margin-bottom:0.5rem}
+.kpi-desc{font-size:20px;color:var(--text-secondary)}
+
+/* === PAGE 4: G6 FUNNEL === */
+.p4-title{margin-bottom:2rem;text-align:center}
+.funnel{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;max-width:800px}
+.funnel-stage{font-size:clamp(20px,1.5vw,24px);clip-path:polygon(3% 0%,97% 0%,100% 100%,0% 100%);height:72px;transition:all 0.3s;cursor:default}
+.funnel-stage:hover{transform:scale(1.02);filter:brightness(1.1)}
+.funnel-stage .stage-label{text-align:center;padding:0 1rem}
+.funnel-stage .stage-num{font-size:20px;opacity:0.7;margin-left:8px}
+.s1{width:100%;background:linear-gradient(90deg,#1565c0,#42a5f5)}
+.s2{width:82%;background:linear-gradient(90deg,#1976d2,#64b5f6)}
+.s3{width:64%;background:linear-gradient(90deg,#1e88e5,#90caf9)}
+.s4{width:46%;background:linear-gradient(90deg,#2196f3,#bbdefb)}
+.s5{width:30%;background:linear-gradient(90deg,#0d47a1,#42a5f5)}
+
+/* === PAGE 5: G2 SQUARE BLOCKS === */
+.p5-title{margin-bottom:2rem;text-align:center}
+.bar-chart{display:flex;align-items:flex-end;gap:24px;height:320px;width:100%;max-width:900px;justify-content:space-around;padding:0 1rem}
+.bar-item{display:flex;flex-direction:column;align-items:center;flex:1;max-width:120px}
+.bar-visual{width:100%;display:flex;justify-content:center;align-items:flex-end;height:260px}
+.bar{width:72px;background:linear-gradient(180deg,var(--accent-alt) 0%,var(--accent) 100%);border-radius:8px 8px 0 0;min-height:30px;transition:all 0.3s;position:relative}
+.bar:hover{filter:brightness(1.2);transform:scaleY(1.02)}
+.bar.gold{background:linear-gradient(180deg,#e8c06a,#D4A843)}
+.bar.green{background:linear-gradient(180deg,#66bb6a,#4CAF82)}
+.bar-label{font-size:clamp(20px,1.2vw,22px);font-weight:700;margin-top:16px;text-align:center}
+.bar-value{position:absolute;top:-28px;left:50%;transform:translateX(-50%);font-size:20px;font-weight:900;white-space:nowrap}
+.bar-item:nth-child(odd) .bar{background:linear-gradient(180deg,#42a5f5,#1565c0)}
+
+/* === PAGE 6: G3 HONEYCOMB === */
+.p6-title{margin-bottom:2rem;text-align:center}
+.hex-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:720px
+.hex-cell{aspect-ratio:1/1.15;clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem;transition:all 0.3s}
+.hex-cell:hover{transform:scale(1.05)}
+.hex-cell h4{font-size:clamp(1rem,1.5vw,1.2rem);margin-bottom:4px}
+.hex-cell p{font-size:20px;opacity:0.8}
+.h1{background:linear-gradient(135deg,#1565c0,#42a5f5)}
+.h2{background:linear-gradient(135deg,#1976d2,#64b5f6)}
+.h3{background:linear-gradient(135deg,#0d47a1,#1565c0)}
+.h4{background:linear-gradient(135deg,#1e88e5,#90caf9)}
+.h5{background:linear-gradient(135deg,#2196f3,#bbdefb)}
+
+/* === PAGE 7: G4 TRIANGLE RISK === */
+.p7-title{margin-bottom:2rem;text-align:center}
+.risk-container{display:flex;gap:60px;align-items:center;width:100%;max-width:800px;justify-content:center;flex-wrap:wrap}
+.risk-triangle{position:relative;width:400px;height:340px}
+.tri-layer{position:absolute;left:50%;transform:translateX(-50%);clip-path:polygon(50% 0%,100% 100%,0% 100%);display:flex;align-items:center;justify-content:center;transition:all 0.3s}
+.tri-layer:hover{filter:brightness(1.1)}
+.tri-outer{width:400px;height:280px;background:linear-gradient(135deg,rgba(229,115,115,0.8),rgba(239,83,80,0.6));top:60px}
+.tri-mid{width:300px;height:210px;background:linear-gradient(135deg,rgba(242,192,120,0.85),rgba(251,146,60,0.7));top:110px}
+.tri-inner{width:180px;height:130px;background:linear-gradient(135deg,rgba(212,168,67,1),rgba(245,158,11,0.9));top:150px}
+.tri-label{font-size:clamp(20px,1.2vw,24px);text-align:center;line-height:1.3;padding:0 8px}
+.risk-list{display:flex;flex-direction:column;gap:20px}
+.risk-item{background:var(--card-bg);border:2px solid var(--border-color);padding:1.5rem 2rem;min-width:280px;transition:all 0.3s;display:flex;align-items:center;gap:12px}
+.risk-item:hover{border-color:var(--accent-alt)}
+.risk-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0}
+.risk-dot.red{background:#ef5350}
+.risk-dot.yellow{background:#ffb74d}
+.risk-dot.green{background:#4CAF82}
+.risk-item h4{font-size:20px;margin-bottom:2px}
+.risk-item p{font-size:20px;color:var(--text-secondary)}
+
+/* === PAGE 8: G5 DIAMOND === */
+.p8-title{margin-bottom:2rem;text-align:center}
+.diamond-row{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;max-width:800px}
+.diamond-item{width:220px;height:220px;background:var(--card-bg);border:2px solid var(--border-color);transform:rotate(45deg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;transition:all 0.3s;cursor:default}
+.diamond-item:hover{transform:rotate(45deg) scale(1.05);border-color:var(--accent-alt);background:rgba(21,101,192,0.15)}
+.diamond-item .d-content{transform:rotate(-45deg)}
+.diamond-item h4{font-size:clamp(1rem,1.5vw,1.2rem);margin-bottom:6px}
+.diamond-item p{font-size:20px;color:var(--text-secondary);line-height:1.4}
+.diamond-item .d-val{font-size:clamp(1.5rem,2.5vw,2rem);font-weight:900;margin-top:8px}
+.diamond-item .d-val.gold{color:var(--gold)}
+.diamond-item .d-val.green{color:var(--green)}
+
+/* === PAGE 9: G7 TIMELINE === */
+.p9-title{margin-bottom:2rem;text-align:center}
+.roadmap{display:flex;flex-direction:column;gap:2rem;width:100%;max-width:960px}
+.rm-item{display:grid;grid-template-columns:1fr 2fr;gap:20px;align-items:center;padding:1.5rem;background:var(--card-bg);border:2px solid var(--border-color);transition:all 0.3s}
+.rm-item:hover{border-color:var(--accent-alt)}
+.rm-item:nth-child(even){grid-template-columns:2fr 1fr}
+.rm-year{font-size:clamp(24px,3vw,32px);font-weight:900;color:var(--accent-alt)}
+.rm-content h4{font-size:clamp(20px,1.5vw,24px);margin-bottom:6px}
+.rm-content p{font-size:20px;color:var(--text-secondary)}
+.rm-dot{width:20px;height:20px;border-radius:50%;background:var(--accent-alt);flex-shrink:0;margin-right:16px}
+
+/* === PAGE 10: CONCLUSION === */
+.p10-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(21,101,192,0.4) 0%,transparent 70%);pointer-events:none}
+.p10-content{z-index:1;text-align:center;max-width:800px}
+.p10-cta{margin-top:3rem}
+.p10-cta h2{margin-bottom:1rem}
+.cta-btn{display:inline-block;background:var(--text);color:var(--bg);font-weight:900;font-size:clamp(1rem,1.8vw,1.3rem);padding:14px 36px;text-decoration:none;transition:all 0.3s;letter-spacing:0.05em}
+.cta-btn:hover{background:var(--accent-alt);color:#fff;transform:translateY(-3px)}
+.p10-summary{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+.p10-sum-item{text-align:center;padding:1rem}
+.p10-sum-item .ps-num{font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--gold)}
+.p10-sum-item .ps-label{font-size:20px;color:var(--text-secondary);margin-top:4px}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER -->
+<section id="p1" style="background:var(--bg)">
+  <div class="p1-bg"></div>
+  <div class="p1-grid"></div>
+  <div class="p1-content animate-in">
+    <div class="p1-date">2026 · Q2 季度報告</div>
+    <h1 class="p1-title">
+      <span class="text-outline">掌握趨勢</span>
+    </h1>
+    <h1 class="text-gradient">商業財經關鍵洞察</h1>
+    <p class="p1-subtitle">全球市場宏觀分析 × 產業動能追蹤 × 投資策略指引</p>
+  </div>
+  <!-- Geometric decorations -->
+  <svg style="position:absolute;top:12%;left:8%;width:180px;height:180px;opacity:0.12;pointer-events:none" viewBox="0 0 120 120"><polygon points="60,5 115,95 5,95" fill="none" stroke="#42a5f5" stroke-width="2"/></svg>
+  <svg style="position:absolute;top:20%;right:10%;width:140px;height:140px;opacity:0.15;pointer-events:none" viewBox="0 0 80 80"><circle cx="40" cy="40" r="35" fill="none" stroke="#D4A843" stroke-width="2"/><circle cx="40" cy="40" r="20" fill="none" stroke="#D4A843" stroke-width="1.5"/></svg>
+  <svg style="position:absolute;bottom:22%;left:12%;width:100px;height:100px;opacity:0.1;pointer-events:none" viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="40" fill="none" stroke="#4CAF82" stroke-width="2" transform="rotate(15 30 30)"/></svg>
+  <svg style="position:absolute;top:55%;right:18%;width:160px;height:160px;opacity:0.08;pointer-events:none" viewBox="0 0 100 100"><polygon points="50,5 95,50 50,95 5,50" fill="none" stroke="#42a5f5" stroke-width="2" transform="rotate(0 50 50)"/></svg>
+  <div class="p1-footer">C5 企業深藍 × V5 字體戲劇</div>
+</section>
+
+<!-- PAGE 2: G8 QUADRANT -->
+<section id="p2">
+  <div class="animate-in" style="width:100%;max-width:900px">
+    <h2 class="p2-title text-gradient">市場趨勢分析</h2>
+    <div class="quadrant-grid">
+      <div class="quad q1">
+        <svg class="quad-icon" viewBox="0 0 64 64" stroke="#4CAF82" stroke-width="3" fill="none"><polyline points="8,48 24,32 40,40 56,16"/><circle cx="56" cy="16" r="5" fill="#4CAF82"/></svg>
+        <h3>成長型</h3>
+        <p>AI 相關產業、半導體、先進製程</p>
+      </div>
+      <div class="quad q2">
+        <svg class="quad-icon" viewBox="0 0 64 64" stroke="#D4A843" stroke-width="3" fill="none"><rect x="12" y="24" width="40" height="28" rx="4"/><line x1="12" y1="36" x2="52" y2="36"/><polyline points="20,44 28,36 36,40 48,28"/></svg>
+        <h3>價值型</h3>
+        <p>金融機構、藍籌股、基礎建設</p>
+      </div>
+      <div class="quad q3">
+        <svg class="quad-icon" viewBox="0 0 64 64" stroke="#42a5f5" stroke-width="3" fill="none"><circle cx="32" cy="32" r="24"/><path d="M32 14 L32 32 L46 32"/><line x1="8" y1="32" x2="20" y2="32"/><line x1="32" y1="50" x2="32" y2="56"/></svg>
+        <h3>防御型</h3>
+        <p>公用事業、制藥、消費必需品</p>
+      </div>
+      <div class="quad q4">
+        <svg class="quad-icon" viewBox="0 0 64 64" stroke="#ef5350" stroke-width="3" fill="none"><path d="M12 20 L32 52 L52 20"/><line x1="22" y1="34" x2="42" y2="34"/><line x1="32" y1="20" x2="32" y2="52"/></svg>
+        <h3>週期型</h3>
+        <p>原物料、能源、房地產</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 3: GAUGE DASHBOARD -->
+<section id="p3">
+  <div class="animate-in" style="width:100%;max-width:1100px">
+    <h2 class="p3-title text-gradient">關鍵指標儀表板</h2>
+    <div style="display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-top:24px;">
+      <!-- Gauge 1: 72% -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <svg viewBox="0 0 200 120" width="220" height="132" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#42a5f5"/><stop offset="100%" stop-color="#1565c0"/></linearGradient>
+          </defs>
+          <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="18" stroke-linecap="round"/>
+          <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="url(#g1)" stroke-width="18" stroke-linecap="round" stroke-dasharray="452" stroke-dashoffset="127"/>
+          <text x="100" y="85" text-anchor="middle" font-size="28" fill="#e3f2fd" font-weight="900">72%</text>
+          <text x="100" y="115" text-anchor="middle" font-size="20" fill="#90caf9">達成率</text>
+        </svg>
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;color:#e3f2fd;">年度營收目標</div><div style="font-size:20px;color:#90caf9;">新台幣 1,850 億</div></div>
+      </div>
+      <!-- Gauge 2: 58% -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <svg viewBox="0 0 200 120" width="220" height="132" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#D4A843"/><stop offset="100%" stop-color="#b8860b"/></linearGradient>
+          </defs>
+          <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="18" stroke-linecap="round"/>
+          <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="url(#g2)" stroke-width="18" stroke-linecap="round" stroke-dasharray="452" stroke-dashoffset="190"/>
+          <text x="100" y="85" text-anchor="middle" font-size="28" fill="#D4A843" font-weight="900">58%</text>
+          <text x="100" y="115" text-anchor="middle" font-size="20" fill="#90caf9">YoY成長</text>
+        </svg>
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;color:#e3f2fd;">淨利潤成長</div><div style="font-size:20px;color:#D4A843;">去年同期 +18.3%</div></div>
+      </div>
+      <!-- Gauge 3: 85 -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <svg viewBox="0 0 200 120" width="220" height="132" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#4CAF82"/><stop offset="100%" stop-color="#2e7d32"/></linearGradient>
+          </defs>
+          <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="18" stroke-linecap="round"/>
+          <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="url(#g3)" stroke-width="18" stroke-linecap="round" stroke-dasharray="452" stroke-dashoffset="68"/>
+          <text x="100" y="85" text-anchor="middle" font-size="28" fill="#4CAF82" font-weight="900">85</text>
+          <text x="100" y="115" text-anchor="middle" font-size="20" fill="#90caf9">滿意度分</text>
+        </svg>
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;color:#e3f2fd;">CSI 滿意度</div><div style="font-size:20px;color:#4CAF82;">客戶服務指數</div></div>
+      </div>
+      <!-- Gauge 4: 41% -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <svg viewBox="0 0 200 120" width="220" height="132" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#42a5f5"/><stop offset="100%" stop-color="#ce93d8"/></linearGradient>
+          </defs>
+          <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="18" stroke-linecap="round"/>
+          <path d="M20,100 A80,80 0 0,1 180,100" fill="none" stroke="url(#g4)" stroke-width="18" stroke-linecap="round" stroke-dasharray="452" stroke-dashoffset="267"/>
+          <text x="100" y="85" text-anchor="middle" font-size="28" fill="#e3f2fd" font-weight="900">41%</text>
+          <text x="100" y="115" text-anchor="middle" font-size="20" fill="#90caf9">市佔率</text>
+        </svg>
+        <div style="text-align:center;"><div style="font-size:20px;font-weight:700;color:#e3f2fd;">亞太市場佔有</div><div style="font-size:20px;color:#90caf9;">連續三年領先</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 4: STEPPED FUNNEL -->
+<section id="p4">
+  <div class="animate-in" style="width:100%;max-width:900px">
+    <h2 class="p4-title text-gradient">策略執行漏斗</h2>
+    <div style="display:flex;gap:48px;align-items:center;margin-top:24px;flex-wrap:wrap;justify-content:center;">
+      <svg viewBox="0 0 300 260" width="360" height="300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sf1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1565c0"/><stop offset="100%" stop-color="#42a5f5"/></linearGradient>
+          <linearGradient id="sf2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1976d2"/><stop offset="100%" stop-color="#42a5f5"/></linearGradient>
+          <linearGradient id="sf3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1e88e5"/><stop offset="100%" stop-color="#4CAF82"/></linearGradient>
+          <linearGradient id="sf4" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#2196F3"/><stop offset="100%" stop-color="#D4A843"/></linearGradient>
+          <linearGradient id="sf5" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#42a5f5"/><stop offset="100%" stop-color="#ce93d8"/></linearGradient>
+        </defs>
+        <!-- Step 1 -->
+        <rect x="10" y="10" width="280" height="40" rx="6" fill="url(#sf1)"/>
+        <text x="150" y="37" text-anchor="middle" font-size="20" fill="#fff" font-weight="700">市場研究與機會辨識</text>
+        <text x="268" y="37" text-anchor="end" font-size="18" fill="rgba(255,255,255,0.8)">N=1,200</text>
+        <!-- Arrow -->
+        <path d="M150,53 L150,65 M140,60 L150,68 L160,60" stroke="#42a5f5" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Step 2 -->
+        <rect x="40" y="68" width="220" height="40" rx="6" fill="url(#sf2)"/>
+        <text x="150" y="95" text-anchor="middle" font-size="20" fill="#fff" font-weight="700">策略方案評估</text>
+        <text x="238" y="95" text-anchor="end" font-size="18" fill="rgba(255,255,255,0.8)">N=480</text>
+        <path d="M150,111 L150,123 M140,118 L150,126 L160,118" stroke="#4CAF82" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Step 3 -->
+        <rect x="70" y="126" width="160" height="40" rx="6" fill="url(#sf3)"/>
+        <text x="150" y="153" text-anchor="middle" font-size="20" fill="#fff" font-weight="700">資源配置與規劃</text>
+        <text x="208" y="153" text-anchor="end" font-size="18" fill="rgba(255,255,255,0.8)">N=210</text>
+        <path d="M150,169 L150,181 M140,176 L150,184 L160,176" stroke="#D4A843" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Step 4 -->
+        <rect x="100" y="184" width="100" height="36" rx="6" fill="url(#sf4)"/>
+        <text x="150" y="207" text-anchor="middle" font-size="20" fill="#fff" font-weight="700">執行與監控</text>
+        <text x="178" y="207" text-anchor="end" font-size="18" fill="rgba(255,255,255,0.8)">N=95</text>
+        <path d="M150,223 L150,233 M142,229 L150,236 L158,229" stroke="#ce93d8" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Step 5 -->
+        <rect x="120" y="236" width="60" height="22" rx="6" fill="url(#sf5)"/>
+        <text x="150" y="251" text-anchor="middle" font-size="18" fill="#fff" font-weight="700">N=38</text>
+      </svg>
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:20px;height:20px;border-radius:3px;background:linear-gradient(90deg,#1565c0,#42a5f5);"></div><div style="font-size:20px;color:#e3f2fd;">市場研究與機會辨識</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:20px;height:20px;border-radius:3px;background:linear-gradient(90deg,#1976d2,#42a5f5);"></div><div style="font-size:20px;color:#e3f2fd;">策略方案評估</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:20px;height:20px;border-radius:3px;background:linear-gradient(90deg,#1e88e5,#4CAF82);"></div><div style="font-size:20px;color:#e3f2fd;">資源配置與規劃</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:20px;height:20px;border-radius:3px;background:linear-gradient(90deg,#2196F3,#D4A843);"></div><div style="font-size:20px;color:#e3f2fd;">執行與監控</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:20px;height:20px;border-radius:3px;background:linear-gradient(90deg,#42a5f5,#ce93d8);"></div><div style="font-size:20px;color:#e3f2fd;">達成目標</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 5: DUAL LINE CHART -->
+<section id="p5">
+  <div class="animate-in" style="width:100%;max-width:900px">
+    <h2 class="p5-title text-gradient">產業營收比較</h2>
+    <div style="display:flex;gap:48px;align-items:center;margin-top:24px;flex-wrap:wrap;justify-content:center;">
+      <svg viewBox="0 0 400 280" width="480" height="320" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lcGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#42a5f5" stop-opacity="0.4"/><stop offset="100%" stop-color="#42a5f5" stop-opacity="0"/></linearGradient>
+        </defs>
+        <!-- Grid -->
+        <line x1="50" y1="220" x2="380" y2="220" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+        <line x1="50" y1="170" x2="380" y2="170" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="50" y1="120" x2="380" y2="120" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="50" y1="70" x2="380" y2="70" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4,4"/>
+        <!-- Y labels -->
+        <text x="42" y="224" text-anchor="end" font-size="12" fill="#90caf9">0</text>
+        <text x="42" y="174" text-anchor="end" font-size="12" fill="#90caf9">5T</text>
+        <text x="42" y="124" text-anchor="end" font-size="12" fill="#90caf9">10T</text>
+        <text x="42" y="74" text-anchor="end" font-size="12" fill="#90caf9">15T</text>
+        <!-- Area fill under primary line -->
+        <path d="M65,80 L135,110 L205,135 L275,165 L345,188 L345,220 L65,220 Z" fill="url(#lcGrad)"/>
+        <!-- Primary line: revenue (solid) -->
+        <polyline points="65,80 135,110 205,135 275,165 345,188" fill="none" stroke="#42a5f5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Secondary line: growth rate (dashed) -->
+        <polyline points="65,140 135,155 205,148 275,138 345,130" fill="none" stroke="#D4A843" stroke-width="2.5" stroke-dasharray="8,4" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Data dots primary -->
+        <circle cx="65" cy="80" r="6" fill="#42a5f5"/>
+        <circle cx="135" cy="110" r="6" fill="#42a5f5"/>
+        <circle cx="205" cy="135" r="6" fill="#42a5f5"/>
+        <circle cx="275" cy="165" r="6" fill="#42a5f5"/>
+        <circle cx="345" cy="188" r="6" fill="#42a5f5"/>
+        <!-- Data dots secondary -->
+        <circle cx="65" cy="140" r="5" fill="#D4A843"/>
+        <circle cx="135" cy="155" r="5" fill="#D4A843"/>
+        <circle cx="205" cy="148" r="5" fill="#D4A843"/>
+        <circle cx="275" cy="138" r="5" fill="#D4A843"/>
+        <circle cx="345" cy="130" r="5" fill="#D4A843"/>
+        <!-- X labels -->
+        <text x="65" y="240" text-anchor="middle" font-size="13" fill="#90caf9">科技</text>
+        <text x="135" y="240" text-anchor="middle" font-size="13" fill="#90caf9">金融</text>
+        <text x="205" y="240" text-anchor="middle" font-size="13" fill="#90caf9">醫療</text>
+        <text x="275" y="240" text-anchor="middle" font-size="13" fill="#90caf9">能源</text>
+        <text x="345" y="240" text-anchor="middle" font-size="13" fill="#90caf9">消費</text>
+        <!-- Value labels primary -->
+        <text x="65" y="68" text-anchor="middle" font-size="13" fill="#e3f2fd" font-weight="700">$9.2T</text>
+        <text x="135" y="98" text-anchor="middle" font-size="13" fill="#e3f2fd" font-weight="700">$7.6T</text>
+        <text x="205" y="123" text-anchor="middle" font-size="13" fill="#e3f2fd" font-weight="700">$6.5T</text>
+        <text x="275" y="153" text-anchor="middle" font-size="13" fill="#e3f2fd" font-weight="700">$5.2T</text>
+        <text x="345" y="176" text-anchor="middle" font-size="13" fill="#e3f2fd" font-weight="700">$4.1T</text>
+        <!-- Legend -->
+        <line x1="260" y1="20" x2="295" y2="20" stroke="#42a5f5" stroke-width="3"/>
+        <text x="302" y="24" font-size="13" fill="#e3f2fd">營收規模</text>
+        <line x1="260" y1="40" x2="295" y2="40" stroke="#D4A843" stroke-width="2.5" stroke-dasharray="8,4"/>
+        <text x="302" y="44" font-size="13" fill="#D4A843">成長率</text>
+      </svg>
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div><div style="font-size:1.25rem;font-weight:700;color:#42a5f5;">$9.2T</div><div style="font-size:1.25rem;color:#e3f2fd;">科技產業營收</div></div>
+        <div><div style="font-size:1.25rem;font-weight:700;color:#4CAF82;">+12%</div><div style="font-size:1.25rem;color:#e3f2fd;">平均年增率</div></div>
+        <div><div style="font-size:1.25rem;font-weight:700;color:#D4A843;">$5.2T</div><div style="font-size:1.25rem;color:#e3f2fd;">能源產業營收</div></div>
+        <div><div style="font-size:1.25rem;font-weight:700;color:#ce93d8;">AI滲透率</div><div style="font-size:1.25rem;color:#e3f2fd;">科技產業核心驅動力</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      </div>
+<!-- PAGE 6: BUBBLE CHART -->
+<section id="p6">
+  <div class="animate-in" style="width:100%;max-width:900px">
+    <h2 class="p6-title text-gradient">人才技能分布</h2>
+    <div style="display:flex;gap:48px;align-items:center;margin-top:20px;flex-wrap:wrap;justify-content:center;">
+      <svg viewBox="0 0 360 300" width="440" height="360" xmlns="http://www.w3.org/2000/svg">
+        <!-- Grid -->
+        <line x1="50" y1="250" x2="340" y2="250" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <line x1="50" y1="50" x2="50" y2="250" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <!-- Y axis label -->
+        <text x="20" y="150" text-anchor="middle" font-size="12" fill="#90caf9" transform="rotate(-90 20 150)">需求成長 →</text>
+        <!-- X axis label -->
+        <text x="195" y="275" text-anchor="middle" font-size="12" fill="#90caf9">人數規模 →</text>
+        <!-- Bubbles -->
+        <!-- 策略思維: large bubble, high value -->
+        <circle cx="280" cy="80" r="52" fill="rgba(21,101,192,0.5)" stroke="#42a5f5" stroke-width="2"/>
+        <text x="280" y="76" text-anchor="middle" font-size="14" fill="#e3f2fd" font-weight="700">策略思維</text>
+        <text x="280" y="92" text-anchor="middle" font-size="12" fill="#90caf9">高階管理</text>
+        <!-- 數據分析: large bubble -->
+        <circle cx="200" cy="110" r="46" fill="rgba(21,101,192,0.5)" stroke="#42a5f5" stroke-width="2"/>
+        <text x="200" y="106" text-anchor="middle" font-size="14" fill="#e3f2fd" font-weight="700">數據分析</text>
+        <text x="200" y="122" text-anchor="middle" font-size="12" fill="#90caf9">資料科學</text>
+        <!-- 創新研發 -->
+        <circle cx="260" cy="170" r="40" fill="rgba(76,175,130,0.5)" stroke="#4CAF82" stroke-width="2"/>
+        <text x="260" y="166" text-anchor="middle" font-size="13" fill="#e3f2fd" font-weight="700">創新研發</text>
+        <text x="260" y="182" text-anchor="middle" font-size="11" fill="#90caf9">產品開發</text>
+        <!-- 數位營銷 -->
+        <circle cx="130" cy="150" r="36" fill="rgba(212,168,67,0.5)" stroke="#D4A843" stroke-width="2"/>
+        <text x="130" y="146" text-anchor="middle" font-size="13" fill="#e3f2fd" font-weight="700">數位營銷</text>
+        <text x="130" y="162" text-anchor="middle" font-size="11" fill="#90caf9">市場拓展</text>
+        <!-- 供應鏈管理 -->
+        <circle cx="100" cy="200" r="32" fill="rgba(206,147,216,0.5)" stroke="#ce93d8" stroke-width="2"/>
+        <text x="100" y="196" text-anchor="middle" font-size="12" fill="#e3f2fd" font-weight="700">供應鏈</text>
+        <text x="100" y="210" text-anchor="middle" font-size="11" fill="#90caf9">營運優化</text>
+        <!-- 財務規劃 -->
+        <circle cx="160" cy="220" r="28" fill="rgba(255,255,255,0.15)" stroke="#90caf9" stroke-width="2"/>
+        <text x="160" y="216" text-anchor="middle" font-size="12" fill="#e3f2fd" font-weight="700">財務規劃</text>
+        <text x="160" y="230" text-anchor="middle" font-size="11" fill="#90caf9">投資分析</text>
+      </svg>
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:20px;height:20px;border-radius:50%;background:rgba(21,101,192,0.7);border:2px solid #42a5f5;"></div><div style="font-size:20px;color:#e3f2fd;">策略思維 / 數據分析</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:20px;height:20px;border-radius:50%;background:rgba(76,175,130,0.7);border:2px solid #4CAF82;"></div><div style="font-size:20px;color:#e3f2fd;">創新研發</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:20px;height:20px;border-radius:50%;background:rgba(212,168,67,0.7);border:2px solid #D4A843;"></div><div style="font-size:20px;color:#e3f2fd;">數位營銷</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:20px;height:20px;border-radius:50%;background:rgba(206,147,216,0.7);border:2px solid #ce93d8;"></div><div style="font-size:20px;color:#e3f2fd;">供應鏈管理</div></div>
+        <div style="display:flex;align-items:center;gap:12px;"><div style="width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid #90caf9;"></div><div style="font-size:20px;color:#e3f2fd;">財務規劃</div></div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);">
+          <div style="font-size:20px;color:#90caf9;">泡泡大小 = 人數規模</div>
+          <div style="font-size:20px;color:#90caf9;">上下位置 = 需求成長率</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 7: CONCENTRIC RING DASHBOARD -->
+<section id="p7">
+  <div class="animate-in" style="width:100%;max-width:900px">
+    <h2 class="p7-title text-gradient">風險雷達圖</h2>
+    <div style="display:flex;gap:48px;align-items:center;margin-top:20px;flex-wrap:wrap;justify-content:center;">
+      <svg viewBox="0 0 320 320" width="380" height="380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="ring1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ef5350"/><stop offset="100%" stop-color="#c62828"/></linearGradient>
+          <linearGradient id="ring2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4A843"/><stop offset="100%" stop-color="#f57f17"/></linearGradient>
+          <linearGradient id="ring3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4CAF82"/><stop offset="100%" stop-color="#2e7d32"/></linearGradient>
+        </defs>
+        <!-- Outer ring: Market risk 70% -->
+        <circle cx="160" cy="160" r="130" fill="none" stroke="rgba(239,83,80,0.15)" stroke-width="28"/>
+        <circle cx="160" cy="160" r="130" fill="none" stroke="url(#ring1)" stroke-width="28"
+          stroke-dasharray="573" stroke-dashoffset="172" stroke-linecap="round" transform="rotate(-90 160 160)"/>
+        <!-- Middle ring: Operational risk 45% -->
+        <circle cx="160" cy="160" r="90" fill="none" stroke="rgba(212,168,67,0.15)" stroke-width="28"/>
+        <circle cx="160" cy="160" r="90" fill="none" stroke="url(#ring2)" stroke-width="28"
+          stroke-dasharray="396" stroke-dashoffset="218" stroke-linecap="round" transform="rotate(-90 160 160)"/>
+        <!-- Inner ring: Financial risk 25% -->
+        <circle cx="160" cy="160" r="50" fill="none" stroke="rgba(76,175,130,0.15)" stroke-width="22"/>
+        <circle cx="160" cy="160" r="50" fill="none" stroke="url(#ring3)" stroke-width="22"
+          stroke-dasharray="220" stroke-dashoffset="165" stroke-linecap="round" transform="rotate(-90 160 160)"/>
+        <!-- Labels -->
+        <text x="160" y="20" text-anchor="middle" font-size="14" fill="#ef5350" font-weight="700">市場風險 70%</text>
+        <text x="160" y="38" text-anchor="middle" font-size="12" fill="#90caf9">利率變動、競爭加劇</text>
+        <text x="298" y="160" text-anchor="start" font-size="14" fill="#D4A843" font-weight="700">營運風險 45%</text>
+        <text x="298" y="178" text-anchor="start" font-size="12" fill="#90caf9">供應鏈、人才</text>
+        <text x="160" y="308" text-anchor="middle" font-size="14" fill="#4CAF82" font-weight="700">財務風險 25%</text>
+        <text x="160" y="326" text-anchor="middle" font-size="12" fill="#90caf9">外匯曝險、信貸</text>
+        <text x="22" y="160" text-anchor="end" font-size="12" fill="#90caf9">需求波動</text>
+        <text x="22" y="178" text-anchor="end" font-size="12" fill="#90caf9">系統故障</text>
+      </svg>
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:40px;height:12px;border-radius:6px;background:linear-gradient(90deg,#ef5350,#c62828);"></div>
+          <div><div style="font-size:1.25rem;font-weight:700;color:#ef5350;">市場風險 70%</div><div style="font-size:1.25rem;color:#90caf9;">利率變動、競爭加劇、需求波動</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:32px;height:12px;border-radius:6px;background:linear-gradient(90deg,#D4A843,#f57f17);"></div>
+          <div><div style="font-size:1.25rem;font-weight:700;color:#D4A843;">營運風險 45%</div><div style="font-size:1.25rem;color:#90caf9;">供應鏈中斷、人才流失、系統故障</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:24px;height:12px;border-radius:6px;background:linear-gradient(90deg,#4CAF82,#2e7d32);"></div>
+          <div><div style="font-size:1.25rem;font-weight:700;color:#4CAF82;">財務風險 25%</div><div style="font-size:1.25rem;color:#90caf9;">外匯曝險、信貸違約、流動性</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      </div>
+<!-- PAGE 8: DONUT CHART -->
+<section id="p8">
+  <div class="animate-in" style="width:100%;max-width:900px">
+    <h2 class="p8-title text-gradient">創新投資組合</h2>
+    <div style="display:flex;gap:48px;align-items:center;margin-top:20px;flex-wrap:wrap;justify-content:center;">
+      <svg viewBox="0 0 320 320" width="380" height="380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="d1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4A843"/><stop offset="100%" stop-color="#b8860b"/></linearGradient>
+          <linearGradient id="d2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4CAF82"/><stop offset="100%" stop-color="#2e7d32"/></linearGradient>
+          <linearGradient id="d3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#42a5f5"/><stop offset="100%" stop-color="#1565c0"/></linearGradient>
+          <linearGradient id="d4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ce93d8"/><stop offset="100%" stop-color="#9c27b0"/></linearGradient>
+        </defs>
+        <!-- Donut segments: AI 32%, Sustainable 28%, Digital 24%, Expansion 16% -->
+        <!-- Total = 360deg. Arc lengths: 115, 101, 86, 58 -->
+        <!-- AI: 0 to 115deg (clockwise from top) -->
+        <circle cx="160" cy="160" r="120" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="48"/>
+        <circle cx="160" cy="160" r="120" fill="none" stroke="url(#d1)" stroke-width="48"
+          stroke-dasharray="115 753" stroke-dashoffset="188" stroke-linecap="round" transform="rotate(-90 160 160)"/>
+        <circle cx="160" cy="160" r="120" fill="none" stroke="url(#d2)" stroke-width="48"
+          stroke-dasharray="101 753" stroke-dashoffset="73" stroke-linecap="round" transform="rotate(-90 160 160)"/>
+        <circle cx="160" cy="160" r="120" fill="none" stroke="url(#d3)" stroke-width="48"
+          stroke-dasharray="86 753" stroke-dashoffset="-28" stroke-linecap="round" transform="rotate(-90 160 160)"/>
+        <circle cx="160" cy="160" r="120" fill="none" stroke="url(#d4)" stroke-width="48"
+          stroke-dasharray="58 753" stroke-dashoffset="-114" stroke-linecap="round" transform="rotate(-90 160 160)"/>
+        <!-- Center -->
+        <circle cx="160" cy="160" r="72" fill="rgba(10,22,40,0.9)"/>
+        <text x="160" y="152" text-anchor="middle" font-size="22" fill="#e3f2fd" font-weight="900">100%</text>
+        <text x="160" y="174" text-anchor="middle" font-size="12" fill="#90caf9">總投資</text>
+        <!-- Labels around the donut -->
+        <text x="240" y="90" text-anchor="middle" font-size="13" fill="#D4A843" font-weight="700">AI 32%</text>
+        <text x="295" y="190" text-anchor="middle" font-size="13" fill="#4CAF82" font-weight="700">永續 28%</text>
+        <text x="200" y="275" text-anchor="middle" font-size="13" fill="#42a5f5" font-weight="700">數位 24%</text>
+        <text x="80" y="200" text-anchor="middle" font-size="13" fill="#ce93d8" font-weight="700">擴張 16%</text>
+      </svg>
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:16px;height:16px;border-radius:3px;background:linear-gradient(135deg,#D4A843,#b8860b);"></div>
+          <div><div style="font-size:1.25rem;font-weight:700;color:#e3f2fd;">AI 解決方案 <span style="color:#D4A843;">32%</span></div><div style="font-size:1.25rem;color:#90caf9;">人工智慧應用研發</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:16px;height:16px;border-radius:3px;background:linear-gradient(135deg,#4CAF82,#2e7d32);"></div>
+          <div><div style="font-size:1.25rem;font-weight:700;color:#e3f2fd;">永續能源 <span style="color:#4CAF82;">28%</span></div><div style="font-size:1.25rem;color:#90caf9;">綠能轉型投資</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:16px;height:16px;border-radius:3px;background:linear-gradient(135deg,#42a5f5,#1565c0);"></div>
+          <div><div style="font-size:1.25rem;font-weight:700;color:#e3f2fd;">數位轉型 <span style="color:#42a5f5;">24%</span></div><div style="font-size:1.25rem;color:#90caf9;">雲端與自動化</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:16px;height:16px;border-radius:3px;background:linear-gradient(135deg,#ce93d8,#9c27b0);"></div>
+          <div><div style="font-size:1.25rem;font-weight:700;color:#e3f2fd;">市場擴張 <span style="color:#ce93d8;">16%</span></div><div style="font-size:1.25rem;color:#90caf9;">新興市場佈局</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      </div>
+<!-- PAGE 9: BRANCHING TIMELINE -->
+<section id="p9">
+  <div class="animate-in" style="width:100%;max-width:900px">
+    <h2 class="p9-title text-gradient">政策與法規時間表</h2>
+    <div style="margin-top:20px;position:relative;">
+      <!-- Main vertical line -->
+      <div style="position:absolute;left:50%;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#42a5f5,#4CAF82,#D4A843,#ce93d8);transform:translateX(-50%);border-radius:2px;"></div>
+      <!-- Q1 -->
+      <div style="display:flex;align-items:center;gap:24px;margin-bottom:40px;position:relative;">
+        <div style="flex:1;text-align:right;padding-right:32px;">
+          <div style="font-size:clamp(24px,3vw,32px);font-weight:900;color:#42a5f5;">Q1</div>
+          <div style="font-size:clamp(20px,1.5vw,24px);font-weight:700;color:#e3f2fd;margin-top:4px;">碳權交易制度上路</div>
+          <div style="font-size:clamp(20px,1.5vw,24px);color:#90caf9;margin-top:4px;">政府啟動碳交易平台<br>企業碳排放免費配額縮減 20%</div>
+        </div>
+        <div style="width:48px;height:48px;border-radius:50%;background:#42a5f5;display:flex;align-items:center;justify-content:center;z-index:1;box-shadow:0 0 20px rgba(66,165,245,0.4);">
+          <div style="width:16px;height:16px;border-radius:50%;background:#0a1628;border:3px solid #e3f2fd;"></div>
+        </div>
+        <div style="flex:1;padding-left:32px;">
+          <!-- Sub branch: 數位金融 -->
+          <div style="border-left:2px solid rgba(66,165,245,0.3);padding-left:20px;margin-top:8px;">
+            <div style="font-size:clamp(20px,1.5vw,24px);font-weight:700;color:#90caf9;">數位金融監理沙盒</div>
+            <div style="font-size:clamp(20px,1.5vw,24px);color:#90caf9;opacity:0.8;">金管會擴大監理沙盒範圍</div>
+          </div>
+        </div>
+      </div>
+      <!-- Q2 -->
+      <div style="display:flex;align-items:center;gap:24px;margin-bottom:40px;position:relative;">
+        <div style="flex:1;text-align:right;padding-right:32px;">
+          <div style="border-right:2px solid rgba(76,175,130,0.3);padding-right:20px;">
+            <div style="font-size:1.25rem;font-weight:700;color:#90caf9;">AI 治理框架</div>
+            <div style="font-size:clamp(20px,1.5vw,24px);color:#90caf9;opacity:0.8;">科技部訂定規範</div>
+          </div>
+        </div>
+        <div style="width:48px;height:48px;border-radius:50%;background:#4CAF82;display:flex;align-items:center;justify-content:center;z-index:1;box-shadow:0 0 20px rgba(76,175,130,0.4);">
+          <div style="width:16px;height:16px;border-radius:50%;background:#0a1628;border:3px solid #e3f2fd;"></div>
+        </div>
+        <div style="flex:1;padding-left:32px;">
+          <div style="font-size:clamp(24px,3vw,32px);font-weight:900;color:#4CAF82;">Q2</div>
+          <div style="font-size:clamp(20px,1.5vw,24px);font-weight:700;color:#e3f2fd;margin-top:4px;">數位金融監理沙盒</div>
+          <div style="font-size:clamp(20px,1.5vw,24px);color:#90caf9;margin-top:4px;">金管會擴大監理沙盒範圍<br>開放更多金融科技創新實驗</div>
+        </div>
+      </div>
+      <!-- Q3 -->
+      <div style="display:flex;align-items:center;gap:24px;margin-bottom:40px;position:relative;">
+        <div style="flex:1;text-align:right;padding-right:32px;">
+          <div style="font-size:clamp(24px,3vw,32px);font-weight:900;color:#D4A843;">Q3</div>
+          <div style="font-size:clamp(20px,1.5vw,24px);font-weight:700;color:#e3f2fd;margin-top:4px;">ESG 強制揭露</div>
+          <div style="font-size:clamp(20px,1.5vw,24px);color:#90caf9;margin-top:4px;">上市櫃公司全面適用<br>ESG 資訊揭露準則</div>
+        </div>
+        <div style="width:48px;height:48px;border-radius:50%;background:#D4A843;display:flex;align-items:center;justify-content:center;z-index:1;box-shadow:0 0 20px rgba(212,168,67,0.4);">
+          <div style="width:16px;height:16px;border-radius:50%;background:#0a1628;border:3px solid #e3f2fd;"></div>
+        </div>
+        <div style="flex:1;padding-left:32px;">
+          <div style="border-left:2px solid rgba(212,168,67,0.3);padding-left:20px;margin-top:8px;">
+            <div style="font-size:clamp(20px,1.5vw,24px);font-weight:700;color:#90caf9;">碳權交易相關</div>
+            <div style="font-size:clamp(20px,1.5vw,24px);color:#90caf9;opacity:0.8;">第一階段執行追蹤</div>
+          </div>
+        </div>
+      </div>
+      <!-- Q4 -->
+      <div style="display:flex;align-items:center;gap:24px;position:relative;">
+        <div style="flex:1;text-align:right;padding-right:32px;"></div>
+        <div style="width:48px;height:48px;border-radius:50%;background:#ce93d8;display:flex;align-items:center;justify-content:center;z-index:1;box-shadow:0 0 20px rgba(206,147,216,0.4);">
+          <div style="width:16px;height:16px;border-radius:50%;background:#0a1628;border:3px solid #e3f2fd;"></div>
+        </div>
+        <div style="flex:1;padding-left:32px;">
+          <div style="font-size:clamp(24px,3vw,32px);font-weight:900;color:#ce93d8;">Q4</div>
+          <div style="font-size:clamp(20px,1.5vw,24px);font-weight:700;color:#e3f2fd;margin-top:4px;">AI 治理框架</div>
+          <div style="font-size:clamp(20px,1.5vw,24px);color:#90caf9;margin-top:4px;">科技部訂定 AI 開發規範<br>明確責任歸屬與風險管理</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAGE 10: CONCLUSION -->
+<section id="p10" style="background:var(--bg)">
+  <div class="p10-bg"></div>
+  <div class="p10-content animate-in">
+    <h2 class="word-massive text-gradient">行動</h2>
+    <h2 style="margin-top:0.5rem">此刻開始</h2>
+    <div class="p10-cta">
+      <a href="https://kumaweb.pages.dev/slides" class="cta-btn">返回簡報列表</a>
+    </div>
+    <div class="p10-summary">
+      <div class="p10-sum-item"><div class="ps-num">4</div><div class="ps-label">個關鍵趨勢</div></div>
+      <div class="p10-sum-item"><div class="ps-num">8</div><div class="ps-label">項產業洞察</div></div>
+      <div class="p10-sum-item"><div class="ps-num">2026</div><div class="ps-label">年度重點</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <a href="#p1" onclick="showSlide('p1')">1</a>
+  <a href="#p2" onclick="showSlide('p2')">2</a>
+  <a href="#p3" onclick="showSlide('p3')">3</a>
+  <a href="#p4" onclick="showSlide('p4')">4</a>
+  <a href="#p5" onclick="showSlide('p5')">5</a>
+  <a href="#p6" onclick="showSlide('p6')">6</a>
+  <a href="#p7" onclick="showSlide('p7')">7</a>
+  <a href="#p8" onclick="showSlide('p8')">8</a>
+  <a href="#p9" onclick="showSlide('p9')">9</a>
+  <a href="#p10" onclick="showSlide('p10')">10</a>
+</nav>
+
+<div class="back-btn"><a href="https://kumaweb.pages.dev/slides">← 列表</a></div>
+
+<script>
+// Scroll-snap
+document.documentElement.style.scrollSnapType='y mandatory';
+document.querySelectorAll('section').forEach(s=>{s.style.scrollSnapAlign='start'});
+
+// Intersection Observer animate-in
+const obs=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')}),{threshold:0.15});
+document.querySelectorAll('.animate-in').forEach(el=>obs.observe(el));
+
+// Show slide (hash-based)
+function showSlide(id){document.getElementById(id).scrollIntoView()}
+window.addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(id)document.getElementById(id).scrollIntoView()});
+</script>
+</body>
+</html>
