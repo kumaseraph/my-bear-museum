@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泰迪熊的一生</title>
+    <style>
+        :root {
+            --bear-fur: #C67B4E;
+            --bear-muzzle: #F5DEB3;
+            --warm-cream: #FFF5E6;
+            --honey: #FFB347;
+            --forest: #2D5016;
+            --sky: #87CEEB;
+            --sunset: #FF8C42;
+            --dark-night: #1A1A2E;
+            --storm: #2C3E50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            font-size: 20px;
+            background: var(--dark-night);
+            color: var(--warm-cream);
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .slide-content {
+            font-size: 1.25rem;
+            line-height: 1.8;
+        }
+
+        /* ========== P1: Cover - Circle Family ========== */
+        .slide-p1 {
+            background: linear-gradient(135deg, #2D1810 0%, #5D3A1A 50%, #8B5E3C 100%);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-p1::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,179,71,0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -100px;
+            left: -100px;
+        }
+
+        .slide-p1::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(198,123,78,0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .slide-p1 .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide-p1 .main-title {
+            font-size: 4rem;
+            color: var(--honey);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            margin-bottom: 24px;
+        }
+
+        .slide-p1 .subtitle {
+            font-size: 1.5rem;
+            color: var(--warm-cream);
+            margin-bottom: 48px;
+        }
+
+        .slide-p1 .cover-image {
+            width: 60%;
+            max-width: 600px;
+            border-radius: 50%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            border: 8px solid var(--bear-muzzle);
+        }
+
+        .slide-p1 .silhouette {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 200px;
+            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+            border-radius: 50% 50% 0 0;
+        }
+
+        /* ========== P2: Birth - Hexagon Family ========== */
+        .slide-p2 {
+            background: linear-gradient(180deg, #FFF5E6 0%, #FFE4C4 100%);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--dark-night);
+        }
+
+        .slide-p2 .hex-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(60deg, transparent 48%, rgba(198,123,78,0.1) 49%, rgba(198,123,78,0.1) 51%, transparent 52%),
+                linear-gradient(-60deg, transparent 48%, rgba(198,123,78,0.1) 49%, rgba(198,123,78,0.1) 51%, transparent 52%);
+            background-size: 60px 104px;
+        }
+
+        .slide-p2 .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 64px;
+            padding: 48px;
+        }
+
+        .slide-p2 .hex-image {
+            width: 400px;
+            height: 300px;
+            object-fit: cover;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+
+        .slide-p2 .text-content {
+            max-width: 400px;
+        }
+
+        .slide-p2 .slide-title {
+            color: var(--bear-fur);
+        }
+
+        /* ========== P3: Sweet Nap - Left Image Right Text ========== */
+        .slide-p3 {
+            background: linear-gradient(90deg, #FFB347 0%, #FFCC80 50%, #FFE0B2 100%);
+            color: var(--dark-night);
+        }
+
+        .slide-p3 .content-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide-p3 .image-section {
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .slide-p3 .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-p3 .text-section {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 64px;
+        }
+
+        .slide-p3 .slide-title {
+            color: var(--bear-fur);
+        }
+
+        /* ========== P4: First Step - Top Bottom Split ========== */
+        .slide-p4 {
+            background: var(--sky);
+            color: var(--dark-night);
+            flex-direction: column;
+        }
+
+        .slide-p4 .top-section {
+            height: 40%;
+            background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 16px;
+        }
+
+        .slide-p4 .top-section img {
+            height: 90%;
+            width: auto;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .slide-p4 .bottom-section {
+            height: 60%;
+            background: linear-gradient(180deg, #F5DEB3 0%, #DEB887 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 48px;
+            text-align: center;
+        }
+
+        .slide-p4 .slide-title {
+            color: var(--bear-fur);
+            font-size: 2.5rem;
+        }
+
+        /* ========== P5: First Adventure - Circle Family ========== */
+        .slide-p5 {
+            background: linear-gradient(135deg, #90EE90 0%, #98FB98 50%, #F0FFF0 100%);
+            color: var(--dark-night);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-p5::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(144,238,144,0.3);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+        }
+
+        .slide-p5::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,179,71,0.2);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+        }
+
+        .slide-p5 .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 64px;
+        }
+
+        .slide-p5 .circle-image {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 10px solid var(--bear-muzzle);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .slide-p5 .slide-title {
+            color: var(--forest);
+        }
+
+        /* ========== P6: Discover Honey - Dark + Mist ========== */
+        .slide-p6 {
+            background: linear-gradient(180deg, #2C3E50 0%, #1A1A2E 50%, #0D0D1A 100%);
+            color: var(--warm-cream);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-p6 .mist {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(255,179,71,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255,179,71,0.1) 0%, transparent 40%);
+            animation: mistMove 8s ease-in-out infinite;
+        }
+
+        @keyframes mistMove {
+            0%, 100% { opacity: 0.6; transform: translateX(0); }
+            50% { opacity: 0.8; transform: translateX(20px); }
+        }
+
+        .slide-p6 .honey-glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--honey) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(20px);
+            animation: honeyPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes honeyPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .slide-p6 .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 64px;
+        }
+
+        .slide-p6 .image-wrapper {
+            position: relative;
+        }
+
+        .slide-p6 .image-wrapper img {
+            width: 350px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 0 40px rgba(255,179,71,0.3);
+        }
+
+        .slide-p6 .honey-glow {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .slide-p6 .slide-title {
+            color: var(--honey);
+        }
+
+        /* ========== P7: Forest Lost - Scattered Cards ========== */
+        .slide-p7 {
+            background: linear-gradient(180deg, #1B4332 0%, #081C15 100%);
+            color: var(--warm-cream);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-p7 .card {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .slide-p7 .card-1 {
+            top: 10%;
+            left: 5%;
+            width: 200px;
+            transform: rotate(-5deg);
+        }
+
+        .slide-p7 .card-2 {
+            top: 15%;
+            right: 10%;
+            width: 180px;
+            transform: rotate(8deg);
+        }
+
+        .slide-p7 .card-3 {
+            bottom: 20%;
+            left: 15%;
+            width: 220px;
+            transform: rotate(-3deg);
+        }
+
+        .slide-p7 .card-4 {
+            bottom: 15%;
+            right: 5%;
+            width: 190px;
+            transform: rotate(5deg);
+        }
+
+        .slide-p7 .center-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .slide-p7 .center-content img {
+            width: 300px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .slide-p7 .slide-title {
+            color: var(--honey);
+        }
+
+        /* ========== P8: Storm Night - Dramatic Contrast ========== */
+        .slide-p8 {
+            background: linear-gradient(180deg, #0F0F23 0%, #1A1A2E 30%, #2C3E50 70%, #1A1A2E 100%);
+            color: var(--warm-cream);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-p8 .lightning {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.3) 0%, transparent 50%);
+            animation: lightning 4s ease-in-out infinite;
+        }
+
+        @keyframes lightning {
+            0%, 90%, 100% { opacity: 0; }
+            92%, 94%, 96% { opacity: 1; }
+            93%, 95% { opacity: 0; }
+        }
+
+        .slide-p8 .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(180deg, transparent 0%, rgba(174,194,224,0.3) 50%, transparent 100%);
+            background-size: 2px 20px;
+            animation: rainFall 0.3s linear infinite;
+        }
+
+        @keyframes rainFall {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 20px; }
+        }
+
+        .slide-p8 .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-p8 img {
+            width: 400px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 24px;
+            box-shadow: 0 0 60px rgba(255,255,255,0.2);
+            margin-bottom: 32px;
+        }
+
+        .slide-p8 .slide-title {
+            color: #87CEEB;
+            text-shadow: 0 0 20px rgba(135,206,235,0.5);
+        }
+
+        /* ========== P9: Growth - Radiance Family ========== */
+        .slide-p9 {
+            background: linear-gradient(135deg, #FF8C42 0%, #FFB347 50%, #FFD700 100%);
+            color: var(--dark-night);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-p9 .glow-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .slide-p9 .glow-1 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 60%);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        .slide-p9 .glow-2 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,215,0,0.5) 0%, transparent 60%);
+            border-radius: 50%;
+            bottom: -80px;
+            left: -80px;
+            animation: glowPulse 3s ease-in-out infinite 1s;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .slide-p9 .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 64px;
+        }
+
+        .slide-p9 .radiance-image {
+            width: 350px;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 24px;
+            box-shadow: 0 0 50px rgba(255,215,0,0.5);
+            border: 6px solid white;
+        }
+
+        .slide-p9 .slide-title {
+            color: var(--dark-night);
+            text-shadow: 2px 2px 0 var(--honey);
+        }
+
+        /* ========== P10: Bear Kingdom - Warm Circle Finale ========== */
+        .slide-p10 {
+            background: linear-gradient(180deg, #C67B4E 0%, #8B5E3C 50%, #5D3A1A 100%);
+            color: var(--warm-cream);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-p10::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255,179,71,0.4) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255,215,0,0.3) 0%, transparent 35%),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+
+        .slide-p10 .crown {
+            font-size: 5rem;
+            margin-bottom: 24px;
+            animation: crownFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes crownFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .slide-p10 .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-p10 img {
+            width: 450px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 12px solid var(--bear-muzzle);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            margin-bottom: 32px;
+        }
+
+        .slide-p10 .slide-title {
+            color: var(--bear-muzzle);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide-p10 .final-message {
+            font-size: 1.3rem;
+            max-width: 600px;
+            line-height: 1.8;
+            margin-top: 16px;
+        }
+
+        /* ========== P11: Finale ========== */
+        .slide-p11 {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+            color: var(--dark-night);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide-p11::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 30% 40%, rgba(255,255,255,0.5) 0%, transparent 40%),
+                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.3) 0%, transparent 35%);
+            animation: sparkle 3s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .slide-p11 .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-p11 .crown {
+            font-size: 5rem;
+            margin-bottom: 24px;
+            animation: crownFloat 2s ease-in-out infinite;
+        }
+
+        .slide-p11 img {
+            width: 450px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 24px;
+            border: 10px solid white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 32px;
+        }
+
+        .slide-p11 .slide-title {
+            color: var(--dark-night);
+            text-shadow: 2px 2px 0 var(--honey);
+            font-size: 2.5rem;
+        }
+
+        .slide-p11 .final-message {
+            font-size: 1.5rem;
+            max-width: 600px;
+            line-height: 1.8;
+            margin-top: 24px;
+            color: var(--dark-night);
+        }
+
+        /* ========== Navigation ========== */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            padding: 16px 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: var(--bear-fur);
+            color: var(--warm-cream);
+            border: none;
+            padding: 12px 32px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .nav-btn:hover {
+            background: var(--honey);
+            transform: scale(1.05);
+        }
+
+        .nav-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-link {
+            color: var(--warm-cream);
+            text-decoration: none;
+            font-size: 1.25rem;
+            padding: 12px 24px;
+            border: 2px solid var(--warm-cream);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: var(--warm-cream);
+            color: var(--dark-night);
+        }
+
+        .page-indicator {
+            color: var(--warm-cream);
+            font-size: 1.25rem;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .slide-p3 .content-wrapper,
+            .slide-p5 .content-wrapper,
+            .slide-p6 .content-wrapper,
+            .slide-p9 .content-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .slide-p3 .image-section,
+            .slide-p3 .text-section {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- P1: Cover -->
+        <div class="slide slide-p1 active" data-slide="1">
+            <div class="silhouette"></div>
+            <div class="cover-content">
+                <h1 class="main-title">泰迪熊的一生</h1>
+                <p class="subtitle">一個關於勇氣、成長與蜂蜜的故事</p>
+                <img class="cover-image" src="images/image_0_A_newbor_20260629_155337.jpg" alt="泰迪熊誕生">
+            </div>
+        </div>
+
+        <!-- P2: Birth -->
+        <div class="slide slide-p2" data-slide="2">
+            <div class="hex-bg"></div>
+            <div class="content-wrapper">
+                <img class="hex-image" src="images/image_0_A_newbor_20260629_155337.jpg" alt="誕生">
+                <div class="text-content">
+                    <h2 class="slide-title">🌅 誕生</h2>
+                    <p class="slide-content">
+                        在陽光森林的小床上，可愛的熊熊寶寶來到了這個世界。<br><br>
+                        一隻小熊剛出生，在柔軟的毯子中安詳地睡著。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- P3: Sweet Nap -->
+        <div class="slide slide-p3" data-slide="3">
+            <div class="content-wrapper">
+                <div class="image-section">
+                    <img src="images/image_0_A_tiny_b_20260629_155401.jpg" alt="甜蜜午睡">
+                </div>
+                <div class="text-section">
+                    <h2 class="slide-title">💤 甜蜜午睡</h2>
+                    <p class="slide-content">
+                        在溫暖的懷抱中，小熊熊度過了無憂無虑的每一天。<br><br>
+                        被大手抱著，聽著心跳聲，甜甜入睡。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- P4: First Step -->
+        <div class="slide slide-p4" data-slide="4">
+            <div class="top-section">
+                <img src="images/image_0_A_toddle_20260629_155428.jpg" alt="第一步">
+            </div>
+            <div class="bottom-section">
+                <h2 class="slide-title">🚼 第一步</h2>
+                <p class="slide-content">
+                    搖搖晃晃，小熊邁出了生命中重要的第一步！<br><br>
+                    雖然還站不太穩，但好奇心戰勝了一切。
+                </p>
+            </div>
+        </div>
+
+        <!-- P5: First Adventure -->
+        <div class="slide slide-p5" data-slide="5">
+            <div class="content-wrapper">
+                <img class="circle-image" src="images/image_0_A_young__20260629_155452.jpg" alt="初次冒險">
+                <div class="text-content">
+                    <h2 class="slide-title">🌿 初次冒險</h2>
+                    <p class="slide-content">
+                        爬出嬰兒床的柵欄，小熊第一次看到了外面廣闘的世界！<br><br>
+                        那裡有藍天、白雲，還有满地的小花。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- P6: Discover Honey -->
+        <div class="slide slide-p6" data-slide="6">
+            <div class="mist"></div>
+            <div class="content-wrapper">
+                <div class="image-wrapper">
+                    <img src="images/image_0_A_child__20260629_155518.jpg" alt="發現蜂蜜">
+                    <div class="honey-glow"></div>
+                </div>
+                <div class="text-content">
+                    <h2 class="slide-title">🍯 發現蜂蜜</h2>
+                    <p class="slide-content">
+                        在花園深處，小熊熊發現了閃閃發光的蜂蜜！<br><br>
+                        甜甜的蜂蜜，是熊熊最愛的美食。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- P7: Forest Lost -->
+        <div class="slide slide-p7" data-slide="7">
+            <div class="card card-1">
+                <span>🌲 高大的樹</span>
+            </div>
+            <div class="card card-2">
+                <span>🛤️ 彎彎繞繞的小徑</span>
+            </div>
+            <div class="card card-3">
+                <span>⭐ 閃亮的星星</span>
+            </div>
+            <div class="card card-4">
+                <span>🌙 黑暗中的光</span>
+            </div>
+            <div class="center-content">
+                <img src="images/image_0_A_child__20260629_155600.jpg" alt="森林迷路">
+                <h2 class="slide-title">🌲 森林迷路</h2>
+                <p class="slide-content">
+                    走進了大森林，小熊第一次感到孤單。<br>
+                    大樹好高，小徑彎彎繞繞，有点害怕……<br>
+                    但黑暗中，星星開始亮起來了。
+                </p>
+            </div>
+        </div>
+
+        <!-- P8: Make Friends -->
+        <div class="slide slide-p8" data-slide="8">
+            <div class="lightning"></div>
+            <div class="rain"></div>
+            <div class="content-wrapper">
+                <img src="images/image_0_A_child__20260629_155626.jpg" alt="交到朋友">
+                <h2 class="slide-title">🐰 交到朋友</h2>
+                <p class="slide-content">
+                    在森林裡，小熊熊遇見了三位新朋友！<br><br>
+                    小白兔、小松鼠和小鳥，大家一起玩耍。
+                </p>
+            </div>
+        </div>
+
+        <!-- P9: Storm Night -->
+        <div class="slide slide-p9" data-slide="9">
+            <div class="glow-container">
+                <div class="glow-1"></div>
+                <div class="glow-2"></div>
+            </div>
+            <div class="content-wrapper">
+                <img class="radiance-image" src="images/image_0_A_teenag_20260629_155650.jpg" alt="暴風雨夜">
+                <div class="text-content">
+                    <h2 class="slide-title">⛈️ 暴風雨夜</h2>
+                    <p class="slide-content">
+                        暴風雨來了！但這次，小熊熊不再害怕。<br><br>
+                        他找到了一个温暖的山洞，保護著他的朋友們。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- P10: Growth -->
+        <div class="slide slide-p10" data-slide="10">
+            <div class="content-wrapper">
+                <div class="crown">👑</div>
+                <img src="images/image_0_A_teenag_20260629_155714.jpg" alt="成長蛻變">
+                <h2 class="slide-title">🌟 成長蛻變</h2>
+                <p class="slide-content">
+                    曾經的小寶寶，已經長大成為可靠的熊熊了！<br><br>
+                    守護朋友，守護森林，成為獨當一面的熊熊。
+                </p>
+            </div>
+        </div>
+
+        <!-- P11: Bear Kingdom Finale -->
+        <div class="slide slide-p11" data-slide="11">
+            <div class="content-wrapper">
+                <div class="crown">🍯</div>
+                <img src="images/image_0_A_majest_20260629_155738.jpg" alt="熊熊王國">
+                <h2 class="slide-title">🍯 熊熊王國</h2>
+                <p class="slide-content">
+                    現在的熊熊，每天都可以開心地吃蜂蜜！<br><br>
+                    感謝這段美好的旅程，願你也被温柔以待。
+                </p>
+                <p class="final-message">～ THE END ～</p>
+            </div>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <a href="/slides.htm" class="back-link">← 回列表</a>
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()">上一頁</button>
+        <span class="page-indicator"><span id="currentPage">1</span> / <span id="totalPages">11</span></span>
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">下一頁</button>
+    </nav>
+
+    <script>
+        let current = 0;
+        const total = 11;
+
+        function show(index) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+            document.getElementById('currentPage').textContent = index + 1;
+            
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === total - 1;
+        }
+
+        function nextSlide() {
+            current = (current + 1) % total;
+            show(current);
+        }
+
+        function prevSlide() {
+            current = (current - 1 + total) % total;
+            show(current);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Initialize
+        show(0);
+    </script>
+</body>
+</html>
