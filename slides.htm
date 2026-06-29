@@ -541,7 +541,7 @@ function renderSlides(filter) {
   noResult.style.display = "none";
 
   grid.innerHTML = filtered.map(slide => `
-    <a class="slide-card" href="/${slide.file}" style="--card-accent: ${slide.color}">
+    <a class="slide-card" href="/presentations/${slide.file}.htm" style="--card-accent: ${slide.color}">
       <div class="card-preview">
         ${pawSVG(slide.color)}
         <span class="card-category-badge">${CATEGORY_LABELS[slide.category] || slide.category}</span>
