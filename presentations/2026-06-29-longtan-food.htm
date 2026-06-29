@@ -352,9 +352,9 @@ let current=0;
 const slides=document.querySelectorAll('.slide');
 const total=slides.length;
 function show(n){slides.forEach((s,i)=>s.classList.toggle('active',i===n))}
-function next(){current=(current+1)%total;show(current)}
-function prev(){current=(current-1+total)%total;show(current)}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')next();if(e.key==='ArrowLeft')prev()});
+function nextSlide(){current=(current+1)%total;show(current)}
+function prevSlide(){current=(current-1+total)%total;show(current)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')nextSlide();if(e.key==='ArrowLeft')prevSlide()});
 </script>
 </body>
 </html>
