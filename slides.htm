@@ -334,20 +334,68 @@ body {
 <script>
 const SLIDES = [
   {
+    file: "2026-06-27-travel-exploration",
+    title: "發現台灣之美 | 熊熊每日簡報",
+    date: "2026-06-27",
+    category: "life",
+    color: "#E07B39",
+    subtitle: "旅遊探索"
+  },
+  {
     file: "2026-06-26-life-lifestyle-v2",
     title: "生活休閒關鍵手冊 - 2026夏",
     date: "2026-06-26",
     category: "life",
     color: "#7A9E7E",
-    subtitle: "生活"
+    subtitle: "生活休閒"
   },
   {
-    file: "2026-06-26-tamsui-food-guide",
-    title: "淡水美食小吃攻略",
-    date: "2026-06-26",
-    category: "life",
-    color: "#E07B39",
-    subtitle: "美食"
+    file: "2026-06-04-bear-happiness",
+    title: "🐻 小熊的幸福旅程 | 熊熊簡報",
+    date: "2026-06-04",
+    category: "review",
+    color: "#D4A574",
+    subtitle: "熊熊"
+  },
+  {
+    file: "2026-06-04-mage-life",
+    title: "🧙 魔法師的日常 | 熊熊簡報",
+    date: "2026-06-04",
+    category: "creative",
+    color: "#7B1FA2",
+    subtitle: "魔法"
+  },
+  {
+    file: "bear-life-test",
+    title: "小熊的一生（測試版）",
+    date: "2026-06-04",
+    category: "review",
+    color: "#D4A574",
+    subtitle: "熊熊"
+  },
+  {
+    file: "bear-life-claude",
+    title: "小熊的一生（Claude版）",
+    date: "2026-06-04",
+    category: "review",
+    color: "#D4A574",
+    subtitle: "熊熊"
+  },
+  {
+    file: "bear-life-cursor-m27",
+    title: "小熊的一生（Cursor M27版）",
+    date: "2026-06-04",
+    category: "review",
+    color: "#D4A574",
+    subtitle: "熊熊"
+  },
+  {
+    file: "bear-life-cursor-auto",
+    title: "小熊的一生（Cursor 自動版）",
+    date: "2026-06-04",
+    category: "review",
+    color: "#D4A574",
+    subtitle: "熊熊"
   },
   {
     file: "2026-06-25-business-finance-insights",
@@ -374,14 +422,6 @@ const SLIDES = [
     subtitle: "科技"
   },
   {
-    file: "2026-06-23-quantum-computing-future",
-    title: "量子計算未來 | 熊熊每日簡報",
-    date: "2026-06-23",
-    category: "tech",
-    color: "#34495E",
-    subtitle: "前沿科技"
-  },
-  {
     file: "2026-06-22-zheng-fu-gong-wu-earth",
     title: "2026年政府新制惠民措施 | 熊熊每日簡報",
     date: "2026-06-22",
@@ -404,22 +444,6 @@ const SLIDES = [
     category: "tech",
     color: "#7B1FA2",
     subtitle: "科技"
-  },
-  {
-    file: "2026-06-22-zheng-fu-gong-wu",
-    title: "政府工作簡報",
-    date: "2026-06-22",
-    category: "government",
-    color: "#2ECC71",
-    subtitle: "政務報告"
-  },
-  {
-    file: "2026-06-22-zheng-fu-gong-wu-v2",
-    title: "政府工作簡報 V2",
-    date: "2026-06-22",
-    category: "government",
-    color: "#E74C3C",
-    subtitle: "第二版"
   },
   {
     file: "earth-tone-cover-demo",
@@ -462,30 +486,6 @@ const SLIDES = [
     subtitle: "政府"
   },
   {
-    file: "2026-06-16-rounded-honeycomb",
-    title: "圓角蜂窩模板",
-    date: "2026-06-16",
-    category: "creative",
-    color: "#16A085",
-    subtitle: "蜂窩設計"
-  },
-  {
-    file: "2026-06-16-rounded-honeycomb-v2",
-    title: "圓角蜂窩模板 V2",
-    date: "2026-06-16",
-    category: "creative",
-    color: "#2980B9",
-    subtitle: "升級版"
-  },
-  {
-    file: "2026-06-17-honeycomb-lv-demo",
-    title: "蜂窩 LV 示範",
-    date: "2026-06-17",
-    category: "creative",
-    color: "#C0392B",
-    subtitle: "精品級"
-  },
-  {
     file: "work-report-2026",
     title: "工作報告 - 熊熊簡報",
     date: "2026-06-14",
@@ -500,54 +500,6 @@ const SLIDES = [
     category: "review",
     color: "#C9A96E",
     subtitle: "回顧"
-  },
-  {
-    file: "bear-life-test",
-    title: "小熊的一生（測試版）",
-    date: "2026-06-04",
-    category: "review",
-    color: "#D4A574",
-    subtitle: "熊熊"
-  },
-  {
-    file: "bear-life-claude",
-    title: "小熊的一生（Claude版）",
-    date: "2026-06-04",
-    category: "review",
-    color: "#D4A574",
-    subtitle: "熊熊"
-  },
-  {
-    file: "2026-06-04-bear-happiness",
-    title: "小熊的幸福旅程",
-    date: "2026-06-04",
-    category: "review",
-    color: "#D4A574",
-    subtitle: "熊熊"
-  },
-  {
-    file: "2026-06-04-mage-life",
-    title: "魔法師的日常",
-    date: "2026-06-04",
-    category: "creative",
-    color: "#9370DB",
-    subtitle: "魔法"
-  },
-  {
-    file: "bear-life-cursor-m27",
-    title: "小熊的一生（Cursor M27版）",
-    date: "2026-06-04",
-    category: "review",
-    color: "#D4A574",
-    subtitle: "熊熊"
-  },
-  {
-    file: "bear-life-cursor-auto",
-    title: "小熊的一生（Cursor 自動版）",
-    date: "2026-06-04",
-    category: "review",
-    color: "#45B7D1",
-    subtitle: "熊熊"
   }
 ];
 
@@ -589,7 +541,7 @@ function renderSlides(filter) {
   noResult.style.display = "none";
 
   grid.innerHTML = filtered.map(slide => `
-    <a class="slide-card" href="/presentations/${slide.file}.htm" style="--card-accent: ${slide.color}">
+    <a class="slide-card" href="/${slide.file}" style="--card-accent: ${slide.color}">
       <div class="card-preview">
         ${pawSVG(slide.color)}
         <span class="card-category-badge">${CATEGORY_LABELS[slide.category] || slide.category}</span>
