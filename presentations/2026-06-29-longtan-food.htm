@@ -76,6 +76,10 @@ a{color:inherit;text-decoration:none}
 .p3 .legend-item .dot{width:16px;height:16px;border-radius:50%;flex-shrink:0}
 .p3 .legend-item span{color:var(--cream);font-size:.95rem}
 .p3 .legend-item .highlight{color:var(--orange);font-weight:bold}
+.p3 .zone-card,.p3 .legend-item{transition:all .2s ease}
+.p3 .zone-card:hover,.p3 .legend-item:hover{background:rgba(255,255,255,.12)}
+.p3 .zone-card.active,.p3 .legend-item.active{background:rgba(255,255,255,.15);transform:scale(1.03)}
+.p3 .zone-card.active .zone-name,.p3 .legend-item.active .highlight{color:var(--orange)}
 
 /* P4 TOP 5 - Cards + Glass Effect */
 .p4{background:linear-gradient(135deg,var(--rust) 0%,#8B4513 100%);flex-direction:column;padding:40px 56px}
@@ -186,35 +190,35 @@ a{color:inherit;text-decoration:none}
   <h2>必吃美食地圖</h2>
   <div class="map-container">
     <div class="zones">
-      <div class="zone-card">
+      <div class="zone-card" data-zone="1">
         <div class="emoji">🥟</div>
         <div class="info">
           <div class="zone-name">龍元宮周邊</div>
           <div class="zone-desc">傳統小吃・排隊美食</div>
         </div>
       </div>
-      <div class="zone-card">
+      <div class="zone-card" data-zone="2">
         <div class="emoji">🍜</div>
         <div class="info">
           <div class="zone-name">中正路一帶</div>
           <div class="zone-desc">餐廳雲集・多元料理</div>
         </div>
       </div>
-      <div class="zone-card">
+      <div class="zone-card" data-zone="3">
         <div class="emoji">🐟</div>
         <div class="info">
           <div class="zone-name">石門水庫周邊</div>
           <div class="zone-desc">活魚料理・現撈鮮煮</div>
         </div>
       </div>
-      <div class="zone-card">
+      <div class="zone-card" data-zone="4">
         <div class="emoji">🏔️</div>
         <div class="info">
           <div class="zone-name">乳姑山</div>
           <div class="zone-desc">景觀餐廳・咖啡下午茶</div>
         </div>
       </div>
-      <div class="zone-card">
+      <div class="zone-card" data-zone="5">
         <div class="emoji">🌊</div>
         <div class="info">
           <div class="zone-name">龍潭大池</div>
@@ -223,11 +227,11 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
     <div class="legend">
-      <div class="legend-item"><div class="dot" style="background:var(--orange)"></div><span><span class="highlight">🥟 龍元宮周邊</span> — 佟記蔥油餅</span></div>
-      <div class="legend-item"><div class="dot" style="background:var(--green)"></div><span><span class="highlight">🍜 中正路</span> — 橋頭老麵店</span></div>
-      <div class="legend-item"><div class="dot" style="background:var(--rust)"></div><span><span class="highlight">🐟 石門水庫</span> — 活魚多料理</span></div>
-      <div class="legend-item"><div class="dot" style="background:var(--beige)"></div><span><span class="highlight">🏔️ 乳姑山</span> — 景觀餐廳</span></div>
-      <div class="legend-item"><div class="dot" style="background:var(--orange)"></div><span><span class="highlight">🌊 龍潭大池</span> — 湖畔小吃</span></div>
+      <div class="legend-item" data-zone="1"><div class="dot" style="background:var(--orange)"></div><span><span class="highlight">🥟 龍元宮周邊</span> — 佟記蔥油餅</span></div>
+      <div class="legend-item" data-zone="2"><div class="dot" style="background:var(--green)"></div><span><span class="highlight">🍜 中正路</span> — 橋頭老麵店</span></div>
+      <div class="legend-item" data-zone="3"><div class="dot" style="background:var(--rust)"></div><span><span class="highlight">🐟 石門水庫</span> — 活魚多料理</span></div>
+      <div class="legend-item" data-zone="4"><div class="dot" style="background:var(--beige)"></div><span><span class="highlight">🏔️ 乳姑山</span> — 景觀餐廳</span></div>
+      <div class="legend-item" data-zone="5"><div class="dot" style="background:var(--orange)"></div><span><span class="highlight">🌊 龍潭大池</span> — 湖畔小吃</span></div>
     </div>
   </div>
 </div>
@@ -389,6 +393,18 @@ function show(n){slides.forEach((s,i)=>s.classList.toggle('active',i===n))}
 function nextSlide(){current=(current+1)%total;show(current)}
 function prevSlide(){current=(current-1+total)%total;show(current)}
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')nextSlide();if(e.key==='ArrowLeft')prevSlide()});
+
+// P3 zone hover highlight
+document.querySelectorAll('.p3 .zone-card, .p3 .legend-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    const z=el.dataset.zone;
+    document.querySelectorAll('.p3 [data-zone="'+z+'"]').forEach(e=>e.classList.add('active'));
+  });
+  el.addEventListener('mouseleave',()=>{
+    const z=el.dataset.zone;
+    document.querySelectorAll('.p3 [data-zone="'+z+'"]').forEach(e=>e.classList.remove('active'));
+  });
+});
 </script>
 </body>
 </html>
