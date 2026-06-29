@@ -56,22 +56,26 @@ a{color:inherit;text-decoration:none}
 .p2 .img-area img{width:200px;height:160px;object-fit:cover;border-radius:12px}
 .p2 .img-area img:first-child{grid-column:1/-1;width:100%;height:200px}
 
-/* P3 Food Map - Ladder/Step + Geometric */
-.p3{background:#0d2137;flex-direction:column;padding:40px 56px}
+/* P3 Food Map - Zone Cards + Legend */
+.p3{background:linear-gradient(135deg,#0d2137 0%,#1a3a5c 100%);flex-direction:column;padding:40px 56px}
 .p3 h2{font-size:2.45rem;color:#fff;text-align:center;margin-bottom:32px}
-.p3 .map-container{display:flex;gap:32px;height:520px}
-.p3 .map-bg{flex:1;background:linear-gradient(180deg,#1a3a5c 0%,#0d2137 100%);border-radius:16px;position:relative;overflow:hidden}
-.p3 .map-bg::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L55 20 L55 40 L30 55 L5 40 L5 20 Z' fill='none' stroke='%23ffffff08' stroke-width='1'/%3E%3C/svg%3E") repeat}
-.p3 .zone{position:absolute;padding:16px 20px;background:rgba(224,123,57,.9);color:#fff;border-radius:12px;font-size:1rem;font-weight:bold;cursor:default}
-.p3 .zone.z1{top:15%;left:10%;background:rgba(224,123,57,.95)}
-.p3 .zone.z2{top:25%;right:15%;background:rgba(74,124,89,.95)}
-.p3 .zone.z3{bottom:20%;right:10%;background:rgba(184,92,74,.95)}
-.p3 .zone.z4{top:45%;left:35%;background:rgba(196,168,130,.95);color:#333}
-.p3 .zone.z5{bottom:30%;left:15%;background:rgba(224,123,57,.85)}
-.p3 .legend{flex:.6;display:flex;flex-direction:column;gap:16px}
-.p3 .legend-item{display:flex;align-items:center;gap:16px;padding:16px;background:rgba(255,255,255,.05);border-radius:12px}
-.p3 .legend-item .dot{width:20px;height:20px;border-radius:50%;flex-shrink:0}
+.p3 .map-container{display:grid;grid-template-columns:1fr 1fr;gap:48px;flex:1}
+.p3 .zones{display:flex;flex-direction:column;gap:12px}
+.p3 .zone-card{display:flex;align-items:center;gap:20px;padding:16px 20px;background:rgba(255,255,255,.06);border-radius:16px;border-left:5px solid var(--orange);transition:transform .2s}
+.p3 .zone-card:nth-child(1){border-left-color:var(--orange)}
+.p3 .zone-card:nth-child(2){border-left-color:var(--green)}
+.p3 .zone-card:nth-child(3){border-left-color:var(--rust)}
+.p3 .zone-card:nth-child(4){border-left-color:var(--beige)}
+.p3 .zone-card:nth-child(5){border-left-color:var(--orange)}
+.p3 .zone-card .emoji{font-size:2rem;flex-shrink:0}
+.p3 .zone-card .info{flex:1}
+.p3 .zone-card .zone-name{font-size:1.1rem;font-weight:bold;color:#fff;margin-bottom:4px}
+.p3 .zone-card .zone-desc{font-size:.85rem;color:var(--beige)}
+.p3 .legend{flex:1;display:flex;flex-direction:column;gap:12px}
+.p3 .legend-item{display:flex;align-items:center;gap:16px;padding:16px 20px;background:rgba(255,255,255,.05);border-radius:12px}
+.p3 .legend-item .dot{width:16px;height:16px;border-radius:50%;flex-shrink:0}
 .p3 .legend-item span{color:var(--cream);font-size:.95rem}
+.p3 .legend-item .highlight{color:var(--orange);font-weight:bold}
 
 /* P4 TOP 5 - Cards + Glass Effect */
 .p4{background:linear-gradient(135deg,var(--rust) 0%,#8B4513 100%);flex-direction:column;padding:40px 56px}
@@ -181,19 +185,49 @@ a{color:inherit;text-decoration:none}
 <div class="slide p3">
   <h2>必吃美食地圖</h2>
   <div class="map-container">
-    <div class="map-bg">
-      <div class="zone z1">🥟 龍元宮周邊<br><small>傳統小吃</small></div>
-      <div class="zone z2">🍜 中正路一帶<br><small>餐廳雲集</small></div>
-      <div class="zone z3">🐟 石門水庫周邊<br><small>活魚料理</small></div>
-      <div class="zone z4">🏔️ 乳姑山<br><small>景觀餐廳</small></div>
-      <div class="zone z5">🌊 龍潭大池<br><small>湖畔美食</small></div>
+    <div class="zones">
+      <div class="zone-card">
+        <div class="emoji">🥟</div>
+        <div class="info">
+          <div class="zone-name">龍元宮周邊</div>
+          <div class="zone-desc">傳統小吃・排隊美食</div>
+        </div>
+      </div>
+      <div class="zone-card">
+        <div class="emoji">🍜</div>
+        <div class="info">
+          <div class="zone-name">中正路一帶</div>
+          <div class="zone-desc">餐廳雲集・多元料理</div>
+        </div>
+      </div>
+      <div class="zone-card">
+        <div class="emoji">🐟</div>
+        <div class="info">
+          <div class="zone-name">石門水庫周邊</div>
+          <div class="zone-desc">活魚料理・現撈鮮煮</div>
+        </div>
+      </div>
+      <div class="zone-card">
+        <div class="emoji">🏔️</div>
+        <div class="info">
+          <div class="zone-name">乳姑山</div>
+          <div class="zone-desc">景觀餐廳・咖啡下午茶</div>
+        </div>
+      </div>
+      <div class="zone-card">
+        <div class="emoji">🌊</div>
+        <div class="info">
+          <div class="zone-name">龍潭大池</div>
+          <div class="zone-desc">湖畔美食・夜景餐廳</div>
+        </div>
+      </div>
     </div>
     <div class="legend">
-      <div class="legend-item"><div class="dot" style="background:var(--orange)"></div><span>龍元宮周邊 — 傳統小吃</span></div>
-      <div class="legend-item"><div class="dot" style="background:var(--green)"></div><span>中正路一帶 — 餐廳雲集</span></div>
-      <div class="legend-item"><div class="dot" style="background:var(--rust)"></div><span>石門水庫 — 活魚料理</span></div>
-      <div class="legend-item"><div class="dot" style="background:var(--beige)"></div><span>乳姑山 — 景觀餐廳</span></div>
-      <div class="legend-item"><div class="dot" style="background:var(--orange)"></div><span>龍潭大池 — 湖畔美食</span></div>
+      <div class="legend-item"><div class="dot" style="background:var(--orange)"></div><span><span class="highlight">🥟 龍元宮周邊</span> — 佟記蔥油餅</span></div>
+      <div class="legend-item"><div class="dot" style="background:var(--green)"></div><span><span class="highlight">🍜 中正路</span> — 橋頭老麵店</span></div>
+      <div class="legend-item"><div class="dot" style="background:var(--rust)"></div><span><span class="highlight">🐟 石門水庫</span> — 活魚多料理</span></div>
+      <div class="legend-item"><div class="dot" style="background:var(--beige)"></div><span><span class="highlight">🏔️ 乳姑山</span> — 景觀餐廳</span></div>
+      <div class="legend-item"><div class="dot" style="background:var(--orange)"></div><span><span class="highlight">🌊 龍潭大池</span> — 湖畔小吃</span></div>
     </div>
   </div>
 </div>
