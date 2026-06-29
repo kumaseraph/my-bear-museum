@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>龍潭美食推薦</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:20px}
+body{font-family:'Noto Sans TC','Microsoft JhengHei',sans-serif;background:#1a1a2e;overflow:hidden}
+.slide{width:1280px;height:720px;position:relative;overflow:hidden;display:none}
+.slide.active{display:flex}
+a{color:inherit;text-decoration:none}
+
+/* Colors */
+:root{
+--orange:#E07B39;
+--rust:#B85C4A;
+--beige:#C4A882;
+--green:#4A7C59;
+--dark:#1a1a2e;
+--cream:#F5F0E6;
+}
+
+/* Navigation */
+.nav{position:fixed;bottom:24px;right:24px;z-index:1000;display:flex;gap:16px}
+.nav a{padding:12px 24px;background:var(--orange);color:#fff;border-radius:8px;font-weight:bold;transition:transform .2s}
+.nav a:hover{transform:scale(1.05)}
+
+/* P1 Cover - Circles + Gradient */
+.p1{background:linear-gradient(135deg,#1a3a4a 0%,#2d5a5a 50%,#1a3a2e 100%);flex-direction:column;justify-content:center;align-items:center}
+.p1 .circle{position:absolute;border-radius:50%;opacity:.15}
+.p1 .c1{width:400px;height:400px;background:var(--orange);top:-100px;right:-100px}
+.p1 .c2{width:300px;height:300px;background:var(--beige);bottom:-80px;left:-80px}
+.p1 .c3{width:200px;height:200px;background:var(--green);top:50%;left:10%}
+.p1 .title{font-size:3.05rem;color:#fff;font-weight:900;z-index:10;text-shadow:3px 3px 6px rgba(0,0,0,.3)}
+.p1 .subtitle{font-size:1.5rem;color:var(--beige);margin-top:16px;z-index:10}
+.p1 .food-img{position:absolute;opacity:.25;border-radius:50%;object-fit:cover}
+.p1 .fi1{width:180px;height:180px;top:10%;left:5%;object-fit:cover}
+.p1 .fi2{width:150px;height:150px;bottom:15%;right:8%}
+.p1 .fi3{width:120px;height:120px;top:60%;right:25%}
+
+/* P2 Longtan Impression - Hexagons + Solid */
+.p2{background:var(--dark);flex-direction:column;padding:48px 64px}
+.p2 .hex{position:absolute;width:120px;height:138px;background:var(--rust);opacity:.08;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)}
+.p2 .h1{top:10%;right:10%}
+.p2 .h2{bottom:20%;left:5%}
+.p2 .h3{top:60%;right:30%}
+.p2 .header{display:flex;align-items:center;gap:24px;margin-bottom:40px}
+.p2 .icon{width:64px;height:64px;background:var(--orange);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem}
+.p2 h2{font-size:2.45rem;color:#fff}
+.p2 .content{display:flex;gap:48px;align-items:flex-start}
+.p2 .text{flex:1.2;color:var(--cream);font-size:1.25rem;line-height:1.8}
+.p2 .text p{margin-bottom:24px}
+.p2 .img-area{flex:.8;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.p2 .img-area img{width:200px;height:160px;object-fit:cover;border-radius:12px}
+.p2 .img-area img:first-child{grid-column:1/-1;width:100%;height:200px}
+
+/* P3 Food Map - Ladder/Step + Geometric */
+.p3{background:#0d2137;flex-direction:column;padding:40px 56px}
+.p3 h2{font-size:2.45rem;color:#fff;text-align:center;margin-bottom:32px}
+.p3 .map-container{display:flex;gap:32px;height:520px}
+.p3 .map-bg{flex:1;background:linear-gradient(180deg,#1a3a5c 0%,#0d2137 100%);border-radius:16px;position:relative;overflow:hidden}
+.p3 .map-bg::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L55 20 L55 40 L30 55 L5 40 L5 20 Z' fill='none' stroke='%23ffffff08' stroke-width='1'/%3E%3C/svg%3E") repeat}
+.p3 .zone{position:absolute;padding:16px 20px;background:rgba(224,123,57,.9);color:#fff;border-radius:12px;font-size:1rem;font-weight:bold;cursor:default}
+.p3 .zone.z1{top:15%;left:10%;background:rgba(224,123,57,.95)}
+.p3 .zone.z2{top:25%;right:15%;background:rgba(74,124,89,.95)}
+.p3 .zone.z3{bottom:20%;right:10%;background:rgba(184,92,74,.95)}
+.p3 .zone.z4{top:45%;left:35%;background:rgba(196,168,130,.95);color:#333}
+.p3 .zone.z5{bottom:30%;left:15%;background:rgba(224,123,57,.85)}
+.p3 .legend{flex:.6;display:flex;flex-direction:column;gap:16px}
+.p3 .legend-item{display:flex;align-items:center;gap:16px;padding:16px;background:rgba(255,255,255,.05);border-radius:12px}
+.p3 .legend-item .dot{width:20px;height:20px;border-radius:50%;flex-shrink:0}
+.p3 .legend-item span{color:var(--cream);font-size:.95rem}
+
+/* P4 TOP 5 - Cards + Glass Effect */
+.p4{background:linear-gradient(135deg,var(--rust) 0%,#8B4513 100%);flex-direction:column;padding:40px 56px}
+.p4 h2{font-size:2.45rem;color:#fff;text-align:center;margin-bottom:32px;text-shadow:2px 2px 4px rgba(0,0,0,.2)}
+.p4 .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;flex:1}
+.p4 .card{background:rgba(255,255,255,.12);backdrop-filter:blur(10px);border-radius:16px;padding:24px 16px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;border:1px solid rgba(255,255,255,.15)}
+.p4 .card img{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--beige)}
+.p4 .card .rank{font-size:1.75rem;font-weight:900;color:var(--orange)}
+.p4 .card .name{font-size:1rem;font-weight:bold;color:#fff}
+.p4 .card .desc{font-size:.8rem;color:var(--beige)}
+
+/* P5 Giant Bowl Noodles - Funnel + Gradient */
+.p5{background:linear-gradient(180deg,#2d1810 0%,#1a0a05 100%);flex-direction:column;padding:48px 64px;align-items:center}
+.p5 .funnel{position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:300px;background:linear-gradient(180deg,var(--orange) 0%,transparent 100%);opacity:.1;clip-path:polygon(30% 0%,70% 0%,100% 100%,0% 100%)}
+.p5 h2{font-size:2.45rem;color:var(--orange);margin-bottom:24px;z-index:10}
+.p5 .main-content{display:flex;gap:48px;align-items:center;z-index:10}
+.p5 .bowl-img{width:320px;height:320px;border-radius:50%;object-fit:cover;border:8px solid var(--rust);box-shadow:0 0 60px rgba(224,123,57,.3)}
+.p5 .details{flex:1;max-width:500px}
+.p5 .details h3{font-size:1.75rem;color:var(--beige);margin-bottom:24px}
+.p5 .details ul{list-style:none;display:flex;flex-direction:column;gap:20px}
+.p5 .details li{display:flex;align-items:center;gap:16px;color:var(--cream);font-size:1.2rem}
+.p5 .details li::before{content:'★';color:var(--orange);font-size:1.5rem}
+
+/* P6 Hakka Food - Triangles + Pattern */
+.p6{background:var(--green);flex-direction:column;padding:40px 56px;position:relative}
+.p6::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0 L40 20 L20 40 L0 20 Z' fill='none' stroke='%23ffffff10' stroke-width='1'/%3E%3C/svg%3E") repeat}
+.p6 h2{font-size:2.45rem;color:#fff;text-align:center;margin-bottom:40px;z-index:10;text-shadow:2px 2px 4px rgba(0,0,0,.2)}
+.p6 .grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;z-index:10;flex:1}
+.p6 .item{background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border-radius:20px;padding:32px;display:flex;gap:24px;align-items:center;border:1px solid rgba(255,255,255,.2)}
+.p6 .item img{width:180px;height:180px;border-radius:16px;object-fit:cover;flex-shrink:0}
+.p6 .item .info h3{font-size:1.5rem;color:#fff;margin-bottom:16px}
+.p6 .item .info p{font-size:1rem;color:var(--beige);line-height:1.6}
+
+/* P7 Limited Edition - Diamonds + Glass */
+.p7{background:#1a2a3a;flex-direction:column;padding:40px 56px}
+.p7 h2{font-size:2.45rem;color:#fff;text-align:center;margin-bottom:32px}
+.p7 .items{display:flex;gap:32px;justify-content:center;flex:1;align-items:center}
+.p7 .item{width:320px;padding:32px;background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border-radius:8px;border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;transform:rotate(45deg);height:320px;justify-content:center}
+.p7 .item img{width:180px;height:180px;border-radius:12px;object-fit:cover;transform:rotate(-45deg)}
+.p7 .item h3{font-size:1.1rem;color:#fff;transform:rotate(-45deg)}
+.p7 .item p{font-size:.95rem;color:var(--beige);transform:rotate(-45deg)}
+
+/* P8 Hidden Gems - Soft Rectangles + Warm Gradient */
+.p8{background:linear-gradient(135deg,#3d2a1a 0%,#5a3d2a 50%,#2a1a0a 100%);flex-direction:column;padding:40px 56px}
+.p8 h2{font-size:2.45rem;color:var(--beige);text-align:center;margin-bottom:32px}
+.p8 .grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:1fr 1fr;gap:24px;flex:1}
+.p8 .item{background:linear-gradient(145deg,rgba(224,123,57,.2) 0%,rgba(184,92,74,.2) 100%);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:16px;border:1px solid rgba(255,255,255,.08)}
+.p8 .item img{width:100%;height:140px;border-radius:12px;object-fit:cover}
+.p8 .item h3{font-size:1.1rem;color:#fff}
+.p8 .item p{font-size:.85rem;color:var(--beige);flex:1}
+.p8 .item:nth-child(2){grid-row:1/3}
+.p8 .item:nth-child(2) img{height:100%}
+
+/* P9 Ending - Circles + Dark Dramatic */
+.p9{background:linear-gradient(180deg,#0a0a15 0%,#1a1a2e 50%,#0d1a2a 100%);flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.p9 .c{position:absolute;border-radius:50%;opacity:.1}
+.p9 .c1{width:500px;height:500px;background:var(--orange);top:-200px;right:-150px}
+.p9 .c2{width:350px;height:350px;background(var(--green));bottom:-150px;left:-100px}
+.p9 h2{font-size:2.8rem;color:#fff;margin-bottom:32px;z-index:10}
+.p9 .route{display:flex;gap:24px;align-items:center;margin-bottom:40px;z-index:10}
+.p9 .route span{font-size:1.1rem;color:var(--cream);padding:12px 20px;background:rgba(224,123,57,.2);border-radius:8px}
+.p9 .route .arrow{color:var(--orange);font-size:1.5rem}
+.p9 .cta{font-size:1.75rem;color:var(--orange);font-weight:900;z-index:10;padding:16px 48px;background:rgba(224,123,57,.15);border:2px solid var(--orange);border-radius:12px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.p9 .note{position:absolute;bottom:40px;font-size:.9rem;color:rgba(255,255,255,.4)}
+.p9 .note a{color:var(--beige)}
+</style>
+</head>
+<body>
+
+<!-- P1 Cover -->
+<div class="slide p1 active">
+  <div class="circle c1"></div>
+  <div class="circle c2"></div>
+  <div class="circle c3"></div>
+  <img class="food-img fi1" src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=400&q=80" alt="食物">
+  <img class="food-img fi2" src="https://images.unsplash.com/photo-1569058242567-93de6f36f8eb?w=400&q=80" alt="食物">
+  <img class="food-img fi3" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="食物">
+  <div class="title">龍潭美食推薦</div>
+  <div class="subtitle">桃園龍潭・在地小吃攻略</div>
+</div>
+
+<!-- P2 Longtan Impression -->
+<div class="slide p2">
+  <div class="hex h1"></div>
+  <div class="hex h2"></div>
+  <div class="hex h3"></div>
+  <div class="header">
+    <div class="icon">🏙️</div>
+    <h2>龍潭印象</h2>
+  </div>
+  <div class="content">
+    <div class="text">
+      <p>龍潭是桃園市的行政區，以<strong style="color:var(--orange)">客家文化</strong>聞名，擁有豐富的歷史與自然景觀。</p>
+      <p>著名景點包括：<br>✦ 龍潭大池 — 湖畔風光<br>✦ 石門水庫 — 生態秘境<br>✦ 棒球名人堂 — 運動殿堂</p>
+      <p>龍潭也是美食天堂，從傳統客家小吃到現代創意料理，應有盡有，等你來探索！</p>
+    </div>
+    <div class="img-area">
+      <img src="https://images.unsplash.com/photo-1528164344705-47542687000d?w=400&q=80" alt="龍潭風光">
+      <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=400&q=80" alt="美食">
+      <img src="https://images.unsplash.com/photo-1569058242567-93de6f36f8eb?w=400&q=80" alt="小吃">
+    </div>
+  </div>
+</div>
+
+<!-- P3 Food Map -->
+<div class="slide p3">
+  <h2>必吃美食地圖</h2>
+  <div class="map-container">
+    <div class="map-bg">
+      <div class="zone z1">🥟 龍元宮周邊<br><small>傳統小吃</small></div>
+      <div class="zone z2">🍜 中正路一帶<br><small>餐廳雲集</small></div>
+      <div class="zone z3">🐟 石門水庫周邊<br><small>活魚料理</small></div>
+      <div class="zone z4">🏔️ 乳姑山<br><small>景觀餐廳</small></div>
+      <div class="zone z5">🌊 龍潭大池<br><small>湖畔美食</small></div>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="dot" style="background:var(--orange)"></div><span>龍元宮周邊 — 傳統小吃</span></div>
+      <div class="legend-item"><div class="dot" style="background:var(--green)"></div><span>中正路一帶 — 餐廳雲集</span></div>
+      <div class="legend-item"><div class="dot" style="background:var(--rust)"></div><span>石門水庫 — 活魚料理</span></div>
+      <div class="legend-item"><div class="dot" style="background:var(--beige)"></div><span>乳姑山 — 景觀餐廳</span></div>
+      <div class="legend-item"><div class="dot" style="background:var(--orange)"></div><span>龍潭大池 — 湖畔美食</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- P4 TOP 5 Cards -->
+<div class="slide p4">
+  <h2>在地人激推 TOP 5</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&q=80" alt="麵">
+      <div class="rank">#1</div>
+      <div class="name">橋頭老麵店</div>
+      <div class="desc">榨菜麵</div>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80" alt="蔥油餅">
+      <div class="rank">#2</div>
+      <div class="name">佟記蔥油餅</div>
+      <div class="desc">酥脆外皮</div>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="客家料理">
+      <div class="rank">#3</div>
+      <div class="name">糧園茶藝</div>
+      <div class="desc">客家餐廳</div>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&q=80" alt="小館">
+      <div class="rank">#4</div>
+      <div class="name">美樂地我家小館</div>
+      <div class="desc">家常美味</div>
+    </div>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80" alt="牛汶水">
+      <div class="rank">#5</div>
+      <div class="name">私房老店</div>
+      <div class="desc">牛汶水</div>
+    </div>
+  </div>
+</div>
+
+<!-- P5 Giant Bowl Noodles -->
+<div class="slide p5">
+  <div class="funnel"></div>
+  <h2>巨無霸碗公榨菜麵</h2>
+  <div class="main-content">
+    <img class="bowl-img" src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&q=80" alt="榨菜麵">
+    <div class="details">
+      <h3>橋頭老麵店的招牌美味</h3>
+      <ul>
+        <li>在地人從小吃到大的老味道</li>
+        <li>大碗公裝麵，份量超級十足</li>
+        <li>榨菜肉絲麵為經典代表</li>
+        <li>湯頭鮮美，麵條Q彈</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- P6 Hakka Food -->
+<div class="slide p6">
+  <h2>客家美食代表</h2>
+  <div class="grid">
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80" alt="蔥油餅">
+      <div class="info">
+        <h3>佟記蔥油餅</h3>
+        <p>酥脆外皮，層次分明，在地排隊名店。每日新鮮現做，香氣四溢，是許多龍潭人從小到大的美味回憶。</p>
+      </div>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="客家料理">
+      <div class="info">
+        <h3>糧園茶藝客家餐廳</h3>
+        <p>傳統客家料理結合茶香入菜，招牌菜色包括茶葉蛋、茶熏雞等。環境優雅，適合家庭聚餐。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P7 Limited Edition -->
+<div class="slide p7">
+  <h2>龍潭限定版美食</h2>
+  <div class="items">
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&q=80" alt="臭豆腐">
+      <h3>限定版臭豆腐鴨血</h3>
+      <p>一週只開三天</p>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=400&q=80" alt="小籠包">
+      <h3>林記手工小籠包</h3>
+      <p>現包現蒸</p>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&q=80" alt="麵館">
+      <h3>聞媽媽麵館</h3>
+      <p>在地人最愛</p>
+    </div>
+  </div>
+</div>
+
+<!-- P8 Hidden Gems -->
+<div class="slide p8">
+  <h2>在地人低調美食口袋名單</h2>
+  <div class="grid">
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&q=80" alt="越式">
+      <h3>台越小吃</h3>
+      <p>道地越南河粉</p>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&q=80" alt="蛋炒飯">
+      <h3>香香蛋炒飯</h3>
+      <p>銅板美食首選</p>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="燒鴨">
+      <h3>鴨爸</h3>
+      <p>燒鴨飯香氣迷人</p>
+    </div>
+    <div class="item">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&q=80" alt="客家">
+      <h3>大江屋客家美食館</h3>
+      <p>傳統客家風味</p>
+    </div>
+  </div>
+</div>
+
+<!-- P9 Ending -->
+<div class="slide p9">
+  <div class="c c1"></div>
+  <div class="c c2"></div>
+  <h2>龍潭美食地圖</h2>
+  <div class="route">
+    <span>龍元宮祈福</span>
+    <span class="arrow">→</span>
+    <span>周邊小吃</span>
+    <span class="arrow">→</span>
+    <span>下午茶景觀餐廳</span>
+    <span class="arrow">→</span>
+    <span>晚餐活魚料理</span>
+  </div>
+  <div class="cta">出發探索龍潭美食！</div>
+  <div class="note"><a href="slides.htm">← 回簡報列表</a></div>
+</div>
+
+<div class="nav">
+  <a href="javascript:void(0)" onclick="prevSlide()">← 上一頁</a>
+  <a href="javascript:void(0)" onclick="nextSlide()">下一頁 →</a>
+  <a href="slides.htm">回列表</a>
+</div>
+
+<script>
+let current=0;
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+function show(n){slides.forEach((s,i)=>s.classList.toggle('active',i===n))}
+function next(){current=(current+1)%total;show(current)}
+function prev(){current=(current-1+total)%total;show(current)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')next();if(e.key==='ArrowLeft')prev()});
+</script>
+</body>
+</html>
