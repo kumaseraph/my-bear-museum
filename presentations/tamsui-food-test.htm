@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>淡水美食小吃攻略 | 淡水</title>
+<style>
+:root {
+  --primary: #E07B39;
+  --bg: #FFF8F0;
+  --bg2: #F5EFE6;
+  --surface: #FFFFFF;
+  --accent: #E07B39;
+  --accent2: #B85C4A;
+  --warm: #C4A882;
+  --earth: #9A7B5A;
+  --green: #7A9E7E;
+  --text: #5D3A1A;
+  --text2: #9A7B5A;
+  --rose: #D4909A;
+  --border: rgba(93,58,26,0.12);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+section {
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  overflow: hidden;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 24px 48px;
+}
+.content {
+  padding: clamp(20px, 3vw, 40px);
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ===== P1 封面 ===== */
+#p1 {
+  text-align: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(224,123,57,0.18) 0%, rgba(224,123,57,0.06) 40%, transparent 70%);
+}
+.cover-icon {
+  width: 140px; height: 140px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, var(--primary), var(--accent2));
+  border-radius: 32px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 16px 48px rgba(224,123,57,0.35);
+}
+.cover-icon svg { width: 72px; height: 72px; stroke: #fff; fill: none; stroke-width: 2.5; }
+.tag { display: inline-block; background: var(--primary); color: #fff; padding: 8px 28px; border-radius: 24px; font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+h1 { font-size: clamp(44px, 6vw, 72px); font-weight: 800; color: var(--text); line-height: 1.15; margin-bottom: 12px; }
+.cover-sub { font-size: clamp(18px, 2.5vw, 24px); color: var(--text2); margin-bottom: 8px; }
+.cover-date { font-size: 16px; color: var(--warm); }
+
+/* ===== P2 目錄 ===== */
+#p2 {
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(196,168,130,0.1) 100%);
+}
+.sec-label { font-size: 13px; letter-spacing: 2px; color: var(--primary); text-transform: uppercase; margin-bottom: 10px; }
+h2 { font-size: clamp(34px, 4.5vw, 52px); font-weight: 700; margin-bottom: 28px; color: var(--text); }
+
+/* ===== P2 特色輪播目錄 ===== */
+.toc-carousel {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 12px;
+}
+.toc-item {
+  flex: 1;
+  max-width: 180px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.toc-item:hover { transform: translateY(-6px); box-shadow: 0 12px 36px rgba(224,123,57,0.18); }
+.toc-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0.08;
+}
+.toc-item:nth-child(1)::before { background: var(--primary); }
+.toc-item:nth-child(2)::before { background: var(--accent2); }
+.toc-item:nth-child(3)::before { background: var(--earth); }
+.toc-item:nth-child(4)::before { background: var(--green); }
+.toc-item:nth-child(5)::before { background: var(--rose); }
+.toc-item:nth-child(6)::before { background: var(--warm); }
+.toc-pict {
+  width: 72px; height: 72px;
+  margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.toc-pict svg { width: 100%; height: 100%; stroke-width: 1.8; fill: none; }
+.toc-num { font-size: 12px; color: var(--text2); margin-bottom: 6px; font-weight: 600; }
+.toc-title { font-size: 17px; font-weight: 700; color: var(--text); line-height: 1.3; }
+
+/* ===== P3-P8 內容 ===== */
+#p3 {
+  background: radial-gradient(ellipse 60% 40% at 30% 70%, rgba(224,123,57,0.12) 0%, transparent 55%);
+}
+#p4 {
+  background: radial-gradient(ellipse 80% 60% at 70% 30%, rgba(184,92,74,0.1) 0%, transparent 55%);
+}
+#p5 {
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(212,144,154,0.08) 100%);
+}
+#p6 {
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(196,168,130,0.12) 0%, transparent 60%);
+}
+#p7 {
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(122,158,126,0.08) 100%);
+}
+#p8 {
+  background: radial-gradient(ellipse 70% 50% at 40% 60%, rgba(224,123,57,0.08) 0%, transparent 55%);
+}
+
+/* ===== P3 經典小吃橫向卡片 ===== */
+.food-hero {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 32px 40px;
+  background: radial-gradient(ellipse 80% 100% at 10% 50%, rgba(224,123,57,0.22) 0%, rgba(224,123,57,0.08) 40%, transparent 70%);
+  border-radius: 28px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.food-hero-icon {
+  width: 160px;
+  height: 160px;
+  min-width: 160px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 36px rgba(224,123,57,0.35);
+}
+.food-hero-icon svg { width: 104px; height: 104px; stroke: #fff; fill: none; stroke-width: 2; }
+.food-hero-text h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: var(--text); margin-bottom: 10px; }
+.food-hero-text p { font-size: 18px; color: var(--text2); line-height: 1.6; }
+.food-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.food-card {
+  flex: 1;
+  min-width: 160px;
+  max-width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 28px 20px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.food-card:hover { transform: translateY(-6px); box-shadow: 0 14px 40px rgba(224,123,57,0.2); }
+.food-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  border-radius: 24px 24px 0 0;
+}
+.food-card:nth-child(1)::before { background: var(--primary); }
+.food-card:nth-child(2)::before { background: var(--accent2); }
+.food-card:nth-child(3)::before { background: var(--earth); }
+.food-card:nth-child(4)::before { background: var(--green); }
+.food-card:nth-child(5)::before { background: var(--rose); }
+.food-illus {
+  width: 80px; height: 80px;
+  margin: 0 auto 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.food-illus svg { width: 100%; height: 100%; stroke-width: 2.1; fill: none; }
+.food-name { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.food-desc { font-size: 14px; color: var(--text2); line-height: 1.5; }
+.food-tag {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 11px; padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* ===== P4 分組柱狀圖 ===== */
+.rank-split {
+  display: flex;
+  gap: 32px;
+  align-items: stretch;
+  margin-top: 12px;
+}
+.rank-left {
+  flex: 0 0 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(224,123,57,0.18) 0%, rgba(224,123,57,0.06) 40%, transparent 70%);
+  border-radius: 28px;
+  padding: 32px;
+  position: relative;
+}
+.rank-left-label {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-size: 12px;
+  color: var(--primary);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.donut-big {
+  position: relative;
+  width: 280px;
+  height: 280px;
+}
+.donut-big svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.donut-big-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.donut-big-center .num { font-size: 52px; font-weight: 800; color: var(--primary); }
+.donut-big-center .label { font-size: 14px; color: var(--text2); }
+.rank-left-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 16px;
+}
+.rank-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: 20px 0;
+}
+.rank-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.rank-bar-name {
+  width: 80px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+}
+.rank-bar-track {
+  flex: 1;
+  height: 28px;
+  background: var(--bg2);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+.rank-bar-fill {
+  height: 100%;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  justify-content: flex-end;
+}
+.rank-bar-pct {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+.rank-bar-item:nth-child(1) .rank-bar-fill { background: linear-gradient(90deg, var(--accent2), var(--primary)); }
+.rank-bar-item:nth-child(2) .rank-bar-fill { background: linear-gradient(90deg, var(--earth), var(--accent2)); }
+.rank-bar-item:nth-child(3) .rank-bar-fill { background: linear-gradient(90deg, var(--rose), #E07B9A); }
+.rank-bar-item:nth-child(4) .rank-bar-fill { background: linear-gradient(90deg, var(--green), #5BB5A0); }
+.rank-bar-item:nth-child(5) .rank-bar-fill { background: linear-gradient(90deg, var(--warm), var(--earth)); }
+
+/* ===== P5 雙層環形圖 ===== */
+.ring-wrap {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  justify-content: center;
+  margin-top: 10px;
+}
+.donut-ring {
+  position: relative;
+  width: 300px; height: 300px;
+}
+.donut-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.donut-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.donut-center .num { font-size: 42px; font-weight: 800; color: var(--primary); }
+.donut-center .label { font-size: 14px; color: var(--text2); }
+.ring-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 17px;
+}
+.legend-dot {
+  width: 16px; height: 16px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.legend-label { color: var(--text); font-weight: 500; }
+.legend-pct { color: var(--text2); font-size: 14px; margin-left: auto; }
+
+/* ===== P6 時間軸 ===== */
+.timeline {
+  position: relative;
+  margin-top: 10px;
+}
+.tl-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 28px;
+  position: relative;
+}
+.tl-dot {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  z-index: 2;
+  margin-left: 20px;
+}
+.tl-dot svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 2.5; }
+.tl-card {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px 24px;
+  margin-left: -10px;
+  position: relative;
+}
+.tl-card::before {
+  content: '';
+  position: absolute;
+  left: -18px; top: 50%;
+  width: 0; height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 14px solid var(--border);
+  transform: translateY(-50%);
+}
+.tl-time { font-size: 12px; color: var(--primary); font-weight: 700; margin-bottom: 6px; }
+.tl-name { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.tl-desc { font-size: 14px; color: var(--text2); line-height: 1.5; }
+
+/* ===== P7 半圓儀表 ===== */
+.gauge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 24px 40px;
+  margin-top: 20px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.gauge-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gauge-item:nth-child(1) { grid-column: 1; grid-row: 1; }
+.gauge-item:nth-child(2) { grid-column: 2; grid-row: 1; }
+.gauge-item:nth-child(3) { grid-column: 1; grid-row: 2; }
+.gauge-item:nth-child(4) { grid-column: 2; grid-row: 2; }
+.gauge-circle {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  position: relative;
+}
+.gauge-item:nth-child(1) .gauge-circle {
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(224,123,57,0.15) 0%, rgba(224,123,57,0.05) 70%, transparent 100%);
+}
+.gauge-item:nth-child(2) .gauge-circle {
+  width: 130px;
+  height: 130px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 20px;
+}
+.gauge-item:nth-child(3) .gauge-circle {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(184,92,74,0.15) 0%, rgba(184,92,74,0.05) 70%, transparent 100%);
+}
+.gauge-item:nth-child(4) .gauge-circle {
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(212,144,154,0.2) 0%, rgba(212,144,154,0.08) 70%, transparent 100%);
+}
+.gauge-semi {
+  position: relative;
+  width: 180px; height: 100px;
+  margin: 0 auto 14px;
+}
+.gauge-item:nth-child(2) .gauge-semi { width: 100px; height: 100px; }
+.gauge-item:nth-child(2) .gauge-semi svg { width: 100%; height: 100%; }
+.gauge-item:nth-child(3) .gauge-semi { width: 70px; height: 50px; }
+.gauge-item:nth-child(3) .gauge-semi svg { width: 100%; height: 100%; }
+.gauge-item:nth-child(4) .gauge-semi { width: 50px; height: 50px; }
+.gauge-item:nth-child(4) .gauge-semi svg { width: 100%; height: 100%; }
+.gauge-semi svg { width: 100%; height: 100%; }
+.gauge-num { font-size: 32px; font-weight: 800; color: var(--text); }
+.gauge-item:nth-child(1) .gauge-num { font-size: 40px; }
+.gauge-item:nth-child(2) .gauge-num { font-size: 32px; }
+.gauge-item:nth-child(3) .gauge-num { font-size: 26px; }
+.gauge-item:nth-child(4) .gauge-num { font-size: 20px; }
+.gauge-label { font-size: 14px; color: var(--text2); margin-top: 6px; }
+.gauge-sub { font-size: 12px; color: var(--primary); font-weight: 600; margin-top: 4px; }
+
+/* ===== P8 氣泡圖 ===== */
+.bubble-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  position: relative;
+  min-height: 380px;
+}
+.bubble-center {
+  position: relative;
+  z-index: 2;
+}
+.bubble {
+  border-radius: 50%;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s;
+  position: absolute;
+}
+.bubble:hover { transform: scale(1.06); }
+.bubble-center {
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(135deg, var(--primary), var(--accent2));
+  box-shadow: 0 16px 48px rgba(224,123,57,0.4);
+  position: relative;
+  z-index: 3;
+}
+.bubble-center .bubble-icon { width: 64px; height: 64px; border-radius: 18px; background: rgba(255,255,255,0.25); margin-bottom: 8px; }
+.bubble-center .bubble-icon svg { width: 36px; height: 36px; stroke: #fff; }
+.bubble-center .bubble-name { font-size: 22px; font-weight: 700; color: #fff; }
+.bubble-center .bubble-price { font-size: 14px; color: rgba(255,255,255,0.85); }
+.bubble-center .bubble-tag {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--rose);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 16px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+.bubble-sat {
+  width: 90px;
+  height: 90px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.bubble-sat .bubble-icon { width: 40px; height: 40px; border-radius: 12px; margin-bottom: 6px; }
+.bubble-sat .bubble-icon svg { width: 22px; height: 22px; stroke-width: 2.2; }
+.bubble-sat .bubble-name { font-size: 14px; font-weight: 700; }
+.bubble-sat .bubble-price { font-size: 11px; opacity: 0.8; }
+.bubble-1 { top: 0; left: 50%; transform: translateX(-50%); }
+.bubble-2 { top: 50%; right: 0; transform: translateY(-50%); }
+.bubble-3 { bottom: 0; left: 50%; transform: translateX(-50%); }
+.bubble-4 { top: 50%; left: 0; transform: translateY(-50%); }
+
+/* ===== P9 總結特色矩陣 ===== */
+.summary-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+  margin-top: 12px;
+  align-items: start;
+}
+.sum-main {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  background: var(--surface);
+  border: 2px solid var(--primary);
+  border-radius: 28px;
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.sum-main::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 30%, rgba(224,123,57,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.sum-main-icon {
+  width: 100px; height: 100px;
+  margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.sum-main-icon svg { width: 100%; height: 100%; stroke-width: 1.6; fill: none; }
+.sum-main-title { font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+.sum-main-sub { font-size: 15px; color: var(--text2); line-height: 1.6; }
+.sum-side {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 22px 20px;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s;
+}
+.sum-side:hover { transform: translateY(-4px); }
+.sum-side-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.sum-side-icon svg { width: 100%; height: 100%; stroke-width: 1.8; fill: none; }
+.sum-side-num { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+.sum-side-label { font-size: 13px; color: var(--text2); }
+.sum-side-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: transform 0.3s;
+}
+.sum-side-card:hover { transform: translateY(-3px); }
+.sum-side-card-icon { width: 44px; height: 44px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.sum-side-card-icon svg { width: 100%; height: 100%; stroke-width: 1.8; fill: none; }
+.sum-side-card-text { text-align: left; }
+.sum-side-card-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.sum-side-card-sub { font-size: 12px; color: var(--text2); }
+
+/* ===== P10 結尾 ===== */
+#p10 {
+  text-align: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(224,123,57,0.2) 0%, rgba(224,123,57,0.08) 40%, transparent 70%);
+}
+.end-icon {
+  width: 120px; height: 120px;
+  margin: 0 auto 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 16px 48px rgba(224,123,57,0.4);
+}
+.end-icon svg { width: 60px; height: 60px; stroke: #fff; fill: none; stroke-width: 2.5; }
+.end-title { font-size: clamp(36px, 5vw, 56px); font-weight: 800; margin-bottom: 14px; }
+.end-sub { font-size: clamp(17px, 2.5vw, 22px); opacity: 0.8; margin-bottom: 32px; }
+.end-btn {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  padding: 16px 48px;
+  border-radius: 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.end-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(224,123,57,0.4); }
+
+/* ===== 返回列表 + 導航 ===== */
+.back-btn { position: fixed; top: 16px; left: 20px; z-index: 100; }
+.back-btn a {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+.back-btn a:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.back-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.page-num {
+  position: fixed; top: 16px; right: 20px; z-index: 100;
+  font-size: 15px; color: var(--text2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 6px 16px;
+  border-radius: 14px;
+}
+nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,248,240,0.9);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+nav a {
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text2);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+nav a:hover, nav a.active { background: var(--primary); color: #fff; }
+
+/* 響應式 */
+@media (max-width: 768px) {
+  section { padding: 16px 24px; }
+  .toc-carousel { gap: 12px; overflow-x: auto; }
+  .toc-item { min-width: 140px; padding: 20px 14px; }
+  .toc-pict { width: 56px; height: 56px; }
+  .food-hero { flex-direction: column; gap: 20px; text-align: center; padding: 24px; }
+  .food-hero-icon { width: 120px; height: 120px; min-width: 120px; }
+  .food-hero-icon svg { width: 78px; height: 78px; }
+  .food-cards { gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+  .food-card { min-width: 140px; padding: 20px 14px; }
+  .food-illus { width: 64px; height: 64px; }
+  .food-name { font-size: 18px; }
+  .rank-split { flex-direction: column; gap: 20px; }
+  .rank-left { flex: none; width: 100%; padding: 24px; }
+  .donut-big { width: 200px; height: 200px; }
+  .donut-big-center .num { font-size: 40px; }
+  .rank-right { gap: 10px; }
+  .ring-wrap { flex-direction: column; gap: 28px; }
+  .bar-chart { height: 200px; gap: 14px; }
+  .bar { width: 24px; }
+  .gauge-grid { gap: 16px 24px; }
+  .gauge-item:nth-child(1) .gauge-circle { width: 120px; height: 120px; }
+  .gauge-item:nth-child(2) .gauge-circle { width: 100px; height: 100px; }
+  .gauge-item:nth-child(3) .gauge-circle { width: 80px; height: 80px; }
+  .gauge-item:nth-child(4) .gauge-circle { width: 64px; height: 64px; }
+  .bubble-cloud { min-height: 280px; }
+  .bubble-center { width: 140px; height: 140px; }
+  .bubble-sat { width: 70px; height: 70px; }
+  .summary-wrap { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; }
+  .sum-main { grid-column: 1 / 3; grid-row: 2; }
+  .sum-side:first-child { grid-column: 1; grid-row: 1; }
+  .sum-side:nth-child(3) { grid-column: 2; grid-row: 1; }
+  .sum-side-card:first-of-type { grid-column: 1; grid-row: 3; }
+  .sum-side-card:last-of-type { grid-column: 2; grid-row: 3; }
+  .matrix-row { flex-wrap: wrap; gap: 14px; }
+  .hex-cell { width: 160px; padding: 18px 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="back-btn"><a href="/slides"><svg viewBox="0 0 64 64"><path d="M40 16 L24 32 L40 48"/></svg>列表</a></div>
+<div class="page-num"><span id="curPage">1</span> / 10</div>
+
+<!-- P1 封面 -->
+<section id="p1">
+  <div class="content">
+    <div class="cover-icon">
+      <svg viewBox="0 0 64 64"><path d="M32 8 C20 8 12 16 12 26 C12 40 22 52 32 56 C42 52 52 40 52 26 C52 16 44 8 32 8 Z"/><path d="M22 28 C22 24 26 22 32 22 C38 22 42 24 42 28 C42 32 38 36 32 40 C26 36 22 32 22 28 Z"/></svg>
+    </div>
+    <span class="tag">新北市淡水區</span>
+    <h1>淡水美食小吃攻略</h1>
+    <p class="cover-sub">從老街小吃到隱藏版美食，10間在地人推薦</p>
+    <p class="cover-date">2026.06.26</p>
+  </div>
+</section>
+
+<!-- P2 目錄 -->
+<section id="p2">
+  <div class="content">
+    <p class="sec-label">目錄</p>
+    <h2>今天吃什麼？</h2>
+    <div class="toc-carousel">
+      <div class="toc-item">
+        <div class="toc-pict"><svg viewBox="0 0 64 64" stroke="#E07B39"><circle cx="32" cy="32" r="26"/><path d="M20 28 C20 22 25 18 32 18 C39 18 44 22 44 28 C44 34 39 40 32 44 C25 40 20 34 20 28 Z"/></svg></div>
+        <p class="toc-num">01</p>
+        <p class="toc-title">必嘗經典小吃</p>
+      </div>
+      <div class="toc-item">
+        <div class="toc-pict"><svg viewBox="0 0 64 64" stroke="#B85C4A"><path d="M8 52 L8 28 L20 28 L20 16 L32 8 L44 16 L44 28 L56 28 L56 52 Z"/></svg></div>
+        <p class="toc-num">02</p>
+        <p class="toc-title">人氣美食排行</p>
+      </div>
+      <div class="toc-item">
+        <div class="toc-pict"><svg viewBox="0 0 64 64" stroke="#9A7B5A"><path d="M16 48 C16 30 48 30 48 48 L56 56 L8 56 Z"/></svg></div>
+        <p class="toc-num">03</p>
+        <p class="toc-title">甜點冰品</p>
+      </div>
+      <div class="toc-item">
+        <div class="toc-pict"><svg viewBox="0 0 64 64" stroke="#7A9E7E"><path d="M32 8 L38 22 L54 22 L41 33 L46 48 L32 39 L18 48 L23 33 L10 22 L26 22 Z"/></svg></div>
+        <p class="toc-num">04</p>
+        <p class="toc-title">老街散步地圖</p>
+      </div>
+      <div class="toc-item">
+        <div class="toc-pict"><svg viewBox="0 0 64 64" stroke="#D4909A"><path d="M32 56 C18 56 8 46 8 36 C8 20 56 20 56 36 C56 46 46 56 32 56 Z"/></svg></div>
+        <p class="toc-num">05</p>
+        <p class="toc-title">伴手禮推薦</p>
+      </div>
+      <div class="toc-item">
+        <div class="toc-pict"><svg viewBox="0 0 64 64" stroke="#C4A882"><path d="M32 8 C20 8 12 16 12 26 C12 40 22 52 32 56 C42 52 52 40 52 26 C52 16 44 8 32 8 Z M32 8 L32 56 M20 18 C20 18 26 14 32 14 C38 14 44 18 44 18"/></svg></div>
+        <p class="toc-num">06</p>
+        <p class="toc-title">實用資訊</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P3 必嘗經典小吃 -->
+<section id="p3">
+  <div class="content">
+    <div class="food-hero">
+      <div class="food-hero-icon">
+        <svg viewBox="0 0 64 64"><path d="M32 8 C20 8 12 16 12 26 C12 40 22 52 32 56 C42 52 52 40 52 26 C52 16 44 8 32 8 Z"/><path d="M20 28 C20 24 25 20 32 20 C39 20 44 24 44 28 C44 34 39 38 32 42 C25 38 20 34 20 28 Z"/></svg>
+      </div>
+      <div class="food-hero-text">
+        <h2>淡水必嘗小吃</h2>
+        <p>從老街頭到街尾，<br>在地人最愛的五大經典</p>
+      </div>
+    </div>
+    <div class="food-cards">
+      <div class="food-card">
+        <div class="food-illus"><svg viewBox="0 0 64 64" stroke="#E07B39"><path d="M32 8 C20 8 12 16 12 26 C12 40 22 52 32 56 C42 52 52 40 52 26 C52 16 44 8 32 8 Z M32 8 L32 56 M20 20 C20 20 26 16 32 16 C38 16 44 20 44 20"/></svg></div>
+        <p class="food-name">阿給</p>
+        <p class="food-desc">魚漿封面的冬粉<br>淡水原創小吃</p>
+        <span class="food-tag" style="background:rgba(224,123,57,0.15);color:#E07B39;">必吃</span>
+      </div>
+      <div class="food-card">
+        <div class="food-illus"><svg viewBox="0 0 64 64" stroke="#B85C4A"><path d="M8 52 L32 16 L56 52 Z M8 52 L56 52"/></svg></div>
+        <p class="food-name">魚酥</p>
+        <p class="food-desc">酥脆魚漿製品<br>宅配人氣王</p>
+        <span class="food-tag" style="background:rgba(184,92,74,0.15);color:#B85C4A;">人氣</span>
+      </div>
+      <div class="food-card">
+        <div class="food-illus"><svg viewBox="0 0 64 64" stroke="#9A7B5A"><ellipse cx="32" cy="28" rx="20" ry="16"/><path d="M12 52 C12 38 52 38 52 52"/></svg></div>
+        <p class="food-name">鐵蛋</p>
+        <p class="food-desc">滷製蛋，蛋白Q彈<br>蛋黃超入味</p>
+        <span class="food-tag" style="background:rgba(154,123,90,0.15);color:#9A7B5A;">推薦</span>
+      </div>
+      <div class="food-card">
+        <div class="food-illus"><svg viewBox="0 0 64 64" stroke="#7A9E7E"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="10"/><circle cx="32" cy="32" r="3" fill="#7A9E7E"/></svg></div>
+        <p class="food-name">魚丸湯</p>
+        <p class="food-desc">手工魚丸<br>湯頭清甜</p>
+      </div>
+      <div class="food-card">
+        <div class="food-illus"><svg viewBox="0 0 64 64" stroke="#C4A882"><path d="M12 48 C12 32 52 32 52 48 L56 56 L8 56 Z"/></svg></div>
+        <p class="food-name">蝦捲</p>
+        <p class="food-desc">酥脆外皮包鮮蝦<br>CP值高</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P4 人氣排行 -->
+<section id="p4">
+  <div class="content">
+    <p class="sec-label">人氣</p>
+    <h2>美食熱度排行</h2>
+    <div class="rank-split">
+      <div class="rank-left">
+        <span class="rank-left-label">冠軍</span>
+        <div class="donut-big">
+          <svg viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="85" fill="none" stroke="#F5EFE6" stroke-width="28"/>
+            <circle cx="100" cy="100" r="85" fill="none" stroke="#E07B39" stroke-width="28"
+              stroke-dasharray="388 534" stroke-dashoffset="0" stroke-linecap="round"/>
+            <circle cx="100" cy="100" r="85" fill="none" stroke="#B85C4A" stroke-width="28"
+              stroke-dasharray="134 534" stroke-dashoffset="-388" stroke-linecap="round"/>
+          </svg>
+          <div class="donut-big-center">
+            <p class="num">98%</p>
+            <p class="label">熱度指數</p>
+          </div>
+        </div>
+        <p class="rank-left-name">阿給</p>
+      </div>
+      <div class="rank-right">
+        <div class="rank-bar-item">
+          <span class="rank-bar-name">魚酥</span>
+          <div class="rank-bar-track">
+            <div class="rank-bar-fill" style="width:92%"><span class="rank-bar-pct">92%</span></div>
+          </div>
+        </div>
+        <div class="rank-bar-item">
+          <span class="rank-bar-name">酸甜冰</span>
+          <div class="rank-bar-track">
+            <div class="rank-bar-fill" style="width:87%"><span class="rank-bar-pct">87%</span></div>
+          </div>
+        </div>
+        <div class="rank-bar-item">
+          <span class="rank-bar-name">鐵蛋</span>
+          <div class="rank-bar-track">
+            <div class="rank-bar-fill" style="width:82%"><span class="rank-bar-pct">82%</span></div>
+          </div>
+        </div>
+        <div class="rank-bar-item">
+          <span class="rank-bar-name">蝦捲</span>
+          <div class="rank-bar-track">
+            <div class="rank-bar-fill" style="width:76%"><span class="rank-bar-pct">76%</span></div>
+          </div>
+        </div>
+        <div class="rank-bar-item">
+          <span class="rank-bar-name">魚丸湯</span>
+          <div class="rank-bar-track">
+            <div class="rank-bar-fill" style="width:68%"><span class="rank-bar-pct">68%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P5 甜點冰品 -->
+<section id="p5">
+  <div class="content">
+    <p class="sec-label">甜點</p>
+    <h2>甜點冰品地圖</h2>
+    <div class="ring-wrap">
+      <div class="donut-ring">
+        <svg viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#F5EFE6" stroke-width="36"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#E07B39" stroke-width="36"
+            stroke-dasharray="251 502" stroke-dashoffset="0" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#B85C4A" stroke-width="36"
+            stroke-dasharray="113 502" stroke-dashoffset="-251" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#D4909A" stroke-width="36"
+            stroke-dasharray="88 502" stroke-dashoffset="-364" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#7A9E7E" stroke-width="36"
+            stroke-dasharray="50 502" stroke-dashoffset="-452" stroke-linecap="round"/>
+        </svg>
+        <div class="donut-center">
+          <p class="num">6</p>
+          <p class="label">間甜品店</p>
+        </div>
+      </div>
+      <div class="ring-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#E07B39;"></div>
+          <span class="legend-label">古早味冰</span>
+          <span class="legend-pct">50%</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#B85C4A;"></div>
+          <span class="legend-label">甜品豆花</span>
+          <span class="legend-pct">22%</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#D4909A;"></div>
+          <span class="legend-label">創意冰品</span>
+          <span class="legend-pct">18%</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#7A9E7E;"></div>
+          <span class="legend-label">傳統餅店</span>
+          <span class="legend-pct">10%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P6 老街散步 -->
+<section id="p6">
+  <div class="content">
+    <p class="sec-label">散步</p>
+    <h2>老街美食散步地圖</h2>
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-dot" style="background:#E07B39;"><svg viewBox="0 0 64 64"><circle cx="32" cy="22" r="10"/><path d="M12 52 C12 38 52 38 52 52"/></svg></div>
+        <div class="tl-card" style="border-top:4px solid #E07B39;">
+          <p class="tl-time">捷運淡水站</p>
+          <p class="tl-name">老街入口</p>
+          <p class="tl-desc">從捷運站出來往河邊走，美食之旅開始</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot" style="background:#B85C4A;"><svg viewBox="0 0 64 64"><polygon points="32,12 56,56 8,56"/></svg></div>
+        <div class="tl-card" style="border-top:4px solid #B85C4A;">
+          <p class="tl-time">第1站｜3分鐘</p>
+          <p class="tl-name">真理街口</p>
+          <p class="tl-desc">必吃阿給魚酥，傳承三代的老味道</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot" style="background:#D4909A;"><svg viewBox="0 0 64 64"><path d="M32 12 L32 52 M20 24 L32 12 L44 24"/></svg></div>
+        <div class="tl-card" style="border-top:4px solid #D4909A;">
+          <p class="tl-time">第2站｜7分鐘</p>
+          <p class="tl-name">福佑宮周邊</p>
+          <p class="tl-desc">魚丸湯、蝦捲、藥燉排骨一字排開</p>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot" style="background:#7A9E7E;"><svg viewBox="0 0 64 64"><path d="M16 32 L32 16 L48 32 L32 48 Z"/></svg></div>
+        <div class="tl-card" style="border-top:4px solid #7A9E7E;">
+          <p class="tl-time">第3站｜12分鐘</p>
+          <p class="tl-name">海關碼頭</p>
+          <p class="tl-desc">欣賞夕陽，搭配酸甜冰完美ending</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P7 實用資訊 -->
+<section id="p7">
+  <div class="content">
+    <p class="sec-label">資訊</p>
+    <h2>實用資訊一把抓</h2>
+    <div class="gauge-grid">
+      <div class="gauge-item">
+        <div class="gauge-circle">
+          <svg viewBox="0 0 160 90">
+            <path d="M10 80 A70 70 0 0 1 150 80" fill="none" stroke="#F5EFE6" stroke-width="16" stroke-linecap="round"/>
+            <path d="M10 80 A70 70 0 0 1 150 80" fill="none" stroke="#E07B39" stroke-width="16" stroke-linecap="round"
+              stroke-dasharray="176 220" stroke-dashoffset="0"/>
+          </svg>
+        </div>
+        <p class="gauge-num">$150</p>
+        <p class="gauge-sub">平均消費</p>
+        <p class="gauge-label">小吃為主</p>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-circle">
+          <svg viewBox="0 0 160 90">
+            <path d="M10 80 A70 70 0 0 1 150 80" fill="none" stroke="#F5EFE6" stroke-width="16" stroke-linecap="round"/>
+            <path d="M10 80 A70 70 0 0 1 150 80" fill="none" stroke="#7A9E7E" stroke-width="16" stroke-linecap="round"
+              stroke-dasharray="132 220" stroke-dashoffset="0"/>
+          </svg>
+        </div>
+        <p class="gauge-num">3hr</p>
+        <p class="gauge-sub">建議停留</p>
+        <p class="gauge-label">慢慢逛</p>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-circle">
+          <svg viewBox="0 0 160 90">
+            <path d="M10 80 A70 70 0 0 1 150 80" fill="none" stroke="#F5EFE6" stroke-width="16" stroke-linecap="round"/>
+            <path d="M10 80 A70 70 0 0 1 150 80" fill="none" stroke="#B85C4A" stroke-width="16" stroke-linecap="round"
+              stroke-dasharray="154 220" stroke-dashoffset="0"/>
+          </svg>
+        </div>
+        <p class="gauge-num">2.1km</p>
+        <p class="gauge-sub">美食路線</p>
+        <p class="gauge-label">從捷運到碼頭</p>
+      </div>
+      <div class="gauge-item">
+        <div class="gauge-circle">
+          <svg viewBox="0 0 160 90">
+            <path d="M10 80 A70 70 0 0 1 150 80" fill="none" stroke="#F5EFE6" stroke-width="16" stroke-linecap="round"/>
+            <path d="M10 80 A70 70 0 0 1 150 80" fill="none" stroke="#D4909A" stroke-width="16" stroke-linecap="round"
+              stroke-dasharray="198 220" stroke-dashoffset="0"/>
+          </svg>
+        </div>
+        <p class="gauge-num">★★★★</p>
+        <p class="gauge-sub">Google評分</p>
+        <p class="gauge-label">在地人推薦</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P8 伴手禮 -->
+<section id="p8">
+  <div class="content">
+    <p class="sec-label">伴手</p>
+    <h2>必買伴手禮</h2>
+    <div class="bubble-cloud">
+      <div class="bubble bubble-center">
+        <span class="bubble-tag">人氣王</span>
+        <div class="bubble-icon" style="background:rgba(255,255,255,0.25);"><svg viewBox="0 0 64 64" stroke="#fff"><path d="M8 52 L32 16 L56 52 Z M8 52 L56 52"/></svg></div>
+        <p class="bubble-name">魚酥</p>
+        <p class="bubble-price">$120/包</p>
+      </div>
+      <div class="bubble bubble-sat bubble-1" style="background:rgba(184,92,74,0.12);">
+        <div class="bubble-icon" style="background:rgba(184,92,74,0.2);"><svg viewBox="0 0 64 64" stroke="#B85C4A"><ellipse cx="32" cy="28" rx="20" ry="16"/><path d="M12 52 C12 38 52 38 52 52"/></svg></div>
+        <p class="bubble-name">鐵蛋</p>
+        <p class="bubble-price">$80/盒</p>
+      </div>
+      <div class="bubble bubble-sat bubble-2" style="background:rgba(212,144,154,0.12);">
+        <div class="bubble-icon" style="background:rgba(212,144,154,0.2);"><svg viewBox="0 0 64 64" stroke="#D4909A"><path d="M12 52 C12 36 52 36 52 52 L52 56 L12 56 Z"/></svg></div>
+        <p class="bubble-name">古早味蛋糕</p>
+        <p class="bubble-price">$200/盒</p>
+      </div>
+      <div class="bubble bubble-sat bubble-3" style="background:rgba(122,158,126,0.12);">
+        <div class="bubble-icon" style="background:rgba(122,158,126,0.2);"><svg viewBox="0 0 64 64" stroke="#7A9E7E"><path d="M20 44 L20 24 L44 24 L44 44 Z M28 24 L28 16 L36 16 L36 24"/></svg></div>
+        <p class="bubble-name">蝦餅</p>
+        <p class="bubble-price">$90/包</p>
+      </div>
+      <div class="bubble bubble-sat bubble-4" style="background:rgba(196,168,130,0.12);">
+        <div class="bubble-icon" style="background:rgba(196,168,130,0.2);"><svg viewBox="0 0 64 64" stroke="#C4A882"><path d="M16 32 C16 20 48 20 48 32 L48 52 L16 52 Z"/></svg></div>
+        <p class="bubble-name">手工蛋捲</p>
+        <p class="bubble-price">$150/盒</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P9 總結 -->
+<section id="p9">
+  <div class="content">
+    <p class="sec-label">總結</p>
+    <h2>淡水美食精華</h2>
+    <div class="summary-wrap">
+      <!-- 左上：經典小吃 -->
+      <div class="sum-side" style="border-top: 4px solid #E07B39;">
+        <div class="sum-side-icon"><svg viewBox="0 0 64 64" stroke="#E07B39"><path d="M32 8 C20 8 12 16 12 26 C12 40 22 52 32 56 C42 52 52 40 52 26 C52 16 44 8 32 8 Z M32 8 L32 56 M20 20 C20 20 26 16 32 16 C38 16 44 20 44 20"/></svg></div>
+        <p class="sum-side-num" style="color:#E07B39;">3</p>
+        <p class="sum-side-label">經典小吃</p>
+        <p class="sum-side-label" style="margin-top:4px;font-size:12px;">阿給 / 魚酥 / 鐵蛋</p>
+      </div>
+      <!-- 中央主區 -->
+      <div class="sum-main">
+        <div class="sum-main-icon"><svg viewBox="0 0 64 64" stroke="#E07B39"><path d="M32 8 C20 8 12 16 12 26 C12 40 22 52 32 56 C42 52 52 40 52 26 C52 16 44 8 32 8 Z"/><circle cx="32" cy="28" r="8"/><path d="M20 42 C20 36 44 36 44 42"/></svg></div>
+        <p class="sum-main-title">淡水美食攻略</p>
+        <p class="sum-main-sub">捷運直達，一路吃到底<br>從老街到碼頭，美食不中斷</p>
+      </div>
+      <!-- 右上：必吃時機 -->
+      <div class="sum-side" style="border-top: 4px solid #B85C4A;">
+        <div class="sum-side-icon"><svg viewBox="0 0 64 64" stroke="#B85C4A"><circle cx="32" cy="32" r="24"/><path d="M32 16 L32 32 L42 42"/><circle cx="32" cy="32" r="4" fill="#B85C4A"/></svg></div>
+        <p class="sum-side-num" style="color:#B85C4A;">3-5PM</p>
+        <p class="sum-side-label">最佳時段</p>
+        <p class="sum-side-label" style="margin-top:4px;font-size:12px;">下午時段人潮最旺</p>
+      </div>
+      <!-- 左下：交通 -->
+      <div class="sum-side-card" style="border-left:4px solid #7A9E7E;">
+        <div class="sum-side-card-icon"><svg viewBox="0 0 64 64" stroke="#7A9E7E"><path d="M20 44 L44 44 L50 56 L14 56 Z"/><circle cx="22" cy="44" r="4"/><circle cx="42" cy="44" r="4"/><path d="M16 44 L16 32 L48 32 L48 44"/></svg></div>
+        <div class="sum-side-card-text">
+          <p class="sum-side-card-title">交通方式</p>
+          <p class="sum-side-card-sub">捷運淡水線直達</p>
+        </div>
+      </div>
+      <!-- 右下：伴手 -->
+      <div class="sum-side-card" style="border-left:4px solid #C4A882;">
+        <div class="sum-side-card-icon"><svg viewBox="0 0 64 64" stroke="#C4A882"><path d="M16 52 C16 36 48 36 48 52 L52 56 L12 56 Z M20 28 L44 28 L44 44 L20 44 Z"/></svg></div>
+        <div class="sum-side-card-text">
+          <p class="sum-side-card-title">伴手首選</p>
+          <p class="sum-side-card-sub">魚酥 / 蝦餅 / 鐵蛋</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- P10 結尾 -->
+<section id="p10">
+  <div class="content">
+    <div class="end-icon">
+      <svg viewBox="0 0 64 64"><path d="M32 8 C20 8 12 16 12 26 C12 40 22 52 32 56 C42 52 52 40 52 26 C52 16 44 8 32 8 Z"/><path d="M22 28 C22 24 26 22 32 22 C38 22 42 24 42 28"/></svg>
+    </div>
+    <h1 class="end-title">淡水，說走就走</h1>
+    <p class="end-sub">捷運直達，從早餐吃到夕陽</p>
+    <a href="/slides" class="end-btn">返回美食列表</a>
+  </div>
+</section>
+
+<nav>
+  <a href="#p1" onclick="showSlide('p1')">1</a>
+  <a href="#p2" onclick="showSlide('p2')">2</a>
+  <a href="#p3" onclick="showSlide('p3')">3</a>
+  <a href="#p4" onclick="showSlide('p4')">4</a>
+  <a href="#p5" onclick="showSlide('p5')">5</a>
+  <a href="#p6" onclick="showSlide('p6')">6</a>
+  <a href="#p7" onclick="showSlide('p7')">7</a>
+  <a href="#p8" onclick="showSlide('p8')">8</a>
+  <a href="#p9" onclick="showSlide('p9')">9</a>
+  <a href="#p10" onclick="showSlide('p10')">10</a>
+</nav>
+
+<script>
+function showSlide(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.querySelector('nav a[href="#' + id + '"]').classList.add('active');
+  document.getElementById('curPage').textContent = id.replace('p', '');
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      document.querySelector('nav a[href="#' + id + '"]')?.classList.add('active');
+      document.getElementById('curPage').textContent = id.replace('p', '');
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('section').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
+<!-- deployed: 2026-06-26T20:15 -->
