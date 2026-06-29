@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-06-29 政府公務簡報</title>
+<style>
+/* ===== C3 AURORA FOREST COLOR SYSTEM ===== */
+:root {
+  --c-bg: #0d1f22;
+  --c-bg-secondary: #102428;
+  --c-text: #e8f5e9;
+  --c-text-secondary: #80cbc4;
+  --c-accent: #00bfa5;
+  --c-accent-alt: #4db6ac;
+  --c-accent-glow: rgba(0, 191, 165, 0.3);
+  --c-border: rgba(0, 191, 165, 0.2);
+  --c-card: rgba(255, 255, 255, 0.05);
+  --c-nav: rgba(13, 31, 34, 0.95);
+  --c-glitch-cyan: #00fff2;
+  --c-glitch-magenta: #ff00ff;
+  --c-glitch-red: #ff3333;
+  --font-display: clamp(2.5rem, 6vw, 5rem);
+  --font-h1: clamp(1.75rem, 3.5vw, 2.5rem);
+  --font-h2: clamp(1.25rem, 2vw, 1.75rem);
+  --font-h3: clamp(1rem, 1.5vw, 1.25rem);
+  --font-body: clamp(0.9rem, 1.2vw, 1.1rem);
+  --lh-tight: 1.2;
+  --lh-normal: 1.6;
+  --gap: 24px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--c-bg);
+  color: var(--c-text);
+  overflow-x: hidden;
+}
+
+/* ===== V7 GLITCH ART STRUCTURE ===== */
+.v7-glitch-art {
+  background: var(--c-bg);
+  color: var(--c-text);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 故障線條裝飾 */
+.glitch-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--c-glitch-cyan);
+  opacity: 0;
+  animation: glitch-line 3s ease-in-out infinite;
+}
+@keyframes glitch-line {
+  0%, 90%, 100% { opacity: 0; transform: scaleX(0); }
+  92%           { opacity: 0.8; transform: scaleX(1); background: var(--c-glitch-cyan); }
+  94%           { opacity: 0.6; background: var(--c-glitch-magenta); transform: translateX(5px); }
+  96%           { opacity: 0.8; background: var(--c-glitch-cyan); transform: translateX(-3px); }
+  98%           { opacity: 0.4; transform: scaleX(0.5); }
+}
+
+/* 故障文字效果 */
+.glitch-text {
+  position: relative;
+  animation: glitch-text 4s ease-in-out infinite;
+}
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+.glitch-text::before {
+  color: var(--c-glitch-cyan);
+  animation: glitch-shift-1 4s ease-in-out infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+.glitch-text::after {
+  color: var(--c-glitch-magenta);
+  animation: glitch-shift-2 4s ease-in-out infinite;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+@keyframes glitch-shift-1 {
+  0%, 90%, 100% { transform: translateX(0); }
+  92%           { transform: translateX(-4px); }
+  96%           { transform: translateX(3px); }
+}
+@keyframes glitch-shift-2 {
+  0%, 90%, 100% { transform: translateX(0); }
+  93%           { transform: translateX(4px); }
+  97%           { transform: translateX(-2px); }
+}
+
+/* 卡片 */
+.card {
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+  padding: var(--gap);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, var(--c-accent-glow), transparent);
+  transition: left 0.5s ease;
+}
+.card:hover {
+  border-color: var(--c-accent);
+}
+.card:hover::before {
+  left: 150%;
+}
+
+/* 進場動畫 */
+.animate-in {
+  opacity: 0;
+  transform: skewX(-5deg) translateX(-20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.animate-in.visible {
+  opacity: 1;
+  transform: skewX(0) translateX(0);
+}
+
+/* 標題 */
+h1 { font-size: var(--font-display); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: var(--font-h1); font-weight: 600; letter-spacing: -0.02em; }
+h3 { font-size: var(--font-h2); font-weight: 600; }
+p { font-size: var(--font-body); line-height: var(--lh-normal); }
+
+/* ===== SLIDE SYSTEM ===== */
+.slide {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* 導航列 */
+.nav {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 1000;
+  background: var(--c-nav);
+  padding: 10px 24px;
+  border-radius: 40px;
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--c-accent);
+}
+.nav button {
+  background: var(--c-accent);
+  border: none;
+  color: var(--c-bg);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.nav button:hover { background: var(--c-accent-alt); transform: scale(1.1); }
+.nav span { color: var(--c-text-secondary); font-weight: 600; min-width: 60px; text-align: center; }
+
+/* 頁碼 */
+.page-num {
+  position: absolute;
+  bottom: 24px;
+  right: 40px;
+  font-size: 0.875rem;
+  color: rgba(232, 245, 233, 0.4);
+}
+
+/* ===== DECORATIVE ORBS ===== */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.orb-1 { width: 400px; height: 400px; background: rgba(0, 191, 165, 0.15); top: -100px; right: -100px; animation: orb-float 10s ease-in-out infinite; }
+.orb-2 { width: 300px; height: 300px; background: rgba(77, 182, 172, 0.1); bottom: -50px; left: -50px; animation: orb-float 10s ease-in-out infinite reverse; }
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -20px) scale(1.05); }
+  66%       { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* ===== P1: COVER - G7 TIMELINE ===== */
+.cover-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.cover-hero h1 {
+  font-size: var(--font-display);
+  font-weight: 900;
+  color: var(--c-text);
+  margin-bottom: 16px;
+}
+.cover-hero .subtitle {
+  font-size: var(--font-h2);
+  color: var(--c-accent);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.cover-hero .date {
+  font-size: var(--font-body);
+  color: var(--c-text-secondary);
+}
+
+/* 時間軸裝飾線 */
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--c-accent), transparent);
+}
+.timeline-node {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 20px var(--c-accent-glow);
+}
+.timeline-node:nth-child(1) { left: 10%; }
+.timeline-node:nth-child(2) { left: 30%; }
+.timeline-node:nth-child(3) { left: 50%; }
+.timeline-node:nth-child(4) { left: 70%; }
+.timeline-node:nth-child(5) { left: 90%; }
+
+/* ===== P2: TOC - G3 HONEYCOMB ===== */
+.honeycomb-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hex {
+  width: 120px;
+  height: 138px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(135deg, var(--c-accent), var(--c-accent-alt));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-bg);
+  font-weight: 700;
+  font-size: var(--font-body);
+  text-align: center;
+  padding: 16px;
+  transition: transform 0.3s ease;
+}
+.hex:hover {
+  transform: scale(1.1);
+}
+.hex-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px;
+}
+.hex-number {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* ===== P3: QUADRANT - G8 ===== */
+.quadrant-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 24px;
+  flex: 1;
+}
+.quadrant {
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.quadrant h3 {
+  color: var(--c-accent);
+  margin-bottom: 12px;
+  font-size: var(--font-h3);
+}
+.quadrant p {
+  color: var(--c-text-secondary);
+  font-size: var(--font-body);
+}
+
+/* ===== P4: CARDS - G2 ===== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  flex: 1;
+}
+.info-card {
+  background: var(--c-card);
+  border: 1px solid var(--c-border);
+  border-radius: 4px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.info-card:hover {
+  border-color: var(--c-accent);
+  transform: translateY(-4px);
+}
+.info-card .icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  color: var(--c-accent);
+}
+.info-card h3 {
+  color: var(--c-text);
+  margin-bottom: 8px;
+  font-size: var(--font-h3);
+}
+.info-card p {
+  color: var(--c-text-secondary);
+  font-size: var(--font-body);
+}
+
+/* ===== P5: FUNNEL - G6 ===== */
+.funnel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+.funnel-stage {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-bg);
+  font-weight: 700;
+  font-size: var(--font-body);
+  clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%);
+  transition: transform 0.3s ease;
+}
+.funnel-stage:hover {
+  transform: scaleX(1.02);
+}
+.funnel-stage:nth-child(1) { width: 100%; background: var(--c-accent); }
+.funnel-stage:nth-child(2) { width: 80%; background: var(--c-accent-alt); }
+.funnel-stage:nth-child(3) { width: 60%; background: var(--c-text-secondary); }
+.funnel-stage:nth-child(4) { width: 40%; background: var(--c-text); color: var(--c-bg); }
+
+/* ===== P6: DIAMOND - G5 ===== */
+.diamond-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+  justify-content: center;
+}
+.diamond-row {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.diamond {
+  width: 140px;
+  height: 140px;
+  background: var(--c-card);
+  border: 1px solid var(--c-accent);
+  transform: rotate(45deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+.diamond:hover {
+  background: var(--c-accent);
+  color: var(--c-bg);
+}
+.diamond h4 {
+  transform: rotate(-45deg);
+  font-size: var(--font-h3);
+  color: var(--c-accent);
+}
+.diamond:hover h4 {
+  color: var(--c-bg);
+}
+.diamond p {
+  transform: rotate(-45deg);
+  font-size: 0.75rem;
+  color: var(--c-text-secondary);
+  margin-top: 4px;
+}
+.diamond:hover p {
+  color: var(--c-bg);
+}
+
+/* ===== P7: PYRAMID - G4 ===== */
+.pyramid-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+.pyramid-level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-bg);
+  font-weight: 700;
+  font-size: var(--font-body);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  transition: transform 0.3s ease;
+}
+.pyramid-level:hover {
+  transform: scale(1.05);
+}
+.pyramid-level:nth-child(1) { width: 200px; height: 100px; background: var(--c-accent); }
+.pyramid-level:nth-child(2) { width: 300px; height: 100px; background: var(--c-accent-alt); }
+.pyramid-level:nth-child(3) { width: 400px; height: 100px; background: var(--c-text-secondary); }
+.pyramid-level:nth-child(4) { width: 500px; height: 100px; background: var(--c-text); }
+
+/* ===== P8: CIRCLE PROGRESS - G1 ===== */
+.progress-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  flex: 1;
+}
+.progress-ring-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.progress-ring {
+  width: 140px;
+  height: 140px;
+  position: relative;
+}
+.progress-ring svg {
+  transform: rotate(-90deg);
+}
+.progress-ring circle {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+}
+.progress-ring .bg { stroke: var(--c-card); }
+.progress-ring .fg {
+  stroke: var(--c-accent);
+  stroke-dasharray: 339.3;
+  stroke-dashoffset: calc(339.3 * (1 - var(--progress, 1)));
+  transition: stroke-dashoffset 1s ease;
+}
+.progress-ring .fg.alt { stroke: var(--c-accent-alt); }
+.progress-ring .fg.secondary { stroke: var(--c-text-secondary); }
+.progress-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-h2);
+  font-weight: 700;
+  color: var(--c-text);
+}
+.progress-label {
+  font-size: var(--font-body);
+  color: var(--c-text-secondary);
+  text-align: center;
+}
+
+/* ===== P9: SUMMARY HONEYCOMB ===== */
+.summary-hex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.summary-hex {
+  width: 160px;
+  height: 185px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(135deg, var(--c-accent), var(--c-bg-secondary));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-bg);
+  padding: 20px;
+  text-align: center;
+}
+.summary-hex.center-hex {
+  width: 200px;
+  height: 230px;
+  background: linear-gradient(135deg, var(--c-accent-alt), var(--c-accent));
+}
+.summary-hex h3 {
+  font-size: var(--font-h3);
+  color: var(--c-bg);
+  margin-bottom: 8px;
+}
+.summary-hex p {
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+/* ===== P10: CLOSING ===== */
+.closing-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.closing-hero h2 {
+  font-size: var(--font-display);
+  font-weight: 900;
+  color: var(--c-accent);
+  margin-bottom: 16px;
+}
+.closing-hero p {
+  font-size: var(--font-h2);
+  color: var(--c-text-secondary);
+  margin-bottom: 32px;
+}
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--c-accent);
+  color: var(--c-bg);
+  padding: 16px 32px;
+  border-radius: 40px;
+  font-size: var(--font-h3);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.cta-button:hover {
+  background: var(--c-accent-alt);
+  transform: scale(1.05);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: fadeUp 0.6s ease-out forwards; }
+.animate-in:nth-child(1) { animation-delay: 0ms; }
+.animate-in:nth-child(2) { animation-delay: 100ms; }
+.animate-in:nth-child(3) { animation-delay: 200ms; }
+.animate-in:nth-child(4) { animation-delay: 300ms; }
+.animate-in:nth-child(5) { animation-delay: 400ms; }
+.animate-in:nth-child(6) { animation-delay: 500ms; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .slide { padding: 24px; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .quadrant-grid { grid-template-columns: 1fr; }
+  .progress-container { flex-direction: column; gap: 24px; }
+  .pyramid-level:nth-child(4) { width: 280px; }
+  .pyramid-level:nth-child(3) { width: 220px; }
+}
+</style>
+</head>
+<body class="v7-glitch-art">
+
+<!-- ===== P1: COVER ===== -->
+<section class="slide active" id="slide-1">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="glitch-line" style="top: 20%;"></div>
+  <div class="glitch-line" style="top: 40%; animation-delay: 1s;"></div>
+  <div class="glitch-line" style="top: 60%; animation-delay: 2s;"></div>
+  
+  <div class="timeline-line"></div>
+  <div class="timeline-node"></div>
+  <div class="timeline-node"></div>
+  <div class="timeline-node"></div>
+  <div class="timeline-node"></div>
+  <div class="timeline-node"></div>
+  
+  <div class="cover-hero">
+    <p class="subtitle animate-in">政府公務年度簡報</p>
+    <h1 class="animate-in" style="animation-delay: 100ms;">
+      <span class="glitch-text" data-text="2026施政成果">2026施政成果</span>
+    </h1>
+    <p class="date animate-in" style="animation-delay: 200ms;">2026年6月29日 | 新北市政府</p>
+  </div>
+  
+  <div class="nav">
+    <button onclick="prevSlide()">◀</button>
+    <span id="page-num">1 / 10</span>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+  <div class="page-num">P.1</div>
+</section>
+
+<!-- ===== P2: TOC ===== -->
+<section class="slide" id="slide-2">
+  <div class="orb orb-1"></div>
+  <h2 style="text-align: center; margin-bottom: 40px;" class="animate-in">
+    <span class="glitch-text" data-text="簡報目錄">簡報目錄</span>
+  </h2>
+  
+  <div class="honeycomb-grid">
+    <div class="hex animate-in" style="animation-delay: 0ms;">
+      <svg class="hex-icon" viewBox="0 0 64 64" fill="currentColor">
+        <circle cx="32" cy="32" r="20"/>
+      </svg>
+      <span>政策目標</span>
+      <span class="hex-number">01</span>
+    </div>
+    <div class="hex animate-in" style="animation-delay: 100ms;">
+      <svg class="hex-icon" viewBox="0 0 64 64" fill="currentColor">
+        <rect x="12" y="12" width="40" height="40" rx="4"/>
+      </svg>
+      <span>執行策略</span>
+      <span class="hex-number">02</span>
+    </div>
+    <div class="hex animate-in" style="animation-delay: 200ms;">
+      <svg class="hex-icon" viewBox="0 0 64 64" fill="currentColor">
+        <polygon points="32,8 56,52 8,52"/>
+      </svg>
+      <span>流程管理</span>
+      <span class="hex-number">03</span>
+    </div>
+    <div class="hex animate-in" style="animation-delay: 300ms;">
+      <svg class="hex-icon" viewBox="0 0 64 64" fill="currentColor">
+        <polygon points="32,4 60,32 32,60 4,32"/>
+      </svg>
+      <span>資源分配</span>
+      <span class="hex-number">04</span>
+    </div>
+    <div class="hex animate-in" style="animation-delay: 400ms;">
+      <svg class="hex-icon" viewBox="0 0 64 64" fill="currentColor">
+        <polygon points="32,8 56,24 56,56 8,56 8,24"/>
+      </svg>
+      <span>成果展示</span>
+      <span class="hex-number">05</span>
+    </div>
+    <div class="hex animate-in" style="animation-delay: 500ms;">
+      <svg class="hex-icon" viewBox="0 0 64 64" fill="currentColor">
+        <path d="M32 8 L56 56 L8 56 Z"/>
+      </svg>
+      <span>展望未來</span>
+      <span class="hex-number">06</span>
+    </div>
+  </div>
+  
+  <div class="nav">
+    <button onclick="prevSlide()">◀</button>
+    <span id="page-num">2 / 10</span>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+  <div class="page-num">P.2</div>
+</section>
+
+<!-- ===== P3: QUADRANT ===== -->
+<section class="slide" id="slide-3">
+  <div class="orb orb-1"></div>
+  <h2 style="text-align: center; margin-bottom: 32px;" class="animate-in">
+    <span class="glitch-text" data-text="政策目標">政策目標</span>
+  </h2>
+  
+  <div class="quadrant-grid">
+    <div class="quadrant animate-in" style="animation-delay: 0ms;">
+      <h3>數位轉型</h3>
+      <p>推動政府服務數位化，提升行政效率與民眾便利性</p>
+      <div style="margin-top: 16px;">
+        <svg width="48" height="48" viewBox="0 0 64 64" fill="var(--c-accent)">
+          <rect x="8" y="20" width="48" height="32" rx="4"/>
+          <rect x="12" y="24" width="20" height="12" fill="var(--c-bg)"/>
+          <circle cx="44" cy="30" r="4" fill="var(--c-bg)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="quadrant animate-in" style="animation-delay: 100ms;">
+      <h3>永續發展</h3>
+      <p>落實環境保護政策，打造低碳永續城市</p>
+      <div style="margin-top: 16px;">
+        <svg width="48" height="48" viewBox="0 0 64 64" fill="var(--c-accent)">
+          <circle cx="32" cy="32" r="20"/>
+          <path d="M32 12 Q40 24 32 32 Q24 40 32 52" fill="var(--c-bg)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="quadrant animate-in" style="animation-delay: 200ms;">
+      <h3>公共安全</h3>
+      <p>強化治安與防災應變能力，保障市民安全</p>
+      <div style="margin-top: 16px;">
+        <svg width="48" height="48" viewBox="0 0 64 64" fill="var(--c-accent)">
+          <path d="M32 8 L56 20 L56 44 L32 56 L8 44 L8 20 Z"/>
+        </svg>
+      </div>
+    </div>
+    <div class="quadrant animate-in" style="animation-delay: 300ms;">
+      <h3>社會福利</h3>
+      <p>完善社會救助體系，照顧弱勢族群需求</p>
+      <div style="margin-top: 16px;">
+        <svg width="48" height="48" viewBox="0 0 64 64" fill="var(--c-accent)">
+          <path d="M32 8 L56 56 L8 56 Z"/>
+          <rect x="28" y="28" width="8" height="16" fill="var(--c-bg)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <div class="nav">
+    <button onclick="prevSlide()">◀</button>
+    <span id="page-num">3 / 10</span>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+  <div class="page-num">P.3</div>
+</section>
+
+<!-- ===== P4: CARDS ===== -->
+<section class="slide" id="slide-4">
+  <div class="orb orb-1"></div>
+  <h2 style="text-align: center; margin-bottom: 32px;" class="animate-in">
+    <span class="glitch-text" data-text="執行策略">執行策略</span>
+  </h2>
+  
+  <div class="cards-grid">
+    <div class="info-card animate-in" style="animation-delay: 0ms;">
+      <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
+        <circle cx="32" cy="32" r="24"/>
+        <path d="M32 20 L32 44 M20 32 L44 32"/>
+      </svg>
+      <h3>跨域整合</h3>
+      <p>整合各局處資源，建立协同作業機制</p>
+    </div>
+    <div class="info-card animate-in" style="animation-delay: 100ms;">
+      <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
+        <rect x="12" y="12" width="40" height="40" rx="4"/>
+        <path d="M12 28 L52 28 M12 40 L52 40"/>
+      </svg>
+      <h3>流程簡化</h3>
+      <p>減少繁瑣程序，提升服務效率</p>
+    </div>
+    <div class="info-card animate-in" style="animation-delay: 200ms;">
+      <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
+        <polygon points="32,8 56,24 56,56 8,56 8,24"/>
+      </svg>
+      <h3>人才培育</h3>
+      <p>強化員工專業職能與服務品質</p>
+    </div>
+    <div class="info-card animate-in" style="animation-delay: 300ms;">
+      <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
+        <circle cx="32" cy="32" r="24"/>
+        <path d="M20 32 L44 32 M32 20 L32 44"/>
+      </svg>
+      <h3>智慧治理</h3>
+      <p>運用大數據與AI技術輔助決策</p>
+    </div>
+    <div class="info-card animate-in" style="animation-delay: 400ms;">
+      <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
+        <path d="M8 52 L8 32 L20 20 L32 28 L44 16 L56 24 L56 52"/>
+      </svg>
+      <h3>績效管理</h3>
+      <p>建立KPI追蹤系統，確保目標達成</p>
+    </div>
+    <div class="info-card animate-in" style="animation-delay: 500ms;">
+      <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
+        <circle cx="32" cy="32" r="24"/>
+        <path d="M20 40 Q32 20 44 40"/>
+      </svg>
+      <h3>公眾參與</h3>
+      <p>廣納民眾意見，促進施政透明</p>
+    </div>
+  </div>
+  
+  <div class="nav">
+    <button onclick="prevSlide()">◀</button>
+    <span id="page-num">4 / 10</span>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+  <div class="page-num">P.4</div>
+</section>
+
+<!-- ===== P5: FUNNEL ===== -->
+<section class="slide" id="slide-5">
+  <div class="orb orb-1"></div>
+  <h2 style="text-align: center; margin-bottom: 32px;" class="animate-in">
+    <span class="glitch-text" data-text="流程管理">流程管理</span>
+  </h2>
+  
+  <div class="funnel-container">
+    <div class="funnel-stage animate-in" style="animation-delay: 0ms;">規劃階段 - 設定目標與資源配置</div>
+    <div class="funnel-stage animate-in" style="animation-delay: 100ms;">執行階段 - 付諸行動與進度管控</div>
+    <div class="funnel-stage animate-in" style="animation-delay: 200ms;">監督階段 - 定期檢核與問題回饋</div>
+    <div class="funnel-stage animate-in" style="animation-delay: 300ms;">優化階段 - 持續改善與標準化</div>
+  </div>
+  
+  <div class="nav">
+    <button onclick="prevSlide()">◀</button>
+    <span id="page-num">5 / 10</span>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+  <div class="page-num">P.5</div>
+</section>
+
+<!-- ===== P6: DIAMOND ===== -->
+<section class="slide" id="slide-6">
+  <div class="orb orb-1"></div>
+  <h2 style="text-align: center; margin-bottom: 32px;" class="animate-in">
+    <span class="glitch-text" data-text="資源分配">資源分配</span>
+  </h2>
+  
+  <div class="diamond-layout">
+    <div class="diamond-row animate-in" style="animation-delay: 0ms;">
+      <div class="diamond">
+        <h4>人事費用</h4>
+        <p>38%</p>
+      </div>
+      <div class="diamond">
+        <h4>設備投資</h4>
+        <p>24%</p>
+      </div>
+      <div class="diamond">
+        <h4>業務推動</h4>
+        <p>21%</p>
+      </div>
+    </div>
+    <div class="diamond-row animate-in" style="animation-delay: 150ms;">
+      <div class="diamond">
+        <h4>教育訓練</h4>
+        <p>9%</p>
+      </div>
+      <div class="diamond center-hex" style="width: 180px; height: 180px;">
+        <h4 style="font-size: var(--font-h2);">年度預算</h4>
+        <p style="font-size: var(--font-body); margin-top: 8px;">新台幣</p>
+        <p style="font-size: var(--font-h1); margin-top: 4px;">12.5億</p>
+      </div>
+      <div class="diamond">
+        <h4>福利補助</h4>
+        <p>8%</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="nav">
+    <button onclick="prevSlide()">◀</button>
+    <span id="page-num">6 / 10</span>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+  <div class="page-num">P.6</div>
+</section>
+
+<!-- ===== P7: PYRAMID ===== -->
+<section class="slide" id="slide-7">
+  <div class="orb orb-1"></div>
+  <h2 style="text-align: center; margin-bottom: 32px;" class="animate-in">
+    <span class="glitch-text" data-text="成果展示">成果展示</span>
+  </h2>
+  
+  <div class="pyramid-container">
+    <div class="pyramid-level animate-in" style="animation-delay: 0ms;">
+      <span style="transform: translateY(-8px);">卓越標竿 - 榮獲中央評核特優</span>
+    </div>
+    <div class="pyramid-level animate-in" style="animation-delay: 100ms;">
+      <span>執行達標 - 完程度達95%以上</span>
+    </div>
+    <div class="pyramid-level animate-in" style="animation-delay: 200ms;">
+      <span>進度符合預期 - 各項指標穩健成長</span>
+    </div>
+    <div class="pyramid-level animate-in" style="animation-delay: 300ms;">
+      <span>基礎建設 - 制度完善與環境優化</span>
+    </div>
+  </div>
+  
+  <div class="nav">
+    <button onclick="prevSlide()">◀</button>
+    <span id="page-num">7 / 10</span>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+  <div class="page-num">P.7</div>
+</section>
+
+<!-- ===== P8: CIRCLE PROGRESS ===== -->
+<section class="slide" id="slide-8">
+  <div class="orb orb-1"></div>
+  <h2 style="text-align: center; margin-bottom: 32px;" class="animate-in">
+    <span class="glitch-text" data-text="數據儀表">數據儀表</span>
+  </h2>
+  
+  <div class="progress-container">
+    <div class="progress-ring-wrapper animate-in" style="animation-delay: 0ms;">
+      <div class="progress-ring">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle class="bg" cx="70" cy="70" r="54"/>
+          <circle class="fg" cx="70" cy="70" r="54" style="--progress: 0.92;"/>
+        </svg>
+        <span class="progress-value">92%</span>
+      </div>
+      <p class="progress-label">民眾滿意度<br/><small style="color: var(--c-text-secondary);">較去年提升8%</small></p>
+    </div>
+    <div class="progress-ring-wrapper animate-in" style="animation-delay: 150ms;">
+      <div class="progress-ring">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle class="bg" cx="70" cy="70" r="54"/>
+          <circle class="fg alt" cx="70" cy="70" r="54" style="--progress: 0.87;"/>
+        </svg>
+        <span class="progress-value">87%</span>
+      </div>
+      <p class="progress-label">服務效率<br/><small style="color: var(--c-text-secondary);">平均辦理時間縮短</small></p>
+    </div>
+    <div class="progress-ring-wrapper animate-in" style="animation-delay: 300ms;">
+      <div class="progress-ring">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle class="bg" cx="70" cy="70" r="54"/>
+          <circle class="fg secondary" cx="70" cy="70" r="54" style="--progress: 0.95;"/>
+        </svg>
+        <span class="progress-value">95%</span>
+      </div>
+      <p class="progress-label">目標達成率<br/><small style="color: var(--c-text-secondary);">超額完成階段目標</small></p>
+    </div>
+  </div>
+  
+  <div class="nav">
+    <button onclick="prevSlide()">◀</button>
+    <span id="page-num">8 / 10</span>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+  <div class="page-num">P.8</div>
+</section>
+
+<!-- ===== P9: SUMMARY ===== -->
+<section class="slide" id="slide-9">
+  <div class="orb orb-1"></div>
+  <h2 style="text-align: center; margin-bottom: 32px;" class="animate-in">
+    <span class="glitch-text" data-text="總結">總結</span>
+  </h2>
+  
+  <div class="summary-hex-grid">
+    <div class="summary-hex animate-in" style="animation-delay: 0ms;">
+      <h3>數位化</h3>
+      <p>服務全面e化</p>
+    </div>
+    <div class="summary-hex animate-in" style="animation-delay: 100ms;">
+      <h3>效率化</h3>
+      <p>流程簡化優化</p>
+    </div>
+    <div class="summary-hex center-hex animate-in" style="animation-delay: 200ms;">
+      <h3 style="font-size: var(--font-h2);">永續經營</h3>
+      <p style="margin-top: 12px;">打造宜居城市</p>
+    </div>
+    <div class="summary-hex animate-in" style="animation-delay: 300ms;">
+      <h3>安全化</h3>
+      <p>安居樂業環境</p>
+    </div>
+    <div class="summary-hex animate-in" style="animation-delay: 400ms;">
+      <h3>關懷化</h3>
+      <p>福利照顧弱勢</p>
+    </div>
+  </div>
+  
+  <div class="nav">
+    <button onclick="prevSlide()">◀</button>
+    <span id="page-num">9 / 10</span>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+  <div class="page-num">P.9</div>
+</section>
+
+<!-- ===== P10: CLOSING ===== -->
+<section class="slide" id="slide-10">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="glitch-line" style="top: 30%;"></div>
+  <div class="glitch-line" style="top: 50%; animation-delay: 1s;"></div>
+  <div class="glitch-line" style="top: 70%; animation-delay: 2s;"></div>
+  
+  <div class="closing-hero">
+    <h2 class="animate-in">
+      <span class="glitch-text" data-text="展望2026下半年">展望2026下半年</span>
+    </h2>
+    <p class="animate-in" style="animation-delay: 100ms;">持續精進 · 服務升級 · 共創美好</p>
+    <a href="#" class="cta-button animate-in" style="animation-delay: 200ms;">
+      <svg width="24" height="24" viewBox="0 0 64 64" fill="currentColor">
+        <circle cx="32" cy="32" r="24"/>
+        <path d="M32 20 L32 44 M20 32 L44 32" stroke="var(--c-bg)" stroke-width="4"/>
+      </svg>
+      查看更多資訊
+    </a>
+  </div>
+  
+  <div class="nav">
+    <button onclick="prevSlide()">◀</button>
+    <span id="page-num">10 / 10</span>
+    <button onclick="nextSlide()">▶</button>
+  </div>
+  <div class="page-num">P.10</div>
+</section>
+
+<script>
+let currentSlide = 1;
+const totalSlides = 10;
+
+function showSlide(n) {
+  const slides = document.querySelectorAll('.slide');
+  if (n > totalSlides) currentSlide = 1;
+  if (n < 1) currentSlide = totalSlides;
+  
+  slides.forEach(s => s.classList.remove('active'));
+  document.getElementById('slide-' + currentSlide).classList.add('active');
+  
+  // Update page number
+  const pageNumEl = document.querySelectorAll('#page-num');
+  pageNumEl.forEach(el => el.textContent = currentSlide + ' / ' + totalSlides);
+  
+  // Trigger animations
+  setTimeout(() => {
+    const activeSlide = document.getElementById('slide-' + currentSlide);
+    activeSlide.querySelectorAll('.animate-in').forEach(el => {
+      el.classList.add('visible');
+    });
+  }, 100);
+}
+
+function nextSlide() {
+  currentSlide++;
+  showSlide(currentSlide);
+}
+
+function prevSlide() {
+  currentSlide--;
+  showSlide(currentSlide);
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+  if (e.key === 'ArrowLeft') prevSlide();
+  if (e.key === 'Home') { currentSlide = 1; showSlide(currentSlide); }
+  if (e.key === 'End') { currentSlide = totalSlides; showSlide(currentSlide); }
+});
+
+// Initialize
+showSlide(currentSlide);
+</script>
+</body>
+</html>
