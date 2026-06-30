@@ -1541,6 +1541,11 @@ function show(n) {
     if (flow) flow.style.minHeight = availH + 'px';
     var grid = target.querySelector('.traffic-grid, .task-grid, .task-table, .agenda-grid, .seat-layout');
     if (grid) grid.style.minHeight = availH + 'px';
+    // 強制將 presentation 容器的實際高度設為 viewport 高度，確保所有 slides 對齊
+    var pres = document.querySelector('.presentation');
+    if (pres) pres.style.height = viewH + 'px';
+    // 將目前 active slide 滾動到 viewport 頂部（修復 CDP viewport < 720px 的問題）
+    target.scrollIntoView({ block: 'start', behavior: 'instant' });
   }
   document.getElementById('counter').textContent = n + ' / ' + total;
 }
