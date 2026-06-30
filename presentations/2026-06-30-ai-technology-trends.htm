@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-06-30 AI 科技趨勢簡報</title>
+<style>
+/* ===== C1 DEEP PURPLE NIGHT COLOR SYSTEM ===== */
+:root {
+  --c-primary: #7C3AED;
+  --c-secondary: #A78BFA;
+  --c-accent: #F59E0B;
+  --c-dark: #1E1B4B;
+  --c-light: #F5F3FF;
+  --c-warm: #C4B5FD;
+  --c-text: #1E1B4B;
+  --c-text-light: #F5F3FF;
+  --c-bg: #0F0E1A;
+  --c-bg2: #1A1333;
+  --font-display: clamp(2.5rem, 6vw, 5rem);
+  --font-h1: clamp(1.75rem, 3.5vw, 2.5rem);
+  --font-h2: clamp(1.25rem, 2vw, 1.75rem);
+  --font-body: clamp(1rem, 1.5vw, 1.25rem);
+  --lh-tight: 1.2;
+  --lh-normal: 1.6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--c-bg);
+  color: var(--c-light);
+  overflow-x: hidden;
+}
+
+/* ===== SLIDE SYSTEM ===== */
+.slide {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.slide.active { display: flex; flex-direction: column; }
+.nav {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 1000;
+  background: rgba(30,27,75,0.9);
+  padding: 10px 24px;
+  border-radius: 40px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(124,58,237,0.3);
+}
+.nav button {
+  background: var(--c-primary);
+  border: none;
+  color: #fff;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.nav button:hover { background: var(--c-accent); transform: scale(1.1); }
+.nav span { color: var(--c-secondary); font-weight: 600; min-width: 60px; text-align: center; }
+.page-num {
+  position: absolute;
+  bottom: 24px;
+  right: 40px;
+  font-size: 0.875rem;
+  color: rgba(167,139,250,0.5);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes orb-float {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(20px,-15px) scale(1.05); }
+}
+@keyframes glow-pulse {
+  0%,100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+@keyframes ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-in { animation: fadeUp 0.6s ease-out forwards; opacity: 0; }
+.animate-in:nth-child(1) { animation-delay: 0ms; }
+.animate-in:nth-child(2) { animation-delay: 100ms; }
+.animate-in:nth-child(3) { animation-delay: 200ms; }
+.animate-in:nth-child(4) { animation-delay: 300ms; }
+.animate-in:nth-child(5) { animation-delay: 400ms; }
+.animate-in:nth-child(6) { animation-delay: 500ms; }
+
+/* ===== DECORATIVE ORBS ===== */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.orb-1 { width: 500px; height: 500px; background: rgba(124,58,237,0.12); top: -150px; right: -100px; animation: orb-float 8s ease-in-out infinite; }
+.orb-2 { width: 350px; height: 350px; background: rgba(167,139,250,0.1); bottom: -80px; left: -80px; animation: orb-float 10s ease-in-out infinite reverse; animation-delay: -3s; }
+.orb-3 { width: 250px; height: 250px; background: rgba(245,158,11,0.08); top: 40%; left: 30%; animation: orb-float 12s ease-in-out infinite; animation-delay: -6s; }
+
+/* ===== BACK LINK ===== */
+.back-link {
+  position: fixed;
+  top: 24px;
+  left: 40px;
+  z-index: 1000;
+  color: var(--c-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(30,27,75,0.8);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(124,58,237,0.3);
+  transition: all 0.2s;
+}
+.back-link:hover { background: var(--c-primary); color: #fff; }
+
+/* ===== SLIDE 1: COVER (G1-Circle Ring) ===== */
+.s1-cover {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #0F0E1A 0%, #1A1333 50%, #2D1B69 100%);
+}
+.s1-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(124,58,237,0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(245,158,11,0.15) 0%, transparent 50%);
+}
+.cover-ring-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 2.5rem;
+  z-index: 1;
+}
+.cover-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid;
+  animation: ring-spin 20s linear infinite;
+}
+.cover-ring-1 {
+  width: 200px; height: 200px;
+  top: 0; left: 0;
+  border-color: rgba(124,58,237,0.8);
+  border-top-color: transparent;
+  animation-duration: 8s;
+}
+.cover-ring-2 {
+  width: 160px; height: 160px;
+  top: 20px; left: 20px;
+  border-color: rgba(245,158,11,0.7);
+  border-bottom-color: transparent;
+  animation-duration: 12s;
+  animation-direction: reverse;
+}
+.cover-ring-3 {
+  width: 120px; height: 120px;
+  top: 40px; left: 40px;
+  border-color: rgba(167,139,250,0.6);
+  border-right-color: transparent;
+  animation-duration: 6s;
+}
+.cover-icon-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+}
+.cover-icon-center svg { width: 100%; height: 100%; }
+.cover-title {
+  font-size: var(--font-display);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--c-primary), var(--c-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: var(--lh-tight);
+  margin-bottom: 1rem;
+  position: relative; z-index: 1;
+}
+.cover-subtitle {
+  font-size: var(--font-h2);
+  color: var(--c-secondary);
+  opacity: 0.9;
+  font-weight: 300;
+  position: relative; z-index: 1;
+}
+.cover-date {
+  margin-top: 2rem;
+  font-size: var(--font-body);
+  color: var(--c-warm);
+  opacity: 0.7;
+  position: relative; z-index: 1;
+}
+.cover-tag {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 6px 20px;
+  background: rgba(124,58,237,0.25);
+  border: 1px solid rgba(124,58,237,0.5);
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: var(--c-secondary);
+  position: relative; z-index: 1;
+}
+
+/* ===== SLIDE 2: TOC (G7-Timeline Style) ===== */
+.s2-toc {
+  background: linear-gradient(180deg, #1A1333 0%, #0F0E1A 100%);
+  padding-top: 60px;
+}
+.toc-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 2.5rem;
+  position: relative; z-index: 1;
+}
+.toc-header-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c-primary), transparent);
+}
+.toc-title {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--c-secondary);
+}
+.toc-timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  position: relative;
+  flex: 1;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+.toc-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(33.333% - 16px);
+  margin-right: 24px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+.toc-item-node {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  margin-bottom: 12px;
+  box-shadow: 0 0 12px rgba(124,58,237,0.5);
+}
+.toc-item-line {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c-primary), var(--c-accent));
+}
+.toc-item-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--c-light);
+  text-align: center;
+  margin-bottom: 6px;
+}
+.toc-item-desc {
+  font-size: 0.875rem;
+  color: var(--c-warm);
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* ===== SLIDE 3: AI HISTORY (G7-Timeline) ===== */
+.s3-timeline {
+  background: linear-gradient(180deg, #0F0E1A 0%, #1A1333 100%);
+  padding-top: 60px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 2rem;
+  position: relative; z-index: 1;
+}
+.section-icon {
+  width: 48px; height: 48px;
+  background: rgba(124,58,237,0.2);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(124,58,237,0.4);
+}
+.section-icon svg { width: 28px; height: 28px; }
+.section-title {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--c-light);
+}
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  flex: 1;
+  padding-left: 40px;
+}
+.timeline-line {
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--c-primary), var(--c-accent), var(--c-warm));
+}
+.timeline-item {
+  display: flex;
+  gap: 24px;
+  padding: 16px 0;
+  position: relative;
+  z-index: 1;
+}
+.timeline-node {
+  position: absolute;
+  left: -40px;
+  top: 20px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  border: 3px solid var(--c-bg);
+  box-shadow: 0 0 16px rgba(124,58,237,0.6);
+}
+.timeline-year {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--c-accent);
+  min-width: 80px;
+}
+.timeline-content {
+  flex: 1;
+  background: rgba(124,58,237,0.1);
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+.timeline-event {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--c-light);
+  margin-bottom: 6px;
+}
+.timeline-desc {
+  font-size: 0.9rem;
+  color: var(--c-warm);
+  opacity: 0.85;
+}
+
+/* ===== SLIDE 4: ARCHITECTURE (G3-Honeycomb) ===== */
+.s4-architecture {
+  background: linear-gradient(135deg, #1A1333 0%, #2D1B69 100%);
+  padding-top: 60px;
+}
+.arch-intro {
+  font-size: var(--font-body);
+  color: var(--c-warm);
+  margin-bottom: 2rem;
+  position: relative; z-index: 1;
+  opacity: 0.85;
+}
+.hex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  flex: 1;
+  align-content: center;
+  position: relative; z-index: 1;
+}
+.hex-card {
+  width: 180px;
+  height: 200px;
+  background: rgba(124,58,237,0.12);
+  border: 1px solid rgba(124,58,237,0.35);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.hex-card:hover {
+  background: rgba(124,58,237,0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(124,58,237,0.2);
+}
+.hex-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--c-primary), var(--c-accent));
+}
+.hex-icon {
+  width: 48px; height: 48px;
+  margin-bottom: 12px;
+}
+.hex-icon svg { width: 100%; height: 100%; }
+.hex-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--c-light);
+  margin-bottom: 6px;
+}
+.hex-value {
+  font-size: 0.8rem;
+  color: var(--c-warm);
+  opacity: 0.8;
+}
+
+/* ===== SLIDE 5: SMART HOME (G1-Bullseye) ===== */
+.s5-smart {
+  background: linear-gradient(180deg, #2D1B69 0%, #0F0E1A 100%);
+  padding-top: 60px;
+}
+.bullseye-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  flex: 1;
+  position: relative; z-index: 1;
+}
+.bullseye-visual {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+.bullseye-ring {
+  position: absolute;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.bullseye-ring-1 {
+  width: 300px; height: 300px;
+  background: rgba(124,58,237,0.08);
+  border: 3px solid rgba(124,58,237,0.3);
+}
+.bullseye-ring-2 {
+  width: 220px; height: 220px;
+  background: rgba(245,158,11,0.1);
+  border: 3px solid rgba(245,158,11,0.4);
+}
+.bullseye-ring-3 {
+  width: 140px; height: 140px;
+  background: rgba(167,139,250,0.15);
+  border: 3px solid rgba(167,139,250,0.6);
+}
+.bullseye-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px; height: 70px;
+  background: var(--c-primary);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 30px rgba(124,58,237,0.6);
+}
+.bullseye-center svg { width: 36px; height: 36px; }
+.bullseye-stat {
+  position: absolute;
+  font-size: 0.8rem;
+  color: var(--c-warm);
+  background: rgba(30,27,75,0.8);
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+.bullseye-stat-1 { top: 10px; left: 50%; transform: translateX(-50%); }
+.bullseye-stat-2 { top: 50%; right: -60px; transform: translateY(-50%); }
+.bullseye-stat-3 { bottom: 10px; left: 50%; transform: translateX(-50%); }
+.bullseye-stat-4 { top: 50%; left: -60px; transform: translateY(-50%); }
+.smart-info { flex: 1; max-width: 400px; }
+.smart-title {
+  font-size: var(--font-h2);
+  font-weight: 700;
+  color: var(--c-accent);
+  margin-bottom: 1rem;
+}
+.smart-desc {
+  font-size: var(--font-body);
+  color: var(--c-warm);
+  line-height: var(--lh-normal);
+  opacity: 0.85;
+}
+.smart-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 1.5rem;
+}
+.metric-card {
+  background: rgba(124,58,237,0.12);
+  border: 1px solid rgba(124,58,237,0.3);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+.metric-value {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--c-accent);
+}
+.metric-label {
+  font-size: 0.8rem;
+  color: var(--c-warm);
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* ===== SLIDE 6: HEALTHCARE (G8-Grid/Quadrant) ===== */
+.s6-health {
+  background: linear-gradient(135deg, #0F0E1A 0%, #1A1333 50%, #2D1B69 100%);
+  padding-top: 60px;
+}
+.quad-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+  flex: 1;
+  position: relative; z-index: 1;
+}
+.quad-card {
+  background: rgba(124,58,237,0.1);
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.3s;
+}
+.quad-card:hover {
+  background: rgba(124,58,237,0.2);
+  transform: scale(1.02);
+}
+.quad-icon {
+  width: 44px; height: 44px;
+  background: rgba(124,58,237,0.2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.quad-icon svg { width: 26px; height: 26px; }
+.quad-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--c-light);
+}
+.quad-desc {
+  font-size: 0.875rem;
+  color: var(--c-warm);
+  opacity: 0.8;
+  flex: 1;
+}
+.quad-stat {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--c-accent);
+}
+
+/* ===== SLIDE 7: EDUCATION (G2-Card) ===== */
+.s7-edu {
+  background: linear-gradient(180deg, #1A1333 0%, #2D1B69 100%);
+  padding-top: 60px;
+}
+.card-row {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  position: relative; z-index: 1;
+  align-items: stretch;
+}
+.edu-card {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(124,58,237,0.3);
+  border-radius: 16px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s;
+}
+.edu-card:hover {
+  background: rgba(124,58,237,0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(124,58,237,0.15);
+}
+.edu-card-icon {
+  width: 52px; height: 52px;
+  background: rgba(124,58,237,0.25);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 8px;
+}
+.edu-card-icon svg { width: 30px; height: 30px; }
+.edu-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--c-light);
+}
+.edu-card-desc {
+  font-size: 0.9rem;
+  color: var(--c-warm);
+  opacity: 0.85;
+  flex: 1;
+}
+.edu-card-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(245,158,11,0.2);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: var(--c-accent);
+  font-weight: 600;
+  width: fit-content;
+}
+
+/* ===== SLIDE 8: ETHICS (G5-Diamond) ===== */
+.s8-ethics {
+  background: linear-gradient(135deg, #2D1B69 0%, #0F0E1A 100%);
+  padding-top: 60px;
+}
+.diamond-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+  position: relative; z-index: 1;
+}
+.diamond-top {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+.diamond-item {
+  width: 200px;
+  background: rgba(124,58,237,0.12);
+  border: 1px solid rgba(124,58,237,0.35);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+.diamond-item:hover {
+  background: rgba(124,58,237,0.25);
+  transform: scale(1.05);
+}
+.diamond-icon { width: 36px; height: 36px; }
+.diamond-icon svg { width: 100%; height: 100%; }
+.diamond-text {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--c-light);
+}
+.diamond-center {
+  width: 240px;
+  background: rgba(245,158,11,0.15);
+  border: 2px solid rgba(245,158,11,0.5);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.diamond-center .diamond-icon { width: 44px; height: 44px; }
+.diamond-center .diamond-text { font-size: 1rem; color: var(--c-accent); }
+
+/* ===== SLIDE 9: FUTURE (G4-Triangle) ===== */
+.s9-future {
+  background: linear-gradient(180deg, #0F0E1A 0%, #1A1333 100%);
+  padding-top: 60px;
+}
+.triangle-layout {
+  display: flex;
+  gap: 32px;
+  flex: 1;
+  align-items: center;
+  position: relative; z-index: 1;
+}
+.tri-visual {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.tri-layer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.tri-bar {
+  height: 56px;
+  background: linear-gradient(90deg, var(--c-primary), var(--c-accent));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0 24px;
+  position: relative;
+}
+.tri-bar::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+}
+.tri-info { flex: 1; }
+.tri-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(124,58,237,0.2);
+}
+.tri-item:last-child { border-bottom: none; }
+.tri-item-icon {
+  width: 40px; height: 40px;
+  background: rgba(124,58,237,0.2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.tri-item-icon svg { width: 24px; height: 24px; }
+.tri-item-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--c-light);
+}
+.tri-item-desc {
+  font-size: 0.85rem;
+  color: var(--c-warm);
+  opacity: 0.8;
+}
+
+/* ===== SLIDE 10: COMPARISON (G6-Funnel) ===== */
+.s10-compare {
+  background: linear-gradient(135deg, #1A1333 0%, #2D1B69 100%);
+  padding-top: 60px;
+}
+.funnel-container {
+  display: flex;
+  gap: 48px;
+  flex: 1;
+  align-items: center;
+  position: relative; z-index: 1;
+}
+.funnel-left, .funnel-right {
+  flex: 1;
+}
+.funnel-col-title {
+  font-size: var(--font-h2);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.funnel-col-title.yes { color: #4ADE80; }
+.funnel-col-title.no { color: #F87171; }
+.funnel-stage {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  padding: 0 20px;
+}
+.funnel-yes .funnel-stage:nth-child(1) { width: 100%; background: linear-gradient(90deg, #166534, #15803d); }
+.funnel-yes .funnel-stage:nth-child(2) { width: 80%; background: linear-gradient(90deg, #15803d, #22c55e); }
+.funnel-yes .funnel-stage:nth-child(3) { width: 60%; background: linear-gradient(90deg, #22c55e, #4ADE80); }
+.funnel-yes .funnel-stage:nth-child(4) { width: 40%; background: linear-gradient(90deg, #4ADE80, #86EFAC); color: #166534; }
+.funnel-no .funnel-stage:nth-child(1) { width: 100%; background: linear-gradient(90deg, #991b1b, #dc2626); }
+.funnel-no .funnel-stage:nth-child(2) { width: 80%; background: linear-gradient(90deg, #dc2626, #ef4444); }
+.funnel-no .funnel-stage:nth-child(3) { width: 60%; background: linear-gradient(90deg, #ef4444, #f87171); }
+.funnel-no .funnel-stage:nth-child(4) { width: 40%; background: linear-gradient(90deg, #f87171, #fca5a5); color: #991b1b; }
+.vs-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: var(--c-bg);
+  border: 3px solid var(--c-accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--c-accent);
+  z-index: 10;
+}
+
+/* ===== SLIDE 11: CLOSING (G1-Ring) ===== */
+.s11-closing {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #0F0E1A 0%, #1A1333 50%, #2D1B69 100%);
+}
+.s11-closing::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(124,58,237,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(245,158,11,0.15) 0%, transparent 50%);
+}
+.closing-rings {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 2.5rem;
+  z-index: 1;
+}
+.closing-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.closing-ring-1 {
+  width: 200px; height: 200px;
+  border-color: rgba(124,58,237,0.7);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+.closing-ring-2 {
+  width: 150px; height: 150px;
+  border-color: rgba(245,158,11,0.6);
+  animation: glow-pulse 3s ease-in-out infinite 0.5s;
+}
+.closing-ring-3 {
+  width: 100px; height: 100px;
+  border-color: rgba(167,139,250,0.5);
+  animation: glow-pulse 3s ease-in-out infinite 1s;
+}
+.closing-icon {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px; height: 50px;
+}
+.closing-icon svg { width: 100%; height: 100%; }
+.closing-title {
+  font-size: var(--font-display);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--c-accent), var(--c-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative; z-index: 1;
+  margin-bottom: 1rem;
+}
+.closing-subtitle {
+  font-size: var(--font-h2);
+  color: var(--c-secondary);
+  opacity: 0.85;
+  position: relative; z-index: 1;
+  margin-bottom: 2rem;
+}
+.closing-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--c-primary), var(--c-accent));
+  border-radius: 30px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  position: relative; z-index: 1;
+  transition: all 0.3s;
+}
+.closing-cta:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+.closing-tagline {
+  margin-top: 2rem;
+  font-size: var(--font-body);
+  color: var(--c-warm);
+  opacity: 0.6;
+  position: relative; z-index: 1;
+}
+</style>
+</head>
+<body>
+<a href="/slides.htm" class="back-link">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  回列表
+</a>
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<div class="slide s1-cover active" data-slide="1">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="cover-ring-container">
+    <div class="cover-ring cover-ring-1"></div>
+    <div class="cover-ring cover-ring-2"></div>
+    <div class="cover-ring cover-ring-3"></div>
+    <div class="cover-icon-center">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="24"/>
+        <path d="M32 16v16l12 8"/>
+        <circle cx="32" cy="32" r="6" fill="#A78BFA"/>
+      </svg>
+    </div>
+  </div>
+  <h1 class="cover-title">2026 AI 科技趨勢</h1>
+  <p class="cover-subtitle">人工智慧的下一個十年</p>
+  <p class="cover-date">2026.06.30 — 熊熊簡報</p>
+  <span class="cover-tag">科技學術 · 深度分析</span>
+</div>
+
+<!-- ===== SLIDE 2: TOC ===== -->
+<div class="slide s2-toc" data-slide="2">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="toc-header">
+    <h2 class="toc-title">目錄</h2>
+    <div class="toc-header-line"></div>
+  </div>
+  <div class="toc-timeline">
+    <div class="toc-item">
+      <div class="toc-item-line"></div>
+      <div class="toc-item-node"></div>
+      <div class="toc-item-title">AI 發展史</div>
+      <div class="toc-item-desc">從概念到爆發</div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-item-line"></div>
+      <div class="toc-item-node"></div>
+      <div class="toc-item-title">技術架構</div>
+      <div class="toc-item-desc">生成式 AI 核心</div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-item-line"></div>
+      <div class="toc-item-node"></div>
+      <div class="toc-item-title">智慧生活</div>
+      <div class="toc-item-desc">日常應用場景</div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-item-line"></div>
+      <div class="toc-item-node"></div>
+      <div class="toc-item-title">醫療健康</div>
+      <div class="toc-item-desc">精準醫療革命</div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-item-line"></div>
+      <div class="toc-item-node"></div>
+      <div class="toc-item-title">教育變革</div>
+      <div class="toc-item-desc">個人化學習</div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-item-line"></div>
+      <div class="toc-item-node"></div>
+      <div class="toc-item-title">倫理治理</div>
+      <div class="toc-item-desc">永續發展框架</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: AI HISTORY (G7-Timeline) ===== -->
+<div class="slide s3-timeline" data-slide="3">
+  <div class="orb orb-1"></div>
+  <div class="section-header">
+    <div class="section-icon">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+        <polyline points="12,48 24,32 36,40 52,16"/>
+        <circle cx="12" cy="48" r="4" fill="#A78BFA"/>
+        <circle cx="24" cy="32" r="4" fill="#A78BFA"/>
+        <circle cx="36" cy="40" r="4" fill="#A78BFA"/>
+        <circle cx="52" cy="16" r="4" fill="#F59E0B"/>
+      </svg>
+    </div>
+    <h2 class="section-title">AI 發展里程碑</h2>
+  </div>
+  <div class="timeline-container">
+    <div class="timeline-line"></div>
+    <div class="timeline-item">
+      <div class="timeline-node"></div>
+      <div class="timeline-year">1950</div>
+      <div class="timeline-content">
+        <div class="timeline-event">圖靈測試提出</div>
+        <div class="timeline-desc">艾倫·圖靈發表〈計算機器與智能〉，提出判斷機器是否具有思維的測試方法</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node"></div>
+      <div class="timeline-year">1997</div>
+      <div class="timeline-content">
+        <div class="timeline-event">深藍擊敗卡斯帕洛夫</div>
+        <div class="timeline-desc">IBM 超級電腦戰勝國際象棋世界冠軍，標誌著 AI 在特定領域超越人類</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node"></div>
+      <div class="timeline-year">2012</div>
+      <div class="timeline-content">
+        <div class="timeline-event">深度學習突破</div>
+        <div class="timeline-desc">AlexNet 在 ImageNet 競賽中以壓倒性優勢奪冠，開啟深度學習黃金時代</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node"></div>
+      <div class="timeline-year">2020</div>
+      <div class="timeline-content">
+        <div class="timeline-event">GPT-3 誕生</div>
+        <div class="timeline-desc">1750 億參數的大型語言模型，展現出前所未有的自然語言理解與生成能力</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-node"></div>
+      <div class="timeline-year">2024</div>
+      <div class="timeline-content">
+        <div class="timeline-event">多模態 AI 普及</div>
+        <div class="timeline-desc">GPT-4o、Gemini 等模型整合文字、圖像、語音，實現真正的多模態理解</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: ARCHITECTURE (G3-Honeycomb) ===== -->
+<div class="slide s4-architecture" data-slide="4">
+  <div class="orb orb-1"></div>
+  <div class="section-header">
+    <div class="section-icon">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+        <rect x="8" y="8" width="48" height="48" rx="8"/>
+        <path d="M20 32h24M32 20v24"/>
+      </svg>
+    </div>
+    <h2 class="section-title">生成式 AI 技術架構</h2>
+  </div>
+  <p class="arch-intro">生成式 AI 的核心組件構成完整的智慧系統，各層次分工明確、協同運作</p>
+  <div class="hex-grid">
+    <div class="hex-card animate-in">
+      <div class="hex-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+          <path d="M32 8v48M8 32h48"/>
+          <circle cx="32" cy="32" r="12"/>
+        </svg>
+      </div>
+      <div class="hex-label">Transformer</div>
+      <div class="hex-value">注意力機制核心</div>
+    </div>
+    <div class="hex-card animate-in">
+      <div class="hex-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round">
+          <rect x="12" y="20" width="40" height="28" rx="4"/>
+          <path d="M20 48v8M44 48v8M16 56h32"/>
+        </svg>
+      </div>
+      <div class="hex-label">大語言模型</div>
+      <div class="hex-value">千億參數規模</div>
+    </div>
+    <div class="hex-card animate-in">
+      <div class="hex-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#4ADE80" stroke-width="3" stroke-linecap="round">
+          <circle cx="24" cy="24" r="12"/>
+          <circle cx="40" cy="40" r="12"/>
+          <path d="M32 12v8M44 32h8M32 44v8M12 32h8"/>
+        </svg>
+      </div>
+      <div class="hex-label">多模態融合</div>
+      <div class="hex-value">文字·圖像·語音</div>
+    </div>
+    <div class="hex-card animate-in">
+      <div class="hex-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F87171" stroke-width="3" stroke-linecap="round">
+          <path d="M16 48l16-24 16 24H16z"/>
+          <circle cx="32" cy="28" r="6"/>
+        </svg>
+      </div>
+      <div class="hex-label">RLHF</div>
+      <div class="hex-value">人類反饋強化學習</div>
+    </div>
+    <div class="hex-card animate-in">
+      <div class="hex-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#60A5FA" stroke-width="3" stroke-linecap="round">
+          <path d="M8 32h48M32 8v48"/>
+          <circle cx="32" cy="32" r="20"/>
+        </svg>
+      </div>
+      <div class="hex-label">向量資料庫</div>
+      <div class="hex-value">高效語意檢索</div>
+    </div>
+    <div class="hex-card animate-in">
+      <div class="hex-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#C4B5FD" stroke-width="3" stroke-linecap="round">
+          <path d="M32 12l6 12 14 2-10 10 2 14-12-6-12 6 2-14-10-10 14-2z"/>
+        </svg>
+      </div>
+      <div class="hex-label">Prompt 工程</div>
+      <div class="hex-value">精準指令設計</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: SMART HOME (G1-Bullseye) ===== -->
+<div class="slide s5-smart" data-slide="5">
+  <div class="orb orb-1"></div>
+  <div class="section-header">
+    <div class="section-icon">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+        <path d="M32 8L8 24v20l24 12 24-12V24L32 8z"/>
+        <path d="M8 24l24 12 24-12M32 36v20"/>
+      </svg>
+    </div>
+    <h2 class="section-title">智慧生活應用</h2>
+  </div>
+  <div class="bullseye-container">
+    <div class="bullseye-visual">
+      <div class="bullseye-ring bullseye-ring-1"></div>
+      <div class="bullseye-ring bullseye-ring-2"></div>
+      <div class="bullseye-ring bullseye-ring-3"></div>
+      <div class="bullseye-center">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round">
+          <circle cx="32" cy="32" r="20"/>
+          <path d="M32 20v12l8 6"/>
+        </svg>
+      </div>
+      <div class="bullseye-stat bullseye-stat-1">感知層</div>
+      <div class="bullseye-stat bullseye-stat-2">決策層</div>
+      <div class="bullseye-stat bullseye-stat-3">執行層</div>
+      <div class="bullseye-stat bullseye-stat-4">學習層</div>
+    </div>
+    <div class="smart-info">
+      <div class="smart-title">AI 在日常場景的落地</div>
+      <div class="smart-desc">從智慧音箱到自動駕駛，AI 已深入滲透日常生活。邊緣運算讓裝置具備本地 AI 能力，實現即時回應與隱私保護的平衡。</div>
+      <div class="smart-metrics">
+        <div class="metric-card">
+          <div class="metric-value">85%</div>
+          <div class="metric-label">智慧家庭普及率</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">3.2x</div>
+          <div class="metric-label">生活效率提升</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">24h</div>
+          <div class="metric-label">全天候智慧助理</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">50+</div>
+          <div class="metric-label">日均 AI 互動次數</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: HEALTHCARE (G8-Grid) ===== -->
+<div class="slide s6-health" data-slide="6">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="section-header">
+    <div class="section-icon">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+        <path d="M32 8v48M8 32h48"/>
+        <circle cx="32" cy="32" r="20"/>
+      </svg>
+    </div>
+    <h2 class="section-title">AI 醫療健康應用</h2>
+  </div>
+  <div class="quad-grid">
+    <div class="quad-card animate-in">
+      <div class="quad-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#4ADE80" stroke-width="3" stroke-linecap="round">
+          <circle cx="32" cy="20" r="10"/>
+          <path d="M12 52c0-11 9-20 20-20s20 9 20 20"/>
+        </svg>
+      </div>
+      <div class="quad-title">疾病早期篩檢</div>
+      <div class="quad-desc">AI 影像分析可在症狀出現前偵測癌症、心血管疾病，提高早期發現率</div>
+      <div class="quad-stat">↑ 40% 準確率</div>
+    </div>
+    <div class="quad-card animate-in">
+      <div class="quad-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#60A5FA" stroke-width="3" stroke-linecap="round">
+          <rect x="12" y="12" width="40" height="40" rx="8"/>
+          <path d="M24 32h16M32 24v16"/>
+        </svg>
+      </div>
+      <div class="quad-title">個人化藥物設計</div>
+      <div class="quad-desc">根據基因體資料與病患特徵，AI 協助設計最適合的藥物組合與劑量</div>
+      <div class="quad-stat">↓ 60% 開發成本</div>
+    </div>
+    <div class="quad-card animate-in">
+      <div class="quad-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round">
+          <path d="M32 8v8M32 48v8M8 32h8M48 32h8"/>
+          <circle cx="32" cy="32" r="12"/>
+        </svg>
+      </div>
+      <div class="quad-title">手術輔助機器人</div>
+      <div class="quad-desc">達文西系統結合 AI 影像導引，實現微創、精準的手術操作</div>
+      <div class="quad-stat">↓ 72% 術後併發症</div>
+    </div>
+    <div class="quad-card animate-in">
+      <div class="quad-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F87171" stroke-width="3" stroke-linecap="round">
+          <path d="M8 40l16-16 12 12 12-20 8 8"/>
+          <circle cx="32" cy="32" r="20"/>
+        </svg>
+      </div>
+      <div class="quad-title">健康風險預測</div>
+      <div class="quad-desc">整合生活型態與醫療數據，AI 模型可提前預測慢性病發生風險</div>
+      <div class="quad-stat">↓ 35% 死亡率</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: EDUCATION (G2-Card) ===== -->
+<div class="slide s7-edu" data-slide="7">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-3"></div>
+  <div class="section-header">
+    <div class="section-icon">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+        <path d="M8 48V20l24-12 24 12v28"/>
+        <rect x="24" y="32" width="16" height="16"/>
+      </svg>
+    </div>
+    <h2 class="section-title">AI 教育變革</h2>
+  </div>
+  <div class="card-row">
+    <div class="edu-card animate-in">
+      <div class="edu-card-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+          <circle cx="32" cy="32" r="24"/>
+          <path d="M32 20v12l8 6"/>
+        </svg>
+      </div>
+      <div class="edu-card-title">自適應學習系統</div>
+      <div class="edu-card-desc">AI 根據學習者的掌握程度即時調整教材難度與節奏，實現真正的個人化教育路徑</div>
+      <span class="edu-card-tag">自適應</span>
+    </div>
+    <div class="edu-card animate-in">
+      <div class="edu-card-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round">
+          <path d="M8 20h48M8 32h48M8 44h32"/>
+          <path d="M48 44l8 8"/>
+        </svg>
+      </div>
+      <div class="edu-card-title">智慧家教助理</div>
+      <div class="edu-card-desc">24 小時線上家教，回答問題、解釋概念、批改作業，讓每位學生都有專屬導師</div>
+      <span class="edu-card-tag">一對一</span>
+    </div>
+    <div class="edu-card animate-in">
+      <div class="edu-card-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#4ADE80" stroke-width="3" stroke-linecap="round">
+          <path d="M32 8l8 16 18 2-13 13 3 18-16-8-16 8 3-18L6 26l18-2z"/>
+        </svg>
+      </div>
+      <div class="edu-card-title">沉浸式 VR 教室</div>
+      <div class="edu-card-desc">VR/AR 結合 AI 打造沉浸式學習環境，歷史、科學、藝術都能身歷其境探索</div>
+      <span class="edu-card-tag">沉浸式</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: ETHICS (G5-Diamond) ===== -->
+<div class="slide s8-ethics" data-slide="8">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="section-header">
+    <div class="section-icon">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+        <path d="M32 8l8 8-8 8-8-8z"/>
+        <path d="M8 32l8 8 8-8-8-8z"/>
+        <path d="M32 48l8 8-8 8-8-8z"/>
+        <path d="M48 32l8 8-8 8-8-8z"/>
+      </svg>
+    </div>
+    <h2 class="section-title">AI 倫理與治理</h2>
+  </div>
+  <div class="diamond-layout">
+    <div class="diamond-top">
+      <div class="diamond-item">
+        <div class="diamond-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#4ADE80" stroke-width="3" stroke-linecap="round">
+            <path d="M32 8v24l16 16"/>
+            <circle cx="32" cy="32" r="24"/>
+          </svg>
+        </div>
+        <div class="diamond-text">公平性</div>
+      </div>
+      <div class="diamond-item">
+        <div class="diamond-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#60A5FA" stroke-width="3" stroke-linecap="round">
+            <rect x="16" y="16" width="32" height="32" rx="4"/>
+            <path d="M24 32h16M24 40h8"/>
+          </svg>
+        </div>
+        <div class="diamond-text">隱私保護</div>
+      </div>
+      <div class="diamond-item">
+        <div class="diamond-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round">
+            <path d="M32 8l6 12 14 2-10 10 2 14-12-6-12 6 2-14-10-10 14-2z"/>
+          </svg>
+        </div>
+        <div class="diamond-text">問責機制</div>
+      </div>
+    </div>
+    <div class="diamond-center">
+      <div class="diamond-icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round">
+          <path d="M32 8v48M8 32h48"/>
+          <circle cx="32" cy="32" r="16"/>
+        </svg>
+      </div>
+      <div class="diamond-text">永續 AI 發展</div>
+    </div>
+    <div class="diamond-top">
+      <div class="diamond-item">
+        <div class="diamond-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#F87171" stroke-width="3" stroke-linecap="round">
+            <circle cx="32" cy="32" r="24"/>
+            <path d="M24 24l16 16M40 24l-16 16"/>
+          </svg>
+        </div>
+        <div class="diamond-text">透明可解釋</div>
+      </div>
+      <div class="diamond-item">
+        <div class="diamond-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#C4B5FD" stroke-width="3" stroke-linecap="round">
+            <path d="M32 16a16 16 0 100 32 16 16 0 000-32"/>
+            <path d="M32 16c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9"/>
+          </svg>
+        </div>
+        <div class="diamond-text">人類掌控</div>
+      </div>
+      <div class="diamond-item">
+        <div class="diamond-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+            <path d="M16 48l16-24 16 24H16z"/>
+            <path d="M24 48h16"/>
+          </svg>
+        </div>
+        <div class="diamond-text">安全性</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 9: FUTURE (G4-Triangle) ===== -->
+<div class="slide s9-future" data-slide="9">
+  <div class="orb orb-1"></div>
+  <div class="section-header">
+    <div class="section-icon">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+        <path d="M32 8L56 56H8z"/>
+        <path d="M32 24v16"/>
+      </svg>
+    </div>
+    <h2 class="section-title">2026-2030 發展預測</h2>
+  </div>
+  <div class="triangle-layout">
+    <div class="tri-visual">
+      <div class="tri-layer"><div class="tri-bar" style="width:100%">通用人工智慧 AGI 初期</div></div>
+      <div class="tri-layer"><div class="tri-bar" style="width:80%">AI 代理自主執行複雜任務</div></div>
+      <div class="tri-layer"><div class="tri-bar" style="width:60%">科學研究 AI 加速發現</div></div>
+      <div class="tri-layer"><div class="tri-bar" style="width:40%">AI 與神經介面整合</div></div>
+    </div>
+    <div class="tri-info">
+      <div class="tri-item">
+        <div class="tri-item-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+            <circle cx="32" cy="32" r="24"/>
+            <path d="M32 20v8M32 36v8"/>
+          </svg>
+        </div>
+        <div>
+          <div class="tri-item-title">2026-2027</div>
+          <div class="tri-item-desc">AI Agent 爆發，自主執行多步驟任務成為常態</div>
+        </div>
+      </div>
+      <div class="tri-item">
+        <div class="tri-item-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round">
+            <path d="M32 8v24l16 8"/>
+            <circle cx="32" cy="32" r="24"/>
+          </svg>
+        </div>
+        <div>
+          <div class="tri-item-title">2028-2029</div>
+          <div class="tri-item-desc">科學發現加速，AI 輔助藥物、材料、氣候研究</div>
+        </div>
+      </div>
+      <div class="tri-item">
+        <div class="tri-item-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#4ADE80" stroke-width="3" stroke-linecap="round">
+            <path d="M8 32h48M32 8v48"/>
+            <circle cx="32" cy="32" r="8"/>
+          </svg>
+        </div>
+        <div>
+          <div class="tri-item-title">2030</div>
+          <div class="tri-item-desc">AGI 初期形態出現，開啟智慧新紀元</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 10: COMPARISON (G6-Funnel) ===== -->
+<div class="slide s10-compare" data-slide="10">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="section-header">
+    <div class="section-icon">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#A78BFA" stroke-width="3" stroke-linecap="round">
+        <path d="M8 16h48M8 32h32M8 48h16"/>
+      </svg>
+    </div>
+    <h2 class="section-title">AI 能否取代人類？</h2>
+  </div>
+  <div class="funnel-container">
+    <div class="funnel-left">
+      <div class="funnel-col-title yes">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ADE80" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+        AI 擅長
+      </div>
+      <div class="funnel-stage">重複性資料處理</div>
+      <div class="funnel-stage">Pattern 識別與預測</div>
+      <div class="funnel-stage">大規模資訊檢索</div>
+      <div class="funnel-stage">標準化創意生成</div>
+    </div>
+    <div class="vs-badge">VS</div>
+    <div class="funnel-right">
+      <div class="funnel-col-title no">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        人類獨有
+      </div>
+      <div class="funnel-stage">跨領域綜合判斷</div>
+      <div class="funnel-stage">情感與同理心</div>
+      <div class="funnel-stage">倫理道德思考</div>
+      <div class="funnel-stage">突破性創新</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLIDE 11: CLOSING ===== -->
+<div class="slide s11-closing" data-slide="11">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="closing-rings">
+    <div class="closing-ring closing-ring-1"></div>
+    <div class="closing-ring closing-ring-2"></div>
+    <div class="closing-ring closing-ring-3"></div>
+    <div class="closing-icon">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round">
+        <path d="M32 8l8 16 18 2-13 13 3 18-16-8-16 8 3-18L6 26l18-2z"/>
+      </svg>
+    </div>
+  </div>
+  <h2 class="closing-title">攜手 AI，共創未來</h2>
+  <p class="closing-subtitle">人工智慧是人類智慧的延伸，而非替代</p>
+  <a href="/slides.htm" class="closing-cta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    探索更多簡報
+  </a>
+  <p class="closing-tagline">熊熊簡報 · 每日創作 · 2026.06.30</p>
+</div>
+
+<!-- ===== NAVIGATION ===== -->
+<div class="nav">
+  <button onclick="prevSlide()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  </button>
+  <span id="navInfo">1 / 11</span>
+  <button onclick="nextSlide()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </button>
+</div>
+
+<script>
+let currentSlide = 1;
+const totalSlides = 11;
+
+function showSlide(n) {
+  const slides = document.querySelectorAll('.slide');
+  slides.forEach(s => s.classList.remove('active'));
+  if (n > totalSlides) currentSlide = 1;
+  if (n < 1) currentSlide = totalSlides;
+  slides[currentSlide - 1].classList.add('active');
+  document.getElementById('navInfo').textContent = currentSlide + ' / ' + totalSlides;
+}
+
+function nextSlide() { currentSlide++; showSlide(currentSlide); }
+function prevSlide() { currentSlide--; showSlide(currentSlide); }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+  if (e.key === 'ArrowLeft') prevSlide();
+});
+
+showSlide(currentSlide);
+</script>
+</body>
+</html>
