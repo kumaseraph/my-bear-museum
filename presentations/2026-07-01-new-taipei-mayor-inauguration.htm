@@ -1180,7 +1180,7 @@ const total = 17;
 function setSlideHeight() {
   var pres = document.querySelector('.presentation');
   if (pres) {
-    var h = pres.getBoundingClientRect().height;
+    var h = window.innerHeight;
     document.documentElement.style.setProperty('--slide-h', h + 'px');
     document.querySelectorAll('.slide').forEach(function(s) { s.style.height = h + 'px'; });
   }
@@ -1190,11 +1190,12 @@ function show(n) {
   var target = document.getElementById('slide-' + n);
   if (target) {
     target.classList.add('active');
-    var pres = document.querySelector('.presentation');
-    if (pres) {
-      var h = pres.getBoundingClientRect().height;
-      target.style.height = h + 'px';
-    }
+    var presH = window.innerHeight;
+    target.style.height = presH + 'px';
+    var cb = target.querySelector('.content-body');
+    if (cb) { cb.style.minHeight = (presH - 96) + 'px'; }
+    var dc = target.querySelector('.diagram-container');
+    if (dc) { dc.style.minHeight = (presH - 96) + 'px'; }
   }
   document.getElementById('counter').textContent = n + ' / ' + total;
 }
