@@ -168,8 +168,8 @@ body {
 }
 .cover-ring-container {
   position: relative;
-  width: 280px;
-  height: 280px;
+  width: 380px;
+  height: 380px;
   margin-bottom: 2.5rem;
   z-index: 1;
 }
@@ -180,23 +180,23 @@ body {
   animation: ring-spin 20s linear infinite;
 }
 .cover-ring-1 {
-  width: 280px; height: 280px;
+  width: 380px; height: 380px;
   top: 0; left: 0;
   border-color: rgba(124,58,237,0.8);
   border-top-color: transparent;
   animation-duration: 8s;
 }
 .cover-ring-2 {
-  width: 220px; height: 220px;
-  top: 30px; left: 30px;
+  width: 300px; height: 300px;
+  top: 40px; left: 40px;
   border-color: rgba(245,158,11,0.7);
   border-bottom-color: transparent;
   animation-duration: 12s;
   animation-direction: reverse;
 }
 .cover-ring-3 {
-  width: 160px; height: 160px;
-  top: 60px; left: 60px;
+  width: 220px; height: 220px;
+  top: 80px; left: 80px;
   border-color: rgba(167,139,250,0.6);
   border-right-color: transparent;
   animation-duration: 6s;
@@ -205,11 +205,11 @@ body {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 80px; height: 80px;
+  width: 100px; height: 100px;
 }
 .cover-icon-center svg { width: 100%; height: 100%; }
 .cover-title {
-  font-size: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
   font-weight: 900;
   background: linear-gradient(135deg, var(--c-primary), var(--c-accent));
   -webkit-background-clip: text;
@@ -242,6 +242,52 @@ body {
   font-size: 1rem;
   color: var(--c-secondary);
   position: relative; z-index: 1;
+}
+.cover-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-left: 40px;
+}
+.cover-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.cover-stat {
+  background: rgba(124,58,237,0.15);
+  border: 1px solid rgba(124,58,237,0.3);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: center;
+}
+.cover-stat-num {
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--c-primary), var(--c-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+.cover-stat-label {
+  font-size: 1rem;
+  color: var(--c-warm);
+  margin-top: 4px;
+}
+.cover-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cover-kw {
+  background: rgba(245,158,11,0.2);
+  border: 1px solid rgba(245,158,11,0.4);
+  color: var(--c-accent);
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 /* ===== SLIDE 2: TOC (G7-Timeline Style) ===== */
@@ -693,7 +739,7 @@ body {
   justify-content: center;
 }
 .diamond-item {
-  width: 240px;
+  flex: 1;
   background: rgba(124,58,237,0.12);
   border: 1px solid rgba(124,58,237,0.35);
   border-radius: 16px;
@@ -994,6 +1040,32 @@ body {
   <p class="cover-date">2026.06.30 — 熊熊簡報</p>
   <span class="cover-tag">科技學術 · 深度分析</span>
 </div>
+  <div class="cover-right">
+    <div class="cover-stat-grid">
+      <div class="cover-stat">
+        <div class="cover-stat-num">11</div>
+        <div class="cover-stat-label">簡報章節</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">2026</div>
+        <div class="cover-stat-label">年度趨勢</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">AI</div>
+        <div class="cover-stat-label">核心主題</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">5+</div>
+        <div class="cover-stat-label">應用領域</div>
+      </div>
+    </div>
+    <div class="cover-keywords">
+      <span class="cover-kw">生成式 AI</span>
+      <span class="cover-kw">多模態</span>
+      <span class="cover-kw">AGI</span>
+      <span class="cover-kw">邊緣運算</span>
+    </div>
+  </div>
 
 <!-- ===== SLIDE 2: TOC ===== -->
 <div class="slide s2-toc" data-slide="2">
