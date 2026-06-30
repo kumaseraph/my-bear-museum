@@ -497,9 +497,8 @@ body {
 }
 
 /* ── P13 TRAFFIC ── */
-/* ── P13 TRAFFIC ── */
-.s13-traffic { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
-.s13-traffic .content-body { gap: 20px; }
+.s13-traffic { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); display: flex; flex-direction: column; }
+.s13-traffic .content-body { display: flex; flex-direction: column; gap: 20px; flex: 1; min-height: 481px; }
 .traffic-split {
   display: flex; flex-direction: row; gap: 0; flex: 1; align-items: stretch;
 }
@@ -544,8 +543,8 @@ body {
 }
 
 /* ── P14-15 GROUPS ── */
-.s14-groups { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
-.groups-split { display: flex; flex-direction: row; gap: 20px; flex: 1; }
+.s14-groups { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); display: flex; flex-direction: column; }
+.groups-split { display: flex; flex-direction: row; gap: 20px; flex: 1; min-height: 481px; }
 .groups-col { flex: 1; display: flex; flex-direction: column; gap: 14px; }
 .group-big-card {
   flex: 1; background: rgba(18,46,85,0.65);
@@ -568,8 +567,8 @@ body {
 }
 
 /* ── P15 RESPONSIBILITY GRID ── */
-.s15-table { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
-.resp-grid { display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.s15-table { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); display: flex; flex-direction: column; }
+.resp-grid { display: flex; flex-direction: column; gap: 14px; flex: 1; min-height: 481px; }
 .resp-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .resp-card {
   background: rgba(18,46,85,0.65); border: 2px solid var(--gold-line);
@@ -657,7 +656,7 @@ body {
 /* ── P17 CLOSING ── */
 .s17-close { background: linear-gradient(135deg, #0B1D3A 0%, #0F2744 100%); }
 .s17-close .gold-line-top { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, transparent, #D4A843 20%, #D4A843 80%, transparent); }
-.close-layout { display: flex; flex-direction: row; align-items: center; flex: 1; width: 100%; }
+.close-layout { display: flex; flex-direction: row; align-items: center; flex: 1; width: 100%; min-height: 481px; }
 .close-deco { display: flex; flex-direction: column; justify-content: center; gap: 32px; width: 180px; }
 .close-deco-icon { display: flex; align-items: center; justify-content: center; opacity: 0.5; }
 .close-center { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
