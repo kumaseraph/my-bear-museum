@@ -26,21 +26,35 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html { font-size: 20px; }
+
 body {
   font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
   background: var(--c-bg);
   color: var(--c-light);
   overflow-x: hidden;
+  font-size: 1rem;
 }
 
 /* ===== SLIDE SYSTEM ===== */
-.slide {
-  display: none;
-  min-height: 100vh;
-  padding: 40px 60px;
+.presentation {
+  width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
+  aspect-ratio: 16 / 9;
 }
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  padding: 48px 64px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .slide.active { display: flex; flex-direction: column; }
 .nav {
   position: fixed;
@@ -64,7 +78,7 @@ body {
   width: 36px; height: 36px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.2s;
 }
@@ -74,7 +88,7 @@ body {
   position: absolute;
   bottom: 24px;
   right: 40px;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: rgba(167,139,250,0.5);
 }
 
@@ -225,7 +239,7 @@ body {
   background: rgba(124,58,237,0.25);
   border: 1px solid rgba(124,58,237,0.5);
   border-radius: 20px;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: var(--c-secondary);
   position: relative; z-index: 1;
 }
@@ -294,7 +308,7 @@ body {
   margin-bottom: 6px;
 }
 .toc-item-desc {
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: var(--c-warm);
   text-align: center;
   opacity: 0.8;
@@ -378,7 +392,7 @@ body {
   margin-bottom: 6px;
 }
 .timeline-desc {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   color: var(--c-warm);
   opacity: 0.85;
 }
@@ -444,7 +458,7 @@ body {
   margin-bottom: 6px;
 }
 .hex-value {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--c-warm);
   opacity: 0.8;
 }
@@ -501,7 +515,7 @@ body {
 .bullseye-center svg { width: 36px; height: 36px; }
 .bullseye-stat {
   position: absolute;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--c-warm);
   background: rgba(30,27,75,0.8);
   padding: 4px 10px;
@@ -543,7 +557,7 @@ body {
   color: var(--c-accent);
 }
 .metric-label {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--c-warm);
   opacity: 0.8;
   margin-top: 4px;
@@ -589,7 +603,7 @@ body {
   color: var(--c-light);
 }
 .quad-desc {
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: var(--c-warm);
   opacity: 0.8;
   flex: 1;
@@ -643,7 +657,7 @@ body {
   color: var(--c-light);
 }
 .edu-card-desc {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   color: var(--c-warm);
   opacity: 0.85;
   flex: 1;
@@ -653,7 +667,7 @@ body {
   padding: 4px 12px;
   background: rgba(245,158,11,0.2);
   border-radius: 12px;
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: var(--c-accent);
   font-weight: 600;
   width: fit-content;
@@ -702,7 +716,7 @@ body {
 .diamond-icon { width: 36px; height: 36px; }
 .diamond-icon svg { width: 100%; height: 100%; }
 .diamond-text {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--c-light);
 }
@@ -793,7 +807,7 @@ body {
   color: var(--c-light);
 }
 .tri-item-desc {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   color: var(--c-warm);
   opacity: 0.8;
 }
@@ -830,7 +844,7 @@ body {
   justify-content: center;
   color: #fff;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   margin-bottom: 8px;
   border-radius: 8px;
   padding: 0 20px;
@@ -955,6 +969,8 @@ body {
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
   回列表
 </a>
+
+<div class="presentation">
 
 <!-- ===== SLIDE 1: COVER ===== -->
 <div class="slide s1-cover active" data-slide="1">
@@ -1566,5 +1582,6 @@ document.addEventListener('keydown', (e) => {
 
 showSlide(currentSlide);
 </script>
+</div>
 </body>
 </html>
