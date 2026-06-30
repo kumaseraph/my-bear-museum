@@ -294,12 +294,15 @@ body {
 .s9-stage { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
 
 /* ── P10-12 DIAGRAMS ── */
-.s10-diagram { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); flex: 1; }
-.s11-diagram { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); flex: 1; }
-.s12-diagram { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); flex: 1; }
+.s10-diagram { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.s11-diagram { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.s12-diagram { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
 .diagram-container {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 20px;
+  display: grid;
+  place-content: center;
+  align-content: center;
+  gap: 20px;
+  height: 100%;
   min-height: 0;
 }
 .diagram-box {
