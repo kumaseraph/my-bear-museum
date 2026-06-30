@@ -1505,6 +1505,19 @@ body {
 </div>
 
 <script>
+// ── DOM 結構修復：確保所有 slides 直接附屬於 .presentation ──
+document.addEventListener('DOMContentLoaded', function() {
+  var pres = document.querySelector('.presentation');
+  if (!pres) return;
+  var slides = Array.from(document.querySelectorAll('.slide[id]'));
+  slides.forEach(function(s) {
+    if (s.parentElement !== pres) {
+      pres.appendChild(s); // 移回正確位置
+    }
+  });
+});
+</script>
+<script>
 let idx = 1;
 const total = 17;
 function setSlideHeight() {
