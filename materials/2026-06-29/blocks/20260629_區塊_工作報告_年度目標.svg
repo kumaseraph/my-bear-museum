@@ -1,0 +1,49 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- 熊熊棕金色系 -->
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#8B5A2B"/>
+    </linearGradient>
+    <linearGradient id="bearBrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5A2B"/>
+      <stop offset="100%" stop-color="#5D3A1A"/>
+    </linearGradient>
+    <!-- 蜂巢圖案背景 -->
+    <pattern id="honeycomb" x="0" y="0" width="52" height="60" patternUnits="userSpaceOnUse">
+      <path d="M26,0 L52,15 L52,45 L26,60 L0,45 L0,15 Z" fill="none" stroke="#D4A574" stroke-width="0.5" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景蜂巢襯底 -->
+  <rect width="400" height="300" fill="url(#honeycomb)"/>
+  
+  <!-- 2.5D效果：外粗空心大六邊形 -->
+  <g transform="translate(200,150)">
+    <!-- 外框（空心粗線） -->
+    <path d="M0,-80 L69.28,-40 L69.28,40 L0,80 L-69.28,40 L-69.28,-40 Z" 
+          fill="none" stroke="#D4A574" stroke-width="4"/>
+    <!-- 內填充（半透明實心） -->
+    <path d="M0,-80 L69.28,-40 L69.28,40 L0,80 L-69.28,40 L-69.28,-40 Z" 
+          fill="#D4A574" fill-opacity="0.15"/>
+    
+    <!-- 小六邊形叢集襯托 -->
+    <g transform="translate(0,-120)">
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+            fill="#8B5A2B" fill-opacity="0.6"/>
+    </g>
+    <g transform="translate(50,-60)">
+      <path d="M0,-20 L17.32,-10 L17.32,10 L0,20 L-17.32,10 L-17.32,-10 Z" 
+            fill="#D4A574" fill-opacity="0.4"/>
+    </g>
+    <g transform="translate(-50,-60)">
+      <path d="M0,-20 L17.32,-10 L17.32,10 L0,20 L-17.32,10 L-17.32,-10 Z" 
+            fill="#D4A574" fill-opacity="0.4"/>
+    </g>
+    
+    <!-- 文字標題 -->
+    <text x="0" y="-15" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#5D3A1A">年度目標</text>
+    <text x="0" y="15" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#8B5A2B">Annual Goals</text>
+    <text x="0" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#A0522D">2026 工作報告</text>
+  </g>
+</svg>

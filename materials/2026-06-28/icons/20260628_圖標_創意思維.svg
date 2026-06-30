@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊棕金配色 -->
+    <linearGradient id="bearPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#8B7CF7"/>
+    </linearGradient>
+    <linearGradient id="bearOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#FFB347"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景圓形 -->
+  <circle cx="50" cy="50" r="45" fill="#F8F4FF" stroke="#6B5CE7" stroke-width="1.5"/>
+  
+  <!-- 中心菱形 -->
+  <polygon points="50,20 80,50 50,80 20,50" 
+           fill="url(#bearPurple)"/>
+  
+  <!-- 菱形內的小菱形（虛實對比） -->
+  <polygon points="50,30 70,50 50,70 30,50" 
+           fill="none" stroke="#FFD700" stroke-width="2"/>
+  
+  <!-- 四個方向放射五角星 -->
+  <g transform="translate(50,50)">
+    <!-- 上 -->
+    <polygon points="0,-8 2,-2 8,-2 3,2 5,8 0,4 -5,8 -3,2 -8,-2 -2,-2" 
+             fill="url(#bearOrange)" transform="translate(0,-35) scale(0.7)"/>
+    <!-- 右 -->
+    <polygon points="0,-8 2,-2 8,-2 3,2 5,8 0,4 -5,8 -3,2 -8,-2 -2,-2" 
+             fill="url(#bearOrange)" transform="translate(35,0) scale(0.7)"/>
+    <!-- 下 -->
+    <polygon points="0,-8 2,-2 8,-2 3,2 5,8 0,4 -5,8 -3,2 -8,-2 -2,-2" 
+             fill="url(#bearOrange)" transform="translate(0,35) scale(0.7)"/>
+    <!-- 左 -->
+    <polygon points="0,-8 2,-2 8,-2 3,2 5,8 0,4 -5,8 -3,2 -8,-2 -2,-2" 
+             fill="url(#bearOrange)" transform="translate(-35,0) scale(0.7)"/>
+  </g>
+</svg>

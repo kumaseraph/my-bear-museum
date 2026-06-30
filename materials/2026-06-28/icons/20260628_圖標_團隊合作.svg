@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊棕金漸層 -->
+    <linearGradient id="bearTeam" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B4513"/>
+      <stop offset="100%" stop-color="#A0522D"/>
+    </linearGradient>
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#DAA520"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景六邊形（外粗空心+內實心 2.5D效果） -->
+  <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" 
+        fill="none" stroke="#8B4513" stroke-width="6"/>
+  <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" 
+        fill="#8B4513" fill-opacity="0.15"/>
+  
+  <!-- 內圈六邊形 -->
+  <path d="M50,20 L78.3,37.5 L78.3,72.5 L50,90 L21.7,72.5 L21.7,37.5 Z" 
+        fill="none" stroke="#DAA520" stroke-width="2"/>
+  
+  <!-- 三個人形圖標（創意表示團隊） -->
+  <!-- 左 -->
+  <circle cx="35" cy="45" r="8" fill="url(#bearGold)"/>
+  <path d="M35,55 L28,72 L42,72 Z" fill="url(#bearGold)"/>
+  <!-- 中間（較大） -->
+  <circle cx="50" cy="40" r="10" fill="url(#bearTeam)"/>
+  <path d="M50,52 L40,75 L60,75 Z" fill="url(#bearTeam)"/>
+  <!-- 右 -->
+  <circle cx="65" cy="45" r="8" fill="url(#bearGold)"/>
+  <path d="M65,55 L58,72 L72,72 Z" fill="url(#bearGold)"/>
+</svg>

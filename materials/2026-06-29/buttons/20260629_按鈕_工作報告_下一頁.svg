@@ -1,0 +1,32 @@
+<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#8B5A2B"/>
+    </linearGradient>
+    <!-- 條紋圖案 -->
+    <pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#F5DEB3" stroke-width="2" opacity="0.3"/>
+    </pattern>
+  </defs>
+  
+  <!-- 主按鈕背景（六邊形造型） -->
+  <g transform="translate(100,30)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="url(#btnGrad)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="url(#stripes)"/>
+    <!-- 邊界引導線 -->
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="none" stroke="#F5DEB3" stroke-width="1.5"/>
+  </g>
+  
+  <!-- 箭頭引導線（雙重交叉） -->
+  <g stroke="#5D3A1A" stroke-width="1.5" fill="none">
+    <path d="M140,30 L160,30"/>
+    <path d="M155,25 L162,30 L155,35"/>
+  </g>
+  
+  <!-- 文字 -->
+  <text x="75" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF">下一頁</text>
+</svg>

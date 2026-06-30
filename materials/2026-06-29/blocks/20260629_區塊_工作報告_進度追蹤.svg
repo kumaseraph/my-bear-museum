@@ -1,0 +1,46 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8C49A"/>
+      <stop offset="100%" stop-color="#C4956A"/>
+    </linearGradient>
+    <linearGradient id="deepBrown" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5D3A1A"/>
+      <stop offset="100%" stop-color="#3D2510"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="400" height="300" fill="#FDF8F3"/>
+  
+  <!-- 放射環形蜂巢：中心實心 + 外圈半透明 -->
+  <g transform="translate(200,150)">
+    <!-- 外環 6 個六邊形（半透明襯托） -->
+    <g fill="#D4A574" fill-opacity="0.3" stroke="#8B5A2B" stroke-width="1">
+      <path d="M0,-60 L51.96,-30 L51.96,30 L0,60 L-51.96,30 L-51.96,-30 Z" transform="rotate(0) translate(0,-86.6)"/>
+      <path d="M0,-60 L51.96,-30 L51.96,30 L0,60 L-51.96,30 L-51.96,-30 Z" transform="rotate(60) translate(0,-86.6)"/>
+      <path d="M0,-60 L51.96,-30 L51.96,30 L0,60 L-51.96,30 L-51.96,-30 Z" transform="rotate(120) translate(0,-86.6)"/>
+      <path d="M0,-60 L51.96,-30 L51.96,30 L0,60 L-51.96,30 L-51.96,-30 Z" transform="rotate(180) translate(0,-86.6)"/>
+      <path d="M0,-60 L51.96,-30 L51.96,30 L0,60 L-51.96,30 L-51.96,-30 Z" transform="rotate(240) translate(0,-86.6)"/>
+      <path d="M0,-60 L51.96,-30 L51.96,30 L0,60 L-51.96,30 L-51.96,-30 Z" transform="rotate(300) translate(0,-86.6)"/>
+    </g>
+    
+    <!-- 中心大六邊形（實心深棕） -->
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" 
+          fill="url(#deepBrown)"/>
+    
+    <!-- 進度指示線 -->
+    <g stroke="#D4A574" stroke-width="2">
+      <line x1="0" y1="-25" x2="0" y2="-45"/>
+      <line x1="21.65" y1="-12.5" x2="38" y2="-22"/>
+      <line x1="21.65" y1="12.5" x2="38" y2="22"/>
+    </g>
+    
+    <!-- 百分比文字 -->
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#E8C49A">75%</text>
+    <text x="0" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#D4A574">達成率</text>
+  </g>
+  
+  <!-- 標題 -->
+  <text x="200" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#5D3A1A">進度追蹤 Progress</text>
+</svg>

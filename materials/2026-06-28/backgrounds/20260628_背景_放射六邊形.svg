@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 背景漸層 -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E1E2E"/>
+      <stop offset="100%" stop-color="#2D2D44"/>
+    </linearGradient>
+    
+    <!-- 熊熊紫金漸層 -->
+    <linearGradient id="bearPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#8B7CF7"/>
+    </linearGradient>
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#DAA520"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 深色背景 -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)"/>
+  
+  <!-- 中心放射環形蜂巢 -->
+  <g transform="translate(960,540)">
+    <!-- 外環（最大六邊形） -->
+    <path d="M0,-120 L103.9,-60 L103.9,60 L0,120 L-103.9,60 L-103.9,-60 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="2" opacity="0.3"/>
+    
+    <!-- 第二環 -->
+    <path d="M0,-90 L77.9,-45 L77.9,45 L0,90 L-77.9,45 L-77.9,-45 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="1.5" opacity="0.5"/>
+    
+    <!-- 第三環 -->
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z" 
+          fill="#6B5CE7" opacity="0.2"/>
+    
+    <!-- 中心實心六邊形 -->
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#bearGold)"/>
+    
+    <!-- 放射線裝飾 -->
+    <g opacity="0.4">
+      <line x1="0" y1="-130" x2="0" y2="-150" stroke="#FFD700" stroke-width="2"/>
+      <line x1="0" y1="130" x2="0" y2="150" stroke="#FFD700" stroke-width="2"/>
+      <line x1="-130" y1="0" x2="-150" y2="0" stroke="#FFD700" stroke-width="2"/>
+      <line x1="130" y1="0" x2="150" y2="0" stroke="#FFD700" stroke-width="2"/>
+      <line x1="-92" y1="-52" x2="-106" y2="-60" stroke="#FFD700" stroke-width="2"/>
+      <line x1="92" y1="52" x2="106" y2="60" stroke="#FFD700" stroke-width="2"/>
+      <line x1="-92" y1="52" x2="-106" y2="60" stroke="#FFD700" stroke-width="2"/>
+      <line x1="92" y1="-52" x2="106" y2="-60" stroke="#FFD700" stroke-width="2"/>
+    </g>
+    
+    <!-- 環繞小六邊形裝飾 -->
+    <g transform="translate(0,-173.2)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" fill="url(#bearGold)" opacity="0.6"/>
+    </g>
+    <g transform="translate(150,-86.6)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" fill="url(#bearGold)" opacity="0.6"/>
+    </g>
+    <g transform="translate(150,86.6)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" fill="url(#bearGold)" opacity="0.6"/>
+    </g>
+    <g transform="translate(0,173.2)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" fill="url(#bearGold)" opacity="0.6"/>
+    </g>
+    <g transform="translate(-150,86.6)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" fill="url(#bearGold)" opacity="0.6"/>
+    </g>
+    <g transform="translate(-150,-86.6)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z" fill="url(#bearGold)" opacity="0.6"/>
+    </g>
+  </g>
+  
+  <!-- 四角裝飾六邊形 -->
+  <g transform="translate(100,100)" opacity="0.4">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" fill="none" stroke="#6B5CE7" stroke-width="1"/>
+  </g>
+  <g transform="translate(1820,100)" opacity="0.4">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" fill="none" stroke="#6B5CE7" stroke-width="1"/>
+  </g>
+  <g transform="translate(100,980)" opacity="0.4">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" fill="none" stroke="#6B5CE7" stroke-width="1"/>
+  </g>
+  <g transform="translate(1820,980)" opacity="0.4">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" fill="none" stroke="#6B5CE7" stroke-width="1"/>
+  </g>
+</svg>

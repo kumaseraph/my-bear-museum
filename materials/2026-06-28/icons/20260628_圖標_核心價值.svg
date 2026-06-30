@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊棕金配色 -->
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DAA520"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+    <linearGradient id="bearBrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B4513"/>
+      <stop offset="100%" stop-color="#5D3A1A"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景圓形裝飾 -->
+  <circle cx="50" cy="50" r="45" fill="#FDF5E6" stroke="#DAA520" stroke-width="2"/>
+  
+  <!-- 外層菱形邊框 -->
+  <polygon points="50,5 95,50 50,95 5,50" 
+           fill="none" stroke="#8B4513" stroke-width="4"/>
+  
+  <!-- 內層菱形 -->
+  <polygon points="50,15 85,50 50,85 15,50" 
+           fill="none" stroke="#DAA520" stroke-width="2"/>
+  
+  <!-- 五角星中心（實心） -->
+  <polygon points="50,25 56,42 75,42 60,53 66,70 50,60 34,70 40,53 25,42 44,42" 
+           fill="url(#bearGold)"/>
+  
+  <!-- 裝飾：小五角星在菱形角 -->
+  <polygon points="50,8 52,13 57,13 53,16 55,21 50,18 45,21 47,16 43,13 48,13" 
+           fill="#DAA520" opacity="0.6"/>
+</svg>

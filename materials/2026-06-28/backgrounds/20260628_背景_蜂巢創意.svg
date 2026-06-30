@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 蜂巢 Pattern -->
+    <pattern id="honeycomb" x="0" y="0" width="78" height="86.6" patternUnits="userSpaceOnUse">
+      <path d="M39,0 L78,21.65 L78,64.95 L39,86.6 L0,64.95 L0,21.65 Z" 
+            fill="none" stroke="#8B4513" stroke-width="1" opacity="0.25"/>
+    </pattern>
+    
+    <!-- 熊熊棕金漸層 -->
+    <linearGradient id="bearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDF5E6"/>
+      <stop offset="50%" stop-color="#FAF0E6"/>
+      <stop offset="100%" stop-color="#F5DEB3"/>
+    </linearGradient>
+    
+    <!-- 裝飾六邊形漸層 -->
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DAA520"/>
+      <stop offset="100%" stop-color="#8B4513"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景填充 -->
+  <rect width="100%" height="100%" fill="url(#bearGrad)"/>
+  
+  <!-- 蜂巢襯底 -->
+  <rect width="100%" height="100%" fill="url(#honeycomb)"/>
+  
+  <!-- 裝飾：放射環形蜂巢（角落） -->
+  <g transform="translate(200,150)" opacity="0.6">
+    <!-- 中心大六邊形 -->
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z" fill="url(#hexGrad)" opacity="0.3"/>
+    <!-- 中環 -->
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#hexGrad)" opacity="0.5" transform="rotate(0) translate(0,-70)"/>
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#hexGrad)" opacity="0.5" transform="rotate(60) translate(0,-70)"/>
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#hexGrad)" opacity="0.5" transform="rotate(120) translate(0,-70)"/>
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#hexGrad)" opacity="0.5" transform="rotate(180) translate(0,-70)"/>
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#hexGrad)" opacity="0.5" transform="rotate(240) translate(0,-70)"/>
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#hexGrad)" opacity="0.5" transform="rotate(300) translate(0,-70)"/>
+  </g>
+  
+  <!-- 右下角裝飾 -->
+  <g transform="translate(1700,900)" opacity="0.5">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" fill="url(#hexGrad)" opacity="0.4"/>
+  </g>
+</svg>
