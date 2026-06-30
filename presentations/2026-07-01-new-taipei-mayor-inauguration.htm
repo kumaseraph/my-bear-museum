@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新北市第5屆市長及各一級機關首長宣誓就職典禮籌備會議</title>
+<style>
+/* ============================================
+   NEW TAIPEI INAUGURATION CEREMONY
+   主題：深藍 + 金色，政府莊嚴風格
+   ============================================ */
+html { font-size: 20px; }
+:root {
+  --primary:   #0B1D3A;
+  --bg:        #0B1D3A;
+  --bg2:       #0F2744;
+  --surface:   #122E55;
+  --surface2:  #1A3A6B;
+  --accent:    #D4A843;
+  --accent2:   #E8C06A;
+  --accent3:  #C4963A;
+  --text:      #FFFFFF;
+  --text2:     #C8D8EE;
+  --muted:     #2A4A6B;
+  --gold-line: rgba(212,168,67,0.35);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #000;
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  color: var(--text);
+  overflow: hidden;
+}
+.presentation {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  margin: 0 auto;
+  background: var(--bg);
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 48px 56px 48px 56px;
+  background: var(--bg);
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+
+/* ── nav ── */
+.nav {
+  position: fixed;
+  top: 24px; right: 32px;
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(15,39,68,0.9);
+  border: 1px solid var(--gold-line);
+  border-radius: 40px;
+  padding: 8px 16px;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+.nav button {
+  background: none; border: none; color: var(--accent);
+  font-size: 1rem; cursor: pointer; padding: 4px 8px;
+  border-radius: 8px; transition: background 0.2s;
+}
+.nav button:hover { background: rgba(212,168,67,0.15); }
+.nav span { color: var(--text2); font-size: 0.9rem; min-width: 48px; text-align: center; }
+.back-link {
+  position: fixed; top: 24px; left: 32px;
+  display: flex; align-items: center; gap: 6px;
+  color: var(--accent); text-decoration: none;
+  font-size: 1rem; z-index: 1000;
+  background: rgba(15,39,68,0.8);
+  border: 1px solid var(--gold-line);
+  border-radius: 40px; padding: 8px 16px;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s;
+}
+.back-link:hover { background: rgba(212,168,67,0.15); }
+
+/* ── shared ── */
+.gold-line-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.page-title {
+  font-size: 1.5rem; font-weight: 900;
+  color: var(--accent); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 12px;
+}
+.page-title::before {
+  content: ''; display: inline-block;
+  width: 6px; height: 28px;
+  background: var(--accent); border-radius: 3px;
+}
+.page-subtitle {
+  font-size: 1.1rem; color: var(--text2);
+  margin-bottom: 24px; opacity: 0.8;
+}
+.content-body { flex: 1; display: flex; flex-direction: column; gap: 16px; overflow: hidden; }
+
+/* ── P1 COVER ── */
+.s1-cover {
+  background: linear-gradient(135deg, #0B1D3A 0%, #0F2744 40%, #122E55 100%);
+  justify-content: center; align-items: center; text-align: center;
+}
+.s1-cover .gold-bar {
+  width: 120px; height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin-bottom: 40px;
+}
+.s1-cover .city-emblem {
+  width: 80px; height: 80px; margin-bottom: 32px;
+  border: 3px solid var(--accent); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(212,168,67,0.1);
+}
+.s1-cover h1 {
+  font-size: 2.6rem; font-weight: 900; color: var(--text);
+  line-height: 1.3; margin-bottom: 16px; letter-spacing: 2px;
+}
+.s1-cover h1 span { color: var(--accent); }
+.s1-cover .subtitle {
+  font-size: 1.4rem; color: var(--text2); margin-bottom: 12px;
+}
+.s1-cover .meta {
+  display: flex; align-items: center; justify-content: center; gap: 24px;
+  margin-top: 32px; flex-wrap: wrap;
+}
+.s1-cover .meta-tag {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(212,168,67,0.12);
+  border: 1px solid var(--gold-line);
+  border-radius: 40px; padding: 8px 20px;
+  font-size: 1rem; color: var(--text2);
+}
+.s1-cover .meta-tag strong { color: var(--accent); }
+.s1-cover .gold-bar-bottom {
+  width: 120px; height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin-top: 40px;
+}
+
+/* ── P2 AGENDA ── */
+.s2-agenda { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.agenda-items {
+  display: flex; flex-direction: column; gap: 14px;
+  flex: 1; justify-content: center;
+}
+.agenda-item {
+  display: flex; align-items: center; gap: 20px;
+  background: rgba(18,46,85,0.6);
+  border: 1px solid var(--gold-line);
+  border-radius: 14px; padding: 18px 24px;
+  transition: all 0.2s;
+}
+.agenda-item:hover {
+  background: rgba(212,168,67,0.08);
+  border-color: rgba(212,168,67,0.5);
+  transform: translateX(4px);
+}
+.agenda-num {
+  font-size: 1.4rem; font-weight: 900;
+  color: var(--accent); min-width: 40px; text-align: center;
+}
+.agenda-text { font-size: 1.15rem; color: var(--text); }
+.agenda-desc { font-size: 1rem; color: var(--text2); margin-left: auto; }
+
+/* ── P3 INFO TABLE ── */
+.s3-info { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  flex: 1; align-content: start;
+}
+.info-card {
+  background: rgba(18,46,85,0.7);
+  border: 1px solid var(--gold-line);
+  border-radius: 16px; padding: 20px 24px;
+}
+.info-card-title {
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--accent); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.info-card-title .icon {
+  width: 28px; height: 28px; background: rgba(212,168,67,0.15);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.info-row {
+  display: flex; gap: 12px; margin-bottom: 8px;
+  font-size: 1.05rem; align-items: flex-start;
+}
+.info-label { color: var(--text2); min-width: 80px; flex-shrink: 0; }
+.info-value { color: var(--text); }
+.info-wide { grid-column: 1 / -1; }
+
+/* ── P4 TIMELINE ── */
+.s4-timeline { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.timeline-list { display: flex; flex-direction: column; gap: 10px; flex: 1; overflow: hidden; }
+.tl-item {
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 16px; align-items: start;
+}
+.tl-time {
+  font-size: 1rem; font-weight: 900; color: var(--accent);
+  text-align: right; padding-top: 10px;
+}
+.tl-body {
+  background: rgba(18,46,85,0.6);
+  border: 1px solid var(--gold-line);
+  border-radius: 12px; padding: 12px 18px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.tl-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--accent); flex-shrink: 0; margin-top: 5px;
+}
+.tl-title { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.tl-note { font-size: 0.95rem; color: var(--text2); opacity: 0.85; }
+
+/* ── P5 TIMELINE 2 ── */
+.s5-timeline2 { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+
+/* ── P6 SEATING ── */
+.s6-seating { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.seating-layout {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;
+  flex: 1; align-content: start;
+}
+.seat-card {
+  background: rgba(18,46,85,0.7);
+  border: 1px solid var(--gold-line);
+  border-radius: 14px; padding: 18px 20px;
+}
+.seat-area {
+  font-size: 0.9rem; color: var(--accent); font-weight: 700;
+  margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;
+}
+.seat-num {
+  font-size: 2rem; font-weight: 900; color: var(--accent2);
+  margin-bottom: 6px;
+}
+.seat-desc { font-size: 1rem; color: var(--text); margin-bottom: 6px; }
+.seat-note { font-size: 0.9rem; color: var(--text2); opacity: 0.8; }
+.seat-card.highlight {
+  border-color: var(--accent);
+  background: rgba(212,168,67,0.08);
+}
+.seat-card.highlight .seat-area { color: var(--accent2); }
+
+/* ── P7 FLOW ── */
+.s7-flow { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.flow-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  flex: 1; align-content: start;
+}
+.flow-block {
+  background: rgba(18,46,85,0.7);
+  border: 1px solid var(--gold-line);
+  border-radius: 14px; padding: 18px 20px;
+}
+.flow-title {
+  font-size: 1.1rem; font-weight: 700; color: var(--accent);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.flow-item {
+  display: flex; gap: 10px; margin-bottom: 8px;
+  font-size: 1rem; color: var(--text); align-items: flex-start;
+}
+.flow-bullet {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); flex-shrink: 0; margin-top: 7px;
+}
+.flow-wide { grid-column: 1 / -1; }
+.flow-note {
+  font-size: 0.95rem; color: var(--text2);
+  background: rgba(212,168,67,0.08);
+  border: 1px solid var(--gold-line);
+  border-radius: 10px; padding: 10px 16px;
+  margin-top: 8px;
+}
+
+/* ── P8 OUTDOOR FLOW ── */
+.s8-outdoor { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+
+/* ── P9 STAGE ── */
+.s9-stage { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+
+/* ── P10-12 DIAGRAMS ── */
+.s10-diagram { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.diagram-container {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 20px;
+}
+.diagram-box {
+  background: rgba(18,46,85,0.7);
+  border: 2px solid var(--accent);
+  border-radius: 16px; padding: 24px 40px; text-align: center;
+  min-width: 360px;
+}
+.diagram-label {
+  font-size: 0.9rem; color: var(--accent); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
+}
+.diagram-main {
+  font-size: 1.4rem; font-weight: 900; color: var(--text); margin-bottom: 8px;
+}
+.diagram-sub { font-size: 1rem; color: var(--text2); }
+.diagram-row {
+  display: flex; gap: 16px; justify-content: center; align-items: center;
+}
+.diagram-person {
+  background: rgba(212,168,67,0.1);
+  border: 2px solid var(--accent);
+  border-radius: 12px; padding: 16px 24px; text-align: center;
+}
+.diagram-person-label { font-size: 1rem; color: var(--accent); font-weight: 700; }
+.diagram-arrow {
+  font-size: 1.8rem; color: var(--accent);
+}
+.diagram-desc {
+  font-size: 1rem; color: var(--text2);
+  background: rgba(18,46,85,0.5);
+  border: 1px solid var(--gold-line);
+  border-radius: 10px; padding: 12px 20px;
+  text-align: center; max-width: 480px;
+}
+
+/* ── P13 TRAFFIC ── */
+.s13-traffic { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.traffic-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  flex: 1; align-content: start;
+}
+.traffic-card {
+  background: rgba(18,46,85,0.7);
+  border: 1px solid var(--gold-line);
+  border-radius: 14px; padding: 20px 24px;
+}
+.traffic-title {
+  font-size: 1.1rem; font-weight: 700; color: var(--accent);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.traffic-item {
+  display: flex; gap: 10px; margin-bottom: 8px;
+  font-size: 1rem; color: var(--text); align-items: flex-start;
+}
+.traffic-bullet {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); flex-shrink: 0; margin-top: 6px;
+}
+
+/* ── P14-15 GROUPS ── */
+.s14-groups { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.groups-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  flex: 1; align-content: start;
+}
+.group-card {
+  background: rgba(18,46,85,0.7);
+  border: 1px solid var(--gold-line);
+  border-radius: 14px; padding: 16px 18px;
+}
+.group-name {
+  font-size: 1.05rem; font-weight: 900; color: var(--accent);
+  margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+}
+.group-icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(212,168,67,0.15);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.group-task { font-size: 1rem; color: var(--text); }
+
+/* ── P15 TABLE ── */
+.s15-table { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.table-wrap { flex: 1; overflow: auto; }
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 1rem;
+}
+th {
+  background: rgba(212,168,67,0.15);
+  color: var(--accent); font-weight: 700;
+  padding: 12px 16px; text-align: left;
+  border-bottom: 2px solid var(--accent);
+}
+td {
+  padding: 11px 16px; color: var(--text);
+  border-bottom: 1px solid var(--muted);
+}
+tr:hover td { background: rgba(212,168,67,0.05); }
+td:first-child { color: var(--accent); font-weight: 700; }
+td:nth-child(2) { color: var(--text2); }
+td:nth-child(3) { color: var(--text2); }
+
+/* ── P16 SUPPLEMENT ── */
+.s16-supplement { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
+.supplement-items { display: flex; flex-direction: column; gap: 14px; flex: 1; justify-content: center; }
+.sup-item {
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(18,46,85,0.6);
+  border: 1px solid var(--gold-line);
+  border-radius: 12px; padding: 16px 20px;
+}
+.sup-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(212,168,67,0.2);
+  border: 1px solid var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; font-weight: 900; color: var(--accent);
+  flex-shrink: 0;
+}
+.sup-text { font-size: 1.1rem; color: var(--text); }
+.sup-note {
+  font-size: 0.95rem; color: var(--text2);
+  margin-left: auto; opacity: 0.85;
+}
+.supplement-reminder {
+  background: rgba(212,168,67,0.08);
+  border: 1px solid var(--accent);
+  border-radius: 12px; padding: 16px 20px;
+  font-size: 1rem; color: var(--text2);
+  display: flex; align-items: center; gap: 10px;
+}
+
+/* ── P17 CLOSING ── */
+.s17-close {
+  background: linear-gradient(135deg, #0B1D3A 0%, #0F2744 100%);
+  justify-content: center; align-items: center; text-align: center;
+}
+.s17-close .gold-bar {
+  width: 120px; height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin-bottom: 40px;
+}
+.s17-close h2 {
+  font-size: 2.4rem; font-weight: 900; color: var(--text);
+  margin-bottom: 16px; letter-spacing: 3px;
+}
+.s17-close h2 span { color: var(--accent); }
+.s17-close .closing-sub {
+  font-size: 1.2rem; color: var(--text2); margin-bottom: 40px;
+}
+.s17-close .dept {
+  font-size: 1rem; color: var(--text2); opacity: 0.7;
+}
+.gold-bar-bottom { margin-top: 40px; }
+
+/* ── MISC ── */
+.red-note {
+  color: #FF8C8C; font-size: 0.95rem;
+  background: rgba(255,80,80,0.08);
+  border: 1px solid rgba(255,80,80,0.3);
+  border-radius: 8px; padding: 8px 14px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.tag {
+  display: inline-block;
+  background: rgba(212,168,67,0.15);
+  border: 1px solid var(--gold-line);
+  border-radius: 40px; padding: 4px 12px;
+  font-size: 0.9rem; color: var(--accent);
+  margin-right: 8px; margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<a href="/slides.htm" class="back-link">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  回列表
+</a>
+
+<div class="nav">
+  <button onclick="prev()">&#8592;</button>
+  <span id="counter">1 / 17</span>
+  <button onclick="next()">&#8594;</button>
+</div>
+
+<div class="presentation">
+
+<!-- ═══════════════════════════════ SLIDE 1: COVER ═══════════════════════════════ -->
+<div class="slide s1-cover active" id="slide-1">
+  <div class="gold-bar-top"></div>
+  <div class="city-emblem">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+      <polygon points="20,2 26,14 38,14 28,22 32,36 20,28 8,36 12,22 2,14 14,14" fill="none" stroke="#D4A843" stroke-width="2"/>
+      <circle cx="20" cy="20" r="8" fill="none" stroke="#D4A843" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="gold-bar"></div>
+  <h1>新北市第5屆<span>市長</span>宣誓就職典禮</h1>
+  <h1 style="font-size:2rem;">暨一級機關首長宣誓</h1>
+  <p class="subtitle">籌備會議</p>
+  <div class="meta">
+    <div class="meta-tag"><strong>主辦</strong> 新北市政府人事處</div>
+    <div class="meta-tag"><strong>時間</strong> 115年12月25日</div>
+    <div class="meta-tag"><strong>地點</strong> 本府多功能集會堂</div>
+  </div>
+  <div class="gold-bar-bottom"></div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 2: AGENDA ═══════════════════════════════ -->
+<div class="slide s2-agenda" id="slide-2">
+  <div class="gold-line-top"></div>
+  <div class="page-title">會議議程</div>
+  <div class="page-subtitle">主持人宣布會議開始，各單位協調分工</div>
+  <div class="content-body">
+    <div class="agenda-items">
+      <div class="agenda-item">
+        <div class="agenda-num">01</div>
+        <div class="agenda-text">主持人宣布會議開始</div>
+        <div class="agenda-desc tag">09:00</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">02</div>
+        <div class="agenda-text">人事處規劃報告說明</div>
+        <div class="agenda-desc tag">核心議程</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">03</div>
+        <div class="agenda-text">討論事項 — 任務編組及分工表</div>
+        <div class="agenda-desc tag">分組協調</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">04</div>
+        <div class="agenda-text">臨時動議</div>
+        <div class="agenda-desc tag">補充事項</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">05</div>
+        <div class="agenda-text">會議結束</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 3: INFO ═══════════════════════════════ -->
+<div class="slide s3-info" id="slide-3">
+  <div class="gold-line-top"></div>
+  <div class="page-title">人事處規劃報告 — 時間、地點、來賓</div>
+  <div class="content-body">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          時間
+        </div>
+        <div class="info-row"><span class="info-label">日　期</span><span class="info-value">115年12月25日（星期五）</span></div>
+        <div class="info-row"><span class="info-label">時　間</span><span class="info-value">上午 9:00 至 10:00</span></div>
+        <div class="info-row"><span class="info-label">報　到</span><span class="info-value">08:30 至 09:00</span></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          地點
+        </div>
+        <div class="info-row"><span class="info-label">地　點</span><span class="info-value">本府多功能集會堂</span></div>
+        <div class="info-row"><span class="info-label">樓層</span><span class="info-value">3樓（主會場）、4樓（貴賓報到）</span></div>
+      </div>
+      <div class="info-card info-wide">
+        <div class="info-card-title">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          來賓邀請對象
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+          <span class="tag">新北市歷任市(縣)長</span>
+          <span class="tag">本市轄區立委</span>
+          <span class="tag">新卸任議員</span>
+          <span class="tag">市政顧問</span>
+          <span class="tag">研考會貴賓</span>
+          <span class="tag">其他離職首長</span>
+          <span class="tag">區長代表</span>
+          <span class="tag">工商人民團體代表</span>
+        </div>
+        <div class="red-note" style="margin-top:12px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          人事處通知各局處提供建議觀禮貴賓名單，俟長官確認後再行邀請
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          邀請訊息
+        </div>
+        <div class="info-row"><span class="info-value">觀禮通知、交通、停車訊息</span></div>
+        <div class="info-row"><span class="info-value">彙整出席貴賓名單及座車資訊</span></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          停車協調
+        </div>
+        <div class="info-row"><span class="info-value">停車訊息與交通組協調</span></div>
+        <div class="info-row"><span class="info-value">停車位安排：請秘書處、交通局協助</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 4: CEREMONY PROGRAM 1/2 ═══════════════════════════════ -->
+<div class="slide s4-timeline" id="slide-4">
+  <div class="gold-line-top"></div>
+  <div class="page-title">典禮程序（1/2）</div>
+  <div class="page-subtitle">0830 — 0915</div>
+  <div class="content-body">
+    <div class="timeline-list">
+      <div class="tl-item">
+        <div class="tl-time">08:30<br>↓<br>09:00</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">觀禮人員報到</div>
+            <div class="tl-note">觀禮人員接待：民政局、研考會、人事處、新聞局（媒體記者）｜播放輕音樂</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:00<br>↓<br>09:10</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">唱國歌</div>
+            <div class="tl-note">司儀開場（典禮正式開始），兩旁投影布幕下降並切換為現場轉播</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:10</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">市長宣誓</div>
+            <div class="tl-note">監誓人由行政院派員監誓｜行程安排聯繫：人事處｜派車接送：秘書處</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:10<br>↓<br>09:15</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">交接印信</div>
+            <div class="tl-note">印信送達會場及保管：秘書處</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:10<br>↓<br>09:15</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">監誓人致詞</div>
+            <div class="tl-note">撰擬致詞稿提供監誓人參考：研考會</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 5: CEREMONY PROGRAM 2/2 ═══════════════════════════════ -->
+<div class="slide s5-timeline2" id="slide-5">
+  <div class="gold-line-top"></div>
+  <div class="page-title">典禮程序（2/2）</div>
+  <div class="page-subtitle">09:15 — 10:15</div>
+  <div class="content-body">
+    <div class="timeline-list">
+      <div class="tl-item">
+        <div class="tl-time">09:15<br>↓<br>09:25</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">副市長、秘書長、副秘書長、一級機關首長宣誓</div>
+            <div class="tl-note">由市長監誓</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:25<br>↓<br>09:35</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">卸任市長致詞</div>
+            <div class="tl-note">撰擬致詞稿提供市長參考：研考會</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:35<br>↓<br>09:45</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">新任市長致詞</div>
+            <div class="tl-note">撰擬致詞稿提供市長參考：研考會</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:45</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">禮成</div>
+            <div class="tl-note">司儀唱「禮成」後奏樂</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">09:45<br>↓<br>10:00</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">媒體聯訪</div>
+            <div class="tl-note">安排於會場內指定區域</div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">10:00<br>↓<br>10:15</div>
+        <div class="tl-body">
+          <div class="tl-dot"></div>
+          <div>
+            <div class="tl-title">市府團隊合影（南門）</div>
+            <div class="tl-note">人事處及各一級機關人事主任引導｜獻花、協助收花：秘書處｜拍攝：人事處</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 6: SEATING ═══════════════════════════════ -->
+<div class="slide s6-seating" id="slide-6">
+  <div class="gold-line-top"></div>
+  <div class="page-title">多功能集會堂座位規劃</div>
+  <div class="page-subtitle">樓下共838席｜識別證分色分區</div>
+  <div class="content-body">
+    <div class="seating-layout">
+      <div class="seat-card highlight">
+        <div class="seat-area">監誓人 / 新任市長區</div>
+        <div class="seat-num">2 席</div>
+        <div class="seat-desc">面對舞台前右方第一區</div>
+        <div class="seat-note">各1席</div>
+      </div>
+      <div class="seat-card highlight">
+        <div class="seat-area">宣誓人區</div>
+        <div class="seat-num">44 席</div>
+        <div class="seat-desc">副市長、秘書長、副秘書長<br>一級機關首長</div>
+        <div class="seat-note">第二區，監誓人區後方</div>
+      </div>
+      <div class="seat-card">
+        <div class="seat-area">貴賓區</div>
+        <div class="seat-num">635 席</div>
+        <div class="seat-desc">前區及中區</div>
+        <div class="seat-note">含貴賓區及一般貴賓區</div>
+      </div>
+      <div class="seat-card">
+        <div class="seat-area">媒體區（前排）</div>
+        <div class="seat-num">13 席</div>
+        <div class="seat-desc">貴賓區後方前排</div>
+        <div class="seat-note">新聞局協調</div>
+      </div>
+      <div class="seat-card">
+        <div class="seat-area">媒體區（後排）</div>
+        <div class="seat-num">115 席</div>
+        <div class="seat-desc">貴賓區後方後排</div>
+        <div class="seat-note">共128席媒體</div>
+      </div>
+      <div class="seat-card">
+        <div class="seat-area">識別證</div>
+        <div class="seat-num">分色</div>
+        <div class="seat-desc">不同顏色識別貴賓</div>
+        <div class="seat-note">可憑卡於地下室或市民廣場免費停車</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 7: REGISTRATION & FLOW ═══════════════════════════════ -->
+<div class="slide s7-flow" id="slide-7">
+  <div class="gold-line-top"></div>
+  <div class="page-title">報到處及動線規劃</div>
+  <div class="content-body">
+    <div class="flow-grid">
+      <div class="flow-block">
+        <div class="flow-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          報到處設置
+        </div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>3樓：貴賓報到處、機關首長報到處、護理站</span></div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>4樓：貴賓報到處</span></div>
+      </div>
+      <div class="flow-block">
+        <div class="flow-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          會場布置
+        </div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>紅地毯：3樓外側鋪設（U型）</span></div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>花柱：3樓簽到處及會場入口</span></div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>祝賀花籃：3樓會場外及市長行經路線</span></div>
+      </div>
+      <div class="flow-block">
+        <div class="flow-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          黃色箭頭動線
+        </div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>黃色箭頭標示：市長及一級機關首長進入會場動線</span></div>
+      </div>
+      <div class="flow-block">
+        <div class="flow-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          直播區
+        </div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>直播區規劃於中控台前方</span></div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>新聞局負責媒體接待</span></div>
+      </div>
+      <div class="flow-block flow-wide">
+        <div class="flow-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>提醒：4、5樓不鋪設紅地毯；花柱僅設置於3樓簽到處及會場入口</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 8: OUTDOOR FLOW ═══════════════════════════════ -->
+<div class="slide s8-outdoor" id="slide-8">
+  <div class="gold-line-top"></div>
+  <div class="page-title">會場外動線</div>
+  <div class="content-body">
+    <div class="flow-grid">
+      <div class="flow-block">
+        <div class="flow-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          市長進場
+        </div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>人事處長於典禮會場外陪同市長進入</span></div>
+      </div>
+      <div class="flow-block">
+        <div class="flow-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          市長離場
+        </div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>記者聯訪後自會場離開</span></div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>前往1樓南門與市府團隊合影</span></div>
+      </div>
+      <div class="flow-block flow-wide">
+        <div class="flow-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          電梯與路線協調
+        </div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>請秘書處協助21、22、23號透明電梯控管</span></div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>確保市長可能行經路線明亮、通暢</span></div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>安排同仁歡送、獻花</span></div>
+        <div class="flow-item"><div class="flow-bullet"></div><span>秘書處派人於卸任市長旁協助收花</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 9: STAGE ═══════════════════════════════ -->
+<div class="slide s9-stage" id="slide-9">
+  <div class="gold-line-top"></div>
+  <div class="page-title">舞臺布置</div>
+  <div class="page-subtitle">舞台區域設置與設備規劃</div>
+  <div class="content-body">
+    <div class="info-grid" style="grid-template-columns:1fr 1fr;">
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></div>
+          舞台設備
+        </div>
+        <div class="info-row"><div class="info-value">兩側投影布幕</div></div>
+        <div class="info-row"><div class="info-value">現場轉播訊號切換設備</div></div>
+        <div class="info-row"><div class="info-value">音響系統（國歌播放）</div></div>
+        <div class="info-row"><div class="info-value">中控台（含直播區）</div></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          注意事項
+        </div>
+        <div class="info-row"><div class="info-value">典禮正式開始前：播放輕音樂</div></div>
+        <div class="info-row"><div class="info-value">典禮開始：司儀唱「禮成」後奏樂</div></div>
+        <div class="info-row"><div class="info-value">轉播訊號：配合布幕下降同步切換</div></div>
+      </div>
+      <div class="info-card info-wide">
+        <div class="info-card-title">
+          <div class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          舞台配置位置
+        </div>
+        <div class="info-row"><div class="info-value" style="color:var(--accent2);font-weight:700;">監誓人、新任市長區：面對舞台前右方第一區</div></div>
+        <div class="info-row"><div class="info-value" style="color:var(--accent2);font-weight:700;">宣誓人區（副市長、秘書長、副秘長、一級首長）：前區右方第二區</div></div>
+        <div class="info-row"><div class="info-value">印信：送達會場由秘書處保管</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 10: MAYOR OATH ═══════════════════════════════ -->
+<div class="slide s10-diagram" id="slide-10">
+  <div class="gold-line-top"></div>
+  <div class="page-title">、市長宣誓（示意圖）</div>
+  <div class="diagram-container">
+    <div class="diagram-box" style="border-color:var(--accent2);background:rgba(212,168,67,0.1);">
+      <div class="diagram-label">監誓人</div>
+      <div class="diagram-main">行政院派員</div>
+      <div class="diagram-sub">行程安排聯繫：人事處｜派車接送：秘書處</div>
+    </div>
+    <div class="diagram-arrow">↓</div>
+    <div class="diagram-box">
+      <div class="diagram-label">宣誓人</div>
+      <div class="diagram-main">新北市第5屆市長</div>
+      <div class="diagram-sub">宣誓連任／就職</div>
+    </div>
+    <div class="diagram-desc">監誓人由行政院派員監誓｜印信交接由秘書處送達會場並保管</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 11: SEAL HANDOVER ═══════════════════════════════ -->
+<div class="slide s10-diagram" id="slide-11">
+  <div class="gold-line-top"></div>
+  <div class="page-title">、印信交接（示意圖）</div>
+  <div class="diagram-container">
+    <div class="diagram-box">
+      <div class="diagram-label">交付方</div>
+      <div class="diagram-main">卸任市長</div>
+      <div class="diagram-sub">繳回印信</div>
+    </div>
+    <div class="diagram-arrow">↓</div>
+    <div class="diagram-box">
+      <div class="diagram-label">保管單位</div>
+      <div class="diagram-main">秘書處</div>
+      <div class="diagram-sub">印信送達會場及保管</div>
+    </div>
+    <div class="diagram-desc">印信由秘書處負責送達會場並於交接儀式中保管</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 12: HEADS OATH ═══════════════════════════════ -->
+<div class="slide s10-diagram" id="slide-12">
+  <div class="gold-line-top"></div>
+  <div class="page-title">、機關首長宣誓（示意圖）</div>
+  <div class="diagram-container">
+    <div class="diagram-box" style="border-color:var(--accent2);background:rgba(212,168,67,0.1);">
+      <div class="diagram-label">監誓人</div>
+      <div class="diagram-main">新任市長</div>
+      <div class="diagram-sub">主持宣誓儀式</div>
+    </div>
+    <div class="diagram-arrow">↓</div>
+    <div class="diagram-row">
+      <div class="diagram-person">
+        <div class="diagram-person-label">副市長</div>
+      </div>
+      <div class="diagram-person">
+        <div class="diagram-person-label">秘書長</div>
+      </div>
+      <div class="diagram-person">
+        <div class="diagram-person-label">副秘書長</div>
+      </div>
+      <div class="diagram-person">
+        <div class="diagram-person-label">一級機關首長</div>
+      </div>
+    </div>
+    <div class="diagram-desc">由新任市長監誓，集體宣誓</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 13: TRAFFIC ═══════════════════════════════ -->
+<div class="slide s13-traffic" id="slide-13">
+  <div class="gold-line-top"></div>
+  <div class="page-title">交通管制及停車位規劃</div>
+  <div class="page-subtitle">請警察局、交通局、秘書處協助配合</div>
+  <div class="content-body">
+    <div class="traffic-grid">
+      <div class="traffic-card">
+        <div class="traffic-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          交通管制
+        </div>
+        <div class="traffic-item"><div class="traffic-bullet"></div><span>警察局規劃市府周邊交通管制</span></div>
+        <div class="traffic-item"><div class="traffic-bullet"></div><span>確保會場外動線暢通</span></div>
+        <div class="traffic-item"><div class="traffic-bullet"></div><span>電梯（21、22、23號）控管</span></div>
+      </div>
+      <div class="traffic-card">
+        <div class="traffic-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          停車位
+        </div>
+        <div class="traffic-item"><div class="traffic-bullet"></div><span>交通局規劃市府周邊停車位</span></div>
+        <div class="traffic-item"><div class="traffic-bullet"></div><span>秘書處規劃本府地下停車位</span></div>
+        <div class="traffic-item"><div class="traffic-bullet"></div><span>識別證可免費停車（地下室或市民廣場）</span></div>
+      </div>
+      <div class="traffic-card" style="grid-column:1/-1;border-color:var(--accent);background:rgba(212,168,67,0.08);">
+        <div class="traffic-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          協調分工
+        </div>
+        <div class="traffic-item"><div class="traffic-bullet"></div><span>警察局：交通管制勤務</span></div>
+        <div class="traffic-item"><div class="traffic-bullet"></div><span>交通局：停車位數量與導引</span></div>
+        <div class="traffic-item"><div class="traffic-bullet"></div><span>秘書處：地下停車場調度與電梯控管</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 14: GROUPS 1/2 ═══════════════════════════════ -->
+<div class="slide s14-groups" id="slide-14">
+  <div class="gold-line-top"></div>
+  <div class="page-title">任務編組及分工表（1/2）</div>
+  <div class="page-subtitle">由秘書長擔任召集人，下設6組</div>
+  <div class="content-body">
+    <div class="groups-grid">
+      <div class="group-card">
+        <div class="group-name">
+          <div class="group-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          行政組
+        </div>
+        <div class="group-task">計畫擬定、進度掌握等行政事宜</div>
+      </div>
+      <div class="group-card">
+        <div class="group-name">
+          <div class="group-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          場地組
+        </div>
+        <div class="group-task">典禮場地布置事宜</div>
+      </div>
+      <div class="group-card">
+        <div class="group-name">
+          <div class="group-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          服務組
+        </div>
+        <div class="group-task">人員接待及引導服務</div>
+      </div>
+      <div class="group-card">
+        <div class="group-name">
+          <div class="group-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/></svg></div>
+          交通組
+        </div>
+        <div class="group-task">交通及停車事宜</div>
+      </div>
+      <div class="group-card">
+        <div class="group-name">
+          <div class="group-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          維安組
+        </div>
+        <div class="group-task">安全維護措施等事項</div>
+      </div>
+      <div class="group-card">
+        <div class="group-name">
+          <div class="group-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+          媒體組
+        </div>
+        <div class="group-task">新聞發布及媒體接待等事項</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 15: GROUPS 2/2 TABLE ═══════════════════════════════ -->
+<div class="slide s15-table" id="slide-15">
+  <div class="gold-line-top"></div>
+  <div class="page-title">任務編組及分工表（2/2）</div>
+  <div class="page-subtitle">主責與協辦機關明確分工</div>
+  <div class="content-body">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>組別</th>
+            <th>主責機關</th>
+            <th>協辦機關</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>行政組</td>
+            <td>人事處</td>
+            <td>秘書處、民政局、研考會</td>
+          </tr>
+          <tr>
+            <td>場地組</td>
+            <td>人事處</td>
+            <td>秘書處</td>
+          </tr>
+          <tr>
+            <td>服務組</td>
+            <td>研考會</td>
+            <td>民政局、人事處</td>
+          </tr>
+          <tr>
+            <td>交通組</td>
+            <td>交通局</td>
+            <td>秘書處、警察局</td>
+          </tr>
+          <tr>
+            <td>維安組</td>
+            <td>警察局</td>
+            <td>衛生局、消防局、政風處</td>
+          </tr>
+          <tr>
+            <td>媒體組</td>
+            <td>新聞局</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 16: SUPPLEMENT ═══════════════════════════════ -->
+<div class="slide s16-supplement" id="slide-16">
+  <div class="gold-line-top"></div>
+  <div class="page-title">補充事項</div>
+  <div class="page-subtitle">請各組主責機關於會後2日內填復人事處</div>
+  <div class="content-body">
+    <div class="supplement-items">
+      <div class="sup-item">
+        <div class="sup-num">1</div>
+        <div class="sup-text">工作期程表</div>
+        <div class="sup-note">會後2日內</div>
+      </div>
+      <div class="sup-item">
+        <div class="sup-num">2</div>
+        <div class="sup-text">聯繫窗口表</div>
+        <div class="sup-note">會後2日內</div>
+      </div>
+      <div class="sup-item">
+        <div class="sup-num">3</div>
+        <div class="sup-text">工作人員人數表</div>
+        <div class="sup-note">會後2日內</div>
+      </div>
+    </div>
+    <div class="supplement-reminder" style="margin-top:16px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>請各組主責機關於會後2日內將上表填復人事處，俾利統籌籌備進度</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SLIDE 17: CLOSING ═══════════════════════════════ -->
+<div class="slide s17-close" id="slide-17">
+  <div class="gold-line-top"></div>
+  <div class="gold-bar"></div>
+  <h2>感謝<span>各機關</span>協助！</h2>
+  <p class="closing-sub">新北市第5屆宣誓就職典禮圓滿順利</p>
+  <p class="dept">主辦單位：新北市政府人事處</p>
+  <div class="gold-bar-bottom">
+    <div class="gold-bar" style="margin:0 auto;"></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+let idx = 1;
+const total = 17;
+function show(n) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.getElementById('slide-' + n).classList.add('active');
+  document.getElementById('counter').textContent = n + ' / ' + total;
+}
+function next() { if (idx < total) { idx++; show(idx); } }
+function prev() { if (idx > 1) { idx--; show(idx); } }
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next();
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev();
+});
+</script>
+</body>
+</html>
