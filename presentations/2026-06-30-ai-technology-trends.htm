@@ -49,13 +49,13 @@ body {
   display: none;
   width: 100%;
   height: 100%;
-  padding: 48px 64px;
+  padding: 24px 32px;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.slide.active { display: flex; flex-direction: column; }
+.slide.active { display: flex; flex-direction: column; align-items: stretch; }
 .nav {
   position: fixed;
   bottom: 24px;
@@ -168,8 +168,8 @@ body {
 }
 .cover-ring-container {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 280px;
+  height: 280px;
   margin-bottom: 2.5rem;
   z-index: 1;
 }
@@ -180,23 +180,23 @@ body {
   animation: ring-spin 20s linear infinite;
 }
 .cover-ring-1 {
-  width: 200px; height: 200px;
+  width: 280px; height: 280px;
   top: 0; left: 0;
   border-color: rgba(124,58,237,0.8);
   border-top-color: transparent;
   animation-duration: 8s;
 }
 .cover-ring-2 {
-  width: 160px; height: 160px;
-  top: 20px; left: 20px;
+  width: 220px; height: 220px;
+  top: 30px; left: 30px;
   border-color: rgba(245,158,11,0.7);
   border-bottom-color: transparent;
   animation-duration: 12s;
   animation-direction: reverse;
 }
 .cover-ring-3 {
-  width: 120px; height: 120px;
-  top: 40px; left: 40px;
+  width: 160px; height: 160px;
+  top: 60px; left: 60px;
   border-color: rgba(167,139,250,0.6);
   border-right-color: transparent;
   animation-duration: 6s;
@@ -205,7 +205,7 @@ body {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 60px; height: 60px;
+  width: 80px; height: 80px;
 }
 .cover-icon-center svg { width: 100%; height: 100%; }
 .cover-title {
@@ -262,7 +262,7 @@ body {
   background: linear-gradient(90deg, var(--c-primary), transparent);
 }
 .toc-title {
-  font-size: var(--font-h1);
+  font-size: 2.2rem;
   font-weight: 700;
   color: var(--c-secondary);
 }
@@ -286,7 +286,7 @@ body {
   z-index: 1;
 }
 .toc-item-node {
-  width: 16px; height: 16px;
+  width: 20px; height: 20px;
   border-radius: 50%;
   background: var(--c-primary);
   margin-bottom: 12px;
@@ -317,7 +317,7 @@ body {
 /* ===== SLIDE 3: AI HISTORY (G7-Timeline) ===== */
 .s3-timeline {
   background: linear-gradient(180deg, #0F0E1A 0%, #1A1333 100%);
-  padding-top: 60px;
+  padding-top: 16px;
 }
 .section-header {
   display: flex;
@@ -327,7 +327,7 @@ body {
   position: relative; z-index: 1;
 }
 .section-icon {
-  width: 48px; height: 48px;
+  width: 64px; height: 64px;
   background: rgba(124,58,237,0.2);
   border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
@@ -419,8 +419,8 @@ body {
   position: relative; z-index: 1;
 }
 .hex-card {
-  width: 180px;
-  height: 200px;
+  width: 220px;
+  height: 240px;
   background: rgba(124,58,237,0.12);
   border: 1px solid rgba(124,58,237,0.35);
   border-radius: 16px;
@@ -591,7 +591,7 @@ body {
   transform: scale(1.02);
 }
 .quad-icon {
-  width: 44px; height: 44px;
+  width: 56px; height: 56px;
   background: rgba(124,58,237,0.2);
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
@@ -693,7 +693,7 @@ body {
   justify-content: center;
 }
 .diamond-item {
-  width: 200px;
+  width: 240px;
   background: rgba(124,58,237,0.12);
   border: 1px solid rgba(124,58,237,0.35);
   border-radius: 16px;
@@ -754,8 +754,8 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  align-items: stretch;
+  gap: 12px;
 }
 .tri-layer {
   width: 100%;
@@ -765,7 +765,7 @@ body {
   position: relative;
 }
 .tri-bar {
-  height: 56px;
+  height: 72px;
   background: linear-gradient(90deg, var(--c-primary), var(--c-accent));
   border-radius: 8px;
   display: flex;
@@ -838,7 +838,7 @@ body {
 .funnel-col-title.yes { color: #4ADE80; }
 .funnel-col-title.no { color: #F87171; }
 .funnel-stage {
-  height: 48px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -876,7 +876,7 @@ body {
 /* ===== SLIDE 11: CLOSING (G1-Ring) ===== */
 .s11-closing {
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   text-align: center;
   background: linear-gradient(135deg, #0F0E1A 0%, #1A1333 50%, #2D1B69 100%);
 }
