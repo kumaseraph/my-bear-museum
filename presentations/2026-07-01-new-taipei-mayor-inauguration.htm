@@ -296,51 +296,204 @@ body {
 /* ── P9 STAGE ── */
 .s9-stage { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
 
-/* ── P10-12 DIAGRAMS ── */
-.s10-diagram { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
-.s11-diagram { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
-.s12-diagram { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
-.diagram-container {
-  position: absolute;
-  inset: 0;
+/* ── P10 MAYOR OATH HORIZONTAL FLOW ── */
+.s10-oath {
+  background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%);
+  display: flex;
+  flex-direction: column;
+}
+.s10-oath .page-title { margin-bottom: 0; }
+.oath-flow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex: 1;
+  padding: 0 40px;
+}
+.oath-card {
+  background: rgba(18,46,85,0.7);
+  border: 2px solid var(--gold-line);
+  border-radius: 20px;
+  padding: 28px 32px;
+  text-align: center;
+  min-width: 220px;
+  max-width: 260px;
+  flex: 1;
+}
+.oath-card.highlight {
+  border-color: var(--accent);
+  background: rgba(212,168,67,0.1);
+}
+.oath-icon {
+  width: 64px; height: 64px;
+  background: rgba(212,168,67,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px;
+}
+.oath-role {
+  font-size: 0.9rem; color: var(--accent);
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; margin-bottom: 8px;
+}
+.oath-title {
+  font-size: 1.25rem; font-weight: 900;
+  color: var(--text); margin-bottom: 8px;
+}
+.oath-sub {
+  font-size: 0.95rem; color: var(--text2);
+}
+.oath-arrow {
+  font-size: 2.2rem; color: var(--accent);
+  flex-shrink: 0; padding: 0 12px;
+}
+.oath-footer {
+  font-size: 0.95rem; color: var(--text2);
+  background: rgba(18,46,85,0.5);
+  border: 1px solid var(--gold-line);
+  border-radius: 10px;
+  padding: 12px 20px; text-align: center;
+  max-width: 600px; margin: 0 auto 16px;
+}
+
+/* ── P11 SEAL HANDOVER — LEFT/RIGHT CARDS ── */
+.s11-seal {
+  background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%);
+  display: flex;
+  flex-direction: column;
+}
+.seal-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex: 1;
+  padding: 0 48px;
+}
+.seal-card {
+  background: rgba(18,46,85,0.7);
+  border: 2px solid var(--gold-line);
+  border-radius: 20px;
+  padding: 32px 36px;
+  text-align: center;
+  min-width: 260px;
+  flex: 1;
+  max-width: 320px;
+}
+.seal-card.highlight {
+  border-color: var(--accent);
+  background: rgba(212,168,67,0.1);
+}
+.seal-icon {
+  width: 72px; height: 72px;
+  background: rgba(212,168,67,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+}
+.seal-role {
+  font-size: 0.9rem; color: var(--accent);
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; margin-bottom: 10px;
+}
+.seal-title {
+  font-size: 1.4rem; font-weight: 900;
+  color: var(--text); margin-bottom: 8px;
+}
+.seal-sub {
+  font-size: 0.95rem; color: var(--text2);
+}
+.seal-arrow {
+  font-size: 2.4rem; color: var(--accent);
+  flex-shrink: 0;
+}
+.seal-note {
+  font-size: 0.95rem; color: var(--text2);
+  background: rgba(18,46,85,0.5);
+  border: 1px solid var(--gold-line);
+  border-radius: 10px;
+  padding: 12px 20px; text-align: center;
+  max-width: 560px; margin: 0 auto 16px;
+}
+
+/* ── P12 HEADS OATH — CENTER + SURROUND ── */
+.s12-heads {
+  background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%);
+  display: flex;
+  flex-direction: column;
+}
+.heads-layout {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  flex: 1;
+  gap: 16px;
+  padding: 0 40px;
 }
-.diagram-box {
+.heads-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+.head-center-card {
+  background: rgba(212,168,67,0.12);
+  border: 3px solid var(--accent);
+  border-radius: 24px;
+  padding: 24px 40px;
+  text-align: center;
+  min-width: 240px;
+}
+.head-center-icon {
+  width: 72px; height: 72px;
+  background: rgba(212,168,67,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+}
+.head-center-role {
+  font-size: 0.9rem; color: var(--accent);
+  font-weight: 700; text-transform: uppercase;
+  letter-spacing: 2px; margin-bottom: 8px;
+}
+.head-center-title {
+  font-size: 1.3rem; font-weight: 900; color: var(--text);
+}
+.head-oath-arrow {
+  font-size: 2.2rem; color: var(--accent);
+  flex-shrink: 0;
+}
+.head-oath-arrow.down { transform: rotate(90deg); }
+.heads-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+}
+.head-person-card {
   background: rgba(18,46,85,0.7);
-  border: 2px solid var(--accent);
-  border-radius: 16px; padding: 24px 40px; text-align: center;
-  min-width: 360px;
+  border: 2px solid var(--gold-line);
+  border-radius: 16px;
+  padding: 16px 20px;
+  text-align: center;
+  min-width: 160px;
 }
-.diagram-label {
-  font-size: 1rem; color: var(--accent); font-weight: 700;
-  text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
+.head-person-label {
+  font-size: 1rem; font-weight: 700;
+  color: var(--accent);
 }
-.diagram-main {
-  font-size: 1.4rem; font-weight: 900; color: var(--text); margin-bottom: 8px;
-}
-.diagram-sub { font-size: 1rem; color: var(--text2); }
-.diagram-row {
-  display: flex; gap: 16px; justify-content: center; align-items: center;
-}
-.diagram-person {
-  background: rgba(212,168,67,0.1);
-  border: 2px solid var(--accent);
-  border-radius: 12px; padding: 16px 24px; text-align: center;
-}
-.diagram-person-label { font-size: 1rem; color: var(--accent); font-weight: 700; }
-.diagram-arrow {
-  font-size: 1.8rem; color: var(--accent);
-}
-.diagram-desc {
-  font-size: 1rem; color: var(--text2);
+.heads-note {
+  font-size: 0.95rem; color: var(--text2);
   background: rgba(18,46,85,0.5);
   border: 1px solid var(--gold-line);
-  border-radius: 10px; padding: 12px 20px;
-  text-align: center; max-width: 480px;
+  border-radius: 10px;
+  padding: 10px 20px; text-align: center;
+  max-width: 520px; margin-top: 8px;
 }
 
 /* ── P13 TRAFFIC ── */
@@ -414,33 +567,69 @@ td:nth-child(3) { color: var(--text2); }
 
 /* ── P16 SUPPLEMENT ── */
 .s16-supplement { background: linear-gradient(180deg, #0B1D3A 0%, #0F2744 100%); }
-.supplement-items { display: flex; flex-direction: column; gap: 14px; flex: 1; justify-content: center; }
-.sup-item {
-  display: flex; align-items: center; gap: 16px;
-  background: rgba(18,46,85,0.6);
-  border: 1px solid var(--gold-line);
-  border-radius: 12px; padding: 16px 20px;
+.s16-supplement .content-body { display: flex; flex-direction: column; gap: 0; }
+.sup-title-bar {
+  font-size: 1rem; color: var(--accent);
+  font-weight: 700; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
 }
-.sup-num {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(212,168,67,0.2);
-  border: 1px solid var(--accent);
+.sup-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  flex: 1;
+}
+.sup-card {
+  background: rgba(18,46,85,0.65);
+  border: 2px solid var(--gold-line);
+  border-radius: 18px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+.sup-card-num {
+  width: 56px; height: 56px;
+  background: rgba(212,168,67,0.15);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; font-weight: 900; color: var(--accent);
+  font-size: 1.5rem; font-weight: 900; color: var(--accent);
+}
+.sup-card-icon {
+  width: 48px; height: 48px;
+  background: rgba(212,168,67,0.1);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+.sup-card-text {
+  font-size: 1.15rem; font-weight: 700; color: var(--text);
+}
+.sup-card-note {
+  font-size: 0.95rem; color: var(--text2);
+}
+.sup-reminder-box {
+  background: rgba(212,168,67,0.08);
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  padding: 16px 24px;
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 16px;
+}
+.sup-reminder-icon {
+  width: 40px; height: 40px;
+  background: rgba(212,168,67,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.sup-text { font-size: 1.1rem; color: var(--text); }
-.sup-note {
-  font-size: 1rem; color: var(--text2);
-  margin-left: auto; opacity: 0.85;
+.sup-reminder-text {
+  font-size: 1.05rem; color: var(--text);
+  line-height: 1.5;
 }
-.supplement-reminder {
-  background: rgba(212,168,67,0.08);
-  border: 1px solid var(--accent);
-  border-radius: 12px; padding: 16px 20px;
-  font-size: 1rem; color: var(--text2);
-  display: flex; align-items: center; gap: 10px;
-}
+.sup-reminder-text strong { color: var(--accent2); font-weight: 900; }
 
 /* ── P17 CLOSING ── */
 .s17-close {
@@ -919,72 +1108,87 @@ td:nth-child(3) { color: var(--text2); }
 </div>
 
 <!-- ═══════════════════════════════ SLIDE 10: MAYOR OATH ═══════════════════════════════ -->
-<div class="slide s10-diagram" id="slide-10">
+<div class="slide s10-oath" id="slide-10">
   <div class="gold-line-top"></div>
   <div class="page-title">、市長宣誓（示意圖）</div>
-  <div class="diagram-container">
-    <div class="diagram-box" style="border-color:var(--accent2);background:rgba(212,168,67,0.1);">
-      <div class="diagram-label">監誓人</div>
-      <div class="diagram-main">行政院派員</div>
-      <div class="diagram-sub">行程安排聯繫：人事處｜派車接送：秘書處</div>
+  <div class="oath-flow">
+    <div class="oath-card highlight">
+      <div class="oath-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="1.8"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      </div>
+      <div class="oath-role">監誓人</div>
+      <div class="oath-title">行政院派員</div>
+      <div class="oath-sub">行程安排：人事處｜接送服務：秘書處</div>
     </div>
-    <div class="diagram-arrow">↓</div>
-    <div class="diagram-box">
-      <div class="diagram-label">宣誓人</div>
-      <div class="diagram-main">新北市第5屆市長</div>
-      <div class="diagram-sub">宣誓連任／就職</div>
+    <div class="oath-arrow">→</div>
+    <div class="oath-card">
+      <div class="oath-icon">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="oath-role">宣誓人</div>
+      <div class="oath-title">新北市第5屆市長</div>
+      <div class="oath-sub">連任就職</div>
     </div>
-    <div class="diagram-desc">監誓人由行政院派員監誓｜印信交接由秘書處送達會場並保管</div>
   </div>
+  <div class="oath-footer">監誓人由行政院派員監誓 ｜ 印信交接由秘書處送達會場並保管</div>
 </div>
 
   <!-- ═══════════════════════════════ SLIDE 11: SEAL HANDOVER ═══════════════════════════════ -->
-<div class="slide s11-diagram" id="slide-11">
+<div class="slide s11-seal" id="slide-11">
   <div class="gold-line-top"></div>
   <div class="page-title">、印信交接（示意圖）</div>
-  <div class="diagram-container">
-    <div class="diagram-box">
-      <div class="diagram-label">交付方</div>
-      <div class="diagram-main">卸任市長</div>
-      <div class="diagram-sub">繳回印信</div>
+  <div class="seal-layout">
+    <div class="seal-card">
+      <div class="seal-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 7h10M7 12h10M7 17h6"/></svg>
+      </div>
+      <div class="seal-role">交付方</div>
+      <div class="seal-title">卸任市長</div>
+      <div class="seal-sub">繳回印信</div>
     </div>
-    <div class="diagram-arrow">↓</div>
-    <div class="diagram-box">
-      <div class="diagram-label">保管單位</div>
-      <div class="diagram-main">秘書處</div>
-      <div class="diagram-sub">印信送達會場及保管</div>
+    <div class="seal-arrow">→</div>
+    <div class="seal-card highlight">
+      <div class="seal-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/><path d="M9 2.5h6a.5.5 0 01.5.5v1a.5.5 0 01-.5.5H9a.5.5 0 01-.5-.5v-1A.5.5 0 019 2.5z"/></svg>
+      </div>
+      <div class="seal-role">保管單位</div>
+      <div class="seal-title">秘書處</div>
+      <div class="seal-sub">印信送達會場及保管</div>
     </div>
-    <div class="diagram-desc">印信由秘書處負責送達會場並於交接儀式中保管</div>
   </div>
-  </div>
-  </div>
+  <div class="seal-note">印信由秘書處負責送達會場並於交接儀式中保管</div>
+</div>
 
-  <!-- ═══════════════════════════════ SLIDE 12: HEADS OATH ═══════════════════════════════ -->
-<div class="slide s12-diagram" id="slide-12">
+<!-- ═══════════════════════════════ SLIDE 12: HEADS OATH ═══════════════════════════════ -->
+<div class="slide s12-heads" id="slide-12">
   <div class="gold-line-top"></div>
   <div class="page-title">、機關首長宣誓（示意圖）</div>
-  <div class="diagram-container">
-    <div class="diagram-box" style="border-color:var(--accent2);background:rgba(212,168,67,0.1);">
-      <div class="diagram-label">監誓人</div>
-      <div class="diagram-main">新任市長</div>
-      <div class="diagram-sub">主持宣誓儀式</div>
-    </div>
-    <div class="diagram-arrow">↓</div>
-    <div class="diagram-row">
-      <div class="diagram-person">
-        <div class="diagram-person-label">副市長</div>
-      </div>
-      <div class="diagram-person">
-        <div class="diagram-person-label">秘書長</div>
-      </div>
-      <div class="diagram-person">
-        <div class="diagram-person-label">副秘書長</div>
-      </div>
-      <div class="diagram-person">
-        <div class="diagram-person-label">一級機關首長</div>
+  <div class="heads-layout">
+    <div class="heads-top">
+      <div class="head-center-card">
+        <div class="head-center-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="1.8"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        </div>
+        <div class="head-center-role">監誓人</div>
+        <div class="head-center-title">新任市長</div>
       </div>
     </div>
-    <div class="diagram-desc">由新任市長監誓，集體宣誓</div>
+    <div class="head-oath-arrow down">→</div>
+    <div class="heads-row">
+      <div class="head-person-card">
+        <div class="head-person-label">副市長</div>
+      </div>
+      <div class="head-person-card">
+        <div class="head-person-label">秘書長</div>
+      </div>
+      <div class="head-person-card">
+        <div class="head-person-label">副秘書長</div>
+      </div>
+      <div class="head-person-card">
+        <div class="head-person-label">一級機關首長</div>
+      </div>
+    </div>
+    <div class="heads-note">由新任市長監誓，集體宣誓</div>
   </div>
 </div>
 
@@ -1137,26 +1341,43 @@ td:nth-child(3) { color: var(--text2); }
   <div class="page-title">補充事項</div>
   <div class="page-subtitle">請各組主責機關於會後2日內填復人事處</div>
   <div class="content-body">
-    <div class="supplement-items">
-      <div class="sup-item">
-        <div class="sup-num">1</div>
-        <div class="sup-text">工作期程表</div>
-        <div class="sup-note">會後2日內</div>
+    <div class="sup-title-bar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      須繳回表件（會後2日內）
+    </div>
+    <div class="sup-cards">
+      <div class="sup-card">
+        <div class="sup-card-num">1</div>
+        <div class="sup-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="sup-card-text">工作期程表</div>
+        <div class="sup-card-note">會後2日內</div>
       </div>
-      <div class="sup-item">
-        <div class="sup-num">2</div>
-        <div class="sup-text">聯繫窗口表</div>
-        <div class="sup-note">會後2日內</div>
+      <div class="sup-card">
+        <div class="sup-card-num">2</div>
+        <div class="sup-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="sup-card-text">聯繫窗口表</div>
+        <div class="sup-card-note">會後2日內</div>
       </div>
-      <div class="sup-item">
-        <div class="sup-num">3</div>
-        <div class="sup-text">工作人員人數表</div>
-        <div class="sup-note">會後2日內</div>
+      <div class="sup-card">
+        <div class="sup-card-num">3</div>
+        <div class="sup-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        </div>
+        <div class="sup-card-text">工作人員人數表</div>
+        <div class="sup-card-note">會後2日內</div>
       </div>
     </div>
-    <div class="supplement-reminder" style="margin-top:16px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <span>請各組主責機關於會後2日內將上表填復人事處，俾利統籌籌備進度</span>
+    <div class="sup-reminder-box">
+      <div class="sup-reminder-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="sup-reminder-text">
+        請各組主責機關於會後<strong>2日內</strong>將上表填復人事處，俾利統籌籌備進度
+      </div>
     </div>
   </div>
 </div>
