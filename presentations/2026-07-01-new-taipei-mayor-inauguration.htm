@@ -1182,11 +1182,20 @@ function setSlideHeight() {
   if (pres) {
     var h = pres.getBoundingClientRect().height;
     document.documentElement.style.setProperty('--slide-h', h + 'px');
+    document.querySelectorAll('.slide').forEach(function(s) { s.style.height = h + 'px'; });
   }
 }
 function show(n) {
   document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-  document.getElementById('slide-' + n).classList.add('active');
+  var target = document.getElementById('slide-' + n);
+  if (target) {
+    target.classList.add('active');
+    var pres = document.querySelector('.presentation');
+    if (pres) {
+      var h = pres.getBoundingClientRect().height;
+      target.style.height = h + 'px';
+    }
+  }
   document.getElementById('counter').textContent = n + ' / ' + total;
 }
 window.addEventListener('resize', setSlideHeight);
