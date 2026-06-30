@@ -48,7 +48,8 @@ body {
   padding: 48px 56px 48px 56px;
   background: var(--bg);
   overflow: hidden;
-  height: 100%;
+  height: var(--slide-h, 100%);
+  min-height: 0;
 }
 .slide.active { display: flex; }
 
@@ -1175,11 +1176,21 @@ td:nth-child(3) { color: var(--text2); }
 <script>
 let idx = 1;
 const total = 17;
+function setSlideHeight() {
+  var pres = document.querySelector('.presentation');
+  if (pres) {
+    var h = pres.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--slide-h', h + 'px');
+  }
+}
 function show(n) {
   document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
   document.getElementById('slide-' + n).classList.add('active');
   document.getElementById('counter').textContent = n + ' / ' + total;
 }
+window.addEventListener('resize', setSlideHeight);
+document.addEventListener('DOMContentLoaded', setSlideHeight);
+setSlideHeight();
 function next() { if (idx < total) { idx++; show(idx); } }
 function prev() { if (idx > 1) { idx--; show(idx); } }
 document.addEventListener('keydown', e => {
