@@ -48,8 +48,6 @@ body {
   padding: 48px 56px 48px 56px;
   background: var(--bg);
   overflow: hidden;
-  height: 100vh;
-  min-height: 0;
 }
 .slide.active { display: flex; }
 
@@ -1178,24 +1176,26 @@ td:nth-child(3) { color: var(--text2); }
 let idx = 1;
 const total = 17;
 function setSlideHeight() {
-  var pres = document.querySelector('.presentation');
-  if (pres) {
-    var h = window.innerHeight;
-    document.documentElement.style.setProperty('--slide-h', h + 'px');
-    document.querySelectorAll('.slide').forEach(function(s) { s.style.height = h + 'px'; });
-  }
+  var viewH = window.innerHeight;
+  document.documentElement.style.setProperty('--slide-h', viewH + 'px');
 }
 function show(n) {
   document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
   var target = document.getElementById('slide-' + n);
   if (target) {
     target.classList.add('active');
-    var presH = window.innerHeight;
-    target.style.height = presH + 'px';
+    var viewH = window.innerHeight;
+    var pad = 96; // 48*2 padding
+    var availH = viewH - pad;
+    target.style.height = viewH + 'px';
     var cb = target.querySelector('.content-body');
-    if (cb) { cb.style.minHeight = (presH - 96) + 'px'; }
+    if (cb) cb.style.minHeight = availH + 'px';
     var dc = target.querySelector('.diagram-container');
-    if (dc) { dc.style.minHeight = (presH - 96) + 'px'; }
+    if (dc) dc.style.minHeight = availH + 'px';
+    var flow = target.querySelector('.flow-list');
+    if (flow) flow.style.minHeight = availH + 'px';
+    var grid = target.querySelector('.traffic-grid, .task-grid, .task-table, .agenda-grid, .seat-layout');
+    if (grid) grid.style.minHeight = availH + 'px';
   }
   document.getElementById('counter').textContent = n + ' / ' + total;
 }
