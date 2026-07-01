@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>介面設計的藝術｜熊熊簡報 2026-07-01</title>
+<style>
+/* ============================================================
+   C4 暮光紫羅蘭配色 × V1 極光幾何結構
+   創意設計主題 — 介面設計的藝術
+   ============================================================ */
+:root {
+  --bg: #2d1b4e;
+  --bg-secondary: #1a0f2e;
+  --text: #f3e5f5;
+  --text-secondary: #ce93d8;
+  --accent: #e040fb;
+  --accent-alt: #ba68c8;
+  --accent-glow: rgba(224, 64, 251, 0.35);
+  --accent-secondary: rgba(186, 104, 200, 0.25);
+  --border-color: rgba(224, 64, 251, 0.2);
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --nav-bg: rgba(45, 27, 78, 0.95);
+
+  /* 極光幾何結構專用 */
+  --card-glass-bg: rgba(15, 10, 30, 0.6);
+  --card-border: rgba(224, 64, 251, 0.15);
+  --card-border-hover: rgba(224, 64, 251, 0.4);
+  --grid-line: rgba(139, 92, 246, 0.08);
+  --glow-orb1: rgba(139, 92, 246, 0.25);
+  --glow-orb2: rgba(224, 64, 251, 0.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 20px;
+  scroll-behavior: smooth;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  overflow: hidden;
+}
+
+/* ── Aurora Geometry Background ── */
+body.aurora-geometry {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% 20%, var(--accent-secondary) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 60%, var(--glow-orb2) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+  background-attachment: fixed;
+  animation: aurora-drift 12s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift {
+  0%   { background-position: 0% 0%, 0% 0%, 0% 0%; }
+  50%  { background-position: 20% 10%, 60% 40%, 30% 20%; }
+  100% { background-position: 30% 20%, 80% 60%, 50% 50%; }
+}
+
+/* ── Glow Orbs ── */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.glow-orb-1 {
+  width: 500px; height: 500px;
+  background: var(--glow-orb1);
+  top: -180px; left: -120px;
+  animation: orb-drift 10s ease-in-out infinite alternate;
+}
+.glow-orb-2 {
+  width: 350px; height: 350px;
+  background: var(--glow-orb2);
+  bottom: -120px; right: -60px;
+  animation: orb-drift 10s ease-in-out infinite alternate-reverse;
+}
+@keyframes orb-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 30px) scale(1.15); }
+}
+
+/* ── Grid Overlay ── */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ── Presentation Container ── */
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-height: 100vh;
+  position: relative;
+  margin: 0 auto;
+}
+
+.slide {
+  width: 100%;
+  height: calc(100vw * 9 / 16);
+  max-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  overflow: hidden;
+  padding: 48px 56px;
+}
+@media (max-aspect-ratio: 16/9) {
+  .slide { height: 100vh; width: calc(100vh * 16 / 9); }
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* ── Animate In ── */
+.animate-in {
+  opacity: 0;
+  transform: scale(0.9) translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.animate-in.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.animate-in:nth-child(1) { transition-delay: 0ms; }
+.animate-in:nth-child(2) { transition-delay: 100ms; }
+.animate-in:nth-child(3) { transition-delay: 200ms; }
+.animate-in:nth-child(4) { transition-delay: 300ms; }
+.animate-in:nth-child(5) { transition-delay: 400ms; }
+.animate-in:nth-child(6) { transition-delay: 500ms; }
+
+/* ── Typography ── */
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+h3 {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+}
+p, li {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.label {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--card-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--card-border-hover);
+  box-shadow: 0 16px 48px rgba(224, 64, 251, 0.15), 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.card-accent {
+  background: rgba(224, 64, 251, 0.12);
+  border-color: rgba(224, 64, 251, 0.3);
+}
+.card-outline {
+  background: transparent;
+  border: 2px solid var(--card-border);
+  backdrop-filter: none;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: var(--nav-bg) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(224, 64, 251, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  z-index: 100;
+  padding: 0 24px;
+}
+nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+}
+nav a:hover { color: var(--accent); background: rgba(224, 64, 251, 0.1); }
+.nav-btn {
+  background: rgba(224, 64, 251, 0.15);
+  border: 1px solid rgba(224, 64, 251, 0.3);
+  cursor: pointer;
+  border-radius: 8px;
+}
+.nav-counter {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 60px;
+  text-align: center;
+}
+
+/* ── Back Link ── */
+.back-link {
+  position: fixed;
+  top: 20px;
+  left: 24px;
+  z-index: 200;
+}
+.back-link a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  background: var(--card-glass-bg);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s;
+}
+.back-link a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── Section Number ── */
+.section-num {
+  font-size: 5rem;
+  font-weight: 900;
+  color: rgba(224, 64, 251, 0.12);
+  line-height: 1;
+  position: absolute;
+  right: 48px;
+  top: 40px;
+  letter-spacing: -0.04em;
+}
+
+/* ── Inline SVG Icons ── */
+.icon {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+.icon-sm {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.icon-lg {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+/* ── BIGNUM ── */
+.bignum {
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+/* ── Tag ── */
+.tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: rgba(224, 64, 251, 0.15);
+  color: var(--accent);
+  border: 1px solid rgba(224, 64, 251, 0.3);
+}
+
+/* ── Divider ── */
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  margin: 16px 0;
+  border-radius: 2px;
+}
+
+/* ── Decorative Line ── */
+.deco-line {
+  position: absolute;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 3px;
+}
+
+/* ── Hexagon ── */
+.hex {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1.1547;
+}
+.hex-bg {
+  background: linear-gradient(135deg, rgba(224, 64, 251, 0.3), rgba(186, 104, 200, 0.2));
+}
+
+/* ── Ring ── */
+.ring {
+  border-radius: 50%;
+  border: 3px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ring-accent {
+  border-color: var(--accent);
+}
+
+/* ── List ── */
+.principle-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.principle-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  font-size: 1.2rem;
+  color: var(--text);
+}
+.principle-list li::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-top: 10px;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════
+   PAGE 1: COVER — 介面設計的藝術
+   ═══════════════════════════════════════════════════════ */
+#slide-1 {
+  background: linear-gradient(135deg, #1a0f2e 0%, #2d1b4e 40%, #3d2066 100%);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 64px;
+  position: relative;
+}
+#slide-1 .glow-orb-1 { width: 600px; height: 600px; top: -200px; left: -150px; }
+#slide-1 .glow-orb-2 { width: 400px; height: 400px; bottom: -150px; right: -100px; }
+
+.cover-eyebrow {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+  animation: fade-up 0.8s ease-out both;
+}
+.cover-title {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  animation: fade-up 0.8s ease-out 0.15s both;
+}
+.cover-title span {
+  background: linear-gradient(135deg, var(--accent), #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cover-subtitle {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  animation: fade-up 0.8s ease-out 0.3s both;
+}
+.cover-meta {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  animation: fade-up 0.8s ease-out 0.45s both;
+}
+.cover-deco {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 2px solid rgba(224, 64, 251, 0.15);
+  border-radius: 50%;
+  top: 15%;
+  right: 12%;
+  animation: spin-slow 20s linear infinite;
+}
+.cover-deco-2 {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border: 2px solid rgba(186, 104, 200, 0.2);
+  bottom: 20%;
+  left: 8%;
+  transform: rotate(45deg);
+  animation: spin-slow 15s linear infinite reverse;
+}
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   PAGE 2: TOC — 五大核心原則
+   ═══════════════════════════════════════════════════════ */
+#slide-2 {
+  background: var(--bg);
+  flex-direction: column;
+  padding-bottom: 72px;
+}
+.toc-header {
+  margin-bottom: 40px;
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+.toc-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px 20px;
+  background: var(--card-glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  transition: all 0.3s;
+  cursor: default;
+}
+.toc-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(224, 64, 251, 0.15);
+}
+.toc-num {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: rgba(224, 64, 251, 0.2);
+  line-height: 1;
+}
+.toc-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--accent);
+}
+.toc-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+.toc-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════════════════
+   PAGE 3: 一致性 — G1 圓形靶心
+   ═══════════════════════════════════════════════════════ */
+#slide-3 {
+  background: var(--bg);
+  flex-direction: column;
+  padding-bottom: 72px;
+  position: relative;
+}
+.consistency-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  flex: 1;
+  align-items: center;
+}
+.consistency-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.bullseye {
+  position: relative;
+  width: 260px;
+  height: 260px;
+}
+.bullseye-ring {
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.br1 { width: 260px; height: 260px; background: rgba(224, 64, 251, 0.08); border: 2px solid rgba(224, 64, 251, 0.2); }
+.br2 { width: 190px; height: 190px; background: rgba(224, 64, 251, 0.15); border: 2px solid rgba(224, 64, 251, 0.35); }
+.br3 { width: 130px; height: 130px; background: rgba(224, 64, 251, 0.25); border: 2px solid rgba(224, 64, 251, 0.5); }
+.br4 { width: 70px; height: 70px; background: var(--accent); box-shadow: 0 0 24px var(--accent-glow); }
+.consistency-text h2 { color: var(--text); margin-bottom: 8px; }
+.consistency-text .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; }
+.example-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.chip {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: rgba(224, 64, 251, 0.1);
+  border: 1px solid rgba(224, 64, 251, 0.25);
+  color: var(--text);
+}
+.chip-match { background: rgba(34, 197, 94, 0.15); border-color: rgba(34, 197, 94, 0.4); color: #4ade80; }
+
+/* ═══════════════════════════════════════════════════════
+   PAGE 4: 階層與視覺層級 — G2 方形卡片
+   ═══════════════════════════════════════════════════════ */
+#slide-4 {
+  background: var(--bg);
+  flex-direction: column;
+  padding-bottom: 72px;
+  position: relative;
+}
+.hierarchy-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  flex: 1;
+  align-items: center;
+}
+.hierarchy-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.hier-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 28px;
+  background: var(--card-glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+.hier-card:hover { border-color: var(--accent); transform: translateX(6px); }
+.hier-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  background: rgba(224, 64, 251, 0.12);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.hier-content { flex: 1; }
+.hier-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.hier-sub { font-size: 1.05rem; color: var(--text-secondary); }
+.hier-size-tag {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(224, 64, 251, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+.hierarchy-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sidebar-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 24px;
+  background: var(--card-glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+.sidebar-stat .stat-num {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+.sidebar-stat .stat-label {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════════════════════
+   PAGE 5: 導航與可發現性 — G3 蜂巢
+   ═══════════════════════════════════════════════════════ */
+#slide-5 {
+  background: var(--bg);
+  flex-direction: column;
+  padding-bottom: 72px;
+  position: relative;
+}
+.nav-design-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  flex: 1;
+  align-items: center;
+}
+.hex-grid-demo {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: repeat(3, 92px);
+  gap: 8px;
+  justify-content: center;
+}
+.hex-cell {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: rgba(224, 64, 251, 0.08);
+  border: 1px solid rgba(224, 64, 251, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  cursor: default;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.hex-cell:hover, .hex-cell.active {
+  background: rgba(224, 64, 251, 0.3);
+  border-color: var(--accent);
+  color: var(--text);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+.hex-cell.active {
+  background: rgba(224, 64, 251, 0.5);
+  border-color: var(--accent);
+}
+.hex-cell:nth-child(odd) { margin-top: 20px; }
+.nav-principles {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.nav-principle {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--card-glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+.nav-principle-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  background: rgba(224, 64, 251, 0.15);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.nav-principle h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.nav-principle p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════════════════
+   PAGE 6: 反饋與互動 — G4 三角形/箭頭
+   ═══════════════════════════════════════════════════════ */
+#slide-6 {
+  background: var(--bg);
+  flex-direction: column;
+  padding-bottom: 72px;
+  position: relative;
+}
+.feedback-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  flex: 1;
+  align-items: center;
+}
+.feedback-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+  background: var(--card-glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+.flow-step:hover {
+  border-color: var(--accent);
+  transform: translateX(6px);
+}
+.step-num {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fff;
+}
+.step-content h4 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.step-content p { font-size: 1.05rem; color: var(--text-secondary); }
+.step-arrow {
+  color: var(--accent);
+  font-size: 1.2rem;
+  text-align: center;
+  opacity: 0.6;
+}
+.feedback-types {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.feedback-card {
+  padding: 20px;
+  background: var(--card-glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.2s;
+}
+.feedback-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.fb-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(224, 64, 251, 0.15);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.feedback-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+.feedback-card p { font-size: 1rem; color: var(--text-secondary); line-height: 1.4; }
+
+/* ═══════════════════════════════════════════════════════
+   PAGE 7: 無障礙設計 — G5 菱形
+   ═══════════════════════════════════════════════════════ */
+#slide-7 {
+  background: var(--bg);
+  flex-direction: column;
+  padding-bottom: 72px;
+  position: relative;
+}
+.accessibility-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  flex: 1;
+  align-items: center;
+}
+.access-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.access-card {
+  padding: 20px;
+  background: var(--card-glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.2s;
+}
+.access-card:hover {
+  border-color: var(--accent);
+  transform: scale(1.03);
+}
+.access-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(224, 64, 251, 0.12);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.access-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+.access-card p { font-size: 1rem; color: var(--text-secondary); line-height: 1.4; }
+.access-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.access-stat {
+  padding: 20px 24px;
+  background: rgba(224, 64, 251, 0.08);
+  border: 1px solid rgba(224, 64, 251, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.access-stat-num {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  min-width: 80px;
+}
+.access-stat-label h4 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.access-stat-label p { font-size: 1.05rem; color: var(--text-secondary); }
+
+/* ═══════════════════════════════════════════════════════
+   PAGE 8: 響應式與行動優先 — G6 漏斗
+   ═══════════════════════════════════════════════════════ */
+#slide-8 {
+  background: var(--bg);
+  flex-direction: column;
+  padding-bottom: 72px;
+  position: relative;
+}
+.responsive-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  flex: 1;
+  align-items: center;
+}
+.funnel-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.funnel-stage {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
+  transition: all 0.2s;
+}
+.funnel-stage:hover { filter: brightness(1.15); transform: scaleX(1.02); }
+.fs1 { width: 100%; background: linear-gradient(90deg, var(--accent), #c026d3); border-radius: 8px 8px 0 0; }
+.fs2 { width: 82%; background: linear-gradient(90deg, #9333ea, var(--accent-alt)); }
+.fs3 { width: 64%; background: linear-gradient(90deg, #7c3aed, #9333ea); }
+.fs4 { width: 46%; background: linear-gradient(90deg, #6d28d9, #7c3aed); }
+.fs5 { width: 28%; background: #5b21b6; border-radius: 0 0 8px 8px; }
+.responsive-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.responsive-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--card-glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+}
+.responsive-tip-icon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  background: rgba(224, 64, 251, 0.15);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.responsive-tip h4 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+.responsive-tip p { font-size: 1rem; color: var(--text-secondary); }
+
+/* ═══════════════════════════════════════════════════════
+   PAGE 9: 測試與迭代 — G7 時間軸
+   ═══════════════════════════════════════════════════════ */
+#slide-9 {
+  background: var(--bg);
+  flex-direction: column;
+  padding-bottom: 72px;
+  position: relative;
+}
+.timeline-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.timeline-header { margin-bottom: 8px; }
+.timeline-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+.timeline-row::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), rgba(224, 64, 251, 0.2), transparent);
+}
+.timeline-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px;
+  position: relative;
+  z-index: 1;
+}
+.timeline-node {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+.timeline-content {
+  text-align: center;
+  padding: 14px 16px;
+  background: var(--card-glass-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  width: 100%;
+}
+.timeline-content h4 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.timeline-content p { font-size: 1rem; color: var(--text-secondary); line-height: 1.4; }
+.timeline-content .tl-tag {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(224, 64, 251, 0.1);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 6px;
+  letter-spacing: 0.05em;
+}
+
+/* ═══════════════════════════════════════════════════════
+   PAGE 10: 總結 — 大數字 + 願景
+   ═══════════════════════════════════════════════════════ */
+#slide-10 {
+  background: linear-gradient(135deg, #1a0f2e 0%, #2d1b4e 50%, #3d2066 100%);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 64px;
+  position: relative;
+}
+.summary-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  max-width: 800px;
+}
+.summary-bignum {
+  font-size: clamp(5rem, 14vw, 10rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent), #f472b6, #e879f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(224, 64, 251, 0.4)); }
+  50% { filter: drop-shadow(0 0 40px rgba(224, 64, 251, 0.7)); }
+}
+.summary-text {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  max-width: 600px;
+}
+.summary-sub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  line-height: 1.6;
+}
+.summary-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.summary-tag {
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: rgba(224, 64, 251, 0.12);
+  border: 1px solid rgba(224, 64, 251, 0.3);
+  color: var(--text-secondary);
+}
+.summary-deco {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border: 2px solid rgba(224, 64, 251, 0.08);
+  border-radius: 50%;
+  bottom: -100px;
+  right: -100px;
+}
+.summary-deco-2 {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border: 2px solid rgba(186, 104, 200, 0.1);
+  top: 10%;
+  left: 5%;
+  transform: rotate(30deg);
+}
+</style>
+</head>
+<body class="aurora-geometry">
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
+<div class="grid-overlay"></div>
+
+<div class="presentation">
+
+  <!-- ═══ PAGE 1: COVER ═══ -->
+  <div id="slide-1" class="slide active">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="cover-deco"></div>
+    <div class="cover-deco-2"></div>
+    <div class="back-link">
+      <a href="/slides.htm">← 熊熊簡報</a>
+    </div>
+    <div class="cover-eyebrow">創意設計 · Creative Design</div>
+    <h1 class="cover-title">介面設計<br><span>的藝術</span></h1>
+    <p class="cover-subtitle">五大核心原則，打造卓越使用者體驗</p>
+    <p class="cover-meta">熊熊簡報 · 2026-07-01 · 第 12 期</p>
+  </div>
+
+  <!-- ═══ PAGE 2: TOC ═══ -->
+  <div id="slide-2" class="slide">
+    <div class="glow-orb glow-orb-1" style="width:300px;height:300px;top:-80px;left:-80px;opacity:0.6;"></div>
+    <div class="back-link"><a href="/slides.htm">← 熊熊簡報</a></div>
+    <div class="toc-header">
+      <p class="label">Overview</p>
+      <h2>五大核心原則</h2>
+    </div>
+    <div class="toc-grid">
+      <div class="toc-item animate-in">
+        <span class="toc-num">01</span>
+        <svg class="toc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="24" cy="24" r="20"/>
+          <circle cx="24" cy="24" r="12"/>
+          <circle cx="24" cy="24" r="4"/>
+        </svg>
+        <h3 class="toc-title">一致性</h3>
+        <p class="toc-desc">視覺與互動的統一語言</p>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">02</span>
+        <svg class="toc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="6" width="36" height="36" rx="4"/>
+          <line x1="6" y1="18" x2="42" y2="18"/>
+          <line x1="6" y1="30" x2="42" y2="30"/>
+          <line x1="18" y1="6" x2="18" y2="42"/>
+        </svg>
+        <h3 class="toc-title">階層與層級</h3>
+        <p class="toc-desc">引導目光的視覺優先順序</p>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">03</span>
+        <svg class="toc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="24,4 44,14 44,34 24,44 4,34 4,14"/>
+          <line x1="24" y1="4" x2="24" y2="44"/>
+          <line x1="4" y1="14" x2="44" y2="34"/>
+          <line x1="44" y1="14" x2="4" y2="34"/>
+        </svg>
+        <h3 class="toc-title">導航與發現</h3>
+        <p class="toc-desc">資訊架構的清晰之路</p>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">04</span>
+        <svg class="toc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M24 4 L24 44"/>
+          <path d="M24 4 C14 4 8 10 8 20 C8 32 24 44 24 44 C24 44 40 32 40 20 C40 10 34 4 24 4"/>
+          <circle cx="24" cy="24" r="4"/>
+        </svg>
+        <h3 class="toc-title">反饋與互動</h3>
+        <p class="toc-desc">系統與使用者的對話</p>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">05</span>
+        <svg class="toc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="24" cy="24" r="20"/>
+          <path d="M12 24 C12 16 18 10 24 10"/>
+          <circle cx="24" cy="10" r="3"/>
+          <path d="M36 24 C36 32 30 38 24 38"/>
+          <circle cx="24" cy="38" r="3"/>
+        </svg>
+        <h3 class="toc-title">無障礙設計</h3>
+        <p class="toc-desc">為每一位使用者而設計</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE 3: CONSISTENCY ═══ -->
+  <div id="slide-3" class="slide">
+    <div class="glow-orb glow-orb-1" style="width:300px;height:300px;top:-80px;left:-80px;opacity:0.5;"></div>
+    <div class="back-link"><a href="/slides.htm">← 熊熊簡報</a></div>
+    <div class="section-num">01</div>
+    <div class="consistency-layout">
+      <div class="consistency-visual animate-in">
+        <div class="bullseye">
+          <div class="bullseye-ring br1"></div>
+          <div class="bullseye-ring br2"></div>
+          <div class="bullseye-ring br3"></div>
+          <div class="bullseye-ring br4"></div>
+        </div>
+        <p style="font-size:1.05rem;color:var(--text-secondary);text-align:center;">視覺一致 → 使用者信任</p>
+      </div>
+      <div class="consistency-text">
+        <p class="label">Principle 01</p>
+        <h2>一致性</h2>
+        <p class="subtitle">視覺元素、互動行為、術語的統一</p>
+        <div class="divider"></div>
+        <ul class="principle-list">
+          <li>顏色、字體、圖示保持系統統一</li>
+          <li>相似的操作有相似的反饋</li>
+          <li>術語和文案一致，不造成困惑</li>
+          <li>跨平台體驗和諧一致</li>
+        </ul>
+        <div class="example-chips">
+          <span class="chip">按鈕風格</span>
+          <span class="chip">圓角半徑</span>
+          <span class="chip">間距系統</span>
+          <span class="chip chip-match">間距 8px</span>
+          <span class="chip chip-match">按鈕高度 44px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE 4: HIERARCHY ═══ -->
+  <div id="slide-4" class="slide">
+    <div class="glow-orb glow-orb-2" style="width:250px;height:250px;bottom:-60px;right:-60px;opacity:0.5;"></div>
+    <div class="back-link"><a href="/slides.htm">← 熊熊簡報</a></div>
+    <div class="section-num">02</div>
+    <div class="hierarchy-layout">
+      <div class="hierarchy-demo">
+        <p class="label">Principle 02 · 視覺層級示範</p>
+        <div class="hier-card">
+          <div class="hier-icon">
+            <svg width="28" height="28" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 40 L24 8 L44 40"/>
+              <circle cx="24" cy="24" r="4"/>
+            </svg>
+          </div>
+          <div class="hier-content">
+            <div class="hier-title">主要標題 Primary</div>
+            <div class="hier-sub">頁面或區塊的核心訊息</div>
+          </div>
+          <span class="hier-size-tag">40-56px</span>
+        </div>
+        <div class="hier-card">
+          <div class="hier-icon">
+            <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="8" width="32" height="32" rx="4"/>
+              <line x1="16" y1="20" x2="32" y2="20"/>
+              <line x1="16" y1="28" x2="26" y2="28"/>
+            </svg>
+          </div>
+          <div class="hier-content">
+            <div class="hier-title">次要標題 Section</div>
+            <div class="hier-sub">區塊或章節的標題</div>
+          </div>
+          <span class="hier-size-tag">24-32px</span>
+        </div>
+        <div class="hier-card">
+          <div class="hier-icon">
+            <svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="12" x2="40" y2="12"/>
+              <line x1="8" y1="24" x2="40" y2="24"/>
+              <line x1="8" y1="36" x2="28" y2="36"/>
+            </svg>
+          </div>
+          <div class="hier-content">
+            <div class="hier-title">內文文字 Body</div>
+            <div class="hier-sub">主要敘述內容</div>
+          </div>
+          <span class="hier-size-tag">16-20px</span>
+        </div>
+        <div class="hier-card">
+          <div class="hier-icon">
+            <svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="24" cy="24" r="4"/>
+              <path d="M24 8 L24 4"/>
+              <path d="M24 44 L24 40"/>
+              <path d="M8 24 L4 24"/>
+              <path d="M44 24 L40 24"/>
+            </svg>
+          </div>
+          <div class="hier-content">
+            <div class="hier-title">輔助說明 Caption</div>
+            <div class="hier-sub">補充、標籤或詮釋文字</div>
+          </div>
+          <span class="hier-size-tag">12-14px</span>
+        </div>
+      </div>
+      <div class="hierarchy-sidebar">
+        <p class="label">為什麼層級重要？</p>
+        <div class="sidebar-stat">
+          <span class="stat-num">38%</span>
+          <span class="stat-label">使用者會因為資訊層級不清而離開</span>
+        </div>
+        <div class="sidebar-stat">
+          <span class="stat-num">89%</span>
+          <span class="stat-label">使用者會因為網站體驗不佳而選擇競爭對手</span>
+        </div>
+        <div class="sidebar-stat">
+          <span class="stat-num">2.5×</span>
+          <span class="stat-label">清晰的層級讓任務完成率提升</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE 5: NAVIGATION ═══ -->
+  <div id="slide-5" class="slide">
+    <div class="glow-orb glow-orb-1" style="width:300px;height:300px;top:-100px;left:-100px;opacity:0.5;"></div>
+    <div class="back-link"><a href="/slides.htm">← 熊熊簡報</a></div>
+    <div class="section-num">03</div>
+    <div class="nav-design-layout">
+      <div>
+        <p class="label">Principle 03 · 資訊架構</p>
+        <h2 style="margin-bottom:24px;">導航與可發現性</h2>
+        <div class="nav-principles">
+          <div class="nav-principle animate-in">
+            <div class="nav-principle-icon">
+              <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12,8 36,8 44,24 36,40 12,40 4,24"/>
+              </svg>
+            </div>
+            <div>
+              <h4>清晰的架構層次</h4>
+              <p>導航結構不超過三層，讓使用者快速找到目標</p>
+            </div>
+          </div>
+          <div class="nav-principle animate-in">
+            <div class="nav-principle-icon">
+              <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="24" cy="24" r="20"/>
+                <path d="M24 8 L24 40"/>
+                <path d="M8 24 L40 24"/>
+              </svg>
+            </div>
+            <div>
+              <h4>視覺引導線索</h4>
+              <p>麵包屑、指示器、引導動線讓位置一目了然</p>
+            </div>
+          </div>
+          <div class="nav-principle animate-in">
+            <div class="nav-principle-icon">
+              <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 24 L24 12 L36 24 L24 36 Z"/>
+                <circle cx="24" cy="24" r="4"/>
+              </svg>
+            </div>
+            <div>
+              <h4>搜尋功能優先</h4>
+              <p>提供全域搜尋，降低導航成本</p>
+            </div>
+          </div>
+          <div class="nav-principle animate-in">
+            <div class="nav-principle-icon">
+              <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="8" y="8" width="14" height="14" rx="2"/>
+                <rect x="26" y="8" width="14" height="14" rx="2"/>
+                <rect x="8" y="26" width="14" height="14" rx="2"/>
+                <rect x="26" y="26" width="14" height="14" rx="2"/>
+              </svg>
+            </div>
+            <div>
+              <h4>一致的位置感知</h4>
+              <p>導航元素在每頁的固定位置，建立空間記憶</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <p class="label" style="text-align:center;">網站地圖範例</p>
+        <div class="hex-grid-demo">
+          <div class="hex-cell"></div>
+          <div class="hex-cell"></div>
+          <div class="hex-cell active">首頁</div>
+          <div class="hex-cell"></div>
+          <div class="hex-cell active">產品</div>
+          <div class="hex-cell active">關於</div>
+          <div class="hex-cell"></div>
+          <div class="hex-cell active">服務</div>
+          <div class="hex-cell"></div>
+        </div>
+        <p style="font-size:1rem;color:var(--text-secondary);text-align:center;">六角格代表網站的主要節點<br>紫色為當前活躍路徑</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE 6: FEEDBACK ═══ -->
+  <div id="slide-6" class="slide">
+    <div class="glow-orb glow-orb-2" style="width:300px;height:300px;bottom:-80px;right:-80px;opacity:0.5;"></div>
+    <div class="back-link"><a href="/slides.htm">← 熊熊簡報</a></div>
+    <div class="section-num">04</div>
+    <div class="feedback-layout">
+      <div>
+        <p class="label">Principle 04 · 互動反饋</p>
+        <h2 style="margin-bottom:24px;">反饋與互動</h2>
+        <div class="feedback-flow">
+          <div class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h4>操作前 — 預期暗示</h4>
+              <p>按鈕、連結要有可點擊的視覺提示</p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h4>操作中 — 即時回應</h4>
+              <p>載入狀態、進度指示、禁用狀態</p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h4>操作後 — 成功/失敗</h4>
+              <p>明確的結果通知，錯誤訊息要友善</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="feedback-types">
+        <p class="label" style="grid-column:1/-1;margin-bottom:4px;">四種關鍵反饋類型</p>
+        <div class="feedback-card animate-in">
+          <div class="fb-icon">
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="24" cy="24" r="20"/>
+              <path d="M16 24 L22 30 L34 18"/>
+            </svg>
+          </div>
+          <h4>視覺確認</h4>
+          <p>按鈕點擊後的狀態變化、成功圖示</p>
+        </div>
+        <div class="feedback-card animate-in">
+          <div class="fb-icon">
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 24 C4 12 14 4 24 4 C34 4 44 12 44 24 C44 36 34 44 24 44 C14 44 4 36 4 24 Z"/>
+              <path d="M24 12 L24 26 L32 30"/>
+            </svg>
+          </div>
+          <h4>進度指示</h4>
+          <p>載入動畫、進度條、完成百分比</p>
+        </div>
+        <div class="feedback-card animate-in">
+          <div class="fb-icon">
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 4 L24 40"/>
+              <path d="M8 24 L40 24"/>
+              <circle cx="24" cy="24" r="8"/>
+            </svg>
+          </div>
+          <h4>錯誤提示</h4>
+          <p>即時的表單驗證、錯誤說明與建議</p>
+        </div>
+        <div class="feedback-card animate-in">
+          <div class="fb-icon">
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 12 L36 36"/>
+              <path d="M36 12 L12 36"/>
+              <circle cx="24" cy="24" r="20"/>
+            </svg>
+          </div>
+          <h4>確認對話</h4>
+          <p>危險操作的二次確認、提示警告</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE 7: ACCESSIBILITY ═══ -->
+  <div id="slide-7" class="slide">
+    <div class="glow-orb glow-orb-1" style="width:350px;height:350px;top:-100px;right:-80px;opacity:0.5;"></div>
+    <div class="back-link"><a href="/slides.htm">← 熊熊簡報</a></div>
+    <div class="section-num">05</div>
+    <div class="accessibility-layout">
+      <div>
+        <p class="label">Principle 05 · 包容性設計</p>
+        <h2 style="margin-bottom:24px;">無障礙設計</h2>
+        <div class="access-grid">
+          <div class="access-card animate-in">
+            <div class="access-icon">
+              <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="24" cy="24" r="20"/>
+                <circle cx="24" cy="14" r="4"/>
+                <path d="M12 42 C12 32 18 26 24 26 C30 26 36 32 36 42"/>
+              </svg>
+            </div>
+            <h4>視覺障礙</h4>
+            <p>足夠對比度、螢幕閱讀器支援、放大文字</p>
+          </div>
+          <div class="access-card animate-in">
+            <div class="access-icon">
+              <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 4 C12 4 4 14 4 24 C4 34 12 44 24 44 C36 44 44 34 44 24"/>
+                <path d="M30 18 L22 28 L16 22"/>
+              </svg>
+            </div>
+            <h4>聽覺障礙</h4>
+            <p>影片字幕、聲音內容的文字替代</p>
+          </div>
+          <div class="access-card animate-in">
+            <div class="access-icon">
+              <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="8" y="8" width="32" height="32" rx="4"/>
+                <path d="M18 24 L24 18 L30 24 L24 30 Z"/>
+                <path d="M18 18 L24 24 L30 18"/>
+              </svg>
+            </div>
+            <h4>運動障礙</h4>
+            <p>鍵盤導航、大點擊區域、精準點擊輔助</p>
+          </div>
+          <div class="access-card animate-in">
+            <div class="access-icon">
+              <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="24" cy="12" r="6"/>
+                <path d="M12 40 C12 30 17 24 24 24 C31 24 36 30 36 40"/>
+                <path d="M18 44 L18 40 L30 40 L30 44"/>
+              </svg>
+            </div>
+            <h4>認知障礙</h4>
+            <p>清晰語言、分段資訊、一致導航</p>
+          </div>
+        </div>
+      </div>
+      <div class="access-stats">
+        <div class="access-stat">
+          <span class="access-stat-num">15%</span>
+          <div class="access-stat-label">
+            <h4>全球有至少一種殘疾的人口比例</h4>
+            <p>約 12 億人需要無障礙設計的支援</p>
+          </div>
+        </div>
+        <div class="access-stat">
+          <span class="access-stat-num">WCAG</span>
+          <div class="access-stat-label">
+            <h4>網頁內容無障礙指南</h4>
+            <p>AA 等級是大多數產品的最低標準</p>
+          </div>
+        </div>
+        <div class="access-stat">
+          <span class="access-stat-num">4.5:1</span>
+          <div class="access-stat-label">
+            <h4>最小對比度要求</h4>
+            <p>文字與背景的 WCAG AA 標準</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE 8: RESPONSIVE ═══ -->
+  <div id="slide-8" class="slide">
+    <div class="glow-orb glow-orb-2" style="width:300px;height:300px;bottom:-80px;left:-80px;opacity:0.5;"></div>
+    <div class="back-link"><a href="/slides.htm">← 熊熊簡報</a></div>
+    <div class="section-num" style="right:32px;">06</div>
+    <div class="responsive-layout">
+      <div>
+        <p class="label">額外原則 · 適應性設計</p>
+        <h2 style="margin-bottom:24px;">響應式與行動優先</h2>
+        <div class="funnel-demo">
+          <div class="funnel-stage fs1">桌面優先 → 平板 → 手機</div>
+          <div class="funnel-stage fs2">內容優先順序排列</div>
+          <div class="funnel-stage fs3">漸進式功能揭露</div>
+          <div class="funnel-stage fs4">觸控友好設計</div>
+          <div class="funnel-stage fs5">核心功能直達</div>
+        </div>
+      </div>
+      <div class="responsive-tips">
+        <div class="responsive-tip">
+          <div class="responsive-tip-icon">
+            <svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="40" height="40" rx="4"/>
+              <path d="M4 16 L44 16"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Fluid Grid 彈性網格</h4>
+            <p>用相對單位而非固定像素</p>
+          </div>
+        </div>
+        <div class="responsive-tip">
+          <div class="responsive-tip-icon">
+            <svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 4 L24 44"/>
+              <path d="M8 16 L40 16"/>
+              <path d="M8 32 L40 32"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Flexible Images 彈性圖片</h4>
+            <p>圖片縮放不破版， srcset 対応</p>
+          </div>
+        </div>
+        <div class="responsive-tip">
+          <div class="responsive-tip-icon">
+            <svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="24" cy="24" r="20"/>
+              <path d="M24 14 L24 24 L32 28"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Touch Targets 觸控目標</h4>
+            <p>最小點擊區域 44×44 CSS 像素</p>
+          </div>
+        </div>
+        <div class="responsive-tip">
+          <div class="responsive-tip-icon">
+            <svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 12 L40 12 L40 36 L8 36 Z"/>
+              <path d="M20 20 L30 20"/>
+              <path d="M20 26 L26 26"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Content Prioritization</h4>
+            <p>行動裝置只顯示最重要內容</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE 9: TESTING ═══ -->
+  <div id="slide-9" class="slide">
+    <div class="glow-orb glow-orb-1" style="width:250px;height:250px;top:-60px;right:-60px;opacity:0.4;"></div>
+    <div class="back-link"><a href="/slides.htm">← 熊熊簡報</a></div>
+    <div class="section-num" style="right:32px;">07</div>
+    <div class="timeline-layout">
+      <div class="timeline-header">
+        <p class="label">額外原則 · 持續優化</p>
+        <h2>測試與迭代循環</h2>
+      </div>
+      <div class="timeline-row">
+        <div class="timeline-item">
+          <div class="timeline-node">
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="24" cy="24" r="20"/>
+              <path d="M16 16 L32 32"/>
+              <path d="M32 16 L16 32"/>
+            </svg>
+          </div>
+          <div class="timeline-content">
+            <h4>研究發現</h4>
+            <p>了解使用者需求與痛點</p>
+            <span class="tl-tag">Discover</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-node">
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 36 L18 18 L28 28 L40 8"/>
+              <circle cx="18" cy="18" r="3"/>
+              <circle cx="28" cy="28" r="3"/>
+              <circle cx="40" cy="8" r="3"/>
+            </svg>
+          </div>
+          <div class="timeline-content">
+            <h4>原型設計</h4>
+            <p>低保真到高保真的迭代</p>
+            <span class="tl-tag">Design</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-node">
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 4 L24 44"/>
+              <path d="M14 14 L24 4 L34 14"/>
+              <path d="M14 34 L24 44 L34 34"/>
+            </svg>
+          </div>
+          <div class="timeline-content">
+            <h4>使用者測試</h4>
+            <p>觀察實際操作、收集回饋</p>
+            <span class="tl-tag">Test</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-node">
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 24 L18 14 L30 26 L40 16 L40 34 L8 34 Z"/>
+              <path d="M32 16 L40 16 L40 24"/>
+            </svg>
+          </div>
+          <div class="timeline-content">
+            <h4>分析迭代</h4>
+            <p>量化數據 + 質性回饋改進</p>
+            <span class="tl-tag">Iterate</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-node">
+            <svg width="22" height="22" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 24 L22 14 L32 24 L22 34 Z"/>
+              <circle cx="24" cy="24" r="4"/>
+            </svg>
+          </div>
+          <div class="timeline-content">
+            <h4>上線監控</h4>
+            <p>持續監測效能與使用者行為</p>
+            <span class="tl-tag">Monitor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE 10: SUMMARY ═══ -->
+  <div id="slide-10" class="slide">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="summary-deco"></div>
+    <div class="summary-deco-2"></div>
+    <div class="back-link"><a href="/slides.htm">← 熊熊簡報</a></div>
+    <div class="summary-layout">
+      <div class="summary-bignum">5+2</div>
+      <h2 class="summary-text">設計原則是起點，<br>持續迭代才是終點</h2>
+      <p class="summary-sub">一致性、階層、導航、反饋、無障礙，加上響應式與測試迭代 — 這七把鑰匙，開啟卓越介面設計之門。</p>
+      <div class="summary-tags">
+        <span class="summary-tag">一致性</span>
+        <span class="summary-tag">視覺階層</span>
+        <span class="summary-tag">導航清晰</span>
+        <span class="summary-tag">即時反饋</span>
+        <span class="summary-tag">無障礙</span>
+        <span class="summary-tag">響應式</span>
+        <span class="summary-tag">持續迭代</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /presentation -->
+
+<nav>
+  <button class="nav-btn" onclick="prev()" aria-label="上一頁">◀</button>
+  <a href="/slides.htm">列表</a>
+  <span class="nav-counter"><span id="currentPage">1</span> / <span id="totalPages">10</span></span>
+  <button class="nav-btn" onclick="next()" aria-label="下一頁">▶</button>
+</nav>
+
+<script>
+(function() {
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const pageNum = document.getElementById('currentPage');
+  const totalPages = document.getElementById('totalPages');
+
+  totalPages.textContent = total;
+
+  function show(idx) {
+    slides.forEach(function(s, i) {
+      s.classList.toggle('active', i === idx);
+    });
+    pageNum.textContent = idx + 1;
+
+    // Trigger animate-in for current slide
+    const active = slides[idx];
+    active.querySelectorAll('.animate-in').forEach(function(el) {
+      el.classList.remove('visible');
+      void el.offsetWidth; // reflow
+      setTimeout(function() { el.classList.add('visible'); }, 50);
+    });
+  }
+
+  window.next = function() {
+    current = (current + 1) % total;
+    show(current);
+  };
+  window.prev = function() {
+    current = (current - 1 + total) % total;
+    show(current);
+  };
+  window.goTo = function(idx) {
+    current = idx - 1;
+    show(current);
+  };
+
+  // keyboard
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      next();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      prev();
+    }
+  });
+
+  // Init
+  show(0);
+})();
+</script>
+</body>
+</html>
