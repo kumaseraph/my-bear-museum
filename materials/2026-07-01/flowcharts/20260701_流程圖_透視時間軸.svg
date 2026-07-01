@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="trackGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="25%" stop-color="#6B5CE7"/>
+      <stop offset="50%" stop-color="#4ECDC4"/>
+      <stop offset="75%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+    <linearGradient id="cardGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4C1D95"/>
+    </linearGradient>
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4ECDC4"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- 深色背景 -->
+  <rect width="100%" height="100%" fill="#0A0612"/>
+  
+  <!-- 透視蜂巢背景 -->
+  <pattern id="perspHex" x="0" y="0" width="100" height="115" patternUnits="userSpaceOnUse">
+    <path d="M50,0 L100,28.87 L100,86.13 L50,115 L0,86.13 L0,28.87 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="0.5" opacity="0.08"/>
+  </pattern>
+  <rect width="100%" height="100%" fill="url(#perspHex)"/>
+  
+  <!-- 透視消失線（向中心集中） -->
+  <g stroke="#6B5CE7" stroke-width="0.5" opacity="0.15">
+    <line x1="0" y1="0" x2="960" y2="540"/>
+    <line x1="1920" y1="0" x2="960" y2="540"/>
+    <line x1="0" y1="1080" x2="960" y2="540"/>
+    <line x1="1920" y1="1080" x2="960" y2="540"/>
+    <line x1="480" y1="0" x2="960" y2="540"/>
+    <line x1="1440" y1="0" x2="960" y2="540"/>
+    <line x1="480" y1="1080" x2="960" y2="540"/>
+    <line x1="1440" y1="1080" x2="960" y2="540"/>
+  </g>
+  
+  <!-- 主時間軸線 -->
+  <line x1="100" y1="650" x2="1820" y2="650" stroke="url(#trackGrad)" stroke-width="6"/>
+  
+  <!-- 時間軸箭頭 -->
+  <polygon points="1820,650 1790,640 1790,660" fill="#F97316"/>
+  
+  <!-- 透視消失點 -->
+  <circle cx="960" cy="540" r="8" fill="#4ECDC4" opacity="0.8"/>
+  
+  <!-- 時間點卡片 -->
+  <g filter="url(#shadow)">
+    <!-- Q1 -->
+    <g transform="translate(200, 400)">
+      <rect width="180" height="120" rx="8" fill="url(#cardGrad1)"/>
+      <rect width="180" height="120" rx="8" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <text x="90" y="45" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">Q1</text>
+      <text x="90" y="75" font-family="Arial, sans-serif" font-size="14" fill="#A78BFA" text-anchor="middle">規劃階段</text>
+      <text x="90" y="100" font-family="Arial, sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">01-03 月</text>
+      <circle cx="90" cy="180" r="12" fill="#6B5CE7" stroke="white" stroke-width="3"/>
+    </g>
+    
+    <!-- Q2 -->
+    <g transform="translate(520, 350)">
+      <rect width="180" height="120" rx="8" fill="url(#cardGrad1)"/>
+      <rect width="180" height="120" rx="8" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <text x="90" y="45" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">Q2</text>
+      <text x="90" y="75" font-family="Arial, sans-serif" font-size="14" fill="#A78BFA" text-anchor="middle">開發階段</text>
+      <text x="90" y="100" font-family="Arial, sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">04-06 月</text>
+      <circle cx="90" cy="180" r="12" fill="#4ECDC4" stroke="white" stroke-width="3"/>
+    </g>
+    
+    <!-- Q3 -->
+    <g transform="translate(840, 300)">
+      <rect width="180" height="120" rx="8" fill="url(#cardGrad2)"/>
+      <rect width="180" height="120" rx="8" fill="none" stroke="#22D3EE" stroke-width="2"/>
+      <text x="90" y="45" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">Q3</text>
+      <text x="90" y="75" font-family="Arial, sans-serif" font-size="14" fill="#22D3EE" text-anchor="middle">測試階段</text>
+      <text x="90" y="100" font-family="Arial, sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">07-09 月</text>
+      <circle cx="90" cy="180" r="12" fill="#22D3EE" stroke="white" stroke-width="3"/>
+    </g>
+    
+    <!-- Q4 -->
+    <g transform="translate(1160, 250)">
+      <rect width="180" height="120" rx="8" fill="url(#cardGrad2)"/>
+      <rect width="180" height="120" rx="8" fill="none" stroke="#22D3EE" stroke-width="2"/>
+      <text x="90" y="45" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">Q4</text>
+      <text x="90" y="75" font-family="Arial, sans-serif" font-size="14" fill="#22D3EE" text-anchor="middle">上線階段</text>
+      <text x="90" y="100" font-family="Arial, sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">10-12 月</text>
+      <circle cx="90" cy="180" r="12" fill="#F97316" stroke="white" stroke-width="3"/>
+    </g>
+    
+    <!-- 年度目標 -->
+    <g transform="translate(1500, 180)">
+      <rect width="220" height="140" rx="8" fill="#F97316"/>
+      <rect width="220" height="140" rx="8" fill="none" stroke="#FB923C" stroke-width="3"/>
+      <text x="110" y="55" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">年度目標</text>
+      <text x="110" y="90" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" opacity="0.9">達成率 100%</text>
+      <text x="110" y="120" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle" opacity="0.7">TARGET 2026</text>
+      <circle cx="110" cy="200" r="12" fill="#FB923C" stroke="white" stroke-width="3"/>
+    </g>
+  </g>
+  
+  <!-- 標題 -->
+  <text x="960" y="80" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="white" text-anchor="middle" opacity="0.95">2026 年度工作時間軸</text>
+  <text x="960" y="120" font-family="Arial, sans-serif" font-size="18" fill="#A78BFA" text-anchor="middle" opacity="0.7">Sharp Geometry · Tactile Brutalism</text>
+  
+  <!-- 底部科技裝飾線 -->
+  <g transform="translate(0, 950)">
+    <line x1="0" y1="0" x2="400" y2="0" stroke="#6B5CE7" stroke-width="1" opacity="0.3"/>
+    <line x1="0" y1="5" x2="600" y2="5" stroke="#4ECDC4" stroke-width="1" opacity="0.2"/>
+    <line x1="0" y1="10" x2="800" y2="10" stroke="#22D3EE" stroke-width="1" opacity="0.15"/>
+  </g>
+  
+  <g transform="translate(1120, 950)">
+    <line x1="0" y1="0" x2="400" y2="0" stroke="#F97316" stroke-width="1" opacity="0.3"/>
+    <line x1="200" y1="5" x2="800" y2="5" stroke="#FB923C" stroke-width="1" opacity="0.2"/>
+  </g>
+</svg>

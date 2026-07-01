@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="numGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4C1D95"/>
+    </linearGradient>
+    <linearGradient id="numGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ECDC4"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#0A0612"/>
+  
+  <!-- 蜂巢紋理襯底 -->
+  <pattern id="hexBg" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+    <path d="M30,0 L60,15 L60,45 L30,60 L0,45 L0,15 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="0.3" opacity="0.08"/>
+  </pattern>
+  <rect width="1920" height="1080" fill="url(#hexBg)"/>
+  
+  <!-- 大號六邊形裝飾背景 -->
+  <g opacity="0.1">
+    <polygon points="960,140 1106,210 1106,420 960,490 814,420 814,210" 
+             fill="none" stroke="#6B5CE7" stroke-width="3"/>
+    <polygon points="960,180 1080,232 1080,388 960,440 840,388 840,232" 
+             fill="#6B5CE7"/>
+  </g>
+  
+  <!-- 主頁碼展示區 -->
+  <g transform="translate(960, 300)">
+    <!-- 外圈大六邊形（空心粗框） -->
+    <polygon points="0,-150 130,-75 130,75 0,150 -130,75 -130,-75" 
+             fill="none" stroke="#6B5CE7" stroke-width="8"/>
+    
+    <!-- 中圈六邊形（半透明實心） -->
+    <polygon points="0,-110 95.5,-55 95.5,55 0,110 -95.5,55 -95.5,-55" 
+             fill="#6B5CE7" fill-opacity="0.3"/>
+    
+    <!-- 內圈六邊形（實心） -->
+    <polygon points="0,-70 60.6,-35 60.6,35 0,70 -60.6,35 -60.6,-35" 
+             fill="url(#numGrad1)"/>
+    
+    <!-- 數字 "01" -->
+    <text x="0" y="15" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">01</text>
+  </g>
+  
+  <!-- 十形排列的小六邊形裝飾 -->
+  <g transform="translate(960, 540)">
+    <!-- 中心往下 -->
+    <polygon points="0,-25 21.65,-12.5 21.65,12.5 0,25 -21.65,12.5 -21.65,-12.5" 
+             fill="#4ECDC4" transform="translate(0, 60)"/>
+    <polygon points="0,-25 21.65,-12.5 21.65,12.5 0,25 -21.65,12.5 -21.65,-12.5" 
+             fill="#4ECDC4" fill-opacity="0.7" transform="translate(0, 120)"/>
+    <polygon points="0,-25 21.65,-12.5 21.65,12.5 0,25 -21.65,12.5 -21.65,-12.5" 
+             fill="#4ECDC4" fill-opacity="0.4" transform="translate(0, 180)"/>
+    <polygon points="0,-25 21.65,-12.5 21.65,12.5 0,25 -21.65,12.5 -21.65,-12.5" 
+             fill="#4ECDC4" fill-opacity="0.2" transform="translate(0, 240)"/>
+    
+    <!-- 斜向左下 -->
+    <polygon points="0,-25 21.65,-12.5 21.65,12.5 0,25 -21.65,12.5 -21.65,-12.5" 
+             fill="#A78BFA" fill-opacity="0.6" transform="translate(-50, 40) rotate(60)"/>
+    <polygon points="0,-25 21.65,-12.5 21.65,12.5 0,25 -21.65,12.5 -21.65,-12.5" 
+             fill="#A78BFA" fill-opacity="0.3" transform="translate(-100, 80) rotate(60)"/>
+    
+    <!-- 斜向右下 -->
+    <polygon points="0,-25 21.65,-12.5 21.65,12.5 0,25 -21.65,12.5 -21.65,-12.5" 
+             fill="#A78BFA" fill-opacity="0.6" transform="translate(50, 40) rotate(-60)"/>
+    <polygon points="0,-25 21.65,-12.5 21.65,12.5 0,25 -21.65,12.5 -21.65,-12.5" 
+             fill="#A78BFA" fill-opacity="0.3" transform="translate(100, 80) rotate(-60)"/>
+  </g>
+  
+  <!-- 左側小頁碼預覽 -->
+  <g transform="translate(150, 400)">
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" 
+             fill="url(#numGrad1)"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">01</text>
+  </g>
+  <g transform="translate(150, 500)">
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" 
+             fill="url(#numGrad2)"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">02</text>
+  </g>
+  <g transform="translate(150, 600)">
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" 
+             fill="#F97316"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">03</text>
+  </g>
+  
+  <!-- 右側小頁碼預覽 -->
+  <g transform="translate(1770, 400)">
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" 
+             fill="url(#numGrad1)"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">07</text>
+  </g>
+  <g transform="translate(1770, 500)">
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" 
+             fill="url(#numGrad2)"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">08</text>
+  </g>
+  <g transform="translate(1770, 600)">
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" 
+             fill="#F97316"/>
+    <text x="0" y="8" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">09</text>
+  </g>
+  
+  <!-- 底部說明 -->
+  <text x="960" y="920" font-family="Arial, sans-serif" font-size="18" fill="#A78BFA" text-anchor="middle" opacity="0.7">Hexagon + Ten Styles · 2026 工作報告</text>
+  
+  <!-- 頂部線條裝飾 -->
+  <line x1="0" y1="30" x2="1920" y2="30" stroke="#6B5CE7" stroke-width="1" opacity="0.2"/>
+  <line x1="0" y1="1050" x2="1920" y2="1050" stroke="#6B5CE7" stroke-width="1" opacity="0.2"/>
+</svg>
