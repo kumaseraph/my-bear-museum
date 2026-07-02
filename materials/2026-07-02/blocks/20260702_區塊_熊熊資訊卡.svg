@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="cardGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8DC"/>
+      <stop offset="100%" stop-color="#FAEBD7"/>
+    </linearGradient>
+    <linearGradient id="cardGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8B4513"/>
+      <stop offset="100%" stop-color="#5D2E0C"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#DAA520"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 主卡片背景 -->
+  <rect x="30" y="40" width="340" height="220" rx="15" fill="url(#cardGrad1)" stroke="#DEB887" stroke-width="2"/>
+  
+  <!-- 頂部裝飾條 -->
+  <rect x="30" y="40" width="340" height="50" rx="15" fill="url(#cardGrad2)"/>
+  <rect x="30" y="65" width="340" height="25" fill="url(#cardGrad2)"/>
+  
+  <!-- 標題區 -->
+  <text x="60" y="72" font-family="Arial" font-size="16" font-weight="bold" fill="#FFF8DC">工作報告</text>
+  <text x="200" y="72" font-family="Arial" font-size="12" fill="#FFD700">熊熊素材庫</text>
+  
+  <!-- 主要內容區 - 六邊形裝飾 -->
+  <g transform="translate(80,150)">
+    <!-- 左側六邊形裝飾群 -->
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="url(#accentGrad)" stroke="#8B4513" stroke-width="1.5"/>
+    <path d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z" 
+          fill="#FFF8DC" fill-opacity="0.5" transform="scale(0.7)"/>
+  </g>
+  
+  <g transform="translate(200,130)">
+    <!-- 中央大六邊形 -->
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#cardGrad2)" stroke="#5D2E0C" stroke-width="2"/>
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="#D2691E" fill-opacity="0.6" transform="scale(0.75)"/>
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="#FFD700" fill-opacity="0.3" transform="scale(0.5)"/>
+  </g>
+  
+  <g transform="translate(320,150)">
+    <!-- 右側六邊形裝飾群 -->
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="url(#accentGrad)" stroke="#8B4513" stroke-width="1.5"/>
+  </g>
+  
+  <!-- 內容文字 -->
+  <text x="200" y="210" text-anchor="middle" font-family="Arial" font-size="11" fill="#5D2E0C">2026年度工作成果報告</text>
+  <text x="200" y="228" text-anchor="middle" font-family="Arial" font-size="10" fill="#8B4513">Q1-Q2 熊熊團隊敬上</text>
+  
+  <!-- 底部熊掌裝飾 -->
+  <g transform="translate(100,265)" fill="#D2691E" opacity="0.6">
+    <ellipse cx="0" cy="0" rx="6" ry="5"/>
+    <circle cx="-5" cy="-7" r="2.5"/>
+    <circle cx="0" cy="-8" r="2.5"/>
+    <circle cx="5" cy="-7" r="2.5"/>
+  </g>
+  
+  <g transform="translate(300,265)" fill="#D2691E" opacity="0.6">
+    <ellipse cx="0" cy="0" rx="6" ry="5"/>
+    <circle cx="-5" cy="-7" r="2.5"/>
+    <circle cx="0" cy="-8" r="2.5"/>
+    <circle cx="5" cy="-7" r="2.5"/>
+  </g>
+</svg>

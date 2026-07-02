@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F1F5F9"/>
+      <stop offset="100%" style="stop-color:#E2E8F0"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <rect width="960" height="540" fill="url(#bg2)"/>
+  
+  <!-- 標題 -->
+  <text x="480" y="45" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="24" font-weight="bold" fill="#1E293B">決策審核流程圖</text>
+  
+  <!-- 節點網絡佈局 -->
+  <g transform="translate(80, 80)">
+    <!-- 頂部：提出申請 -->
+    <g filter="url(#shadow)">
+      <polygon points="400,0 520,0 500,60 380,60" fill="#3B82F6"/>
+      <text x="450" y="38" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="15" fill="white" font-weight="bold">📝 提出申請</text>
+    </g>
+    
+    <!-- 連接線（頂部到左） -->
+    <line x1="400" y1="60" x2="280" y2="130" stroke="#94A3B8" stroke-width="2"/>
+    <polygon points="280,130 270,120 290,120" fill="#94A3B8"/>
+    
+    <!-- 連接線（頂部到右） -->
+    <line x1="500" y1="60" x2="620" y2="130" stroke="#94A3B8" stroke-width="2"/>
+    <polygon points="620,130 610,120 630,120" fill="#94A3B8"/>
+    
+    <!-- 左：初審把關 -->
+    <g filter="url(#shadow)">
+      <polygon points="140,130 300,130 280,200 120,200" fill="#1D4ED8"/>
+      <text x="210" y="172" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="white" font-weight="bold">🔍 初審把關</text>
+    </g>
+    
+    <!-- 右：專業評估 -->
+    <g filter="url(#shadow)">
+      <polygon points="540,130 700,130 680,200 520,200" fill="#1D4ED8"/>
+      <text x="610" y="172" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="white" font-weight="bold">📊 專業評估</text>
+    </g>
+    
+    <!-- 連接線（左到中） -->
+    <line x1="210" y1="200" x2="350" y2="270" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5,3"/>
+    <polygon points="350,270 340,260 360,260" fill="#94A3B8"/>
+    
+    <!-- 連接線（右到中） -->
+    <line x1="610" y1="200" x2="470" y2="270" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5,3"/>
+    <polygon points="470,270 460,260 480,260" fill="#94A3B8"/>
+    
+    <!-- 中間：會議決議 -->
+    <g filter="url(#shadow)">
+      <polygon points="280,270 440,270 420,350 260,350" fill="#7C3AED"/>
+      <text x="350" y="318" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="15" fill="white" font-weight="bold">👥 會議決議</text>
+    </g>
+    
+    <!-- 連接線（中到左下） -->
+    <line x1="320" y1="350" x2="180" y2="420" stroke="#94A3B8" stroke-width="2"/>
+    <polygon points="180,420 170,410 190,410" fill="#94A3B8"/>
+    
+    <!-- 連接線（中到右下） -->
+    <line x1="380" y1="350" x2="520" y2="420" stroke="#94A3B8" stroke-width="2"/>
+    <polygon points="520,420 510,410 530,410" fill="#94A3B8"/>
+    
+    <!-- 左下：通過執行 -->
+    <g filter="url(#shadow)">
+      <polygon points="80,420 220,420 200,490 60,490" fill="#059669"/>
+      <text x="140" y="462" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="white" font-weight="bold">✅ 通過執行</text>
+    </g>
+    
+    <!-- 右下：駁回修正 -->
+    <g filter="url(#shadow)">
+      <polygon points="420,420 560,420 540,490 400,490" fill="#DC2626"/>
+      <text x="480" y="462" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="white" font-weight="bold">❌ 駁回修正</text>
+    </g>
+    
+    <!-- 迴路箭頭（駁回回到申請） -->
+    <path d="M 540,490 Q 540,530 450,530 Q 360,530 360,450 Q 360,420 400,420" stroke="#F59E0B" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+    <polygon points="400,420 390,430 410,430" fill="#F59E0B"/>
+    <text x="560" y="520" font-family="Microsoft JhengHei, sans-serif" font-size="11" fill="#F59E0B">需修正</text>
+  </g>
+</svg>

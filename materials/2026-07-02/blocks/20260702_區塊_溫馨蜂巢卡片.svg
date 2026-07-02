@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="bearGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B4513"/>
+      <stop offset="100%" stop-color="#D2691E"/>
+    </linearGradient>
+    <linearGradient id="bearGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#DAA520"/>
+    </linearGradient>
+    <linearGradient id="creamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8DC"/>
+      <stop offset="100%" stop-color="#FAEBD7"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景卡片 -->
+  <rect x="20" y="20" width="360" height="260" rx="20" fill="url(#creamGrad)" stroke="#8B4513" stroke-width="2"/>
+  
+  <!-- 蜂巢叢集 - 2.5D效果 -->
+  <g transform="translate(200,150)">
+    <!-- 中心大六邊形 -->
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" 
+          fill="#8B4513" stroke="#5D2E0C" stroke-width="3"/>
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" 
+          fill="#D2691E" fill-opacity="0.7" transform="scale(0.8)"/>
+    
+    <!-- 中環六邊形 -->
+    <g fill="url(#bearGrad1)" stroke="#5D2E0C" stroke-width="2">
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(0) translate(0,-86.6)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(60) translate(0,-86.6)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(120) translate(0,-86.6)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(180) translate(0,-86.6)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(240) translate(0,-86.6)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(300) translate(0,-86.6)"/>
+    </g>
+    
+    <!-- 金色點綴 -->
+    <g fill="url(#bearGrad2)" stroke="#8B4513" stroke-width="1">
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" transform="rotate(30) translate(0,-60)"/>
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" transform="rotate(90) translate(0,-60)"/>
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" transform="rotate(150) translate(0,-60)"/>
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" transform="rotate(210) translate(0,-60)"/>
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" transform="rotate(270) translate(0,-60)"/>
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" transform="rotate(330) translate(0,-60)"/>
+    </g>
+  </g>
+  
+  <!-- 標題區 -->
+  <text x="200" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#5D2E0C">工作報告</text>
+  <text x="200" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#8B4513">熊熊素材庫 · 溫馨風格</text>
+</svg>

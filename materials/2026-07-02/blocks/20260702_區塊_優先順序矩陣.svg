@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="matrixGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FFA500"/>
+    </linearGradient>
+    <linearGradient id="matrixGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CD853F"/>
+      <stop offset="100%" stop-color="#8B4513"/>
+    </linearGradient>
+    <linearGradient id="matrixGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D2691E"/>
+      <stop offset="100%" stop-color="#A0522D"/>
+    </linearGradient>
+    <linearGradient id="matrixGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DEB887"/>
+      <stop offset="100%" stop-color="#D2B48C"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="400" height="300" fill="#FFF8DC"/>
+  
+  <!-- 矩陣框架 -->
+  <rect x="50" y="50" width="300" height="200" fill="none" stroke="#8B4513" stroke-width="2"/>
+  
+  <!-- 十字分割線 -->
+  <line x1="200" y1="50" x2="200" y2="250" stroke="#DEB887" stroke-width="2" stroke-dasharray="5,3"/>
+  <line x1="50" y1="150" x2="350" y2="150" stroke="#DEB887" stroke-width="2" stroke-dasharray="5,3"/>
+  
+  <!-- Q1: 緊急且重要 (左上) - 最大 -->
+  <g transform="translate(125,100)">
+    <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+          fill="url(#matrixGrad1)" stroke="#8B4513" stroke-width="2"/>
+    <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+          fill="#FFF" fill-opacity="0.3" transform="scale(0.6)"/>
+    <text x="0" y="-5" text-anchor="middle" font-family="Arial" font-size="7" font-weight="bold" fill="#5D2E0C">緊急</text>
+    <text x="0" y="8" text-anchor="middle" font-family="Arial" font-size="7" fill="#5D2E0C">重要</text>
+  </g>
+  
+  <!-- Q2: 重要不緊急 (右上) -->
+  <g transform="translate(275,100)">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" 
+          fill="url(#matrixGrad2)" stroke="#5D2E0C" stroke-width="2"/>
+    <text x="0" y="-5" text-anchor="middle" font-family="Arial" font-size="7" font-weight="bold" fill="#FFF8DC">重要</text>
+    <text x="0" y="8" text-anchor="middle" font-family="Arial" font-size="7" fill="#FFF8DC">不緊急</text>
+  </g>
+  
+  <!-- Q3: 緊急不重要 (左下) -->
+  <g transform="translate(125,200)">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" 
+          fill="url(#matrixGrad3)" stroke="#5D2E0C" stroke-width="2"/>
+    <text x="0" y="-5" text-anchor="middle" font-family="Arial" font-size="7" font-weight="bold" fill="#FFF8DC">緊急</text>
+    <text x="0" y="8" text-anchor="middle" font-family="Arial" font-size="7" fill="#FFF8DC">不重要</text>
+  </g>
+  
+  <!-- Q4: 不緊急不重要 (右下) - 最小 -->
+  <g transform="translate(275,200)">
+    <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z" 
+          fill="url(#matrixGrad4)" stroke="#8B4513" stroke-width="1.5"/>
+    <text x="0" y="-3" text-anchor="middle" font-family="Arial" font-size="6" fill="#5D2E0C">不緊急</text>
+    <text x="0" y="7" text-anchor="middle" font-family="Arial" font-size="6" fill="#5D2E0C">不重要</text>
+  </g>
+  
+  <!-- 軸標籤 -->
+  <text x="200" y="35" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#5D2E0C">優先順序矩陣</text>
+  <text x="20" y="155" text-anchor="middle" font-family="Arial" font-size="10" fill="#8B4513" transform="rotate(-90,20,155)">緊急性</text>
+  <text x="200" y="275" text-anchor="middle" font-family="Arial" font-size="10" fill="#8B4513">重要性 →</text>
+  
+  <!-- 熊熊小裝飾 -->
+  <g transform="translate(350,280)" fill="#D2691E" opacity="0.5">
+    <ellipse cx="0" cy="0" rx="5" ry="4"/>
+    <circle cx="-4" cy="-6" r="2"/>
+    <circle cx="0" cy="-7" r="2"/>
+    <circle cx="4" cy="-6" r="2"/>
+  </g>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540">
+  <defs>
+    <linearGradient id="borderBg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F8FAFC"/>
+      <stop offset="100%" style="stop-color:#EFF6FF"/>
+    </linearGradient>
+    <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8B5CF6"/>
+      <stop offset="50%" style="stop-color:#A78BFA"/>
+      <stop offset="100%" style="stop-color:#8B5CF6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="960" height="540" fill="url(#borderBg2)"/>
+  
+  <!-- 側邊條紋引導線（左右） -->
+  <rect x="0" y="0" width="8" height="540" fill="url(#accentLine)"/>
+  <rect x="952" y="0" width="8" height="540" fill="url(#accentLine)"/>
+  
+  <!-- 頂部陰影裝飾 -->
+  <rect x="0" y="0" width="960" height="60" fill="#8B5CF6" fill-opacity="0.08"/>
+  <line x1="0" y1="60" x2="960" y2="60" stroke="#A78BFA" stroke-width="2"/>
+  
+  <!-- 左上角六邊形裝飾 -->
+  <g transform="translate(30, 30)">
+    <polygon points="25,0 50,14 50,42 25,56 0,42 0,14" fill="#7C3AED" opacity="0.9"/>
+    <polygon points="25,8 42,17 42,39 25,48 8,39 8,17" fill="#A78BFA" opacity="0.5"/>
+  </g>
+  
+  <!-- 右上角六邊形裝飾 -->
+  <g transform="translate(880, 30)">
+    <polygon points="25,0 50,14 50,42 25,56 0,42 0,14" fill="#7C3AED" opacity="0.9"/>
+    <polygon points="25,8 42,17 42,39 25,48 8,39 8,17" fill="#A78BFA" opacity="0.5"/>
+  </g>
+  
+  <!-- 底部陰影裝飾 -->
+  <rect x="0" y="480" width="960" height="60" fill="#8B5CF6" fill-opacity="0.08"/>
+  <line x1="0" y1="480" x2="960" y2="480" stroke="#A78BFA" stroke-width="2"/>
+  
+  <!-- 左下角六邊形裝飾 -->
+  <g transform="translate(30, 450)">
+    <polygon points="25,0 50,14 50,42 25,56 0,42 0,14" fill="#7C3AED" opacity="0.9"/>
+    <polygon points="25,8 42,17 42,39 25,48 8,39 8,17" fill="#A78BFA" opacity="0.5"/>
+  </g>
+  
+  <!-- 右下角六邊形裝飾 -->
+  <g transform="translate(880, 450)">
+    <polygon points="25,0 50,14 50,42 25,56 0,42 0,14" fill="#7C3AED" opacity="0.9"/>
+    <polygon points="25,8 42,17 42,39 25,48 8,39 8,17" fill="#A78BFA" opacity="0.5"/>
+  </g>
+  
+  <!-- 內部引導線 -->
+  <line x1="50" y1="100" x2="50" y2="440" stroke="#C4B5FD" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="910" y1="100" x2="910" y2="440" stroke="#C4B5FD" stroke-width="1" stroke-dasharray="4,4"/>
+  
+  <!-- 中央內容區 -->
+  <rect x="100" y="100" width="760" height="340" fill="#8B5CF6" fill-opacity="0.03" rx="12"/>
+  <rect x="100" y="100" width="760" height="340" fill="none" stroke="#C4B5FD" stroke-width="1" rx="12"/>
+  
+  <!-- 標題區 -->
+  <text x="480" y="200" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="32" fill="#5B21B6" font-weight="bold">簡報標題</text>
+  <line x1="280" y1="220" x2="680" y2="220" stroke="url(#accentLine)" stroke-width="3"/>
+  
+  <!-- 副標題 -->
+  <text x="480" y="260" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="18" fill="#7C3AED">副標題或重點摘要</text>
+  
+  <!-- 內容範例 -->
+  <g transform="translate(180, 300)">
+    <circle cx="0" cy="8" r="4" fill="#8B5CF6"/>
+    <text x="20" y="12" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#6B7280">第一要點說明</text>
+  </g>
+  <g transform="translate(180, 330)">
+    <circle cx="0" cy="8" r="4" fill="#8B5CF6"/>
+    <text x="20" y="12" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#6B7280">第二要點說明</text>
+  </g>
+  <g transform="translate(180, 360)">
+    <circle cx="0" cy="8" r="4" fill="#8B5CF6"/>
+    <text x="20" y="12" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#6B7280">第三要點說明</text>
+  </g>
+</svg>
