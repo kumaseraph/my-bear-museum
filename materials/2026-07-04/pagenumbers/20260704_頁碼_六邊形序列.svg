@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 棕金色系 -->
+    <linearGradient id="pageGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A84B"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <linearGradient id="pageBrown" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6B5B4F"/>
+      <stop offset="100%" stop-color="#3D3225"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#FAFAF8"/>
+  
+  <!-- 頁碼展示區 -->
+  <g transform="translate(660, 400)">
+    
+    <!-- 當前頁：六邊形（實心大） -->
+    <g transform="translate(150, 0)">
+      <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" 
+            fill="url(#pageGold)"/>
+      <text x="50" y="58" font-family="Arial, sans-serif" font-size="36" font-weight="bold" 
+            fill="#FAFAF8" text-anchor="middle">05</text>
+    </g>
+    
+    <!-- 前一頁：六邊形（空心中小） -->
+    <g transform="translate(40, 20)">
+      <path d="M40,4 L73.86,22 L73.86,58 L40,76 L6.14,58 L6.14,22 Z" 
+            fill="none" stroke="#C49A6C" stroke-width="2"/>
+      <text x="40" y="48" font-family="Arial, sans-serif" font-size="24" 
+            fill="#8B7355" text-anchor="middle">04</text>
+    </g>
+    
+    <!-- 前兩頁：六邊形（更小） -->
+    <g transform="translate(0, 35)">
+      <path d="M30,3 L55.4,16.5 L55.4,43.5 L30,57 L4.6,43.5 L4.6,16.5 Z" 
+            fill="none" stroke="#C49A6C" stroke-width="1.5" opacity="0.6"/>
+      <text x="30" y="36" font-family="Arial, sans-serif" font-size="18" 
+            fill="#8B7355" text-anchor="middle">03</text>
+    </g>
+    
+    <!-- 後一頁：六邊形（空心中小） -->
+    <g transform="translate(280, 20)">
+      <path d="M40,4 L73.86,22 L73.86,58 L40,76 L6.14,58 L6.14,22 Z" 
+            fill="none" stroke="#C49A6C" stroke-width="2"/>
+      <text x="40" y="48" font-family="Arial, sans-serif" font-size="24" 
+            fill="#8B7355" text-anchor="middle">06</text>
+    </g>
+    
+    <!-- 後兩頁：六邊形（更小） -->
+    <g transform="translate(340, 35)">
+      <path d="M30,3 L55.4,16.5 L55.4,43.5 L30,57 L4.6,43.5 L4.6,16.5 Z" 
+            fill="none" stroke="#C49A6C" stroke-width="1.5" opacity="0.6"/>
+      <text x="30" y="36" font-family="Arial, sans-serif" font-size="18" 
+            fill="#8B7355" text-anchor="middle">07</text>
+    </g>
+    
+    <!-- 連接線裝飾 -->
+    <line x1="95" y1="50" x2="115" y2="50" stroke="#D4A84B" stroke-width="1" stroke-dasharray="4,2"/>
+    <line x1="205" y1="50" x2="225" y2="50" stroke="#D4A84B" stroke-width="1" stroke-dasharray="4,2"/>
+  </g>
+  
+  <!-- 底部裝飾線 -->
+  <line x1="660" y1="540" x2="1260" y2="540" stroke="#C49A6C" stroke-width="1"/>
+  <circle cx="960" cy="540" r="3" fill="#D4A84B"/>
+  
+  <!-- 總頁數提示 -->
+  <text x="960" y="590" font-family="Arial, sans-serif" font-size="16" fill="#8B7355" text-anchor="middle">共 12 頁</text>
+</svg>

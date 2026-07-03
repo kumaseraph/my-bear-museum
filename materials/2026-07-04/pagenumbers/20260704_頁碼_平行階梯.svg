@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="stepGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C49A6C"/>
+      <stop offset="50%" stop-color="#D4A84B"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <linearGradient id="stepBrown" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5D4E37"/>
+      <stop offset="100%" stop-color="#8B7355"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#F5F3EF"/>
+  
+  <!-- 階梯式頁碼排列（平行四邊形階梯） -->
+  <g transform="translate(460, 400)">
+    
+    <!-- 步驟1 -->
+    <g transform="translate(0, 0)">
+      <polygon points="20,0 120,0 100,60 0,60" fill="#5D4E37"/>
+      <text x="60" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" 
+            fill="#FAFAF8" text-anchor="middle">1</text>
+    </g>
+    
+    <!-- 步驟2（階梯上升） -->
+    <g transform="translate(70, -30)">
+      <polygon points="20,0 120,0 100,60 0,60" fill="#6B5B4F"/>
+      <text x="60" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" 
+            fill="#FAFAF8" text-anchor="middle">2</text>
+    </g>
+    
+    <!-- 步驟3（階梯上升） -->
+    <g transform="translate(140, -60)">
+      <polygon points="20,0 120,0 100,60 0,60" fill="#8B7355"/>
+      <text x="60" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" 
+            fill="#FAFAF8" text-anchor="middle">3</text>
+    </g>
+    
+    <!-- 當前頁（高亮） -->
+    <g transform="translate(210, -90)">
+      <polygon points="20,0 120,0 100,60 0,60" fill="url(#stepGold)"/>
+      <polygon points="20,0 120,0 100,60 0,60" fill="none" stroke="#3D3225" stroke-width="2"/>
+      <text x="60" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" 
+            fill="#3D3225" text-anchor="middle">4</text>
+    </g>
+    
+    <!-- 步驟5（階梯下降） -->
+    <g transform="translate(280, -60)">
+      <polygon points="20,0 120,0 100,60 0,60" fill="#8B7355" opacity="0.7"/>
+      <text x="60" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" 
+            fill="#FAFAF8" text-anchor="middle">5</text>
+    </g>
+    
+    <!-- 步驟6（階梯下降） -->
+    <g transform="translate(350, -30)">
+      <polygon points="20,0 120,0 100,60 0,60" fill="#6B5B4F" opacity="0.5"/>
+      <text x="60" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" 
+            fill="#FAFAF8" text-anchor="middle">6</text>
+    </g>
+    
+    <!-- 步驟7（最後） -->
+    <g transform="translate(420, 0)">
+      <polygon points="20,0 120,0 100,60 0,60" fill="#5D4E37" opacity="0.3"/>
+      <text x="60" y="38" font-family="Arial, sans-serif" font-size="28" font-weight="bold" 
+            fill="#5D4E37" text-anchor="middle">7</text>
+    </g>
+    
+  </g>
+  
+  <!-- 連接線：透視效果 -->
+  <g transform="translate(460, 400)">
+    <line x1="60" y1="60" x2="130" y2="30" stroke="#D4A84B" stroke-width="1" stroke-dasharray="6,3"/>
+    <line x1="130" y1="30" x2="200" y2="0" stroke="#D4A84B" stroke-width="1" stroke-dasharray="6,3"/>
+    <line x1="200" y1="0" x2="270" y2="-30" stroke="#D4A84B" stroke-width="1" stroke-dasharray="6,3"/>
+    <line x1="270" y1="-30" x2="340" y2="-60" stroke="#D4A84B" stroke-width="1" stroke-dasharray="6,3"/>
+    <line x1="340" y1="-60" x2="410" y2="-30" stroke="#D4A84B" stroke-width="1" stroke-dasharray="6,3"/>
+    <line x1="410" y1="-30" x2="480" y2="0" stroke="#D4A84B" stroke-width="1" stroke-dasharray="6,3"/>
+    <line x1="480" y1="0" x2="550" y2="30" stroke="#D4A84B" stroke-width="1" stroke-dasharray="6,3"/>
+  </g>
+  
+  <!-- 當前頁提示 -->
+  <text x="960" y="580" font-family="Arial, sans-serif" font-size="18" fill="#5D4E37" text-anchor="middle">
+    <tspan font-weight="bold" fill="#8B6914">第 4 頁</tspan> / 共 7 頁
+  </text>
+</svg>

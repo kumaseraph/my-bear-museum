@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 溫暖棕金配色 -->
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C49A6C"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <linearGradient id="bearBrown" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5D4E37"/>
+      <stop offset="100%" stop-color="#3D3225"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#FAFAF8"/>
+  
+  <!-- 六邊形叢集裝飾（右上區域） -->
+  <g transform="translate(1500, 100)">
+    <!-- 大六邊形（實心） -->
+    <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" 
+          fill="#C49A6C" opacity="0.8"/>
+    <!-- 中六邊形（空心框線） -->
+    <path d="M50,10 L85,30 L85,70 L50,90 L15,70 L15,30 Z" 
+          fill="none" stroke="#8B6914" stroke-width="3"/>
+    <!-- 小六邊形（半透明） -->
+    <path d="M50,15 L78,32 L78,68 L50,85 L22,68 L22,32 Z" 
+          fill="#5D4E37" fill-opacity="0.3"/>
+  </g>
+  
+  <!-- 六邊形叢集裝飾（左下區域） -->
+  <g transform="translate(200, 800)">
+    <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" 
+          fill="#D4A84B" fill-opacity="0.6"/>
+    <path d="M50,10 L85,30 L85,70 L50,90 L15,70 L15,30 Z" 
+          fill="none" stroke="#C49A6C" stroke-width="2"/>
+  </g>
+  
+  <!-- CTA 按鈕主體 -->
+  <g transform="translate(660, 440)">
+    <!-- 按鈕陰影（2.5D效果） -->
+    <path d="M50,10 L285,10 L270,100 L35,100 Z" 
+          fill="#5D4E37" opacity="0.3" transform="translate(4,4)"/>
+    <!-- 按鈕本體（平行四邊形動態） -->
+    <path d="M50,10 L285,10 L270,100 L35,100 Z" 
+          fill="url(#bearGold)"/>
+    <!-- 按鈕上的六邊形裝飾 -->
+    <path d="M167,40 L183,48 L183,72 L167,80 L151,72 L151,48 Z" 
+          fill="#FAFAF8" opacity="0.4"/>
+  </g>
+  
+  <!-- 按鈕文字 -->
+  <text x="960" y="510" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="#3D3225" text-anchor="middle">立即下載</text>
+  <text x="960" y="550" font-family="Arial, sans-serif" font-size="18" fill="#5D4E37" text-anchor="middle">DOWNLOAD NOW</text>
+</svg>

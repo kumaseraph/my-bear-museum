@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 溫暖棕金色系 -->
+    <linearGradient id="warmGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="100%" stop-color="#D4A84B"/>
+    </linearGradient>
+    <linearGradient id="deepBrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5D4E37"/>
+      <stop offset="100%" stop-color="#8B7355"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景：極簡留白 -->
+  <rect width="1920" height="1080" fill="#FAFAF8"/>
+  
+  <!-- 按鈕主體：圓角矩形 -->
+  <g transform="translate(660, 440)">
+    <!-- 按鈕陰影 -->
+    <rect x="4" y="4" width="600" height="200" rx="12" fill="#5D4E37" opacity="0.15"/>
+    <!-- 按鈕本體 -->
+    <rect width="600" height="200" rx="12" fill="url(#warmGold)"/>
+    <!-- 內部細線裝飾 -->
+    <line x1="40" y1="100" x2="200" y2="100" stroke="#FAFAF8" stroke-width="2" opacity="0.6"/>
+    <line x1="560" y1="100" x2="400" y2="100" stroke="#FAFAF8" stroke-width="2" opacity="0.6"/>
+  </g>
+  
+  <!-- 邊界引導線：左側延伸線 -->
+  <g transform="translate(0, 540)">
+    <line x1="0" y1="0" x2="660" y2="0" stroke="#8B7355" stroke-width="1"/>
+    <line x1="1260" y1="0" x2="1920" y2="0" stroke="#8B7355" stroke-width="1"/>
+    <!-- 端點裝飾 -->
+    <circle cx="660" cy="0" r="4" fill="#D4A84B"/>
+    <circle cx="1260" cy="0" r="4" fill="#D4A84B"/>
+  </g>
+  
+  <!-- 文字：NEXT -->
+  <text x="960" y="565" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#5D4E37" text-anchor="middle">NEXT</text>
+  
+  <!-- 箭頭指示：幾何三角形 -->
+  <polygon points="1150,540 1180,520 1180,560" fill="#D4A84B"/>
+</svg>
