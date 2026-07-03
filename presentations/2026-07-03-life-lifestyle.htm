@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生活休閒關鍵手冊 - 2026夏</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* C2: 暖白紙藝 (Warm Paper) */
+:root {
+  --bg: #f7f3eb;
+  --bg-secondary: #eee8dc;
+  --text: #2c2c2c;
+  --text-secondary: #6b6b6b;
+  --accent: #b8860b;
+  --accent-alt: #c53d43;
+  --accent-glow: rgba(184, 134, 11, 0.15);
+  --border-color: #d4cec4;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --nav-bg: rgba(247, 243, 235, 0.95);
+}
+
+/* V12: 水墨暈染 (Sumi-e Wash) */
+html { font-size: 20px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif TC', 'STSong', serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 水墨暈染背景 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(26,26,26,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 20%, rgba(26,26,26,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: ink-wash-drift 20s ease-in-out infinite alternate;
+}
+@keyframes ink-wash-drift {
+  0%   { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+/* 暈染山形 */
+.mountain-wash {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 200px;
+  background: linear-gradient(180deg, transparent 0%, rgba(26,26,26,0.06) 100%);
+  clip-path: polygon(0% 100%, 0% 60%, 15% 40%, 30% 55%, 50% 20%, 70% 45%, 85% 30%, 100% 50%, 100% 100%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* 水墨筆觸線 */
+.ink-stroke {
+  position: absolute;
+  background: var(--accent-glow);
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+}
+.ink-stroke-h { height: 3px; opacity: 0.2; }
+.ink-stroke-1 { width: 150px; top: 20%; left: 5%; transform: rotate(-3deg); }
+.ink-stroke-2 { width: 80px; top: 35%; right: 10%; transform: rotate(2deg); opacity: 0.15; }
+.ink-stroke-3 { width: 200px; bottom: 25%; left: 20%; transform: rotate(1deg); opacity: 0.1; }
+
+/* 暈染圓 */
+.ink-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+.ink-circle-1 { width: 120px; height: 120px; top: 10%; right: 15%; animation: ink-circle-breathe 8s ease-in-out infinite; }
+.ink-circle-2 { width: 80px; height: 80px; bottom: 30%; left: 10%; animation: ink-circle-breathe 10s ease-in-out infinite; animation-delay: -3s; }
+@keyframes ink-circle-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50%       { transform: scale(1.2); opacity: 0.5; }
+}
+
+/* 全域 */
+html { scroll-snap-type: y mandatory; }
+.presentation { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; position: relative; }
+.slide {
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+.content { max-width: 1100px; width: 100%; position: relative; z-index: 1; }
+
+/* 進場動畫 */
+.animate-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.animate-in.visible { opacity: 1; transform: translateY(0); }
+
+/* 毛筆強調線 */
+.underline-brush {
+  position: relative;
+  display: inline-block;
+}
+.underline-brush::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 100%; height: 4px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 4'%3E%3Cpath d='M0,2 Q50,0 100,2 T200,2' stroke='%231a1a1a' stroke-width='2' fill='none' opacity='0.3'/%3E%3C/svg%3E") repeat-x;
+  background-size: 200px 4px;
+}
+
+/* 卡片 */
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 1px 4px rgba(26,26,26,0.04);
+  padding: 2.5rem;
+  position: relative;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--accent-glow);
+  transition: height 0.5s ease;
+}
+.card:hover::before { height: 100%; }
+
+/* nav */
+nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--nav-bg);
+  border-top: 1px solid rgba(26,26,26,0.1);
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  z-index: 100;
+}
+nav a { color: var(--text); text-decoration: none; font-size: 1rem; letter-spacing: 0.08em; }
+nav .page-num { color: var(--text-secondary); font-size: 1rem; }
+.nav-btn {
+  background: var(--accent-glow);
+  border: 1px solid var(--border-color);
+  color: var(--text);
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.nav-btn:hover { background: rgba(184,134,11,0.25); }
+
+/* === P1 封面 === */
+#p1 { text-align: center; }
+.p1-icon-wrap { margin-bottom: 32px; }
+.p1-icon { width: 140px; height: 140px; margin: 0 auto; position: relative; }
+.p1-icon-circle {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-alt) 100%);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 32px rgba(184,134,11,0.2);
+}
+.p1-icon svg { width: 64px; height: 64px; stroke: #fff; fill: none; stroke-width: 2.5; }
+.p1-tag { display: inline-block; background: var(--accent); color: #fff; padding: 8px 28px; font-size: 1rem; letter-spacing: 0.1em; margin-bottom: 24px; }
+h1.cover-title { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 400; letter-spacing: 0.08em; margin-bottom: 16px; }
+.p1-subtitle { font-size: 1.4rem; color: var(--text-secondary); margin-bottom: 12px; letter-spacing: 0.05em; }
+.p1-date { font-size: 1.1rem; color: var(--text-secondary); opacity: 0.7; }
+
+/* === P2 目錄 === */
+#p2 { background: linear-gradient(180deg, var(--bg) 0%, rgba(184,134,11,0.05) 100%); }
+.p2-title { text-align: center; margin-bottom: 40px; }
+.p2-title h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 400; }
+.toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.toc-card { background: rgba(255,255,255,0.75); border: 1px solid var(--border-color); padding: 28px 20px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
+.toc-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(26,26,26,0.08); }
+.toc-icon { width: 64px; height: 64px; margin: 0 auto 14px; }
+.toc-icon svg { width: 100%; height: 100%; stroke-width: 2; fill: none; }
+.toc-card h3 { font-size: 1.25rem; margin-bottom: 8px; letter-spacing: 0.05em; }
+.toc-card p { font-size: 1rem; color: var(--text-secondary); }
+
+/* === P3 休閒統計 === */
+#p3 { background: radial-gradient(ellipse 70% 50% at 30% 60%, rgba(184,134,11,0.08) 0%, transparent 60%); }
+.p3-layout { display: flex; align-items: center; gap: 64px; }
+.p3-left { flex: 1; }
+.p3-right { flex: 1; }
+.stat-card { background: rgba(255,255,255,0.8); border: 1px solid var(--border-color); padding: 24px 28px; margin-bottom: 16px; display: flex; align-items: center; gap: 20px; }
+.stat-num { font-size: 2.8rem; font-weight: 700; color: var(--accent); min-width: 100px; }
+.stat-info h3 { font-size: 1.2rem; margin-bottom: 4px; }
+.stat-info p { font-size: 1rem; color: var(--text-secondary); }
+.p3-ring-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.p3-ring { width: 180px; height: 180px; position: relative; }
+.p3-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: rgba(184,134,11,0.1); stroke-width: 18; }
+.ring-fill { fill: none; stroke: var(--accent); stroke-width: 18; stroke-linecap: round; }
+.ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring-text .pct { font-size: 2.4rem; font-weight: 700; color: var(--text); }
+.ring-text .lbl { font-size: 1rem; color: var(--text-secondary); }
+.p3-hex-grid { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+.hex-item { width: 100px; height: 86px; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); background: linear-gradient(135deg, var(--accent) 0%, var(--accent-alt) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.hex-item span { color: #fff; font-size: 1.2rem; font-weight: 700; }
+.hex-item small { color: rgba(255,255,255,0.8); font-size: 1rem; }
+
+/* === P4 園藝美學 === */
+#p4 { background: linear-gradient(180deg, var(--bg) 0%, rgba(197,61,67,0.05) 100%); }
+.p4-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.p4-left h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 20px; font-weight: 400; }
+.p4-left p { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 28px; }
+.p4-tags { display: flex; flex-wrap: wrap; gap: 12px; }
+.p4-tag { background: var(--accent-glow); border: 1px solid var(--border-color); padding: 8px 18px; font-size: 1rem; border-radius: 4px; }
+.p4-right { display: flex; flex-direction: column; gap: 16px; }
+.garden-card { background: rgba(255,255,255,0.8); border: 1px solid var(--border-color); padding: 20px 24px; display: flex; align-items: center; gap: 20px; }
+.garden-icon { width: 56px; height: 56px; flex-shrink: 0; }
+.garden-icon svg { width: 100%; height: 100%; stroke: var(--accent); fill: none; stroke-width: 2; }
+.garden-card h3 { font-size: 1.2rem; margin-bottom: 4px; }
+.garden-card p { font-size: 1rem; color: var(--text-secondary); }
+
+/* === P5 閱讀時光 === */
+#p5 { background: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(184,134,11,0.06) 0%, transparent 50%); }
+.p5-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: center; }
+.p5-left h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 16px; font-weight: 400; }
+.p5-left p { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px; }
+.p5-quote { border-left: 3px solid var(--accent); padding-left: 20px; font-style: italic; color: var(--text-secondary); font-size: 1.05rem; }
+.p5-timeline { display: flex; flex-direction: column; gap: 20px; }
+.tl-item { display: flex; align-items: center; gap: 20px; }
+.tl-dot { width: 52px; height: 52px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.tl-dot svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 2.5; }
+.tl-content { flex: 1; }
+.tl-content h3 { font-size: 1.15rem; margin-bottom: 4px; }
+.tl-content p { font-size: 1rem; color: var(--text-secondary); }
+.tl-line { width: 3px; height: 20px; background: var(--border-color); flex-shrink: 0; }
+
+/* === P6 咖啡時光 === */
+#p6 { background: linear-gradient(180deg, var(--bg) 0%, rgba(184,134,11,0.08) 100%); }
+.p6-layout { display: flex; align-items: center; gap: 56px; }
+.p6-card { background: rgba(255,255,255,0.85); border: 1px solid var(--border-color); padding: 36px; flex: 1; }
+.p6-card h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 24px; font-weight: 400; text-align: center; }
+.p6-coffee-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.coffee-item { background: var(--bg); border: 1px solid var(--border-color); padding: 24px 20px; text-align: center; }
+.coffee-icon { width: 60px; height: 60px; margin: 0 auto 12px; }
+.coffee-icon svg { width: 100%; height: 100%; stroke: var(--accent); fill: none; stroke-width: 2; }
+.coffee-item h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.coffee-item p { font-size: 1rem; color: var(--text-secondary); }
+.p6-visual { flex: 0.8; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.p6-big-num { font-size: 5rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.p6-big-num span { font-size: 2rem; }
+.p6-visual p { font-size: 1.1rem; color: var(--text-secondary); text-align: center; }
+
+/* === P7 城市漫遊 === */
+#p7 { background: radial-gradient(ellipse 70% 50% at 60% 70%, rgba(197,61,67,0.07) 0%, transparent 50%); }
+.p7-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.p7-title { text-align: center; margin-bottom: 32px; grid-column: 1 / -1; }
+.p7-title h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 400; }
+.tri-card { background: rgba(255,255,255,0.8); border: 1px solid var(--border-color); padding: 28px; position: relative; overflow: hidden; }
+.tri-card::before {
+  content: '';
+  position: absolute;
+  top: -20px; right: -20px;
+  width: 100px; height: 100px;
+  background: var(--accent-glow);
+  clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
+  opacity: 0.6;
+}
+.tri-card h3 { font-size: 1.25rem; margin-bottom: 8px; position: relative; }
+.tri-card p { font-size: 1rem; color: var(--text-secondary); position: relative; }
+.tri-icon { width: 48px; height: 48px; margin-bottom: 12px; }
+.tri-icon svg { width: 100%; height: 100%; stroke: var(--accent); fill: none; stroke-width: 2; }
+
+/* === P8 總結 === */
+#p8 { background: linear-gradient(180deg, var(--bg) 0%, rgba(184,134,11,0.06) 100%); }
+.p8-layout { text-align: center; }
+.p8-layout h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 32px; font-weight: 400; }
+.p8-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.summary-card { background: rgba(255,255,255,0.8); border: 1px solid var(--border-color); padding: 28px 20px; text-align: center; }
+.s-icon { width: 64px; height: 64px; margin: 0 auto 14px; }
+.s-icon svg { width: 100%; height: 100%; stroke: var(--accent); fill: none; stroke-width: 2; }
+.summary-card h3 { font-size: 1.2rem; margin-bottom: 6px; }
+.summary-card p { font-size: 1rem; color: var(--text-secondary); }
+
+/* === P9 結尾 === */
+#p9 { text-align: center; background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(184,134,11,0.1) 0%, transparent 60%); }
+.p9-circle { width: 160px; height: 160px; border-radius: 50%; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-alt) 100%); margin: 0 auto 32px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 40px rgba(184,134,11,0.25); }
+.p9-circle svg { width: 72px; height: 72px; stroke: #fff; fill: none; stroke-width: 2; }
+#p9 h2 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; margin-bottom: 16px; letter-spacing: 0.08em; }
+#p9 p { font-size: 1.3rem; color: var(--text-secondary); margin-bottom: 8px; }
+.p9-contact { margin-top: 24px; font-size: 1.1rem; color: var(--text-secondary); opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+<!-- P1 封面 -->
+<div class="slide active" id="p1">
+  <div class="ink-circle ink-circle-1"></div>
+  <div class="ink-circle ink-circle-2"></div>
+  <div class="ink-stroke ink-stroke-h ink-stroke-1"></div>
+  <div class="mountain-wash"></div>
+  <div class="content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+    <div class="p1-icon-wrap animate-in">
+      <div class="p1-icon">
+        <div class="p1-icon-circle">
+          <!-- G1 圓形封面：生活符號 -->
+          <svg viewBox="0 0 64 64">
+            <circle cx="32" cy="20" r="10" stroke="#fff" stroke-width="2.5" fill="none"/>
+            <path d="M16 48 Q16 36 32 36 Q48 36 48 48" stroke="#fff" stroke-width="2.5" fill="none"/>
+            <circle cx="22" cy="44" r="6" stroke="#fff" stroke-width="2" fill="none"/>
+            <circle cx="42" cy="44" r="6" stroke="#fff" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="p1-tag animate-in">2026 夏季號</div>
+    <h1 class="cover-title animate-in">生活休閒關鍵手冊</h1>
+    <p class="p1-subtitle animate-in">用心感受日常的每一刻美好</p>
+    <p class="p1-date animate-in">2026年7月3日</p>
+  </div>
+</div>
+
+<!-- P2 目錄 -->
+<div class="slide" id="p2">
+  <div class="ink-stroke ink-stroke-h ink-stroke-2"></div>
+  <div class="content">
+    <div class="p2-title animate-in">
+      <h2>目錄</h2>
+    </div>
+    <div class="toc-grid">
+      <div class="toc-card animate-in">
+        <div class="toc-icon">
+          <svg viewBox="0 0 64 64">
+            <!-- G3 蜂巢 LV2三元：休閒統計 -->
+            <polygon points="32,4 52,14 52,34 32,44 12,34 12,14" fill="none" stroke="#b8860b" stroke-width="2.5"/>
+            <polygon points="32,18 44,24 44,36 32,42 20,36 20,24" fill="rgba(184,134,11,0.15)" stroke="#b8860b" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>休閒生活統計</h3>
+        <p>年度趨勢大公開</p>
+      </div>
+      <div class="toc-card animate-in">
+        <div class="toc-icon">
+          <svg viewBox="0 0 64 64">
+            <!-- G5 菱形：園藝美學 -->
+            <polygon points="32,4 58,32 32,60 6,32" fill="none" stroke="#c53d43" stroke-width="2.5"/>
+            <polygon points="32,16 46,32 32,48 18,32" fill="rgba(197,61,67,0.1)" stroke="#c53d43" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>園藝美學</h3>
+        <p>綠意盎然的日常</p>
+      </div>
+      <div class="toc-card animate-in">
+        <div class="toc-icon">
+          <svg viewBox="0 0 64 64">
+            <!-- G7 時間軸：閱讀時光 -->
+            <line x1="12" y1="32" x2="52" y2="32" stroke="#b8860b" stroke-width="2"/>
+            <circle cx="20" cy="32" r="6" fill="rgba(184,134,11,0.2)" stroke="#b8860b" stroke-width="2"/>
+            <circle cx="32" cy="32" r="6" fill="rgba(184,134,11,0.2)" stroke="#b8860b" stroke-width="2"/>
+            <circle cx="44" cy="32" r="6" fill="rgba(184,134,11,0.2)" stroke="#b8860b" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>閱讀時光</h3>
+        <p>心靈的庇護所</p>
+      </div>
+      <div class="toc-card animate-in">
+        <div class="toc-icon">
+          <svg viewBox="0 0 64 64">
+            <!-- G2 方形：咖啡時光 -->
+            <rect x="10" y="16" width="44" height="36" rx="4" fill="none" stroke="#b8860b" stroke-width="2.5"/>
+            <path d="M42 24 Q54 24 54 36 Q54 48 42 48" stroke="#b8860b" stroke-width="2" fill="none"/>
+            <line x1="10" y1="28" x2="38" y2="28" stroke="#b8860b" stroke-width="1.5" opacity="0.5"/>
+          </svg>
+        </div>
+        <h3>咖啡時光</h3>
+        <p>品味的儀式感</p>
+      </div>
+      <div class="toc-card animate-in">
+        <div class="toc-icon">
+          <svg viewBox="0 0 64 64">
+            <!-- G4 三角形：城市漫遊 -->
+            <polygon points="32,6 58,54 6,54" fill="none" stroke="#c53d43" stroke-width="2.5"/>
+            <polygon points="32,22 46,46 18,46" fill="rgba(197,61,67,0.1)" stroke="#c53d43" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>城市漫遊</h3>
+        <p>探索巷弄的驚喜</p>
+      </div>
+      <div class="toc-card animate-in">
+        <div class="toc-icon">
+          <svg viewBox="0 0 64 64">
+            <!-- G1 圓形：總結 -->
+            <circle cx="32" cy="32" r="24" fill="none" stroke="#b8860b" stroke-width="2.5"/>
+            <circle cx="32" cy="32" r="14" fill="rgba(184,134,11,0.15)" stroke="#b8860b" stroke-width="2"/>
+            <line x1="32" y1="18" x2="32" y2="46" stroke="#b8860b" stroke-width="2"/>
+            <line x1="18" y1="32" x2="46" y2="32" stroke="#b8860b" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>生活美學</h3>
+        <p>總結與展望</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P3 休閒統計 -->
+<div class="slide" id="p3">
+  <div class="mountain-wash"></div>
+  <div class="content">
+    <div class="p3-layout">
+      <div class="p3-left">
+        <h2 style="font-size:clamp(1.75rem,3vw,2.5rem);font-weight:400;margin-bottom:24px;">休閒生活統計</h2>
+        <div class="stat-card animate-in">
+          <div class="stat-num">68%</div>
+          <div class="stat-info">
+            <h3>園藝種植</h3>
+            <p>近七成家庭投入園藝活動</p>
+          </div>
+        </div>
+        <div class="stat-card animate-in">
+          <div class="stat-num">52%</div>
+          <div class="stat-info">
+            <h3>深度閱讀</h3>
+            <p>每週閱讀超過5小時</p>
+          </div>
+        </div>
+        <div class="stat-card animate-in">
+          <div class="stat-num">45%</div>
+          <div class="stat-info">
+            <h3>咖啡品鑑</h3>
+            <p>每日一杯精品咖啡</p>
+          </div>
+        </div>
+      </div>
+      <div class="p3-right" style="display:flex;flex-direction:column;align-items:center;gap:24px;">
+        <div class="p3-ring-wrap animate-in">
+          <div class="p3-ring">
+            <svg viewBox="0 0 200 200">
+              <circle class="ring-bg" cx="100" cy="100" r="82"/>
+              <circle class="ring-fill" cx="100" cy="100" r="82" stroke-dasharray="515" stroke-dashoffset="165"/>
+            </svg>
+            <div class="ring-text">
+              <span class="pct">68%</span>
+              <span class="lbl">園藝愛好者</span>
+            </div>
+          </div>
+        </div>
+        <div class="p3-hex-grid">
+          <div class="hex-item animate-in"><span>68%</span><small>園藝</small></div>
+          <div class="hex-item animate-in"><span>52%</span><small>閱讀</small></div>
+          <div class="hex-item animate-in"><span>45%</span><small>咖啡</small></div>
+          <div class="hex-item animate-in"><span>38%</span><small>旅遊</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P4 園藝美學 -->
+<div class="slide" id="p4">
+  <div class="ink-circle ink-circle-2"></div>
+  <div class="content">
+    <div class="p4-layout">
+      <div class="p4-left animate-in">
+        <h2>園藝美學</h2>
+        <p>將自然融入日常，在綠意中尋找心靈的寧靜。每一株植物都是一首生命的詩篇。</p>
+        <div class="p4-tags">
+          <span class="p4-tag">陽台花園</span>
+          <span class="p4-tag">香草種植</span>
+          <span class="p4-tag">多肉療癒</span>
+          <span class="p4-tag">景觀設計</span>
+        </div>
+      </div>
+      <div class="p4-right">
+        <div class="garden-card animate-in">
+          <div class="garden-icon">
+            <svg viewBox="0 0 64 64">
+              <path d="M32 8 Q44 20 44 32 Q44 44 32 56 Q20 44 20 32 Q20 20 32 8Z" stroke="#b8860b" stroke-width="2" fill="none"/>
+              <line x1="32" y1="32" x2="32" y2="56" stroke="#b8860b" stroke-width="2"/>
+              <path d="M24 36 Q28 30 32 32 Q36 30 40 36" stroke="#b8860b" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div>
+            <h3>陽台花園</h3>
+            <p>都市中的綠洲，小空間創造大幸福</p>
+          </div>
+        </div>
+        <div class="garden-card animate-in">
+          <div class="garden-icon">
+            <svg viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="20" stroke="#b8860b" stroke-width="2" fill="none"/>
+              <path d="M32 12 L32 52" stroke="#b8860b" stroke-width="1.5"/>
+              <path d="M22 22 Q32 18 42 22" stroke="#b8860b" stroke-width="1.5" fill="none"/>
+              <path d="M22 32 Q32 28 42 32" stroke="#b8860b" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div>
+            <h3>香草種植</h3>
+            <p>料理的最佳伴侶，廚房的綠色寶藏</p>
+          </div>
+        </div>
+        <div class="garden-card animate-in">
+          <div class="garden-icon">
+            <svg viewBox="0 0 64 64">
+              <ellipse cx="32" cy="34" rx="22" ry="16" stroke="#b8860b" stroke-width="2" fill="none"/>
+              <path d="M32 18 Q38 26 32 34 Q26 26 32 18Z" stroke="#b8860b" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div>
+            <h3>多肉療癒</h3>
+            <p>耐旱易養，陪伴每個忙碌的日常</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P5 閱讀時光 -->
+<div class="slide" id="p5">
+  <div class="ink-stroke ink-stroke-h ink-stroke-3"></div>
+  <div class="content">
+    <div class="p5-layout">
+      <div class="p5-left animate-in">
+        <h2>閱讀時光</h2>
+        <p>在字裡行間漫遊，尋找心靈的庇護所。每一次翻頁，都是與智慧的相遇。</p>
+        <blockquote class="p5-quote">「閱讀是最小規模的旅行，也是最深刻的自我對話。」</blockquote>
+      </div>
+      <div class="p5-right">
+        <div class="p5-timeline">
+          <div class="tl-item animate-in">
+            <div class="tl-dot">
+              <svg viewBox="0 0 64 64"><path d="M12 20 L32 8 L52 20 L52 44 L32 56 L12 44Z" stroke="#fff" stroke-width="2.5" fill="none"/><line x1="32" y1="20" x2="32" y2="44" stroke="#fff" stroke-width="2"/></svg>
+            </div>
+            <div class="tl-content">
+              <h3>晨間閱讀</h3>
+              <p>用一本書開啟清醒的早晨</p>
+            </div>
+          </div>
+          <div class="tl-line"></div>
+          <div class="tl-item animate-in">
+            <div class="tl-dot">
+              <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="20" stroke="#fff" stroke-width="2.5" fill="none"/><path d="M24 32 L30 38 L42 26" stroke="#fff" stroke-width="2.5" fill="none"/></svg>
+            </div>
+            <div class="tl-content">
+              <h3>午後翻閱</h3>
+              <p>咖啡與書籍，最佳午後組合</p>
+            </div>
+          </div>
+          <div class="tl-line"></div>
+          <div class="tl-item animate-in">
+            <div class="tl-dot">
+              <svg viewBox="0 0 64 64"><path d="M16 16 Q32 8 48 16 Q56 32 48 48 Q32 56 16 48 Q8 32 16 16Z" stroke="#fff" stroke-width="2.5" fill="none"/></svg>
+            </div>
+            <div class="tl-content">
+              <h3>夜深人靜</h3>
+              <p>在文字中安然入眠</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P6 咖啡時光 -->
+<div class="slide" id="p6">
+  <div class="mountain-wash"></div>
+  <div class="content">
+    <div class="p6-layout">
+      <div class="p6-card animate-in">
+        <h2>咖啡時光</h2>
+        <div class="p6-coffee-grid">
+          <div class="coffee-item animate-in">
+            <div class="coffee-icon">
+              <svg viewBox="0 0 64 64">
+                <path d="M12 24 L16 48 Q16 54 24 54 L40 54 Q48 54 48 48 L52 24Z" stroke="#b8860b" stroke-width="2.5" fill="none"/>
+                <path d="M52 28 Q60 28 60 36 Q60 44 52 44" stroke="#b8860b" stroke-width="2" fill="none"/>
+                <line x1="12" y1="30" x2="52" y2="30" stroke="#b8860b" stroke-width="1.5" opacity="0.5"/>
+                <path d="M24 14 Q28 8 32 14 Q36 8 40 14" stroke="#b8860b" stroke-width="2" fill="none"/>
+                <line x1="28" y1="14" x2="28" y2="24" stroke="#b8860b" stroke-width="1.5"/>
+                <line x1="36" y1="14" x2="36" y2="24" stroke="#b8860b" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h3>手沖咖啡</h3>
+            <p>職人精神，一杯講究</p>
+          </div>
+          <div class="coffee-item animate-in">
+            <div class="coffee-icon">
+              <svg viewBox="0 0 64 64">
+                <ellipse cx="32" cy="36" rx="20" ry="12" stroke="#b8860b" stroke-width="2.5" fill="none"/>
+                <path d="M12 36 Q12 48 32 48 Q52 48 52 36" stroke="#b8860b" stroke-width="2" fill="none"/>
+                <line x1="32" y1="24" x2="32" y2="36" stroke="#b8860b" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>拿鐵藝術</h3>
+            <p>視覺與味覺的雙重享受</p>
+          </div>
+          <div class="coffee-item animate-in">
+            <div class="coffee-icon">
+              <svg viewBox="0 0 64 64">
+                <rect x="14" y="20" width="36" height="32" rx="4" stroke="#b8860b" stroke-width="2.5" fill="none"/>
+                <line x1="14" y1="30" x2="50" y2="30" stroke="#b8860b" stroke-width="1.5" opacity="0.5"/>
+                <rect x="20" y="14" width="24" height="8" rx="2" stroke="#b8860b" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <h3>冷萃咖啡</h3>
+            <p>清涼順滑，夏日首選</p>
+          </div>
+          <div class="coffee-item animate-in">
+            <div class="coffee-icon">
+              <svg viewBox="0 0 64 64">
+                <path d="M20 16 L24 12 L40 12 L44 16 L44 24 Q44 32 32 32 Q20 32 20 24Z" stroke="#b8860b" stroke-width="2.5" fill="none"/>
+                <line x1="32" y1="32" x2="32" y2="52" stroke="#b8860b" stroke-width="2"/>
+                <circle cx="32" cy="52" r="6" stroke="#b8860b" stroke-width="2" fill="none"/>
+              </svg>
+            </div>
+            <h3>濃縮咖啡</h3>
+            <p>精華萃取，醇厚強烈</p>
+          </div>
+        </div>
+      </div>
+      <div class="p6-visual animate-in">
+        <div class="p6-big-num">45<span>%</span></div>
+        <p>每日一杯精品咖啡<br>已成為都市人的儀式感</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P7 城市漫遊 -->
+<div class="slide" id="p7">
+  <div class="ink-circle ink-circle-1"></div>
+  <div class="content">
+    <div class="p7-layout">
+      <div class="p7-title animate-in">
+        <h2>城市漫遊</h2>
+      </div>
+      <div class="tri-card animate-in">
+        <div class="tri-icon">
+          <svg viewBox="0 0 64 64">
+            <polygon points="32,6 58,54 6,54" stroke="#c53d43" stroke-width="2.5" fill="none"/>
+            <circle cx="32" cy="36" r="10" stroke="#c53d43" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <h3>老街巷弄</h3>
+        <p>穿越時空的磚瓦，訴說城市的記憶</p>
+      </div>
+      <div class="tri-card animate-in">
+        <div class="tri-icon">
+          <svg viewBox="0 0 64 64">
+            <polygon points="32,6 58,54 6,54" stroke="#b8860b" stroke-width="2.5" fill="none"/>
+            <rect x="24" y="30" width="16" height="18" stroke="#b8860b" stroke-width="2" fill="none"/>
+            <polygon points="32,18 40,30 24,30" stroke="#b8860b" stroke-width="2" fill="rgba(184,134,11,0.1)"/>
+          </svg>
+        </div>
+        <h3>特色建築</h3>
+        <p>每一棟建築都是時光的雕塑</p>
+      </div>
+      <div class="tri-card animate-in">
+        <div class="tri-icon">
+          <svg viewBox="0 0 64 64">
+            <polygon points="32,6 58,54 6,54" stroke="#c53d43" stroke-width="2.5" fill="none"/>
+            <path d="M20 42 L28 30 L36 42" stroke="#c53d43" stroke-width="2" fill="none"/>
+            <line x1="32" y1="30" x2="32" y2="46" stroke="#c53d43" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>創意市集</h3>
+        <p>手工藝與靈魂的交會點</p>
+      </div>
+      <div class="tri-card animate-in">
+        <div class="tri-icon">
+          <svg viewBox="0 0 64 64">
+            <polygon points="32,6 58,54 6,54" stroke="#b8860b" stroke-width="2.5" fill="none"/>
+            <circle cx="32" cy="38" r="8" stroke="#b8860b" stroke-width="2" fill="none"/>
+            <line x1="32" y1="18" x2="32" y2="30" stroke="#b8860b" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>河岸風光</h3>
+        <p>水岸步道，城市的喘息空間</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P8 總結 -->
+<div class="slide" id="p8">
+  <div class="mountain-wash"></div>
+  <div class="content p8-layout">
+    <h2 class="animate-in">生活美學關鍵詞</h2>
+    <div class="p8-grid">
+      <div class="summary-card animate-in">
+        <div class="s-icon">
+          <svg viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="24" stroke="#b8860b" stroke-width="2.5" fill="none"/>
+            <path d="M32 8 Q44 20 44 32 Q44 44 32 56 Q20 44 20 32 Q20 20 32 8Z" stroke="#b8860b" stroke-width="2" fill="rgba(184,134,11,0.1)"/>
+          </svg>
+        </div>
+        <h3>慢活</h3>
+        <p>在快速時代找回從容</p>
+      </div>
+      <div class="summary-card animate-in">
+        <div class="s-icon">
+          <svg viewBox="0 0 64 64">
+            <rect x="10" y="10" width="44" height="44" stroke="#c53d43" stroke-width="2.5" fill="none"/>
+            <rect x="20" y="20" width="24" height="24" stroke="#c53d43" stroke-width="2" fill="rgba(197,61,67,0.1)"/>
+          </svg>
+        </div>
+        <h3>儀式感</h3>
+        <p>日常中的小小講究</p>
+      </div>
+      <div class="summary-card animate-in">
+        <div class="s-icon">
+          <svg viewBox="0 0 64 64">
+            <polygon points="32,6 58,54 6,54" stroke="#b8860b" stroke-width="2.5" fill="none"/>
+            <circle cx="32" cy="36" r="10" stroke="#b8860b" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <h3>探索</h3>
+        <p>處處皆是新風景</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P9 結尾 -->
+<div class="slide" id="p9">
+  <div class="ink-circle ink-circle-1"></div>
+  <div class="ink-circle ink-circle-2"></div>
+  <div class="p9-circle animate-in">
+    <svg viewBox="0 0 64 64">
+      <path d="M32 8 Q44 20 44 32 Q44 44 32 56 Q20 44 20 32 Q20 20 32 8Z" stroke="#fff" stroke-width="2.5" fill="none"/>
+      <circle cx="32" cy="32" r="10" stroke="#fff" stroke-width="2" fill="rgba(255,255,255,0.2)"/>
+    </svg>
+  </div>
+  <h2 class="animate-in">感謝聆聽</h2>
+  <p class="animate-in">願每一天都是美好的探索</p>
+  <p class="p9-contact animate-in">Life & Leisure Guide 2026 夏</p>
+</div>
+</div>
+
+<nav>
+  <button class="nav-btn" onclick="prev()">◀ 上一頁</button>
+  <span class="page-num"><span id="cur">1</span> / <span id="tot">9</span></span>
+  <button class="nav-btn" onclick="next()">下一頁 ▶</button>
+  <a href="/slides.htm">回列表</a>
+</nav>
+
+<script>
+let cur = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+document.getElementById('tot').textContent = total;
+
+function show(i) {
+  slides.forEach((s, idx) => {
+    s.classList.toggle('active', idx === i);
+  });
+  document.getElementById('cur').textContent = i + 1;
+  // trigger animate-in
+  setTimeout(() => {
+    slides[i].querySelectorAll('.animate-in').forEach(el => el.classList.add('visible'));
+  }, 50);
+}
+
+function next() {
+  cur = (cur + 1) % total;
+  show(cur);
+}
+function prev() {
+  cur = (cur - 1 + total) % total;
+  show(cur);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+// init
+show(0);
+</script>
+</body>
+</html>
