@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120" width="500" height="120">
+  <defs>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="50%" stop-color="#D4A84B"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7" fill-opacity="0.95"/>
+      <stop offset="100%" stop-color="#FFECD2" fill-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 主背景框（交錯排列六邊形圖案襯底） -->
+  <rect x="5" y="5" width="490" height="110" rx="12" fill="url(#bgGrad)"/>
+  <rect x="5" y="5" width="490" height="110" rx="12" fill="none" stroke="#D4A84B" stroke-width="2"/>
+  
+  <!-- 左側蜂巢裝飾群 -->
+  <g transform="translate(40, 60)">
+    <!-- 主六邊形 -->
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="#D4A84B" fill-opacity="0.3" stroke="#8B6914" stroke-width="2"/>
+    <!-- 副六邊形（左） -->
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="none" stroke="#C49A3A" stroke-width="1.5" transform="translate(-45,0)"/>
+    <!-- 副六邊形（右） -->
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="#D4A84B" fill-opacity="0.15" stroke="#C49A3A" stroke-width="1.5" transform="translate(45,0)"/>
+  </g>
+  
+  <!-- 標題文字 -->
+  <text x="140" y="52" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#6B4E1A">季度工作報告</text>
+  <text x="140" y="82" font-family="Arial, sans-serif" font-size="16" fill="#8B6914" fill-opacity="0.85">Q2 2026 工作成果與展望</text>
+  
+  <!-- 右側動態線條裝飾 -->
+  <g transform="translate(420, 60)">
+    <line x1="-30" y1="-25" x2="30" y2="-25" stroke="url(#titleGrad)" stroke-width="2" stroke-linecap="round"/>
+    <line x1="-20" y1="0" x2="40" y2="0" stroke="url(#titleGrad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="-30" y1="25" x2="30" y2="25" stroke="url(#titleGrad)" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  
+  <!-- 底部強調線 -->
+  <rect x="140" y="95" width="180" height="3" rx="1.5" fill="url(#titleGrad)" fill-opacity="0.6"/>
+</svg>

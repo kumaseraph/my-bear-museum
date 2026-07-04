@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7"/>
+      <stop offset="100%" stop-color="#FFECD2"/>
+    </linearGradient>
+    <linearGradient id="hexCardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D4A84B"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#8B6914" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- 卡片背景（圓角矩形） -->
+  <rect x="10" y="10" width="380" height="180" rx="16" fill="url(#cardGrad)" filter="url(#softShadow)"/>
+  <rect x="10" y="10" width="380" height="180" rx="16" fill="none" stroke="#D4A84B" stroke-width="1.5" stroke-opacity="0.4"/>
+  
+  <!-- 左側六邊形標題區 -->
+  <g transform="translate(55, 100)">
+    <!-- 外六邊形（大，2.5D效果） -->
+    <path d="M0,-45 L39,-22.5 L39,22.5 L0,45 L-39,22.5 L-39,-22.5 Z" 
+          fill="none" stroke="url(#hexCardGrad)" stroke-width="5"/>
+    <path d="M0,-45 L39,-22.5 L39,22.5 L0,45 L-39,22.5 L-39,-22.5 Z" 
+          fill="#D4A84B" fill-opacity="0.2"/>
+    
+    <!-- 內六邊形（小，實心） -->
+    <path d="M0,-28 L24.2,-14 L24.2,14 L0,28 L-24.2,14 L-24.2,-14 Z" 
+          fill="url(#hexCardGrad)" fill-opacity="0.7"/>
+    
+    <!-- 數字或圖示 -->
+    <text x="0" y="8" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#FFF8E7">1</text>
+  </g>
+  
+  <!-- 標題文字 -->
+  <text x="115" y="65" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#6B4E1A">工作報告標題</text>
+  
+  <!-- 分隔線 -->
+  <line x1="115" y1="80" x2="360" y2="80" stroke="#D4A84B" stroke-width="1" stroke-opacity="0.5"/>
+  
+  <!-- 描述文字 -->
+  <text x="115" y="110" font-family="Arial, sans-serif" font-size="14" fill="#8B6914" fill-opacity="0.8">這是工作報告的簡短描述，</text>
+  <text x="115" y="130" font-family="Arial, sans-serif" font-size="14" fill="#8B6914" fill-opacity="0.8">可用於展示重點資訊或成果。</text>
+  
+  <!-- 右下裝飾蜂巢（小叢集） -->
+  <g transform="translate(340, 155)" fill="#D4A84B" fill-opacity="0.2">
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z"/>
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" transform="rotate(60) translate(0,-26)"/>
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" transform="rotate(-60) translate(0,26)"/>
+  </g>
+</svg>
