@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台灣美食文化地圖 - 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://kumaweb.pages.dev/studio/design/visual-templates/colors/colors-C6-warm-sunset.css">
+  <link rel="stylesheet" href="https://kumaweb.pages.dev/studio/design/visual-templates/v8-washi-paper.css">
+  <style>
+    html { font-size: 20px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1a0f05;
+      --bg-secondary: #2d1810;
+      --bg-card: rgba(255, 200, 120, 0.08);
+      --text: #fff8f0;
+      --text-secondary: #e8c89a;
+      --text-muted: #c4a060;
+      --accent: #ff8c00;
+      --accent-alt: #ffa040;
+      --accent-glow: rgba(255, 140, 0, 0.25);
+      --accent-warm: #ffcc70;
+      --nav-bg: rgba(26, 15, 5, 0.9);
+      --nav-border: rgba(255, 140, 0, 0.4);
+      --card-border: rgba(255, 200, 100, 0.2);
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Noto Serif TC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* 暖色光暈裝飾背景 */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 20%, rgba(255, 140, 0, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 70%, rgba(255, 80, 0, 0.08) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 60% at 60% 40%, rgba(255, 200, 80, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .presentation {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: 100vh;
+      margin: 0 auto;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      padding: 40px 56px;
+      z-index: 1;
+    }
+    .slide.active { display: flex; }
+
+    /* ====== NAV ====== */
+    nav {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--nav-bg);
+      padding: 10px 20px;
+      border-radius: 30px;
+      border: 1px solid var(--nav-border);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 50%;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    nav button:hover { background: var(--accent-glow); }
+    nav span { color: var(--text-secondary); font-size: 1rem; min-width: 50px; text-align: center; }
+
+    /* ====== SLIDE TITLE ====== */
+    .slide-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .slide-heading {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+    .slide-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.8rem;
+    }
+    .slide-content { flex: 1; display: flex; flex-direction: column; }
+
+    /* ====== BACK LINK ====== */
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 32px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 100;
+    }
+    .back-link:hover { color: var(--accent-alt); }
+
+    /* ====== P1: COVER ====== */
+    .cover-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255, 140, 0, 0.15) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 80% at 80% 20%, rgba(255, 60, 0, 0.1) 0%, transparent 50%),
+        linear-gradient(160deg, #1a0f05 0%, #3d1f08 50%, #1a0f05 100%);
+      z-index: 0;
+    }
+    .cover-content {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 48px;
+    }
+    .cover-icon {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 2rem;
+    }
+    .cover-badge {
+      display: inline-block;
+      background: rgba(255, 140, 0, 0.2);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 1rem;
+      padding: 6px 20px;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+    .cover-title {
+      font-size: 3.8rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .cover-subtitle {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+    }
+    .cover-divider {
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin-bottom: 2rem;
+    }
+    .cover-meta {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    .cover-meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* ====== P2: TOC ====== */
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      flex: 1;
+      align-content: center;
+    }
+    .toc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .toc-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .toc-icon { width: 48px; height: 48px; }
+    .toc-num {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .toc-label {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .toc-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* ====== P3: CIRCLE RING - 北中南東特色 ====== */
+    .region-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+      flex: 1;
+      align-items: center;
+    }
+    .region-left { display: flex; flex-direction: column; gap: 20px; }
+    .region-ring-container {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      margin: 0 auto;
+    }
+    .region-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .region-info {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .region-info h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .region-info p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .region-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 140, 0, 0.15);
+      color: var(--accent);
+      font-size: 1rem;
+      padding: 4px 12px;
+      border-radius: 12px;
+      width: fit-content;
+    }
+
+    /* ====== P4: FUNNEL - 夜市小吃 ====== */
+    .funnel-layout { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+    .funnel-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .funnel-stage {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+    }
+    .funnel-bar {
+      height: 64px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+      border-radius: 8px 24px 24px 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      flex: 1;
+    }
+    .funnel-count {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 60px;
+      text-align: right;
+    }
+    .funnel-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      min-width: 120px;
+    }
+    .night-market-items {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .night-item {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .night-item-icon { width: 40px; height: 40px; }
+    .night-item-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .night-item-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    /* ====== P5: CARD GRID - 傳統市場 ====== */
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 16px;
+      flex: 1;
+      align-content: center;
+    }
+    .market-card {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .market-card.featured {
+      grid-column: span 2;
+      flex-direction: row;
+      align-items: center;
+    }
+    .market-card-icon { width: 56px; height: 56px; flex-shrink: 0; }
+    .market-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .market-card p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .market-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 1rem;
+      color: var(--accent-alt);
+      background: rgba(255, 160, 64, 0.1);
+      padding: 3px 10px;
+      border-radius: 8px;
+      width: fit-content;
+    }
+
+    /* ====== P6: DIAMOND - 銅板美食 ====== */
+    .budget-layout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex: 1;
+      align-items: start;
+    }
+    .budget-item {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .budget-item::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(255, 140, 0, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .budget-icon { width: 52px; height: 52px; }
+    .budget-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .budget-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .budget-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .budget-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 1rem;
+      color: var(--accent-alt);
+      background: rgba(255, 160, 64, 0.1);
+      padding: 3px 10px;
+      border-radius: 8px;
+      width: fit-content;
+    }
+
+    /* ====== P7: QUAD - 茶飲文化 ====== */
+    .tea-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+      flex: 1;
+    }
+    .tea-quad {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .tea-quad h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tea-quad p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .tea-stat {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent-warm);
+      line-height: 1;
+    }
+    .tea-stat-label {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+    .tea-icon { width: 44px; height: 44px; }
+
+    /* ====== P8: TRIANGLE - 甜點糕點 ====== */
+    .dessert-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      flex: 1;
+      align-items: center;
+    }
+    .dessert-left {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .dessert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .dessert-icon { width: 48px; height: 48px; }
+    .dessert-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .dessert-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .dessert-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .dessert-highlight {
+      background: linear-gradient(135deg, rgba(255, 140, 0, 0.15), rgba(255, 100, 0, 0.1));
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .dessert-highlight-num {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .dessert-highlight-label {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+    }
+
+    /* ====== P9: BIGNUM SUMMARY ====== */
+    .summary-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      flex: 1;
+    }
+    .summary-intro {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .summary-stat {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .summary-num {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .summary-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .summary-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .summary-feature {
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .summary-feature h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .summary-feature p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ====== P10: END ====== */
+    .end-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 70% at 50% 50%, rgba(255, 140, 0, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(255, 60, 0, 0.1) 0%, transparent 50%),
+        linear-gradient(160deg, #1a0f05 0%, #3d1f08 50%, #1a0f05 100%);
+      z-index: 0;
+    }
+    .end-content {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .end-icon { width: 100px; height: 100px; margin-bottom: 1.5rem; }
+    .end-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+    .end-subtitle {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+    }
+    .end-tags {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .end-tag {
+      background: rgba(255, 140, 0, 0.15);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 1rem;
+      padding: 6px 18px;
+      border-radius: 20px;
+    }
+
+    /* Utility */
+    .mt-auto { margin-top: auto; }
+    .flex-row { display: flex; flex-direction: row; }
+    .gap-8 { gap: 8px; }
+  </style>
+</head>
+<body>
+<div class="presentation">
+
+  <!-- ====== SLIDE 1: COVER ====== -->
+  <div class="slide active" id="slide-1">
+    <div class="cover-bg"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 12L20 32L40 52" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      回列表
+    </a>
+    <div class="cover-content">
+      <!-- 筷子icon -->
+      <svg class="cover-icon" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="55" stroke="#ff8c00" stroke-width="3" opacity="0.4"/>
+        <circle cx="60" cy="60" r="40" stroke="#ff8c00" stroke-width="2" opacity="0.3"/>
+        <path d="M45 35L38 85" stroke="#ff8c00" stroke-width="5" stroke-linecap="round"/>
+        <path d="M60 35L53 85" stroke="#ffa040" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="52" cy="88" r="4" fill="#ff8c00" opacity="0.6"/>
+        <path d="M30 50C30 50 45 45 52 52C59 59 60 75 60 75" stroke="#ff8c00" stroke-width="2" opacity="0.4" fill="none"/>
+        <path d="M90 50C90 50 75 45 68 52C61 59 60 75 60 75" stroke="#ff8c00" stroke-width="2" opacity="0.4" fill="none"/>
+      </svg>
+      <div class="cover-badge">2026年度美食文化</div>
+      <h1 class="cover-title">台灣美食<br>文化地圖</h1>
+      <p class="cover-subtitle">從夜市小吃到傳統糕點，探索寶島味蕾之旅</p>
+      <div class="cover-divider"></div>
+      <div class="cover-meta">
+        <span>
+          <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="3"/>
+            <path d="M32 16V32L44 40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          10頁完整導覽
+        </span>
+        <span>
+          <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
+            <path d="M32 8L40 24H56L44 36L48 52L32 44L16 52L20 36L8 24H24L32 8Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+          </svg>
+          美食文化深度介紹
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SLIDE 2: TOC ====== -->
+  <div class="slide" id="slide-2">
+    <p class="slide-title">總覽目錄</p>
+    <h2 class="slide-heading">美食文化導覽章節</h2>
+    <div class="slide-content">
+      <div class="toc-grid">
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="26" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M20 32C20 24 25 18 32 18C39 18 44 24 44 32" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="32" cy="38" r="4" fill="#ff8c00"/>
+          </svg>
+          <span class="toc-num">01</span>
+          <span class="toc-label">北中南東特色菜</span>
+          <span class="toc-desc">四大區域代表美食</span>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 64 64" fill="none">
+            <rect x="8" y="24" width="48" height="8" rx="4" fill="#ff8c00" opacity="0.7"/>
+            <rect x="12" y="36" width="40" height="8" rx="4" fill="#ff8c00" opacity="0.5"/>
+            <rect x="16" y="48" width="32" height="8" rx="4" fill="#ff8c00" opacity="0.3"/>
+          </svg>
+          <span class="toc-num">02</span>
+          <span class="toc-label">夜市小吃王國</span>
+          <span class="toc-desc">台灣特有飲食文化</span>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M32 8L44 20H56L44 32L56 44H44L32 56L20 44H8L20 32L8 20H20L32 8Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="32" cy="32" r="8" fill="#ff8c00" opacity="0.5"/>
+          </svg>
+          <span class="toc-num">03</span>
+          <span class="toc-label">傳統市場美食</span>
+          <span class="toc-desc">巷仔內的好味道</span>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M32 12L38 26L52 28L42 38L44 52L32 46L20 52L22 38L12 28L26 26L32 12Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+          </svg>
+          <span class="toc-num">04</span>
+          <span class="toc-label">銅板美食</span>
+          <span class="toc-desc">口袋深度美食地圖</span>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M32 12C24 12 18 18 18 26V38C18 46 24 52 32 52C40 52 46 46 46 38V26C46 18 40 12 32 12Z" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M32 20V32M32 38V40" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <span class="toc-num">05</span>
+          <span class="toc-label">台灣茶飲文化</span>
+          <span class="toc-desc">手搖茶飲獨步全球</span>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M24 16H40L44 24V52C44 54 42 56 40 56H24C22 56 20 54 20 52V24L24 16Z" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M20 32H44" stroke="#ff8c00" stroke-width="2" stroke-dasharray="4 4"/>
+            <circle cx="32" cy="44" r="4" fill="#ff8c00" opacity="0.6"/>
+          </svg>
+          <span class="toc-num">06</span>
+          <span class="toc-label">甜點與糕點</span>
+          <span class="toc-desc">傳統甜品文化</span>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M12 32L22 22L32 32L42 22L52 32" stroke="#ff8c00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 44L22 34L32 44L42 34L52 44" stroke="#ff8c00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="toc-num">07</span>
+          <span class="toc-label">美食特色總結</span>
+          <span class="toc-desc">味蕾冒險精華</span>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M16 48L24 28L32 40L40 24L48 48" stroke="#ff8c00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 56H56" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <span class="toc-num">08</span>
+          <span class="toc-label">吃遍全台灣</span>
+          <span class="toc-desc">探索台灣美食地圖</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SLIDE 3: 北中南東特色菜 ====== -->
+  <div class="slide" id="slide-3">
+    <p class="slide-title">區域美食</p>
+    <h2 class="slide-heading">北中南東四大區域特色菜</h2>
+    <div class="slide-content">
+      <div class="region-layout">
+        <div class="region-left">
+          <!-- 甜甜圈ring視覺 -->
+          <div class="region-ring-container">
+            <div class="region-ring" style="width:240px;height:240px;border-color:rgba(255,140,0,0.3)"></div>
+            <div class="region-ring" style="width:180px;height:180px;border-color:rgba(255,160,64,0.5)"></div>
+            <div class="region-ring" style="width:120px;height:120px;border-color:rgba(255,180,80,0.7)"></div>
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+              <span style="font-size:1rem;color:var(--text-muted)">台灣</span>
+              <span style="font-size:2rem;font-weight:700;color:var(--accent)">4大</span>
+              <span style="font-size:1rem;color:var(--text-muted)">美食區</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="region-info">
+            <h3>北部．台北</h3>
+            <p>匯聚全台美食創意，牛肉麵、滷肉飯、蚵仔煎聞名</p>
+            <span class="region-tag">
+              <svg width="14" height="14" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="3"/></svg>
+              創新料理中心
+            </span>
+          </div>
+          <div class="region-info">
+            <h3>中部．台中</h3>
+            <p>太陽餅、珍珠奶茶發源地，傳統與創新交融</p>
+            <span class="region-tag">
+              <svg width="14" height="14" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="3"/></svg>
+              創新美食源頭
+            </span>
+          </div>
+          <div class="region-info">
+            <h3>南部．台南</h3>
+            <p>傳統小吃之都，牛肉湯、蚵仔煎、碗粿文化深厚</p>
+            <span class="region-tag">
+              <svg width="14" height="14" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="3"/></svg>
+              傳統小吃之都
+            </span>
+          </div>
+          <div class="region-info">
+            <h3>東部．花蓮台東</h3>
+            <p>原民料理與山海食材，曼波魚、小米酒獨具特色</p>
+            <span class="region-tag">
+              <svg width="14" height="14" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="3"/></svg>
+              原民美食特色
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SLIDE 4: 夜市小吃 ====== -->
+  <div class="slide" id="slide-4">
+    <p class="slide-title">夜市文化</p>
+    <h2 class="slide-heading">台灣夜市小吃王國</h2>
+    <div class="slide-content">
+      <div class="funnel-layout">
+        <!-- funnel bars -->
+        <div class="funnel-row">
+          <span class="funnel-label">知名夜市</span>
+          <div class="funnel-stage">
+            <div class="funnel-bar" style="flex:1">士林 / 逢甲 / 六合</div>
+            <span class="funnel-count">3大</span>
+          </div>
+        </div>
+        <div class="funnel-row">
+          <span class="funnel-label">平均攤位</span>
+          <div class="funnel-stage">
+            <div class="funnel-bar" style="flex:0.85">傳統小吃 / 創新美食</div>
+            <span class="funnel-count">200+</span>
+          </div>
+        </div>
+        <div class="funnel-row">
+          <span class="funnel-label">日均人流</span>
+          <div class="funnel-stage">
+            <div class="funnel-bar" style="flex:0.7">本地居民 + 海內外觀光客</div>
+            <span class="funnel-count">5萬+</span>
+          </div>
+        </div>
+        <div class="funnel-row">
+          <span class="funnel-label">美食種類</span>
+          <div class="funnel-stage">
+            <div class="funnel-bar" style="flex:0.6">蚵仔煎．大腸蚵仔麵線．臭豆腐</div>
+            <span class="funnel-count">50+</span>
+          </div>
+        </div>
+      </div>
+      <div class="night-market-items">
+        <div class="night-item">
+          <svg class="night-item-icon" viewBox="0 0 64 64" fill="none">
+            <ellipse cx="32" cy="36" rx="20" ry="14" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M16 28C20 18 44 18 48 28" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="26" cy="36" r="3" fill="#ff8c00" opacity="0.7"/>
+            <circle cx="38" cy="36" r="3" fill="#ff8c00" opacity="0.7"/>
+          </svg>
+          <span class="night-item-name">蚵仔煎</span>
+          <span class="night-item-desc">鮮蚵+地瓜粉</span>
+        </div>
+        <div class="night-item">
+          <svg class="night-item-icon" viewBox="0 0 64 64" fill="none">
+            <rect x="18" y="20" width="28" height="28" rx="4" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M24 20V16M40 20V16" stroke="#ff8c00" stroke-width="2"/>
+            <path d="M24 48V52M40 48V52" stroke="#ff8c00" stroke-width="2"/>
+            <path d="M18 36H46" stroke="#ff8c00" stroke-width="2" stroke-dasharray="4 4"/>
+          </svg>
+          <span class="night-item-name">臭豆腐</span>
+          <span class="night-item-desc">酥脆+泡菜</span>
+        </div>
+        <div class="night-item">
+          <svg class="night-item-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M20 44L24 24H40L44 44" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M18 44H46" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+            <path d="M28 24V36M36 24V36" stroke="#ff8c00" stroke-width="2"/>
+          </svg>
+          <span class="night-item-name">大腸包小腸</span>
+          <span class="night-item-desc">糯米腸+香腸</span>
+        </div>
+        <div class="night-item">
+          <svg class="night-item-icon" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="20" stroke="#ff8c00" stroke-width="3"/>
+            <circle cx="32" cy="32" r="12" stroke="#ff8c00" stroke-width="2" stroke-dasharray="4 4"/>
+            <circle cx="32" cy="32" r="4" fill="#ff8c00"/>
+          </svg>
+          <span class="night-item-name">蚵仔米線</span>
+          <span class="night-item-desc">滑嫩鮮美</span>
+        </div>
+        <div class="night-item">
+          <svg class="night-item-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M16 48C16 48 20 20 32 20C44 20 48 48 48 48" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M12 48H52" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+            <path d="M24 32C24 28 28 24 32 24C36 24 40 28 40 32" stroke="#ff8c00" stroke-width="2"/>
+          </svg>
+          <span class="night-item-name">鹽酥雞</span>
+          <span class="night-item-desc">外酥內嫩</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SLIDE 5: 傳統市場 ====== -->
+  <div class="slide" id="slide-5">
+    <p class="slide-title">傳統市場</p>
+    <h2 class="slide-heading">傳統市場裡的好味道</h2>
+    <div class="slide-content">
+      <div class="market-grid">
+        <div class="market-card featured">
+          <svg class="market-card-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M32 8L40 24H56L44 36L48 52L32 44L16 52L20 36L8 24H24L32 8Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="32" cy="32" r="6" fill="#ff8c00" opacity="0.6"/>
+          </svg>
+          <div>
+            <h3>傳統市場美食特色</h3>
+            <p>清晨開市的傳統市場，不只是買菜的地方，更是認識在地生活的窗口。從南部的東港濱海魚市到北部的迪化街，年貨大街展現台灣人對食物的熱情與創意。</p>
+            <span class="market-tag">
+              <svg width="12" height="12" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="24" stroke="currentColor" stroke-width="3"/></svg>
+              在地生活文化
+            </span>
+          </div>
+        </div>
+        <div class="market-card">
+          <svg class="market-card-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M12 48L20 28L32 40L44 24L52 48" stroke="#ff8c00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 56H56" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <h3>東港魚市場</h3>
+          <p>現撈海鮮拍賣，黑鮪魚、櫻花蝦聞名全台</p>
+          <span class="market-tag">海鮮直送</span>
+        </div>
+        <div class="market-card">
+          <svg class="market-card-icon" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="28" r="16" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M32 44V56M24 56H40" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <h3>迪化街年貨</h3>
+          <p>農曆年前南北乾貨匯集，百年歷史街區</p>
+          <span class="market-tag">傳統老街</span>
+        </div>
+        <div class="market-card">
+          <svg class="market-card-icon" viewBox="0 0 64 64" fill="none">
+            <rect x="16" y="16" width="32" height="32" rx="4" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M24 28L32 36L40 28" stroke="#ff8c00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M24 36L32 44L40 36" stroke="#ff8c00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>南機場夜市</h3>
+          <p>台北古老公有市場，美食雲集</p>
+          <span class="market-tag">公有市場</span>
+        </div>
+        <div class="market-card">
+          <svg class="market-card-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M16 32H48M32 16V48" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="32" cy="32" r="12" stroke="#ff8c00" stroke-width="2" stroke-dasharray="4 4"/>
+          </svg>
+          <h3>台南菜市場</h3>
+          <p>牛肉湯、碗粿、浮水魚羹，早餐文化豐富</p>
+          <span class="market-tag">早餐文化</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SLIDE 6: 銅板美食 ====== -->
+  <div class="slide" id="slide-6">
+    <p class="slide-title">銅板美食</p>
+    <h2 class="slide-heading">街頭巷尾的銅板美味</h2>
+    <div class="slide-content">
+      <div class="budget-layout">
+        <div class="budget-item">
+          <svg class="budget-icon" viewBox="0 0 64 64" fill="none">
+            <ellipse cx="32" cy="36" rx="18" ry="14" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M18 30C20 22 26 18 32 18" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+            <path d="M18 30V36M46 30V36" stroke="#ff8c00" stroke-width="2"/>
+          </svg>
+          <span class="budget-price">$30</span>
+          <span class="budget-name">滷肉飯</span>
+          <p class="budget-desc">肥瘦相間的滷肉丁，香氣撲鼻，是台灣人心中的靈魂美食</p>
+          <span class="budget-tag">國飯</span>
+        </div>
+        <div class="budget-item">
+          <svg class="budget-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M20 24H44L48 44H16L20 24Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M16 44H48V52H16V44Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M28 24V16M36 24V16" stroke="#ff8c00" stroke-width="2"/>
+          </svg>
+          <span class="budget-price">$25</span>
+          <span class="budget-name">碗粿</span>
+          <p class="budget-desc">米漿蒸製，內含肉臊、香菇、蛋黃，滑嫩口感</p>
+          <span class="budget-tag">米食</span>
+        </div>
+        <div class="budget-item">
+          <svg class="budget-icon" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="20" stroke="#ff8c00" stroke-width="3"/>
+            <circle cx="32" cy="32" r="12" stroke="#ff8c00" stroke-width="2" stroke-dasharray="4 4"/>
+            <circle cx="32" cy="32" r="5" fill="#ff8c00" opacity="0.7"/>
+          </svg>
+          <span class="budget-price">$35</span>
+          <span class="budget-name">蚵仔煎</span>
+          <p class="budget-desc">地瓜粉漿煎至酥脆，淋上特製醬汁，鮮香四溢</p>
+          <span class="budget-tag">海味</span>
+        </div>
+        <div class="budget-item">
+          <svg class="budget-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M16 48L24 28L32 40L40 24L48 48" stroke="#ff8c00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 56H56" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <span class="budget-price">$20</span>
+          <span class="budget-name">大熱狗</span>
+          <p class="budget-desc">金黃酥脆外皮，沾上芥末醬或番茄醬，經典不敗</p>
+          <span class="budget-tag">炸物</span>
+        </div>
+        <div class="budget-item">
+          <svg class="budget-icon" viewBox="0 0 64 64" fill="none">
+            <path d="M24 16H40V48C40 52 36 56 32 56C28 56 24 52 24 48V16Z" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M24 28H40M24 40H40" stroke="#ff8c00" stroke-width="2" stroke-dasharray="4 4"/>
+          </svg>
+          <span class="budget-price">$25</span>
+          <span class="budget-name">春捲</span>
+          <p class="budget-desc">薄如蟬翼的餅皮，包入多樣食材，清爽健康</p>
+          <span class="budget-tag">潤餅</span>
+        </div>
+        <div class="budget-item">
+          <svg class="budget-icon" viewBox="0 0 64 64" fill="none">
+            <ellipse cx="32" cy="40" rx="16" ry="8" stroke="#ff8c00" stroke-width="3"/>
+            <path d="M20 40C20 30 25 24 32 24C39 24 44 30 44 40" stroke="#ff8c00" stroke-width="3"/>
+          </svg>
+          <span class="budget-price">$30</span>
+          <span class="budget-name">肉圓</span>
+          <p class="budget-desc">彰化特產，外皮Q彈，內餡豬肉與筍丁，淋上醬油膏</p>
+          <span class="budget-tag">彰化</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SLIDE 7: 茶飲文化 ====== -->
+  <div class="slide" id="slide-7">
+    <p class="slide-title">茶飲文化</p>
+    <h2 class="slide-heading">台灣茶飲文化地圖</h2>
+    <div class="slide-content">
+      <div class="tea-layout">
+        <div class="tea-quad">
+          <h3>
+            <svg class="tea-icon" viewBox="0 0 64 64" fill="none">
+              <path d="M20 16H44L48 44H16L20 16Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M16 44H48V52H16V44Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+            </svg>
+            手搖茶飲起源
+          </h3>
+          <p>1980年代泡沫紅茶店興起，1990年代珍珠奶茶席捲全台，如今全台超過2萬家手搖茶飲店</p>
+          <div><span class="tea-stat">2萬+</span><span class="tea-stat-label"> 店家數</span></div>
+        </div>
+        <div class="tea-quad">
+          <h3>
+            <svg class="tea-icon" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="28" r="16" stroke="#ff8c00" stroke-width="3"/>
+              <path d="M32 44V56" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+              <path d="M24 56H40" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            經典茶種
+          </h3>
+          <p>珍珠奶茶、芋泥波波、芝芝芒果，每一款都是茶與奶的完美融合</p>
+          <div><span class="tea-stat">4大</span><span class="tea-stat-label"> 經典基底</span></div>
+        </div>
+        <div class="tea-quad">
+          <h3>
+            <svg class="tea-icon" viewBox="0 0 64 64" fill="none">
+              <path d="M16 32H48M32 16V48" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="32" cy="32" r="10" stroke="#ff8c00" stroke-width="2" stroke-dasharray="3 3"/>
+            </svg>
+            茶飲地圖
+          </h3>
+          <p>南部客偏好茶味濃郁，北部偏甜，中南部茶飲店密度最高</p>
+          <div><span class="tea-stat">3:2</span><span class="tea-stat-label"> 甜度比例</span></div>
+        </div>
+        <div class="tea-quad">
+          <h3>
+            <svg class="tea-icon" viewBox="0 0 64 64" fill="none">
+              <path d="M32 8L38 20H50L40 28L44 40L32 32L20 40L24 28L14 20H26L32 8Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+            </svg>
+            國際輸出
+          </h3>
+          <p>台灣手搖茶飲品牌已拓展至全球50餘國，成為另類台灣之光</p>
+          <div><span class="tea-stat">50+</span><span class="tea-stat-label"> 出口國家</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SLIDE 8: 甜點 ====== -->
+  <div class="slide" id="slide-8">
+    <p class="slide-title">甜點糕點</p>
+    <h2 class="slide-heading">台灣傳統甜點地圖</h2>
+    <div class="slide-content">
+      <div class="dessert-layout">
+        <div class="dessert-left">
+          <div class="dessert-card">
+            <svg class="dessert-icon" viewBox="0 0 64 64" fill="none">
+              <ellipse cx="32" cy="40" rx="20" ry="12" stroke="#ff8c00" stroke-width="3"/>
+              <path d="M16 36C20 26 44 26 48 36" stroke="#ff8c00" stroke-width="3"/>
+              <path d="M20 24L32 16L44 24" stroke="#ff8c00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="dessert-name">芒果冰</span>
+            <p class="dessert-desc">夏天必吃，愛文芒果香甜，加上煉乳剉冰</p>
+          </div>
+          <div class="dessert-card">
+            <svg class="dessert-icon" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="20" stroke="#ff8c00" stroke-width="3"/>
+              <circle cx="32" cy="32" r="10" stroke="#ff8c00" stroke-width="2" stroke-dasharray="4 4"/>
+              <circle cx="32" cy="32" r="4" fill="#ff8c00" opacity="0.7"/>
+            </svg>
+            <span class="dessert-name">芋圓</span>
+            <p class="dessert-desc">九份名產，地瓜圓、芋圓、綠豆圓多元口感</p>
+          </div>
+          <div class="dessert-card">
+            <svg class="dessert-icon" viewBox="0 0 64 64" fill="none">
+              <path d="M16 52H48L44 28H20L16 52Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M20 28V20C20 16 26 12 32 12C38 12 44 16 44 20V28" stroke="#ff8c00" stroke-width="3"/>
+            </svg>
+            <span class="dessert-name">冬甩</span>
+            <p class="dessert-desc">法式甜甜圈，外酥內Q，灑上糖粉或淋上巧克力</p>
+          </div>
+          <div class="dessert-card">
+            <svg class="dessert-icon" viewBox="0 0 64 64" fill="none">
+              <path d="M24 16H40L44 48H20L24 16Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M24 32H40" stroke="#ff8c00" stroke-width="2" stroke-dasharray="4 4"/>
+            </svg>
+            <span class="dessert-name">狀元糕</span>
+            <p class="dessert-desc">傳統米食糕點，軟糯香甜，節慶必備</p>
+          </div>
+        </div>
+        <div class="dessert-right">
+          <div class="dessert-highlight">
+            <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
+              <path d="M32 8L38 20H50L40 28L44 40L32 32L20 40L24 28L14 20H26L32 8Z" stroke="#ff8c00" stroke-width="3" stroke-linejoin="round"/>
+              <circle cx="32" cy="28" r="5" fill="#ff8c00" opacity="0.7"/>
+            </svg>
+            <div class="dessert-highlight-num">100+</div>
+            <div class="dessert-highlight-label">傳統甜點品項</div>
+          </div>
+          <div class="dessert-highlight">
+            <svg width="56" height="56" viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="22" stroke="#ff8c00" stroke-width="3"/>
+              <path d="M32 14V32L44 40" stroke="#ff8c00" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <div class="dessert-highlight-num">全年</div>
+            <div class="dessert-highlight-label">甜點無淡季</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SLIDE 9: SUMMARY ====== -->
+  <div class="slide" id="slide-9">
+    <p class="slide-title">特色總結</p>
+    <h2 class="slide-heading">台灣美食文化的魅力所在</h2>
+    <div class="slide-content">
+      <div class="summary-layout">
+        <div class="summary-intro">
+          <div class="summary-stat">
+            <div class="summary-num">4</div>
+            <div class="summary-label">大區域特色</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-num">50+</div>
+            <div class="summary-label">夜市美食</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-num">2萬+</div>
+            <div class="summary-label">手搖茶店</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-num">100+</div>
+            <div class="summary-label">傳統甜點</div>
+          </div>
+        </div>
+        <div class="summary-features">
+          <div class="summary-feature">
+            <h3>多元融合</h3>
+            <p>台式、日本、客家、原民料理相互交融，創造獨特味蕾體驗</p>
+          </div>
+          <div class="summary-feature">
+            <h3>銅板消費</h3>
+            <p>高CP值美食文化，30元就能吃到道地好味道</p>
+          </div>
+          <div class="summary-feature">
+            <h3>人情味</h3>
+            <p>每一道小吃背後都有故事，承載著在地記憶與情感</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SLIDE 10: END ====== -->
+  <div class="slide" id="slide-10">
+    <div class="end-bg"></div>
+    <a href="/slides.htm" class="back-link" style="color:var(--accent)">
+      <svg width="20" height="20" viewBox="0 0 64 64" fill="none">
+        <path d="M40 12L20 32L40 52" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      回列表
+    </a>
+    <div class="end-content">
+      <!-- 餐碗icon -->
+      <svg class="end-icon" viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="50" stroke="#ff8c00" stroke-width="3" opacity="0.4"/>
+        <path d="M30 45H90L82 80H38L30 45Z" stroke="#ff8c00" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M38 45C38 36 47 28 60 28C73 28 82 36 82 45" stroke="#ff8c00" stroke-width="4"/>
+        <circle cx="48" cy="60" r="5" fill="#ff8c00" opacity="0.6"/>
+        <circle cx="60" cy="55" r="4" fill="#ff8c00" opacity="0.5"/>
+        <circle cx="72" cy="62" r="5" fill="#ff8c00" opacity="0.6"/>
+      </svg>
+      <h2 class="end-title">吃遍台灣</h2>
+      <p class="end-subtitle">用味蕾認識這片土地，從北到南都是故事</p>
+      <div class="end-tags">
+        <span class="end-tag">夜市文化</span>
+        <span class="end-tag">傳統市場</span>
+        <span class="end-tag">手搖茶飲</span>
+        <span class="end-tag">銅板美食</span>
+        <span class="end-tag">甜點糕點</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== NAVIGATION ====== -->
+  <nav>
+    <button onclick="prev()" aria-label="上一頁">&#8592;</button>
+    <span id="page-num">1 / 10</span>
+    <button onclick="next()" aria-label="下一頁">&#8594;</button>
+  </nav>
+
+</div>
+
+<script>
+(function() {
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const pageNum = document.getElementById('page-num');
+
+  function show(idx) {
+    slides.forEach(function(s, i) {
+      s.classList.toggle('active', i === idx);
+    });
+    pageNum.textContent = (idx + 1) + ' / ' + total;
+  }
+
+  window.next = function() {
+    current = (current + 1) % total;
+    show(current);
+  };
+  window.prev = function() {
+    current = (current - 1 + total) % total;
+    show(current);
+  };
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+})();
+</script>
+</body>
+</html>
