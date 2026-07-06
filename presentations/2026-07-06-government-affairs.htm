@@ -434,7 +434,7 @@
     /* ====== SLIDE 6: PROCESS ====== */
     .s6-process {
       flex-direction: column;
-      gap: 20px;
+      gap: 0;
     }
     .s6-process h2 {
       font-size: var(--font-h1);
@@ -442,33 +442,84 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      flex-shrink: 0;
     }
     .process-flow {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       flex: 1;
+      position: relative;
       gap: 0;
     }
-    .process-step {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 16px 12px;
-      position: relative;
-    }
-    .process-step::after {
-      content: '→';
+    /* 台階連接線 */
+    .process-flow::before {
+      content: '';
       position: absolute;
-      right: -8px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.5rem;
-      color: var(--accent);
-      z-index: 2;
+      left: 20px;
+      top: 28px;
+      bottom: 28px;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-alt));
+      border-radius: 2px;
     }
-    .process-step:last-child::after { display: none; }
+    .process-step {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .step-indicator {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(0, 191, 165, 0.4);
+    }
+    .step-card {
+      flex: 1;
+      background: rgba(0, 191, 165, 0.06);
+      border: 1px solid rgba(0, 191, 165, 0.15);
+      border-radius: 12px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .step-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(0, 191, 165, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-card-icon svg { width: 22px; height: 22px; }
+    .step-card-text { flex: 1; }
+    .step-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .step-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .step-indicator svg { width: 22px; height: 22px; stroke: #fff; }
+    .process-icon { display: none; }
+    .process-step::after { display: none !important; }
     .process-icon {
       width: 56px;
       height: 56px;
@@ -957,32 +1008,60 @@
     </h2>
     <div class="process-flow" style="flex:1;">
       <div class="process-step animate-in">
-        <div class="process-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5z"/><path d="M6 12v5c0 2 6 3 12 3s12-1 12-3v-5"/></svg>
+        <div class="step-indicator">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5z"/><path d="M6 12v5c0 2 6 3 12 3s12-1 12-3v-5"/></svg>
         </div>
-        <div class="process-title">新進培訓</div>
-        <div class="process-desc">為期3個月<br>專業職能訓練</div>
+        <div class="step-card">
+          <div class="step-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5z"/><path d="M6 12v5c0 2 6 3 12 3s12-1 12-3v-5"/></svg>
+          </div>
+          <div class="step-card-text">
+            <div class="step-title">新進培訓</div>
+            <div class="step-desc">為期3個月專業職能訓練</div>
+          </div>
+        </div>
       </div>
       <div class="process-step animate-in">
-        <div class="process-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <div class="step-indicator">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
         </div>
-        <div class="process-title">導師制度</div>
-        <div class="process-desc">一對一指導<br>實務經驗傳承</div>
+        <div class="step-card">
+          <div class="step-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="step-card-text">
+            <div class="step-title">導師制度</div>
+            <div class="step-desc">一對一指導實務經驗傳承</div>
+          </div>
+        </div>
       </div>
       <div class="process-step animate-in">
-        <div class="process-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <div class="step-indicator">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <div class="process-title">專業晉升</div>
-        <div class="process-desc">年度考核晉升<br>多元發展路徑</div>
+        <div class="step-card">
+          <div class="step-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="step-card-text">
+            <div class="step-title">專業晉升</div>
+            <div class="step-desc">年度考核晉升多元發展路徑</div>
+          </div>
+        </div>
       </div>
       <div class="process-step animate-in">
-        <div class="process-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        <div class="step-indicator">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
         </div>
-        <div class="process-title">領導才能</div>
-        <div class="process-desc">高階管理培訓<br>策略思維養成</div>
+        <div class="step-card">
+          <div class="step-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          </div>
+          <div class="step-card-text">
+            <div class="step-title">領導才能</div>
+            <div class="step-desc">高階管理培訓策略思維養成</div>
+          </div>
+        </div>
       </div>
     </div>
     <nav>
