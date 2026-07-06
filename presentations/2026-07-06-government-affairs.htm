@@ -449,24 +449,24 @@
       flex-direction: column;
       flex: 1;
       position: relative;
-      padding-right: 120px;
+      padding-right: 140px;
     }
-    /* 左側台階踢面豎線 */
+    /* 左側台階踢面實心方塊豎線 */
     .process-flow::before {
       content: '';
       position: absolute;
-      left: 22px;
+      left: 0;
       top: 0;
       bottom: 0;
-      width: 6px;
+      width: 12px;
       background: linear-gradient(180deg, var(--accent) 0%, var(--accent-alt) 100%);
-      border-radius: 3px;
+      border-radius: 4px;
     }
     .process-step {
       display: flex;
       align-items: center;
       flex: 1;
-      gap: 20px;
+      gap: 0;
       position: relative;
       z-index: 1;
     }
@@ -488,53 +488,45 @@
       color: #fff;
       flex-shrink: 0;
       box-shadow: 0 0 20px rgba(0, 191, 165, 0.5);
-      border: 3px solid rgba(0, 191, 165, 0.3);
+      border: 3px solid rgba(0, 191, 165, 0.4);
+      z-index: 2;
     }
     .step-card {
       flex: 1;
-      background: rgba(0, 191, 165, 0.1);
-      border: 2px solid rgba(0, 191, 165, 0.25);
+      background: rgba(0, 191, 165, 0.12);
+      border: 2px solid rgba(0, 191, 165, 0.3);
       border-radius: 12px;
       padding: 14px 20px;
       display: flex;
       align-items: center;
       gap: 16px;
-      position: relative;
-      overflow: hidden;
+      margin-left: 12px;
+      min-height: 80px;
     }
-    /* 台階踏面：右上角階梯方塊 */
-    .step-card::before {
-      content: '';
+    /* 台階踏面：每層右側實心階梯色塊 */
+    .step-tread {
       position: absolute;
-      top: 0; right: 52px;
-      width: 80px; height: 100%;
-      background: rgba(0, 191, 165, 0.18);
-      clip-path: polygon(
-        0 0, 100% 0,
-        100% 25%, 0 40%,
-        0 60%, 100% 75%,
-        100% 100%, 0 100%
-      );
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 140px;
+      pointer-events: none;
     }
-    /* 台階右側階梯深度方塊 */
-    .step-card::after {
-      content: '';
-      position: absolute;
-      right: 0; top: 0;
-      width: 52px; height: 100%;
-      background: rgba(0, 191, 165, 0.22);
-      border-left: 3px solid rgba(0, 191, 165, 0.35);
-    }
+    .process-step:nth-child(1) .step-tread { background: rgba(0, 191, 165, 0.08); }
+    .process-step:nth-child(2) .step-tread { background: rgba(0, 191, 165, 0.14); }
+    .process-step:nth-child(3) .step-tread { background: rgba(0, 191, 165, 0.20); }
+    .process-step:nth-child(4) .step-tread { background: rgba(0, 191, 165, 0.26); }
     .step-card-icon {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 10px;
-      background: rgba(0, 191, 165, 0.12);
+      background: rgba(0, 191, 165, 0.18);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       z-index: 1;
+      border: 2px solid rgba(0, 191, 165, 0.25);
     }
     .step-card-icon svg { width: 22px; height: 22px; }
     .step-card-text { flex: 1; z-index: 1; }
@@ -1044,6 +1036,7 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5z"/><path d="M6 12v5c0 2 6 3 12 3s12-1 12-3v-5"/></svg>
         </div>
         <div class="step-card">
+          <div class="step-tread"></div>
           <div class="step-card-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5z"/><path d="M6 12v5c0 2 6 3 12 3s12-1 12-3v-5"/></svg>
           </div>
@@ -1058,6 +1051,7 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
         </div>
         <div class="step-card">
+          <div class="step-tread"></div>
           <div class="step-card-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
           </div>
@@ -1072,6 +1066,7 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
         <div class="step-card">
+          <div class="step-tread"></div>
           <div class="step-card-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           </div>
@@ -1086,6 +1081,7 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
         </div>
         <div class="step-card">
+          <div class="step-tread"></div>
           <div class="step-card-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
           </div>
