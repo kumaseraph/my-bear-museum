@@ -449,18 +449,25 @@
       flex-direction: column;
       flex: 1;
       position: relative;
-      gap: 0;
+      padding-right: 120px;
     }
-    /* 台階連接線 */
+    /* 左側台階踢面豎線 */
     .process-flow::before {
       content: '';
       position: absolute;
-      left: 20px;
-      top: 28px;
-      bottom: 28px;
-      width: 3px;
-      background: linear-gradient(180deg, var(--accent), var(--accent-alt));
-      border-radius: 2px;
+      left: 22px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-alt) 100%);
+      clip-path: polygon(
+        0 0, 100% 0,
+        100% 12%, 0 12%,
+        0 38%, 100% 38%,
+        100% 63%, 0 63%,
+        0 88%, 100% 88%,
+        100% 100%, 0 100%
+      );
     }
     .process-step {
       display: flex;
@@ -470,6 +477,11 @@
       position: relative;
       z-index: 1;
     }
+    /* 台階右側遞增偏移 */
+    .process-step:nth-child(1) { margin-left: 0; }
+    .process-step:nth-child(2) { margin-left: 8%; }
+    .process-step:nth-child(3) { margin-left: 16%; }
+    .process-step:nth-child(4) { margin-left: 24%; }
     .step-indicator {
       width: 44px;
       height: 44px;
@@ -493,6 +505,32 @@
       display: flex;
       align-items: center;
       gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* 台階踏面裝飾：右上角階梯方塊 */
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 60px;
+      width: 80px; height: 100%;
+      background: linear-gradient(135deg, rgba(0,191,165,0.08), rgba(0,191,165,0.03));
+      clip-path: polygon(
+        0 0, 100% 0,
+        100% 25%, 0 40%,
+        0 60%, 100% 75%,
+        100% 100%, 0 100%
+      );
+      border-right: 2px solid rgba(0,191,165,0.12);
+    }
+    /* 台階右側階梯深度指示方塊 */
+    .step-card::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0;
+      width: 52px; height: 100%;
+      background: rgba(0, 191, 165, 0.06);
+      border-left: 2px solid rgba(0, 191, 165, 0.15);
     }
     .step-card-icon {
       width: 40px;
@@ -503,9 +541,10 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      z-index: 1;
     }
     .step-card-icon svg { width: 22px; height: 22px; }
-    .step-card-text { flex: 1; }
+    .step-card-text { flex: 1; z-index: 1; }
     .step-title {
       font-size: 1rem;
       font-weight: 600;
