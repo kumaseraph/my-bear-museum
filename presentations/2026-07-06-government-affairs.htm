@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新北市政府 2026 年中工作報告</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://kumaweb.pages.dev/studio/design/visual-templates/colors/colors-C3-aurora-forest.css">
+  <link rel="stylesheet" href="https://kumaweb.pages.dev/studio/design/visual-templates/structures/v1-aurora-geometry-structure.css">
+  <style>
+    html { font-size: 20px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font-display: clamp(2.5rem, 6vw, 5rem);
+      --font-h1: clamp(1.75rem, 3.5vw, 2.5rem);
+      --font-h2: clamp(1.25rem, 2vw, 1.75rem);
+      --font-h3: clamp(1.1rem, 1.5vw, 1.35rem);
+      --font-body: 1rem;
+      --lh-tight: 1.2;
+      --lh-normal: 1.6;
+      --gap: 24px;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Noto Serif TC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    .presentation {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: 100vh;
+      margin: 0 auto;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      padding: 40px 56px;
+      z-index: 1;
+    }
+    .slide.active { display: flex; }
+
+    /* ====== NAV ====== */
+    nav {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--nav-bg);
+      padding: 10px 20px;
+      border-radius: 40px;
+      border: 1px solid var(--border-color);
+      z-index: 100;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    nav button:hover { background: rgba(255,255,255,0.1); }
+    nav span { font-size: 1rem; color: var(--text-secondary); min-width: 60px; text-align: center; }
+
+    /* ====== BACK LINK ====== */
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 32px;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      text-decoration: none;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* ====== GLOW ORBS ====== */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: orb-drift 10s ease-in-out infinite alternate;
+    }
+    .glow-orb-1 {
+      width: 400px; height: 400px;
+      background: rgba(0, 191, 165, 0.15);
+      top: -150px; left: -100px;
+    }
+    .glow-orb-2 {
+      width: 300px; height: 300px;
+      background: rgba(79, 195, 247, 0.1);
+      bottom: -100px; right: -50px;
+      animation-delay: -4s;
+    }
+    @keyframes orb-drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.15); }
+    }
+
+    /* ====== GRID OVERLAY ====== */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 191, 165, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 191, 165, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* ====== CARD ====== */
+    .card {
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      padding: 24px;
+    }
+    .card:hover {
+      border-color: rgba(0, 191, 165, 0.5);
+    }
+
+    /* ====== ANIMATE IN ====== */
+    .animate-in {
+      opacity: 0;
+      transform: scale(0.9) translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .animate-in.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    /* ====== SLIDE 1: COVER ====== */
+    .s1-cover {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    }
+    .s1-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 30%, rgba(0, 191, 165, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(79, 195, 247, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 191, 165, 0.15);
+      border: 1px solid rgba(0, 191, 165, 0.3);
+      border-radius: 40px;
+      padding: 8px 20px;
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+    }
+    .cover-title {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      position: relative;
+      z-index: 1;
+    }
+    .cover-meta span { display: flex; align-items: center; gap: 8px; }
+
+    /* ====== SLIDE 2: TOC ====== */
+    .s2-toc {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 56px;
+      gap: 24px;
+    }
+    .s2-toc h2 {
+      font-size: var(--font-h1);
+      color: var(--text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: rgba(0, 191, 165, 0.05);
+      border: 1px solid rgba(0, 191, 165, 0.15);
+      border-radius: 12px;
+      transition: all 0.3s;
+    }
+    .toc-item:hover {
+      background: rgba(0, 191, 165, 0.12);
+      border-color: rgba(0, 191, 165, 0.4);
+      transform: translateY(-2px);
+    }
+    .toc-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .toc-text { font-size: 1rem; color: var(--text); line-height: 1.4; }
+
+    /* ====== SLIDE 3: KPI DATA ====== */
+    .s3-data {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .s3-data h2 {
+      font-size: var(--font-h1);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+    .kpi-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px 16px;
+      background: rgba(0, 191, 165, 0.06);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 16px;
+    }
+    .kpi-icon {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 12px;
+    }
+    .kpi-num {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .kpi-unit {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    .kpi-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    /* ====== SLIDE 4: TIMELINE ====== */
+    .s4-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .s4-timeline h2 {
+      font-size: var(--font-h1);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .timeline-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex: 1;
+      position: relative;
+    }
+    .timeline-row::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+      opacity: 0.4;
+      transform: translateY(-50%);
+    }
+    .timeline-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-node {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 4px solid var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      box-shadow: 0 0 20px rgba(0, 191, 165, 0.4);
+    }
+    .timeline-node svg { width: 24px; height: 24px; }
+    .timeline-label {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .timeline-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* ====== SLIDE 5: HEXAGON ====== */
+    .s5-hex {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .s5-hex h2 {
+      font-size: var(--font-h1);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hex-layout {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 24px;
+    }
+    .hex-center {
+      width: 160px;
+      height: 185px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .hex-center-text { font-size: 1.1rem; font-weight: 700; color: var(--bg); text-align: center; line-height: 1.3; padding: 0 20px; }
+    .hex-center-sub { font-size: 1rem; color: var(--bg); opacity: 0.8; }
+    .hex-satellites {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 12px;
+      flex: 1;
+    }
+    .hex-sat {
+      width: 120px;
+      height: 139px;
+      background: rgba(0, 191, 165, 0.1);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(0, 191, 165, 0.3);
+      transition: all 0.3s;
+    }
+    .hex-sat:hover {
+      background: rgba(0, 191, 165, 0.2);
+      border-color: rgba(0, 191, 165, 0.6);
+    }
+    .hex-sat-icon { width: 28px; height: 28px; margin-bottom: 8px; }
+    .hex-sat-label { font-size: 1rem; color: var(--text); text-align: center; padding: 0 10px; line-height: 1.3; }
+
+    /* ====== SLIDE 6: PROCESS ====== */
+    .s6-process {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .s6-process h2 {
+      font-size: var(--font-h1);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .process-flow {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      gap: 0;
+    }
+    .process-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 16px 12px;
+      position: relative;
+    }
+    .process-step::after {
+      content: '→';
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      color: var(--accent);
+      z-index: 2;
+    }
+    .process-step:last-child::after { display: none; }
+    .process-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(0, 191, 165, 0.15);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .process-icon svg { width: 28px; height: 28px; }
+    .process-title { font-size: 1.1rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .process-desc { font-size: 1rem; color: var(--text-secondary); line-height: 1.4; }
+
+    /* ====== SLIDE 7: BULLSEYE ====== */
+    .s7-bullseye {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .s7-bullseye h2 {
+      font-size: var(--font-h1);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bullseye-layout {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 40px;
+    }
+    .bullseye-ring-container {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      flex-shrink: 0;
+    }
+    .bullseye-ring {
+      position: absolute;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .br-outer {
+      width: 240px; height: 240px;
+      background: rgba(0, 191, 165, 0.08);
+      border: 3px solid rgba(0, 191, 165, 0.3);
+      top: 0; left: 0;
+    }
+    .br-mid {
+      width: 170px; height: 170px;
+      background: rgba(0, 191, 165, 0.15);
+      border: 3px solid rgba(0, 191, 165, 0.5);
+      top: 35px; left: 35px;
+    }
+    .br-inner {
+      width: 100px; height: 100px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+      top: 70px; left: 70px;
+    }
+    .br-label { font-size: 1.1rem; font-weight: 700; color: var(--bg); }
+    .bullseye-items {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .bullseye-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: rgba(0, 191, 165, 0.06);
+      border: 1px solid rgba(0, 191, 165, 0.15);
+      border-radius: 12px;
+    }
+    .bi-num {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 60px;
+    }
+    .bi-text { font-size: 1rem; color: var(--text); line-height: 1.4; }
+    .bi-text strong { display: block; font-size: 1.1rem; margin-bottom: 2px; }
+
+    /* ====== SLIDE 8: QUADRANT ====== */
+    .s8-quadrant {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .s8-quadrant h2 {
+      font-size: var(--font-h1);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .quadrant-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+      flex: 1;
+    }
+    .quadrant-item {
+      padding: 20px;
+      background: rgba(0, 191, 165, 0.05);
+      border: 1px solid rgba(0, 191, 165, 0.15);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .qi-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .qi-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(0, 191, 165, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qi-icon svg { width: 22px; height: 22px; }
+    .qi-title { font-size: 1rem; font-weight: 600; color: var(--text); }
+    .qi-desc { font-size: 1rem; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+    .qi-stat {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* ====== SLIDE 9: SUMMARY ====== */
+    .s9-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .s9-summary h2 {
+      font-size: var(--font-h1);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .summary-layout {
+      display: flex;
+      flex: 1;
+      gap: 24px;
+    }
+    .summary-main {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .summary-stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .summary-stat {
+      text-align: center;
+      padding: 16px 12px;
+      background: rgba(0, 191, 165, 0.06);
+      border: 1px solid rgba(0, 191, 165, 0.15);
+      border-radius: 12px;
+    }
+    .ss-num { font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .ss-label { font-size: 1rem; color: var(--text-secondary); margin-top: 4px; }
+    .summary-points {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .summary-point {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(0, 191, 165, 0.05);
+      border: 1px solid rgba(0, 191, 165, 0.12);
+      border-radius: 10px;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .sp-check { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* ====== SLIDE 10: END ====== */
+    .s10-end {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      min-height: 100vh;
+    }
+    .s10-end::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 40%, rgba(0, 191, 165, 0.2) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .end-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .end-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .end-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .end-contact {
+      display: flex;
+      gap: 24px;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      position: relative;
+      z-index: 1;
+    }
+    .end-contact span { display: flex; align-items: center; gap: 8px; }
+
+    /* ====== ICON HELPER ====== */
+    .icon-svg { stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</head>
+<body class="v1-aurora-geometry">
+
+<div class="presentation">
+
+  <!-- ===== SLIDE 1: COVER ===== -->
+  <div class="slide s1-cover active" id="slide-1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+    <div class="cover-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      新北市政府
+    </div>
+    <h1 class="cover-title">2026 年中工作報告</h1>
+    <p class="cover-subtitle">創新治理・永續建設・幸福城市</p>
+    <div class="cover-meta">
+      <span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        2026年7月6日
+      </span>
+      <span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        市政會議
+      </span>
+    </div>
+    <nav>
+      <button onclick="prev()">◀</button>
+      <span id="nav-info">1 / 10</span>
+      <button onclick="next()">▶</button>
+    </nav>
+  </div>
+
+  <!-- ===== SLIDE 2: TOC ===== -->
+  <div class="slide s2-toc" id="slide-2">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+    <h2>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      報告大綱
+    </h2>
+    <div class="toc-grid">
+      <div class="toc-item animate-in">
+        <div class="toc-num">1</div>
+        <div class="toc-text">施政成果與關鍵數據</div>
+      </div>
+      <div class="toc-item animate-in">
+        <div class="toc-num">2</div>
+        <div class="toc-text">重大建設里程碑</div>
+      </div>
+      <div class="toc-item animate-in">
+        <div class="toc-num">3</div>
+        <div class="toc-text">組織架構與人才培育</div>
+      </div>
+      <div class="toc-item animate-in">
+        <div class="toc-num">4</div>
+        <div class="toc-text">未來展望與策略目標</div>
+      </div>
+      <div class="toc-item animate-in">
+        <div class="toc-num">5</div>
+        <div class="toc-text">區政服務網絡</div>
+      </div>
+      <div class="toc-item animate-in">
+        <div class="toc-num">6</div>
+        <div class="toc-text">總結與行動方案</div>
+      </div>
+    </div>
+    <nav>
+      <button onclick="prev()">◀</button>
+      <span id="nav-info">2 / 10</span>
+      <button onclick="next()">▶</button>
+    </nav>
+  </div>
+
+  <!-- ===== SLIDE 3: KPI DATA ===== -->
+  <div class="slide s3-data" id="slide-3">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+    <h2>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      施政成果與關鍵數據
+    </h2>
+    <div class="kpi-grid">
+      <div class="kpi-card animate-in">
+        <svg class="kpi-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.5"><circle cx="32" cy="32" r="28"/><path d="M32 18v14l10 10"/></svg>
+        <div class="kpi-num">847</div>
+        <div class="kpi-unit">件</div>
+        <div class="kpi-label">已完成案件</div>
+      </div>
+      <div class="kpi-card animate-in">
+        <svg class="kpi-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M32 6L6 20v24l26 14 26-14V20L32 6z"/><path d="M6 20l26 14 26-14M32 34v24"/></svg>
+        <div class="kpi-num">12</div>
+        <div class="kpi-unit">項</div>
+        <div class="kpi-label">重大建設</div>
+      </div>
+      <div class="kpi-card animate-in">
+        <svg class="kpi-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M17 21v-2a4 4 0 014-4h22a4 4 0 014 4v2"/><circle cx="32" cy="7" r="4"/><path d="M6 39v-2a4 4 0 014-4h4"/></svg>
+        <div class="kpi-num">2,340</div>
+        <div class="kpi-unit">人</div>
+        <div class="kpi-label">服務團隊</div>
+      </div>
+      <div class="kpi-card animate-in">
+        <svg class="kpi-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M12 52l10-10 8 8 12-12 10 10"/><path d="M4 40l8-8"/></svg>
+        <div class="kpi-num">98.2</div>
+        <div class="kpi-unit">%</div>
+        <div class="kpi-label">市民滿意度</div>
+      </div>
+    </div>
+    <nav>
+      <button onclick="prev()">◀</button>
+      <span id="nav-info">3 / 10</span>
+      <button onclick="next()">▶</button>
+    </nav>
+  </div>
+
+  <!-- ===== SLIDE 4: TIMELINE ===== -->
+  <div class="slide s4-timeline" id="slide-4">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+    <h2>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      重大建設里程碑
+    </h2>
+    <div class="timeline-row" style="flex:1;">
+      <div class="timeline-item animate-in">
+        <div class="timeline-node">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        </div>
+        <div class="timeline-label">Q1</div>
+        <div class="timeline-desc">捷運環狀線<br>全線通車</div>
+      </div>
+      <div class="timeline-item animate-in">
+        <div class="timeline-node">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="timeline-label">Q2</div>
+        <div class="timeline-desc">五大產業園區<br>正式啟用</div>
+      </div>
+      <div class="timeline-item animate-in">
+        <div class="timeline-node">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="timeline-label">Q3</div>
+        <div class="timeline-desc">智慧城市<br>安全網絡完成</div>
+      </div>
+      <div class="timeline-item animate-in">
+        <div class="timeline-node">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="timeline-label">Q4</div>
+        <div class="timeline-desc">永續能源<br>示範區掛牌</div>
+      </div>
+    </div>
+    <nav>
+      <button onclick="prev()">◀</button>
+      <span id="nav-info">4 / 10</span>
+      <button onclick="next()">▶</button>
+    </nav>
+  </div>
+
+  <!-- ===== SLIDE 5: HEXAGON ===== -->
+  <div class="slide s5-hex" id="slide-5">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+    <h2>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      組織架構與團隊
+    </h2>
+    <div class="hex-layout">
+      <div class="hex-center animate-in">
+        <div class="hex-center-text">市政<br>核心團隊</div>
+        <div class="hex-center-sub">6大局處</div>
+      </div>
+      <div class="hex-satellites">
+        <div class="hex-sat animate-in">
+          <svg class="hex-sat-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.5"><rect x="8" y="8" width="48" height="48" rx="4"/><path d="M8 24h48M24 8v48"/></svg>
+          <div class="hex-sat-label">都市發展局</div>
+        </div>
+        <div class="hex-sat animate-in">
+          <svg class="hex-sat-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.5"><circle cx="32" cy="32" r="24"/><path d="M32 14v18l12 8"/></svg>
+          <div class="hex-sat-label">交通局</div>
+        </div>
+        <div class="hex-sat animate-in">
+          <svg class="hex-sat-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M32 8L8 20v24l24 12 24-12V20L32 8z"/></svg>
+          <div class="hex-sat-label">環境保護局</div>
+        </div>
+        <div class="hex-sat animate-in">
+          <svg class="hex-sat-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M12 52l10-10 8 8 12-12 10 10"/><path d="M4 40l8-8"/></svg>
+          <div class="hex-sat-label">經濟發展局</div>
+        </div>
+        <div class="hex-sat animate-in">
+          <svg class="hex-sat-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M32 8a16 16 0 100 32 16 16 0 000-32zM8 56l24-24 8 8 12-12 4 4"/></svg>
+          <div class="hex-sat-label">社會局</div>
+        </div>
+        <div class="hex-sat animate-in">
+          <svg class="hex-sat-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2.5"><path d="M32 6L6 20v24l26 14 26-14V20L32 6z"/><path d="M32 6v52M6 20l26 14 26-14"/></svg>
+          <div class="hex-sat-label">教育局</div>
+        </div>
+      </div>
+    </div>
+    <nav>
+      <button onclick="prev()">◀</button>
+      <span id="nav-info">5 / 10</span>
+      <button onclick="next()">▶</button>
+    </nav>
+  </div>
+
+  <!-- ===== SLIDE 6: PROCESS ===== -->
+  <div class="slide s6-process" id="slide-6">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+    <h2>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      人才培育與學習階梯
+    </h2>
+    <div class="process-flow" style="flex:1;">
+      <div class="process-step animate-in">
+        <div class="process-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5z"/><path d="M6 12v5c0 2 6 3 12 3s12-1 12-3v-5"/></svg>
+        </div>
+        <div class="process-title">新進培訓</div>
+        <div class="process-desc">為期3個月<br>專業職能訓練</div>
+      </div>
+      <div class="process-step animate-in">
+        <div class="process-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="process-title">導師制度</div>
+        <div class="process-desc">一對一指導<br>實務經驗傳承</div>
+      </div>
+      <div class="process-step animate-in">
+        <div class="process-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="process-title">專業晉升</div>
+        <div class="process-desc">年度考核晉升<br>多元發展路徑</div>
+      </div>
+      <div class="process-step animate-in">
+        <div class="process-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div class="process-title">領導才能</div>
+        <div class="process-desc">高階管理培訓<br>策略思維養成</div>
+      </div>
+    </div>
+    <nav>
+      <button onclick="prev()">◀</button>
+      <span id="nav-info">6 / 10</span>
+      <button onclick="next()">▶</button>
+    </nav>
+  </div>
+
+  <!-- ===== SLIDE 7: BULLSEYE ===== -->
+  <div class="slide s7-bullseye" id="slide-7">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+    <h2>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+      未來展望與策略目標
+    </h2>
+    <div class="bullseye-layout">
+      <div class="bullseye-ring-container animate-in">
+        <div class="bullseye-ring br-outer"></div>
+        <div class="bullseye-ring br-mid"></div>
+        <div class="bullseye-ring br-inner">
+          <span class="br-label">2030</span>
+        </div>
+      </div>
+      <div class="bullseye-items">
+        <div class="bullseye-item animate-in">
+          <div class="bi-num">50%</div>
+          <div class="bi-text"><strong>智慧治理覆蓋率</strong>全面推動數位轉型，打造智慧城市標竿</div>
+        </div>
+        <div class="bullseye-item animate-in">
+          <div class="bi-num">80%</div>
+          <div class="bi-text"><strong>綠能使用比率</strong>落實永續發展目標，打造低碳城市</div>
+        </div>
+        <div class="bullseye-item animate-in">
+          <div class="bi-num">30</div>
+          <div class="bi-text"><strong>新增就業機會</strong>引進產業創造優質工作機會</div>
+        </div>
+      </div>
+    </div>
+    <nav>
+      <button onclick="prev()">◀</button>
+      <span id="nav-info">7 / 10</span>
+      <button onclick="next()">▶</button>
+    </nav>
+  </div>
+
+  <!-- ===== SLIDE 8: QUADRANT ===== -->
+  <div class="slide s8-quadrant" id="slide-8">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+    <h2>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      區政服務網絡
+    </h2>
+    <div class="quadrant-grid">
+      <div class="quadrant-item animate-in">
+        <div class="qi-header">
+          <div class="qi-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div class="qi-title">板橋區服務中心</div>
+        </div>
+        <div class="qi-desc">整合戶政、地政、稅捐等多項業務，提供一站式便捷服務</div>
+        <div class="qi-stat">服務 48萬人</div>
+      </div>
+      <div class="quadrant-item animate-in">
+        <div class="qi-header">
+          <div class="qi-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          </div>
+          <div class="qi-title">中和區服務中心</div>
+        </div>
+        <div class="qi-desc">社福關懷與長照服務據點，友善高齡宜居環境</div>
+        <div class="qi-stat">照護據點 32處</div>
+      </div>
+      <div class="quadrant-item animate-in">
+        <div class="qi-header">
+          <div class="qi-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="qi-title">新莊區服務中心</div>
+        </div>
+        <div class="qi-desc">工商登記與投資諮詢，友善創業與產業發展環境</div>
+        <div class="qi-stat">輔導企業 280家</div>
+      </div>
+      <div class="quadrant-item animate-in">
+        <div class="qi-header">
+          <div class="qi-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="qi-title">淡水區服務中心</div>
+        </div>
+        <div class="qi-desc">觀光、交通與環境保育均衡發展，促進地方繁榮</div>
+        <div class="qi-stat">觀光人次 850萬</div>
+      </div>
+    </div>
+    <nav>
+      <button onclick="prev()">◀</button>
+      <span id="nav-info">8 / 10</span>
+      <button onclick="next()">▶</button>
+    </nav>
+  </div>
+
+  <!-- ===== SLIDE 9: SUMMARY ===== -->
+  <div class="slide s9-summary" id="slide-9">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+    <h2>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      工作總結與行動方案
+    </h2>
+    <div class="summary-layout">
+      <div class="summary-main">
+        <div class="summary-stat-row">
+          <div class="summary-stat animate-in">
+            <div class="ss-num">847</div>
+            <div class="ss-label">已完成案件</div>
+          </div>
+          <div class="summary-stat animate-in">
+            <div class="ss-num">98.2%</div>
+            <div class="ss-label">市民滿意度</div>
+          </div>
+          <div class="summary-stat animate-in">
+            <div class="ss-num">12</div>
+            <div class="ss-label">項重大建設</div>
+          </div>
+        </div>
+        <div class="summary-points">
+          <div class="summary-point animate-in">
+            <svg class="sp-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            持續優化智慧城市基礎建設
+          </div>
+          <div class="summary-point animate-in">
+            <svg class="sp-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            加速推動綠能與永續發展政策
+          </div>
+          <div class="summary-point animate-in">
+            <svg class="sp-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            深耕偏鄉教育與社福關懷網絡
+          </div>
+          <div class="summary-point animate-in">
+            <svg class="sp-check" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            打造國際級交通與產業聚落
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav>
+      <button onclick="prev()">◀</button>
+      <span id="nav-info">9 / 10</span>
+      <button onclick="next()">▶</button>
+    </nav>
+  </div>
+
+  <!-- ===== SLIDE 10: END ===== -->
+  <div class="slide s10-end" id="slide-10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+    <svg class="end-icon" viewBox="0 0 64 64" fill="none" stroke="var(--accent)" stroke-width="2">
+      <path d="M32 6L6 20v24l26 14 26-14V20L32 6z"/>
+      <path d="M32 6v52M6 20l26 14 26-14"/>
+    </svg>
+    <h2 class="end-title">感謝聆聽</h2>
+    <p class="end-subtitle">新北市政府將持續精進，為市民打造更美好的生活</p>
+    <div class="end-contact">
+      <span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        service@ntpc.gov.tw
+      </span>
+      <span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        1999 市民熱線
+      </span>
+    </div>
+    <nav>
+      <button onclick="prev()">◀</button>
+      <span id="nav-info">10 / 10</span>
+      <button onclick="next()">▶</button>
+    </nav>
+  </div>
+
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function show(n) {
+    slides[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    updateNav();
+    triggerAnimations();
+  }
+
+  function next() { show(current + 1); }
+  function prev() { show(current - 1); }
+
+  function updateNav() {
+    document.querySelectorAll('#nav-info').forEach(el => {
+      el.textContent = (current + 1) + ' / ' + total;
+    });
+  }
+
+  function triggerAnimations() {
+    const active = slides[current];
+    active.querySelectorAll('.animate-in').forEach((el, i) => {
+      el.classList.remove('visible');
+      setTimeout(() => el.classList.add('visible'), i * 80);
+    });
+  }
+
+  // Init
+  updateNav();
+  setTimeout(triggerAnimations, 200);
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') next();
+    if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+</body>
+</html>
