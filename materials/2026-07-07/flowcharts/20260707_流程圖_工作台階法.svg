@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E293B"/>
+      <stop offset="100%" style="stop-color:#0F172A"/>
+    </linearGradient>
+    <linearGradient id="step1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6B5CE7"/>
+      <stop offset="100%" style="stop-color:#4C1D95"/>
+    </linearGradient>
+    <linearGradient id="step2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A78BFA"/>
+      <stop offset="100%" style="stop-color:#6B5CE7"/>
+    </linearGradient>
+    <linearGradient id="step3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4ECDC4"/>
+      <stop offset="100%" style="stop-color:#0EA5E9"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  
+  <!-- 裝飾六邊形 -->
+  <g opacity="0.1">
+    <polygon points="200,150 230,175 230,225 200,250 170,225 170,175" fill="#6B5CE7"/>
+    <polygon points="1700,800 1730,825 1730,875 1700,900 1670,875 1670,825" fill="#4ECDC4"/>
+    <polygon points="300,900 330,925 330,975 300,1000 270,975 270,925" fill="#FF8C00"/>
+  </g>
+  
+  <!-- 標題 -->
+  <text x="960" y="80" text-anchor="middle" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="36" font-weight="bold">工作報告流程</text>
+  <text x="960" y="115" text-anchor="middle" fill="#94A3B8" font-family="Arial, sans-serif" font-size="18">WORK REPORT FLOW</text>
+  
+  <!-- 階梯流程圖 - 三步驟 -->
+  <g transform="translate(200, 250)">
+    <!-- 步驟1 -->
+    <g transform="translate(0, 0)">
+      <polygon points="30,0 280,0 250,120 0,120" fill="url(#step1)" filter="url(#glow)"/>
+      <polygon points="30,0 280,0 250,120 0,120" fill="none" stroke="#A78BFA" stroke-width="2"/>
+      <text x="140" y="50" text-anchor="middle" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="20" font-weight="bold">STEP 1</text>
+      <text x="140" y="85" text-anchor="middle" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="16">資料收集</text>
+      <!-- 裝飾菱形 -->
+      <polygon points="270,60 285,75 270,90 255,75" fill="#FF8C00" opacity="0.8"/>
+    </g>
+    
+    <!-- 連接箭頭1 -->
+    <g transform="translate(260, 120)">
+      <polygon points="0,0 30,-20 30,-10 60,-10 60,10 30,10 30,20" fill="#4ECDC4"/>
+    </g>
+    
+    <!-- 步驟2 -->
+    <g transform="translate(350, 150)">
+      <polygon points="30,0 280,0 250,120 0,120" fill="url(#step2)" filter="url(#glow)"/>
+      <polygon points="30,0 280,0 250,120 0,120" fill="none" stroke="#C4B5FD" stroke-width="2"/>
+      <text x="140" y="50" text-anchor="middle" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="20" font-weight="bold">STEP 2</text>
+      <text x="140" y="85" text-anchor="middle" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="16">分析整理</text>
+      <polygon points="270,60 285,75 270,90 255,75" fill="#FF8C00" opacity="0.8"/>
+    </g>
+    
+    <!-- 連接箭頭2 -->
+    <g transform="translate(610, 270)">
+      <polygon points="0,0 30,-20 30,-10 60,-10 60,10 30,10 30,20" fill="#4ECDC4"/>
+    </g>
+    
+    <!-- 步驟3 -->
+    <g transform="translate(700, 350)">
+      <polygon points="30,0 280,0 250,120 0,120" fill="url(#step3)" filter="url(#glow)"/>
+      <polygon points="30,0 280,0 250,120 0,120" fill="none" stroke="#67E8F9" stroke-width="2"/>
+      <text x="140" y="50" text-anchor="middle" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="20" font-weight="bold">STEP 3</text>
+      <text x="140" y="85" text-anchor="middle" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="16">報告產出</text>
+      <polygon points="270,60 285,75 270,90 255,75" fill="#FF8C00" opacity="0.8"/>
+    </g>
+  </g>
+  
+  <!-- 右側裝飾元素 -->
+  <g transform="translate(1300, 300)">
+    <!-- 節點裝飾 -->
+    <circle cx="0" cy="0" r="15" fill="#6B5CE7" opacity="0.3"/>
+    <circle cx="150" cy="100" r="10" fill="#4ECDC4" opacity="0.3"/>
+    <circle cx="80" cy="200" r="12" fill="#FF8C00" opacity="0.3"/>
+    <!-- 連接線裝飾 -->
+    <line x1="0" y1="0" x2="150" y2="100" stroke="#6B5CE7" stroke-width="1" opacity="0.2"/>
+    <line x1="150" y1="100" x2="80" y2="200" stroke="#4ECDC4" stroke-width="1" opacity="0.2"/>
+  </g>
+  
+  <!-- 底部說明文字 -->
+  <g transform="translate(0, 600)">
+    <text x="960" y="80" text-anchor="middle" fill="#94A3B8" font-family="Arial, sans-serif" font-size="14">結合 2026 趨勢：親和設計、無障礙優先</text>
+    <text x="960" y="105" text-anchor="middle" fill="#94A3B8" font-family="Arial, sans-serif" font-size="14">應用技巧：階梯排列（#124-3）、節點網絡（#124-9）</text>
+  </g>
+  
+  <!-- 底部裝飾線 -->
+  <line x1="200" y1="900" x2="1720" y2="900" stroke="url(#step1)" stroke-width="2" opacity="0.3"/>
+  <circle cx="960" cy="900" r="8" fill="#FF8C00"/>
+</svg>

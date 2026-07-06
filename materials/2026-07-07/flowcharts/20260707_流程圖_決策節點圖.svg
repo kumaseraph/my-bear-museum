@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E293B"/>
+      <stop offset="100%" style="stop-color:#0F172A"/>
+    </linearGradient>
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#bg2)"/>
+  
+  <!-- 標題 -->
+  <text x="960" y="80" text-anchor="middle" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="36" font-weight="bold">決策流程圖</text>
+  <text x="960" y="115" text-anchor="middle" fill="#94A3B8" font-family="Arial, sans-serif" font-size="18">DECISION FLOWCHART</text>
+  
+  <!-- 中央起點 -->
+  <g transform="translate(960, 250)">
+    <circle cx="0" cy="0" r="40" fill="#6B5CE7" filter="url(#glow2)"/>
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#A78BFA" stroke-width="2"/>
+    <text x="0" y="8" text-anchor="middle" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="16" font-weight="bold">開始</text>
+  </g>
+  
+  <!-- 連接線 - 起點到決策點 -->
+  <line x1="960" y1="290" x2="960" y2="380" stroke="#4ECDC4" stroke-width="3"/>
+  <polygon points="955,380 960,400 965,380" fill="#4ECDC4"/>
+  
+  <!-- 第一層決策點 -->
+  <g transform="translate(960, 420)">
+    <!-- 菱形決策框 -->
+    <polygon points="0,-60 80,0 0,60 -80,0" fill="#4ECDC4" filter="url(#glow2)"/>
+    <polygon points="0,-60 80,0 0,60 -80,0" fill="none" stroke="#67E8F9" stroke-width="2"/>
+    <text x="0" y="-5" text-anchor="middle" fill="#0F172A" font-family="Arial, sans-serif" font-size="14" font-weight="bold">需要</text>
+    <text x="0" y="15" text-anchor="middle" fill="#0F172A" font-family="Arial, sans-serif" font-size="14" font-weight="bold">分析?</text>
+  </g>
+  
+  <!-- 兩條分支線 -->
+  <!-- 左分支 - 是 -->
+  <path d="M880,420 Q700,420 600,500" stroke="#6B5CE7" stroke-width="3" fill="none"/>
+  <polygon points="600,500 585,490 590,505" fill="#6B5CE7"/>
+  <text x="720" y="400" text-anchor="middle" fill="#A78BFA" font-family="Arial, sans-serif" font-size="14">是</text>
+  
+  <!-- 右分支 - 否 -->
+  <path d="M1040,420 Q1200,420 1300,500" stroke="#FF8C00" stroke-width="3" fill="none"/>
+  <polygon points="1300,500 1315,490 1310,505" fill="#FF8C00"/>
+  <text x="1180" y="400" text-anchor="middle" fill="#FBBF24" font-family="Arial, sans-serif" font-size="14">否</text>
+  
+  <!-- 左分支節點 - 數據分析 -->
+  <g transform="translate(600, 560)">
+    <rect x="-80" y="-40" width="160" height="80" rx="10" fill="#6B5CE7" filter="url(#glow2)"/>
+    <rect x="-80" y="-40" width="160" height="80" rx="10" fill="none" stroke="#A78BFA" stroke-width="2"/>
+    <text x="0" y="-5" text-anchor="middle" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="14" font-weight="bold">數據分析</text>
+    <text x="0" y="15" text-anchor="middle" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="12">收集與整理</text>
+  </g>
+  
+  <!-- 右分支節點 - 快速報告 -->
+  <g transform="translate(1300, 560)">
+    <rect x="-80" y="-40" width="160" height="80" rx="10" fill="#FF8C00" filter="url(#glow2)"/>
+    <rect x="-80" y="-40" width="160" height="80" rx="10" fill="none" stroke="#FBBF24" stroke-width="2"/>
+    <text x="0" y="-5" text-anchor="middle" fill="#0F172A" font-family="Arial, sans-serif" font-size="14" font-weight="bold">快速摘要</text>
+    <text x="0" y="15" text-anchor="middle" fill="#1E293B" font-family="Arial, sans-serif" font-size="12">直點重點</text>
+  </g>
+  
+  <!-- 兩條匯聚線 -->
+  <path d="M600,640 Q600,750 750,800" stroke="#6B5CE7" stroke-width="3" fill="none"/>
+  <path d="M1300,640 Q1300,750 1100,800" stroke="#FF8C00" stroke-width="3" fill="none"/>
+  
+  <!-- 匯聚節點 -->
+  <g transform="translate(950, 850)">
+    <circle cx="0" cy="0" r="50" fill="#4C1D95" filter="url(#glow2)"/>
+    <circle cx="0" cy="0" r="40" fill="none" stroke="#6B5CE7" stroke-width="2"/>
+    <text x="0" y="-5" text-anchor="middle" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="14" font-weight="bold">產出</text>
+    <text x="0" y="15" text-anchor="middle" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="12">報告</text>
+  </g>
+  
+  <!-- 底部裝飾 -->
+  <g opacity="0.2">
+    <polygon points="200,950 230,975 230,1025 200,1050 170,1025 170,975" fill="#6B5CE7"/>
+    <polygon points="1700,950 1730,975 1730,1025 1700,1050 1670,1025 1670,975" fill="#4ECDC4"/>
+  </g>
+  
+  <!-- 技巧說明 -->
+  <text x="960" y="1000" text-anchor="middle" fill="#64748B" font-family="Arial, sans-serif" font-size="12">節點網絡（#124-9）| 階梯排列（#124-3）| 童趣元素</text>
+</svg>

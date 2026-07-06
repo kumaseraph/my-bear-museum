@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <title>側邊邊框_透視動線</title>
+  <desc>工作報告素材 - 透視線條引導邊框</desc>
+  <defs>
+    <linearGradient id="skewGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+    <linearGradient id="skewGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+    <pattern id="diagStripe" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="20" stroke="#A78BFA" stroke-width="3"/>
+    </pattern>
+  </defs>
+  
+  <!-- 左側邊框：平行四邊形階梯 + 透視線 -->
+  <g transform="translate(0,100)">
+    <!-- 平行四邊形1 -->
+    <polygon points="30,0 150,0 130,200 10,200" fill="url(#skewGrad1)" fill-opacity="0.8"/>
+    <polygon points="30,0 150,0 130,200 10,200" fill="url(#diagStripe)" opacity="0.4"/>
+    
+    <!-- 透視消失線 -->
+    <line x1="90" y1="0" x2="0" y2="400" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+    <line x1="90" y1="0" x2="90" y2="400" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+    <line x1="90" y1="0" x2="180" y2="400" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+  </g>
+  
+  <!-- 右側邊框 -->
+  <g transform="translate(1740,100)">
+    <!-- 平行四邊形1 -->
+    <polygon points="0,0 150,0 170,200 20,200" fill="url(#skewGrad1)" fill-opacity="0.8"/>
+    <polygon points="0,0 150,0 170,200 20,200" fill="url(#diagStripe)" opacity="0.4"/>
+    
+    <!-- 透視消失線 -->
+    <line x1="85" y1="0" x2="0" y2="400" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+    <line x1="85" y1="0" x2="85" y2="400" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+    <line x1="85" y1="0" x2="170" y2="400" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+  </g>
+  
+  <!-- 頂部邊框：雙重交叉線 -->
+  <g transform="translate(200,0)">
+    <polygon points="0,30 1520,30 1500,0 20,0" fill="url(#skewGrad2)" fill-opacity="0.7"/>
+    <line x1="20" y1="15" x2="1500" y2="15" stroke="#4ECDC4" stroke-width="2"/>
+    <line x1="50" y1="5" x2="50" y2="30" stroke="#4ECDC4" stroke-width="1"/>
+    <line x1="200" y1="5" x2="200" y2="30" stroke="#4ECDC4" stroke-width="1"/>
+    <line x1="350" y1="5" x2="350" y2="30" stroke="#4ECDC4" stroke-width="1"/>
+  </g>
+  
+  <!-- 底部邊框 -->
+  <g transform="translate(200,1020)">
+    <polygon points="0,0 1520,0 1500,30 20,30" fill="url(#skewGrad2)" fill-opacity="0.7"/>
+    <line x1="20" y1="15" x2="1500" y2="15" stroke="#4ECDC4" stroke-width="2"/>
+    <line x1="50" y1="0" x2="50" y2="30" stroke="#4ECDC4" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="30" stroke="#4ECDC4" stroke-width="1"/>
+    <line x1="350" y1="0" x2="350" y2="30" stroke="#4ECDC4" stroke-width="1"/>
+  </g>
+  
+  <!-- 四角裝飾：圓點引導 -->
+  <circle cx="180" cy="80" r="8" fill="#FF8C00"/>
+  <circle cx="1740" cy="80" r="8" fill="#FF8C00"/>
+  <circle cx="180" cy="1000" r="8" fill="#FF8C00"/>
+  <circle cx="1740" cy="1000" r="8" fill="#FF8C00"/>
+</svg>

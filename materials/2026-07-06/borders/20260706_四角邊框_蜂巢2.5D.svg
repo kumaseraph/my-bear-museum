@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <title>四角邊框_蜂巢2.5D</title>
+  <desc>工作報告素材 - 蜂巢2.5D效果邊框</desc>
+  <defs>
+    <!-- 皇室風配色 -->
+    <linearGradient id="borderGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+    <linearGradient id="borderGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 左上角蜂巢叢集 -->
+  <g transform="translate(0,0)">
+    <!-- 大六邊形 2.5D效果：外粗空心+內實心 -->
+    <path d="M80,0 L146.6,40 L146.6,120 L80,160 L13.4,120 L13.4,40 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="6"/>
+    <path d="M80,0 L146.6,40 L146.6,120 L80,160 L13.4,120 L13.4,40 Z" 
+          fill="#6B5CE7" fill-opacity="0.25"/>
+    
+    <!-- 小六邊形襯托 -->
+    <path d="M40,180 L71.65,205 L71.65,255 L40,280 L8.35,255 L8.35,205 Z" 
+          fill="url(#borderGrad1)" fill-opacity="0.7"/>
+    <path d="M160,160 L191.65,185 L191.65,235 L160,260 L128.35,235 L128.35,185 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="2"/>
+    <path d="M160,160 L191.65,185 L191.65,235 L160,260 L128.35,235 L128.35,185 Z" 
+          fill="#4ECDC4" fill-opacity="0.3"/>
+  </g>
+  
+  <!-- 右上角蜂巢叢集 -->
+  <g transform="translate(1700,0)">
+    <path d="M80,0 L146.6,40 L146.6,120 L80,160 L13.4,120 L13.4,40 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="6"/>
+    <path d="M80,0 L146.6,40 L146.6,120 L80,160 L13.4,120 L13.4,40 Z" 
+          fill="#6B5CE7" fill-opacity="0.25"/>
+    
+    <path d="M120,180 L151.65,205 L151.65,255 L120,280 L88.35,255 L88.35,205 Z" 
+          fill="url(#borderGrad2)" fill-opacity="0.7"/>
+    <path d="M0,160 L31.65,185 L31.65,235 L0,260 L-31.65,235 L-31.65,185 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="2"/>
+    <path d="M0,160 L31.65,185 L31.65,235 L0,260 L-31.65,235 L-31.65,185 Z" 
+          fill="#4ECDC4" fill-opacity="0.3"/>
+  </g>
+  
+  <!-- 左下角蜂巢叢集 -->
+  <g transform="translate(0,880)">
+    <path d="M80,0 L146.6,40 L146.6,120 L80,160 L13.4,120 L13.4,40 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="6"/>
+    <path d="M80,0 L146.6,40 L146.6,120 L80,160 L13.4,120 L13.4,40 Z" 
+          fill="#6B5CE7" fill-opacity="0.25"/>
+    
+    <path d="M40,-20 L71.65,5 L71.65,55 L40,80 L8.35,55 L8.35,5 Z" 
+          fill="url(#borderGrad1)" fill-opacity="0.7"/>
+    <path d="M160,0 L191.65,25 L191.65,75 L160,100 L128.35,75 L128.35,25 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="2"/>
+    <path d="M160,0 L191.65,25 L191.65,75 L160,100 L128.35,75 L128.35,25 Z" 
+          fill="#4ECDC4" fill-opacity="0.3"/>
+  </g>
+  
+  <!-- 右下角蜂巢叢集 -->
+  <g transform="translate(1700,880)">
+    <path d="M80,0 L146.6,40 L146.6,120 L80,160 L13.4,120 L13.4,40 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="6"/>
+    <path d="M80,0 L146.6,40 L146.6,120 L80,160 L13.4,120 L13.4,40 Z" 
+          fill="#6B5CE7" fill-opacity="0.25"/>
+    
+    <path d="M120,-20 L151.65,5 L151.65,55 L120,80 L88.35,55 L88.35,5 Z" 
+          fill="url(#borderGrad2)" fill-opacity="0.7"/>
+    <path d="M0,0 L31.65,25 L31.65,75 L0,100 L-31.65,75 L-31.65,25 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="2"/>
+    <path d="M0,0 L31.65,25 L31.65,75 L0,100 L-31.65,75 L-31.65,25 Z" 
+          fill="#4ECDC4" fill-opacity="0.3"/>
+  </g>
+  
+  <!-- 頂部連接線：條紋疊加效果 -->
+  <g transform="translate(200,30)">
+    <polygon points="0,0 1520,0 1500,20 20,20" fill="url(#borderGrad1)" fill-opacity="0.6"/>
+    <line x1="30" y1="10" x2="1490" y2="10" stroke="#A78BFA" stroke-width="1" stroke-dasharray="8,4"/>
+  </g>
+  
+  <!-- 底部連接線 -->
+  <g transform="translate(200,1030)">
+    <polygon points="0,20 1520,20 1500,0 20,0" fill="url(#borderGrad1)" fill-opacity="0.6"/>
+    <line x1="30" y1="10" x2="1490" y2="10" stroke="#A78BFA" stroke-width="1" stroke-dasharray="8,4"/>
+  </g>
+</svg>

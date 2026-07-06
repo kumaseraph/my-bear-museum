@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <title>圖標_工作報告</title>
+  <desc>工作報告主題圖標</desc>
+  <defs>
+    <linearGradient id="iconGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+    <linearGradient id="iconGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 六邊形背景（虛實對比：外粗空心+內實心） -->
+  <path d="M50,5 L89.3,27.5 L89.3,72.5 L50,95 L10.7,72.5 L10.7,27.5 Z" 
+        fill="none" stroke="#6B5CE7" stroke-width="4"/>
+  <path d="M50,5 L89.3,27.5 L89.3,72.5 L50,95 L10.7,72.5 L10.7,27.5 Z" 
+        fill="#6B5CE7" fill-opacity="0.2"/>
+  
+  <!-- 文件圖示 -->
+  <rect x="30" y="25" width="40" height="50" rx="3" fill="url(#iconGrad1)"/>
+  <rect x="30" y="25" width="40" height="50" rx="3" fill="none" stroke="#A78BFA" stroke-width="1.5"/>
+  
+  <!-- 文件折角 -->
+  <path d="M60,25 L70,25 L70,35 Z" fill="#4ECDC4"/>
+  
+  <!-- 文件內容線 -->
+  <line x1="36" y1="42" x2="64" y2="42" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <line x1="36" y1="50" x2="58" y2="50" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <line x1="36" y1="58" x2="52" y2="58" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- 右上小六邊形裝飾 -->
+  <path d="M78,15 L88.3,22.5 L88.3,37.5 L78,45 L67.7,37.5 L67.7,22.5 Z" 
+        fill="url(#iconGrad2)" fill-opacity="0.8"/>
+</svg>
