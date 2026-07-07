@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- 漸層設定 -->
+    <linearGradient id="targetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 靶心背景 - 同心圓 -->
+  <circle cx="60" cy="60" r="50" fill="#FFF8E7" stroke="#D4A574" stroke-width="2"/>
+  <circle cx="60" cy="60" r="38" fill="none" stroke="#D4A574" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="60" cy="60" r="26" fill="none" stroke="#D4A574" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="60" cy="60" r="14" fill="none" stroke="#D4A574" stroke-width="1.5" opacity="0.4"/>
+  
+  <!-- 中心靶心 -->
+  <circle cx="60" cy="60" r="6" fill="#8B6914"/>
+  
+  <!-- 箭矢 - 射向目標 -->
+  <g transform="translate(60, 60) rotate(-45)">
+    <!-- 箭桿 -->
+    <rect x="-5" y="-55" width="10" height="50" rx="2" fill="url(#arrowGrad)"/>
+    <!-- 箭羽 -->
+    <path d="M-5,-55 L-15,-70 L-5,-50 Z" fill="#6B5CE7"/>
+    <path d="M5,-55 L15,-70 L5,-50 Z" fill="#6B5CE7"/>
+    <!-- 箭頭 -->
+    <path d="M0,-55 L-10,-75 L0,-65 L10,-75 Z" fill="#4C1D95"/>
+  </g>
+  
+  <!-- 六邊形裝飾 - 蜂巢元素 -->
+  <g transform="translate(95, 20)" opacity="0.5">
+    <path d="M10,1 L19,5.5 L19,14.5 L10,19 L1,14.5 L1,5.5 Z" 
+          fill="none" stroke="#8B6914" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(15, 90)" opacity="0.4">
+    <path d="M8,0.8 L15.2,4.4 L15.2,11.6 L8,15.2 L0.8,11.6 L0.8,4.4 Z" 
+          fill="#D4A574"/>
+  </g>
+  
+  <!-- 達成標記 - 光芒效果 -->
+  <g transform="translate(60, 60)" opacity="0.3">
+    <line x1="0" y1="-52" x2="0" y2="-58" stroke="#FFD700" stroke-width="2"/>
+    <line x1="0" y1="52" x2="0" y2="58" stroke="#FFD700" stroke-width="2"/>
+    <line x1="-52" y1="0" x2="-58" y2="0" stroke="#FFD700" stroke-width="2"/>
+    <line x1="52" y1="0" x2="58" y2="0" stroke="#FFD700" stroke-width="2"/>
+  </g>
+</svg>

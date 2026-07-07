@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <!-- 溫暖棕金色系 -->
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <linearGradient id="paperGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7"/>
+      <stop offset="100%" stop-color="#F5E6D3"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 紙張背景 -->
+  <rect x="20" y="15" width="80" height="95" rx="4" fill="url(#paperGrad)" stroke="#D4A574" stroke-width="2"/>
+  
+  <!-- 頁面摺角效果 -->
+  <path d="M75,15 L100,15 L100,40 L75,15 Z" fill="#E8D5B7"/>
+  <path d="M75,15 L100,40 L75,40 Z" fill="#D4C4A8"/>
+  
+  <!-- 標題線 -->
+  <rect x="30" y="30" width="40" height="6" rx="2" fill="#8B6914" opacity="0.7"/>
+  
+  <!-- 內容線條 - 工作報告風格 -->
+  <g stroke="#D4A574" stroke-width="2" stroke-linecap="round">
+    <line x1="30" y1="50" x2="90" y2="50"/>
+    <line x1="30" y1="62" x2="75" y2="62"/>
+    <line x1="30" y1="74" x2="85" y2="74"/>
+    <line x1="30" y1="86" x2="60" y2="86"/>
+  </g>
+  
+  <!-- 勾選標記 - 完成感 -->
+  <circle cx="95" cy="75" r="12" fill="#6B5CE7" opacity="0.9"/>
+  <path d="M89,75 L93,79 L101,71" stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- 六邊形裝飾 - 蜂巢元素 -->
+  <g transform="translate(25, 95)" opacity="0.4">
+    <path d="M8,1 L15.5,4.5 L15.5,12.5 L8,16 L0.5,12.5 L0.5,4.5 Z" 
+          fill="none" stroke="#8B6914" stroke-width="1"/>
+  </g>
+</svg>
