@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-07-07 AI 科技學術簡報</title>
+<style>
+/* ===== CSS RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 20px; }
+
+body {
+  font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ===== COLOR SYSTEM C6 ===== */
+:root {
+  --bg: #fff8f0;
+  --bg-secondary: #fff0e0;
+  --text: #3e2723;
+  --text-secondary: #8d6e63;
+  --accent: #ff6f00;
+  --accent-alt: #ffa726;
+  --accent-glow: rgba(255, 111, 0, 0.15);
+  --border-color: rgba(255, 111, 0, 0.2);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --nav-bg: rgba(255, 248, 240, 0.95);
+  --font-display: clamp(2.5rem, 5vw, 4.5rem);
+  --font-h1: clamp(1.75rem, 3vw, 2.5rem);
+  --font-h2: clamp(1.25rem, 2vw, 1.75rem);
+  --font-body: clamp(1rem, 1.5vw, 1.25rem);
+}
+
+/* ===== V12 SUMI-E DECORATIONS ===== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(255,111,0,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 20%, rgba(255,111,0,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  animation: ink-wash-drift 20s ease-in-out infinite alternate;
+  z-index: 0;
+}
+@keyframes ink-wash-drift {
+  0%   { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+/* ===== PRESENTATION ===== */
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  position: relative;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* ===== SLIDE SYSTEM ===== */
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  padding: 40px 60px;
+  position: relative;
+  overflow: hidden;
+  flex-direction: column;
+}
+.slide.active {
+  display: flex;
+}
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  background: var(--nav-bg);
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+}
+.nav button {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.nav button:hover { background: var(--accent-alt); transform: scale(1.1); }
+.nav button:disabled { background: #ccc; cursor: not-allowed; }
+.nav span { color: var(--text); font-size: 1.1rem; font-weight: 500; }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes orb-float {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(15px,-10px) scale(1.05); }
+}
+@keyframes glow-pulse {
+  0%,100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.08); }
+}
+.animate-in {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeUp 0.6s ease-out forwards;
+}
+.animate-in:nth-child(1) { animation-delay: 0ms; }
+.animate-in:nth-child(2) { animation-delay: 120ms; }
+.animate-in:nth-child(3) { animation-delay: 240ms; }
+.animate-in:nth-child(4) { animation-delay: 360ms; }
+.animate-in:nth-child(5) { animation-delay: 480ms; }
+.animate-in:nth-child(6) { animation-delay: 600ms; }
+
+/* ===== DECORATIVE ORBS ===== */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+  animation: orb-float 10s ease-in-out infinite;
+}
+.orb-1 {
+  width: 200px; height: 200px;
+  background: rgba(255,111,0,0.12);
+  top: -50px; right: -50px;
+  animation-delay: 0s;
+}
+.orb-2 {
+  width: 150px; height: 150px;
+  background: rgba(255,167,38,0.1);
+  bottom: 20%; left: 10%;
+  animation-delay: -4s;
+}
+.orb-3 {
+  width: 100px; height: 100px;
+  background: rgba(255,111,0,0.08);
+  bottom: 30%; right: 20%;
+  animation-delay: -2s;
+  animation-name: glow-pulse;
+}
+
+/* ===== CARD STYLES ===== */
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  position: relative;
+  backdrop-filter: blur(8px);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--accent);
+  transition: height 0.4s ease;
+}
+.card:hover::before { height: 100%; }
+
+/* ===== PAGE-SPECIFIC STYLES ===== */
+
+/* P1 Cover */
+.s1-cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(160deg, #fff8f0 0%, #fff0e0 100%);
+  position: relative;
+}
+.s1-cover .cover-glow {
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,111,0,0.15) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+.s1-cover h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.06em;
+  position: relative;
+  z-index: 1;
+  line-height: 1.2;
+}
+.s1-cover .subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+  letter-spacing: 0.12em;
+  position: relative;
+  z-index: 1;
+}
+.s1-cover .date-badge {
+  margin-top: 2rem;
+  padding: 8px 24px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+.s1-cover .tech-icon {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.5rem;
+}
+
+/* P2 TOC */
+.s2-toc {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  background: var(--bg);
+}
+.s2-toc h2 {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  letter-spacing: 0.1em;
+}
+.timeline-v {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 2rem;
+  border-left: 2px solid var(--border-color);
+  margin-left: 1rem;
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 12px 0;
+  position: relative;
+}
+.toc-item::before {
+  content: '';
+  position: absolute;
+  left: -2.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+.toc-num {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  width: 2rem;
+}
+.toc-text {
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+/* P3 LLM */
+.s3-llm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 40px 60px;
+  background: var(--bg);
+  align-items: center;
+}
+.s3-left h2 {
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+.s3-left p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.bullseye-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 280px;
+  height: 280px;
+}
+.br-center {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  z-index: 3;
+}
+.br-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 6px solid;
+  opacity: 0.7;
+}
+.br-ring-1 { width: 280px; height: 280px; border-color: var(--accent); }
+.br-ring-2 { width: 210px; height: 210px; border-color: var(--accent-alt); opacity: 0.5; }
+.br-ring-3 { width: 150px; height: 150px; border-color: var(--accent); opacity: 0.3; }
+.bullseye-label {
+  position: absolute;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.bl-top { top: -30px; left: 50%; transform: translateX(-50%); }
+.bl-right { right: -40px; top: 50%; transform: translateY(-50%); }
+.bl-bottom { bottom: -30px; left: 50%; transform: translateX(-50%); }
+.bl-left { left: -40px; top: 50%; transform: translateY(-50%); }
+
+/* P4 Agent */
+.s4-agent {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  background: var(--bg);
+}
+.s4-agent h2 {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  letter-spacing: 0.1em;
+}
+.hex-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  justify-items: center;
+}
+.hex-cell {
+  width: 120px;
+  height: 104px;
+  background: var(--accent);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  padding: 0.8rem;
+  position: relative;
+}
+.hex-cell span {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.hex-cell small {
+  font-size: 1.2rem;
+  opacity: 0.85;
+  margin-top: 4px;
+}
+.hex-center-cell {
+  width: 140px;
+  height: 121px;
+  background: var(--accent-alt);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+.hex-center-cell span {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.hex-row-2 { margin-left: 60px; }
+.hex-row-3 { margin-left: 0; }
+
+/* P5 Health */
+.s5-health {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  background: var(--bg);
+}
+.s5-health h2 {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  letter-spacing: 0.1em;
+}
+.card-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.health-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(8px);
+}
+.health-card .card-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.health-card h3 {
+  font-size: 1.2rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.health-card p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* P6 Finance */
+.s6-finance {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 40px 60px;
+  background: var(--bg);
+  align-items: center;
+}
+.s6-left h2 {
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+.s6-left p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.donut-charts {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+.donut-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.donut-svg {
+  width: 120px;
+  height: 120px;
+  transform: rotate(-90deg);
+}
+.donut-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.donut-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* P7 Education */
+.s7-edu {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  background: var(--bg);
+}
+.s7-edu h2 {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  letter-spacing: 0.1em;
+}
+.flow-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+.flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.2rem 1.5rem;
+  min-width: 160px;
+}
+.flow-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.8rem;
+}
+.flow-step h3 {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+.flow-step p {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+}
+.flow-arrow {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin: 0 -8px;
+}
+
+/* P8 Society */
+.s8-society {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 40px 60px;
+  background: var(--bg);
+  align-items: start;
+}
+.s8-society h2 {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  grid-column: 1 / -1;
+}
+.society-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.society-item {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.2rem;
+  border-left: 4px solid var(--accent);
+}
+.society-item h3 {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.society-item p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.society-col-alt .society-item {
+  border-left-color: var(--accent-alt);
+}
+
+/* P9 Governance */
+.s9-gov {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  background: var(--bg);
+}
+.s9-gov h2 {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  letter-spacing: 0.1em;
+}
+.hex-policy-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.policy-hex {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.2rem;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+.policy-hex h3 {
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.policy-hex p {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* P10 Future */
+.s10-future {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(160deg, #fff8f0 0%, #fff0e0 100%);
+  position: relative;
+}
+.s10-future h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+}
+.s10-future .future-tagline {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.future-icons {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.fi-circle {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.future-glow {
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,111,0,0.12) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: glow-pulse 4s ease-in-out infinite;
+  z-index: 0;
+}
+.s10-future > * { position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+<div class="presentation">
+
+<!-- ===== P1: COVER ===== -->
+<div class="slide s1-cover active" id="slide-1">
+  <div class="cover-glow"></div>
+  <div class="tech-icon">
+    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="36" stroke="#ff6f00" stroke-width="3" opacity="0.6"/>
+      <circle cx="40" cy="40" r="24" stroke="#ff6f00" stroke-width="3" opacity="0.4"/>
+      <circle cx="40" cy="40" r="12" fill="#ff6f00" opacity="0.8"/>
+      <path d="M40 8 L40 16 M40 64 L40 72 M8 40 L16 40 M64 40 L72 40" stroke="#ff6f00" stroke-width="2" opacity="0.5"/>
+    </svg>
+  </div>
+  <h1 class="animate-in">AI 科技學術<br/>年度趨勢報告</h1>
+  <p class="subtitle animate-in">2026 年度重大突破與未來展望</p>
+  <div class="date-badge animate-in">2026.07.07</div>
+</div>
+
+<!-- ===== P2: TOC ===== -->
+<div class="slide s2-toc" id="slide-2">
+  <h2 class="animate-in">目錄</h2>
+  <div class="timeline-v">
+    <div class="toc-item animate-in"><span class="toc-num">01</span><span class="toc-text">LLM 模型的突破性進展</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">02</span><span class="toc-text">AI 代理系統的興起</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">03</span><span class="toc-text">醫療健康領域應用</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">04</span><span class="toc-text">金融科技創新應用</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">05</span><span class="toc-text">教育領域的變革</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">06</span><span class="toc-text">社會影響與治理挑戰</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">07</span><span class="toc-text">未來展望與結論</span></div>
+  </div>
+</div>
+
+<!-- ===== P3: LLM ===== -->
+<div class="slide s3-llm" id="slide-3">
+  <div class="s3-left">
+    <h2 class="animate-in">LLM 模型的<br/>突破性進展</h2>
+    <p class="animate-in">2026 年大型語言模型迎來重大升級，GPT-5 與 Gemini Ultra 2 在推理能力上實現階梯式飛躍。多模態理解、複雜任務規劃、創意寫作等能力均超越人類專家平均水平。</p>
+    <div style="margin-top:1.5rem" class="animate-in">
+      <span style="font-size:1.1rem;color:var(--accent);font-weight:700;">關鍵數據</span>
+      <p style="margin-top:0.5rem;font-size:1rem;color:var(--text-secondary);">推理速度提升 300%<br/>上下文窗口達 2M tokens<br/>支援 128 種語言</p>
+    </div>
+  </div>
+  <div class="s3-right animate-in">
+    <div class="bullseye-ring">
+      <div class="br-ring br-ring-1"></div>
+      <div class="br-ring br-ring-2"></div>
+      <div class="br-ring br-ring-3"></div>
+      <div class="br-center">AI</div>
+      <span class="bullseye-label bl-top">推理</span>
+      <span class="bullseye-label bl-right">創作</span>
+      <span class="bullseye-label bl-bottom">分析</span>
+      <span class="bullseye-label bl-left">理解</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P4: AGENT ===== -->
+<div class="slide s4-agent" id="slide-4">
+  <h2 class="animate-in">AI 代理系統的興起</h2>
+  <div class="animate-in" style="display:grid;gap:12px;justify-items:center;">
+    <div class="hex-grid">
+      <div></div>
+      <div class="hex-cell"><span>感知</span><small>多模態輸入</small></div>
+      <div></div>
+      <div class="hex-cell"><span>規劃</span><small>任務分解</small></div>
+      <div></div>
+    </div>
+    <div class="hex-grid hex-row-2">
+      <div class="hex-cell"><span>學習</span><small>持續優化</small></div>
+      <div class="hex-center-cell"><span>AI Agent<br/><small style="opacity:0.9">代理核心</small></span></div>
+      <div class="hex-cell"><span>工具</span><small>API調用</small></div>
+    </div>
+    <div class="hex-grid hex-row-3">
+      <div></div>
+      <div class="hex-cell"><span>記憶</span><small>長期上下文</small></div>
+      <div></div>
+      <div class="hex-cell"><span>協作</span><small>多代理协同</small></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P5: HEALTH ===== -->
+<div class="slide s5-health" id="slide-5">
+  <h2 class="animate-in">醫療健康領域應用</h2>
+  <div class="card-grid-3">
+    <div class="health-card animate-in">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff6f00" stroke-width="2">
+          <path d="M12 2L12 22M2 12L22 12"/>
+          <circle cx="12" cy="12" r="8"/>
+        </svg>
+      </div>
+      <h3>智慧診斷</h3>
+      <p>AI 輔助醫學影像分析，早期癌症篩檢準確率達 96.8%，大幅降低誤診率。</p>
+    </div>
+    <div class="health-card animate-in">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff6f00" stroke-width="2">
+          <path d="M4 12h16M4 6h16M4 18h16"/>
+        </svg>
+      </div>
+      <h3>藥物研發</h3>
+      <p>AlphaFold 3 預測蛋白質結構，新藥開發週期從 10 年縮短至 3-5 年。</p>
+    </div>
+    <div class="health-card animate-in">
+      <div class="card-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff6f00" stroke-width="2">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <path d="M8 8h8M8 12h8M8 16h4"/>
+        </svg>
+      </div>
+      <h3>個人化治療</h3>
+      <p>整合基因組數據與病患歷史，AI 制定個人化抗癌療程，提升療效 40%。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P6: FINANCE ===== -->
+<div class="slide s6-finance" id="slide-6">
+  <div class="s6-left">
+    <h2 class="animate-in">金融科技創新應用</h2>
+    <p class="animate-in">AI 在金融領域帶來革命性改變，從風險管理到欺詐檢測，演算法交易到客戶服務，全面提升效率與精準度。</p>
+    <div style="margin-top:1.5rem" class="animate-in">
+      <span style="font-size:1.1rem;color:var(--accent);font-weight:700;">市場規模</span>
+      <p style="margin-top:0.5rem;font-size:1rem;color:var(--text-secondary);">2026 年 AI 金融市場估值<br/>達 4,200 億美元</p>
+    </div>
+  </div>
+  <div class="s6-right animate-in">
+    <div class="donut-charts">
+      <div class="donut-item">
+        <svg class="donut-svg" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="48" fill="none" stroke="#eee" stroke-width="12"/>
+          <circle cx="60" cy="60" r="48" fill="none" stroke="#ff6f00" stroke-width="12"
+            stroke-dasharray="200 302" stroke-dashoffset="0"/>
+        </svg>
+        <div class="donut-value">66%</div>
+        <div class="donut-label">風險管理</div>
+      </div>
+      <div class="donut-item">
+        <svg class="donut-svg" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="48" fill="none" stroke="#eee" stroke-width="12"/>
+          <circle cx="60" cy="60" r="48" fill="none" stroke="#ffa726" stroke-width="12"
+            stroke-dasharray="150 302" stroke-dashoffset="0"/>
+        </svg>
+        <div class="donut-value">50%</div>
+        <div class="donut-label">欺詐檢測</div>
+      </div>
+      <div class="donut-item">
+        <svg class="donut-svg" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="48" fill="none" stroke="#eee" stroke-width="12"/>
+          <circle cx="60" cy="60" r="48" fill="none" stroke="#ff6f00" stroke-width="12"
+            stroke-dasharray="120 302" stroke-dashoffset="0"/>
+        </svg>
+        <div class="donut-value">40%</div>
+        <div class="donut-label">智能客服</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P7: EDUCATION ===== -->
+<div class="slide s7-edu" id="slide-7">
+  <h2 class="animate-in">教育領域的變革</h2>
+  <div class="flow-steps animate-in">
+    <div class="flow-step">
+      <div class="flow-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2">
+          <circle cx="16" cy="16" r="12"/>
+          <path d="M16 10v6l4 2"/>
+        </svg>
+      </div>
+      <h3>智慧評量</h3>
+      <p>即時分析學習數據</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2">
+          <path d="M8 24L16 8l8 16"/>
+          <path d="M10 20h12"/>
+        </svg>
+      </div>
+      <h3>個人化路徑</h3>
+      <p>AI 定制學習計劃</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2">
+          <rect x="8" y="6" width="16" height="20" rx="2"/>
+          <path d="M12 12h8M12 16h8M12 20h5"/>
+        </svg>
+      </div>
+      <h3>內容生成</h3>
+      <p>自動產生練習教材</p>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="2">
+          <circle cx="16" cy="16" r="10"/>
+          <path d="M16 10v4l3 3"/>
+        </svg>
+      </div>
+      <h3>持續追蹤</h3>
+      <p>學習成效即時反饋</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P8: SOCIETY ===== -->
+<div class="slide s8-society" id="slide-8">
+  <h2 class="animate-in">社會影響與人類觀點</h2>
+  <div class="society-col">
+    <div class="society-item animate-in">
+      <h3>就業結構轉型</h3>
+      <p>AI 取代 30% 重複性工作，但同時創造 AI 訓練師、提示工程師等新興職業，整體就業市場影響中性偏正面。</p>
+    </div>
+    <div class="society-item animate-in">
+      <h3>數位落差加劇</h3>
+      <p>已開發國家與開發中國家 AI 採用率差距擴大至 4:1，需要國際合作縮小技術鴻溝。</p>
+    </div>
+  </div>
+  <div class="society-col society-col-alt">
+    <div class="society-item animate-in">
+      <h3>醫療資源普及</h3>
+      <p>偏鄉地區透過 AI 輔助診斷，獲得與城市同等級醫療服務的機會提升 200%。</p>
+    </div>
+    <div class="society-item animate-in">
+      <h3>教育公平提升</h3>
+      <p>AI 補救教學平台讓弱勢學生的平均學習成效落後幅度從 40% 縮減至 15%。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P9: GOVERNANCE ===== -->
+<div class="slide s9-gov" id="slide-9">
+  <h2 class="animate-in">全球 AI 治理框架</h2>
+  <div class="hex-policy-grid">
+    <div class="policy-hex animate-in">
+      <h3>數據隱私</h3>
+      <p>GDPR 升級版 AI-Specific 法規，限制訓練數據蒐集與使用</p>
+    </div>
+    <div class="policy-hex animate-in">
+      <h3>透明度</h3>
+      <p>要求 AI 系統決策可解釋性，保障使用者知情權</p>
+    </div>
+    <div class="policy-hex animate-in">
+      <h3>問責機制</h3>
+      <p>建立 AI 造成損害的責任歸屬與賠償框架</p>
+    </div>
+    <div class="policy-hex animate-in">
+      <h3>安全標準</h3>
+      <p>強制性 AI 安全測試與上市前審查制度</p>
+    </div>
+    <div class="policy-hex animate-in">
+      <h3>國際合作</h3>
+      <p>聯合國 AI治理峰會制定全球性指導原則</p>
+    </div>
+    <div class="policy-hex animate-in">
+      <h3>倫理框架</h3>
+      <p>建立跨文化 AI 倫理標準與價值觀共識</p>
+    </div>
+    <div class="policy-hex animate-in">
+      <h3>人才培育</h3>
+      <p>各國將 AI 素養納入中小學必修課程</p>
+    </div>
+    <div class="policy-hex animate-in">
+      <h3>永續發展</h3>
+      <p>要求 AI 系統符合碳中和與節能減排標準</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== P10: FUTURE ===== -->
+<div class="slide s10-future" id="slide-10">
+  <div class="future-glow"></div>
+  <h2 class="animate-in">攜手共建<br/>AI 赋能的美好未來</h2>
+  <p class="future-tagline animate-in">AI 將持續深刻改變人類社會的每一個面向。面對機遇與挑戰，我們需要以智慧、負責任與包容的態度，引導 AI 技術朝向增进人類福祉的方向發展。</p>
+  <div class="future-icons animate-in">
+    <div class="fi-circle">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#ff6f00" stroke-width="2">
+        <circle cx="18" cy="18" r="14"/>
+        <path d="M18 8v20M8 18h20"/>
+      </svg>
+    </div>
+    <div class="fi-circle">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#ff6f00" stroke-width="2">
+        <polygon points="18,4 32,28 4,28"/>
+      </svg>
+    </div>
+    <div class="fi-circle">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#ff6f00" stroke-width="2">
+        <rect x="6" y="6" width="24" height="24" rx="4"/>
+        <path d="M12 18h12M18 12v12"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+</div><!-- .presentation -->
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav">
+  <button id="prevBtn" onclick="prev()" disabled>◀</button>
+  <span id="pageInfo">1 / 10</span>
+  <button id="nextBtn" onclick="next()">▶</button>
+</nav>
+
+<script>
+let current = 1;
+const total = 10;
+
+function showSlide(n) {
+  const slides = document.querySelectorAll('.slide');
+  slides.forEach(s => s.classList.remove('active'));
+  document.getElementById('slide-' + n).classList.add('active');
+  document.getElementById('pageInfo').textContent = n + ' / ' + total;
+  document.getElementById('prevBtn').disabled = (n === 1);
+  document.getElementById('nextBtn').disabled = (n === total);
+  current = n;
+}
+function next() { if (current < total) showSlide(current + 1); }
+function prev() { if (current > 1) showSlide(current - 1); }
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+</script>
+</body>
+</html>
