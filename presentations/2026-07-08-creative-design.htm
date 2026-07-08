@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-07-08 創意設計簡報</title>
+<style>
+/* ===== CSS RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 20px; }
+
+body {
+  font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ===== COLOR SYSTEM C4 暮光紫羅蘭 ===== */
+:root {
+  --bg: #1a0a2e;
+  --bg-secondary: #16082a;
+  --bg-card: rgba(138, 43, 226, 0.15);
+  --text: #f0e6ff;
+  --text-secondary: #c9b8ff;
+  --accent: #9b59b6;
+  --accent-alt: #8e44ad;
+  --accent-glow: rgba(155, 89, 182, 0.3);
+  --accent-light: #bb8fce;
+  --border-color: rgba(155, 89, 182, 0.3);
+  --card-bg: rgba(30, 10, 60, 0.7);
+  --nav-bg: rgba(26, 10, 46, 0.95);
+  --font-display: clamp(2.5rem, 5vw, 4.5rem);
+  --font-h1: clamp(1.75rem, 3vw, 2.5rem);
+  --font-h2: clamp(1.25rem, 2vw, 1.75rem);
+  --font-body: clamp(1rem, 1.5vw, 1.25rem);
+}
+
+/* ===== PRESENTATION CONTAINER ===== */
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* ===== SLIDE BASE ===== */
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 48px 64px;
+  overflow: hidden;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* ===== ANIMATE IN ===== */
+.animate-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--nav-bg);
+  padding: 10px 20px;
+  border-radius: 40px;
+  border: 1px solid var(--border-color);
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+.nav button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.nav button:hover { background: var(--accent-alt); transform: scale(1.1); }
+.nav button:disabled { background: #555; cursor: not-allowed; transform: none; }
+.nav span { color: var(--text); font-size: 1rem; font-weight: 500; }
+
+/* ===== PAGE 1: COVER ===== */
+.s1-cover {
+  background: radial-gradient(ellipse 80% 80% at 30% 40%, rgba(155, 89, 182, 0.4) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 60% at 80% 70%, rgba(142, 68, 173, 0.3) 0%, transparent 50%),
+              var(--bg);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 24px;
+}
+.cover-glow {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(155, 89, 182, 0.4) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: glow-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+}
+.cover-icon {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.s1-cover h1 {
+  font-size: var(--font-display);
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  z-index: 1;
+}
+.s1-cover .subtitle {
+  font-size: var(--font-h2);
+  color: var(--accent-light);
+  font-weight: 400;
+  z-index: 1;
+}
+.date-badge {
+  display: inline-block;
+  padding: 8px 24px;
+  background: var(--accent-glow);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  font-size: 1rem;
+  color: var(--accent-light);
+  letter-spacing: 0.1em;
+  z-index: 1;
+}
+
+/* ===== PAGE 2: TOC ===== */
+.s2-toc {
+  background: var(--bg);
+  flex-direction: column;
+  gap: 32px;
+}
+.s2-toc h2 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--accent-light);
+  text-align: center;
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+.toc-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+.toc-item:hover {
+  border-color: var(--accent);
+  background: rgba(155, 89, 182, 0.25);
+}
+.toc-num {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  min-width: 40px;
+}
+.toc-text {
+  font-size: 1.05rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ===== PAGE 3: DESIGN PRINCIPLES - HEXAGON ===== */
+.s3-principles {
+  background: radial-gradient(ellipse 70% 70% at 20% 80%, rgba(155, 89, 182, 0.25) 0%, transparent 60%),
+              var(--bg);
+  flex-direction: row;
+  gap: 48px;
+  align-items: center;
+}
+.s3-left { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+.s3-left h2 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--text);
+}
+.s3-left p {
+  font-size: var(--font-body);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.s3-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hex-cluster {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 8px;
+  align-items: center;
+}
+.hex-cell {
+  width: 100px;
+  height: 115px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  line-height: 1.3;
+}
+.hex-cell small {
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+.hex-center-cell {
+  width: 100px;
+  height: 115px;
+  background: linear-gradient(135deg, #e74c8c, #9b59b6);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+}
+.hex-row-2 { margin-top: -28px; }
+.hex-row-3 { margin-top: -28px; }
+
+/* ===== PAGE 4: COLOR THEORY - CIRCLES ===== */
+.s4-colors {
+  background: radial-gradient(ellipse 60% 80% at 80% 20%, rgba(231, 76, 140, 0.2) 0%, transparent 60%),
+              var(--bg);
+  flex-direction: column;
+  gap: 24px;
+}
+.s4-colors h2 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+.color-theory-layout {
+  display: flex;
+  flex: 1;
+  gap: 40px;
+  align-items: center;
+}
+.color-wheel-container {
+  flex: 0 0 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.color-wheel {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #e74c8c 0deg 60deg,
+    #9b59b6 60deg 120deg,
+    #8e44ad 120deg 180deg,
+    #6c3483 180deg 240deg,
+    #5b2c6f 240deg 300deg,
+    #4a235a 300deg 360deg
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 60px rgba(155, 89, 182, 0.4);
+}
+.color-wheel-inner {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--accent-light);
+  font-weight: 700;
+}
+.color-palette-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.color-swatch {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+.color-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.color-info { display: flex; flex-direction: column; gap: 2px; }
+.color-name { font-size: 1rem; font-weight: 700; color: var(--text); }
+.color-hex { font-size: 1rem; color: var(--text-secondary); font-family: monospace; }
+
+/* ===== PAGE 5: TYPOGRAPHY - GRID ===== */
+.s5-typography {
+  background: var(--bg);
+  flex-direction: column;
+  gap: 24px;
+}
+.s5-typography h2 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+.type-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  flex: 1;
+}
+.type-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+.type-card .type-label {
+  font-size: 1rem;
+  color: var(--accent-light);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.type-card .type-sample {
+  color: var(--text);
+  line-height: 1.2;
+}
+.type-card .type-sample.display {
+  font-size: 2.2rem;
+  font-weight: 900;
+}
+.type-card .type-sample.h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+.type-card .type-sample.h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.type-card .type-sample.body {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.type-card .type-note {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: auto;
+}
+
+/* ===== PAGE 6: LAYOUT - BENTO ===== */
+.s6-layout {
+  background: radial-gradient(ellipse 50% 60% at 70% 60%, rgba(155, 89, 182, 0.2) 0%, transparent 60%),
+              var(--bg);
+  flex-direction: column;
+  gap: 24px;
+}
+.s6-layout h2 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+  flex: 1;
+}
+.bento-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+}
+.bento-item.large { grid-column: span 2; }
+.bento-item.tall { grid-row: span 2; }
+.bento-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bento-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.bento-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ===== PAGE 7: TOOLS - STEPS ===== */
+.s7-tools {
+  background: var(--bg);
+  flex-direction: column;
+  gap: 24px;
+}
+.s7-tools h2 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+.process-flow {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+}
+.process-step {
+  flex: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  position: relative;
+}
+.process-step::after {
+  content: '→';
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--accent);
+  z-index: 1;
+}
+.process-step:last-child::after { display: none; }
+.step-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.step-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.step-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ===== PAGE 8: CASE STUDY - CARDS ===== */
+.s8-case {
+  background: radial-gradient(ellipse 60% 80% at 20% 30%, rgba(231, 76, 140, 0.15) 0%, transparent 60%),
+              var(--bg);
+  flex-direction: column;
+  gap: 24px;
+}
+.s8-case h2 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+.case-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+.case-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+.case-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+.case-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--accent-glow);
+  border-radius: 12px;
+  font-size: 1rem;
+  color: var(--accent-light);
+  font-weight: 600;
+}
+.case-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+.case-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  flex: 1;
+}
+.case-metrics {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.metric-val {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--accent-light);
+}
+.metric-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ===== PAGE 9: TRENDS - BIG NUMBERS ===== */
+.s9-trends {
+  background: var(--bg);
+  flex-direction: column;
+  gap: 24px;
+}
+.s9-trends h2 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+}
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 4px;
+}
+.stat-num {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--accent-light);
+  line-height: 1;
+}
+.stat-unit {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.stat-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 4px;
+}
+.stat-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ===== PAGE 10: ENDING ===== */
+.s10-end {
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(155, 89, 182, 0.5) 0%, transparent 60%),
+              var(--bg);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 32px;
+}
+.end-icon {
+  width: 100px;
+  height: 100px;
+  animation: float 3s ease-in-out infinite;
+}
+.s10-end h2 {
+  font-size: var(--font-display);
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.s10-end .tagline {
+  font-size: var(--font-h2);
+  color: var(--accent-light);
+  font-weight: 400;
+}
+.end-tags {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.end-tag {
+  padding: 8px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+</style>
+</head>
+<body>
+<div class="presentation">
+
+<!-- P1: COVER -->
+<div class="slide s1-cover active" id="slide-1">
+  <div class="cover-glow"></div>
+  <svg class="cover-icon" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="60,5 110,30 110,90 60,115 10,90 10,30" fill="none" stroke="#bb8fce" stroke-width="3" opacity="0.8"/>
+    <polygon points="60,20 95,37.5 95,82.5 60,100 25,82.5 25,37.5" fill="none" stroke="#9b59b6" stroke-width="2" opacity="0.6"/>
+    <circle cx="60" cy="60" r="18" fill="#9b59b6" opacity="0.9"/>
+    <path d="M60 20 L95 37.5 M60 20 L25 37.5 M95 37.5 L95 82.5 M25 37.5 L25 82.5" stroke="#8e44ad" stroke-width="1.5" opacity="0.5"/>
+  </svg>
+  <h1 class="animate-in">創意設計的<br/>無限可能</h1>
+  <p class="subtitle animate-in">從概念到實踐的完整指南</p>
+  <div class="date-badge animate-in">2026.07.08</div>
+</div>
+
+<!-- P2: TOC -->
+<div class="slide s2-toc" id="slide-2">
+  <h2 class="animate-in">目錄</h2>
+  <div class="toc-grid">
+    <div class="toc-item animate-in"><span class="toc-num">01</span><span class="toc-text">設計原則</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">02</span><span class="toc-text">色彩理論</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">03</span><span class="toc-text">字體排版</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">04</span><span class="toc-text">版面配置</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">05</span><span class="toc-text">設計工具</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">06</span><span class="toc-text">案例解析</span></div>
+    <div class="toc-item animate-in"><span class="toc-num">07</span><span class="toc-text">趨勢數據</span></div>
+  </div>
+</div>
+
+<!-- P3: DESIGN PRINCIPLES -->
+<div class="slide s3-principles" id="slide-3">
+  <div class="s3-left animate-in">
+    <h2>設計的<br/>七大原則</h2>
+    <p>良好的設計源於對核心原則的深刻理解。從視覺層級到留白空間，每個環節都影響著最終的用戶體驗。</p>
+    <p style="margin-top:8px;font-size:1rem;color:var(--text-secondary);">掌握這些原則，讓你的設計從優秀邁向卓越。</p>
+  </div>
+  <div class="s3-right animate-in">
+    <div class="hex-cluster">
+      <div></div>
+      <div class="hex-cell"><span>對比</span><small>明暗/大小</small></div>
+      <div></div>
+      <div class="hex-cell"><span>重複</span><small>視覺一致</small></div>
+      <div class="hex-center-cell"><span>設計<br/><small style="opacity:0.9">原則</small></span></div>
+      <div class="hex-cell"><span>對齊</span><small>結構清晰</small></div>
+      <div></div>
+      <div class="hex-cell"><span>接近</span><small>群組歸類</small></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+
+<!-- P4: COLOR THEORY -->
+<div class="slide s4-colors" id="slide-4">
+  <h2 class="animate-in">色彩心理學</h2>
+  <div class="color-theory-layout">
+    <div class="color-wheel-container animate-in">
+      <div class="color-wheel">
+        <div class="color-wheel-inner">紫色系</div>
+      </div>
+    </div>
+    <div class="color-palette-list">
+      <div class="color-swatch animate-in">
+        <div class="color-dot" style="background:#e74c8c"></div>
+        <div class="color-info"><span class="color-name">熱情粉</span><span class="color-hex">#e74c8c</span></div>
+      </div>
+      <div class="color-swatch animate-in">
+        <div class="color-dot" style="background:#9b59b6"></div>
+        <div class="color-info"><span class="color-name">皇家紫</span><span class="color-hex">#9b59b6</span></div>
+      </div>
+      <div class="color-swatch animate-in">
+        <div class="color-dot" style="background:#8e44ad"></div>
+        <div class="color-info"><span class="color-name">深紫</span><span class="color-hex">#8e44ad</span></div>
+      </div>
+      <div class="color-swatch animate-in">
+        <div class="color-dot" style="background:#6c3483"></div>
+        <div class="color-info"><span class="color-name">暗紫</span><span class="color-hex">#6c3483</span></div>
+      </div>
+      <div class="color-swatch animate-in">
+        <div class="color-dot" style="background:#bb8fce"></div>
+        <div class="color-info"><span class="color-name">淡紫</span><span class="color-hex">#bb8fce</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P5: TYPOGRAPHY -->
+<div class="slide s5-typography" id="slide-5">
+  <h2 class="animate-in">字體排版系統</h2>
+  <div class="type-showcase">
+    <div class="type-card animate-in">
+      <span class="type-label">DISPLAY</span>
+      <span class="type-sample display">創意</span>
+      <span class="type-note">2.2rem / 44px</span>
+    </div>
+    <div class="type-card animate-in">
+      <span class="type-label">HEADING 1</span>
+      <span class="type-sample h1">標題文字</span>
+      <span class="type-note">1.6rem / 32px</span>
+    </div>
+    <div class="type-card animate-in">
+      <span class="type-label">HEADING 2</span>
+      <span class="type-sample h2">章節副標</span>
+      <span class="type-note">1.2rem / 24px</span>
+    </div>
+    <div class="type-card animate-in" style="grid-column: span 3;">
+      <span class="type-label">BODY TEXT</span>
+      <span class="type-sample body">良好的字體排版是設計的基石。掌握字階、字重、行高的和諧比例，讓文字不僅傳遞訊息，更成為視覺藝術的一部分。本簡報採用 Major Third（1.25）比例系統。</span>
+      <span class="type-note">1.05rem / 21px · 行高 1.6</span>
+    </div>
+  </div>
+</div>
+
+<!-- P6: LAYOUT -->
+<div class="slide s6-layout" id="slide-6">
+  <h2 class="animate-in">版面配置類型</h2>
+  <div class="bento-grid">
+    <div class="bento-item large animate-in">
+      <svg class="bento-icon" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="18" height="18" rx="4" stroke="#bb8fce" stroke-width="2.5"/><rect x="26" y="4" width="18" height="18" rx="4" stroke="#9b59b6" stroke-width="2.5"/><rect x="4" y="26" width="18" height="18" rx="4" stroke="#9b59b6" stroke-width="2.5"/><rect x="26" y="26" width="18" height="18" rx="4" stroke="#bb8fce" stroke-width="2.5"/></svg>
+      <span class="bento-label">網格系統</span>
+      <span class="bento-desc">秩序與效率的平衡</span>
+    </div>
+    <div class="bento-item animate-in">
+      <svg class="bento-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" stroke="#bb8fce" stroke-width="2.5"/><circle cx="24" cy="24" r="8" fill="#9b59b6" opacity="0.6"/></svg>
+      <span class="bento-label">輻射型</span>
+      <span class="bento-desc">聚焦視線</span>
+    </div>
+    <div class="bento-item animate-in">
+      <svg class="bento-icon" viewBox="0 0 48 48" fill="none"><path d="M4 12 L24 4 L44 12 L44 36 L24 44 L4 36Z" stroke="#9b59b6" stroke-width="2.5" fill="none"/></svg>
+      <span class="bento-label">六邊形</span>
+      <span class="bento-desc">幾何張力</span>
+    </div>
+    <div class="bento-item tall animate-in">
+      <svg class="bento-icon" viewBox="0 0 48 48" fill="none"><rect x="8" y="4" width="32" height="8" rx="4" fill="#9b59b6" opacity="0.7"/><rect x="8" y="16" width="32" height="8" rx="4" fill="#9b59b6" opacity="0.5"/><rect x="8" y="28" width="32" height="8" rx="4" fill="#9b59b6" opacity="0.3"/></svg>
+      <span class="bento-label">階梯式</span>
+      <span class="bento-desc">進程與層次</span>
+    </div>
+    <div class="bento-item animate-in">
+      <svg class="bento-icon" viewBox="0 0 48 48" fill="none"><line x1="8" y1="24" x2="40" y2="24" stroke="#bb8fce" stroke-width="2.5" stroke-linecap="round"/><circle cx="8" cy="24" r="4" fill="#9b59b6"/><circle cx="24" cy="24" r="4" fill="#9b59b6"/><circle cx="40" cy="24" r="4" fill="#9b59b6"/></svg>
+      <span class="bento-label">水平佈局</span>
+      <span class="bento-desc">清晰的路徑</span>
+    </div>
+    <div class="bento-item animate-in">
+      <svg class="bento-icon" viewBox="0 0 48 48" fill="none"><path d="M12 8 L36 8 L44 24 L36 40 L12 40 L4 24Z" stroke="#bb8fce" stroke-width="2.5" fill="none"/></svg>
+      <span class="bento-label">對稱式</span>
+      <span class="bento-desc">穩重平衡</span>
+    </div>
+  </div>
+</div>
+
+<!-- P7: TOOLS -->
+<div class="slide s7-tools" id="slide-7">
+  <h2 class="animate-in">創意設計工具鏈</h2>
+  <div class="process-flow">
+    <div class="process-step animate-in">
+      <div class="step-num">1</div>
+      <span class="step-title">靈感收集</span>
+      <span class="step-desc">Pinterest、Moodboard、靈感牆</span>
+    </div>
+    <div class="process-step animate-in">
+      <div class="step-num">2</div>
+      <span class="step-title">概念草圖</span>
+      <span class="step-desc">Figma、Sketch、Pencil & Paper</span>
+    </div>
+    <div class="process-step animate-in">
+      <div class="step-num">3</div>
+      <span class="step-title">視覺探索</span>
+      <span class="step-desc">配色、字體、圖形系統測試</span>
+    </div>
+    <div class="process-step animate-in">
+      <div class="step-num">4</div>
+      <span class="step-title">高擬真稿</span>
+      <span class="step-desc">組件化設計、互動原型</span>
+    </div>
+    <div class="process-step animate-in">
+      <div class="step-num">5</div>
+      <span class="step-title">交付與迭代</span>
+      <span class="step-desc">設計系統文件、回饋優化</span>
+    </div>
+  </div>
+</div>
+
+<!-- P8: CASE STUDY -->
+<div class="slide s8-case" id="slide-8">
+  <h2 class="animate-in">成功案例解析</h2>
+  <div class="case-cards">
+    <div class="case-card animate-in">
+      <span class="case-tag">品牌重塑</span>
+      <span class="case-title">科技新創品牌視覺系統</span>
+      <span class="case-desc">從零建立完整的品牌視覺語言，包含標誌、色彩系統、字體應用與插圖風格。</span>
+      <div class="case-metrics">
+        <div class="metric"><span class="metric-val">+180%</span><span class="metric-label">品牌認知</span></div>
+        <div class="metric"><span class="metric-val">3月</span><span class="metric-label">交付週期</span></div>
+      </div>
+    </div>
+    <div class="case-card animate-in">
+      <span class="case-tag">產品設計</span>
+      <span class="case-title">金融 App UI/UX 大改版</span>
+      <span class="case-desc">以用戶為中心的重新設計，改善核心流程的轉化率與滿意度。</span>
+      <div class="case-metrics">
+        <div class="metric"><span class="metric-val">+35%</span><span class="metric-label">轉化提升</span></div>
+        <div class="metric"><span class="metric-val">4.8</span><span class="metric-label">App Store</span></div>
+      </div>
+    </div>
+    <div class="case-card animate-in">
+      <span class="case-tag">創意視覺</span>
+      <span class="case-title">藝術節活動視覺統籌</span>
+      <span class="case-desc">結合在地文化與當代藝術的大型活動視覺系統，橫跨線上與線下觸點。</span>
+      <div class="case-metrics">
+        <div class="metric"><span class="metric-val">50+</span><span class="metric-label">觸點設計</span></div>
+        <div class="metric"><span class="metric-val">10K+</span><span class="metric-label">參與人次</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P9: TRENDS -->
+<div class="slide s9-trends" id="slide-9">
+  <h2 class="animate-in">創意設計關鍵數據</h2>
+  <div class="stats-row">
+    <div class="stat-card animate-in">
+      <svg class="stat-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="#9b59b6" stroke-width="3"/><path d="M24 12 L24 24 L34 24" stroke="#bb8fce" stroke-width="3" stroke-linecap="round"/></svg>
+      <span class="stat-num">73<span class="stat-unit">%</span></span>
+      <span class="stat-label">設計驅動營收成長</span>
+      <span class="stat-desc">良好的設計直接影響商業績效</span>
+    </div>
+    <div class="stat-card animate-in">
+      <svg class="stat-icon" viewBox="0 0 48 48" fill="none"><rect x="8" y="16" width="32" height="24" rx="4" stroke="#9b59b6" stroke-width="3"/><path d="M16 8 L16 16 M32 8 L32 16" stroke="#bb8fce" stroke-width="3" stroke-linecap="round"/></svg>
+      <span class="stat-num">2.5<span class="stat-unit">x</span></span>
+      <span class="stat-label">設計投資回報率</span>
+      <span class="stat-desc">每元設計投入產生2.5元價值</span>
+    </div>
+    <div class="stat-card animate-in">
+      <svg class="stat-icon" viewBox="0 0 48 48" fill="none"><path d="M24 4 L28 16 L40 16 L30 24 L34 36 L24 28 L14 36 L18 24 L8 16 L20 16Z" stroke="#9b59b6" stroke-width="2.5" fill="none"/></svg>
+      <span class="stat-num">89<span class="stat-unit">%</span></span>
+      <span class="stat-label">用戶偏好美觀介面</span>
+      <span class="stat-desc">視覺設計影響信任度與轉化</span>
+    </div>
+    <div class="stat-card animate-in">
+      <svg class="stat-icon" viewBox="0 0 48 48" fill="none"><path d="M8 36 L16 24 L24 30 L32 18 L40 24" stroke="#9b59b6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="36" r="3" fill="#bb8fce"/><circle cx="16" cy="24" r="3" fill="#bb8fce"/><circle cx="24" cy="30" r="3" fill="#bb8fce"/><circle cx="32" cy="18" r="3" fill="#bb8fce"/><circle cx="40" cy="24" r="3" fill="#bb8fce"/></svg>
+      <span class="stat-num">3.2<span class="stat-unit">x</span></span>
+      <span class="stat-label">設計系統採用率</span>
+      <span class="stat-desc">企業採用設計系統的年增長</span>
+    </div>
+  </div>
+</div>
+
+<!-- P10: ENDING -->
+<div class="slide s10-end" id="slide-10">
+  <svg class="end-icon" viewBox="0 0 100 100" fill="none">
+    <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="#bb8fce" stroke-width="3" opacity="0.7"/>
+    <polygon points="50,18 82,34.5 82,65.5 50,82 18,65.5 18,34.5" fill="none" stroke="#9b59b6" stroke-width="2" opacity="0.5"/>
+    <circle cx="50" cy="50" r="16" fill="#9b59b6" opacity="0.9"/>
+    <path d="M50 18 L82 34.5 M50 18 L18 34.5 M82 34.5 L82 65.5 M18 34.5 L18 65.5 M50 82 L82 65.5 M50 82 L18 65.5" stroke="#8e44ad" stroke-width="1.5" opacity="0.4"/>
+  </svg>
+  <h2 class="animate-in">設計改變世界</h2>
+  <p class="tagline animate-in">每一個偉大的產品，都始於一個偉大的設計</p>
+  <div class="end-tags animate-in">
+    <span class="end-tag">創意</span>
+    <span class="end-tag">設計思維</span>
+    <span class="end-tag">使用者體驗</span>
+    <span class="end-tag">視覺語言</span>
+  </div>
+</div>
+
+</div><!-- .presentation -->
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav">
+  <button id="prevBtn" onclick="prev()" disabled>◀</button>
+  <span id="pageInfo">1 / 10</span>
+  <button id="nextBtn" onclick="next()">▶</button>
+</nav>
+
+<script>
+let current = 1;
+const total = 10;
+
+// Trigger animate-in for active slide
+function triggerAnimations() {
+  const active = document.querySelector('.slide.active');
+  if (active) {
+    active.querySelectorAll('.animate-in').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 100);
+    });
+  }
+}
+
+function showSlide(n) {
+  const slides = document.querySelectorAll('.slide');
+  slides.forEach(s => {
+    s.classList.remove('active');
+    s.querySelectorAll('.animate-in').forEach(el => el.classList.remove('visible'));
+  });
+  document.getElementById('slide-' + n).classList.add('active');
+  document.getElementById('pageInfo').textContent = n + ' / ' + total;
+  document.getElementById('prevBtn').disabled = (n === 1);
+  document.getElementById('nextBtn').disabled = (n === total);
+  current = n;
+  triggerAnimations();
+}
+function next() { if (current < total) showSlide(current + 1); }
+function prev() { if (current > 1) showSlide(current - 1); }
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+// Init animations
+document.addEventListener('DOMContentLoaded', triggerAnimations);
+</script>
+</body>
+</html>
