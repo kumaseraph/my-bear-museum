@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Q3 投資趨勢展望</title>
+<style>
+/* ===== CSS RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===== COLOR SYSTEM C5: 企業深藍 ===== */
+:root {
+  --bg: #0a1628;
+  --bg-secondary: #0d1f3c;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --text: #e3f2fd;
+  --text-secondary: #90caf9;
+  --accent: #1565c0;
+  --accent-alt: #42a5f5;
+  --accent-glow: rgba(21, 101, 192, 0.35);
+  --border-color: rgba(21, 101, 192, 0.3);
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --nav-bg: rgba(10, 22, 40, 0.95);
+  --font-display: clamp(2.5rem, 5vw, 4.5rem);
+  --font-h1: clamp(1.75rem, 3vw, 2.5rem);
+  --font-h2: clamp(1.25rem, 2vw, 1.75rem);
+  --font-body: clamp(1rem, 1.5vw, 1.25rem);
+}
+
+html { font-size: 20px; }
+
+body {
+  font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* ===== PRESENTATION CONTAINER ===== */
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* ===== SLIDE BASE ===== */
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 48px 64px;
+  overflow: hidden;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* ===== ANIMATE IN ===== */
+.animate-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--nav-bg);
+  padding: 10px 20px;
+  border-radius: 40px;
+  border: 1px solid var(--border-color);
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+.nav button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.nav button:hover { background: var(--accent-alt); }
+.nav span { color: var(--text-secondary); font-size: 1rem; min-width: 48px; text-align: center; }
+
+.back-link {
+  position: fixed;
+  top: 20px;
+  left: 32px;
+  z-index: 100;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1rem;
+  background: var(--nav-bg);
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+}
+.back-link:hover { color: var(--text); }
+
+/* ===== SLIDE 1: COVER ===== */
+#slide-1 {
+  background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 50%, #0a1628 100%);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.cover-bg-orbs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: orb-float 10s ease-in-out infinite;
+}
+.orb-1 { width: 500px; height: 500px; background: rgba(21,101,192,0.25); top: -150px; right: -100px; animation-delay: 0s; }
+.orb-2 { width: 400px; height: 400px; background: rgba(66,165,245,0.2); bottom: -100px; left: -150px; animation-delay: -4s; }
+.orb-3 { width: 300px; height: 300px; background: rgba(168,85,247,0.15); top: 40%; left: 60%; animation-delay: -7s; }
+@keyframes orb-float {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(30px,-20px) scale(1.05); }
+  66% { transform: translate(-20px,20px) scale(0.95); }
+}
+.cover-content { position: relative; z-index: 2; }
+.cover-year { font-size: 1.05rem; color: var(--accent-alt); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px; font-weight: 600; }
+.cover-title { font-size: 2.8rem; font-weight: 900; color: #fff; margin-bottom: 16px; line-height: 1.2; letter-spacing: -0.03em; }
+.cover-subtitle { font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 40px; font-weight: 300; }
+.cover-meta { font-size: 1rem; color: var(--text-secondary); opacity: 0.7; }
+.cover-divider {
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+  margin: 0 auto 32px;
+  border-radius: 2px;
+}
+
+/* ===== SLIDE 2: TOC ===== */
+#slide-2 {
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg);
+}
+.section-label { font-size: 1rem; color: var(--accent-alt); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+.slide-title { font-size: 2rem; font-weight: 800; margin-bottom: 40px; color: #fff; }
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  flex: 1;
+  align-content: center;
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+.toc-item:hover {
+  border-color: var(--accent);
+  background: rgba(21,101,192,0.1);
+}
+.toc-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent);
+  min-width: 40px;
+  line-height: 1;
+}
+.toc-text { font-size: 1.05rem; color: var(--text); line-height: 1.4; }
+
+/* ===== SLIDE 3: BAR CHART ===== */
+#slide-3 {
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg);
+}
+.chart-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 0;
+}
+.bar-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 80px;
+  align-items: center;
+  gap: 16px;
+}
+.bar-label { font-size: 1rem; color: var(--text-secondary); text-align: right; }
+.bar-track {
+  height: 36px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  min-width: 60px;
+}
+.bar-value { font-size: 1.1rem; font-weight: 800; color: var(--accent-alt); text-align: right; }
+.bar-fill-1 { background: linear-gradient(90deg, var(--accent), var(--accent-alt)); }
+.bar-fill-2 { background: linear-gradient(90deg, #1565c0, #42a5f5); width: 82%; }
+.bar-fill-3 { background: linear-gradient(90deg, #0d47a1, #1565c0); width: 68%; }
+
+/* ===== SLIDE 4: DONUT CHART ===== */
+#slide-4 {
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg);
+}
+.donut-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+}
+.donut-chart {
+  position: relative;
+  width: 240px;
+  height: 240px;
+}
+.donut-ring {
+  fill: none;
+  stroke-width: 32;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+.donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.donut-center-num { font-size: 2rem; font-weight: 900; color: #fff; }
+.donut-center-label { font-size: 1rem; color: var(--text-secondary); }
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.05rem;
+}
+.legend-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.legend-label { color: var(--text); }
+.legend-pct { color: var(--text-secondary); margin-left: auto; }
+
+/* ===== SLIDE 5: KPI BULLSEYE ===== */
+#slide-5 {
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg);
+}
+.kpi-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-content: center;
+}
+.kpi-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-ring {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 16px;
+  position: relative;
+}
+.kpi-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.kpi-ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 8; }
+.kpi-ring-fill { fill: none; stroke-width: 8; stroke-linecap: round; }
+.kpi-ring-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+}
+.kpi-title { font-size: 1rem; color: var(--text-secondary); margin-bottom: 8px; }
+.kpi-sub { font-size: 1rem; color: var(--text); }
+.kpi-change { font-size: 1.1rem; font-weight: 700; margin-top: 8px; }
+.kpi-change.up { color: #4caf50; }
+.kpi-change.down { color: #f44336; }
+
+/* ===== SLIDE 6: HEXAGON HONEYCOMB ===== */
+#slide-6 {
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg);
+}
+.hex-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-content: center;
+}
+.hex-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hex-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+}
+.hex-num { font-size: 1.75rem; font-weight: 900; color: var(--accent-alt); margin-bottom: 4px; }
+.hex-label { font-size: 1rem; color: var(--text); }
+.hex-sublabel { font-size: 1rem; color: var(--text-secondary); margin-top: 4px; }
+.hex-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ===== SLIDE 7: TIMELINE ===== */
+#slide-7 {
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg);
+}
+.timeline-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 0 80px;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 120px 1fr 100px;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 0;
+  position: relative;
+}
+.timeline-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 60px;
+  top: 56px;
+  bottom: -16px;
+  width: 2px;
+  background: var(--border-color);
+}
+.timeline-date { font-size: 1rem; color: var(--accent-alt); font-weight: 700; text-align: right; }
+.timeline-node {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--accent);
+  z-index: 1;
+  flex-shrink: 0;
+}
+.timeline-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+.timeline-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.timeline-desc { font-size: 1rem; color: var(--text-secondary); }
+.timeline-value { font-size: 1.25rem; font-weight: 900; color: var(--accent-alt); text-align: right; }
+
+/* ===== SLIDE 8: COMPARISON MATRIX ===== */
+#slide-8 {
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg);
+}
+.matrix-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  align-content: center;
+}
+.matrix-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 28px 24px;
+  position: relative;
+}
+.matrix-card.highlight {
+  border-color: var(--accent);
+  background: rgba(21,101,192,0.1);
+}
+.matrix-label { font-size: 1rem; color: var(--accent-alt); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+.matrix-title { font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
+.matrix-bar-track {
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.matrix-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+}
+.matrix-desc { font-size: 1rem; color: var(--text-secondary); line-height: 1.5; }
+.matrix-badge {
+  position: absolute;
+  top: -1px;
+  right: 16px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  padding: 3px 10px;
+  border-radius: 0 0 8px 8px;
+  font-weight: 600;
+}
+
+/* ===== SLIDE 9: BIG NUMBERS SUMMARY ===== */
+#slide-9 {
+  flex-direction: column;
+  justify-content: center;
+  background: var(--bg);
+}
+.big-stats {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-content: center;
+}
+.big-stat {
+  text-align: center;
+  padding: 32px 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+}
+.big-num {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--accent-alt);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.big-unit { font-size: 1.25rem; color: var(--text-secondary); }
+.big-label { font-size: 1.1rem; color: var(--text); margin-top: 8px; }
+.big-sub { font-size: 1rem; color: var(--text-secondary); margin-top: 4px; }
+
+/* ===== SLIDE 10: ENDING ===== */
+#slide-10 {
+  background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 50%, #0a1628 100%);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.ending-content { position: relative; z-index: 2; }
+.ending-title { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 16px; }
+.ending-sub { font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 40px; }
+.ending-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.ending-bg-orbs { position: absolute; inset: 0; overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="presentation">
+
+<!-- SLIDE 1: COVER -->
+<div class="slide active" id="slide-1">
+  <div class="cover-bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="cover-content">
+    <div class="cover-year">2026 Q3</div>
+    <div class="cover-divider"></div>
+    <h1 class="cover-title">投資趨勢展望</h1>
+    <p class="cover-subtitle">全球市場展望・產業趨勢・資產配置建議</p>
+    <p class="cover-meta">熊熊博物館戰略研究部</p>
+  </div>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <nav class="nav">
+    <button onclick="prev()">◀</button>
+    <span id="page-num">1 / 10</span>
+    <button onclick="next()">▶</button>
+  </nav>
+</div>
+
+<!-- SLIDE 2: TOC -->
+<div class="slide" id="slide-2">
+  <div class="section-label">目錄</div>
+  <h2 class="slide-title">簡報內容一覽</h2>
+  <div class="toc-grid">
+    <div class="toc-item">
+      <div class="toc-num">01</div>
+      <div class="toc-text">全球市場概況</div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">02</div>
+      <div class="toc-text">產業趨勢分析</div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">03</div>
+      <div class="toc-text">區域市場展望</div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">04</div>
+      <div class="toc-text">風險評估與管理</div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">05</div>
+      <div class="toc-text">資產配置建議</div>
+    </div>
+    <div class="toc-item">
+      <div class="toc-num">06</div>
+      <div class="toc-text">總結與行動方案</div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <nav class="nav">
+    <button onclick="prev()">◀</button>
+    <span id="page-num">2 / 10</span>
+    <button onclick="next()">▶</button>
+  </nav>
+</div>
+
+<!-- SLIDE 3: BAR CHART - 區域市場 -->
+<div class="slide" id="slide-3">
+  <div class="section-label">區域市場展望</div>
+  <h2 class="slide-title">Q3 全球市場成長率預測</h2>
+  <div class="chart-container">
+    <div class="bar-row">
+      <div class="bar-label">美國</div>
+      <div class="bar-track">
+        <div class="bar-fill bar-fill-1" style="width: 78%;">78%</div>
+      </div>
+      <div class="bar-value">+3.2%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">亞洲</div>
+      <div class="bar-track">
+        <div class="bar-fill bar-fill-2" style="width: 82%;">82%</div>
+      </div>
+      <div class="bar-value">+4.8%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">歐洲</div>
+      <div class="bar-track">
+        <div class="bar-fill bar-fill-3" style="width: 68%;">68%</div>
+      </div>
+      <div class="bar-value">+2.1%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">新興市場</div>
+      <div class="bar-track">
+        <div class="bar-fill bar-fill-1" style="width: 91%;">91%</div>
+      </div>
+      <div class="bar-value">+5.6%</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">台灣</div>
+      <div class="bar-track">
+        <div class="bar-fill bar-fill-2" style="width: 85%;">85%</div>
+      </div>
+      <div class="bar-value">+3.9%</div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <nav class="nav">
+    <button onclick="prev()">◀</button>
+    <span id="page-num">3 / 10</span>
+    <button onclick="next()">▶</button>
+  </nav>
+</div>
+
+<!-- SLIDE 4: DONUT CHART - 產業配置 -->
+<div class="slide" id="slide-4">
+  <div class="section-label">資產配置建議</div>
+  <h2 class="slide-title">Q3 推薦投資組合配置</h2>
+  <div class="donut-container">
+    <div class="donut-chart">
+      <svg viewBox="0 0 240 240">
+        <circle class="donut-ring donut-ring-bg" cx="120" cy="120" r="88" />
+        <circle class="donut-ring" cx="120" cy="120" r="88"
+          stroke="#1565c0"
+          stroke-dasharray="276.46 276.46"
+          stroke-dashoffset="69.11"
+          style="opacity:0.9" />
+        <circle class="donut-ring" cx="120" cy="120" r="88"
+          stroke="#42a5f5"
+          stroke-dasharray="276.46 276.46"
+          stroke-dashoffset="159.21"
+          style="opacity:0.85" />
+        <circle class="donut-ring" cx="120" cy="120" r="88"
+          stroke="#0d47a1"
+          stroke-dasharray="276.46 276.46"
+          stroke-dashoffset="229.82"
+          style="opacity:0.8" />
+        <circle class="donut-ring" cx="120" cy="120" r="88"
+          stroke="#90caf9"
+          stroke-dasharray="276.46 276.46"
+          stroke-dashoffset="252.94"
+          style="opacity:0.75" />
+      </svg>
+      <div class="donut-center">
+        <div class="donut-center-num">100%</div>
+        <div class="donut-center-label">配置總計</div>
+      </div>
+    </div>
+    <div class="donut-legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#1565c0"></div>
+        <span class="legend-label">科技與半導體</span>
+        <span class="legend-pct">35%</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#42a5f5"></div>
+        <span class="legend-label">消費與零售</span>
+        <span class="legend-pct">25%</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#0d47a1"></div>
+        <span class="legend-label">新能源與潔能</span>
+        <span class="legend-pct">20%</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#90caf9"></div>
+        <span class="legend-label">醫藥與生技</span>
+        <span class="legend-pct">20%</span>
+      </div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <nav class="nav">
+    <button onclick="prev()">◀</button>
+    <span id="page-num">4 / 10</span>
+    <button onclick="next()">▶</button>
+  </nav>
+</div>
+
+<!-- SLIDE 5: KPI BULLSEYE -->
+<div class="slide" id="slide-5">
+  <div class="section-label">關鍵指標</div>
+  <h2 class="slide-title">Q3 核心財務目標</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="kpi-ring-bg" cx="60" cy="60" r="52" />
+          <circle class="kpi-ring-fill" cx="60" cy="60" r="52"
+            stroke="#1565c0" stroke-dasharray="326.73 326.73"
+            stroke-dashoffset="65.35" />
+        </svg>
+        <div class="kpi-ring-center">80%</div>
+      </div>
+      <div class="kpi-title">營收達成率</div>
+      <div class="kpi-sub">目標 NT$12.8兆</div>
+      <div class="kpi-change up">↑ 12% YoY</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="kpi-ring-bg" cx="60" cy="60" r="52" />
+          <circle class="kpi-ring-fill" cx="60" cy="60" r="52"
+            stroke="#42a5f5" stroke-dasharray="326.73 326.73"
+            stroke-dashoffset="91.48" />
+        </svg>
+        <div class="kpi-ring-center">72%</div>
+      </div>
+      <div class="kpi-title">毛利率</div>
+      <div class="kpi-sub">目標 38%</div>
+      <div class="kpi-change up">↑ 3.2pp</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="kpi-ring-bg" cx="60" cy="60" r="52" />
+          <circle class="kpi-ring-fill" cx="60" cy="60" r="52"
+            stroke="#0d47a1" stroke-dasharray="326.73 326.73"
+            stroke-dashoffset="130.69" />
+        </svg>
+        <div class="kpi-ring-center">60%</div>
+      </div>
+      <div class="kpi-title">EPS 成長率</div>
+      <div class="kpi-sub">目標 NT$18.5</div>
+      <div class="kpi-change up">↑ 8.7%</div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <nav class="nav">
+    <button onclick="prev()">◀</button>
+    <span id="page-num">5 / 10</span>
+    <button onclick="next()">▶</button>
+  </nav>
+</div>
+
+<!-- SLIDE 6: HEXAGON HONEYCOMB - 產業趨勢 -->
+<div class="slide" id="slide-6">
+  <div class="section-label">產業趨勢分析</div>
+  <h2 class="slide-title">Q3 重點產業成長預測</h2>
+  <div class="hex-grid">
+    <div class="hex-item">
+      <div class="hex-num">+24%</div>
+      <div class="hex-label">AI 半導體</div>
+      <div class="hex-sublabel">GPU 需求爆發</div>
+      <div class="hex-badge">最熱</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">+18%</div>
+      <div class="hex-label">電動車</div>
+      <div class="hex-sublabel">電池技術突破</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">+15%</div>
+      <div class="hex-label">生技醫藥</div>
+      <div class="hex-sublabel">老齡化商機</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">+12%</div>
+      <div class="hex-label">雲端運算</div>
+      <div class="hex-sublabel">企業數位轉型</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">+10%</div>
+      <div class="hex-label">綠能環保</div>
+      <div class="hex-sublabel">各國政策支持</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">+9%</div>
+      <div class="hex-label">消費零售</div>
+      <div class="hex-sublabel">暑期旺季</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">+8%</div>
+      <div class="hex-label">金融服務</div>
+      <div class="hex-sublabel">升息循環終止</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">+7%</div>
+      <div class="hex-label">房地產</div>
+      <div class="hex-sublabel">利率回穩</div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <nav class="nav">
+    <button onclick="prev()">◀</button>
+    <span id="page-num">6 / 10</span>
+    <button onclick="next()">▶</button>
+  </nav>
+</div>
+
+<!-- SLIDE 7: TIMELINE - 風險評估 -->
+<div class="slide" id="slide-7">
+  <div class="section-label">風險評估與管理</div>
+  <h2 class="slide-title">Q3 主要風險事件時間軸</h2>
+  <div class="timeline-container">
+    <div class="timeline-item">
+      <div class="timeline-date">7月</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-content">
+        <div class="timeline-title">美國CPI數據發布</div>
+        <div class="timeline-desc">通膨數據將影響Fed利率路徑</div>
+      </div>
+      <div class="timeline-value" style="color:#f44336">高</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">8月</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-content">
+        <div class="timeline-title">台積電法說會</div>
+        <div class="timeline-desc">AI晶片需求與擴產進度</div>
+      </div>
+      <div class="timeline-value" style="color:#ff9800">中</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">9月</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-content">
+        <div class="timeline-title">FOMC利率決策</div>
+        <div class="timeline-desc">預期維持基準利率不變</div>
+      </div>
+      <div class="timeline-value" style="color:#4caf50">可控</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Q3末</div>
+      <div class="timeline-node"></div>
+      <div class="timeline-content">
+        <div class="timeline-title">美國大選辯論</div>
+        <div class="timeline-desc">政策不確定性升溫</div>
+      </div>
+      <div class="timeline-value" style="color:#f44336">高</div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <nav class="nav">
+    <button onclick="prev()">◀</button>
+    <span id="page-num">7 / 10</span>
+    <button onclick="next()">▶</button>
+  </nav>
+</div>
+
+<!-- SLIDE 8: COMPARISON MATRIX -->
+<div class="slide" id="slide-8">
+  <div class="section-label">資產配置建議</div>
+  <h2 class="slide-title">Q3 推薦 vs 非推薦資產比較</h2>
+  <div class="matrix-grid">
+    <div class="matrix-card highlight">
+      <div class="matrix-badge">推薦</div>
+      <div class="matrix-label">積極型</div>
+      <div class="matrix-title">科技與成長股</div>
+      <div class="matrix-bar-track">
+        <div class="matrix-bar-fill" style="width:88%"></div>
+      </div>
+      <div class="matrix-desc">AI、半導體、雲端服務為核心配置，預期報酬 18-25%</div>
+    </div>
+    <div class="matrix-card">
+      <div class="matrix-label">保守型</div>
+      <div class="matrix-title">投資級債券</div>
+      <div class="matrix-bar-track">
+        <div class="matrix-bar-fill" style="width:55%; background:linear-gradient(90deg,#90caf9,#42a5f5)"></div>
+      </div>
+      <div class="matrix-desc">防禦型配置，預期報酬 4-6%，波動低</div>
+    </div>
+    <div class="matrix-card">
+      <div class="matrix-label">平衡型</div>
+      <div class="matrix-title">多元分散組合</div>
+      <div class="matrix-bar-track">
+        <div class="matrix-bar-fill" style="width:72%; background:linear-gradient(90deg,#0d47a1,#42a5f5)"></div>
+      </div>
+      <div class="matrix-desc">股債平衡，預期報酬 10-15%，適合多數投資人</div>
+    </div>
+    <div class="matrix-card">
+      <div class="matrix-badge" style="background:#f44336">觀望</div>
+      <div class="matrix-label">風險型</div>
+      <div class="matrix-title">加密貨幣</div>
+      <div class="matrix-bar-track">
+        <div class="matrix-bar-fill" style="width:30%; background:linear-gradient(90deg,#f44336,#ff7043)"></div>
+      </div>
+      <div class="matrix-desc">波動過大，Q3政策不確定性高，建議觀望</div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <nav class="nav">
+    <button onclick="prev()">◀</button>
+    <span id="page-num">8 / 10</span>
+    <button onclick="next()">▶</button>
+  </nav>
+</div>
+
+<!-- SLIDE 9: BIG NUMBERS SUMMARY -->
+<div class="slide" id="slide-9">
+  <div class="section-label">總結與行動方案</div>
+  <h2 class="slide-title">Q3 投資核心數據</h2>
+  <div class="big-stats">
+    <div class="big-stat">
+      <div class="big-num">+4.8<span class="big-unit">%</span></div>
+      <div class="big-label">亞洲GDP成長率</div>
+      <div class="big-sub">引領全球復甦</div>
+    </div>
+    <div class="big-stat">
+      <div class="big-num">35<span class="big-unit">%</span></div>
+      <div class="big-label">科技配置比重</div>
+      <div class="big-sub">AI與半導體首選</div>
+    </div>
+    <div class="big-stat">
+      <div class="big-num">NT$12.8<span class="big-unit">兆</span></div>
+      <div class="big-label">Q3營收目標</div>
+      <div class="big-sub">歷史新高預期</div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <nav class="nav">
+    <button onclick="prev()">◀</button>
+    <span id="page-num">9 / 10</span>
+    <button onclick="next()">▶</button>
+  </nav>
+</div>
+
+<!-- SLIDE 10: ENDING -->
+<div class="slide" id="slide-10">
+  <div class="ending-bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="ending-content">
+    <h2 class="ending-title">掌握 Q3 投資先機</h2>
+    <p class="ending-sub">定期檢視配置・紀律執行・長期持有</p>
+    <a href="/slides.htm" class="ending-cta">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      返回投資組合總覽
+    </a>
+  </div>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <nav class="nav">
+    <button onclick="prev()">◀</button>
+    <span id="page-num">10 / 10</span>
+    <button onclick="next()">▶</button>
+  </nav>
+</div>
+
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+function showSlide(n) {
+  slides.forEach((s, i) => {
+    s.classList.remove('active');
+    if (i === n) s.classList.add('active');
+  });
+  document.getElementById('page-num').textContent = (n + 1) + ' / ' + total;
+}
+
+function next() {
+  current = (current + 1) % total;
+  showSlide(current);
+}
+function prev() {
+  current = (current - 1 + total) % total;
+  showSlide(current);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+</script>
+</body>
+</html>
