@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生活休閒關鍵手冊 - 2026盛夏</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ========================================
+   C2: 暖白紙藝 (Warm Paper) 
+   VH1: 光暈粗野 (Glow Brutalist) 混血版
+   ======================================== */
+
+:root {
+  /* C2 暖白紙藝 - 深色底改編 */
+  --bg: #0d0d0d;
+  --bg-secondary: #1a1a1a;
+  --text: #f5f0e8;
+  --text-secondary: #c4b8a8;
+  --accent: #ffd600;
+  --accent-alt: #ff3d00;
+  --accent-glow: rgba(0, 255, 245, 0.6);
+  --accent-cyan: rgba(0, 255, 245, 0.15);
+  --accent-hot: rgba(255, 61, 0, 0.12);
+  --border-color: #333;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-yellow: #ffd600;
+  --card-dark: #f5f0e8;
+  --nav-bg: rgba(13, 13, 13, 0.95);
+}
+
+/* 基底 */
+html { font-size: 20px; }
+html { scroll-snap-type: y mandatory; }
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 60% 50% at 80% 20%, var(--accent-cyan) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, var(--accent-hot) 0%, transparent 50%);
+  color: var(--text);
+  font-family: 'Noto Sans TC', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 光暈浮動裝飾 */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: orb-drift 8s ease-in-out infinite alternate;
+}
+.glow-orb-1 {
+  width: 300px; height: 300px;
+  background: rgba(0, 255, 245, 0.15);
+  top: -100px; right: -100px;
+}
+.glow-orb-2 {
+  width: 200px; height: 200px;
+  background: rgba(255, 61, 0, 0.12);
+  bottom: -50px; left: -50px;
+  animation-delay: -4s;
+}
+@keyframes orb-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, 20px) scale(1.1); }
+}
+
+/* 全域 */
+.presentation { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; position: relative; }
+.slide {
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+
+/* 卡片 - 光暈粗野風格 */
+.card {
+  background: var(--card-yellow);
+  border: 4px solid var(--bg);
+  box-shadow: 8px 8px 0 var(--accent-glow);
+  border-radius: 0;
+  padding: 1.5rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 var(--accent-glow), 0 0 20px rgba(0, 255, 245, 0.3);
+}
+.card-dark {
+  background: var(--card-dark);
+  color: var(--bg);
+  box-shadow: 6px 6px 0 var(--accent-alt);
+}
+.card-dark:hover {
+  box-shadow: 10px 10px 0 var(--accent-alt), 0 0 20px rgba(255, 61, 0, 0.4);
+}
+.card-outline {
+  background: transparent;
+  border: 2px solid rgba(255, 214, 0, 0.5);
+  box-shadow: none;
+}
+
+/* 進場動畫 */
+.animate-in {
+  opacity: 0;
+  transform: scale(0.85) translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.animate-in.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* 數字 */
+.bignum {
+  font-size: clamp(5rem, 15vw, 12rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  -webkit-text-stroke: 3px var(--text);
+  color: transparent;
+  text-shadow: 0 0 30px var(--accent-glow);
+}
+
+/* 標題 */
+h1, h2, h3 {
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  color: var(--text);
+}
+h1 { font-size: clamp(3rem, 7vw, 6rem); }
+h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--accent); }
+
+/* 導航 */
+.nav {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+  gap: 12px;
+  background: var(--nav-bg);
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 214, 0, 0.3);
+  z-index: 1000;
+}
+.nav button {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+.nav button:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+.nav span {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  padding: 8px 0;
+}
+
+/* ========================================
+   P1 封面 - G1 圓形家族 L8 全出血
+   ======================================== */
+.s1-cover {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 50%, #0d0d0d 100%);
+  text-align: center;
+  padding: 2rem;
+}
+.s1-cover .glow-orb-1 { width: 400px; height: 400px; top: -150px; right: -150px; }
+.s1-cover .glow-orb-2 { width: 300px; height: 300px; bottom: -100px; left: -100px; }
+
+/* 同心圓靶心 */
+.bullseye {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 0 auto 2rem;
+}
+.bullseye-ring {
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.bullseye-ring:nth-child(1) {
+  width: 280px; height: 280px;
+  background: linear-gradient(135deg, rgba(0,255,245,0.3), rgba(255,61,0,0.2));
+  border: 3px solid rgba(0,255,245,0.5);
+}
+.bullseye-ring:nth-child(2) {
+  width: 200px; height: 200px;
+  background: linear-gradient(135deg, rgba(255,214,0,0.4), rgba(255,61,0,0.3));
+  border: 2px solid rgba(255,214,0,0.6);
+}
+.bullseye-ring:nth-child(3) {
+  width: 120px; height: 120px;
+  background: var(--accent);
+  box-shadow: 0 0 40px var(--accent);
+}
+.bullseye-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--bg);
+}
+
+.cover-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 20px rgba(0,255,245,0.3);
+}
+.cover-subtitle {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+.cover-meta {
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+/* ========================================
+   P2 目錄 - G7 柵格線條 L5 中央輻射
+   ======================================== */
+.s2-toc {
+  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%);
+  padding: 2rem 4rem;
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.toc-item {
+  background: var(--card-bg);
+  border: 2px solid rgba(255,214,0,0.3);
+  padding: 1.2rem;
+  text-align: center;
+  position: relative;
+  transition: all 0.2s;
+}
+.toc-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+.toc-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+.toc-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.toc-title {
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 500;
+}
+.toc-grid::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ========================================
+   P3 休閒活動 - G3 蜂巢家族 L3 卡片矩陣
+   ======================================== */
+.s3-activities {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0d0d0d 100%);
+  padding: 2rem 4rem;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.section-header h2 { color: var(--accent); margin-bottom: 0.5rem; }
+.section-header p { color: var(--text-secondary); font-size: 1rem; }
+
+/* 七星蜂巢 */
+.hex-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hex {
+  width: 140px;
+  height: 140px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  position: relative;
+}
+.hex:hover { transform: scale(1.1); }
+.hex-center {
+  width: 160px;
+  height: 160px;
+  background: linear-gradient(135deg, var(--accent), #ff6b35);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(255,214,0,0.4);
+}
+.hex-icon {
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
+.hex-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--bg);
+  text-align: center;
+}
+.hex-desc {
+  font-size: 1rem;
+  color: rgba(13,13,13,0.7);
+  text-align: center;
+}
+
+/* ========================================
+   P4 數位排毒 - G8 象限家族 L4 三分法
+   ======================================== */
+.s4-digital {
+  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a2e 100%);
+  padding: 2rem 4rem;
+}
+.quadrant-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 400px;
+}
+.quadrant {
+  background: var(--card-bg);
+  border: 2px solid rgba(255,214,0,0.3);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.quadrant::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--accent);
+}
+.quadrant:nth-child(1)::before { background: #00bcd4; }
+.quadrant:nth-child(2)::before { background: #ff9800; }
+.quadrant:nth-child(3)::before { background: #4caf50; }
+.quadrant:nth-child(4)::before { background: #e91e63; }
+.quad-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.quad-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+.quad-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   P5 戶外探索 - G2 方形漏斗 L6 不對稱動態
+   ======================================== */
+.s5-outdoor {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0d0d0d 50%, #1a1a1a 100%);
+  padding: 2rem 4rem;
+}
+.funnel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.funnel-stage {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 1.1rem;
+  clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%);
+  transition: transform 0.2s;
+}
+.funnel-stage:hover { transform: scale(1.02); }
+.funnel-stage:nth-child(1) { width: 100%; background: linear-gradient(90deg, #00bcd4, #0097a7); }
+.funnel-stage:nth-child(2) { width: 85%; background: linear-gradient(90deg, #4caf50, #388e3c); }
+.funnel-stage:nth-child(3) { width: 70%; background: linear-gradient(90deg, #ff9800, #f57c00); }
+.funnel-stage:nth-child(4) { width: 55%; background: linear-gradient(90deg, #e91e63, #c2185b); }
+.funnel-stage:nth-child(5) { width: 40%; background: linear-gradient(90deg, #9c27b0, #7b1fa2); }
+
+/* ========================================
+   P6 興趣培養 - G6 漏斗家族 L8 全出血
+   ======================================== */
+.s6-hobby {
+  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a2e 100%);
+  padding: 2rem 4rem;
+}
+.hobby-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hobby-card {
+  background: var(--card-bg);
+  border: 2px solid rgba(255,214,0,0.3);
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  transition: all 0.2s;
+}
+.hobby-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 0;
+  background: var(--accent);
+  transition: height 0.3s;
+}
+.hobby-card:hover::after { height: 4px; }
+.hobby-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+.hobby-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hobby-icon svg { width: 32px; height: 32px; stroke: var(--bg); fill: none; stroke-width: 2; }
+.hobby-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+.hobby-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   P7 週末儀式 - G4 三角家族 L6 不對稱
+   ======================================== */
+.s7-weekend {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0d0d0d 100%);
+  padding: 2rem 4rem;
+}
+.pyramid-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.pyramid-level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 1rem;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  transition: transform 0.2s;
+}
+.pyramid-level:hover { transform: scale(1.05); }
+.pyramid-level:nth-child(1) { width: 200px; height: 80px; background: linear-gradient(135deg, var(--accent), #ff6b35); }
+.pyramid-level:nth-child(2) { width: 280px; height: 70px; background: linear-gradient(135deg, #00bcd4, #0097a7); }
+.pyramid-level:nth-child(3) { width: 360px; height: 60px; background: linear-gradient(135deg, #4caf50, #388e3c); }
+.pyramid-level:nth-child(4) { width: 440px; height: 50px; background: linear-gradient(135deg, #ff9800, #f57c00); }
+
+/* ========================================
+   P8 質感居家 - G2 方形家族 L9 棋盤格
+   ======================================== */
+.s8-home {
+  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%);
+  padding: 2rem 4rem;
+}
+.grid-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.grid-cell {
+  background: var(--card-bg);
+  border: 2px solid rgba(255,214,0,0.2);
+  padding: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s;
+}
+.grid-cell:hover {
+  border-color: var(--accent);
+  background: rgba(255,214,0,0.1);
+}
+.grid-cell-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.grid-cell-icon svg { width: 24px; height: 24px; stroke: var(--bg); fill: none; stroke-width: 2; }
+.grid-cell-text {
+  flex: 1;
+}
+.grid-cell-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+.grid-cell-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+.grid-cell:nth-child(odd) { background: rgba(0,255,245,0.05); }
+.grid-cell:nth-child(even) { background: rgba(255,61,0,0.05); }
+
+/* ========================================
+   P9 身心平衡 - G5 菱形家族 L1 左圖右文
+   ======================================== */
+.s9-balance {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0d0d0d 50%, #1a1a2e 100%);
+  padding: 2rem 4rem;
+}
+.balance-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  align-items: center;
+}
+.diamond-showcase {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.diamond {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+  transform: rotate(45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 20px rgba(255,214,0,0.3);
+}
+.diamond:hover {
+  transform: rotate(45deg) scale(1.1);
+  box-shadow: 0 0 30px rgba(255,214,0,0.5);
+}
+.diamond-icon {
+  transform: rotate(-45deg);
+  font-size: 1.8rem;
+}
+.balance-content h2 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.balance-list {
+  list-style: none;
+  padding: 0;
+}
+.balance-list li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255,214,0,0.2);
+  font-size: 1.05rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.balance-list li::before {
+  content: '◆';
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+/* ========================================
+   P10 總結 - G7 時間軸家族 L5 中央輻射
+   ======================================== */
+.s10-summary {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 50%, #0d0d0d 100%);
+  padding: 2rem 4rem;
+  text-align: center;
+}
+.timeline-h {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  max-width: 900px;
+  margin: 2rem auto;
+}
+.timeline-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+}
+.timeline-item:last-child::before { display: none; }
+.timeline-node {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--bg);
+}
+.timeline-label {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+.summary-cta {
+  margin-top: 2rem;
+}
+.summary-cta h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.summary-cta p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   通用
+   ======================================== */
+.text-accent { color: var(--accent); }
+.text-muted { color: var(--text-secondary); }
+.mt-2 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 2rem; }
+.text-center { text-align: center; }
+</style>
+</head>
+<body>
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
+
+<div class="presentation">
+  <!-- P1 封面 -->
+  <div class="slide s1-cover active" id="slide1">
+    <div class="bullseye">
+      <div class="bullseye-ring"></div>
+      <div class="bullseye-ring"></div>
+      <div class="bullseye-ring">
+        <span class="bullseye-label">LIFE</span>
+      </div>
+    </div>
+    <h1 class="cover-title animate-in">生活休閒關鍵手冊</h1>
+    <p class="cover-subtitle animate-in">2026 盛夏精選指南</p>
+    <p class="cover-meta animate-in">⋆｡°✩ 週五限定 Edition ⋆｡°✩</p>
+  </div>
+
+  <!-- P2 目錄 -->
+  <div class="slide s2-toc" id="slide2">
+    <h2 class="animate-in" style="text-align:center;margin-bottom:2rem;">探索目錄</h2>
+    <div class="toc-grid">
+      <div class="toc-item animate-in">
+        <span class="toc-num">01</span>
+        <span class="toc-title">休閒活動</span>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">02</span>
+        <span class="toc-title">數位排毒</span>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">03</span>
+        <span class="toc-title">戶外探索</span>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">04</span>
+        <span class="toc-title">興趣培養</span>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">05</span>
+        <span class="toc-title">週末儀式</span>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">06</span>
+        <span class="toc-title">質感居家</span>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">07</span>
+        <span class="toc-title">身心平衡</span>
+      </div>
+      <div class="toc-item animate-in">
+        <span class="toc-num">08</span>
+        <span class="toc-title">總結行動</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3 休閒活動 -->
+  <div class="slide s3-activities" id="slide3">
+    <div class="section-header">
+      <h2 class="animate-in">⋆ 休閒活動指南 ⋆</h2>
+      <p class="animate-in text-muted">找到讓你心動的興趣體驗</p>
+    </div>
+    <div class="hex-grid">
+      <div class="hex animate-in">
+        <span class="hex-icon">🎨</span>
+        <span class="hex-label">手作</span>
+      </div>
+      <div class="hex animate-in">
+        <span class="hex-icon">📚</span>
+        <span class="hex-label">閱讀</span>
+      </div>
+      <div class="hex-center animate-in">
+        <span class="hex-icon">✨</span>
+        <span class="hex-label">享受當下</span>
+      </div>
+      <div class="hex animate-in">
+        <span class="hex-icon">🎵</span>
+        <span class="hex-label">音樂</span>
+      </div>
+      <div class="hex animate-in">
+        <span class="hex-icon">🍳</span>
+        <span class="hex-label">烹飪</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P4 數位排毒 -->
+  <div class="slide s4-digital" id="slide4">
+    <div class="section-header">
+      <h2 class="animate-in">⋆ 數位排毒計画 ⋆</h2>
+      <p class="animate-in text-muted">重新奪回你的專注力和時間</p>
+    </div>
+    <div class="quadrant-grid">
+      <div class="quadrant animate-in">
+        <span class="quad-icon">📵</span>
+        <span class="quad-title">關閉通知</span>
+        <span class="quad-desc">關閉所有社群軟體推播通知</span>
+      </div>
+      <div class="quadrant animate-in">
+        <span class="quad-icon">🕐</span>
+        <span class="quad-title">限時使用</span>
+        <span class="quad-desc">每日使用手機不超過 2 小時</span>
+      </div>
+      <div class="quadrant animate-in">
+        <span class="quad-icon">📖</span>
+        <span class="quad-title">實體閱讀</span>
+        <span class="quad-desc">每天閱讀紙本書籍 30 分鐘</span>
+      </div>
+      <div class="quadrant animate-in">
+        <span class="quad-icon">🌿</span>
+        <span class="quad-title">戶外時光</span>
+        <span class="quad-desc">每天接觸自然至少 1 小時</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P5 戶外探索 -->
+  <div class="slide s5-outdoor" id="slide5">
+    <div class="section-header">
+      <h2 class="animate-in">⋆ 戶外探索之旅 ⋆</h2>
+      <p class="animate-in text-muted">探索自然的無限可能</p>
+    </div>
+    <div class="funnel-container">
+      <div class="funnel-stage animate-in">
+        <span>選擇目的地 →</span>
+      </div>
+      <div class="funnel-stage animate-in">
+        <span>準備裝備 →</span>
+      </div>
+      <div class="funnel-stage animate-in">
+        <span>出發體驗 →</span>
+      </div>
+      <div class="funnel-stage animate-in">
+        <span>記錄分享 →</span>
+      </div>
+      <div class="funnel-stage animate-in">
+        <span>重複循環 ♾️</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P6 興趣培養 -->
+  <div class="slide s6-hobby" id="slide6">
+    <div class="section-header">
+      <h2 class="animate-in">⋆ 興趣培養计划 ⋆</h2>
+      <p class="animate-in text-muted">培養新技能，豐富生活</p>
+    </div>
+    <div class="hobby-grid">
+      <div class="hobby-card animate-in">
+        <div class="hobby-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 19l-7-7 7-7M12 19V5"/></svg>
+        </div>
+        <div class="hobby-title">攝影</div>
+        <div class="hobby-desc">捕捉生活美好瞬間</div>
+      </div>
+      <div class="hobby-card animate-in">
+        <div class="hobby-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+        </div>
+        <div class="hobby-title">繪畫</div>
+        <div class="hobby-desc">用色彩表達情感</div>
+      </div>
+      <div class="hobby-card animate-in">
+        <div class="hobby-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <div class="hobby-title">樂器</div>
+        <div class="hobby-desc">演奏動人旋律</div>
+      </div>
+      <div class="hobby-card animate-in">
+        <div class="hobby-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div class="hobby-title">寫作</div>
+        <div class="hobby-desc">記錄靈感與想法</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P7 週末儀式 -->
+  <div class="slide s7-weekend" id="slide7">
+    <div class="section-header">
+      <h2 class="animate-in">⋆ 週末儀式感 ⋆</h2>
+      <p class="animate-in text-muted">用儀式感點亮每一天</p>
+    </div>
+    <div class="pyramid-container">
+      <div class="pyramid-level animate-in">
+        <span>清晨冥想 15 分鐘</span>
+      </div>
+      <div class="pyramid-level animate-in">
+        <span>晨間運動 → 美味早餐</span>
+      </div>
+      <div class="pyramid-level animate-in">
+        <span>興趣時光 → 家人相聚 → 整理房間</span>
+      </div>
+      <div class="pyramid-level animate-in">
+        <span>一週回顧 → 規劃未來 → 感恩日記</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P8 質感居家 -->
+  <div class="slide s8-home" id="slide8">
+    <div class="section-header">
+      <h2 class="animate-in">⋆ 質感居家打造 ⋆</h2>
+      <p class="animate-in text-muted">讓家成為最舒適的港灣</p>
+    </div>
+    <div class="grid-board">
+      <div class="grid-cell animate-in">
+        <div class="grid-cell-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <div class="grid-cell-text">
+          <div class="grid-cell-title">北歐家具</div>
+          <div class="grid-cell-desc">簡約線條設計</div>
+        </div>
+      </div>
+      <div class="grid-cell animate-in">
+        <div class="grid-cell-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="grid-cell-text">
+          <div class="grid-cell-title">綠植點綴</div>
+          <div class="grid-cell-desc">自然的生機氣息</div>
+        </div>
+      </div>
+      <div class="grid-cell animate-in">
+        <div class="grid-cell-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
+        <div class="grid-cell-text">
+          <div class="grid-cell-title">暖色燈光</div>
+          <div class="grid-cell-desc">營造溫馨氛圍</div>
+        </div>
+      </div>
+      <div class="grid-cell animate-in">
+        <div class="grid-cell-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <div class="grid-cell-text">
+          <div class="grid-cell-title">收納系統</div>
+          <div class="grid-cell-desc">整齊有序空間</div>
+        </div>
+      </div>
+      <div class="grid-cell animate-in">
+        <div class="grid-cell-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <div class="grid-cell-text">
+          <div class="grid-cell-title">音樂氛圍</div>
+          <div class="grid-cell-desc">舒緩的背景音樂</div>
+        </div>
+      </div>
+      <div class="grid-cell animate-in">
+        <div class="grid-cell-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div class="grid-cell-text">
+          <div class="grid-cell-title">閱讀角落</div>
+          <div class="grid-cell-desc">舒適的閱讀空間</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P9 身心平衡 -->
+  <div class="slide s9-balance" id="slide9">
+    <div class="balance-layout">
+      <div class="diamond-showcase">
+        <div class="diamond animate-in"><span class="diamond-icon">🧘</span></div>
+        <div class="diamond animate-in"><span class="diamond-icon">🏃</span></div>
+        <div class="diamond animate-in"><span class="diamond-icon">🎭</span></div>
+      </div>
+      <div class="balance-content">
+        <h2 class="animate-in">⋆ 身心平衡之道 ⋆</h2>
+        <ul class="balance-list">
+          <li class="animate-in">每日冥想 15-30 分鐘</li>
+          <li class="animate-in">每週運動 3 次以上</li>
+          <li class="animate-in">保持規律作息</li>
+          <li class="animate-in">培養正向社交關係</li>
+          <li class="animate-in">持續學習新事物</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- P10 總結 -->
+  <div class="slide s10-summary" id="slide10">
+    <h2 class="animate-in" style="margin-bottom:1rem;">⋆ 行動指南 ⋆</h2>
+    <div class="timeline-h">
+      <div class="timeline-item animate-in">
+        <div class="timeline-node">1</div>
+        <span class="timeline-label">選擇<br>感興趣的主題</span>
+      </div>
+      <div class="timeline-item animate-in">
+        <div class="timeline-node">2</div>
+        <span class="timeline-label">安排<br>每週實踐時間</span>
+      </div>
+      <div class="timeline-item animate-in">
+        <div class="timeline-node">3</div>
+        <span class="timeline-label">持續<br>記錄與反思</span>
+      </div>
+      <div class="timeline-item animate-in">
+        <div class="timeline-node">4</div>
+        <span class="timeline-label">分享<br>你的改變故事</span>
+      </div>
+    </div>
+    <div class="summary-cta animate-in">
+      <h2>⋆ 從今天開始 ⋆</h2>
+      <p class="text-muted">讓生活充滿儀式感與熱情</p>
+    </div>
+  </div>
+</div>
+
+<!-- 導航 -->
+<div class="nav">
+  <button onclick="prev()" aria-label="上一頁">◀</button>
+  <span id="page-num">1 / 10</span>
+  <button onclick="next()" aria-label="下一頁">▶</button>
+</div>
+
+<script>
+// 簡報導航
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+
+function showSlide(n) {
+  slides[current].classList.remove('active');
+  slides[n].classList.add('active');
+  current = n;
+  document.getElementById('page-num').textContent = (current + 1) + ' / ' + total;
+  // 觸發動畫
+  slides[current].querySelectorAll('.animate-in').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), i * 80);
+  });
+}
+
+function next() {
+  showSlide((current + 1) % total);
+}
+function prev() {
+  showSlide((current - 1 + total) % total);
+}
+
+// 鍵盤支援
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+// 初始化
+showSlide(0);
+</script>
+</body>
+</html>
