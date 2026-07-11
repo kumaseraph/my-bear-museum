@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>旅遊探索 | 2026-07-11</title>
+<style>
+:root {
+  --primary: #FF6B35;
+  --primary-dark: #E85A24;
+  --primary-light: #FF8F66;
+  --accent: #F7C59F;
+  --accent-dark: #E5A67A;
+  --bg: #FFF8F5;
+  --bg-secondary: #FEF0E8;
+  --surface: #FFFFFF;
+  --text: #2D1810;
+  --text-muted: #6B4D3A;
+  --muted: #C4A882;
+  --shadow: rgba(255, 107, 53, 0.15);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-snap-type: y mandatory; font-size: 20px; }
+body {
+  font-family: 'Noto Sans TC', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.presentation { width: 100%; height: 100vh; }
+.slide {
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  display: none;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+.nav {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+  gap: 12px;
+  z-index: 1000;
+  background: rgba(255,255,255,0.9);
+  padding: 8px 16px;
+  border-radius: 24px;
+  box-shadow: 0 4px 16px var(--shadow);
+}
+.nav button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.nav span { color: var(--text); font-weight: 600; padding: 8px 4px; }
+
+/* P1: Cover - 旅遊探索 */
+#slide-1 {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+#slide-1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 40%);
+}
+.s1-content { position: relative; z-index: 2; padding: 48px; max-width: 900px; }
+.s1-title { font-size: 3.5rem; font-weight: 900; margin-bottom: 16px; letter-spacing: -0.02em; }
+.s1-subtitle { font-size: 1.5rem; opacity: 0.9; margin-bottom: 32px; }
+.s1-date {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  padding: 12px 32px;
+  border-radius: 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.s1-icon {
+  margin-bottom: 24px;
+}
+.s1-icon svg { width: 80px; height: 80px; }
+
+/* P2: 景點特色蜂巢圖 */
+#slide-2 {
+  background: var(--bg);
+  justify-content: center;
+  align-items: center;
+  padding: 48px;
+}
+.s2-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 32px; text-align: center; }
+.hex-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 800px;
+}
+.hex {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1.1547;
+  color: white;
+  padding: 16px;
+  text-align: center;
+  position: relative;
+}
+.hex:nth-child(even) { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: var(--text); }
+.hex-label { font-size: 1.1rem; font-weight: 700; }
+.hex-sub { font-size: 1rem; opacity: 0.85; }
+.hex-center {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  width: 100%;
+  height: 100%;
+}
+
+/* P3: 行程時間軸 */
+#slide-3 {
+  background: var(--bg-secondary);
+  justify-content: center;
+  padding: 48px;
+}
+.s3-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 32px; }
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 24px;
+  align-items: center;
+  padding: 16px 0;
+  border-left: 4px solid var(--primary);
+  padding-left: 24px;
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 4px solid var(--bg);
+}
+.timeline-time { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+.timeline-content h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 4px; }
+.timeline-content p { font-size: 1rem; color: var(--text-muted); }
+
+/* P4: 必吃美食同心圓 */
+#slide-4 {
+  background: var(--bg);
+  justify-content: center;
+  align-items: center;
+  padding: 48px;
+}
+.s4-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 32px; text-align: center; }
+.circle-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.circle-ring {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+}
+.cr1 { width: 280px; height: 280px; background: var(--primary); font-size: 1.5rem; }
+.cr2 { width: 220px; height: 220px; background: var(--primary-light); font-size: 1.3rem; color: var(--text); margin-top: -40px; }
+.cr3 { width: 160px; height: 160px; background: var(--accent); font-size: 1.2rem; color: var(--text); margin-top: -32px; }
+.cr4 { width: 100px; height: 100px; background: var(--accent-dark); font-size: 1.1rem; color: var(--text); margin-top: -24px; }
+.circle-desc { font-size: 1rem; color: var(--text-muted); margin-top: 24px; text-align: center; }
+
+/* P5: 推薦住宿卡片網格 */
+#slide-5 {
+  background: var(--bg);
+  justify-content: center;
+  padding: 48px;
+}
+.s5-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 32px; }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.card-icon { width: 48px; height: 48px; }
+.card-title { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+.card-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.5; }
+.card-tag {
+  display: inline-block;
+  background: var(--bg-secondary);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+/* P6: 交通方式放射狀 */
+#slide-6 {
+  background: var(--bg-secondary);
+  justify-content: center;
+  align-items: center;
+  padding: 48px;
+}
+.s6-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 32px; text-align: center; }
+.radial-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.radial-center {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 8px 32px var(--shadow);
+}
+.radial-items {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.radial-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+}
+.radial-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px var(--shadow);
+}
+.radial-label { font-size: 1rem; font-weight: 600; color: var(--text); }
+.radial-sub { font-size: 1rem; color: var(--text-muted); }
+
+/* P7: 預算規劃柱狀圖 */
+#slide-7 {
+  background: var(--bg);
+  justify-content: center;
+  padding: 48px;
+}
+.s7-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 32px; }
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+  max-width: 800px;
+  height: 300px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+}
+.bar {
+  width: 100%;
+  background: linear-gradient(180deg, var(--primary), var(--primary-light));
+  border-radius: 8px 8px 0 0;
+  position: relative;
+}
+.bar-label { font-size: 1rem; font-weight: 600; color: var(--text); text-align: center; }
+.bar-value {
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+/* P8: 旅遊亮點靶心 */
+#slide-8 {
+  background: var(--bg);
+  justify-content: center;
+  align-items: center;
+  padding: 48px;
+}
+.s8-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 32px; text-align: center; }
+.bullseye {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bullseye-ring {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.br1 { width: 320px; height: 320px; background: var(--primary); opacity: 0.15; }
+.br2 { width: 240px; height: 240px; background: var(--primary); opacity: 0.3; }
+.br3 { width: 160px; height: 160px; background: var(--primary); opacity: 0.6; }
+.br4 { width: 80px; height: 80px; background: var(--primary); }
+.bullseye-center {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+.bullseye-center .big-num { font-size: 2.5rem; font-weight: 900; }
+.bullseye-center .big-label { font-size: 1rem; opacity: 0.9; }
+
+/* P9: 購物指南蜂巢 */
+#slide-9 {
+  background: var(--bg-secondary);
+  justify-content: center;
+  padding: 48px;
+}
+.s9-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 32px; text-align: center; }
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.shop-item {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+.shop-item:nth-child(even) { background: var(--primary); color: white; }
+.shop-icon { width: 48px; height: 48px; margin: 0 auto 12px; }
+.shop-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+.shop-price { font-size: 1rem; color: var(--text-muted); }
+.shop-item:nth-child(even) .shop-price { color: rgba(255,255,255,0.8); }
+
+/* P10: 結尾感謝 */
+#slide-10 {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+#slide-10::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.2) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,0.15) 0%, transparent 40%);
+}
+.s10-content { position: relative; z-index: 2; padding: 48px; max-width: 800px; }
+.s10-title { font-size: 3rem; font-weight: 900; margin-bottom: 16px; }
+.s10-subtitle { font-size: 1.5rem; opacity: 0.9; margin-bottom: 32px; }
+.s10-cta {
+  display: inline-block;
+  background: white;
+  color: var(--primary);
+  padding: 16px 40px;
+  border-radius: 32px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.back-link {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  color: white;
+  background: rgba(0,0,0,0.2);
+  padding: 8px 16px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  z-index: 1000;
+}
+</style>
+</head>
+<body>
+<a href="/slides.htm" class="back-link">← 回列表</a>
+
+<div class="presentation">
+  <!-- P1: 封面 -->
+  <section id="slide-1" class="slide active">
+    <div class="s1-content">
+      <div class="s1-icon">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="28" stroke="white" stroke-width="3"/>
+          <path d="M32 16 L38 28 L50 28 L40 36 L44 48 L32 40 L20 48 L24 36 L14 28 L26 28 Z" fill="white"/>
+        </svg>
+      </div>
+      <h1 class="s1-title">旅遊探索</h1>
+      <p class="s1-subtitle">發現世界的美好與驚奇</p>
+      <span class="s1-date">2026年7月11日</span>
+    </div>
+  </section>
+
+  <!-- P2: 景點特色蜂巢圖 -->
+  <section id="slide-2" class="slide">
+    <h2 class="s2-title">熱門景點特色</h2>
+    <div class="hex-grid">
+      <div class="hex"><span class="hex-label">海灘</span><span class="hex-sub">陽光沙灘</span></div>
+      <div class="hex"><span class="hex-label">山脈</span><span class="hex-sub">壯闊視野</span></div>
+      <div class="hex hex-center"><span class="hex-label" style="font-size:1.5rem;">熱門<br>景點</span></div>
+      <div class="hex"><span class="hex-label">古蹟</span><span class="hex-sub">歷史風情</span></div>
+      <div class="hex"><span class="hex-label">樂園</span><span class="hex-sub">歡樂時光</span></div>
+      <div class="hex"><span class="hex-label">小鎮</span><span class="hex-sub">悠閒漫步</span></div>
+      <div class="hex"><span class="hex-label">都市</span><span class="hex-sub">購物美食</span></div>
+      <div class="hex"><span class="hex-label">溫泉</span><span class="hex-sub">放鬆身心</span></div>
+    </div>
+  </section>
+
+  <!-- P3: 行程時間軸 -->
+  <section id="slide-3" class="slide">
+    <h2 class="s3-title">推薦行程</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-time">08:00</span>
+        <div class="timeline-content">
+          <h3>晨間出發</h3>
+          <p>抵達目的地，享受清晨的寧靜時光</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">10:00</span>
+        <div class="timeline-content">
+          <h3>景點導覽</h3>
+          <p>專業導遊帶領，深入探索當地文化</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">12:30</span>
+        <div class="timeline-content">
+          <h3>在地美食</h3>
+          <p>品嚐道地特色料理，滿足味蕾</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">15:00</span>
+        <div class="timeline-content">
+          <h3>自由活動</h3>
+          <p>漫步街頭，發現隱藏版景點</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-time">18:00</span>
+        <div class="timeline-content">
+          <h3>夕陽時分</h3>
+          <p>欣賞美麗夕陽，捕捉精彩瞬間</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P4: 必吃美食同心圓 -->
+  <section id="slide-4" class="slide">
+    <h2 class="s4-title">必吃美食推薦</h2>
+    <div class="circle-stack">
+      <div class="circle-ring cr1">
+        <span>海鮮</span>
+      </div>
+      <div class="circle-ring cr2">
+        <span>燒烤</span>
+      </div>
+      <div class="circle-ring cr3">
+        <span>甜點</span>
+      </div>
+      <div class="circle-ring cr4">
+        <span>飲品</span>
+      </div>
+      <p class="circle-desc">由外而內层层惊喜，每一口都是滿足</p>
+    </div>
+  </section>
+
+  <!-- P5: 推薦住宿卡片網格 -->
+  <section id="slide-5" class="slide">
+    <h2 class="s5-title">優質住宿推薦</h2>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="16" width="32" height="24" rx="4" stroke="#FF6B35" stroke-width="3"/>
+            <path d="M16 16 V12 A4 4 0 0 1 20 8 H28 A4 4 0 0 1 32 12 V16" stroke="#FF6B35" stroke-width="3"/>
+          </svg>
+        </div>
+        <span class="card-title">星級酒店</span>
+        <span class="card-desc">頂級服務，豪華設施，尊榮體驗</span>
+        <span class="card-tag">五星評價</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 8 L40 20 V40 H8 V20 Z" stroke="#FF6B35" stroke-width="3" fill="none"/>
+            <rect x="18" y="28" width="12" height="12" stroke="#FF6B35" stroke-width="3"/>
+          </svg>
+        </div>
+        <span class="card-title">特色民宿</span>
+        <span class="card-desc">溫馨舒適，在地風情，深入體驗</span>
+        <span class="card-tag">人氣首選</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="20" r="10" stroke="#FF6B35" stroke-width="3"/>
+            <path d="M12 40 C12 32 18 28 24 28 C30 28 36 32 36 40" stroke="#FF6B35" stroke-width="3"/>
+          </svg>
+        </div>
+        <span class="card-title">露營區</span>
+        <span class="card-desc">親近自然，星空露營，難忘回憶</span>
+        <span class="card-tag">自然風光</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- P6: 交通方式放射狀 -->
+  <section id="slide-6" class="slide">
+    <h2 class="s6-title">交通方式</h2>
+    <div class="radial-layout">
+      <div class="radial-center">出發</div>
+      <div class="radial-items">
+        <div class="radial-item">
+          <div class="radial-icon">
+            <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+              <circle cx="24" cy="24" r="16" stroke="#FF6B35" stroke-width="3"/>
+              <circle cx="24" cy="20" r="6" stroke="#FF6B35" stroke-width="3"/>
+              <path d="M16 38 C16 32 20 28 24 28 C28 28 32 32 32 38" stroke="#FF6B35" stroke-width="3"/>
+            </svg>
+          </div>
+          <span class="radial-label">飛機</span>
+          <span class="radial-sub">快速便捷</span>
+        </div>
+        <div class="radial-item">
+          <div class="radial-icon">
+            <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+              <rect x="6" y="18" width="36" height="16" rx="4" stroke="#FF6B35" stroke-width="3"/>
+              <circle cx="14" cy="34" r="4" stroke="#FF6B35" stroke-width="3"/>
+              <circle cx="34" cy="34" r="4" stroke="#FF6B35" stroke-width="3"/>
+            </svg>
+          </div>
+          <span class="radial-label">火車</span>
+          <span class="radial-sub">沿途風光</span>
+        </div>
+        <div class="radial-item">
+          <div class="radial-icon">
+            <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+              <path d="M8 32 L40 32 L36 20 H12 Z" stroke="#FF6B35" stroke-width="3"/>
+              <circle cx="14" cy="36" r="4" stroke="#FF6B35" stroke-width="3"/>
+              <circle cx="34" cy="36" r="4" stroke="#FF6B35" stroke-width="3"/>
+            </svg>
+          </div>
+          <span class="radial-label">巴士</span>
+          <span class="radial-sub">經濟實惠</span>
+        </div>
+        <div class="radial-item">
+          <div class="radial-icon">
+            <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+              <path d="M16 12 L32 12 L36 32 H12 Z" stroke="#FF6B35" stroke-width="3"/>
+              <circle cx="16" cy="36" r="4" stroke="#FF6B35" stroke-width="3"/>
+              <circle cx="32" cy="36" r="4" stroke="#FF6B35" stroke-width="3"/>
+            </svg>
+          </div>
+          <span class="radial-label">渡輪</span>
+          <span class="radial-sub">海上風情</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P7: 預算規劃柱狀圖 -->
+  <section id="slide-7" class="slide">
+    <h2 class="s7-title">旅遊預算規劃</h2>
+    <div class="bar-chart">
+      <div class="bar-item">
+        <div class="bar" style="height: 240px;">
+          <span class="bar-value">40%</span>
+        </div>
+        <span class="bar-label">交通</span>
+      </div>
+      <div class="bar-item">
+        <div class="bar" style="height: 180px;">
+          <span class="bar-value">30%</span>
+        </div>
+        <span class="bar-label">住宿</span>
+      </div>
+      <div class="bar-item">
+        <div class="bar" style="height: 120px;">
+          <span class="bar-value">20%</span>
+        </div>
+        <span class="bar-label">餐飲</span>
+      </div>
+      <div class="bar-item">
+        <div class="bar" style="height: 60px;">
+          <span class="bar-value">10%</span>
+        </div>
+        <span class="bar-label">門票</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- P8: 旅遊亮點靶心 -->
+  <section id="slide-8" class="slide">
+    <h2 class="s8-title">旅遊亮點</h2>
+    <div class="bullseye">
+      <div class="bullseye-ring br1"></div>
+      <div class="bullseye-ring br2"></div>
+      <div class="bullseye-ring br3"></div>
+      <div class="bullseye-ring br4">
+        <div class="bullseye-center">
+          <div class="big-num">100</div>
+          <div class="big-label">精彩</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P9: 購物指南蜂巢 -->
+  <section id="slide-9" class="slide">
+    <h2 class="s9-title">購物指南</h2>
+    <div class="shop-grid">
+      <div class="shop-item">
+        <div class="shop-icon">
+          <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+            <circle cx="24" cy="24" r="16" stroke="#FF6B35" stroke-width="3"/>
+            <path d="M16 24 L22 30 L32 18" stroke="#FF6B35" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="shop-name">伴手禮</div>
+        <div class="shop-price">NT$200-500</div>
+      </div>
+      <div class="shop-item">
+        <div class="shop-icon">
+          <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+            <rect x="12" y="12" width="24" height="24" rx="4" stroke="#FF6B35" stroke-width="3"/>
+            <path d="M18 24 L22 28 L30 20" stroke="#FF6B35" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="shop-name">手工藝</div>
+        <div class="shop-price">NT$300-800</div>
+      </div>
+      <div class="shop-item">
+        <div class="shop-icon">
+          <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+            <circle cx="24" cy="20" r="10" stroke="#FF6B35" stroke-width="3"/>
+            <path d="M12 40 C12 32 18 28 24 28 C30 28 36 32 36 40" stroke="#FF6B35" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="shop-name">特產食品</div>
+        <div class="shop-price">NT$150-400</div>
+      </div>
+      <div class="shop-item">
+        <div class="shop-icon">
+          <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+            <path d="M24 8 L28 20 L40 20 L30 28 L34 40 L24 32 L14 40 L18 28 L8 20 L20 20 Z" stroke="#FF6B35" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="shop-name">文創商品</div>
+        <div class="shop-price">NT$250-600</div>
+      </div>
+      <div class="shop-item">
+        <div class="shop-icon">
+          <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+            <rect x="10" y="14" width="28" height="20" rx="2" stroke="#FF6B35" stroke-width="3"/>
+            <path d="M10 20 H38" stroke="#FF6B35" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="shop-name">時尚服飾</div>
+        <div class="shop-price">NT$500-2000</div>
+      </div>
+      <div class="shop-item">
+        <div class="shop-icon">
+          <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+            <circle cx="24" cy="24" r="14" stroke="#FF6B35" stroke-width="3"/>
+            <path d="M18 24 H30 M24 18 V30" stroke="#FF6B35" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="shop-name">美妝保養</div>
+        <div class="shop-price">NT$400-1200</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- P10: 結尾感謝 -->
+  <section id="slide-10" class="slide">
+    <div class="s10-content">
+      <h1 class="s10-title">感謝觀看</h1>
+      <p class="s10-subtitle">期待與您分享更多精彩旅程</p>
+      <a href="/slides.htm" class="s10-cta">探索更多簡報</a>
+    </div>
+  </section>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prev()">◀</button>
+  <span id="pageNum">1 / 10</span>
+  <button onclick="next()">▶</button>
+</div>
+
+<script>
+let current = 1;
+const total = 10;
+
+function showSlide(n) {
+  if (n < 1) n = 1;
+  if (n > total) n = total;
+  current = n;
+  document.querySelectorAll('.slide').forEach(function(s) {
+    s.classList.remove('active');
+  });
+  document.getElementById('slide-' + current).classList.add('active');
+  document.getElementById('pageNum').textContent = current + ' / ' + total;
+}
+
+function next() { showSlide(current + 1); }
+function prev() { showSlide(current - 1); }
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+</script>
+</body>
+</html>
