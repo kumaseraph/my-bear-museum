@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" role="img" aria-label="星形頁碼裝飾">
+  <title>星形頁碼裝飾</title>
+  <desc>現代簡潔風格，星形幾何頁碼設計，適用於工作報告PPT</desc>
+  
+  <defs>
+    <!-- 暖色調漸層 -->
+    <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    
+    <!-- 青綠對比漸層 -->
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ECDC4"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    
+    <!-- 星形路徑 (六角星) -->
+    <polygon id="starShape" points="0,-30 7,-10 28,-10 12,5 18,26 0,14 -18,26 -12,5 -28,-10 -7,-10" 
+             fill="none" stroke-width="0"/>
+  </defs>
+  
+  <!-- 頁碼 05 -->
+  <g transform="translate(100, 50)">
+    <!-- 外圈六邊形裝飾 (旋轉30度) -->
+    <g transform="rotate(30, 0, 0)">
+      <path d="M0,-38 L33,-19 L33,19 L0,38 L-33,19 L-33,-19 Z" 
+            fill="none" stroke="#4ECDC4" stroke-width="1.5" opacity="0.4"/>
+    </g>
+    
+    <!-- 內圈六邊形 -->
+    <g transform="rotate(0, 0, 0)">
+      <path d="M0,-28 L24,-14 L24,14 L0,28 L-24,14 L-24,-14 Z" 
+            fill="url(#tealGrad)" fill-opacity="0.2" stroke="url(#tealGrad)" stroke-width="2"/>
+    </g>
+    
+    <!-- 中心星形 -->
+    <use href="#starShape" fill="url(#starGrad)" transform="scale(0.8)"/>
+    
+    <!-- 頁碼數字 -->
+    <text x="0" y="45" text-anchor="middle" fill="#6B5CE7" 
+          font-family="system-ui, sans-serif" font-size="14" font-weight="600">
+      05
+    </text>
+  </g>
+  
+  <!-- 頁碼 06 -->
+  <g transform="translate(200, 50)">
+    <g transform="rotate(15, 0, 0)">
+      <path d="M0,-38 L33,-19 L33,19 L0,38 L-33,19 L-33,-19 Z" 
+            fill="none" stroke="#4ECDC4" stroke-width="1.5" opacity="0.5"/>
+    </g>
+    <g transform="rotate(0, 0, 0)">
+      <path d="M0,-28 L24,-14 L24,14 L0,28 L-24,14 L-24,-14 Z" 
+            fill="url(#tealGrad)" fill-opacity="0.3" stroke="url(#tealGrad)" stroke-width="2"/>
+    </g>
+    <use href="#starShape" fill="url(#starGrad)" transform="scale(0.8)"/>
+    <text x="0" y="45" text-anchor="middle" fill="#6B5CE7" 
+          font-family="system-ui, sans-serif" font-size="14" font-weight="600">
+      06
+    </text>
+  </g>
+  
+  <!-- 當前頁 07 (強調) -->
+  <g transform="translate(300, 50)">
+    <!-- 發光背景 -->
+    <circle cx="0" cy="0" r="42" fill="#FF8C00" opacity="0.15"/>
+    
+    <g transform="rotate(30, 0, 0)">
+      <path d="M0,-38 L33,-19 L33,19 L0,38 L-33,19 L-33,-19 Z" 
+            fill="url(#tealGrad)" fill-opacity="0.2" stroke="#4ECDC4" stroke-width="2"/>
+    </g>
+    <g transform="rotate(0, 0, 0)">
+      <path d="M0,-28 L24,-14 L24,14 L0,28 L-24,14 L-24,-14 Z" 
+            fill="url(#starGrad)" stroke="#FFFFFF" stroke-width="2"/>
+    </g>
+    <use href="#starShape" fill="#FFFFFF" transform="scale(0.8)"/>
+    <text x="0" y="45" text-anchor="middle" fill="#FFFFFF" 
+          font-family="system-ui, sans-serif" font-size="14" font-weight="600">
+      07
+    </text>
+  </g>
+</svg>

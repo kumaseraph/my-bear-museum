@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <title>熊脈單側邊框</title>
+  <desc>熊熊風格平行四邊形動感邊框，工作報告素材</desc>
+  
+  <defs>
+    <!-- 熊熊暖色調 -->
+    <linearGradient id="skewGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B4423"/>
+      <stop offset="100%" stop-color="#D4A574"/>
+    </linearGradient>
+    <linearGradient id="skewGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5A2B"/>
+      <stop offset="100%" stop-color="#F5DEB3"/>
+    </linearGradient>
+    <!-- 條紋圖案 -->
+    <pattern id="bearStripes" patternUnits="userSpaceOnUse" width="12" height="12">
+      <line x1="0" y1="12" x2="12" y2="0" stroke="#D4A574" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+  
+  <!-- 左側主邊框 - 階梯排列平行四邊形 (skewX=-20) -->
+  <g transform="translate(0,50)">
+    <!-- 第一層 -->
+    <polygon points="20,0 100,0 80,80 0,80" fill="#6B4423" transform="skewX(-20)"/>
+    <polygon points="20,0 100,0 80,80 0,80" fill="url(#bearStripes)" transform="skewX(-20)" opacity="0.4"/>
+    
+    <g transform="translate(0,90)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#8B5A2B" transform="skewX(-20)"/>
+      <polygon points="20,0 100,0 80,80 0,80" fill="url(#bearStripes)" transform="skewX(-20)" opacity="0.3"/>
+    </g>
+    
+    <g transform="translate(0,180)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#A0522D" transform="skewX(-20)"/>
+      <polygon points="20,0 100,0 80,80 0,80" fill="url(#bearStripes)" transform="skewX(-20)" opacity="0.25"/>
+    </g>
+    
+    <g transform="translate(0,270)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#D4A574" transform="skewX(-20)"/>
+      <polygon points="20,0 100,0 80,80 0,80" fill="url(#bearStripes)" transform="skewX(-20)" opacity="0.2"/>
+    </g>
+    
+    <g transform="translate(0,360)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#DEB887" transform="skewX(-20)"/>
+    </g>
+    
+    <g transform="translate(0,450)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#F5DEB3" transform="skewX(-20)"/>
+    </g>
+    
+    <g transform="translate(0,540)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#D4A574" transform="skewX(-20)"/>
+    </g>
+    
+    <g transform="translate(0,630)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#A0522D" transform="skewX(-20)"/>
+    </g>
+    
+    <g transform="translate(0,720)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#8B5A2B" transform="skewX(-20)"/>
+    </g>
+    
+    <g transform="translate(0,810)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#6B4423" transform="skewX(-20)"/>
+    </g>
+  </g>
+  
+  <!-- 左側連接線裝飾 -->
+  <line x1="120" y1="50" x2="120" y2="950" stroke="#8B5A2B" stroke-width="1.5" stroke-dasharray="8,6"/>
+  
+  <!-- 右側呼應裝飾 -->
+  <g transform="translate(1800,50)">
+    <polygon points="20,0 100,0 80,80 0,80" fill="#6B4423" transform="skewX(20)"/>
+    <g transform="translate(0,90)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#8B5A2B" transform="skewX(20)"/>
+    </g>
+    <g transform="translate(0,180)">
+      <polygon points="20,0 100,0 80,80 0,80" fill="#A0522D" transform="skewX(20)"/>
+    </g>
+  </g>
+</svg>

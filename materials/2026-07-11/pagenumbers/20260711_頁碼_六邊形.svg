@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" role="img" aria-label="六邊形頁碼設計">
+  <title>六邊形頁碼</title>
+  <desc>現代簡潔風格，六邊形幾何頁碼設計，適用於工作報告PPT</desc>
+  
+  <defs>
+    <!-- 統一配色漸層 -->
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+    
+    <!-- 2.5D外框漸層 -->
+    <linearGradient id="hexBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 頁碼 "01" -->
+  <g transform="translate(80, 50)">
+    <!-- 背景大六邊形 (空心粗框 - 2.5D效果) -->
+    <path d="M0,-35 L30.4,-17.5 L30.4,17.5 L0,35 L-30.4,17.5 L-30.4,-17.5 Z" 
+          fill="none" stroke="url(#hexBorderGrad)" stroke-width="4"/>
+    
+    <!-- 內部小六邊形 (實心半透明) -->
+    <path d="M0,-25 L21.7,-12.5 L21.7,12.5 L0,25 L-21.7,12.5 L-21.7,-12.5 Z" 
+          fill="url(#hexGrad)" fill-opacity="0.3"/>
+    
+    <!-- 頁碼數字 -->
+    <text x="0" y="6" text-anchor="middle" fill="#6B5CE7" 
+          font-family="system-ui, sans-serif" font-size="20" font-weight="700">
+      01
+    </text>
+  </g>
+  
+  <!-- 頁碼 "02" -->
+  <g transform="translate(160, 50)">
+    <path d="M0,-35 L30.4,-17.5 L30.4,17.5 L0,35 L-30.4,17.5 L-30.4,-17.5 Z" 
+          fill="none" stroke="url(#hexBorderGrad)" stroke-width="4"/>
+    <path d="M0,-25 L21.7,-12.5 L21.7,12.5 L0,25 L-21.7,12.5 L-21.7,-12.5 Z" 
+          fill="url(#hexGrad)" fill-opacity="0.5"/>
+    <text x="0" y="6" text-anchor="middle" fill="#6B5CE7" 
+          font-family="system-ui, sans-serif" font-size="20" font-weight="700">
+      02
+    </text>
+  </g>
+  
+  <!-- 頁碼 "03" -->
+  <g transform="translate(240, 50)">
+    <path d="M0,-35 L30.4,-17.5 L30.4,17.5 L0,35 L-30.4,17.5 L-30.4,-17.5 Z" 
+          fill="url(#hexGrad)" stroke="url(#hexBorderGrad)" stroke-width="3"/>
+    <text x="0" y="6" text-anchor="middle" fill="#FFFFFF" 
+          font-family="system-ui, sans-serif" font-size="20" font-weight="700">
+      03
+    </text>
+  </g>
+  
+  <!-- 當前頁碼 "04" (強調) -->
+  <g transform="translate(320, 50)">
+    <!-- 外發光效果 -->
+    <ellipse cx="0" cy="0" rx="38" ry="42" fill="#6B5CE7" opacity="0.2"/>
+    
+    <path d="M0,-35 L30.4,-17.5 L30.4,17.5 L0,35 L-30.4,17.5 L-30.4,-17.5 Z" 
+          fill="url(#hexGrad)" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="0" y="6" text-anchor="middle" fill="#FFFFFF" 
+          font-family="system-ui, sans-serif" font-size="20" font-weight="700">
+      04
+    </text>
+  </g>
+</svg>

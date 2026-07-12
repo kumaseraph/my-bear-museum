@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" role="img" aria-label="條紋疊加按鈕">
+  <title>條紋疊加按鈕</title>
+  <desc>現代簡潔風格，採用條紋疊加動態效果，適用於工作報告PPT</desc>
+  
+  <defs>
+    <!-- 科技風配色 -->
+    <linearGradient id="btnGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="50%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+    
+    <!-- 條紋圖案 -->
+    <pattern id="stripePattern2" patternUnits="userSpaceOnUse" width="6" height="6">
+      <line x1="0" y1="6" x2="6" y2="0" stroke="#FFFFFF" stroke-width="1.5" opacity="0.25"/>
+    </pattern>
+    
+    <!-- 陰影濾鏡 -->
+    <filter id="shadow2" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0EA5E9" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- 按鈕主體 -->
+  <g transform="translate(200, 60)" filter="url(#shadow2)">
+    <!-- 基礎矩形 -->
+    <rect x="-120" y="-40" width="240" height="80" rx="40" ry="40" 
+          fill="url(#btnGrad2)"/>
+    
+    <!-- 條紋疊加層 (傾斜) -->
+    <g transform="skewX(-20)">
+      <rect x="-130" y="-50" width="260" height="100" rx="45" ry="45" 
+            fill="url(#stripePattern2)"/>
+    </g>
+    
+    <!-- 內部光澤 -->
+    <rect x="-100" y="-30" width="200" height="30" rx="15" ry="15" 
+          fill="#FFFFFF" opacity="0.15"/>
+    
+    <!-- 強調線 -->
+    <line x1="-80" y1="0" x2="80" y2="0" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+  </g>
+  
+  <!-- 按鈕文字 -->
+  <text x="200" y="65" text-anchor="middle" fill="#FFFFFF" 
+        font-family="system-ui, sans-serif" font-size="16" font-weight="600">
+    SUBMIT
+  </text>
+</svg>

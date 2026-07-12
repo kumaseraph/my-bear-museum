@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="rightBorder" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="50%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 右側主邊框 - 斜向階梯效果 -->
+  <g transform="translate(1920,0) scale(-1,1)">
+    <!-- 第一層：實心大方塊 -->
+    <polygon points="80,0 200,0 180,1080 60,1080" 
+             fill="#1E3A5F" opacity="0.95"/>
+    
+    <!-- 第二層：半透明斜向條紋 -->
+    <polygon points="90,0 195,0 175,1080 70,1080" 
+             fill="none" stroke="#3B82F6" stroke-width="2"/>
+    
+    <!-- 內部六邊形裝飾 -->
+    <g transform="translate(100,400)">
+      <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" 
+            fill="#3B82F6"/>
+      <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z" 
+            fill="none" stroke="#60A5FA" stroke-width="2"/>
+      <path d="M50,25 L71.65,36.25 L71.65,58.75 L50,70 L28.35,58.75 L28.35,36.25 Z" 
+            fill="#1E40AF" opacity="0.5"/>
+    </g>
+    
+    <!-- 六邊形陣列裝飾 -->
+    <g transform="translate(100,650)">
+      <path d="M25,2.5 L46.65,13.75 L46.65,36.25 L25,47.5 L3.35,36.25 L3.35,13.75 Z" 
+            fill="#60A5FA" opacity="0.6"/>
+      <path d="M25,52.5 L46.65,63.75 L46.65,86.25 L25,97.5 L3.35,86.25 L3.35,63.75 Z" 
+            fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+    </g>
+    
+    <!-- 引導線裝飾 -->
+    <line x1="60" y1="200" x2="60" y2="350" stroke="#60A5FA" stroke-width="2" stroke-dasharray="8,4"/>
+    <line x1="60" y1="500" x2="60" y2="600" stroke="#60A5FA" stroke-width="2" stroke-dasharray="8,4"/>
+    <line x1="60" y1="760" x2="60" y2="900" stroke="#60A5FA" stroke-width="2" stroke-dasharray="8,4"/>
+  </g>
+</svg>

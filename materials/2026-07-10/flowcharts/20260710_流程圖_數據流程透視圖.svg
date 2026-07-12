@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <title>數據流程透視圖</title>
+  <desc>數據驅動決策流程的透視效果流程圖</desc>
+  <defs>
+    <linearGradient id="dataGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="dataGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#0891B2"/>
+    </linearGradient>
+    <linearGradient id="perspGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 透視背景線 -->
+  <g stroke="#E5E7EB" stroke-width="1">
+    <line x1="960" y1="200" x2="200" y2="900"/>
+    <line x1="960" y1="200" x2="500" y2="900"/>
+    <line x1="960" y1="200" x2="800" y2="900"/>
+    <line x1="960" y1="200" x2="1100" y2="900"/>
+    <line x1="960" y1="200" x2="1400" y2="900"/>
+    <line x1="960" y1="200" x2="1700" y2="900"/>
+  </g>
+  
+  <!-- 透視消失點標記 -->
+  <circle cx="960" cy="200" r="8" fill="#F59E0B"/>
+  <text x="960" y="180" text-anchor="middle" fill="#F59E0B" font-size="12" font-family="Microsoft JhengHei">VP</text>
+  
+  <!-- 流程卡片1：數據收集 -->
+  <g transform="translate(200, 300)" filter="url(#shadow)">
+    <polygon points="0,0 300,0 280,120 0,120" fill="url(#dataGrad1)" transform="skewX(-15)"/>
+    <text x="130" y="60" text-anchor="middle" fill="white" font-size="24" font-weight="bold" font-family="Microsoft JhengHei, Arial">數據收集</text>
+    <text x="130" y="95" text-anchor="middle" fill="#BFDBFE" font-size="14" font-family="Microsoft JhengHei, Arial">Data Collection</text>
+    <circle cx="270" cy="20" r="25" fill="#F59E0B"/>
+    <text x="270" y="27" text-anchor="middle" fill="white" font-size="20" font-weight="bold">1</text>
+  </g>
+  
+  <!-- 連接線1→2 -->
+  <line x1="480" y1="360" x2="680" y2="360" stroke="#F59E0B" stroke-width="4"/>
+  <polygon points="680,355 710,360 680,365" fill="#F59E0B"/>
+  
+  <!-- 流程卡片2：數據分析 -->
+  <g transform="translate(700, 300)" filter="url(#shadow)">
+    <polygon points="0,0 300,0 280,120 0,120" fill="url(#dataGrad2)" transform="skewX(-15)"/>
+    <text x="130" y="60" text-anchor="middle" fill="white" font-size="24" font-weight="bold" font-family="Microsoft JhengHei, Arial">數據分析</text>
+    <text x="130" y="95" text-anchor="middle" fill="#A5F3FC" font-size="14" font-family="Microsoft JhengHei, Arial">Data Analysis</text>
+    <circle cx="270" cy="20" r="25" fill="#F59E0B"/>
+    <text x="270" y="27" text-anchor="middle" fill="white" font-size="20" font-weight="bold">2</text>
+  </g>
+  
+  <!-- 連接線2→3 -->
+  <line x1="980" y1="360" x2="1180" y2="360" stroke="#F59E0B" stroke-width="4"/>
+  <polygon points="1180,355 1210,360 1180,365" fill="#F59E0B"/>
+  
+  <!-- 流程卡片3：洞察提煉 -->
+  <g transform="translate(1200, 300)" filter="url(#shadow)">
+    <polygon points="0,0 300,0 280,120 0,120" fill="url(#dataGrad1)" transform="skewX(-15)"/>
+    <text x="130" y="60" text-anchor="middle" fill="white" font-size="24" font-weight="bold" font-family="Microsoft JhengHei, Arial">洞察提煉</text>
+    <text x="130" y="95" text-anchor="middle" fill="#BFDBFE" font-size="14" font-family="Microsoft JhengHei, Arial">Insight Extraction</text>
+    <circle cx="270" cy="20" r="25" fill="#F59E0B"/>
+    <text x="270" y="27" text-anchor="middle" fill="white" font-size="20" font-weight="bold">3</text>
+  </g>
+  
+  <!-- 連接線3→4 -->
+  <line x1="1480" y1="360" x2="1500" y2="500" stroke="#F59E0B" stroke-width="4"/>
+  
+  <!-- 流程卡片4：決策制定 -->
+  <g transform="translate(1300, 500)" filter="url(#shadow)">
+    <polygon points="0,0 280,0 260,120 0,120" fill="url(#dataGrad2)" transform="skewX(-10)"/>
+    <text x="120" y="60" text-anchor="middle" fill="white" font-size="24" font-weight="bold" font-family="Microsoft JhengHei, Arial">決策制定</text>
+    <text x="120" y="95" text-anchor="middle" fill="#A5F3FC" font-size="14" font-family="Microsoft JhengHei, Arial">Decision Making</text>
+    <circle cx="250" cy="20" r="25" fill="#F59E0B"/>
+    <text x="250" y="27" text-anchor="middle" fill="white" font-size="20" font-weight="bold">4</text>
+  </g>
+  
+  <!-- 連接線4→5 -->
+  <line x1="1350" y1="560" x2="1100" y2="700" stroke="#F59E0B" stroke-width="4"/>
+  
+  <!-- 流程卡片5：執行優化 -->
+  <g transform="translate(850, 650)" filter="url(#shadow)">
+    <polygon points="0,0 280,0 260,120 0,120" fill="url(#dataGrad1)" transform="skewX(-5)"/>
+    <text x="120" y="60" text-anchor="middle" fill="white" font-size="24" font-weight="bold" font-family="Microsoft JhengHei, Arial">執行優化</text>
+    <text x="120" y="95" text-anchor="middle" fill="#BFDBFE" font-size="14" font-family="Microsoft JhengHei, Arial">Execution Optimization</text>
+    <circle cx="250" cy="20" r="25" fill="#F59E0B"/>
+    <text x="250" y="27" text-anchor="middle" fill="white" font-size="20" font-weight="bold">5</text>
+  </g>
+  
+  <!-- 回饋循環箭頭 -->
+  <path d="M 900 750 Q 600 850 400 700 Q 200 550 300 420 Q 400 300 550 350" 
+        stroke="#10B981" stroke-width="3" stroke-dasharray="8,4" fill="none"/>
+  <text x="400" y="600" fill="#10B981" font-size="14" font-family="Microsoft JhengHei">持續優化循環</text>
+  
+  <!-- 底部說明 -->
+  <text x="960" y="950" text-anchor="middle" fill="#9CA3AF" font-size="16" font-family="Microsoft JhengHei, Arial">數據驅動決策流程 × 透視視覺效果</text>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <title>工作報告圖標</title>
+  <desc>熊熊風格工作報告主題圖標，蜂巢六邊形設計</desc>
+  
+  <defs>
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5A2B"/>
+      <stop offset="100%" stop-color="#D4A574"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景六邊形 - 2.5D效果 -->
+  <g transform="translate(100,100)">
+    <!-- 外框 - 粗空心 -->
+    <path d="M0,-80 L69.3,-40 L69.3,40 L0,80 L-69.3,40 L-69.3,-40 Z" 
+          fill="none" stroke="#8B5A2B" stroke-width="8"/>
+    <!-- 內層 - 半透明實心 -->
+    <path d="M0,-80 L69.3,-40 L69.3,40 L0,80 L-69.3,40 L-69.3,-40 Z" 
+          fill="#D4A574" fill-opacity="0.4"/>
+    
+    <!-- 文件圖案 -->
+    <g transform="translate(0,-5)">
+      <!-- 文件主體 -->
+      <rect x="-30" y="-40" width="60" height="75" fill="#6B4423" rx="4"/>
+      <!-- 折角效果 -->
+      <path d="M15,-40 L30,-25 L30,-40 Z" fill="#8B5A2B"/>
+      <!-- 文字線條 -->
+      <line x1="-18" y1="-15" x2="18" y2="-15" stroke="#F5DEB3" stroke-width="4" stroke-linecap="round"/>
+      <line x1="-18" y1="0" x2="12" y2="0" stroke="#F5DEB3" stroke-width="4" stroke-linecap="round"/>
+      <line x1="-18" y1="15" x2="5" y2="15" stroke="#F5DEB3" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    
+    <!-- 右上小六邊形裝飾 -->
+    <g transform="translate(45,-55) scale(0.3)">
+      <path d="M0,-80 L69.3,-40 L69.3,40 L0,80 L-69.3,40 L-69.3,-40 Z" 
+            fill="#8B5A2B" fill-opacity="0.6"/>
+    </g>
+    <!-- 左下小六邊形裝飾 -->
+    <g transform="translate(-50,50) scale(0.25)">
+      <path d="M0,-80 L69.3,-40 L69.3,40 L0,80 L-69.3,40 L-69.3,-40 Z" 
+            fill="none" stroke="#6B4423" stroke-width="4"/>
+    </g>
+  </g>
+</svg>

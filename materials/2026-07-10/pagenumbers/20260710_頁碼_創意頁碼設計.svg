@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 200">
+  <title>創意頁碼設計</title>
+  <desc>工作報告風格頁碼，包含多種數字設計</desc>
+  <defs>
+    <linearGradient id="pageGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="pageGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 頁碼設計區域 -->
+  <g transform="translate(100, 50)">
+    <!-- 頁碼1：六邊形+數字 -->
+    <g transform="translate(0, 0)">
+      <polygon points="40,0 80,20 80,60 40,80 0,60 0,20" fill="url(#pageGrad1)" transform="rotate(15, 40, 40)"/>
+      <text x="40" y="52" text-anchor="middle" fill="white" font-size="28" font-weight="bold">01</text>
+      <text x="40" y="110" text-anchor="middle" fill="#6B7280" font-size="12" font-family="Microsoft JhengHei">六邊形</text>
+    </g>
+    
+    <!-- 頁碼2：菱形+數字 -->
+    <g transform="translate(200, 0)">
+      <polygon points="50,0 100,50 50,100 0,50" fill="url(#pageGrad2)" transform="rotate(45, 50, 50)"/>
+      <text x="50" y="60" text-anchor="middle" fill="white" font-size="28" font-weight="bold">02</text>
+      <text x="50" y="130" text-anchor="middle" fill="#6B7280" font-size="12" font-family="Microsoft JhengHei">菱形</text>
+    </g>
+    
+    <!-- 頁碼3：圓形+數字 -->
+    <g transform="translate(400, 0)">
+      <circle cx="50" cy="50" r="45" fill="url(#pageGrad1)"/>
+      <text x="50" y="60" text-anchor="middle" fill="white" font-size="28" font-weight="bold">03</text>
+      <text x="50" y="130" text-anchor="middle" fill="#6B7280" font-size="12" font-family="Microsoft JhengHei">圓形</text>
+    </g>
+    
+    <!-- 頁碼4：圓角矩形 -->
+    <g transform="translate(600, 0)">
+      <rect x="5" y="5" width="90" height="90" rx="20" fill="url(#pageGrad2)"/>
+      <text x="50" y="60" text-anchor="middle" fill="white" font-size="28" font-weight="bold">04</text>
+      <text x="50" y="130" text-anchor="middle" fill="#6B7280" font-size="12" font-family="Microsoft JhengHei">圓角</text>
+    </g>
+    
+    <!-- 頁碼5：平行四邊形 -->
+    <g transform="translate(800, 0)">
+      <polygon points="15,0 105,0 90,100 0,100" fill="url(#pageGrad1)" transform="skewX(-15)"/>
+      <text x="50" y="60" text-anchor="middle" fill="white" font-size="28" font-weight="bold">05</text>
+      <text x="50" y="130" text-anchor="middle" fill="#6B7280" font-size="12" font-family="Microsoft JhengHei">斜向</text>
+    </g>
+    
+    <!-- 頁碼6：雙層圓形 -->
+    <g transform="translate(1000, 0)">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="url(#pageGrad1)" stroke-width="8"/>
+      <circle cx="50" cy="50" r="35" fill="url(#pageGrad2)"/>
+      <text x="50" y="60" text-anchor="middle" fill="white" font-size="24" font-weight="bold">06</text>
+      <text x="50" y="130" text-anchor="middle" fill="#6B7280" font-size="12" font-family="Microsoft JhengHei">雙層</text>
+    </g>
+    
+    <!-- 頁碼7：十形裝飾 -->
+    <g transform="translate(1200, 0)">
+      <polygon points="50,0 60,40 100,50 60,60 50,100 40,60 0,50 40,40" fill="url(#pageGrad1)"/>
+      <text x="50" y="58" text-anchor="middle" fill="white" font-size="20" font-weight="bold">07</text>
+      <text x="50" y="130" text-anchor="middle" fill="#6B7280" font-size="12" font-family="Microsoft JhengHei">十形</text>
+    </g>
+    
+    <!-- 頁碼8：填充六邊形 -->
+    <g transform="translate(1400, 0)">
+      <polygon points="40,5 75,22 75,68 40,85 5,68 5,22" fill="url(#pageGrad2)"/>
+      <polygon points="40,15 65,28 65,62 40,75 15,62 15,28" fill="url(#pageGrad1)" fill-opacity="0.5"/>
+      <text x="40" y="55" text-anchor="middle" fill="white" font-size="24" font-weight="bold">08</text>
+      <text x="40" y="115" text-anchor="middle" fill="#6B7280" font-size="12" font-family="Microsoft JhengHei">實心</text>
+    </g>
+    
+    <!-- 頁碼9：半透明效果 -->
+    <g transform="translate(1600, 0)">
+      <polygon points="40,0 80,20 80,60 40,80 0,60 0,20" fill="url(#pageGrad1)" fill-opacity="0.6"/>
+      <polygon points="40,0 80,20 80,60 40,80 0,60 0,20" fill="url(#pageGrad1)" fill-opacity="0.6" transform="rotate(30, 40, 40)"/>
+      <text x="40" y="55" text-anchor="middle" fill="white" font-size="24" font-weight="bold">09</text>
+      <text x="40" y="115" text-anchor="middle" fill="#6B7280" font-size="12" font-family="Microsoft JhengHei">疊加</text>
+    </g>
+  </g>
+</svg>

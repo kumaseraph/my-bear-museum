@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
+  <defs>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="50%" stop-color="#E8C9A0"/>
+      <stop offset="100%" stop-color="#D4A574"/>
+    </linearGradient>
+    <linearGradient id="frameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="100%" stop-color="#C4956A"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景襯底 -->
+  <rect width="800" height="200" fill="#FDF8F0" opacity="0.3"/>
+  
+  <!-- 頂部裝飾六邊形 -->
+  <g transform="translate(100, 100)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#frameGrad)" stroke="#5C4A1F" stroke-width="2"/>
+    <text x="0" y="5" text-anchor="middle" font-size="16" fill="#FDF8F0" font-weight="bold">熊</text>
+  </g>
+  
+  <g transform="translate(200, 100)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#titleGrad)" stroke="#8B6914" stroke-width="2"/>
+    <text x="0" y="5" text-anchor="middle" font-size="16" fill="#5C4A1F" font-weight="bold">火</text>
+  </g>
+  
+  <g transform="translate(300, 100)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" 
+          fill="url(#frameGrad)" stroke="#5C4A1F" stroke-width="3"/>
+    <text x="0" y="6" text-anchor="middle" font-size="20" fill="#FDF8F0" font-weight="bold">工作</text>
+  </g>
+  
+  <g transform="translate(420, 100)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" 
+          fill="url(#titleGrad)" stroke="#8B6914" stroke-width="2"/>
+    <text x="0" y="6" text-anchor="middle" font-size="20" fill="#5C4A1F" font-weight="bold">報告</text>
+  </g>
+  
+  <g transform="translate(540, 100)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#frameGrad)" stroke="#5C4A1F" stroke-width="2"/>
+    <text x="0" y="5" text-anchor="middle" font-size="16" fill="#FDF8F0" font-weight="bold">速</text>
+  </g>
+  
+  <g transform="translate(640, 100)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="url(#titleGrad)" stroke="#8B6914" stroke-width="2"/>
+    <text x="0" y="5" text-anchor="middle" font-size="16" fill="#5C4A1F" font-weight="bold">遞</text>
+  </g>
+  
+  <!-- 底部橫線裝飾 -->
+  <line x1="50" y1="170" x2="750" y2="170" stroke="#C4956A" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- 小六邊形點綴 -->
+  <circle cx="80" cy="170" r="8" fill="#D4A574"/>
+  <circle cx="720" cy="170" r="8" fill="#D4A574"/>
+</svg>

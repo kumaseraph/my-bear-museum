@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <!-- 熊熊暖色系 -->
+    <linearGradient id="bearGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="50%" stop-color="#C4956A"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <linearGradient id="bearGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8C9A0"/>
+      <stop offset="100%" stop-color="#D4A574"/>
+    </linearGradient>
+    <!-- 蜂巢 pattern -->
+    <pattern id="honeycombSmall" x="0" y="0" width="40" height="34.64" patternUnits="userSpaceOnUse">
+      <path d="M20,0 L40,11.55 L40,34.64 L20,46.19 L0,34.64 L0,11.55 Z" 
+            fill="none" stroke="#C4956A" stroke-width="0.5" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景蜂巢襯底 -->
+  <rect width="800" height="600" fill="url(#honeycombSmall)" opacity="0.5"/>
+  
+  <!-- 主資訊卡 - 大六邊形 2.5D效果 -->
+  <g transform="translate(400, 280)">
+    <!-- 外粗空心 -->
+    <path d="M0,-100 L86.6,-50 L86.6,50 L0,100 L-86.6,50 L-86.6,-50 Z" 
+          fill="none" stroke="#8B6914" stroke-width="6"/>
+    <!-- 內實心 -->
+    <path d="M0,-100 L86.6,-50 L86.6,50 L0,100 L-86.6,50 L-86.6,-50 Z" 
+          fill="url(#bearGrad)" fill-opacity="0.85"/>
+    
+    <!-- 標題文字區 -->
+    <text x="0" y="-20" text-anchor="middle" font-size="28" font-weight="bold" 
+          fill="#5C4A1F" font-family="Arial, sans-serif">工作報告</text>
+    <text x="0" y="20" text-anchor="middle" font-size="18" 
+          fill="#8B6914" font-family="Arial, sans-serif">Q3 季度總結</text>
+    <text x="0" y="50" text-anchor="middle" font-size="14" 
+          fill="#A67C4E" font-family="Arial, sans-serif">2026.07.09</text>
+  </g>
+  
+  <!-- 左側小六邊形叢集 - 尺寸漸層 -->
+  <g transform="translate(150, 200)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="#C4956A" fill-opacity="0.6" stroke="#8B6914" stroke-width="2"/>
+    <text x="0" y="5" text-anchor="middle" font-size="12" fill="#5C4A1F" font-weight="bold">目標</text>
+  </g>
+  
+  <g transform="translate(120, 320)">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" 
+          fill="#E8C9A0" fill-opacity="0.5" stroke="#C4956A" stroke-width="1.5"/>
+    <text x="0" y="4" text-anchor="middle" font-size="10" fill="#8B6914">達成</text>
+  </g>
+  
+  <!-- 右側小六邊形叢集 -->
+  <g transform="translate(650, 200)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z" 
+          fill="#C4956A" fill-opacity="0.6" stroke="#8B6914" stroke-width="2"/>
+    <text x="0" y="5" text-anchor="middle" font-size="12" fill="#5C4A1F" font-weight="bold">成果</text>
+  </g>
+  
+  <g transform="translate(680, 320)">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" 
+          fill="#E8C9A0" fill-opacity="0.5" stroke="#C4956A" stroke-width="1.5"/>
+    <text x="0" y="4" text-anchor="middle" font-size="10" fill="#8B6914">展示</text>
+  </g>
+  
+  <!-- 底部蜂巢排列 -->
+  <g transform="translate(400, 480)">
+    <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" 
+          fill="#D4A574" stroke="#8B6914" stroke-width="1.5"/>
+    <text x="0" y="5" text-anchor="middle" font-size="11" fill="#5C4A1F" font-weight="bold">熊熊</text>
+  </g>
+  
+  <!-- 連接裝飾線 -->
+  <line x1="150" y1="240" x2="300" y2="280" stroke="#C4956A" stroke-width="2" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="500" y1="280" x2="650" y2="240" stroke="#C4956A" stroke-width="2" stroke-dasharray="4,4" opacity="0.6"/>
+</svg>

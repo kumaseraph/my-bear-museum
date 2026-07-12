@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" role="img" aria-label="邊界引導線按鈕">
+  <title>邊界引導線按鈕</title>
+  <desc>現代簡潔風格，採用邊界引導線設計，適用於工作報告PPT</desc>
+  
+  <defs>
+    <!-- 主色漸層 -->
+    <linearGradient id="btnGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+    
+    <!-- 引導線圖案 -->
+    <pattern id="guideLines1" patternUnits="userSpaceOnUse" width="8" height="8">
+      <line x1="0" y1="8" x2="8" y2="0" stroke="#FFFFFF" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  
+  <!-- 按鈕主體 - 平行四邊形 (skewX=-15) -->
+  <g transform="translate(200, 60)">
+    <!-- 背景 -->
+    <rect x="-150" y="-45" width="300" height="90" rx="8" ry="8" 
+          fill="url(#btnGrad1)" transform="skewX(-15)"/>
+    
+    <!-- 邊界引導線疊加 -->
+    <rect x="-150" y="-45" width="300" height="90" rx="8" ry="8" 
+          fill="url(#guideLines1)" transform="skewX(-15)"/>
+    
+    <!-- 左側引導線裝飾 -->
+    <line x1="-155" y1="0" x2="-120" y2="0" stroke="#FFFFFF" stroke-width="2" opacity="0.6"/>
+    <line x1="-155" y1="-10" x2="-120" y2="-10" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+    <line x1="-155" y1="10" x2="-120" y2="10" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+    
+    <!-- 右側引導線裝飾 -->
+    <line x1="120" y1="0" x2="155" y2="0" stroke="#FFFFFF" stroke-width="2" opacity="0.6"/>
+    <line x1="120" y1="-10" x2="155" y2="-10" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+    <line x1="120" y1="10" x2="155" y2="10" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+    
+    <!-- 箭頭指示 -->
+    <polygon points="125,-8 140,0 125,8" fill="#FFFFFF" opacity="0.8"/>
+    <polygon points="-140,0 -125,-8 -125,8" fill="#FFFFFF" opacity="0.8"/>
+  </g>
+  
+  <!-- 按鈕文字提示區 (視覺引導) -->
+  <text x="200" y="65" text-anchor="middle" fill="#FFFFFF" 
+        font-family="system-ui, sans-serif" font-size="16" font-weight="600">
+    NEXT
+  </text>
+</svg>

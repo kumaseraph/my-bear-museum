@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bottomBorder" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="50%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1E3A5F"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 底部邊框 - 水平延伸效果 -->
+  <g transform="translate(0,1000)">
+    <!-- 主體漸層條 -->
+    <rect x="0" y="0" width="1920" height="80" fill="url(#bottomBorder)"/>
+    
+    <!-- 頂部深色裝飾線 -->
+    <rect x="0" y="0" width="1920" height="5" fill="#1E3A5F"/>
+    
+    <!-- 六邊形叢集裝飾（左） -->
+    <g transform="translate(100,40)">
+      <path d="M35,5 L65,20 L65,50 L35,65 L5,50 L5,20 Z" 
+            fill="#60A5FA" opacity="0.8"/>
+      <path d="M35,5 L65,20 L65,50 L35,65 L5,50 L5,20 Z" 
+            fill="none" stroke="#93C5FD" stroke-width="2"/>
+      <path d="M35,20 L52.5,30 L52.5,45 L35,55 L17.5,45 L17.5,30 Z" 
+            fill="#1E40AF" opacity="0.4"/>
+    </g>
+    
+    <!-- 六邊形叢集裝飾（右） -->
+    <g transform="translate(1785,40)">
+      <path d="M35,5 L65,20 L65,50 L35,65 L5,50 L5,20 Z" 
+            fill="#60A5FA" opacity="0.8"/>
+      <path d="M35,5 L65,20 L65,50 L35,65 L5,50 L5,20 Z" 
+            fill="none" stroke="#93C5FD" stroke-width="2"/>
+      <path d="M35,20 L52.5,30 L52.5,45 L35,55 L17.5,45 L17.5,30 Z" 
+            fill="#1E40AF" opacity="0.4"/>
+    </g>
+    
+    <!-- 中央裝飾線 -->
+    <g transform="translate(960,40)">
+      <line x1="-200" y1="0" x2="-50" y2="0" stroke="#93C5FD" stroke-width="2"/>
+      <circle cx="0" cy="0" r="8" fill="#60A5FA"/>
+      <circle cx="0" cy="0" r="4" fill="#1E3A5F"/>
+      <line x1="50" y1="0" x2="200" y2="0" stroke="#93C5FD" stroke-width="2"/>
+    </g>
+    
+    <!-- 小六邊形點綴 -->
+    <g transform="translate(400,40)">
+      <path d="M15,2 L28,9 L28,23 L15,30 L2,23 L2,9 Z" 
+            fill="none" stroke="#93C5FD" stroke-width="1.5"/>
+    </g>
+    <g transform="translate(1520,40)">
+      <path d="M15,2 L28,9 L28,23 L15,30 L2,23 L2,9 Z" 
+            fill="none" stroke="#93C5FD" stroke-width="1.5"/>
+    </g>
+    <g transform="translate(700,40)">
+      <path d="M15,2 L28,9 L28,23 L15,30 L2,23 L2,9 Z" 
+            fill="#60A5FA" opacity="0.5"/>
+    </g>
+    <g transform="translate(1220,40)">
+      <path d="M15,2 L28,9 L28,23 L15,30 L2,23 L2,9 Z" 
+            fill="#60A5FA" opacity="0.5"/>
+    </g>
+  </g>
+</svg>

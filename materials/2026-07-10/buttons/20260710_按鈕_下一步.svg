@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100">
+  <title>下一步按鈕</title>
+  <desc>商務風下一步操作按鈕</desc>
+  <defs>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <filter id="btnShadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#1E3A8A" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  
+  <!-- 按鈕主體 -->
+  <g transform="translate(10, 10)" filter="url(#btnShadow)">
+    <!-- 平行四邊形按鈕形狀 -->
+    <polygon points="0,20 240,0 280,40 40,80" fill="url(#btnGrad)"/>
+    
+    <!-- 內部斜線裝飾 -->
+    <line x1="40" y1="20" x2="0" y2="40" stroke="white" stroke-width="1" opacity="0.3"/>
+    <line x1="60" y1="20" x2="20" y2="40" stroke="white" stroke-width="1" opacity="0.3"/>
+    <line x1="80" y1="20" x2="40" y2="40" stroke="white" stroke-width="1" opacity="0.3"/>
+    
+    <!-- 按鈕文字 -->
+    <text x="140" y="52" text-anchor="middle" fill="white" font-size="22" font-weight="bold" font-family="Microsoft JhengHei, Arial">下一步</text>
+    
+    <!-- 箭頭指示 -->
+    <polygon points="230,30 250,40 230,50" fill="white"/>
+  </g>
+  
+  <!-- 強調線裝飾 -->
+  <line x1="0" y1="95" x2="100" y2="95" stroke="#F59E0B" stroke-width="3"/>
+</svg>

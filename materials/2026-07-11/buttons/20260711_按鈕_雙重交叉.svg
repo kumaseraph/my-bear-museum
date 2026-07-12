@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" role="img" aria-label="雙重交叉按鈕">
+  <title>雙重交叉按鈕</title>
+  <desc>現代簡潔風格，採用雙重交叉幾何效果，適用於工作報告PPT</desc>
+  
+  <defs>
+    <!-- 商務風漸層 -->
+    <linearGradient id="btnGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    
+    <!-- 交叉線圖案 -->
+    <pattern id="crossPattern3" patternUnits="userSpaceOnUse" width="12" height="12">
+      <line x1="0" y1="0" x2="12" y2="12" stroke="#FFFFFF" stroke-width="1" opacity="0.2"/>
+      <line x1="12" y1="0" x2="0" y2="12" stroke="#FFFFFF" stroke-width="1" opacity="0.2"/>
+    </pattern>
+    
+    <!-- 外發光濾鏡 -->
+    <filter id="glow3" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 按鈕主體 - 圓角矩形 -->
+  <g transform="translate(200, 60)" filter="url(#glow3)">
+    <!-- 底層 -->
+    <rect x="-130" y="-45" width="260" height="90" rx="12" ry="12" 
+          fill="url(#btnGrad3)"/>
+    
+    <!-- 交叉線疊加 -->
+    <rect x="-130" y="-45" width="260" height="90" rx="12" ry="12" 
+          fill="url(#crossPattern3)"/>
+    
+    <!-- 第一層交叉裝飾 (對角線) -->
+    <line x1="-100" y1="-25" x2="100" y2="25" stroke="#FFFFFF" stroke-width="1.5" opacity="0.3"/>
+    <line x1="100" y1="-25" x2="-100" y2="25" stroke="#FFFFFF" stroke-width="1.5" opacity="0.3"/>
+    
+    <!-- 第二層交叉裝飾 (水平垂直) -->
+    <line x1="0" y1="-35" x2="0" y2="35" stroke="#FFFFFF" stroke-width="1" opacity="0.2"/>
+    <line x1="-110" y1="0" x2="110" y2="0" stroke="#FFFFFF" stroke-width="1" opacity="0.2"/>
+    
+    <!-- 聚焦中心點 -->
+    <circle cx="0" cy="0" r="8" fill="#FFFFFF" opacity="0.2"/>
+    <circle cx="0" cy="0" r="4" fill="#FFFFFF" opacity="0.4"/>
+  </g>
+  
+  <!-- 按鈕文字 -->
+  <text x="200" y="65" text-anchor="middle" fill="#FFFFFF" 
+        font-family="system-ui, sans-serif" font-size="16" font-weight="600">
+    CONFIRM
+  </text>
+</svg>
