@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星際美食雷達：2026全球餐飲趨勢探索</title>
+<style>
+:root {
+  --bg: #0a1628;
+  --bg-secondary: #0d1f3c;
+  --text: #e3f2fd;
+  --text-secondary: #90caf9;
+  --accent: #1565c0;
+  --accent-alt: #42a5f5;
+  --accent-glow: rgba(21, 101, 192, 0.35);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 20px; }
+
+body {
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.presentation {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: none;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.slide.active { display: block; }
+
+/* V6 Space Tech Decoration */
+.grid-perspective {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image:
+    linear-gradient(rgba(21, 101, 192, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21, 101, 192, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  perspective: 500px;
+  transform: rotateX(60deg);
+  transform-origin: center 120%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.scanline {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 4px;
+  background: linear-gradient(90deg, transparent, var(--accent-alt), transparent);
+  animation: scanMove 4s linear infinite;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+@keyframes scanMove {
+  0% { top: -4px; }
+  100% { top: 100%; }
+}
+
+.node-glow {
+  position: absolute;
+  width: 12px; height: 12px;
+  background: var(--accent-alt);
+  border-radius: 50%;
+  box-shadow: 0 0 20px 6px var(--accent-glow), 0 0 40px 12px var(--accent-glow);
+  animation: nodePulse 2s ease-in-out infinite;
+}
+
+@keyframes nodePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.path-line {
+  position: absolute;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  height: 2px;
+  transform-origin: left center;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+.nav-btn {
+  position: absolute;
+  bottom: 1.5rem;
+  background: var(--accent);
+  color: var(--text);
+  border: 2px solid var(--accent-alt);
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 100;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.nav-btn:hover { background: var(--accent-alt); }
+
+#prevBtn { left: 2rem; }
+#nextBtn { right: 2rem; }
+
+.back-link {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  text-decoration: none;
+  z-index: 100;
+  border: 1px solid var(--accent);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+}
+
+.back-link:hover { color: var(--text); background: var(--accent); }
+
+.page-num {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  z-index: 100;
+}
+
+/* Slide content base */
+.slide-content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  padding: 3rem 4rem;
+}
+
+/* ==================== P1 Cover ==================== */
+.s1-cover { text-align: center; }
+
+.s1-g1-circles {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.s1-target {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.s1-halo {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.s1-title {
+  position: relative;
+  z-index: 10;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 30px var(--accent-glow);
+}
+
+.s1-subtitle {
+  position: relative;
+  z-index: 10;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+}
+
+.s1-date {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  color: var(--text-secondary);
+  z-index: 10;
+}
+
+/* ==================== P2 TOC ==================== */
+.s2-toc .slide-content { display: block; }
+
+.s2-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  color: var(--text);
+}
+
+.s2-honeycomb {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.s2-hex {
+  background: var(--bg-secondary);
+  border: 2px solid var(--accent);
+  padding: 1.2rem;
+  text-align: center;
+  position: relative;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.s2-hex-num {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-alt);
+  margin-bottom: 0.4rem;
+}
+
+.s2-hex-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ==================== P3 Quadrant ==================== */
+.s3-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.s3-quadrant {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.5rem;
+  height: calc(100% - 4rem);
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.s3-quadrant::before, .s3-quadrant::after {
+  content: '';
+  position: absolute;
+  background: var(--accent);
+  opacity: 0.3;
+}
+
+.s3-quadrant::before {
+  width: 2px; height: 100%;
+  left: 50%; top: 0;
+  transform: translateX(-50%);
+}
+
+.s3-quadrant::after {
+  width: 100%; height: 2px;
+  top: 50%; left: 0;
+  transform: translateY(-50%);
+}
+
+.s3-quad {
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent);
+  padding: 1.5rem;
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.s3-quad-icon {
+  width: 50px; height: 50px;
+  margin-bottom: 0.8rem;
+}
+
+.s3-quad-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-alt);
+  margin-bottom: 0.5rem;
+}
+
+.s3-quad-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ==================== P4 KPI ==================== */
+.s4-kpi {
+  display: block;
+  text-align: center;
+}
+
+.s4-kpi-item {
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  vertical-align: top;
+  margin: 0 2rem;
+  z-index: 5;
+}
+
+.s4-kpi-circle {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 3px solid var(--accent);
+  margin: 0 auto 1rem;
+  box-shadow: 0 0 30px var(--accent-glow);
+  display: block;
+  line-height: 160px;
+  text-align: center;
+}
+
+.s4-kpi-num {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-alt);
+}
+
+.s4-kpi-unit {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.s4-kpi-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ==================== P5 Isometric ==================== */
+.s5-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.s5-isometric {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.s5-iso-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent);
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  transform: rotateX(10deg) rotateY(-5deg);
+  box-shadow: 8px 8px 20px rgba(0,0,0,0.4);
+}
+
+.s5-iso-icon {
+  width: 60px; height: 60px;
+  margin: 0 auto 0.8rem;
+}
+
+.s5-iso-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent-alt);
+  margin-bottom: 0.5rem;
+}
+
+.s5-iso-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ==================== P6 Fusion ==================== */
+.s6-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.s6-fusion-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.s6-fusion-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent);
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.s6-fusion-combo {
+  display: block;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.s6-fusion-icon {
+  width: 40px; height: 40px;
+}
+
+.s6-fusion-plus {
+  font-size: 1.4rem;
+  color: var(--accent-alt);
+  font-weight: 700;
+}
+
+.s6-fusion-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.s6-fusion-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ==================== P7 Timeline ==================== */
+.s7-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.s7-timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-left: 3rem;
+  z-index: 5;
+}
+
+.s7-timeline::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent-alt));
+}
+
+.s7-tl-item {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-left: 1.5rem;
+}
+
+.s7-tl-item::before {
+  content: '';
+  position: absolute;
+  left: -2.15rem;
+  top: 0.3rem;
+  width: 14px; height: 14px;
+  background: var(--accent-alt);
+  border-radius: 50%;
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.s7-tl-year {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent-alt);
+  margin-bottom: 0.3rem;
+}
+
+.s7-tl-label {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.s7-tl-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ==================== P8 Cards ==================== */
+.s8-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.s8-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.s8-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent);
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 4px 4px 15px rgba(0,0,0,0.3);
+}
+
+.s8-card-icon {
+  width: 50px; height: 50px;
+  margin: 0 auto 0.8rem;
+}
+
+.s8-card-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent-alt);
+  margin-bottom: 0.5rem;
+}
+
+.s8-card-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ==================== P9 Summary ==================== */
+.s9-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.s9-radial {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+  z-index: 5;
+}
+
+.s9-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px; height: 120px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: block;
+  text-align: center;
+  line-height: 120px;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 0 40px var(--accent-glow);
+  z-index: 10;
+}
+
+.s9-node {
+  position: absolute;
+  background: var(--bg-secondary);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  width: 130px;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.s9-node-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-alt);
+  margin-bottom: 0.3rem;
+}
+
+.s9-node-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ==================== P10 End ==================== */
+.s10-end .slide-content {
+  display: block;
+  text-align: center;
+  padding-top: 6rem;
+}
+
+.s10-g1-circles {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.s10-title {
+  position: relative;
+  z-index: 10;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 40px var(--accent-glow);
+}
+
+.s10-sub {
+  position: relative;
+  z-index: 10;
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.s10-link {
+  position: relative;
+  z-index: 10;
+  font-size: 1rem;
+  color: var(--accent-alt);
+  text-decoration: none;
+  border: 1px solid var(--accent-alt);
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+}
+
+.s10-link:hover { background: var(--accent); color: var(--text); }
+</style>
+</head>
+<body>
+<div class="presentation">
+
+<!-- P1 Cover -->
+<div class="slide active" id="slide-1">
+  <div class="grid-perspective"></div>
+  <div class="scanline"></div>
+  <div class="slide-content s1-cover">
+    <div class="s1-g1-circles">
+      <div class="s1-halo" style="width:500px;height:500px;"></div>
+      <div class="s1-target" style="width:400px;height:400px;"></div>
+      <div class="s1-target" style="width:300px;height:300px;"></div>
+      <div class="s1-target" style="width:200px;height:200px;"></div>
+      <div class="s1-halo" style="width:120px;height:120px;background:radial-gradient(circle,rgba(66,165,245,0.6) 0%,transparent 70%);"></div>
+    </div>
+    <div class="node-glow" style="top:30%;left:20%;"></div>
+    <div class="node-glow" style="top:60%;left:75%;animation-delay:0.5s;"></div>
+    <div class="node-glow" style="top:25%;left:80%;animation-delay:1s;"></div>
+    <h1 class="s1-title">星際美食雷達：2026全球餐飲趨勢探索</h1>
+    <p class="s1-subtitle">味蕾的星際冒險</p>
+    <p class="s1-date">2026-07-12</p>
+  </div>
+  <a href="/slides.htm" class="back-link">回列表</a>
+  <span class="page-num">1 / 10</span>
+</div>
+
+<!-- P2 TOC -->
+<div class="slide" id="slide-2">
+  <div class="grid-perspective"></div>
+  <div class="scanline"></div>
+  <div class="slide-content s2-toc">
+    <h2 class="s2-title">目錄</h2>
+    <div class="s2-honeycomb">
+      <div class="s2-hex">
+        <div class="s2-hex-num">01</div>
+        <div class="s2-hex-text">全球美食版圖</div>
+      </div>
+      <div class="s2-hex">
+        <div class="s2-hex-num">02</div>
+        <div class="s2-hex-text">米其林星星</div>
+      </div>
+      <div class="s2-hex">
+        <div class="s2-hex-num">03</div>
+        <div class="s2-hex-text">分子料理革命</div>
+      </div>
+      <div class="s2-hex">
+        <div class="s2-hex-num">04</div>
+        <div class="s2-hex-text">融合料理</div>
+      </div>
+      <div class="s2-hex">
+        <div class="s2-hex-num">05</div>
+        <div class="s2-hex-text">傳承與創新</div>
+      </div>
+      <div class="s2-hex">
+        <div class="s2-hex-num">06</div>
+        <div class="s2-hex-text">在地食材</div>
+      </div>
+      <div class="s2-hex">
+        <div class="s2-hex-num">07</div>
+        <div class="s2-hex-text">未來展望</div>
+      </div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">回列表</a>
+  <span class="page-num">2 / 10</span>
+</div>
+
+<!-- P3 Global Food Map - Quadrant -->
+<div class="slide" id="slide-3">
+  <div class="grid-perspective"></div>
+  <div class="scanline"></div>
+  <div class="slide-content">
+    <h2 class="s3-title">全球美食版圖</h2>
+    <div class="s3-quadrant">
+      <div class="s3-quad">
+        <svg class="s3-quad-icon" viewBox="0 0 50 50">
+          <circle cx="25" cy="25" r="20" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <path d="M15 30 Q25 20 35 30" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <circle cx="18" cy="22" r="3" fill="#42a5f5"/>
+          <circle cx="32" cy="22" r="3" fill="#42a5f5"/>
+        </svg>
+        <div class="s3-quad-label">亞洲</div>
+        <div class="s3-quad-desc">日本壽司、泰式料理<br>中式八大菜系<br>印度香料之旅</div>
+      </div>
+      <div class="s3-quad">
+        <svg class="s3-quad-icon" viewBox="0 0 50 50">
+          <ellipse cx="25" cy="25" rx="20" ry="12" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <path d="M10 25 Q25 15 40 25" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+          <line x1="25" y1="13" x2="25" y2="37" stroke="#42a5f5" stroke-width="1.5"/>
+        </svg>
+        <div class="s3-quad-label">歐洲</div>
+        <div class="s3-quad-desc">法國精緻料理<br>義大利傳統美味<br>西班牙 tapas 文化</div>
+      </div>
+      <div class="s3-quad">
+        <svg class="s3-quad-icon" viewBox="0 0 50 50">
+          <rect x="8" y="15" width="34" height="20" rx="3" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <line x1="8" y1="25" x2="42" y2="25" stroke="#42a5f5" stroke-width="1.5"/>
+          <circle cx="18" cy="20" r="2" fill="#42a5f5"/>
+          <circle cx="32" cy="20" r="2" fill="#42a5f5"/>
+        </svg>
+        <div class="s3-quad-label">美洲</div>
+        <div class="s3-quad-desc">美式 BBQ 燒烤<br>墨西哥玉米餅<br>秘魯融合料理</div>
+      </div>
+      <div class="s3-quad">
+        <svg class="s3-quad-icon" viewBox="0 0 50 50">
+          <polygon points="25,8 42,42 8,42" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <line x1="25" y1="18" x2="25" y2="34" stroke="#42a5f5" stroke-width="1.5"/>
+          <circle cx="25" cy="38" r="2" fill="#42a5f5"/>
+        </svg>
+        <div class="s3-quad-label">其他</div>
+        <div class="s3-quad-desc">中東阿拉伯料理<br>非洲部落風味<br>大洋洲海鮮文化</div>
+      </div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">回列表</a>
+  <span class="page-num">3 / 10</span>
+</div>
+
+<!-- P4 Michelin Stars KPI -->
+<div class="slide" id="slide-4">
+  <div class="grid-perspective"></div>
+  <div class="scanline"></div>
+  <div class="slide-content">
+    <h2 class="s3-title">米其林星星</h2>
+    <div class="s4-kpi">
+      <div class="s4-kpi-item">
+        <div class="s4-kpi-circle">
+          <span class="s4-kpi-num">137</span>
+          <span class="s4-kpi-unit">家</span>
+        </div>
+        <div class="s4-kpi-label">3星餐廳總數</div>
+      </div>
+      <div class="s4-kpi-item">
+        <div class="s4-kpi-circle">
+          <span class="s4-kpi-num">450</span>
+          <span class="s4-kpi-unit">USD</span>
+        </div>
+        <div class="s4-kpi-label">平均用餐價格</div>
+      </div>
+      <div class="s4-kpi-item">
+        <div class="s4-kpi-circle">
+          <span class="s4-kpi-num">28</span>
+          <span class="s4-kpi-unit">家</span>
+        </div>
+        <div class="s4-kpi-label">新晉升星級餐廳</div>
+      </div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">回列表</a>
+  <span class="page-num">4 / 10</span>
+</div>
+
+<!-- P5 Molecular Gastronomy - Isometric -->
+<div class="slide" id="slide-5">
+  <div class="grid-perspective"></div>
+  <div class="scanline"></div>
+  <div class="slide-content">
+    <h2 class="s5-title">分子料理革命</h2>
+    <div class="s5-isometric">
+      <div class="s5-iso-card">
+        <svg class="s5-iso-icon" viewBox="0 0 60 60">
+          <ellipse cx="30" cy="40" rx="20" ry="10" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <path d="M15 35 Q20 20 30 15 Q40 20 45 35" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <circle cx="22" cy="28" r="3" fill="#42a5f5" opacity="0.6"/>
+          <circle cx="38" cy="25" r="4" fill="#42a5f5" opacity="0.4"/>
+        </svg>
+        <div class="s5-iso-name">泡沫技術</div>
+        <div class="s5-iso-desc">分子泡沫帶來<br>輕盈口感體驗</div>
+      </div>
+      <div class="s5-iso-card">
+        <svg class="s5-iso-icon" viewBox="0 0 60 60">
+          <ellipse cx="30" cy="30" rx="18" ry="22" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <ellipse cx="30" cy="30" rx="12" ry="16" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+          <circle cx="30" cy="30" r="5" fill="#42a5f5" opacity="0.5"/>
+        </svg>
+        <div class="s5-iso-name">膠囊技術</div>
+        <div class="s5-iso-desc">海藻膠囊包裹<br>風味精華瞬間釋放</div>
+      </div>
+      <div class="s5-iso-card">
+        <svg class="s5-iso-icon" viewBox="0 0 60 60">
+          <path d="M10 45 Q15 30 20 35 Q25 25 30 30 Q35 20 40 25 Q45 15 50 20" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <circle cx="15" cy="40" r="2" fill="#42a5f5" opacity="0.5"/>
+          <circle cx="30" cy="35" r="3" fill="#42a5f5" opacity="0.4"/>
+          <circle cx="45" cy="28" r="2" fill="#42a5f5" opacity="0.6"/>
+        </svg>
+        <div class="s5-iso-name">霧化技術</div>
+        <div class="s5-iso-desc">液態氮霧化<br>香氣全方位釋放</div>
+      </div>
+      <div class="s5-iso-card">
+        <svg class="s5-iso-icon" viewBox="0 0 60 60">
+          <circle cx="30" cy="30" r="18" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <circle cx="30" cy="30" r="10" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+          <circle cx="30" cy="30" r="4" fill="#42a5f5"/>
+        </svg>
+        <div class="s5-iso-name">球化技術</div>
+        <div class="s5-iso-desc">反向球化創造<br>爆漿口感驚喜</div>
+      </div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">回列表</a>
+  <span class="page-num">5 / 10</span>
+</div>
+
+<!-- P6 Fusion Cuisine -->
+<div class="slide" id="slide-6">
+  <div class="grid-perspective"></div>
+  <div class="scanline"></div>
+  <div class="slide-content">
+    <h2 class="s6-title">各國融合料理</h2>
+    <div class="s6-fusion-grid">
+      <div class="s6-fusion-item">
+        <div class="s6-fusion-combo">
+          <svg class="s6-fusion-icon" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="15" fill="none" stroke="#42a5f5" stroke-width="2"/>
+            <path d="M12 20 Q16 16 20 20 Q24 24 28 20" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+          </svg>
+          <span class="s6-fusion-plus">+</span>
+          <svg class="s6-fusion-icon" viewBox="0 0 40 40">
+            <rect x="8" y="12" width="24" height="16" rx="2" fill="none" stroke="#42a5f5" stroke-width="2"/>
+            <line x1="8" y1="20" x2="32" y2="20" stroke="#42a5f5" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="s6-fusion-name">日 x 義</div>
+        <div class="s6-fusion-desc">和風義大利麵<br>職人精神的融合</div>
+      </div>
+      <div class="s6-fusion-item">
+        <div class="s6-fusion-combo">
+          <svg class="s6-fusion-icon" viewBox="0 0 40 40">
+            <polygon points="20,5 35,35 5,35" fill="none" stroke="#42a5f5" stroke-width="2"/>
+            <circle cx="20" cy="22" r="5" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+          </svg>
+          <span class="s6-fusion-plus">+</span>
+          <svg class="s6-fusion-icon" viewBox="0 0 40 40">
+            <ellipse cx="20" cy="20" rx="15" ry="12" fill="none" stroke="#42a5f5" stroke-width="2"/>
+            <path d="M10 18 Q15 14 20 18 Q25 22 30 18" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="s6-fusion-name">中 x 法</div>
+        <div class="s6-fusion-desc">中式技法法式呈現<br>東西方味蕾交織</div>
+      </div>
+      <div class="s6-fusion-item">
+        <div class="s6-fusion-combo">
+          <svg class="s6-fusion-icon" viewBox="0 0 40 40">
+            <path d="M8 30 L20 10 L32 30 Z" fill="none" stroke="#42a5f5" stroke-width="2"/>
+            <line x1="14" y1="24" x2="26" y2="24" stroke="#42a5f5" stroke-width="1.5"/>
+          </svg>
+          <span class="s6-fusion-plus">+</span>
+          <svg class="s6-fusion-icon" viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="12" fill="none" stroke="#42a5f5" stroke-width="2"/>
+            <line x1="8" y1="20" x2="32" y2="20" stroke="#42a5f5" stroke-width="1.5"/>
+            <line x1="20" y1="8" x2="20" y2="32" stroke="#42a5f5" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="s6-fusion-name">泰 x 墨</div>
+        <div class="s6-fusion-desc">酸辣泰式遇上<br>熱情墨西哥風味</div>
+      </div>
+      <div class="s6-fusion-item">
+        <div class="s6-fusion-combo">
+          <svg class="s6-fusion-icon" viewBox="0 0 40 40">
+            <rect x="8" y="8" width="24" height="24" rx="3" fill="none" stroke="#42a5f5" stroke-width="2"/>
+            <line x1="8" y1="20" x2="32" y2="20" stroke="#42a5f5" stroke-width="1.5"/>
+          </svg>
+          <span class="s6-fusion-plus">+</span>
+          <svg class="s6-fusion-icon" viewBox="0 0 40 40">
+            <ellipse cx="20" cy="20" rx="15" ry="12" fill="none" stroke="#42a5f5" stroke-width="2"/>
+            <path d="M10 18 Q15 14 20 18 Q25 22 30 18" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="s6-fusion-name">韓 x 美</div>
+        <div class="s6-fusion-desc">韓式辣味的美式<br>創意街頭料理</div>
+      </div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">回列表</a>
+  <span class="page-num">6 / 10</span>
+</div>
+
+<!-- P7 Heritage and Innovation - Timeline -->
+<div class="slide" id="slide-7">
+  <div class="grid-perspective"></div>
+  <div class="scanline"></div>
+  <div class="slide-content">
+    <h2 class="s7-title">傳承與創新</h2>
+    <div class="s7-timeline">
+      <div class="s7-tl-item">
+        <div class="s7-tl-year">1950s</div>
+        <div class="s7-tl-label">傳統料理巔峰</div>
+        <div class="s7-tl-desc">各國料理堅守傳統<br>遵循百年食譜與技法</div>
+      </div>
+      <div class="s7-tl-item">
+        <div class="s7-tl-year">1980s</div>
+        <div class="s7-tl-label">新派料理萌芽</div>
+        <div class="s7-tl-desc">分子料理興起<br>廚師開始挑戰傳統框架</div>
+      </div>
+      <div class="s7-tl-item">
+        <div class="s7-tl-year">2010s</div>
+        <div class="s7-tl-label">融合料理主流</div>
+        <div class="s7-tl-desc">跨文化料理交流<br>成為餐飲界新常態</div>
+      </div>
+      <div class="s7-tl-item">
+        <div class="s7-tl-year">2020s</div>
+        <div class="s7-tl-label">永續與創新並行</div>
+        <div class="s7-tl-desc">環保意識抬頭<br>傳統技法注入現代精神</div>
+      </div>
+      <div class="s7-tl-item">
+        <div class="s7-tl-year">2026</div>
+        <div class="s7-tl-label">星際美食時代</div>
+        <div class="s7-tl-desc">科技與食材完美結合<br>探索味蕾的無限可能</div>
+      </div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">回列表</a>
+  <span class="page-num">7 / 10</span>
+</div>
+
+<!-- P8 Local Ingredients - Cards -->
+<div class="slide" id="slide-8">
+  <div class="grid-perspective"></div>
+  <div class="scanline"></div>
+  <div class="slide-content">
+    <h2 class="s8-title">在地食材</h2>
+    <div class="s8-cards">
+      <div class="s8-card">
+        <svg class="s8-card-icon" viewBox="0 0 50 50">
+          <circle cx="25" cy="25" r="18" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <path d="M25 12 L25 38 M12 25 L38 25" stroke="#42a5f5" stroke-width="1.5"/>
+          <circle cx="25" cy="25" r="6" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+        </svg>
+        <div class="s8-card-name">永續食材</div>
+        <div class="s8-card-desc">友善環境養殖<br>減少碳足跡的<br>環保食材選擇</div>
+      </div>
+      <div class="s8-card">
+        <svg class="s8-card-icon" viewBox="0 0 50 50">
+          <path d="M10 40 Q15 25 25 30 Q35 35 40 20" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <circle cx="20" cy="32" r="4" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+          <circle cx="32" cy="26" r="3" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+        </svg>
+        <div class="s8-card-name">在地小農</div>
+        <div class="s8-card-desc">支持本地農業<br>縮短食物里程<br>新鮮直送餐桌</div>
+      </div>
+      <div class="s8-card">
+        <svg class="s8-card-icon" viewBox="0 0 50 50">
+          <rect x="10" y="15" width="30" height="25" rx="2" fill="none" stroke="#42a5f5" stroke-width="2"/>
+          <path d="M18 15 L18 10 L32 10 L32 15" fill="none" stroke="#42a5f5" stroke-width="1.5"/>
+          <line x1="10" y1="25" x2="40" y2="25" stroke="#42a5f5" stroke-width="1.5"/>
+        </svg>
+        <div class="s8-card-name">產地直銷</div>
+        <div class="s8-card-desc">從農場到餐桌<br>透明供應鏈<br>確保食材品質</div>
+      </div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">回列表</a>
+  <span class="page-num">8 / 10</span>
+</div>
+
+<!-- P9 Summary - Radial -->
+<div class="slide" id="slide-9">
+  <div class="grid-perspective"></div>
+  <div class="scanline"></div>
+  <div class="slide-content">
+    <h2 class="s9-title">未來展望</h2>
+    <div class="s9-radial">
+      <div class="s9-center">2026<br>餐飲趨勢</div>
+      <div class="s9-node" style="top:5%;left:50%;transform:translateX(-50%);">
+        <div class="s9-node-label">全球化</div>
+        <div class="s9-node-desc">美食無國界</div>
+      </div>
+      <div class="s9-node" style="top:20%;left:10%;">
+        <div class="s9-node-label">精緻化</div>
+        <div class="s9-node-desc">米其林標準</div>
+      </div>
+      <div class="s9-node" style="top:20%;right:10%;">
+        <div class="s9-node-label">科技化</div>
+        <div class="s9-node-desc">分子料理革命</div>
+      </div>
+      <div class="s9-node" style="top:50%;left:2%;">
+        <div class="s9-node-label">融合化</div>
+        <div class="s9-node-desc">跨文化創新</div>
+      </div>
+      <div class="s9-node" style="top:50%;right:2%;">
+        <div class="s9-node-label">傳承化</div>
+        <div class="s9-node-desc">傳統創新並行</div>
+      </div>
+      <div class="s9-node" style="bottom:15%;left:10%;">
+        <div class="s9-node-label">永續化</div>
+        <div class="s9-node-desc">環保食材</div>
+      </div>
+      <div class="s9-node" style="bottom:15%;right:10%;">
+        <div class="s9-node-label">在地化</div>
+        <div class="s9-node-desc">小農直供</div>
+      </div>
+    </div>
+  </div>
+  <a href="/slides.htm" class="back-link">回列表</a>
+  <span class="page-num">9 / 10</span>
+</div>
+
+<!-- P10 End -->
+<div class="slide" id="slide-10">
+  <div class="grid-perspective"></div>
+  <div class="scanline"></div>
+  <div class="slide-content s10-end">
+    <div class="s10-g1-circles">
+      <div class="s1-halo" style="width:600px;height:600px;"></div>
+      <div class="s1-target" style="width:480px;height:480px;"></div>
+      <div class="s1-target" style="width:360px;height:360px;"></div>
+      <div class="s1-target" style="width:240px;height:240px;"></div>
+      <div class="s1-halo" style="width:140px;height:140px;background:radial-gradient(circle,rgba(66,165,245,0.7) 0%,transparent 70%);"></div>
+    </div>
+    <div class="node-glow" style="top:30%;left:15%;"></div>
+    <div class="node-glow" style="top:65%;left:80%;animation-delay:0.7s;"></div>
+    <div class="node-glow" style="top:20%;left:70%;animation-delay:1.2s;"></div>
+    <h1 class="s10-title">謝謝觀賞</h1>
+    <p class="s10-sub">探索更多美食文化之旅</p>
+    <a href="/slides.htm" class="s10-link">探索更多簡報</a>
+  </div>
+  <a href="/slides.htm" class="back-link">回列表</a>
+  <span class="page-num">10 / 10</span>
+</div>
+
+<!-- Navigation -->
+<button class="nav-btn" id="prevBtn" onclick="prevSlide()">上一页</button>
+<button class="nav-btn" id="nextBtn" onclick="nextSlide()">下一页</button>
+
+</div>
+
+<script>
+let currentSlide = 1;
+const totalSlides = 10;
+
+function showSlide(n) {
+  if (n < 1) n = 1;
+  if (n > totalSlides) n = totalSlides;
+  currentSlide = n;
+  for (let i = 1; i <= totalSlides; i++) {
+    const slide = document.getElementById('slide-' + i);
+    if (slide) slide.classList.remove('active');
+  }
+  const activeSlide = document.getElementById('slide-' + currentSlide);
+  if (activeSlide) activeSlide.classList.add('active');
+}
+
+function nextSlide() { showSlide(currentSlide + 1); }
+function prevSlide() { showSlide(currentSlide - 1); }
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+    e.preventDefault();
+    nextSlide();
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    prevSlide();
+  }
+});
+</script>
+</body>
+</html>
