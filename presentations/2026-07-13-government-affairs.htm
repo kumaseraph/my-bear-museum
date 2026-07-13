@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新北市政府 2026 年第七週施政成果報告</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://kumaweb.pages.dev/studio/design/visual-templates/colors/colors-C3-aurora-forest.css">
+  <link rel="stylesheet" href="https://kumaweb.pages.dev/studio/design/visual-templates/structures/v6-space-tech-structure.css">
+  <style>
+    html { font-size: 20px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font-display: clamp(2.5rem, 6vw, 5rem);
+      --font-h1: clamp(1.75rem, 3.5vw, 2.5rem);
+      --font-h2: clamp(1.25rem, 2vw, 1.75rem);
+      --font-h3: clamp(1.1rem, 1.5vw, 1.35rem);
+      --font-body: 1rem;
+      --lh-tight: 1.2;
+      --lh-normal: 1.6;
+      --gap: 24px;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Noto Serif TC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    .presentation {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: 100vh;
+      margin: 0 auto;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      padding: 40px 56px;
+      z-index: 1;
+    }
+    .slide.active { display: flex; }
+
+    /* ====== NAV ====== */
+    nav {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--nav-bg);
+      padding: 10px 20px;
+      border-radius: 40px;
+      border: 1px solid var(--border-color);
+      z-index: 100;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+    nav button:hover { background: rgba(255,255,255,0.1); }
+    nav span { font-size: 1rem; color: var(--text-secondary); min-width: 60px; text-align: center; }
+
+    /* ====== BACK LINK ====== */
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 32px;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      text-decoration: none;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* ====== GLOW ORBS ====== */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: orb-drift 10s ease-in-out infinite alternate;
+    }
+    .glow-orb-1 {
+      width: 400px; height: 400px;
+      background: rgba(0, 191, 165, 0.15);
+      top: -150px; left: -100px;
+    }
+    .glow-orb-2 {
+      width: 300px; height: 300px;
+      background: rgba(79, 195, 247, 0.1);
+      bottom: -100px; right: -50px;
+      animation-delay: -4s;
+    }
+    @keyframes orb-drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.15); }
+    }
+
+    /* ====== GRID OVERLAY ====== */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 191, 165, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 191, 165, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* ====== CARD ====== */
+    .card {
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      padding: 24px;
+    }
+    .card:hover { border-color: rgba(0, 191, 165, 0.5); }
+
+    /* ====== ANIMATE IN ====== */
+    .animate-in {
+      opacity: 0;
+      transform: scale(0.9) translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .animate-in.visible { opacity: 1; transform: scale(1) translateY(0); }
+
+    /* ====== SLIDE 1: COVER ====== */
+    .s1-cover {
+      position: relative;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    }
+    .s1-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 30%, rgba(0, 191, 165, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 20% 80%, rgba(79, 195, 247, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 191, 165, 0.15);
+      border: 1px solid rgba(0, 191, 165, 0.3);
+      border-radius: 40px;
+      padding: 8px 20px;
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+    }
+    .cover-title {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      position: relative;
+      z-index: 1;
+    }
+    .cover-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    /* Timeline decoration for cover */
+    .cover-timeline {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0;
+      width: 80%;
+    }
+    .cover-timeline-line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .cover-timeline-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+    .cover-timeline-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .cover-timeline-node span {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* ====== SLIDE 2: TOC ====== */
+    .s2-toc {
+      flex-direction: row;
+      gap: 40px;
+      padding-top: 48px;
+    }
+    .toc-left {
+      flex: 0 0 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+    .toc-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .toc-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: var(--lh-normal);
+    }
+    .toc-right {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 16px;
+      align-content: center;
+    }
+    .toc-card {
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    .toc-card:hover {
+      border-color: rgba(0, 191, 165, 0.5);
+      transform: translateY(-2px);
+    }
+    .toc-card-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .toc-card-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .toc-card-sub {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    /* G1: Bullseye ring decoration */
+    .toc-card::before {
+      content: '';
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 191, 165, 0.3);
+      box-shadow: 0 0 8px rgba(0, 191, 165, 0.2);
+    }
+
+    /* ====== SLIDE 3: G8 QUADRANT ====== */
+    .s3-quadrant {
+      padding: 40px 48px;
+    }
+    .s3-header {
+      margin-bottom: 32px;
+    }
+    .s3-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .s3-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .quadrant-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+    }
+    .quadrant-item {
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .quadrant-item.g1 { border-top: 3px solid var(--accent); }
+    .quadrant-item.g2 { border-top: 3px solid #4db6ac; }
+    .quadrant-item.g3 { border-top: 3px solid #26a69a; }
+    .quadrant-item.g4 { border-top: 3px solid #00897b; }
+    .quadrant-label {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .quadrant-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .quadrant-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .quadrant-stat {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: auto;
+    }
+
+    /* ====== SLIDE 4: G3 HONEYCOMB ====== */
+    .s4-honeycomb {
+      padding: 40px 48px;
+    }
+    .s4-header {
+      margin-bottom: 24px;
+    }
+    .s4-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .s4-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .hex-center {
+      width: 160px; height: 185px;
+      background: linear-gradient(135deg, var(--accent), #00897b);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .hex-center-num {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+    .hex-center-label {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+    }
+    .hex-satellite {
+      width: 100px; height: 115px;
+      background: rgba(0, 191, 165, 0.15);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      border: 1px solid rgba(0, 191, 165, 0.3);
+    }
+    .hex-satellite-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .hex-satellite-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+    .hex-grid-row {
+      display: flex;
+      gap: 12px;
+    }
+    .honeycomb-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .honeycomb-stat {
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .honeycomb-stat-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 191, 165, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .honeycomb-stat-text {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .honeycomb-stat-val {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ====== SLIDE 5: G6 FUNNEL ====== */
+    .s5-funnel {
+      padding: 40px 48px;
+    }
+    .s5-header {
+      margin-bottom: 24px;
+    }
+    .s5-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .s5-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .funnel-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .funnel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      width: 50%;
+    }
+    .funnel-stage {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+    .funnel-stage:hover {
+      filter: brightness(1.1);
+    }
+    .funnel-stage:nth-child(1) { width: 100%; background: var(--accent); }
+    .funnel-stage:nth-child(2) { width: 82%; background: #00897b; }
+    .funnel-stage:nth-child(3) { width: 64%; background: #26a69a; }
+    .funnel-stage:nth-child(4) { width: 46%; background: #4db6ac; }
+    .funnel-stage:nth-child(5) { width: 28%; background: #80cbc4; }
+    .funnel-labels {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 35%;
+    }
+    .funnel-label {
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .funnel-label-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .funnel-label-val {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* ====== SLIDE 6: G2 STEPPED ====== */
+    .s6-stepped {
+      padding: 40px 48px;
+    }
+    .s6-header {
+      margin-bottom: 24px;
+    }
+    .s6-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .s6-content {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .stepped-left {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .stepped-item {
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .stepped-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      width: 40px;
+      text-align: center;
+    }
+    .stepped-text h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .stepped-text p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .stepped-graphic {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .stepped-bar {
+      height: 36px;
+      background: linear-gradient(90deg, var(--accent), #00897b);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .stepped-bar:nth-child(1) { width: 100%; }
+    .stepped-bar:nth-child(2) { width: 85%; }
+    .stepped-bar:nth-child(3) { width: 70%; }
+    .stepped-bar:nth-child(4) { width: 55%; }
+    .stepped-bar-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* ====== SLIDE 7: G5 DIAMOND ====== */
+    .s7-diamond {
+      padding: 40px 48px;
+    }
+    .s7-header {
+      margin-bottom: 24px;
+    }
+    .s7-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .s7-content {
+      flex: 1;
+      display: flex;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .diamond-main {
+      flex: 1.2;
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 12px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+    .diamond-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .diamond-num {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .diamond-unit {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+    }
+    .diamond-desc {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .diamond-sub {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .diamond-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .diamond-card {
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .diamond-card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .diamond-card-val {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .diamond-card-sub {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    /* ====== SLIDE 8: G4 TRIANGLE ====== */
+    .s8-triangle {
+      padding: 40px 48px;
+    }
+    .s8-header {
+      margin-bottom: 24px;
+    }
+    .s8-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .s8-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pyramid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      width: 70%;
+    }
+    .pyramid-tier {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #fff;
+      clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+      transition: all 0.3s ease;
+    }
+    .pyramid-tier:hover { filter: brightness(1.1); }
+    .pyramid-tier:nth-child(1) { width: 100%; height: 72px; background: var(--accent); font-size: 1.1rem; }
+    .pyramid-tier:nth-child(2) { width: 82%; height: 64px; background: #00897b; font-size: 1rem; }
+    .pyramid-tier:nth-child(3) { width: 64%; height: 56px; background: #26a69a; font-size: 1rem; }
+    .pyramid-tier:nth-child(4) { width: 46%; height: 48px; background: #4db6ac; font-size: 1rem; }
+    .pyramid-legend {
+      position: absolute;
+      right: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 22%;
+    }
+    .pyramid-legend-item {
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .pyramid-legend-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .pyramid-legend-val {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* ====== SLIDE 9: G2 DATA ====== */
+    .s9-data {
+      padding: 40px 48px;
+    }
+    .s9-header {
+      margin-bottom: 24px;
+    }
+    .s9-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .s9-content {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+    }
+    .data-card {
+      background: rgba(15, 22, 41, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 191, 165, 0.2);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .data-card::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 60px; height: 60px;
+      background: radial-gradient(circle, rgba(0, 191, 165, 0.15) 0%, transparent 70%);
+    }
+    .data-card-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .data-card-val {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .data-card-change {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #4caf50;
+    }
+    .data-card-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    /* ====== SLIDE 10: END ====== */
+    .s10-end {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    .s10-end::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0, 191, 165, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 30% 70%, rgba(79, 195, 247, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .end-icon {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: rgba(0, 191, 165, 0.2);
+      border: 2px solid rgba(0, 191, 165, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .end-icon svg {
+      width: 40px; height: 40px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .end-title {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .end-subtitle {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .end-timeline {
+      display: flex;
+      gap: 48px;
+      position: relative;
+      z-index: 1;
+    }
+    .end-timeline-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .end-timeline-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+    .end-timeline-line {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .end-timeline-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body class="v6-space-tech">
+
+<div class="presentation" id="presentation">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide s1-cover active" id="slide1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="cover-badge">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      新北市政府
+    </div>
+    <h1 class="cover-title">2026 年第七週施政成果報告</h1>
+    <p class="cover-subtitle">組織改造 × 數位轉型 × 環保成果 × 智慧城市</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        2026年7月13日
+      </div>
+      <div class="cover-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        市政會議
+      </div>
+    </div>
+    <div class="cover-timeline">
+      <div class="cover-timeline-line"></div>
+      <div class="cover-timeline-node">
+        <div class="cover-timeline-dot"></div>
+        <span>Q1</span>
+      </div>
+      <div class="cover-timeline-line"></div>
+      <div class="cover-timeline-node">
+        <div class="cover-timeline-dot"></div>
+        <span>Q2</span>
+      </div>
+      <div class="cover-timeline-line"></div>
+      <div class="cover-timeline-node">
+        <div class="cover-timeline-dot"></div>
+        <span>Q3</span>
+      </div>
+      <div class="cover-timeline-line"></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: TOC -->
+  <div class="slide s2-toc" id="slide2">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="toc-left">
+      <h2 class="toc-title">議程大綱</h2>
+      <p class="toc-desc">本週施政重點涵蓋四大面向，從組織體質強化到市民生活品質提升，全面推動新北市政建設。</p>
+    </div>
+    <div class="toc-right">
+      <div class="toc-card">
+        <div class="toc-card-num">01</div>
+        <div class="toc-card-label">組織改造</div>
+        <div class="toc-card-sub">三大局處整合</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-card-num">02</div>
+        <div class="toc-card-label">數位轉型</div>
+        <div class="toc-card-sub">e 化服務覆蓋率 92%</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-card-num">03</div>
+        <div class="toc-card-label">環保成果</div>
+        <div class="toc-card-sub">綠能政策、減碳實績</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-card-num">04</div>
+        <div class="toc-card-label">智慧城市</div>
+        <div class="toc-card-sub">AI 應用、IoT 感測器</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: G8 QUADRANT -->
+  <div class="slide s3-quadrant" id="slide3">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="s3-header">
+      <h2 class="s3-title">組織改造：三大局處整合</h2>
+      <p class="s3-subtitle">，透过组改提升行政效率，强化跨局处协调机制</p>
+    </div>
+    <div class="quadrant-grid">
+      <div class="quadrant-item g1">
+        <div class="quadrant-label">整合前</div>
+        <div class="quadrant-title">12 個分散局處</div>
+        <div class="quadrant-desc">跨部門業務重疊，協調成本高，反應速度慢</div>
+      </div>
+      <div class="quadrant-item g2">
+        <div class="quadrant-label">整合中</div>
+        <div class="quadrant-title">8 大機能群組</div>
+        <div class="quadrant-desc">依市民需求重新分類，設立單一窗口服務</div>
+      </div>
+      <div class="quadrant-item g3">
+        <div class="quadrant-label">政務委員</div>
+        <div class="quadrant-title">3 人小內閣制</div>
+        <div class="quadrant-desc">垂直整合督導，横向协调分工，强化决策效率</div>
+      </div>
+      <div class="quadrant-item g4">
+        <div class="quadrant-label">整合後</div>
+        <div class="quadrant-stat">2027 Q1 完成</div>
+        <div class="quadrant-desc">预计行政效率提升 40%，市民满意度目标 85%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: G3 HONEYCOMB -->
+  <div class="slide s4-honeycomb" id="slide4">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="s4-header">
+      <h2 class="s4-title">數位轉型：e 化服務覆蓋率 92%</h2>
+      <p class="s4-subtitle">以市民生活為核心，打造全渠道數位服務體驗</p>
+    </div>
+    <div class="s4-content">
+      <div class="hex-grid-row" style="display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <div style="display:flex;gap:12px;">
+          <div class="hex-satellite">
+            <div class="hex-satellite-num">85%</div>
+            <div class="hex-satellite-label">線上申請</div>
+          </div>
+          <div class="hex-center">
+            <div class="hex-center-num">92%</div>
+            <div class="hex-center-label">e化覆蓋率</div>
+          </div>
+          <div class="hex-satellite">
+            <div class="hex-satellite-num">78%</div>
+            <div class="hex-satellite-label">AI客服</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-left:60px;">
+          <div class="hex-satellite">
+            <div class="hex-satellite-num">156</div>
+            <div class="hex-satellite-label">上線服務</div>
+          </div>
+          <div class="hex-satellite">
+            <div class="hex-satellite-num">24hr</div>
+            <div class="hex-satellite-label">不打烊</div>
+          </div>
+        </div>
+      </div>
+      <div class="honeycomb-stats">
+        <div class="honeycomb-stat">
+          <div class="honeycomb-stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <div>
+            <div class="honeycomb-stat-val">320 萬市民受惠</div>
+            <div class="honeycomb-stat-text">涵蓋 29 區公務機關</div>
+          </div>
+        </div>
+        <div class="honeycomb-stat">
+          <div class="honeycomb-stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div>
+            <div class="honeycomb-stat-val">平均處理時間縮短 65%</div>
+            <div class="honeycomb-stat-text">從 5 工作日降至 1.7 工作日</div>
+          </div>
+        </div>
+        <div class="honeycomb-stat">
+          <div class="honeycomb-stat-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="honeycomb-stat-val">3 大數據平台整合</div>
+            <div class="honeycomb-stat-text">交通、環保、衛生資料互聯</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: G6 FUNNEL -->
+  <div class="slide s5-funnel" id="slide5">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="s5-header">
+      <h2 class="s5-title">環保成果：綠能政策與減碳實績</h2>
+      <p class="s5-subtitle">2026 上半年碳排放量較去年同期減少 12.3 萬噸</p>
+    </div>
+    <div class="funnel-container">
+      <div class="funnel">
+        <div class="funnel-stage">電動運具補助申請</div>
+        <div class="funnel-stage">太陽光電設置審查</div>
+        <div class="funnel-stage">綠建築標章核發</div>
+        <div class="funnel-stage">節能改造補助</div>
+        <div class="funnel-stage">碳權認證取得</div>
+      </div>
+      <div class="funnel-labels">
+        <div class="funnel-label">
+          <div class="funnel-label-title">電動機車補助</div>
+          <div class="funnel-label-val">12,400 件</div>
+        </div>
+        <div class="funnel-label">
+          <div class="funnel-label-title">太陽能屋頂裝置</div>
+          <div class="funnel-label-val">85 MW</div>
+        </div>
+        <div class="funnel-label">
+          <div class="funnel-label-title">減碳量</div>
+          <div class="funnel-label-val">12.3 萬噸</div>
+        </div>
+        <div class="funnel-label">
+          <div class="funnel-label-title">綠覆率提升</div>
+          <div class="funnel-label-val">+2.8%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: G2 STEPPED -->
+  <div class="slide s6-stepped" id="slide6">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="s6-header">
+      <h2 class="s6-title">智慧城市：AI 應用與 IoT 感測器佈建</h2>
+      <p class="s6-subtitle">打造城市神經網絡，實現即時治理</p>
+    </div>
+    <div class="s6-content">
+      <div class="stepped-left">
+        <div class="stepped-item">
+          <div class="stepped-num">01</div>
+          <div class="stepped-text">
+            <h4>AI 智慧客服</h4>
+            <p>24 小時多語言即時回應，處理量達 80 萬次/月</p>
+          </div>
+        </div>
+        <div class="stepped-item">
+          <div class="stepped-num">02</div>
+          <div class="stepped-text">
+            <h4>IoT 空品監測</h4>
+            <p>全市 2,400 個感測點，空氣品質一分鐘更新</p>
+          </div>
+        </div>
+        <div class="stepped-item">
+          <div class="stepped-num">03</div>
+          <div class="stepped-text">
+            <h4>智慧路燈系統</h4>
+            <p>12 萬盞智慧路燈，節能效率提升 45%</p>
+          </div>
+        </div>
+        <div class="stepped-item">
+          <div class="stepped-num">04</div>
+          <div class="stepped-text">
+            <h4>數位孿生平台</h4>
+            <p>3D 城市模型輔助都市規劃與救災演練</p>
+          </div>
+        </div>
+      </div>
+      <div class="stepped-graphic">
+        <div class="stepped-bar">AI 客服覆蓋率 92%</div>
+        <div class="stepped-bar-label">目標 2026 Q4 達 95%</div>
+        <div class="stepped-bar">IoT 佈建密度 85%</div>
+        <div class="stepped-bar-label">落後：偏鄉地區持續擴展中</div>
+        <div class="stepped-bar">節能效率 +45%</div>
+        <div class="stepped-bar-label">超標達成，2027 目標 +55%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: G5 DIAMOND -->
+  <div class="slide s7-diamond" id="slide7">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="s7-header">
+      <h2 class="s7-title">交通建設：捷運與綠運輸</h2>
+    </div>
+    <div class="s7-content">
+      <div class="diamond-main">
+        <div class="diamond-stat">
+          <div class="diamond-num">145</div>
+          <div class="diamond-unit">公里</div>
+        </div>
+        <div class="diamond-desc">捷運路網總長</div>
+        <div class="diamond-sub">2026 新增環狀線南段 12 公里，共 8 條主線營運</div>
+        <div style="margin-top:8px;display:flex;gap:12px;flex-wrap:wrap;">
+          <div style="background:rgba(0,191,165,0.15);border:1px solid rgba(0,191,165,0.3);border-radius:8px;padding:8px 14px;">
+            <div style="font-size:1.1rem;font-weight:700;color:var(--accent);">日運量 92 萬</div>
+            <div style="font-size:1rem;color:var(--text-secondary);">較去年 +18%</div>
+          </div>
+          <div style="background:rgba(0,191,165,0.15);border:1px solid rgba(0,191,165,0.3);border-radius:8px;padding:8px 14px;">
+            <div style="font-size:1.1rem;font-weight:700;color:var(--accent);">YouBike 2.0</div>
+            <div style="font-size:1rem;color:var(--text-secondary);">1,280 站覆蓋 29 區</div>
+          </div>
+        </div>
+      </div>
+      <div class="diamond-side">
+        <div class="diamond-card">
+          <div class="diamond-card-title">公共運輸分擔率</div>
+          <div class="diamond-card-val">48.5%</div>
+          <div class="diamond-card-sub">目標 2027 達 52%</div>
+        </div>
+        <div class="diamond-card">
+          <div class="diamond-card-title">電動公車</div>
+          <div class="diamond-card-val">620 輛</div>
+          <div class="diamond-card-sub">佔總車隊 35%，2027 目標 60%</div>
+        </div>
+        <div class="diamond-card">
+          <div class="diamond-card-title">停車智慧化</div>
+          <div class="diamond-card-val">92%</div>
+          <div class="diamond-card-sub">eTag 智慧停車格覆蓋率</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: G4 TRIANGLE -->
+  <div class="slide s8-triangle" id="slide8">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="s8-header">
+      <h2 class="s8-title">社會福利：托育與長照</h2>
+      <p class="s8-subtitle">打造全齡友善城市，從托老到托育全面照顧</p>
+    </div>
+    <div class="s8-content">
+      <div class="pyramid">
+        <div class="pyramid-tier">育兒津貼：每童每月 8,000 元</div>
+        <div class="pyramid-tier">公共托育：新增 3,200 個名額</div>
+        <div class="pyramid-tier">長照 2.0 涵蓋率：87%</div>
+        <div class="pyramid-tier">佈建日照中心：92 處</div>
+      </div>
+      <div class="pyramid-legend">
+        <div class="pyramid-legend-item">
+          <div class="pyramid-legend-title">托育補助總額</div>
+          <div class="pyramid-legend-val">28.5 億/年</div>
+        </div>
+        <div class="pyramid-legend-item">
+          <div class="pyramid-legend-title">長照服務人次</div>
+          <div class="pyramid-legend-val">12.3 萬人/月</div>
+        </div>
+        <div class="pyramid-legend-item">
+          <div class="pyramid-legend-title">身障服務涵蓋</div>
+          <div class="pyramid-legend-val">91%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: G2 DATA -->
+  <div class="slide s9-data" id="slide9">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="s9-header">
+      <h2 class="s9-title">施政滿意度與關鍵政績</h2>
+      <p class="s9-subtitle">市民滿意度從 76.3% 提升至 82.1%，創十年新高</p>
+    </div>
+    <div class="s9-content">
+      <div class="data-card">
+        <div class="data-card-label">整體滿意度</div>
+        <div class="data-card-val">82.1%</div>
+        <div class="data-card-change">+5.8%</div>
+        <div class="data-card-desc">較去年同期提升，為近十年最高</div>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">e 化服務滿意</div>
+        <div class="data-card-val">91.5%</div>
+        <div class="data-card-change">+12.3%</div>
+        <div class="data-card-desc">數位服務體驗獲高度肯定</div>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">交通滿意度</div>
+        <div class="data-card-val">76.8%</div>
+        <div class="data-card-change">+8.1%</div>
+        <div class="data-card-desc">捷運路網持續擴張獲肯定</div>
+      </div>
+      <div class="data-card">
+        <div class="data-card-label">福利滿意度</div>
+        <div class="data-card-val">88.2%</div>
+        <div class="data-card-change">+6.4%</div>
+        <div class="data-card-desc">托育、長照政策深受家屬讚許</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: END -->
+  <div class="slide s10-end" id="slide10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="end-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </div>
+    <h2 class="end-title">共創新北好生活</h2>
+    <p class="end-subtitle">以人為本、科技為用、環保為根，打造宜居永續的都會典範</p>
+    <div class="end-timeline">
+      <div class="end-timeline-item">
+        <div class="end-timeline-dot"></div>
+        <div class="end-timeline-line"></div>
+        <div class="end-timeline-label">Q3 願景</div>
+      </div>
+      <div class="end-timeline-item">
+        <div class="end-timeline-dot"></div>
+        <div class="end-timeline-line"></div>
+        <div class="end-timeline-label">Q4 衝刺</div>
+      </div>
+      <div class="end-timeline-item">
+        <div class="end-timeline-dot"></div>
+        <div class="end-timeline-label">2027 達標</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<nav>
+  <button onclick="prev()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+  </button>
+  <span id="pageNum">1 / 10</span>
+  <button onclick="next()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+  </button>
+</nav>
+
+<script>
+var current = 0;
+var slides = document.querySelectorAll('.slide');
+var total = slides.length;
+
+function show(n) {
+  slides.forEach(function(s){ s.classList.remove('active'); });
+  slides[n].classList.add('active');
+  document.getElementById('pageNum').textContent = (n+1) + ' / ' + total;
+}
+
+function next() {
+  current = (current + 1) % total;
+  show(current);
+}
+
+function prev() {
+  current = (current - 1 + total) % total;
+  show(current);
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  if(e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+});
+
+// Touch support
+var touchStartX = 0;
+document.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', function(e){
+  var dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50) { dx > 0 ? prev() : next(); }
+});
+</script>
+</body>
+</html>
