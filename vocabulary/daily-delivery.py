@@ -39,6 +39,7 @@ STYLE_ROTATION = VOCAB_DIR / "style-rotation.json"
 BEAR_QUOTES = VOCAB_DIR / "bear-quotes.json"
 WORLD_BUILDING = VOCAB_DIR / "world-building.json"
 VOCABULARY = VOCAB_DIR / "vocabulary.json"
+BEAR_FRIENDS = VOCAB_DIR / "bear-friends.json"
 
 COMFYUI_URL = "http://fjjhomei9.fjj.home:8188"
 COMFY_WORKFLOW = Path("/home/fjj04/comfyui/Flux.2-Klein-文生图_API.json")
@@ -66,7 +67,12 @@ Rules:
 - Write as a single English paragraph, at least 2 sentences, 80+ words
 - Do NOT include Chinese characters or the raw Chinese bear name
 - Do NOT include quality tags like "16:9", "kawaii style", or "detailed fur texture" (added separately)
-- Output ONLY the prompt text, no quotes, no explanation, no markdown, no thinking"""
+- Output ONLY the prompt text, no quotes, no explanation, no markdown, no thinking
+- 60% of the time, add 1-3 friends to the scene based on the bear's personality and quote
+- Friends can be: human child, small dog, cat, rabbit, hamster, duckling, teddy bear toy, or small doll
+- Scenarios for friends: adventure (forest, beach, mountain camping, cave, stargazing), play (bubbles, kite, swings, soccer, snowman), outing (picnic, market, train, boat, blossoms, skiing)
+- When adding friends, the bear should be the main focus (larger in foreground) OR all characters equally important
+- Describe the friendship and interaction between characters"""
 
 
 class DeliveryConfig:
@@ -258,9 +264,34 @@ def derive_title(name):
     return name
 
 
+def get_friend_info():
+    """根據 60% 機率隨機決定是否有朋友，若有則隨機選 1-3 個朋友類型和場景。"""
+    friends_data = load_json(BEAR_FRIENDS)
+    prob = friends_data.get("friend_probability", 0.6)
+    
+    if random.random() > prob:
+        return None  # 40% 機率只有熊熊自己
+    
+    # 有朋友：隨機選 1-3 個
+    num_friends = random.randint(1, 3)
+    friend_types = friends_data["friend_types"]
+    selected_friends = random.sample(friend_types, min(num_friends, len(friend_types)))
+    
+    # 隨機選一個場景類型，再從中選一個具體場景
+    scenario_types = friends_data["scenarios"]
+    scenario_category = random.choice(list(scenario_types.keys()))
+    scenario = random.choice(scenario_types[scenario_category])
+    
+    return {
+        "friends": selected_friends,
+        "scenario_type": scenario_category,
+        "scenario": scenario,
+    }
+
+
 def prepare_bear_metadata(name, style):
     """生圖前先產生熊熊 metadata，供 prompt 與 bears.json 共用。"""
-    return {
+    metadata = {
         "name": name,
         "style": style,
         "series": get_random_series(),
@@ -268,6 +299,13 @@ def prepare_bear_metadata(name, style):
         "quote": get_random_quote(),
         "title": derive_title(name),
     }
+    
+    # 加入朋友資訊
+    friend_info = get_friend_info()
+    if friend_info:
+        metadata["friend_info"] = friend_info
+    
+    return metadata
 
 
 def make_bear_record(metadata, today, collection_no, daily_index, config):
@@ -312,14 +350,23 @@ def clean_minimax_text(content):
     return content.strip().strip("\"'")
 
 
-def build_prompt_fallback(name, style, series, personality, title):
+def build_prompt_fallback(name, style, series, personality, title, friend_info=None):
     """MiniMax 失敗時的本地 fallback prompt。"""
-    return (
+    prompt = (
         f"A cute adorable bear character, {title}, "
         f"inspired by {series}, {personality}, "
-        f"{style} art style, dreamy atmosphere, "
-        f"{PROMPT_QUALITY_SUFFIX}"
+        f"{style} art style, dreamy atmosphere"
     )
+    
+    # 若有朋友資訊，加入朋友描述
+    if friend_info:
+        friend_descs = [f["en"] for f in friend_info["friends"]]
+        friends_str = ", ".join(friend_descs)
+        scenario = friend_info["scenario"]
+        prompt += f", together with {friends_str}, {scenario}"
+    
+    prompt += f", {PROMPT_QUALITY_SUFFIX}"
+    return prompt
 
 
 def is_valid_prompt(content):
@@ -393,7 +440,7 @@ def _call_minimax_prompt(user_content, max_tokens=1024):
     return content, choice.get("finish_reason", "")
 
 
-def generate_prompt_via_minimax(name, style, series, personality, title):
+def generate_prompt_via_minimax(name, style, series, personality, title, friend_info=None):
     """用 MiniMax Chat API 依 metadata 產生英文生圖 prompt。"""
     user_content = (
         f"Bear name: {name}\n"
@@ -402,6 +449,14 @@ def generate_prompt_via_minimax(name, style, series, personality, title):
         f"Title: {title}\n"
         f"Personality: {personality}"
     )
+    if friend_info:
+        friend_list = [f"{f['zh']} ({f['en']})" for f in friend_info["friends"]]
+        friends_str = ", ".join(friend_list)
+        user_content += (
+            f"\nFriend info: {friends_str}\n"
+            f"Scenario type: {friend_info['scenario_type']}\n"
+            f"Scenario: {friend_info['scenario']}"
+        )
     log(f"  MiniMax 產生 prompt: {name}")
 
     try:
@@ -425,7 +480,7 @@ def generate_prompt_via_minimax(name, style, series, personality, title):
         return content
     except Exception as e:
         log(f"  MiniMax prompt 生成失敗: {e}，使用 fallback")
-        fallback = build_prompt_fallback(name, style, series, personality, title)
+        fallback = build_prompt_fallback(name, style, series, personality, title, friend_info)
         log(f"  prompt (fallback): {fallback}")
         return fallback
 
@@ -613,6 +668,7 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             metadata["series"],
             metadata["personality"],
             metadata["title"],
+            metadata.get("friend_info"),
         )
         output = today_dir / filename
 
@@ -652,6 +708,7 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             metadata["series"],
             metadata["personality"],
             metadata["title"],
+            metadata.get("friend_info"),
         )
         output = today_dir / filename
         if generate_minimax_image(prompt, name, style, output, slot, config):
