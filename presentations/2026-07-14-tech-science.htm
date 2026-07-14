@@ -1477,7 +1477,7 @@ const total = slides.length;
 const pageNum = document.getElementById('page-num');
 
 function show(idx) {
-  slides[current].classList.remove('active');
+  if (slides[current]) slides[current].classList.remove('active');
   current = (idx + total) % total;
   slides[current].classList.add('active');
   pageNum.textContent = (current + 1) + ' / ' + total;
