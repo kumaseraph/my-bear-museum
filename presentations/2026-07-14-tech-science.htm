@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 科技學術年度回顧</title>
+<style>
+/* ============================================================
+   C1 深紫夜幕配色系統
+   ============================================================ */
+:root {
+  --primary: #6366F1;
+  --primary-light: #818CF8;
+  --primary-dark: #4F46E5;
+  --accent: #F59E0B;
+  --accent-light: #FBBF24;
+  --bg: #0F172A;
+  --bg-secondary: #1E293B;
+  --bg-tertiary: #334155;
+  --surface: #1E293B;
+  --text: #F1F5F9;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+  --border: rgba(99, 102, 241, 0.3);
+  --glow: rgba(99, 102, 241, 0.4);
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 20px; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  background: var(--bg);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 48px 64px;
+  display: none;
+  flex-direction: column;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.slide.active { display: flex; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+  gap: 12px;
+  z-index: 1000;
+  background: rgba(30, 41, 59, 0.9);
+  padding: 8px 16px;
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+}
+
+.nav button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.nav button:hover { background: var(--primary-light); transform: scale(1.1); }
+.nav button:active { transform: scale(0.95); }
+
+.nav span {
+  color: var(--text-muted);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.back-link {
+  position: fixed;
+  top: 24px;
+  left: 32px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1000;
+  transition: color 0.2s;
+}
+
+.back-link:hover { color: var(--primary-light); }
+
+/* ============================================================
+   SLIDE 1: 封面 (圓/單)
+   ============================================================ */
+.s1-cover {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.s1-cover::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  opacity: 0.15;
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.s1-cover::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: 0.1;
+  top: 20%;
+  right: 15%;
+  animation: pulse-glow 3s ease-in-out infinite 1s;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.1); opacity: 0.25; }
+}
+
+.cover-icon {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cover-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.02em;
+}
+
+.cover-title span {
+  background: linear-gradient(135deg, var(--primary-light), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cover-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 1;
+  margin-bottom: 32px;
+}
+
+.cover-meta {
+  display: flex;
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.cover-meta-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-light);
+}
+
+.cover-meta-label {
+  font-size: 1rem;
+  color: var(--text-dim);
+}
+
+/* ============================================================
+   SLIDE 2: 時間軸 (線/垂)
+   ============================================================ */
+.s2-timeline {
+  padding: 48px 64px 90px 64px;
+}
+
+.slide-header {
+  margin-bottom: 32px;
+}
+
+.slide-number {
+  font-size: 1rem;
+  color: var(--primary-light);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.slide-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  position: relative;
+  padding-left: 120px;
+}
+
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 100px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  border-radius: 2px;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 20px 0;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -32px;
+  top: 28px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 12px var(--glow);
+}
+
+.timeline-year {
+  position: absolute;
+  left: -120px;
+  width: 80px;
+  text-align: right;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.timeline-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   SLIDE 3: 網格卡片 (方/網)
+   ============================================================ */
+.s3-grid {
+  padding: 48px 64px 90px 64px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  flex: 1;
+}
+
+.grid-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.grid-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 24px rgba(99, 102, 241, 0.2);
+}
+
+.grid-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-card-icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.grid-card-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.grid-card-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.grid-card-stat {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ============================================================
+   SLIDE 4: 圓形水 (圓/水)
+   ============================================================ */
+.s4-circular {
+  padding: 48px 64px 90px 64px;
+}
+
+.metrics-row {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex: 1;
+  align-items: center;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.metric-ring {
+  width: 140px;
+  height: 140px;
+  position: relative;
+}
+
+.metric-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.metric-ring-bg {
+  fill: none;
+  stroke: var(--bg-tertiary);
+  stroke-width: 10;
+}
+
+.metric-ring-fill {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 408;
+  stroke-dashoffset: calc(408 * (1 - var(--progress, 0.8)));
+  transition: stroke-dashoffset 1s ease;
+}
+
+.metric-ring-inner {
+  position: absolute;
+  inset: 20px;
+  background: var(--bg-secondary);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.metric-unit {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.metric-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+}
+
+/* ============================================================
+   SLIDE 5: 六邊形散落 (六/散)
+   ============================================================ */
+.s5-hex {
+  padding: 48px 64px 90px 64px;
+}
+
+.hex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.hex-item {
+  width: 160px;
+  height: 180px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.hex-shape {
+  width: 120px;
+  height: 138px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hex-shape::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--bg);
+}
+
+.hex-icon {
+  position: relative;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+}
+
+.hex-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--primary-light);
+  fill: none;
+  stroke-width: 2;
+}
+
+.hex-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+}
+
+.hex-subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ============================================================
+   SLIDE 6: 流程線 (線/垂)
+   ============================================================ */
+.s6-flow {
+  padding: 48px 64px 90px 64px;
+}
+
+.flow-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+.flow-step::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -16px;
+  width: 2px;
+  height: 16px;
+  background: linear-gradient(180deg, var(--primary), transparent);
+}
+
+.flow-step:last-child::before { display: none; }
+
+.flow-number {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.flow-content {
+  flex: 1;
+}
+
+.flow-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.flow-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.flow-status {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.flow-status.done {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22C55E;
+}
+
+.flow-status.progress {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--accent);
+}
+
+/* ============================================================
+   SLIDE 7: 靶心單 (特/單)
+   ============================================================ */
+.s7-target {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.target-container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+.target-ring {
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.target-ring:nth-child(1) {
+  width: 400px;
+  height: 400px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 2px solid rgba(99, 102, 241, 0.3);
+}
+
+.target-ring:nth-child(2) {
+  width: 300px;
+  height: 300px;
+  background: rgba(99, 102, 241, 0.15);
+  border: 2px solid rgba(99, 102, 241, 0.4);
+}
+
+.target-ring:nth-child(3) {
+  width: 200px;
+  height: 200px;
+  background: rgba(99, 102, 241, 0.2);
+  border: 2px solid rgba(99, 102, 241, 0.5);
+}
+
+.target-center {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 40px var(--glow);
+}
+
+.target-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+}
+
+.target-label {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 24px;
+}
+
+.target-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 32px;
+}
+
+.target-stat {
+  text-align: center;
+}
+
+.target-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.target-stat-label {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   SLIDE 8: 六邊形網格 (六/網)
+   ============================================================ */
+.s8-hex-grid {
+  padding: 48px 64px 90px 64px;
+}
+
+.hex-mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+
+.hex-mosaic-item {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hex-mosaic-item:first-child {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--primary-dark), var(--bg-secondary));
+  border-color: var(--primary);
+}
+
+.mosaic-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.mosaic-title.light { color: white; }
+
+.mosaic-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mosaic-tag {
+  padding: 4px 12px;
+  background: rgba(99, 102, 241, 0.2);
+  border-radius: 12px;
+  font-size: 1rem;
+  color: var(--primary-light);
+}
+
+.mosaic-tag.accent {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--accent);
+}
+
+/* ============================================================
+   SLIDE 9: 應用場景 (方/水)
+   ============================================================ */
+.s9-apps {
+  padding: 48px 64px 90px 64px;
+}
+
+.apps-container {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+}
+
+.app-card {
+  flex: 1;
+  background: var(--surface);
+  border-radius: 20px;
+  padding: 28px;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.app-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary);
+}
+
+.app-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-icon svg {
+  width: 32px;
+  height: 32px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2;
+}
+
+.app-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.app-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.app-stats {
+  display: flex;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.app-stat {
+  flex: 1;
+  text-align: center;
+}
+
+.app-stat-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.app-stat-label {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* ============================================================
+   SLIDE 10: 結尾頁 (線/單)
+   ============================================================ */
+.s10-end {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.s10-end::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  opacity: 0.1;
+}
+
+.end-content {
+  position: relative;
+  z-index: 1;
+}
+
+.end-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.end-title span {
+  background: linear-gradient(135deg, var(--primary-light), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.end-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+.end-cta {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.end-btn {
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.end-btn.primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+}
+
+.end-btn.primary:hover {
+  box-shadow: 0 8px 24px var(--glow);
+  transform: translateY(-2px);
+}
+
+.end-btn.secondary {
+  background: transparent;
+  color: var(--text-muted);
+  border: 2px solid var(--border);
+}
+
+.end-btn.secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary-light);
+}
+
+.end-footer {
+  margin-top: 48px;
+  font-size: 1rem;
+  color: var(--text-dim);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide.active .cover-icon,
+.slide.active .cover-title,
+.slide.active .cover-subtitle,
+.slide.active .cover-meta,
+.slide.active .timeline-item,
+.slide.active .grid-card,
+.slide.active .metric-item,
+.slide.active .hex-item,
+.slide.active .flow-step,
+.slide.active .target-container,
+.slide.active .hex-mosaic-item,
+.slide.active .app-card,
+.slide.active .end-content {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.slide.active .cover-icon { animation-delay: 0.1s; }
+.slide.active .cover-title { animation-delay: 0.2s; }
+.slide.active .cover-subtitle { animation-delay: 0.3s; }
+.slide.active .cover-meta { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+<div class="presentation">
+
+<!-- ============================================================ -->
+<!-- SLIDE 1: 封面 -->
+<!-- ============================================================ -->
+<div class="slide s1-cover active" id="slide-1">
+  <a href="/slides.htm" class="back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    回列表
+  </a>
+  <div class="cover-icon">
+    <svg viewBox="0 0 64 64" fill="none">
+      <circle cx="32" cy="32" r="28" stroke="#6366F1" stroke-width="3"/>
+      <circle cx="32" cy="32" r="18" stroke="#818CF8" stroke-width="2" stroke-dasharray="4 4"/>
+      <circle cx="32" cy="32" r="8" fill="#F59E0B"/>
+      <path d="M32 4v8M32 52v8M4 32h8M52 32h8" stroke="#6366F1" stroke-width="2"/>
+    </svg>
+  </div>
+  <h1 class="cover-title"><span>2026 科技學術年度回顧</span></h1>
+  <p class="cover-subtitle">探索前沿科技，引領學術創新</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="cover-meta-value">12</span>
+      <span class="cover-meta-label">研究領域</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-value">86</span>
+      <span class="cover-meta-label">發表論文</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-value">23</span>
+      <span class="cover-meta-label">合作機構</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2: 時間軸 -->
+<!-- ============================================================ -->
+<div class="slide s2-timeline" id="slide-2">
+  <div class="slide-header">
+    <div class="slide-number">02 / 10</div>
+    <h2 class="slide-title">科技發展歷程</h2>
+  </div>
+  <div class="timeline-container">
+    <div class="timeline-item">
+      <span class="timeline-year">2020</span>
+      <div class="timeline-content">
+        <div class="timeline-title">AI 基礎架構建立</div>
+        <div class="timeline-desc">完成深度學習平台架設，支援千萬級參數模型訓練</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">2022</span>
+      <div class="timeline-content">
+        <div class="timeline-title">量子計算突破</div>
+        <div class="timeline-desc">實現 127 量子位元處理器，運算能力提升百倍</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">2024</span>
+      <div class="timeline-content">
+        <div class="timeline-title">跨域整合實驗</div>
+        <div class="timeline-desc">生物計算與資訊科學結合，開創新的研究範式</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">2026</span>
+      <div class="timeline-content">
+        <div class="timeline-title">智慧研究網絡</div>
+        <div class="timeline-desc">全球頂尖機構協作，推動科技邊界持續擴展</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3: 研究方向網格 -->
+<!-- ============================================================ -->
+<div class="slide s3-grid" id="slide-3">
+  <div class="slide-header">
+    <div class="slide-number">03 / 10</div>
+    <h2 class="slide-title">核心研究方向</h2>
+  </div>
+  <div class="grid-container">
+    <div class="grid-card">
+      <div class="grid-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="grid-card-title">人工智慧</div>
+      <div class="grid-card-desc">深度學習、機器視覺、自然語言處理三大支柱</div>
+      <div class="grid-card-stat">32 研究計畫</div>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div class="grid-card-title">量子運算</div>
+      <div class="grid-card-desc">量子演算法與錯誤更正技術突破</div>
+      <div class="grid-card-stat">8 核心專利</div>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      </div>
+      <div class="grid-card-title">生物計算</div>
+      <div class="grid-card-desc">DNA 儲存與蛋白質結構預測</div>
+      <div class="grid-card-stat">15 創新成果</div>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+      </div>
+      <div class="grid-card-title">高效能運算</div>
+      <div class="grid-card-desc">分散式計算架構與雲端資源優化</div>
+      <div class="grid-card-stat">4 專利</div>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="grid-card-title">資訊安全</div>
+      <div class="grid-card-desc">後量子加密與零信任架構研究</div>
+      <div class="grid-card-stat">12 標準</div>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </div>
+      <div class="grid-card-title">人機互動</div>
+      <div class="grid-card-desc">擴增實境與腦波介面技術</div>
+      <div class="grid-card-stat">6 原型</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4: 關鍵指標 -->
+<!-- ============================================================ -->
+<div class="slide s4-circular" id="slide-4">
+  <div class="slide-header">
+    <div class="slide-number">04 / 10</div>
+    <h2 class="slide-title">關鍵績效指標</h2>
+  </div>
+  <div class="metrics-row">
+    <div class="metric-item">
+      <div class="metric-ring" style="--progress: 0.85;">
+        <svg viewBox="0 0 140 140">
+          <circle class="metric-ring-bg" cx="70" cy="70" r="65"/>
+          <circle class="metric-ring-fill" cx="70" cy="70" r="65"/>
+        </svg>
+        <div class="metric-ring-inner">
+          <span class="metric-value">85</span>
+          <span class="metric-unit">%</span>
+        </div>
+      </div>
+      <div class="metric-label">計畫達成率</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-ring" style="--progress: 0.72;">
+        <svg viewBox="0 0 140 140">
+          <circle class="metric-ring-bg" cx="70" cy="70" r="65"/>
+          <circle class="metric-ring-fill" cx="70" cy="70" r="65" style="stroke: var(--accent);"/>
+        </svg>
+        <div class="metric-ring-inner">
+          <span class="metric-value">72</span>
+          <span class="metric-unit">項</span>
+        </div>
+      </div>
+      <div class="metric-label">國際合作</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-ring" style="--progress: 0.94;">
+        <svg viewBox="0 0 140 140">
+          <circle class="metric-ring-bg" cx="70" cy="70" r="65"/>
+          <circle class="metric-ring-fill" cx="70" cy="70" r="65" style="stroke: #22C55E;"/>
+        </svg>
+        <div class="metric-ring-inner">
+          <span class="metric-value">94</span>
+          <span class="metric-unit">%</span>
+        </div>
+      </div>
+      <div class="metric-label">滿意度</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-ring" style="--progress: 0.68;">
+        <svg viewBox="0 0 140 140">
+          <circle class="metric-ring-bg" cx="70" cy="70" r="65"/>
+          <circle class="metric-ring-fill" cx="70" cy="70" r="65" style="stroke: #EC4899;"/>
+        </svg>
+        <div class="metric-ring-inner">
+          <span class="metric-value">68</span>
+          <span class="metric-unit">件</span>
+        </div>
+      </div>
+      <div class="metric-label">專利申請</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5: 創新成果 -->
+<!-- ============================================================ -->
+<div class="slide s5-hex" id="slide-5">
+  <div class="slide-header">
+    <div class="slide-number">05 / 10</div>
+    <h2 class="slide-title">年度創新成果</h2>
+  </div>
+  <div class="hex-grid">
+    <div class="hex-item">
+      <div class="hex-shape">
+        <div class="hex-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+      </div>
+      <div class="hex-title">光子計算</div>
+      <div class="hex-subtitle">光速運算架構</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-shape">
+        <div class="hex-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+      </div>
+      <div class="hex-title">神經網路</div>
+      <div class="hex-subtitle">自適應學習系統</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-shape">
+        <div class="hex-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+      </div>
+      <div class="hex-title">時間晶體</div>
+      <div class="hex-subtitle">新型材料應用</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-shape">
+        <div class="hex-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+      </div>
+      <div class="hex-title">加密演算法</div>
+      <div class="hex-subtitle">抗量子破解</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-shape">
+        <div class="hex-icon">
+          <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        </div>
+      </div>
+      <div class="hex-title">超導材料</div>
+      <div class="hex-subtitle">室溫超導突破</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6: 研發流程 -->
+<!-- ============================================================ -->
+<div class="slide s6-flow" id="slide-6">
+  <div class="slide-header">
+    <div class="slide-number">06 / 10</div>
+    <h2 class="slide-title">研發流程優化</h2>
+  </div>
+  <div class="flow-container">
+    <div class="flow-step">
+      <div class="flow-number">1</div>
+      <div class="flow-content">
+        <div class="flow-title">需求分析與文獻回顧</div>
+        <div class="flow-desc">深度訪談利害關係人，系統性回顧國際最新文獻，確保研究方向的領先性與實用價值</div>
+      </div>
+      <span class="flow-status done">已完成</span>
+    </div>
+    <div class="flow-step">
+      <div class="flow-number">2</div>
+      <div class="flow-content">
+        <div class="flow-title">假設建立與實驗設計</div>
+        <div class="flow-desc">根據分析結果建立研究假說，設計嚴謹的實驗流程與驗證標準</div>
+      </div>
+      <span class="flow-status done">已完成</span>
+    </div>
+    <div class="flow-step">
+      <div class="flow-number">3</div>
+      <div class="flow-content">
+        <div class="flow-title">迭代開發與驗證測試</div>
+        <div class="flow-desc">採用敏捷開發模式，快速迭代原型並進行多輪驗證與優化</div>
+      </div>
+      <span class="flow-status progress">進行中</span>
+    </div>
+    <div class="flow-step">
+      <div class="flow-number">4</div>
+      <div class="flow-content">
+        <div class="flow-title">成果發表與技術移轉</div>
+        <div class="flow-desc">撰寫論文發表於頂級期刊，推動研究成果的產業應用與技術移轉</div>
+      </div>
+      <span class="flow-status">待啟動</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7: 核心優勢 -->
+<!-- ============================================================ -->
+<div class="slide s7-target" id="slide-7">
+  <div class="slide-header">
+    <div class="slide-number">07 / 10</div>
+    <h2 class="slide-title" style="text-align:center;">核心競爭優勢</h2>
+  </div>
+  <div class="target-container">
+    <div class="target-ring"></div>
+    <div class="target-ring"></div>
+    <div class="target-ring"></div>
+    <div class="target-center">
+      <span class="target-value">TOP</span>
+    </div>
+  </div>
+  <div class="target-stats">
+    <div class="target-stat">
+      <div class="target-stat-value">#3</div>
+      <div class="target-stat-label">亞太區排名</div>
+    </div>
+    <div class="target-stat">
+      <div class="target-stat-value">98%</div>
+      <div class="target-stat-label">人才留任率</div>
+    </div>
+    <div class="target-stat">
+      <div class="target-stat-value">45+</div>
+      <div class="target-stat-label">產業夥伴</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8: 未來佈局 -->
+<!-- ============================================================ -->
+<div class="slide s8-hex-grid" id="slide-8">
+  <div class="slide-header">
+    <div class="slide-number">08 / 10</div>
+    <h2 class="slide-title">未來策略佈局</h2>
+  </div>
+  <div class="hex-mosaic">
+    <div class="hex-mosaic-item">
+      <div class="mosaic-title light">2026-2028 重點發展方向</div>
+      <div class="mosaic-items">
+        <span class="mosaic-tag accent">量子AI</span>
+        <span class="mosaic-tag accent">永續科技</span>
+        <span class="mosaic-tag accent">智慧醫療</span>
+        <span class="mosaic-tag">元宇宙介面</span>
+        <span class="mosaic-tag">太空探索</span>
+      </div>
+    </div>
+    <div class="hex-mosaic-item">
+      <div class="mosaic-title">人才培育</div>
+      <div class="mosaic-items">
+        <span class="mosaic-tag">博士後計畫</span>
+        <span class="mosaic-tag">訪問學者</span>
+        <span class="mosaic-tag">跨域工作坊</span>
+      </div>
+    </div>
+    <div class="hex-mosaic-item">
+      <div class="mosaic-title">國際合作</div>
+      <div class="mosaic-items">
+        <span class="mosaic-tag">歐洲研究網絡</span>
+        <span class="mosaic-tag">北美夥伴</span>
+        <span class="mosaic-tag">亞洲聯盟</span>
+      </div>
+    </div>
+    <div class="hex-mosaic-item">
+      <div class="mosaic-title">產業鏈結</div>
+      <div class="mosaic-items">
+        <span class="mosaic-tag">新創孵化</span>
+        <span class="mosaic-tag">技術移轉</span>
+        <span class="mosaic-tag">顧問服務</span>
+      </div>
+    </div>
+    <div class="hex-mosaic-item">
+      <div class="mosaic-title">設施升級</div>
+      <div class="mosaic-items">
+        <span class="mosaic-tag">超級電腦</span>
+        <span class="mosaic-tag">實驗室</span>
+        <span class="mosaic-tag">資料中心</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9: 應用場景 -->
+<!-- ============================================================ -->
+<div class="slide s9-apps" id="slide-9">
+  <div class="slide-header">
+    <div class="slide-number">09 / 10</div>
+    <h2 class="slide-title">多元應用場景</h2>
+  </div>
+  <div class="apps-container">
+    <div class="app-card">
+      <div class="app-icon">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div class="app-title">智慧醫療</div>
+      <div class="app-desc">AI 輔助診斷系統，整合病患歷史數據與最新醫學文獻，提供精準個人化治療建議</div>
+      <div class="app-stats">
+        <div class="app-stat">
+          <div class="app-stat-value">96%</div>
+          <div class="app-stat-label">準確率</div>
+        </div>
+        <div class="app-stat">
+          <div class="app-stat-value">3.2x</div>
+          <div class="app-stat-label">效率提升</div>
+        </div>
+      </div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      </div>
+      <div class="app-title">智慧製造</div>
+      <div class="app-desc">數位分身技術即時監控生產線，預測性維護降低停機風險，提升整體設備效能</div>
+      <div class="app-stats">
+        <div class="app-stat">
+          <div class="app-stat-value">40%</div>
+          <div class="app-stat-label">成本節省</div>
+        </div>
+        <div class="app-stat">
+          <div class="app-stat-value">99.2%</div>
+          <div class="app-stat-label">運轉率</div>
+        </div>
+      </div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="app-title">智慧城市</div>
+      <div class="app-desc">整合物聯網感測器與邊緣運算，優化交通流量、能源分配與公共服務資源</div>
+      <div class="app-stats">
+        <div class="app-stat">
+          <div class="app-stat-value">25%</div>
+          <div class="app-stat-label">碳排放減</div>
+        </div>
+        <div class="app-stat">
+          <div class="app-stat-value">2.8M</div>
+          <div class="app-stat-label">受惠市民</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10: 結尾 -->
+<!-- ============================================================ -->
+<div class="slide s10-end" id="slide-10">
+  <a href="/slides.htm" class="back-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    回列表
+  </a>
+  <div class="end-content">
+    <h2 class="end-title">攜手共創<span>科技未來</span></h2>
+    <p class="end-subtitle">歡迎跨領域合作與投資洽詢</p>
+    <div class="end-cta">
+      <a href="#" class="end-btn primary">立即聯繫</a>
+      <a href="#" class="end-btn secondary">下載白皮書</a>
+    </div>
+    <div class="end-footer">
+      © 2026 科技學術研究中心 · 探索、創新、引領
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- NAVIGATION -->
+<!-- ============================================================ -->
+<div class="nav">
+  <button onclick="prev()">◀</button>
+  <span id="page-num">1 / 10</span>
+  <button onclick="next()">▶</button>
+</div>
+
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const pageNum = document.getElementById('page-num');
+
+function show(idx) {
+  slides[current].classList.remove('active');
+  current = (idx + total) % total;
+  slides[current].classList.add('active');
+  pageNum.textContent = (current + 1) + ' / ' + total;
+}
+
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next();
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev();
+});
+</script>
+</body>
+</html>
