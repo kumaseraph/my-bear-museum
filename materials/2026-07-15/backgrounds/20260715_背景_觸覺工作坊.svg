@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 深色背景 -->
+    <linearGradient id="darkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <!-- 強調漸層 -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="50%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+    <!-- 觸覺野獸派：0px直角、1px實線邊框、零陰影 -->
+  </defs>
+  
+  <!-- 深色背景 -->
+  <rect width="1920" height="1080" fill="url(#darkBg)"/>
+  
+  <!-- 誇張層級：大六邊形叢集 (中心) -->
+  <g transform="translate(960,540)">
+    <!-- 最大六邊形 (主要視覺焦點) -->
+    <path d="M0,-120 L103.92,-60 L103.92,60 L0,120 L-103.92,60 L-103.92,-60 Z" 
+          fill="#6B5CE7" fill-opacity="0.9" stroke="#A78BFA" stroke-width="1"/>
+    
+    <!-- 內部裝飾線條 (觸覺細節) -->
+    <path d="M0,-100 L86.6,-50 L86.6,50 L0,100 L-86.6,50 L-86.6,-50 Z" 
+          fill="none" stroke="#4ECDC4" stroke-width="0.5" opacity="0.6"/>
+    <path d="M0,-80 L69.28,-40 L69.28,40 L0,80 L-69.28,40 L-69.28,-40 Z" 
+          fill="none" stroke="#FBBF24" stroke-width="0.5" opacity="0.4"/>
+    
+    <!-- Playful Details: 內部點狀裝飾 -->
+    <circle cx="0" cy="-40" r="4" fill="#FBBF24"/>
+    <circle cx="35" cy="-20" r="4" fill="#FBBF24"/>
+    <circle cx="35" cy="20" r="4" fill="#FBBF24"/>
+    <circle cx="0" cy="40" r="4" fill="#FBBF24"/>
+    <circle cx="-35" cy="20" r="4" fill="#FBBF24"/>
+    <circle cx="-35" cy="-20" r="4" fill="#FBBF24"/>
+  </g>
+  
+  <!-- 左側六邊形群組 -->
+  <g transform="translate(300,540)">
+    <path d="M0,-60 L51.96,-30 L51.96,30 L0,60 L-51.96,30 L-51.96,-30 Z" 
+          fill="#4ECDC4" fill-opacity="0.5" stroke="#4ECDC4" stroke-width="1"/>
+    <path d="M0,-40 L34.64,-20 L34.64,20 L0,40 L-34.64,20 L-34.64,-20 Z" 
+          fill="none" stroke="#A78BFA" stroke-width="1"/>
+  </g>
+  
+  <!-- 右側六邊形群組 -->
+  <g transform="translate(1620,540)">
+    <path d="M0,-60 L51.96,-30 L51.96,30 L0,60 L-51.96,30 L-51.96,-30 Z" 
+          fill="#A78BFA" fill-opacity="0.5" stroke="#A78BFA" stroke-width="1"/>
+    <path d="M0,-40 L34.64,-20 L34.64,20 L0,40 L-34.64,20 L-34.64,-20 Z" 
+          fill="none" stroke="#4ECDC4" stroke-width="1"/>
+  </g>
+  
+  <!-- 底部裝飾六邊形群組 -->
+  <g transform="translate(960,900)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" 
+          fill="#FBBF24" fill-opacity="0.3" stroke="#FBBF24" stroke-width="1"/>
+  </g>
+  <g transform="translate(700,950)">
+    <path d="M0,-35 L30.31,-17.5 L30.31,17.5 L0,35 L-30.31,17.5 L-30.31,-17.5 Z" 
+          fill="#6B5CE7" fill-opacity="0.4" stroke="#6B5CE7" stroke-width="1"/>
+  </g>
+  <g transform="translate(1220,950)">
+    <path d="M0,-35 L30.31,-17.5 L30.31,17.5 L0,35 L-30.31,17.5 L-30.31,-17.5 Z" 
+          fill="#4ECDC4" fill-opacity="0.4" stroke="#4ECDC4" stroke-width="1"/>
+  </g>
+  
+  <!-- 頂部裝飾線條 (邊界引導線效果) -->
+  <line x1="200" y1="150" x2="1720" y2="150" stroke="url(#accentGrad)" stroke-width="1" opacity="0.3"/>
+  
+  <!-- 底部裝飾線條 -->
+  <line x1="200" y1="930" x2="1720" y2="930" stroke="url(#accentGrad)" stroke-width="1" opacity="0.3"/>
+</svg>

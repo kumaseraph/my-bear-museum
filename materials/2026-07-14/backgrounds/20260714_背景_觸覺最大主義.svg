@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 觸覺最大主義配色 -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="hexGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#8B7CF7"/>
+    </linearGradient>
+    <linearGradient id="hexGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ECDC4"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <linearGradient id="hexGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+    
+    <!-- 蜂巢圖案定義 -->
+    <pattern id="honeycomb" width="120" height="104" patternUnits="userSpaceOnUse">
+      <path d="M60 0 L120 30 L120 90 L60 120 L0 90 L0 30 Z" 
+            fill="none" stroke="#475569" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景底色 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- 蜂巢底紋 -->
+  <rect width="1920" height="1080" fill="url(#honeycomb)"/>
+  
+  <!-- 蜂巢叢集 - 大六邊形(s=50) + 小六邊形(s=25) -->
+  <g transform="translate(200,200)">
+    <!-- 大六邊形 2.5D效果：外粗空心+內實心 -->
+    <polygon points="50,0 100,29 100,86 50,115 0,86 0,29" 
+             fill="#6B5CE7" fill-opacity="0.9"/>
+    <polygon points="50,10 90,32 90,80 50,103 10,80 10,32" 
+             fill="#4ECDC4" fill-opacity="0.4"/>
+  </g>
+  
+  <g transform="translate(400,150)">
+    <polygon points="50,0 100,29 100,86 50,115 0,86 0,29" 
+             fill="#4ECDC4" fill-opacity="0.8"/>
+    <polygon points="50,10 90,32 90,80 50,103 10,80 10,32" 
+             fill="#1E293B" fill-opacity="0.3"/>
+  </g>
+  
+  <g transform="translate(600,250)">
+    <polygon points="40,0 80,23 80,69 40,92 0,69 0,23" 
+             fill="#FF8C00" fill-opacity="0.7"/>
+  </g>
+  
+  <!-- 交錯排列蜂巢群 -->
+  <g transform="translate(1500,100)">
+    <polygon points="50,0 100,29 100,86 50,115 0,86 0,29" 
+             fill="#6B5CE7" fill-opacity="0.6"/>
+  </g>
+  
+  <g transform="translate(1700,200)">
+    <polygon points="60,0 120,35 120,104 60,139 0,104 0,35" 
+             fill="#4ECDC4" fill-opacity="0.5"/>
+  </g>
+  
+  <g transform="translate(100,700)">
+    <polygon points="50,0 100,29 100,86 50,115 0,86 0,29" 
+             fill="#FF8C00" fill-opacity="0.6"/>
+    <polygon points="50,15 85,37 85,75 50,97 15,75 15,37" 
+             fill="none" stroke="#FBBF24" stroke-width="2"/>
+  </g>
+  
+  <g transform="translate(400,800)">
+    <polygon points="40,0 80,23 80,69 40,92 0,69 0,23" 
+             fill="#6B5CE7" fill-opacity="0.7"/>
+  </g>
+  
+  <g transform="translate(1600,700)">
+    <polygon points="50,0 100,29 100,86 50,115 0,86 0,29" 
+             fill="#4ECDC4" fill-opacity="0.8"/>
+    <polygon points="50,10 90,32 90,80 50,103 10,80 10,32" 
+             fill="#1E293B" fill-opacity="0.4"/>
+  </g>
+  
+  <g transform="translate(1800,850)">
+    <polygon points="35,0 70,20 70,61 35,81 0,61 0,20" 
+             fill="#FF8C00" fill-opacity="0.6"/>
+  </g>
+  
+  <!-- 中央動態對比區塊 -->
+  <g transform="translate(700,400)">
+    <polygon points="80,0 160,46 160,139 80,185 0,139 0,46" 
+             fill="#6B5CE7" fill-opacity="0.3"/>
+    <polygon points="80,20 140,55 140,130 80,165 20,130 20,55" 
+             fill="#4ECDC4" fill-opacity="0.5"/>
+    <polygon points="80,40 120,63 120,116 80,139 40,116 40,63" 
+             fill="#FF8C00" fill-opacity="0.7"/>
+  </g>
+  
+  <!-- 右側裝飾 -->
+  <g transform="translate(1400,450)">
+    <polygon points="50,0 100,29 100,86 50,115 0,86 0,29" 
+             fill="#6B5CE7" fill-opacity="0.4"/>
+  </g>
+  
+  <!-- 底部裝飾線條 -->
+  <line x1="0" y1="1000" x2="1920" y2="1000" stroke="#6B5CE7" stroke-width="2" opacity="0.3"/>
+  <line x1="0" y1="1010" x2="1920" y2="1010" stroke="#4ECDC4" stroke-width="1" opacity="0.2"/>
+</svg>

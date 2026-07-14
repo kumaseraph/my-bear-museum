@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 配色方案：科技風 -->
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="circleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#0F172A"/>
+  
+  <!-- 六邊形靶心設計 -->
+  <g transform="translate(960,540)">
+    <!-- 外圈六邊形 -->
+    <polygon points="200,115 330,200 330,400 200,485 70,400 70,200" 
+             fill="none" stroke="url(#hexGrad)" stroke-width="3"/>
+    
+    <!-- 中圈六邊形 -->
+    <polygon points="160,130 260,190 260,360 160,420 60,360 60,190" 
+             fill="none" stroke="url(#hexGrad)" stroke-width="2" opacity="0.7"/>
+    
+    <!-- 內圈六邊形 -->
+    <polygon points="120,145 195,180 195,320 120,370 45,320 45,180" 
+             fill="url(#circleGrad)" fill-opacity="0.3" stroke="url(#hexGrad)" stroke-width="2"/>
+    
+    <!-- 靶心圓 -->
+    <circle cx="120" cy="250" r="50" fill="url(#circleGrad)"/>
+    <circle cx="120" cy="250" r="35" fill="none" stroke="#22D3EE" stroke-width="2" opacity="0.8"/>
+    <circle cx="120" cy="250" r="20" fill="#22D3EE"/>
+    
+    <!-- 中心聚焦點 -->
+    <circle cx="120" cy="250" r="8" fill="#F8FAFC"/>
+    
+    <!-- 六邊形頂點裝飾 -->
+    <circle cx="200" cy="115" r="8" fill="#22D3EE"/>
+    <circle cx="330" cy="200" r="8" fill="#22D3EE"/>
+    <circle cx="330" cy="400" r="8" fill="#22D3EE"/>
+    <circle cx="200" cy="485" r="8" fill="#22D3EE"/>
+    <circle cx="70" cy="400" r="8" fill="#22D3EE"/>
+    <circle cx="70" cy="200" r="8" fill="#22D3EE"/>
+  </g>
+  
+  <!-- 底部標題區 -->
+  <text x="960" y="850" text-anchor="middle" 
+        font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#F8FAFC">
+    目標達成
+  </text>
+  <text x="960" y="920" text-anchor="middle" 
+        font-family="Arial, sans-serif" font-size="24" fill="#64748B">
+    Goal Achievement • 六邊形靶心設計
+  </text>
+</svg>

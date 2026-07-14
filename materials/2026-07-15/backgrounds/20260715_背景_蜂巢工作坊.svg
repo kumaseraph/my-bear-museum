@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 皇室紫配色 -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E1B4B"/>
+      <stop offset="100%" stop-color="#312E81"/>
+    </linearGradient>
+    <!-- 蜂巢 pattern -->
+    <pattern id="honeycomb" x="0" y="0" width="78" height="86.6" patternUnits="userSpaceOnUse">
+      <path d="M39,0 L78,21.65 L78,64.95 L39,86.6 L0,64.95 L0,21.65 Z" 
+            fill="none" stroke="#6B5CE7" stroke-width="1" opacity="0.3"/>
+    </pattern>
+    <!-- 放射環形蜂巢 -->
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#A78BFA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- 漸層背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- 蜂巢背景襯底 -->
+  <rect width="1920" height="1080" fill="url(#honeycomb)"/>
+  
+  <!-- 中心發光效果 -->
+  <ellipse cx="960" cy="540" rx="400" ry="300" fill="url(#centerGlow)"/>
+  
+  <!-- 中心大六邊形 (2.5D效果) -->
+  <g transform="translate(960,540)">
+    <!-- 外粗空心 -->
+    <path d="M0,-80 L69.28,-40 L69.28,40 L0,80 L-69.28,40 L-69.28,-40 Z" 
+          fill="none" stroke="#A78BFA" stroke-width="6"/>
+    <!-- 內實心半透明 -->
+    <path d="M0,-80 L69.28,-40 L69.28,40 L0,80 L-69.28,40 L-69.28,-40 Z" 
+          fill="#6B5CE7" fill-opacity="0.5"/>
+    <!-- 中心亮點 -->
+    <circle cx="0" cy="0" r="15" fill="#FBBF24"/>
+  </g>
+  
+  <!-- 放射小六邊形叢集 (尺寸漸層) -->
+  <g transform="translate(960,540)">
+    <!-- 第1環：6個中六邊形 -->
+    <g fill="#4ECDC4" fill-opacity="0.7">
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(0) translate(0,-110)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(60) translate(0,-110)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(120) translate(0,-110)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(180) translate(0,-110)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(240) translate(0,-110)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" transform="rotate(300) translate(0,-110)"/>
+    </g>
+    <!-- 第2環：12個小六邊形 -->
+    <g fill="#A78BFA" fill-opacity="0.5">
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(30) translate(0,-160)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(90) translate(0,-160)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(150) translate(0,-160)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(210) translate(0,-160)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(270) translate(0,-160)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(330) translate(0,-160)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(60) translate(0,-190)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(120) translate(0,-190)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(180) translate(0,-190)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(240) translate(0,-190)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(300) translate(0,-190)"/>
+      <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" transform="rotate(0) translate(0,-190)"/>
+    </g>
+  </g>
+  
+  <!-- 四角裝飾六邊形 -->
+  <g fill="#4ECDC4" fill-opacity="0.3">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" transform="translate(100,100)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" transform="translate(1820,100)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" transform="translate(100,980)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" transform="translate(1820,980)"/>
+  </g>
+</svg>

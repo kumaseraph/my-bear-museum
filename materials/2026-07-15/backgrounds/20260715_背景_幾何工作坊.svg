@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- 深紫漸層背景 -->
+    <linearGradient id="geoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="50%" stop-color="#1E1B4B"/>
+      <stop offset="100%" stop-color="#312E81"/>
+    </linearGradient>
+    <!-- 幾何線條漸層 -->
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#4ECDC4" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#A78BFA" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#geoBg)"/>
+  
+  <!-- 對角線裝飾 (動態對比) -->
+  <line x1="0" y1="0" x2="1920" y2="1080" stroke="url(#lineGrad)" stroke-width="1"/>
+  <line x1="1920" y1="0" x2="0" y2="1080" stroke="url(#lineGrad)" stroke-width="1"/>
+  
+  <!-- 中央大六邊形框架 (虛實對比) -->
+  <g transform="translate(960,540)">
+    <!-- 外框虛線 -->
+    <path d="M0,-150 L129.9,-75 L129.9,75 L0,150 L-129.9,75 L-129.9,-75 Z" 
+          fill="none" stroke="#6B5CE7" stroke-width="2" stroke-dasharray="10,5"/>
+    
+    <!-- 內部實心 -->
+    <path d="M0,-120 L103.92,-60 L103.92,60 L0,120 L-103.92,60 L-103.92,-60 Z" 
+          fill="#6B5CE7" fill-opacity="0.2"/>
+    
+    <!-- 中心小六邊形 -->
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z" 
+          fill="#4ECDC4" fill-opacity="0.8"/>
+    
+    <!-- 放射性裝飾線 -->
+    <line x1="0" y1="-75" x2="0" y2="-200" stroke="#A78BFA" stroke-width="1"/>
+    <line x1="0" y1="75" x2="0" y2="200" stroke="#A78BFA" stroke-width="1"/>
+    <line x1="-65" y1="-37.5" x2="-180" y2="-100" stroke="#A78BFA" stroke-width="1"/>
+    <line x1="65" y1="-37.5" x2="180" y2="-100" stroke="#A78BFA" stroke-width="1"/>
+    <line x1="-65" y1="37.5" x2="-180" y2="100" stroke="#A78BFA" stroke-width="1"/>
+    <line x1="65" y1="37.5" x2="180" y2="100" stroke="#A78BFA" stroke-width="1"/>
+  </g>
+  
+  <!-- 四角幾何裝飾 -->
+  <g transform="translate(150,150)">
+    <path d="M0,-40 L34.64,-20 L34.64,20 L0,40 L-34.64,20 L-34.64,-20 Z" 
+          fill="none" stroke="#4ECDC4" stroke-width="1"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="#A78BFA" fill-opacity="0.5"/>
+  </g>
+  <g transform="translate(1770,150)">
+    <path d="M0,-40 L34.64,-20 L34.64,20 L0,40 L-34.64,20 L-34.64,-20 Z" 
+          fill="none" stroke="#4ECDC4" stroke-width="1"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="#A78BFA" fill-opacity="0.5"/>
+  </g>
+  <g transform="translate(150,930)">
+    <path d="M0,-40 L34.64,-20 L34.64,20 L0,40 L-34.64,20 L-34.64,-20 Z" 
+          fill="none" stroke="#4ECDC4" stroke-width="1"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="#A78BFA" fill-opacity="0.5"/>
+  </g>
+  <g transform="translate(1770,930)">
+    <path d="M0,-40 L34.64,-20 L34.64,20 L0,40 L-34.64,20 L-34.64,-20 Z" 
+          fill="none" stroke="#4ECDC4" stroke-width="1"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="#A78BFA" fill-opacity="0.5"/>
+  </g>
+  
+  <!-- 底部標題區 -->
+  <text x="960" y="980" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="bold" opacity="0.8">幾何工作坊</text>
+  <text x="960" y="1010" text-anchor="middle" fill="#A78BFA" font-size="14" opacity="0.6">GEOMETRIC WORKSHOP</text>
+</svg>
