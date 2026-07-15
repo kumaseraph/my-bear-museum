@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>創意設計 - 簡報</title>
+  <style>
+    :root {
+      --primary: #6366F1;
+      --secondary: #8B5CF6;
+      --accent: #A855F7;
+      --accent-light: #F0ABFC;
+      --bg: #1E1B4B;
+      --bg-light: #312E81;
+      --text: #F8FAFC;
+      --text-muted: #CBD5E1;
+      --card-bg: rgba(99, 102, 241, 0.15);
+      --card-border: rgba(139, 92, 246, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 20px;
+    }
+
+    body {
+      font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .presentation {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: 3rem 4rem;
+      flex-direction: column;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      z-index: 100;
+      display: flex;
+      gap: 12px;
+    }
+
+    nav button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1.2rem;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    nav button:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .page-indicator {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      font-size: 1rem;
+      color: var(--text-muted);
+      z-index: 100;
+    }
+
+    /* Glass Card Effect */
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      padding: 1.5rem;
+    }
+
+    /* Title Styles */
+    .slide-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    /* ==================== P1 Cover ==================== */
+    .s1-cover {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.3) 0%, transparent 60%),
+                  radial-gradient(ellipse at center, rgba(99, 102, 241, 0.2) 0%, transparent 40%),
+                  linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .s1-cover::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .s1-cover::after {
+      content: "";
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+      animation: pulse 3s ease-in-out infinite reverse;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    .s1-cover .cover-content {
+      position: relative;
+      z-index: 10;
+    }
+
+    .s1-cover h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .s1-cover .subtitle {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    .s1-cover .date {
+      font-size: 1.25rem;
+      color: var(--accent-light);
+    }
+
+    /* ==================== P2 TOC ==================== */
+    .s2-toc {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .s2-toc .toc-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .toc-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 60%;
+      background: linear-gradient(180deg, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    .toc-item:hover {
+      background: rgba(99, 102, 241, 0.25);
+      transform: translateX(8px);
+    }
+
+    .toc-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .toc-text h3 {
+      font-size: 1.4rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .toc-text p {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== P3 Circle Cards ==================== */
+    .s3-circles {
+      background: radial-gradient(ellipse at top, var(--bg-light) 0%, var(--bg) 100%);
+    }
+
+    .s3-circles .circles-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .circle-card {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .circle-card::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      opacity: 0.3;
+    }
+
+    .circle-card:hover {
+      transform: scale(1.08);
+      border-color: var(--accent);
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+    }
+
+    .circle-card .circle-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 0.5rem;
+      color: var(--accent-light);
+    }
+
+    .circle-card h4 {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .circle-card p {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== P4 Hexagon Grid ==================== */
+    .s4-hexagon {
+      background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, var(--bg) 70%);
+    }
+
+    .s4-hexagon .hex-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hex-item {
+      width: 140px;
+      height: 160px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      background: linear-gradient(180deg, var(--card-bg) 0%, rgba(99, 102, 241, 0.08) 100%);
+      border: 1px solid var(--card-border);
+      padding: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .hex-item:nth-child(odd) {
+      transform: translateY(20px);
+    }
+
+    .hex-item:nth-child(even) {
+      transform: translateY(-20px);
+    }
+
+    .hex-item:hover {
+      background: linear-gradient(180deg, rgba(99, 102, 241, 0.3) 0%, rgba(139, 92, 246, 0.2) 100%);
+      transform: translateY(0) scale(1.05);
+    }
+
+    .hex-item .hex-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-light);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hex-item h4 {
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .hex-item p {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== P5 Color Grid ==================== */
+    .s5-colors {
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .s5-colors .color-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .color-card {
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+    }
+
+    .color-card h4 {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .swatch {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+
+    .color-card p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==================== P6 Scattered Cards ==================== */
+    .s6-cases {
+      background: radial-gradient(ellipse at bottom right, rgba(168, 85, 247, 0.15) 0%, var(--bg) 60%);
+      position: relative;
+    }
+
+    .s6-cases .cases-container {
+      flex: 1;
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .case-card {
+      position: absolute;
+      width: 280px;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+
+    .case-card:hover {
+      transform: scale(1.05) rotate(0deg) !important;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+
+    .case-card .case-num {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent-light);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .case-card h4 {
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .case-card p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .case-card:nth-child(1) { top: 5%; left: 8%; transform: rotate(-3deg); }
+    .case-card:nth-child(2) { top: 5%; right: 8%; transform: rotate(2deg); }
+    .case-card:nth-child(3) { bottom: 15%; left: 12%; transform: rotate(1deg); }
+    .case-card:nth-child(4) { bottom: 15%; right: 12%; transform: rotate(-2deg); }
+
+    /* ==================== P7 Steps ==================== */
+    .s7-steps {
+      background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg) 100%);
+    }
+
+    .s7-steps .steps-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .step-item::after {
+      content: "";
+      position: absolute;
+      left: 60px;
+      bottom: -1rem;
+      width: 2px;
+      height: 1rem;
+      background: linear-gradient(180deg, var(--primary), transparent);
+    }
+
+    .step-item:last-child::after {
+      display: none;
+    }
+
+    .step-item:hover {
+      transform: translateX(12px);
+      background: rgba(99, 102, 241, 0.25);
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-text h4 {
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .step-text p {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== P8 Single Circle ==================== */
+    .s8-single {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.2) 0%, var(--bg) 70%);
+    }
+
+    .s8-single .main-circle {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--card-bg) 0%, rgba(99, 102, 241, 0.05) 100%);
+      border: 3px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .s8-single .main-circle::before {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      border: 1px dashed var(--accent);
+      opacity: 0.4;
+    }
+
+    .s8-single .main-circle::after {
+      content: "";
+      position: absolute;
+      inset: -50px;
+      border-radius: 50%;
+      border: 1px solid var(--primary);
+      opacity: 0.2;
+    }
+
+    .s8-single .big-num {
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--accent-light);
+      line-height: 1;
+    }
+
+    .s8-single .main-circle h3 {
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-top: 0.5rem;
+    }
+
+    .s8-single .orbit-circles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .orbit {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .orbit:nth-child(1) { top: 10%; left: 50%; transform: translateX(-50%); }
+    .orbit:nth-child(2) { top: 50%; right: 8%; }
+    .orbit:nth-child(3) { bottom: 10%; left: 50%; transform: translateX(-50%); }
+    .orbit:nth-child(4) { top: 50%; left: 8%; }
+
+    .orbit svg {
+      width: 32px;
+      height: 32px;
+      color: var(--accent-light);
+    }
+
+    /* ==================== P9 Hexagon Grid ==================== */
+    .s9-contrast {
+      background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.1) 0%, var(--bg) 70%);
+    }
+
+    .s9-contrast .hex-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hex-cell {
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      background: linear-gradient(180deg, var(--card-bg) 0%, rgba(99, 102, 241, 0.05) 100%);
+      border: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .hex-cell:hover {
+      background: linear-gradient(180deg, rgba(99, 102, 241, 0.3) 0%, rgba(168, 85, 247, 0.15) 100%);
+      transform: scale(1.05);
+    }
+
+    .hex-cell h4 {
+      font-size: 1.15rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .hex-cell .hex-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 0.75rem;
+      color: var(--accent-light);
+    }
+
+    .hex-cell p {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== P10 End ==================== */
+    .s10-end {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.25) 0%, transparent 55%),
+                  radial-gradient(ellipse at center, rgba(99, 102, 241, 0.15) 0%, transparent 35%),
+                  linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .s10-end::before {
+      content: "";
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 65%);
+      animation: pulse 5s ease-in-out infinite;
+    }
+
+    .s10-end::after {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, transparent 65%);
+      animation: pulse 3.5s ease-in-out infinite reverse;
+    }
+
+    .s10-end .end-content {
+      position: relative;
+      z-index: 10;
+    }
+
+    .s10-end h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .s10-end .thankyou {
+      font-size: 1.75rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    .s10-end .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .s10-end .back-link:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .s10-end .back-link svg {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="presentation">
+    <!-- Navigation -->
+    <nav>
+      <button onclick="prev()" aria-label="上一頁">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
+      </button>
+      <button onclick="next()" aria-label="下一頁">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
+    </nav>
+
+    <div class="page-indicator"><span id="currentPage">1</span> / <span id="totalPages">10</span></div>
+
+    <!-- P1 Cover -->
+    <section class="slide s1-cover active">
+      <div class="cover-content">
+        <h1>創意設計</h1>
+        <p class="subtitle">以美學為核心，打造視覺與體驗的完美融合</p>
+        <p class="date">2026.07.15</p>
+      </div>
+    </section>
+
+    <!-- P2 TOC -->
+    <section class="slide s2-toc">
+      <h2 class="slide-title">目錄大綱</h2>
+      <div class="toc-container">
+        <div class="toc-item">
+          <div class="toc-number">1</div>
+          <div class="toc-text">
+            <h3>創意元素展示</h3>
+            <p>基礎視覺構成與靈感來源</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-number">2</div>
+          <div class="toc-text">
+            <h3>設計原則</h3>
+            <p>建構視覺語言的核心準則</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-number">3</div>
+          <div class="toc-text">
+            <h3>色彩應用</h3>
+            <p>色調搭配與情緒傳遞</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-number">4</div>
+          <div class="toc-text">
+            <h3>案例展示</h3>
+            <p>精彩作品呈現與分析</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-number">5</div>
+          <div class="toc-text">
+            <h3>流程步驟</h3>
+            <p>從概念到實現的完整路徑</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-number">6</div>
+          <div class="toc-text">
+            <h3>圖形變化</h3>
+            <p>幾何形態的創意演繹</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P3 Circle Cards -->
+    <section class="slide s3-circles">
+      <h2 class="slide-title">創意元素展示</h2>
+      <div class="circles-container">
+        <div class="circle-card">
+          <svg class="circle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2v20M2 12h20"/>
+          </svg>
+          <h4>對稱平衡</h4>
+          <p>視覺和諧</p>
+        </div>
+        <div class="circle-card">
+          <svg class="circle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <polygon points="12,2 22,20 2,20"/>
+          </svg>
+          <h4>幾何構成</h4>
+          <p>結構之美</p>
+        </div>
+        <div class="circle-card">
+          <svg class="circle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M3 9h18M9 3v18"/>
+          </svg>
+          <h4>網格系統</h4>
+          <p>秩序井然</p>
+        </div>
+        <div class="circle-card">
+          <svg class="circle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <h4>立體層次</h4>
+          <p>空間深度</p>
+        </div>
+        <div class="circle-card">
+          <svg class="circle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+          </svg>
+          <h4>動態曲線</h4>
+          <p>流動韻律</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- P4 Hexagon Scattered -->
+    <section class="slide s4-hexagon">
+      <h2 class="slide-title">設計原則</h2>
+      <div class="hex-container">
+        <div class="hex-item">
+          <div class="hex-num">01</div>
+          <h4>對比</h4>
+          <p>凸顯差異</p>
+        </div>
+        <div class="hex-item">
+          <div class="hex-num">02</div>
+          <h4>重複</h4>
+          <p>強化記憶</p>
+        </div>
+        <div class="hex-item">
+          <div class="hex-num">03</div>
+          <h4>階層</h4>
+          <p>引導視線</p>
+        </div>
+        <div class="hex-item">
+          <div class="hex-num">04</div>
+          <h4>親密</h4>
+          <p>建立關聯</p>
+        </div>
+        <div class="hex-item">
+          <div class="hex-num">05</div>
+          <h4>留白</h4>
+          <p>呼吸空間</p>
+        </div>
+        <div class="hex-item">
+          <div class="hex-num">06</div>
+          <h4>統一</h4>
+          <p>和諧整體</p>
+        </div>
+        <div class="hex-item">
+          <div class="hex-num">07</div>
+          <h4>焦點</h4>
+          <p>吸引注意</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- P5 Color Grid -->
+    <section class="slide s5-colors">
+      <h2 class="slide-title">色彩應用</h2>
+      <div class="color-grid">
+        <div class="color-card">
+          <h4>主色調配置</h4>
+          <div class="color-swatches">
+            <div class="swatch" style="background:#6366F1"></div>
+            <div class="swatch" style="background:#8B5CF6"></div>
+            <div class="swatch" style="background:#A855F7"></div>
+            <div class="swatch" style="background:#312E81"></div>
+          </div>
+          <p>以紫羅蘭色系為基調，營造神秘優雅的視覺氛圍，適合高端品牌與創意產業。</p>
+        </div>
+        <div class="color-card">
+          <h4>對比色運用</h4>
+          <div class="color-swatches">
+            <div class="swatch" style="background:#F0ABFC"></div>
+            <div class="swatch" style="background:#E879F9"></div>
+            <div class="swatch" style="background:#C084FC"></div>
+            <div class="swatch" style="background:#DDD6FE"></div>
+          </div>
+          <p>淺紫與亮紫的漸層搭配，創造夢幻柔和的對比效果，突顯年輕與活力。</p>
+        </div>
+        <div class="color-card">
+          <h4>深色背景應用</h4>
+          <div class="color-swatches">
+            <div class="swatch" style="background:#1E1B4B"></div>
+            <div class="swatch" style="background:#312E81"></div>
+            <div class="swatch" style="background:#4C1D95"></div>
+            <div class="swatch" style="background:#0F0E2A"></div>
+          </div>
+          <p>深邃背景搭配亮色文字與元素，提升內容可讀性與視覺層次感。</p>
+        </div>
+        <div class="color-card">
+          <h4>漸層與透明</h4>
+          <div class="color-swatches">
+            <div class="swatch" style="background:linear-gradient(135deg,#6366F1,#A855F7)"></div>
+            <div class="swatch" style="background:rgba(99,102,241,0.3)"></div>
+            <div class="swatch" style="background:rgba(168,85,247,0.2)"></div>
+            <div class="swatch" style="background:rgba(240,171,252,0.15)"></div>
+          </div>
+          <p>運用漸層與透明疊加，創造豐富的光影變化與現代玻璃質感效果。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- P6 Scattered Cases -->
+    <section class="slide s6-cases">
+      <h2 class="slide-title">精彩案例</h2>
+      <div class="cases-container">
+        <div class="case-card">
+          <div class="case-num">128</div>
+          <h4>品牌視覺系統</h4>
+          <p>為科技新創打造完整品牌形象，從標誌設計到應用系統，全方位提升品牌識別度。</p>
+        </div>
+        <div class="case-card">
+          <div class="case-num">96</div>
+          <h4>網站介面設計</h4>
+          <p>電子商務平台介面優化，以用戶體驗為核心，提升轉換率與滿意度。</p>
+        </div>
+        <div class="case-card">
+          <div class="case-num">64</div>
+          <h4>產品包裝創意</h4>
+          <p>精緻包裝設計結合環保理念，在視覺吸引力與永續發展間取得完美平衡。</p>
+        </div>
+        <div class="case-card">
+          <div class="case-num">52</div>
+          <h4>展覽視覺規劃</h4>
+          <p>大型展覽空間視覺統籌，創造沉浸式觀展體驗，讓每位參觀者留下深刻印象。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- P7 Steps -->
+    <section class="slide s7-steps">
+      <h2 class="slide-title">設計流程</h2>
+      <div class="steps-container">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <h4>需求分析</h4>
+            <p>深入了解客戶目標、受眾群體與市場定位</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <h4>概念發想</h4>
+            <p>腦力激盪與情緒板建立，探索多元創意方向</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <h4>原型設計</h4>
+            <p>快速產出低保真原型，驗證概念可行性</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-text">
+            <h4>視覺深化</h4>
+            <p>精緻化設計細節，建立完整設計系統</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-text">
+            <h4>交付落地</h4>
+            <p>完稿輸出與製作規格確認，確保完美呈現</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P8 Single Circle -->
+    <section class="slide s8-single">
+      <h2 class="slide-title">圖形演變</h2>
+      <div class="main-circle">
+        <div class="big-num">∞</div>
+        <h3>創意無限</h3>
+      </div>
+      <div class="orbit-circles">
+        <div class="orbit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+          </svg>
+        </div>
+        <div class="orbit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M12 8v8M8 12h8"/>
+          </svg>
+        </div>
+        <div class="orbit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <polygon points="12,2 15,8 22,9 17,14 18,21 12,18 6,21 7,14 2,9 9,8"/>
+          </svg>
+        </div>
+        <div class="orbit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- P9 Hexagon Grid -->
+    <section class="slide s9-contrast">
+      <h2 class="slide-title">設計對比</h2>
+      <div class="hex-grid">
+        <div class="hex-cell">
+          <svg class="hex-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+          <h4>圓 vs 方</h4>
+          <p>柔和親近 vs 理性穩重</p>
+        </div>
+        <div class="hex-cell">
+          <svg class="hex-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="4" y1="4" x2="20" y2="20"/>
+            <line x1="4" y1="20" x2="20" y2="4"/>
+          </svg>
+          <h4>動 vs 靜</h4>
+          <p>活力節奏 vs 沉靜優雅</p>
+        </div>
+        <div class="hex-cell">
+          <svg class="hex-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18"/>
+          </svg>
+          <h4>密 vs 疏</h4>
+          <p>豐富熱鬧 vs 簡約純淨</p>
+        </div>
+        <div class="hex-cell">
+          <svg class="hex-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2v20M2 12h20"/>
+          </svg>
+          <h4>直 vs 曲</h4>
+          <p>剛硬明確 vs 流暢自然</p>
+        </div>
+        <div class="hex-cell">
+          <svg class="hex-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 4h16v16H4z"/>
+            <path d="M4 12h16M12 4v16"/>
+          </svg>
+          <h4>對稱 vs 不對稱</h4>
+          <p>秩序和諧 vs 活潑變化</p>
+        </div>
+        <div class="hex-cell">
+          <svg class="hex-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <h4>傳統 vs 前衛</h4>
+          <p>經典傳承 vs 突破創新</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- P10 End -->
+    <section class="slide s10-end">
+      <div class="end-content">
+        <h1>創意無限</h1>
+        <p class="thankyou">感謝觀賞 / Thank You</p>
+        <a href="/slides.htm" class="back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <polyline points="15,18 9,12 15,6"></polyline>
+          </svg>
+          返回列表
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    var current = 0;
+    var slides;
+    var totalSlides = 10;
+
+    function init() {
+      slides = document.querySelectorAll('.slide');
+      if (slides.length > 0) {
+        totalSlides = slides.length;
+        document.getElementById('totalPages').textContent = totalSlides;
+        show();
+      }
+    }
+
+    function show() {
+      if (!slides || slides.length === 0) return;
+
+      if (slides[current]) {
+        slides[current].classList.remove('active');
+      }
+      current = (current + 1) % slides.length;
+      if (slides[current]) {
+        slides[current].classList.add('active');
+        document.getElementById('currentPage').textContent = current + 1;
+      }
+    }
+
+    function next() {
+      if (!slides || slides.length === 0) return;
+      if (slides[current]) {
+        slides[current].classList.remove('active');
+      }
+      current = (current + 1) % slides.length;
+      if (slides[current]) {
+        slides[current].classList.add('active');
+        document.getElementById('currentPage').textContent = current + 1;
+      }
+    }
+
+    function prev() {
+      if (!slides || slides.length === 0) return;
+      if (slides[current]) {
+        slides[current].classList.remove('active');
+      }
+      current = (current - 1 + slides.length) % slides.length;
+      if (slides[current]) {
+        slides[current].classList.add('active');
+        document.getElementById('currentPage').textContent = current + 1;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        next();
+      } else if (e.key === 'ArrowLeft') {
+        prev();
+      }
+    });
+  </script>
+</body>
+</html>
