@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 投資理財全攻略｜熊熊博物館</title>
+  <style>
+    /* ============================================================
+       BASE RESET & TYPOGRAPHY
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 20px;
+      font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    }
+
+    body {
+      background: #1a1a2e;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* ============================================================
+       PRESENTATION WRAPPER
+       ============================================================ */
+    .presentation {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+    }
+
+    /* ============================================================
+       SLIDE BASE
+       ============================================================ */
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      padding: 48px 56px;
+      overflow: hidden;
+    }
+    .slide.active { display: flex; }
+
+    /* ============================================================
+       NAVIGATION
+       ============================================================ */
+    .nav {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 100;
+    }
+    .nav button {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s;
+    }
+    .nav button:hover { background: rgba(255,255,255,0.3); transform: scale(1.08); }
+    .nav span {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* ============================================================
+       BACK LINK
+       ============================================================ */
+    .back-link {
+      position: fixed;
+      top: 20px;
+      left: 24px;
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      text-decoration: none;
+      z-index: 100;
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      transition: all 0.2s;
+    }
+    .back-link:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
+
+    /* ============================================================
+       COLOR SYSTEM — C5 企業深藍（淺色底用深色文字）
+       ============================================================ */
+    :root {
+      --primary: #1E3A5F;
+      --primary-light: #2E5A8F;
+      --accent: #3B82F6;
+      --accent-warm: #F59E0B;
+      --accent-green: #10B981;
+      --accent-red: #EF4444;
+      --bg-light: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --gold: #F59E0B;
+    }
+
+    /* ============================================================
+       SLIDE 1 — 封面（圓/單）
+       ============================================================ */
+    .s1-cover {
+      background: linear-gradient(135deg, #0F2744 0%, #1E3A5F 50%, #0B1D3A 100%);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .s1-cover::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.25) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: orb-pulse 6s ease-in-out infinite;
+    }
+    @keyframes orb-pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+      50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    }
+    .s1-cover .badge {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #60A5FA;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .s1-cover h1 {
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .s1-cover h1 span { color: #60A5FA; }
+    .s1-cover .subtitle {
+      font-size: 1.3rem;
+      opacity: 0.75;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .s1-cover .divider {
+      width: 80px; height: 3px;
+      background: linear-gradient(90deg, transparent, #60A5FA, transparent);
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+    .s1-cover .meta {
+      font-size: 1rem;
+      opacity: 0.6;
+      position: relative;
+    }
+    /* 裝飾圓環 */
+    .s1-cover .ring-deco {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(96,165,250,0.15);
+    }
+    .s1-cover .ring-deco:nth-child(1) {
+      width: 900px; height: 900px; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .s1-cover .ring-deco:nth-child(2) {
+      width: 700px; height: 700px; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      border-color: rgba(96,165,250,0.1);
+    }
+    .s1-cover .ring-deco:nth-child(3) {
+      width: 500px; height: 500px; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      border-color: rgba(96,165,250,0.08);
+    }
+
+    /* ============================================================
+       SLIDE 2 — 投資理財 overview（線/垂）
+       ============================================================ */
+    .s2-toc {
+      background: var(--bg-light);
+      color: var(--text-dark);
+      flex-direction: column;
+      padding: 48px 64px;
+    }
+    .s2-toc .header {
+      margin-bottom: 2rem;
+    }
+    .s2-toc .header .tag {
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .s2-toc h2 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .s2-toc .toc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+      justify-content: center;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border-left: 4px solid var(--accent);
+    }
+    .toc-item .num {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      min-width: 40px;
+    }
+    .toc-item .label {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    .toc-item .sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-left: auto;
+    }
+
+    /* ============================================================
+       SLIDE 3 — 資產配置（方/網）
+       ============================================================ */
+    .s3-grid {
+      background: var(--bg-light);
+      color: var(--text-dark);
+      flex-direction: column;
+    }
+    .s3-grid .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .s3-grid .header .tag {
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .s3-grid h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .s3-grid .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+    .s3-grid .card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      position: relative;
+      overflow: hidden;
+    }
+    .s3-grid .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 4px;
+    }
+    .s3-grid .card:nth-child(1)::before { background: var(--accent); }
+    .s3-grid .card:nth-child(2)::before { background: var(--accent-green); }
+    .s3-grid .card:nth-child(3)::before { background: var(--gold); }
+    .s3-grid .card:nth-child(4)::before { background: #8B5CF6; }
+    .s3-grid .card:nth-child(5)::before { background: #EC4899; }
+    .s3-grid .card:nth-child(6)::before { background: #06B6D4; }
+    .card-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 4px;
+    }
+    .card-icon svg { width: 22px; height: 22px; }
+    .card .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .card .card-pct {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--primary);
+    }
+    .card .card-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .card .card-bar {
+      height: 6px;
+      background: #E2E8F0;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: auto;
+    }
+    .card .card-bar .fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    /* ============================================================
+       SLIDE 4 — 投資工具地圖（六/散）
+       ============================================================ */
+    .s4-hexmap {
+      background: linear-gradient(160deg, #0F2744 0%, #1E3A5F 100%);
+      color: #fff;
+      flex-direction: column;
+    }
+    .s4-hexmap .header { margin-bottom: 1.5rem; }
+    .s4-hexmap .header .tag { font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: #60A5FA; font-weight: 700; }
+    .s4-hexmap h2 { font-size: 1.8rem; font-weight: 800; }
+    .hex-layout {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hex-center {
+      width: 140px; height: 161px;
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      background: linear-gradient(135deg, var(--accent), #2563EB);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .hex-center .hcc-num { font-size: 2rem; font-weight: 900; }
+    .hex-center .hcc-lbl { font-size: 1rem; opacity: 0.85; }
+    .hex-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hex-sat {
+      width: 100px; height: 115px;
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      background: rgba(96,165,250,0.2);
+      border: 2px solid rgba(96,165,250,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: default;
+      transition: all 0.2s;
+    }
+    .hex-sat:hover { background: rgba(96,165,250,0.35); transform: scale(1.06); }
+    .hex-sat .hs-num { font-size: 1.4rem; font-weight: 800; }
+    .hex-sat .hs-lbl { font-size: 1rem; opacity: 0.75; text-align: center; line-height: 1.3; }
+
+    /* ============================================================
+       SLIDE 5 — 投資心法（特/垂）
+       ============================================================ */
+    .s5-pyramid {
+      background: var(--bg-light);
+      color: var(--text-dark);
+      flex-direction: column;
+    }
+    .s5-pyramid .header { margin-bottom: 1.5rem; }
+    .s5-pyramid .header .tag { font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+    .s5-pyramid h2 { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+    .pyramid-layout {
+      display: flex;
+      flex: 1;
+      gap: 32px;
+      align-items: center;
+    }
+    .pyramid-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pyr-stage {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .pyr-stage .pyr-bar {
+      width: 6px;
+      align-self: stretch;
+      border-radius: 3px;
+      min-height: 40px;
+    }
+    .pyr-stage:nth-child(1) .pyr-bar { background: var(--accent); }
+    .pyr-stage:nth-child(2) .pyr-bar { background: var(--accent-green); }
+    .pyr-stage:nth-child(3) .pyr-bar { background: var(--gold); }
+    .pyr-stage:nth-child(4) .pyr-bar { background: #8B5CF6; }
+    .pyr-stage .pyr-content { flex: 1; }
+    .pyr-stage .pyr-title { font-size: 1rem; font-weight: 700; color: var(--text-dark); }
+    .pyr-stage .pyr-desc { font-size: 1rem; color: var(--text-muted); margin-top: 2px; }
+    .pyr-stage .pyr-num {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--primary);
+      opacity: 0.15;
+    }
+    .pyramid-right {
+      width: 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+    .pyr-card {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .pyr-card svg { width: 28px; height: 28px; flex-shrink: 0; }
+    .pyr-card .pc-text { font-size: 1rem; font-weight: 600; line-height: 1.4; }
+
+    /* ============================================================
+       SLIDE 6 — 股票市場（圓/水）
+       ============================================================ */
+    .s6-circles {
+      background: linear-gradient(135deg, #0B1D3A 0%, #0F2744 50%, #1E3A5F 100%);
+      color: #fff;
+      flex-direction: column;
+    }
+    .s6-circles .header { margin-bottom: 1.5rem; }
+    .s6-circles .header .tag { font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: #60A5FA; font-weight: 700; }
+    .s6-circles h2 { font-size: 1.8rem; font-weight: 800; }
+    .circle-row {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+    .big-circle {
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--accent) 0deg 108deg,
+        var(--accent-green) 108deg 180deg,
+        var(--gold) 180deg 252deg,
+        #8B5CF6 252deg 324deg,
+        rgba(255,255,255,0.1) 324deg 360deg
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 40px rgba(59,130,246,0.3);
+    }
+    .big-circle .bc-inner {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: #0B1D3A;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .big-circle .bc-inner .bc-num { font-size: 2.2rem; font-weight: 900; }
+    .big-circle .bc-inner .bc-lbl { font-size: 1rem; opacity: 0.6; }
+    .legend-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .legend-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-item .li-text { font-size: 1rem; }
+    .legend-item .li-pct { font-size: 1.1rem; font-weight: 800; margin-left: auto; padding-left: 16px; }
+
+    /* ============================================================
+       SLIDE 7 — 時間複利（線/垂）
+       ============================================================ */
+    .s7-timeline {
+      background: var(--bg-light);
+      color: var(--text-dark);
+      flex-direction: column;
+    }
+    .s7-timeline .header { margin-bottom: 1.5rem; }
+    .s7-timeline .header .tag { font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+    .s7-timeline h2 { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+    .timeline-body {
+      display: flex;
+      flex: 1;
+      gap: 32px;
+      align-items: center;
+    }
+    .timeline-chart {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .tl-bar-group {
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+      flex: 1;
+      padding-bottom: 8px;
+    }
+    .tl-bar-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .tl-bar {
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 8px;
+    }
+    .tl-bar span { font-size: 1rem; font-weight: 700; color: #fff; }
+    .tl-label { font-size: 1rem; color: var(--text-muted); text-align: center; }
+    .timeline-note {
+      width: 280px;
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .tn-title { font-size: 1.1rem; font-weight: 800; color: var(--primary); }
+    .tn-row { display: flex; flex-direction: column; gap: 10px; }
+    .tn-stat { display: flex; justify-content: space-between; align-items: center; }
+    .tn-stat .tns-label { font-size: 1rem; color: var(--text-muted); }
+    .tn-stat .tns-val { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+    .tn-highlight {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .tn-highlight .tnh-num { font-size: 1.8rem; font-weight: 900; }
+    .tn-highlight .tnh-lbl { font-size: 1rem; opacity: 0.8; margin-top: 2px; }
+
+    /* ============================================================
+       SLIDE 8 — 風險管理（六/水）
+       ============================================================ */
+    .s8-hexrow {
+      background: linear-gradient(160deg, #0F2744 0%, #1E3A5F 100%);
+      color: #fff;
+      flex-direction: column;
+    }
+    .s8-hexrow .header { margin-bottom: 1.5rem; }
+    .s8-hexrow .header .tag { font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: #60A5FA; font-weight: 700; }
+    .s8-hexrow h2 { font-size: 1.8rem; font-weight: 800; }
+    .hex-horiz-row {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .hex-h {
+      width: 130px; height: 150px;
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      background: rgba(96,165,250,0.15);
+      border: 2px solid rgba(96,165,250,0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .hex-h:hover { background: rgba(96,165,250,0.3); transform: scale(1.05); }
+    .hex-h .hh-icon { font-size: 1.6rem; margin-bottom: 4px; }
+    .hex-h .hh-title { font-size: 1rem; font-weight: 700; line-height: 1.3; }
+    .hex-h .hh-desc { font-size: 1rem; opacity: 0.7; line-height: 1.4; }
+    .hex-h .hh-num {
+      position: absolute;
+      font-size: 2.5rem;
+      font-weight: 900;
+      opacity: 0.08;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ============================================================
+       SLIDE 9 — FIRE 運動（方/散）
+       ============================================================ */
+    .s9-fire {
+      background: var(--bg-light);
+      color: var(--text-dark);
+      flex-direction: column;
+    }
+    .s9-fire .header { margin-bottom: 1.5rem; }
+    .s9-fire .header .tag { font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+    .s9-fire h2 { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+    .fire-body {
+      display: flex;
+      flex: 1;
+      gap: 24px;
+      align-items: center;
+    }
+    .fire-left {
+      width: 300px;
+      background: linear-gradient(160deg, var(--primary), #2563EB);
+      border-radius: 20px;
+      padding: 28px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .fire-left .fl-title { font-size: 1.3rem; font-weight: 800; }
+    .fire-left .fl-sub { font-size: 1rem; opacity: 0.75; }
+    .fire-left .fl-big {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .fire-left .fl-formula {
+      font-size: 1rem;
+      opacity: 0.8;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 12px;
+    }
+    .fire-cards {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .fire-card {
+      background: var(--bg-card);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .fire-card .fc-icon { margin-bottom: 4px; }
+    .fire-card .fc-title { font-size: 1rem; font-weight: 700; color: var(--text-dark); }
+    .fire-card .fc-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.5; }
+    .fire-card .fc-val { font-size: 1.5rem; font-weight: 900; color: var(--primary); margin-top: auto; }
+
+    /* ============================================================
+       SLIDE 10 — 總結（無/垂）
+       ============================================================ */
+    .s10-end {
+      background: linear-gradient(135deg, #0B1D3A 0%, #0F2744 50%, #1E3A5F 100%);
+      color: #fff;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .s10-end::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .s10-end .end-badge {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #60A5FA;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .s10-end h2 {
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .s10-end .end-sub {
+      font-size: 1.2rem;
+      opacity: 0.75;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .s10-end .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 40px;
+      text-decoration: none;
+      position: relative;
+      transition: all 0.25s;
+      box-shadow: 0 8px 24px rgba(59,130,246,0.4);
+    }
+    .s10-end .cta-btn:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(59,130,246,0.5); }
+    .end-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 2.5rem;
+      position: relative;
+    }
+    .end-stat { text-align: center; }
+    .end-stat .es-num { font-size: 2rem; font-weight: 900; color: #60A5FA; }
+    .end-stat .es-lbl { font-size: 1rem; opacity: 0.65; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+
+  <div class="presentation">
+
+    <!-- SLIDE 1: 封面 -->
+    <div class="slide s1-cover active" id="slide-1">
+      <div class="ring-deco"></div>
+      <div class="ring-deco"></div>
+      <div class="ring-deco"></div>
+      <div class="badge">熊熊博物館 · 2026 旗艦簡報</div>
+      <h1>2026 投資理財<br><span>完全攻略</span></h1>
+      <div class="divider"></div>
+      <div class="subtitle">從資產配置到 FIRE 運動，系統化學習投資四大支柱</div>
+      <div class="meta">2026 年 7 月號 · 商業財經系列</div>
+    </div>
+
+    <!-- SLIDE 2: 目錄 -->
+    <div class="slide s2-toc" id="slide-2">
+      <div class="header">
+        <div class="tag">Overview</div>
+        <h2>今日學習地圖</h2>
+      </div>
+      <div class="toc-list">
+        <div class="toc-item">
+          <div class="num">01</div>
+          <div class="label">投資心法</div>
+          <div class="sub">三大原則與核心邏輯</div>
+        </div>
+        <div class="toc-item">
+          <div class="num">02</div>
+          <div class="label">資產配置</div>
+          <div class="sub">股債黃金不動產黃金配比</div>
+        </div>
+        <div class="toc-item">
+          <div class="num">03</div>
+          <div class="label">投資工具</div>
+          <div class="sub">股票、ETF、基金、債券、期權</div>
+        </div>
+        <div class="toc-item">
+          <div class="num">04</div>
+          <div class="label">股票市場</div>
+          <div class="sub">產業分類與市場分析</div>
+        </div>
+        <div class="toc-item">
+          <div class="num">05</div>
+          <div class="label">時間複利</div>
+          <div class="sub">複利效應與長期持有</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: 資產配置 -->
+    <div class="slide s3-grid" id="slide-3">
+      <div class="header">
+        <div class="tag">Portfolio Allocation</div>
+        <h2>聰明分配你的資金</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon" style="background:#DBEAFE;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="card-title">股票</div>
+          <div class="card-pct">40%</div>
+          <div class="card-desc">全球股票ETF，追逐長期成長趨勢</div>
+          <div class="card-bar"><div class="fill" style="width:40%;background:#3B82F6;"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background:#D1FAE5;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="card-title">債券</div>
+          <div class="card-pct">25%</div>
+          <div class="card-desc">政府與投資級企業債券，穩定收益</div>
+          <div class="card-bar"><div class="fill" style="width:25%;background:#10B981;"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background:#FEF3C7;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="card-title">黃金</div>
+          <div class="card-pct">10%</div>
+          <div class="card-desc">實體黃金或ETF，通膨避險工具</div>
+          <div class="card-bar"><div class="fill" style="width:10%;background:#F59E0B;"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background:#EDE9FE;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="card-title">不動產</div>
+          <div class="card-pct">10%</div>
+          <div class="card-desc">REITs 投資，租金收益與資本增值</div>
+          <div class="card-bar"><div class="fill" style="width:10%;background:#8B5CF6;"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background:#FCE7F3;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l6.5-3.5"/></svg>
+          </div>
+          <div class="card-title">另類投資</div>
+          <div class="card-pct">10%</div>
+          <div class="card-desc">原物料、私募股權與收藏品</div>
+          <div class="card-bar"><div class="fill" style="width:10%;background:#EC4899;"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-icon" style="background:#CFFAFE;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div class="card-title">現金</div>
+          <div class="card-pct">5%</div>
+          <div class="card-desc">緊急預備金與短期機會等待</div>
+          <div class="card-bar"><div class="fill" style="width:5%;background:#06B6D4;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: 投資工具 -->
+    <div class="slide s4-hexmap" id="slide-4">
+      <div class="header">
+        <div class="tag">Investment Tools</div>
+        <h2>五大投資工具一覽</h2>
+      </div>
+      <div class="hex-layout">
+        <div class="hex-row">
+          <div class="hex-sat">
+            <div class="hs-num">📈</div>
+            <div class="hs-lbl">股票</div>
+          </div>
+          <div class="hex-sat">
+            <div class="hs-num">💹</div>
+            <div class="hs-lbl">ETF</div>
+          </div>
+        </div>
+        <div class="hex-center">
+          <div class="hcc-num">5</div>
+          <div class="hcc-lbl">大工具</div>
+        </div>
+        <div class="hex-row">
+          <div class="hex-sat">
+            <div class="hs-num">🏦</div>
+            <div class="hs-lbl">基金</div>
+          </div>
+          <div class="hex-sat">
+            <div class="hs-num">📜</div>
+            <div class="hs-lbl">債券</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center;margin-top:16px;">
+        <div class="hex-sat" style="background:rgba(245,158,11,0.2);border-color:rgba(245,158,11,0.4);">
+          <div class="hs-num">⚡</div>
+          <div class="hs-lbl">期權</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: 投資心法 -->
+    <div class="slide s5-pyramid" id="slide-5">
+      <div class="header">
+        <div class="tag">Investment Philosophy</div>
+        <h2>四大投資心法</h2>
+      </div>
+      <div class="pyramid-layout">
+        <div class="pyramid-left">
+          <div class="pyr-stage">
+            <div class="pyr-bar"></div>
+            <div class="pyr-content">
+              <div class="pyr-title">分散風險</div>
+              <div class="pyr-desc">不把所有雞蛋放在同一個籃子</div>
+            </div>
+            <div class="pyr-num">01</div>
+          </div>
+          <div class="pyr-stage">
+            <div class="pyr-bar"></div>
+            <div class="pyr-content">
+              <div class="pyr-title">長期持有</div>
+              <div class="pyr-desc">時間是投資者最好的朋友</div>
+            </div>
+            <div class="pyr-num">02</div>
+          </div>
+          <div class="pyr-stage">
+            <div class="pyr-bar"></div>
+            <div class="pyr-content">
+              <div class="pyr-title">定期定額</div>
+              <div class="pyr-desc">每個月固定金額，忽略市場波動</div>
+            </div>
+            <div class="pyr-num">03</div>
+          </div>
+          <div class="pyr-stage">
+            <div class="pyr-bar"></div>
+            <div class="pyr-content">
+              <div class="pyr-title">持續學習</div>
+              <div class="pyr-desc">關注財經資訊，提升金融素養</div>
+            </div>
+            <div class="pyr-num">04</div>
+          </div>
+        </div>
+        <div class="pyramid-right">
+          <div class="pyr-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div class="pc-text">「投資自己，是最好的投資」</div>
+          </div>
+          <div class="pyr-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <div class="pc-text">「市場恐慌時買入，貪婪時賣出」</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: 股票市場 -->
+    <div class="slide s6-circles" id="slide-6">
+      <div class="header">
+        <div class="tag">Stock Market</div>
+        <h2>全球股票產業分布</h2>
+      </div>
+      <div class="circle-row">
+        <div class="big-circle">
+          <div class="bc-inner">
+            <div class="bc-num">7+</div>
+            <div class="bc-lbl">兆美元</div>
+          </div>
+        </div>
+        <div class="legend-col">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#3B82F6;"></div>
+            <div class="li-text">科技</div>
+            <div class="li-pct">30%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#10B981;"></div>
+            <div class="li-text">金融</div>
+            <div class="li-pct">20%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#F59E0B;"></div>
+            <div class="li-text">醫療</div>
+            <div class="li-pct">20%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#8B5CF6;"></div>
+            <div class="li-text">消費</div>
+            <div class="li-pct">20%</div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:rgba(255,255,255,0.2);"></div>
+            <div class="li-text">其他</div>
+            <div class="li-pct">10%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: 時間複利 -->
+    <div class="slide s7-timeline" id="slide-7">
+      <div class="header">
+        <div class="tag">Compound Interest</div>
+        <h2>時間複利的驚人力量</h2>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-chart">
+          <div class="tl-bar-group" style="height:180px;align-items:flex-end;">
+            <div class="tl-bar-item">
+              <div class="tl-bar" style="height:30px;background:linear-gradient(180deg,#CBD5E1,#94A3B8);"><span></span></div>
+              <div class="tl-label">第5年</div>
+            </div>
+            <div class="tl-bar-item">
+              <div class="tl-bar" style="height:60px;background:linear-gradient(180deg,#93C5FD,#60A5FA);"><span></span></div>
+              <div class="tl-label">第10年</div>
+            </div>
+            <div class="tl-bar-item">
+              <div class="tl-bar" style="height:100px;background:linear-gradient(180deg,#3B82F6,#2563EB);"><span></span></div>
+              <div class="tl-label">第20年</div>
+            </div>
+            <div class="tl-bar-item">
+              <div class="tl-bar" style="height:165px;background:linear-gradient(180deg,#1D4ED8,#1E3A8A);"><span></span></div>
+              <div class="tl-label">第30年</div>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-note">
+          <div class="tn-title">每月投入 $3,000 · 年化 8%</div>
+          <div class="tn-row">
+            <div class="tn-stat"><span class="tns-label">本金</span><span class="tns-val">$108萬</span></div>
+            <div class="tn-stat"><span class="tns-label">利息</span><span class="tns-val">$352萬</span></div>
+            <div class="tn-stat"><span class="tns-label">總額</span><span class="tns-val">$460萬</span></div>
+          </div>
+          <div class="tn-highlight">
+            <div class="tnh-num">3.26x</div>
+            <div class="tnh-lbl">利息 / 本金倍數</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: 風險管理 -->
+    <div class="slide s8-hexrow" id="slide-8">
+      <div class="header">
+        <div class="tag">Risk Management</div>
+        <h2>投資風險管理策略</h2>
+      </div>
+      <div class="hex-horiz-row">
+        <div class="hex-h">
+          <div class="hh-icon">🛡️</div>
+          <div class="hh-title">止血停損</div>
+          <div class="hh-desc">單筆虧損不超過總部位 5%</div>
+        </div>
+        <div class="hex-h">
+          <div class="hh-icon">⚖️</div>
+          <div class="hh-title">再平衡</div>
+          <div class="hh-desc">每季檢視並調整股債比例</div>
+        </div>
+        <div class="hex-h">
+          <div class="hh-icon">📊</div>
+          <div class="hh-title">壓力測試</div>
+          <div class="hh-desc">模擬市場崩盤 30% 的承受力</div>
+        </div>
+        <div class="hex-h">
+          <div class="hh-icon">💰</div>
+          <div class="hh-title">現金水位</div>
+          <div class="hh-desc">保留 5% 現金等待機會</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: FIRE 運動 -->
+    <div class="slide s9-fire" id="slide-9">
+      <div class="header">
+        <div class="tag">FIRE Movement</div>
+        <h2>FIRE 財務自由運動</h2>
+      </div>
+      <div class="fire-body">
+        <div class="fire-left">
+          <div class="fl-title">什麼是 FIRE？</div>
+          <div class="fl-sub">Financial Independence, Retire Early</div>
+          <div class="fl-big">25x</div>
+          <div class="fl-sub">年支出作為 FIRE 目標</div>
+          <div class="fl-formula">公式：年支出 × 25 = FIRE 數字</div>
+        </div>
+        <div class="fire-cards">
+          <div class="fire-card">
+            <div class="fc-icon">🎯</div>
+            <div class="fc-title">設定目標</div>
+            <div class="fc-desc">計算每年生活費，明確定義數字</div>
+            <div class="fc-val">Step 1</div>
+          </div>
+          <div class="fire-card">
+            <div class="fc-icon">📈</div>
+            <div class="fc-title">提高儲蓄</div>
+            <div class="fc-desc">儲蓄率提升至 50% 以上，加速積累</div>
+            <div class="fc-val">Step 2</div>
+          </div>
+          <div class="fire-card">
+            <div class="fc-icon">🏖️</div>
+            <div class="fc-title">被動收入</div>
+            <div class="fc-desc">建立股息、租金、版稅等多元收入</div>
+            <div class="fc-val">Step 3</div>
+          </div>
+          <div class="fire-card">
+            <div class="fc-icon">✅</div>
+            <div class="fc-title">提前退休</div>
+            <div class="fc-desc">被動收入覆蓋支出，達成財務自由</div>
+            <div class="fc-val">Step 4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: 總結 -->
+    <div class="slide s10-end" id="slide-10">
+      <div class="end-badge">熊熊博物館 · 2026</div>
+      <h2>立即開始你的<br>投資理財之旅</h2>
+      <div class="end-sub">掌握知識、管理風險、善用時間複利</div>
+      <a href="/slides.htm" class="cta-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        返回簡報列表
+      </a>
+      <div class="end-stats">
+        <div class="end-stat"><div class="es-num">5</div><div class="es-lbl">大工具</div></div>
+        <div class="end-stat"><div class="es-num">4</div><div class="es-lbl">大心法</div></div>
+        <div class="end-stat"><div class="es-num">3.26x</div><div class="es-lbl">複利倍數</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">◀</button>
+    <span id="counter">1 / 10</span>
+    <button onclick="next()" aria-label="下一頁">▶</button>
+  </div>
+
+  <script>
+    var current = 0;
+    var slides = document.querySelectorAll('.slide');
+    var total = slides.length;
+
+    function show() {
+      if (slides[current]) {
+        slides[current].classList.remove('active');
+      }
+      current = (current + total) % total;
+      slides[current].classList.add('active');
+      document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+    }
+
+    function next() { show(); }
+    function prev() { current -= 2; show(); }
+  </script>
+</body>
+</html>
