@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生活休閒 | Life Lifestyle 2026-07-17</title>
+<style>
+/* ================================================
+   熊熊簡報 V6 深色模板 × C2 暖白紙藝配色
+   ================================================ */
+:root {
+  /* C2 暖白紙藝色彩系統（深色背景用） */
+  --primary: #F5F0E8;
+  --primary-light: #FFF8F0;
+  --accent: #C4A882;
+  --accent-warm: #E8C9A0;
+  --bg-dark: #1A1512;
+  --bg-card: rgba(245, 240, 232, 0.08);
+  --text-light: #F5F0E8;
+  --text-muted: rgba(245, 240, 232, 0.6);
+  --border-warm: rgba(200, 180, 130, 0.3);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 20px; }
+
+body {
+  background: #111;
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  color: var(--text-light);
+  overflow: hidden;
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  background: var(--bg-dark);
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide.active { display: flex; }
+
+/* ---- P1 封面：圓/單 ---- */
+.s1-cover {
+  background: radial-gradient(ellipse at 50% 40%, #2A2018 0%, #1A1512 70%);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 48px;
+}
+.s1-cover::before {
+  content: '';
+  position: absolute;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,180,130,0.25) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -60%);
+}
+.s1-cover .cover-ring {
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+.s1-cover .cover-ring::after {
+  content: '';
+  position: absolute;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  border: 1px solid rgba(200,180,130,0.2);
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.2; }
+}
+.s1-cover .cover-ring svg { width: 80px; height: 80px; }
+.s1-cover h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--primary-light);
+  letter-spacing: 0.08em;
+  position: relative;
+  z-index: 1;
+}
+.s1-cover .cover-subtitle {
+  font-size: 1.3rem;
+  color: var(--accent-warm);
+  margin-top: 16px;
+  letter-spacing: 0.15em;
+  position: relative;
+  z-index: 1;
+}
+.s1-cover .cover-date {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 24px;
+  letter-spacing: 0.2em;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- P2 目錄：線/垂 ---- */
+.s2-toc {
+  background: linear-gradient(180deg, #1A1512 0%, #2A2018 100%);
+  flex-direction: column;
+  padding: 48px 64px;
+  position: relative;
+}
+.s2-toc .toc-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border-warm);
+  padding-bottom: 24px;
+}
+.s2-toc .toc-num {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+.s2-toc .toc-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-light);
+  letter-spacing: 0.05em;
+}
+.s2-toc .toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  justify-content: center;
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 24px;
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+}
+.toc-item .toc-index {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 48px;
+}
+.toc-item .toc-text {
+  font-size: 1.2rem;
+  color: var(--primary);
+  flex: 1;
+}
+.toc-item .toc-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border-warm), transparent);
+}
+
+/* ---- P3 卡片網格：方/網 ---- */
+.s3-grid {
+  background: #1A1512;
+  flex-direction: column;
+  padding: 40px 56px;
+  gap: 32px;
+}
+.s3-grid .section-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.s3-grid .section-num {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(200,180,130,0.15);
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+.s3-grid .section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-light);
+}
+.card-grid-3x2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  flex: 1;
+}
+.life-card {
+  background: linear-gradient(145deg, rgba(245,240,232,0.12), rgba(245,240,232,0.04));
+  border: 1px solid var(--border-warm);
+  border-radius: 16px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.life-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--accent), transparent);
+}
+.life-card .card-icon {
+  width: 48px; height: 48px;
+  background: rgba(200,180,130,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.life-card .card-icon svg { width: 28px; height: 28px; }
+.life-card .card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-light);
+}
+.life-card .card-desc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.life-card .card-tag {
+  font-size: 1rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: auto;
+}
+
+/* ---- P4 六邊形叢集：六/散 ---- */
+.s4-hex {
+  background: radial-gradient(ellipse at 30% 50%, #2A2018 0%, #1A1512 60%);
+  flex-direction: column;
+  padding: 40px 56px;
+  gap: 32px;
+}
+.s4-hex .section-header { display: flex; align-items: center; gap: 20px; }
+.s4-hex .section-num { font-size: 1rem; font-weight: 700; color: var(--accent); background: rgba(200,180,130,0.15); padding: 6px 16px; border-radius: 20px; }
+.s4-hex .section-title { font-size: 1.8rem; font-weight: 700; color: var(--primary-light); }
+.hex-scatter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+.hex-item {
+  width: 140px; height: 140px;
+  background: linear-gradient(145deg, rgba(200,180,130,0.3), rgba(200,180,130,0.1));
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.hex-item .hex-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary-light);
+}
+.hex-item .hex-label {
+  font-size: 1rem;
+  color: var(--accent-warm);
+  line-height: 1.2;
+}
+.hex-item.large {
+  width: 180px; height: 180px;
+}
+.hex-item.large .hex-num { font-size: 2.4rem; }
+.hex-item.large .hex-label { font-size: 1.1rem; }
+
+/* ---- P5 特色焦點：特/垂 ---- */
+.s5-feature {
+  background: linear-gradient(135deg, #2A2018 0%, #1A1512 50%, #231B14 100%);
+  flex-direction: column;
+  padding: 40px 64px;
+  gap: 32px;
+}
+.s5-feature .section-header { display: flex; align-items: center; gap: 20px; }
+.s5-feature .section-num { font-size: 1rem; font-weight: 700; color: var(--accent); background: rgba(200,180,130,0.15); padding: 6px 16px; border-radius: 20px; }
+.s5-feature .section-title { font-size: 1.8rem; font-weight: 700; color: var(--primary-light); }
+.feature-main {
+  display: flex;
+  gap: 32px;
+  flex: 1;
+  align-items: stretch;
+}
+.feature-big {
+  flex: 1.2;
+  background: linear-gradient(145deg, rgba(200,180,130,0.2), rgba(200,180,130,0.05));
+  border: 1px solid var(--border-warm);
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.feature-big::before {
+  content: '';
+  position: absolute;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,180,130,0.15), transparent 70%);
+  top: -40px; right: -40px;
+}
+.feature-big .big-num {
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+.feature-big .big-label {
+  font-size: 1.3rem;
+  color: var(--primary-light);
+  font-weight: 600;
+}
+.feature-big .big-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.feature-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.feature-mini {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+}
+.feature-mini .mini-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent-warm);
+}
+.feature-mini .mini-label {
+  font-size: 1.05rem;
+  color: var(--primary);
+}
+.feature-mini .mini-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* ---- P6 圓形水平：圓/水 ---- */
+.s6-circle-h {
+  background: #1A1512;
+  flex-direction: column;
+  padding: 40px 56px;
+  gap: 32px;
+}
+.s6-circle-h .section-header { display: flex; align-items: center; gap: 20px; }
+.s6-circle-h .section-num { font-size: 1rem; font-weight: 700; color: var(--accent); background: rgba(200,180,130,0.15); padding: 6px 16px; border-radius: 20px; }
+.s6-circle-h .section-title { font-size: 1.8rem; font-weight: 700; color: var(--primary-light); }
+.circle-row {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+.circle-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.circle-ring {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.circle-ring::after {
+  content: '';
+  position: absolute;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  border: 1px solid rgba(200,180,130,0.2);
+}
+.circle-ring .ring-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary-light);
+}
+.circle-stat .stat-label {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+.circle-stat .stat-sub {
+  font-size: 1rem;
+  color: var(--accent);
+}
+.circle-divider {
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--border-warm), transparent);
+}
+
+/* ---- P7 時間軸：線/垂 ---- */
+.s7-timeline {
+  background: linear-gradient(180deg, #1A1512 0%, #2A2018 100%);
+  flex-direction: column;
+  padding: 40px 64px;
+  gap: 24px;
+}
+.s7-timeline .section-header { display: flex; align-items: center; gap: 20px; }
+.s7-timeline .section-num { font-size: 1rem; font-weight: 700; color: var(--accent); background: rgba(200,180,130,0.15); padding: 6px 16px; border-radius: 20px; }
+.s7-timeline .section-title { font-size: 1.8rem; font-weight: 700; color: var(--primary-light); }
+.timeline-vert {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  position: relative;
+  padding-left: 40px;
+}
+.timeline-vert::before {
+  content: '';
+  position: absolute;
+  left: 12px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), rgba(200,180,130,0.1));
+}
+.tl-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -34px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg-dark);
+}
+.tl-item .tl-year {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--accent);
+  min-width: 80px;
+}
+.tl-item .tl-content {
+  flex: 1;
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 16px 20px;
+  border-left: 3px solid var(--accent);
+}
+.tl-item .tl-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-light);
+  margin-bottom: 4px;
+}
+.tl-item .tl-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* ---- P8 蜂巢網格：六/網 ---- */
+.s8-hex-grid {
+  background: #1A1512;
+  flex-direction: column;
+  padding: 40px 56px;
+  gap: 24px;
+}
+.s8-hex-grid .section-header { display: flex; align-items: center; gap: 20px; }
+.s8-hex-grid .section-num { font-size: 1rem; font-weight: 700; color: var(--accent); background: rgba(200,180,130,0.15); padding: 6px 16px; border-radius: 20px; }
+.s8-hex-grid .section-title { font-size: 1.8rem; font-weight: 700; color: var(--primary-light); }
+.hex-grid-4x2 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+.hex-cell {
+  background: linear-gradient(145deg, rgba(200,180,130,0.18), rgba(200,180,130,0.06));
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px 16px;
+  gap: 8px;
+  aspect-ratio: 1;
+}
+.hex-cell .hc-icon { width: 32px; height: 32px; }
+.hex-cell .hc-icon svg { width: 100%; height: 100%; }
+.hex-cell .hc-text { font-size: 1.05rem; font-weight: 600; color: var(--primary-light); line-height: 1.3; }
+.hex-cell .hc-sub {
+  font-size: 1rem;
+  color: var(--accent-warm);
+}
+
+/* ---- P9 散落卡片：方/散 ---- */
+.s9-scatter {
+  background: radial-gradient(ellipse at 70% 30%, #2A2018 0%, #1A1512 60%);
+  flex-direction: column;
+  padding: 40px 56px;
+  gap: 24px;
+}
+.s9-scatter .section-header { display: flex; align-items: center; gap: 20px; }
+.s9-scatter .section-num { font-size: 1rem; font-weight: 700; color: var(--accent); background: rgba(200,180,130,0.15); padding: 6px 16px; border-radius: 20px; }
+.s9-scatter .section-title { font-size: 1.8rem; font-weight: 700; color: var(--primary-light); }
+.scatter-row {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  align-items: stretch;
+}
+.scatter-card {
+  flex: 1;
+  background: linear-gradient(145deg, rgba(245,240,232,0.1), rgba(245,240,232,0.04));
+  border: 1px solid var(--border-warm);
+  border-radius: 20px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.scatter-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(to right, var(--accent), var(--accent-warm), transparent);
+}
+.scatter-card .sc-icon {
+  width: 44px; height: 44px;
+  background: rgba(200,180,130,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.scatter-card .sc-icon svg { width: 26px; height: 26px; }
+.scatter-card .sc-title { font-size: 1.25rem; font-weight: 700; color: var(--primary-light); }
+.scatter-card .sc-body { font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; flex: 1; }
+.scatter-card .sc-foot {
+  font-size: 1rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---- P10 結尾：無/單 ---- */
+.s10-end {
+  background: radial-gradient(ellipse at 50% 50%, #2A2018 0%, #1A1512 70%);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 48px;
+  position: relative;
+}
+.s10-end::before {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,180,130,0.12) 0%, transparent 70%);
+}
+.s10-end h2 {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--primary-light);
+  letter-spacing: 0.08em;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 16px;
+}
+.s10-end .end-sub {
+  font-size: 1.3rem;
+  color: var(--accent-warm);
+  position: relative;
+  z-index: 1;
+  margin-bottom: 32px;
+}
+.s10-end .end-tags {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.end-tag {
+  font-size: 1rem;
+  padding: 8px 20px;
+  border: 1px solid var(--border-warm);
+  border-radius: 20px;
+  color: var(--text-muted);
+  background: var(--bg-card);
+}
+.s10-end .end-date {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 32px;
+  letter-spacing: 0.2em;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Nav ---- */
+.nav {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 100;
+  background: rgba(26,21,18,0.9);
+  padding: 10px 20px;
+  border-radius: 32px;
+  border: 1px solid var(--border-warm);
+  backdrop-filter: blur(8px);
+}
+.nav button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.nav button:hover { background: rgba(200,180,130,0.2); }
+.nav span {
+  font-size: 1rem;
+  color: var(--text-muted);
+  min-width: 60px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="presentation">
+
+<!-- P1 封面 -->
+<div class="slide s1-cover active" id="slide-1">
+  <div class="cover-ring">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32 8 L40 20 L56 20 L44 30 L48 46 L32 36 L16 46 L20 30 L8 20 L24 20 Z" stroke="#C4A882" stroke-width="2.5" fill="rgba(200,180,130,0.15)"/>
+      <circle cx="32" cy="32" r="10" stroke="#C4A882" stroke-width="2"/>
+    </svg>
+  </div>
+  <h1>生活休閒</h1>
+  <div class="cover-subtitle">LIFE · LIFESTYLE</div>
+  <div class="cover-date">2026 · JULY · 17</div>
+</div>
+
+<!-- P2 目錄 -->
+<div class="slide s2-toc" id="slide-2">
+  <div class="toc-header">
+    <div class="toc-num">02</div>
+    <div class="toc-title">今日議程</div>
+  </div>
+  <div class="toc-list">
+    <div class="toc-item"><span class="toc-index">01</span><span class="toc-text">生活型態總覽</span><span class="toc-line"></span></div>
+    <div class="toc-item"><span class="toc-index">02</span><span class="toc-text">六大休閒指標</span><span class="toc-line"></span></div>
+    <div class="toc-item"><span class="toc-index">03</span><span class="toc-text">健康休閒分析</span><span class="toc-line"></span></div>
+    <div class="toc-item"><span class="toc-index">04</span><span class="toc-text">休閒趨勢地圖</span><span class="toc-line"></span></div>
+    <div class="toc-item"><span class="toc-index">05</span><span class="toc-text">總結與展望</span><span class="toc-line"></span></div>
+  </div>
+</div>
+
+<!-- P3 卡片網格 -->
+<div class="slide s3-grid" id="slide-3">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">六大生活面向</h2>
+  </div>
+  <div class="card-grid-3x2">
+    <div class="life-card">
+      <div class="card-icon">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M16 4 L20 12 L29 12 L22 18 L25 27 L16 22 L7 27 L10 18 L3 12 L12 12 Z" stroke="#C4A882" stroke-width="2" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="card-title">戶外探索</div>
+      <div class="card-desc">登山、露營與自然體驗活動</div>
+      <div class="card-tag">戶外篇</div>
+    </div>
+    <div class="life-card">
+      <div class="card-icon">
+        <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="#C4A882" stroke-width="2"/><path d="M16 10 L16 16 L20 18" stroke="#C4A882" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="card-title">時間管理</div>
+      <div class="card-desc">有效分配工作與休閒時間</div>
+      <div class="card-tag">效率篇</div>
+    </div>
+    <div class="life-card">
+      <div class="card-icon">
+        <svg viewBox="0 0 32 32" fill="none"><rect x="6" y="8" width="20" height="16" rx="3" stroke="#C4A882" stroke-width="2"/><path d="M12 16 L15 19 L21 13" stroke="#C4A882" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="card-title">健康生活</div>
+      <div class="card-desc">運動、飲食與心理健康</div>
+      <div class="card-tag">健康篇</div>
+    </div>
+    <div class="life-card">
+      <div class="card-icon">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M8 24 L16 8 L24 24 Z" stroke="#C4A882" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="20" r="3" stroke="#C4A882" stroke-width="2"/></svg>
+      </div>
+      <div class="card-title">社交人際</div>
+      <div class="card-desc">社群互動與關係經營</div>
+      <div class="card-tag">人際篇</div>
+    </div>
+    <div class="life-card">
+      <div class="card-icon">
+        <svg viewBox="0 0 32 32" fill="none"><rect x="6" y="6" width="20" height="20" rx="2" stroke="#C4A882" stroke-width="2"/><path d="M11 16 L14 19 L21 12" stroke="#C4A882" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="card-title">理財休閒</div>
+      <div class="card-desc">休閒消費與理財規劃</div>
+      <div class="card-tag">財務篇</div>
+    </div>
+    <div class="life-card">
+      <div class="card-icon">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M16 6 C20 6 24 10 24 16 C24 22 20 26 16 26 C12 26 8 22 8 16 C8 10 12 6 16 6Z" stroke="#C4A882" stroke-width="2"/><path d="M12 14 L16 18 L22 12" stroke="#C4A882" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="card-title">心靈成長</div>
+      <div class="card-desc">閱讀、冥想與自我提升</div>
+      <div class="card-tag">心靈篇</div>
+    </div>
+  </div>
+</div>
+
+<!-- P4 六邊形叢集 -->
+<div class="slide s4-hex" id="slide-4">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">休閒時數分佈</h2>
+  </div>
+  <div class="hex-scatter">
+    <div class="hex-item large">
+      <div class="hex-num">38%</div>
+      <div class="hex-label">戶外活動</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">22%</div>
+      <div class="hex-label">閱讀</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">18%</div>
+      <div class="hex-label">運動</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">12%</div>
+      <div class="hex-label">社交</div>
+    </div>
+    <div class="hex-item">
+      <div class="hex-num">10%</div>
+      <div class="hex-label">其他</div>
+    </div>
+  </div>
+</div>
+
+<!-- P5 特色亮點 -->
+<div class="slide s5-feature" id="slide-5">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">生活滿意度關鍵指標</h2>
+  </div>
+  <div class="feature-main">
+    <div class="feature-big">
+      <div class="big-num">8.4</div>
+      <div class="big-label">綜合生活滿意度</div>
+      <div class="big-desc">根據 2026 年上半年調查數據，國人生活滿意度指數持續攀升，休閒品質成為關鍵驅動因素。</div>
+    </div>
+    <div class="feature-side">
+      <div class="feature-mini">
+        <div class="mini-num">72%</div>
+        <div class="mini-label">認為休閒時間足夠</div>
+        <div class="mini-desc">較去年提升 8%</div>
+      </div>
+      <div class="feature-mini">
+        <div class="mini-num">65%</div>
+        <div class="mini-label">每週運動 3 次以上</div>
+        <div class="mini-desc">創十年新高</div>
+      </div>
+      <div class="feature-mini">
+        <div class="mini-num">89%</div>
+        <div class="mini-label">對目前生活節奏滿意</div>
+        <div class="mini-desc">滿意度顯著提升</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P6 圓形水平 -->
+<div class="slide s6-circle-h" id="slide-6">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title">每週休閒時數統計</h2>
+  </div>
+  <div class="circle-row">
+    <div class="circle-stat">
+      <div class="circle-ring"><span class="ring-num">12</span></div>
+      <div class="stat-label">戶外活動</div>
+      <div class="stat-sub">小時/週</div>
+    </div>
+    <div class="circle-divider"></div>
+    <div class="circle-stat">
+      <div class="circle-ring"><span class="ring-num">8</span></div>
+      <div class="stat-label">閱讀學習</div>
+      <div class="stat-sub">小時/週</div>
+    </div>
+    <div class="circle-divider"></div>
+    <div class="circle-stat">
+      <div class="circle-ring"><span class="ring-num">6</span></div>
+      <div class="stat-label">運動健身</div>
+      <div class="stat-sub">小時/週</div>
+    </div>
+    <div class="circle-divider"></div>
+    <div class="circle-stat">
+      <div class="circle-ring"><span class="ring-num">5</span></div>
+      <div class="stat-label">社交互動</div>
+      <div class="stat-sub">小時/週</div>
+    </div>
+    <div class="circle-divider"></div>
+    <div class="circle-stat">
+      <div class="circle-ring"><span class="ring-num">4</span></div>
+      <div class="stat-label">興趣創作</div>
+      <div class="stat-sub">小時/週</div>
+    </div>
+  </div>
+</div>
+
+<!-- P7 時間軸 -->
+<div class="slide s7-timeline" id="slide-7">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2 class="section-title">休閒生活演進史</h2>
+  </div>
+  <div class="timeline-vert">
+    <div class="tl-item">
+      <div class="tl-year">2018</div>
+      <div class="tl-content">
+        <div class="tl-title">數位休閒萌芽</div>
+        <div class="tl-desc">串流影音、線上遊戲成為主要休閒方式</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2020</div>
+      <div class="tl-content">
+        <div class="tl-title">疫情改變型態</div>
+        <div class="tl-desc">居家休閒、在地探索興起，外送經濟爆發</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div class="tl-content">
+        <div class="tl-title">Outdoor 熱潮</div>
+        <div class="tl-desc">露營、登山成為主流戶外休閒指標</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2026</div>
+      <div class="tl-content">
+        <div class="tl-title">元宇宙休閒</div>
+        <div class="tl-desc">VR 社交、混合實境休閒開始普及</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P8 蜂巢網格 -->
+<div class="slide s8-hex-grid" id="slide-8">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <h2 class="section-title">生活技能雷達圖</h2>
+  </div>
+  <div class="hex-grid-4x2">
+    <div class="hex-cell">
+      <div class="hc-icon"><svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="#C4A882" stroke-width="2"/></svg></div>
+      <div class="hc-text">體能管理</div>
+      <div class="hc-sub">92%</div>
+    </div>
+    <div class="hex-cell">
+      <div class="hc-icon"><svg viewBox="0 0 32 32" fill="none"><path d="M8 24 L16 8 L24 24 Z" stroke="#C4A882" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      <div class="hc-text">情緒智商</div>
+      <div class="hc-sub">88%</div>
+    </div>
+    <div class="hex-cell">
+      <div class="hc-icon"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="6" width="20" height="20" rx="3" stroke="#C4A882" stroke-width="2"/></svg></div>
+      <div class="hc-text">理財能力</div>
+      <div class="hc-sub">76%</div>
+    </div>
+    <div class="hex-cell">
+      <div class="hc-icon"><svg viewBox="0 0 32 32" fill="none"><path d="M16 4 L20 12 L29 12 L22 18 L25 27 L16 22 L7 27 L10 18 L3 12 L12 12 Z" stroke="#C4A882" stroke-width="2"/></svg></div>
+      <div class="hc-text">社交技巧</div>
+      <div class="hc-sub">85%</div>
+    </div>
+    <div class="hex-cell">
+      <div class="hc-icon"><svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="12" r="6" stroke="#C4A882" stroke-width="2"/><path d="M8 26 C8 21 12 18 16 18 C20 18 24 21 24 26" stroke="#C4A882" stroke-width="2"/></svg></div>
+      <div class="hc-text">學習力</div>
+      <div class="hc-sub">91%</div>
+    </div>
+    <div class="hex-cell">
+      <div class="hc-icon"><svg viewBox="0 0 32 32" fill="none"><path d="M16 6 C22 6 26 10 26 16 C26 22 22 26 16 26 C10 26 6 22 6 16 C6 10 10 6 16 6Z" stroke="#C4A882" stroke-width="2"/></svg></div>
+      <div class="hc-text">創意思考</div>
+      <div class="hc-sub">83%</div>
+    </div>
+    <div class="hex-cell">
+      <div class="hc-icon"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="10" width="20" height="14" rx="2" stroke="#C4A882" stroke-width="2"/><path d="M12 16 L15 19 L21 13" stroke="#C4A882" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="hc-text">時間管理</div>
+      <div class="hc-sub">79%</div>
+    </div>
+    <div class="hex-cell">
+      <div class="hc-icon"><svg viewBox="0 0 32 32" fill="none"><path d="M10 10 L22 10 L22 22 L10 22 Z" stroke="#C4A882" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="16" r="4" stroke="#C4A882" stroke-width="2"/></svg></div>
+      <div class="hc-text">生活品味</div>
+      <div class="hc-sub">94%</div>
+    </div>
+  </div>
+</div>
+
+<!-- P9 散落卡片 -->
+<div class="slide s9-scatter" id="slide-9">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <h2 class="section-title">生活提案精選</h2>
+  </div>
+  <div class="scatter-row">
+    <div class="scatter-card">
+      <div class="sc-icon">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M16 4 L20 12 L29 12 L22 18 L25 27 L16 22 L7 27 L10 18 L3 12 L12 12 Z" stroke="#C4A882" stroke-width="2" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="sc-title">晨間儀式感</div>
+      <div class="sc-body">每天早起 30 分鐘，享用一杯手沖咖啡，搭配一本好書，為一天注入儀式感與正能量。</div>
+      <div class="sc-foot">提案 #01</div>
+    </div>
+    <div class="scatter-card">
+      <div class="sc-icon">
+        <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="#C4A882" stroke-width="2"/><path d="M16 10 L16 16 L20 18" stroke="#C4A882" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="sc-title">週末微旅行</div>
+      <div class="sc-body">每季安排一次說走就走的微旅行，探索從未去過的城鎮與自然景觀，保持生活的新鮮感。</div>
+      <div class="sc-foot">提案 #02</div>
+    </div>
+    <div class="scatter-card">
+      <div class="sc-icon">
+        <svg viewBox="0 0 32 32" fill="none"><rect x="6" y="6" width="20" height="20" rx="3" stroke="#C4A882" stroke-width="2"/><path d="M11 16 L14 19 L21 12" stroke="#C4A882" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="sc-title">興趣深度學</div>
+      <div class="sc-body">選定一項長期興趣，如陶藝、園藝或音樂，系統性學習並記錄每個階段的成長與收穫。</div>
+      <div class="sc-foot">提案 #03</div>
+    </div>
+  </div>
+</div>
+
+<!-- P10 結尾 -->
+<div class="slide s10-end" id="slide-10">
+  <h2>享受當下，活在喜悅裡</h2>
+  <div class="end-sub">LIFE IS WHAT HAPPENS BETWEEN VACATIONS</div>
+  <div class="end-tags">
+    <span class="end-tag">生活</span>
+    <span class="end-tag">休閒</span>
+    <span class="end-tag">平衡</span>
+    <span class="end-tag">喜悅</span>
+  </div>
+  <div class="end-date">2026 · JULY · 17</div>
+</div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prev()" aria-label="上一頁">◀</button>
+  <span id="nav-info">1 / 10</span>
+  <button onclick="next()" aria-label="下一頁">▶</button>
+  <a href="/slides.htm" class="back-link" style="color:var(--text-muted);font-size:1rem;margin-left:8px;text-decoration:none;" aria-label="回列表">☜</a>
+</div>
+
+<script>
+var current = 0;
+var slides = document.querySelectorAll('.slide');
+var total = slides.length;
+var navInfo = document.getElementById('nav-info');
+
+function show() {
+  if (slides[current]) {
+    slides[current].classList.remove('active');
+  }
+  current = (current + total) % total;
+  if (slides[current]) {
+    slides[current].classList.add('active');
+  }
+  navInfo.textContent = (current + 1) + ' / ' + total;
+}
+
+function next() { show(); }
+function prev() {
+  if (slides[current]) {
+    slides[current].classList.remove('active');
+  }
+  current = (current - 1 + total) % total;
+  if (slides[current]) {
+    slides[current].classList.add('active');
+  }
+  navInfo.textContent = (current + 1) + ' / ' + total;
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+</script>
+</body>
+</html>
