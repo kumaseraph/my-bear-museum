@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <!-- 熊熊棕金色系 -->
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="50%" stop-color="#C4956A"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    <linearGradient id="bearBrown" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6B4423"/>
+      <stop offset="100%" stop-color="#4A2C17"/>
+    </linearGradient>
+    <linearGradient id="bearWarm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5E6D3"/>
+      <stop offset="100%" stop-color="#E8D4BE"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="400" height="400" fill="#FDF8F3"/>
+  
+  <!-- 蜂巢叢集襯底 - 標準排列 -->
+  <g opacity="0.15">
+    <path d="M50,25 L86.6,50 L86.6,100 L50,125 L13.4,100 L13.4,50 Z" fill="none" stroke="#C4956A" stroke-width="1"/>
+    <path d="M100,25 L136.6,50 L136.6,100 L100,125 L63.4,100 L63.4,50 Z" fill="none" stroke="#C4956A" stroke-width="1"/>
+    <path d="M150,25 L186.6,50 L186.6,100 L150,125 L113.4,100 L113.4,50 Z" fill="none" stroke="#C4956A" stroke-width="1"/>
+    <path d="M75,75 L111.6,100 L111.6,150 L75,175 L38.4,150 L38.4,100 Z" fill="none" stroke="#C4956A" stroke-width="1"/>
+    <path d="M125,75 L161.6,100 L161.6,150 L125,175 L88.4,150 L88.4,100 Z" fill="none" stroke="#C4956A" stroke-width="1"/>
+    <path d="M175,75 L211.6,100 L211.6,150 L175,175 L138.4,150 L138.4,100 Z" fill="none" stroke="#C4956A" stroke-width="1"/>
+  </g>
+  
+  <!-- 主題區塊 - 放射環形蜂巢 -->
+  <g transform="translate(200,180)">
+    <!-- 中心大六邊形 -->
+    <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z" fill="#6B4423" opacity="0.9"/>
+    <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z" fill="none" stroke="#D4A574" stroke-width="3"/>
+    
+    <!-- 中環 6個 -->
+    <g fill="#8B6914">
+      <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z" transform="rotate(0) translate(0,-121)"/>
+      <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z" transform="rotate(60) translate(0,-121)"/>
+      <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z" transform="rotate(120) translate(0,-121)"/>
+      <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z" transform="rotate(180) translate(0,-121)"/>
+      <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z" transform="rotate(240) translate(0,-121)"/>
+      <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z" transform="rotate(300) translate(0,-121)"/>
+    </g>
+    
+    <!-- 外環 6個 -->
+    <g fill="#C4956A" opacity="0.8">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(30) translate(0,-175)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(90) translate(0,-175)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(150) translate(0,-175)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(210) translate(0,-175)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(270) translate(0,-175)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z" transform="rotate(330) translate(0,-175)"/>
+    </g>
+  </g>
+  
+  <!-- 標題區 -->
+  <rect x="50" y="30" width="140" height="40" rx="8" fill="#6B4423"/>
+  <text x="120" y="58" text-anchor="middle" fill="#F5E6D3" font-family="Arial, sans-serif" font-size="18" font-weight="bold">能力評估</text>
+  
+  <!-- 底部標籤 -->
+  <g transform="translate(200,350)">
+    <rect x="-80" y="-18" width="160" height="32" rx="16" fill="#D4A574" opacity="0.3"/>
+    <text x="0" y="5" text-anchor="middle" fill="#6B4423" font-family="Arial, sans-serif" font-size="14">熊熊工作雷達圖</text>
+  </g>
+</svg>

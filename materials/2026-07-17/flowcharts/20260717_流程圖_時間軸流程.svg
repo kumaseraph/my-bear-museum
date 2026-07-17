@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <title>時間軸流程</title>
+  <desc>應用#124技巧：階梯排列+條紋疊加，融合Purposeful Motion趨勢</desc>
+  
+  <defs>
+    <pattern id="diagonalStripes" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="#FFFFFF" stroke-width="3" opacity="0.3"/>
+    </pattern>
+    <linearGradient id="timeBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="timeTeal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="timePurple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5B21B6"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#F8FAFC"/>
+  
+  <!-- 主題 -->
+  <text x="960" y="100" text-anchor="middle" fill="#1E3A8A" font-size="36" font-weight="bold" letter-spacing="4">
+    年度工作時程
+  </text>
+  
+  <!-- 中央時間軸線 -->
+  <line x1="100" y1="540" x2="1820" y2="540" stroke="url(#timeBlue)" stroke-width="8"/>
+  
+  <!-- 流動箭頭（Purposeful Motion） -->
+  <g fill="#F59E0B">
+    <polygon points="1750,525 1780,540 1750,555"/>
+    <polygon points="1550,525 1580,540 1550,555"/>
+    <polygon points="1350,525 1380,540 1350,555"/>
+    <polygon points="1150,525 1180,540 1150,555"/>
+    <polygon points="950,525 980,540 950,555"/>
+    <polygon points="750,525 780,540 750,555"/>
+    <polygon points="550,525 580,540 550,555"/>
+  </g>
+  
+  <!-- 上排：階段卡片（階梯排列） -->
+  <!-- Q1 -->
+  <g transform="translate(200, 200)">
+    <rect x="0" y="0" width="180" height="120" rx="15" fill="url(#timeBlue)"/>
+    <rect x="0" y="0" width="180" height="120" rx="15" fill="url(#diagonalStripes)"/>
+    <rect x="10" y="10" width="160" height="100" rx="10" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+    <text x="90" y="50" text-anchor="middle" fill="#FFFFFF" font-size="28" font-weight="bold">Q1</text>
+    <text x="90" y="80" text-anchor="middle" fill="#FFFFFF" font-size="16" opacity="0.9">規劃與啟動</text>
+    <!-- 連接線 -->
+    <line x1="90" y1="120" x2="90" y2="240" stroke="#1E40AF" stroke-width="3"/>
+    <circle cx="90" cy="240" r="8" fill="#F59E0B"/>
+  </g>
+  
+  <!-- Q2 -->
+  <g transform="translate(520, 320)">
+    <rect x="0" y="0" width="180" height="120" rx="15" fill="url(#timeTeal)"/>
+    <rect x="0" y="0" width="180" height="120" rx="15" fill="url(#diagonalStripes)"/>
+    <rect x="10" y="10" width="160" height="100" rx="10" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+    <text x="90" y="50" text-anchor="middle" fill="#FFFFFF" font-size="28" font-weight="bold">Q2</text>
+    <text x="90" y="80" text-anchor="middle" fill="#FFFFFF" font-size="16" opacity="0.9">執行與監控</text>
+    <line x1="90" y1="120" x2="90" y2="220" stroke="#0D9488" stroke-width="3"/>
+    <circle cx="90" cy="220" r="8" fill="#F59E0B"/>
+  </g>
+  
+  <!-- Q3 -->
+  <g transform="translate(840, 440)">
+    <rect x="0" y="0" width="180" height="120" rx="15" fill="url(#timePurple)"/>
+    <rect x="0" y="0" width="180" height="120" rx="15" fill="url(#diagonalStripes)"/>
+    <rect x="10" y="10" width="160" height="100" rx="10" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+    <text x="90" y="50" text-anchor="middle" fill="#FFFFFF" font-size="28" font-weight="bold">Q3</text>
+    <text x="90" y="80" text-anchor="middle" fill="#FFFFFF" font-size="16" opacity="0.9">中期檢核</text>
+    <line x1="90" y1="0" x2="90" y2="-60" stroke="#5B21B6" stroke-width="3"/>
+    <circle cx="90" cy="-60" r="8" fill="#F59E0B"/>
+  </g>
+  
+  <!-- Q4 -->
+  <g transform="translate(1160, 560)">
+    <rect x="0" y="0" width="180" height="120" rx="15" fill="url(#timeBlue)"/>
+    <rect x="0" y="0" width="180" height="120" rx="15" fill="url(#diagonalStripes)"/>
+    <rect x="10" y="10" width="160" height="100" rx="10" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+    <text x="90" y="50" text-anchor="middle" fill="#FFFFFF" font-size="28" font-weight="bold">Q4</text>
+    <text x="90" y="80" text-anchor="middle" fill="#FFFFFF" font-size="16" opacity="0.9">成果驗收</text>
+    <line x1="90" y1="0" x2="90" y2="-120" stroke="#1E40AF" stroke-width="3"/>
+    <circle cx="90" cy="-120" r="8" fill="#F59E0B"/>
+  </g>
+  
+  <!-- 下排：里程碑裝飾 -->
+  <g transform="translate(300, 640)">
+    <rect x="0" y="0" width="120" height="60" rx="10" fill="#F59E0B"/>
+    <text x="60" y="38" text-anchor="middle" fill="#1E3A8A" font-size="18" font-weight="bold">3月</text>
+  </g>
+  
+  <g transform="translate(620, 760)">
+    <rect x="0" y="0" width="120" height="60" rx="10" fill="#14B8A6"/>
+    <text x="60" y="38" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="bold">6月</text>
+  </g>
+  
+  <g transform="translate(940, 880)">
+    <rect x="0" y="0" width="120" height="60" rx="10" fill="#7C3AED"/>
+    <text x="60" y="38" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="bold">9月</text>
+  </g>
+  
+  <g transform="translate(1260, 760)">
+    <rect x="0" y="0" width="120" height="60" rx="10" fill="#F59E0B"/>
+    <text x="60" y="38" text-anchor="middle" fill="#1E3A8A" font-size="18" font-weight="bold">12月</text>
+  </g>
+  
+  <!-- 底部年份裝飾 -->
+  <text x="100" y="1000" fill="#1E40AF" font-size="24" font-weight="bold" opacity="0.3">2026</text>
+  <text x="1800" y="1000" fill="#1E40AF" font-size="24" font-weight="bold" opacity="0.3">2026</text>
+</svg>

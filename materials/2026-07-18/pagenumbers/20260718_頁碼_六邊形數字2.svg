@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <path id="hexPath2" d="M50,10 L85,30 L85,70 L50,90 L15,70 L15,30 Z"/>
+  </defs>
+  
+  <rect width="1920" height="1080" fill="url(#bgGrad4)"/>
+  
+  <!-- 六邊形叢集 - 2.5D效果 -->
+  <g transform="translate(960, 540)">
+    <!-- 大六邊形 - 外粗空心 -->
+    <use href="#hexPath2" fill="none" stroke="#6B5CE7" stroke-width="8" 
+         transform="scale(3)"/>
+    
+    <!-- 內層半透明 -->
+    <use href="#hexPath2" fill="#6B5CE7" fill-opacity="0.25"
+         transform="scale(2.5)"/>
+    
+    <!-- 小實心六邊形 - 旋轉30度 -->
+    <g transform="rotate(30, 0, 0)">
+      <use href="#hexPath2" fill="#4ECDC4" transform="scale(1.5)"/>
+    </g>
+    
+    <!-- 數字 2 -->
+    <text x="0" y="18" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white">
+      2
+    </text>
+  </g>
+  
+  <text x="960" y="850" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" fill="#64748B">
+    頁碼設計 · 六邊形旋轉對比
+  </text>
+</svg>

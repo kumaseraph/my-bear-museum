@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <title>決策樹狀圖</title>
+  <desc>應用#124技巧：節點網絡+雙重交叉線，融合Editorial Styles趨勢</desc>
+  
+  <defs>
+    <linearGradient id="nodeBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+    <linearGradient id="nodePurple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+    <linearGradient id="nodeTeal" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F766E"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#F1F5F9"/>
+  
+  <!-- 主題標題 -->
+  <text x="960" y="80" text-anchor="middle" fill="#1E3A8A" font-size="32" font-weight="bold" letter-spacing="3">
+    決策分析流程
+  </text>
+  
+  <!-- 主幹：頂部到根部 -->
+  <g transform="translate(0, 100)">
+    <!-- 主線（粗） -->
+    <line x1="960" y1="0" x2="960" y2="400" stroke="url(#nodeBlue)" stroke-width="6"/>
+    
+    <!-- 雙重交叉線裝飾（#124-6） -->
+    <line x1="940" y1="50" x2="980" y2="90" stroke="#F59E0B" stroke-width="2" opacity="0.6"/>
+    <line x1="980" y1="50" x2="940" y2="90" stroke="#F59E0B" stroke-width="2" opacity="0.6"/>
+    <line x1="940" y1="150" x2="980" y2="190" stroke="#F59E0B" stroke-width="2" opacity="0.6"/>
+    <line x1="980" y1="150" x2="940" y2="190" stroke="#F59E0B" stroke-width="2" opacity="0.6"/>
+    <line x1="940" y1="250" x2="980" y2="290" stroke="#F59E0B" stroke-width="2" opacity="0.6"/>
+    <line x1="980" y1="250" x2="940" y2="290" stroke="#F59E0B" stroke-width="2" opacity="0.6"/>
+    <line x1="940" y1="350" x2="980" y2="390" stroke="#F59E0B" stroke-width="2" opacity="0.6"/>
+    <line x1="980" y1="350" x2="940" y2="390" stroke="#F59E0B" stroke-width="2" opacity="0.6"/>
+    
+    <!-- 根部節點 -->
+    <circle cx="960" cy="450" r="70" fill="url(#nodePurple)"/>
+    <circle cx="960" cy="450" r="55" fill="none" stroke="#F59E0B" stroke-width="3"/>
+    <text x="960" y="455" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="bold">決策</text>
+    
+    <!-- 分支線：左 -->
+    <line x1="890" y1="450" x2="600" y2="550" stroke="#1E40AF" stroke-width="4"/>
+    <line x1="600" y1="550" x2="400" y2="650" stroke="#1E40AF" stroke-width="4"/>
+    
+    <!-- 分支線：右 -->
+    <line x1="1030" y1="450" x2="1320" y2="550" stroke="#1E40AF" stroke-width="4"/>
+    <line x1="1320" y1="550" x2="1520" y2="650" stroke="#1E40AF" stroke-width="4"/>
+    
+    <!-- 左分支節點 -->
+    <g transform="translate(300, 650)">
+      <rect x="-80" y="-40" width="160" height="80" rx="15" fill="url(#nodeBlue)"/>
+      <rect x="-70" y="-30" width="140" height="60" rx="10" fill="none" stroke="#F59E0B" stroke-width="2"/>
+      <text x="0" y="8" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="bold">方案A</text>
+    </g>
+    
+    <!-- 左中節點 -->
+    <g transform="translate(600, 550)">
+      <rect x="-80" y="-40" width="160" height="80" rx="15" fill="url(#nodeTeal)"/>
+      <rect x="-70" y="-30" width="140" height="60" rx="10" fill="none" stroke="#F59E0B" stroke-width="2"/>
+      <text x="0" y="8" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="bold">評估</text>
+    </g>
+    
+    <!-- 右分支節點 -->
+    <g transform="translate(1620, 650)">
+      <rect x="-80" y="-40" width="160" height="80" rx="15" fill="url(#nodeBlue)"/>
+      <rect x="-70" y="-30" width="140" height="60" rx="10" fill="none" stroke="#F59E0B" stroke-width="2"/>
+      <text x="0" y="8" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="bold">方案B</text>
+    </g>
+    
+    <!-- 右中節點 -->
+    <g transform="translate(1320, 550)">
+      <rect x="-80" y="-40" width="160" height="80" rx="15" fill="url(#nodeTeal)"/>
+      <rect x="-70" y="-30" width="140" height="60" rx="10" fill="none" stroke="#F59E0B" stroke-width="2"/>
+      <text x="0" y="8" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="bold">分析</text>
+    </g>
+    
+    <!-- 頂部主節點 -->
+    <g transform="translate(960, 0)">
+      <circle cx="0" cy="0" r="60" fill="url(#nodePurple)"/>
+      <circle cx="0" cy="0" r="48" fill="none" stroke="#F59E0B" stroke-width="3"/>
+      <text x="0" y="8" text-anchor="middle" fill="#FFFFFF" font-size="22" font-weight="bold">開始</text>
+    </g>
+    
+    <!-- 連接線上的箭頭裝飾 -->
+    <polygon points="600,530 615,545 600,560" fill="#14B8A6"/>
+    <polygon points="1320,530 1335,545 1320,560" fill="#14B8A6"/>
+    <polygon points="410,630 425,645 410,660" fill="#1E40AF"/>
+    <polygon points="1510,630 1525,645 1510,660" fill="#1E40AF"/>
+  </g>
+  
+  <!-- 底部總結區 -->
+  <g transform="translate(0, 800)">
+    <rect x="660" y="0" width="600" height="80" rx="20" fill="#1E3A8A" opacity="0.9"/>
+    <rect x="670" y="10" width="580" height="60" rx="15" fill="none" stroke="#F59E0B" stroke-width="2"/>
+    <text x="960" y="50" text-anchor="middle" fill="#FFFFFF" font-size="28" font-weight="bold">
+      DECISION MATRIX
+    </text>
+  </g>
+  
+  <!-- 角落裝飾 -->
+  <rect x="30" y="30" width="60" height="60" fill="#F59E0B" opacity="0.3"/>
+  <rect x="1830" y="990" width="60" height="60" fill="#6B5CE7" opacity="0.3"/>
+</svg>

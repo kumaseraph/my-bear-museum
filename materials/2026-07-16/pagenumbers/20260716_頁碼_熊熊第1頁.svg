@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60">
+  <defs>
+    <linearGradient id="pageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B4423"/>
+      <stop offset="100%" stop-color="#4A2C17"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#C4956A"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="120" height="60" fill="#FDF8F3"/>
+  
+  <!-- 頁碼主體 - 六邊形設計 -->
+  <g transform="translate(60,30)">
+    <!-- 外層六邊形 -->
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+          fill="url(#pageGrad)" opacity="0.15"/>
+    
+    <!-- 內層六邊形 - 實心 -->
+    <path d="M0,-18 L15.59,-9 L15.59,9 L0,18 L-15.59,9 L-15.59,-9 Z" 
+          fill="url(#pageGrad)"/>
+    
+    <!-- 金色邊框 -->
+    <path d="M0,-18 L15.59,-9 L15.59,9 L0,18 L-15.59,9 L-15.59,-9 Z" 
+          fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+    
+    <!-- 頁碼數字 -->
+    <text x="0" y="5" text-anchor="middle" fill="#F5E6D3" font-family="Arial, sans-serif" font-size="14" font-weight="bold">1</text>
+  </g>
+  
+  <!-- 小裝飾 - 角落六邊形 -->
+  <g transform="translate(100,10)" opacity="0.4">
+    <path d="M0,-6 L5.2,-3 L5.2,3 L0,6 L-5.2,3 L-5.2,-3 Z" fill="#D4A574"/>
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80">
+  <title>下一步 Pro</title>
+  <desc>應用#124技巧：邊界引導線+條紋疊加，融合Tactile Maximalism趨勢</desc>
+  
+  <defs>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <pattern id="btnStripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#FFFFFF" stroke-width="2" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- 主體：圓角矩形 -->
+  <rect x="0" y="0" width="300" height="80" rx="15" fill="url(#btnGrad)"/>
+  
+  <!-- 條紋疊加（#124-5條紋疊加） -->
+  <rect x="0" y="0" width="300" height="80" rx="15" fill="url(#btnStripes)"/>
+  
+  <!-- 邊界引導線（#124-2）- 左側 -->
+  <line x1="15" y1="20" x2="15" y2="60" stroke="#F59E0B" stroke-width="3" opacity="0.8"/>
+  <circle cx="15" cy="40" r="4" fill="#F59E0B"/>
+  
+  <!-- 邊界引導線 - 右側（箭頭方向） -->
+  <line x1="285" y1="20" x2="285" y2="60" stroke="#FFFFFF" stroke-width="3" opacity="0.6"/>
+  <polygon points="275,30 285,40 275,50" fill="#FFFFFF" opacity="0.8"/>
+  <polygon points="275,30 285,40 275,50" fill="none" stroke="#FFFFFF" stroke-width="1" transform="translate(10,0)"/>
+  
+  <!-- 文字 -->
+  <text x="150" y="47" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="bold" letter-spacing="2">
+    下一步
+  </text>
+  
+  <!-- 底部高光 -->
+  <rect x="5" y="5" width="290" height="30" rx="10" fill="#FFFFFF" opacity="0.1"/>
+</svg>

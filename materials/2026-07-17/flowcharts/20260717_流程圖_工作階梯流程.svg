@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <title>工作階梯流程</title>
+  <desc>應用#124技巧：階梯排列+透視線，融合Tactile Maximalism趨勢</desc>
+  
+  <defs>
+    <!-- 專業商務漸層 -->
+    <linearGradient id="formalBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="formalGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FCD34D"/>
+    </linearGradient>
+    <linearGradient id="stepGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+    <linearGradient id="stepGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="stepGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景：大地色系襯托 -->
+  <rect width="1920" height="1080" fill="#F8FAFC"/>
+  
+  <!-- 透視消失線（動態深度感） -->
+  <g opacity="0.15" stroke="#1E40AF" stroke-width="1">
+    <line x1="960" y1="540" x2="0" y2="1080"/>
+    <line x1="960" y1="540" x2="480" y2="1080"/>
+    <line x1="960" y1="540" x2="1440" y2="1080"/>
+    <line x1="960" y1="540" x2="1920" y2="1080"/>
+  </g>
+  
+  <!-- 階梯排列：4個階段（平行四邊形+ skewX=-20） -->
+  <g transform="translate(200, 200)">
+    
+    <!-- 步驟1：規劃 -->
+    <g transform="translate(0, 0)">
+      <polygon points="30,0 330,0 300,100 0,100" 
+               fill="url(#stepGrad1)" opacity="0.9" transform="skewX(-20)"/>
+      <polygon points="30,0 330,0 300,100 0,100" 
+               fill="none" stroke="#F59E0B" stroke-width="2" transform="skewX(-20)"/>
+      <!-- 內部斜線裝飾 -->
+      <line x1="60" y1="20" x2="60" y2="80" stroke="#60A5FA" stroke-width="2" opacity="0.5"/>
+      <text x="165" y="60" text-anchor="middle" fill="#FFFFFF" font-size="28" font-weight="bold">01 規劃</text>
+    </g>
+    
+    <!-- 步驟2：執行 -->
+    <g transform="translate(150, 120)">
+      <polygon points="30,0 330,0 300,100 0,100" 
+               fill="url(#stepGrad2)" opacity="0.85" transform="skewX(-20)"/>
+      <polygon points="30,0 330,0 300,100 0,100" 
+               fill="none" stroke="#F59E0B" stroke-width="2" transform="skewX(-20)"/>
+      <line x1="60" y1="20" x2="60" y2="80" stroke="#93C5FD" stroke-width="2" opacity="0.5"/>
+      <text x="165" y="60" text-anchor="middle" fill="#FFFFFF" font-size="28" font-weight="bold">02 執行</text>
+    </g>
+    
+    <!-- 步驟3：檢核 -->
+    <g transform="translate(300, 240)">
+      <polygon points="30,0 330,0 300,100 0,100" 
+               fill="url(#stepGrad3)" opacity="0.8" transform="skewX(-20)"/>
+      <polygon points="30,0 330,0 300,100 0,100" 
+               fill="none" stroke="#F59E0B" stroke-width="2" transform="skewX(-20)"/>
+      <line x1="60" y1="20" x2="60" y2="80" stroke="#BFDBFE" stroke-width="2" opacity="0.5"/>
+      <text x="165" y="60" text-anchor="middle" fill="#1E3A8A" font-size="28" font-weight="bold">03 檢核</text>
+    </g>
+    
+    <!-- 步驟4：改進 -->
+    <g transform="translate(450, 360)">
+      <polygon points="30,0 330,0 300,100 0,100" 
+               fill="url(#formalGold)" opacity="0.9" transform="skewX(-20)"/>
+      <polygon points="30,0 330,0 300,100 0,100" 
+               fill="none" stroke="#1E40AF" stroke-width="2" transform="skewX(-20)"/>
+      <text x="165" y="60" text-anchor="middle" fill="#1E3A8A" font-size="28" font-weight="bold">04 改進</text>
+    </g>
+    
+    <!-- 連接箭頭（流動感） -->
+    <g fill="#F59E0B" opacity="0.8">
+      <polygon points="280,105 300,120 280,135" transform="translate(30,0) skewX(-20)"/>
+      <polygon points="280,105 300,120 280,135" transform="translate(180,120) skewX(-20)"/>
+      <polygon points="280,105 300,120 280,135" transform="translate(330,240) skewX(-20)"/>
+    </g>
+  </g>
+  
+  <!-- 右側裝飾：節點網絡（呼應#124組合9） -->
+  <g transform="translate(1300, 300)">
+    <!-- 主節點 -->
+    <circle cx="150" cy="150" r="60" fill="url(#formalBlue)" opacity="0.9"/>
+    <circle cx="150" cy="150" r="50" fill="none" stroke="#F59E0B" stroke-width="2"/>
+    <text x="150" y="155" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="bold">完成</text>
+    
+    <!-- 連接線（動態條紋） -->
+    <line x1="90" y1="150" x2="30" y2="100" stroke="#F59E0B" stroke-width="3" stroke-dasharray="8,4"/>
+    <line x1="90" y1="150" x2="30" y2="200" stroke="#F59E0B" stroke-width="3" stroke-dasharray="8,4"/>
+    <line x1="210" y1="150" x2="270" y2="100" stroke="#3B82F6" stroke-width="3" stroke-dasharray="8,4"/>
+    <line x1="210" y1="150" x2="270" y2="200" stroke="#3B82F6" stroke-width="3" stroke-dasharray="8,4"/>
+    
+    <!-- 小節點 -->
+    <circle cx="20" cy="100" r="25" fill="#3B82F6" opacity="0.7"/>
+    <text x="20" y="105" text-anchor="middle" fill="#FFFFFF" font-size="14">品質</text>
+    
+    <circle cx="20" cy="200" r="25" fill="#3B82F6" opacity="0.7"/>
+    <text x="20" y="205" text-anchor="middle" fill="#FFFFFF" font-size="14">效率</text>
+    
+    <circle cx="280" cy="100" r="25" fill="#F59E0B" opacity="0.8"/>
+    <text x="280" y="105" text-anchor="middle" fill="#1E3A8A" font-size="14">確認</text>
+    
+    <circle cx="280" cy="200" r="25" fill="#F59E0B" opacity="0.8"/>
+    <text x="280" y="205" text-anchor="middle" fill="#1E3A8A" font-size="14">交付</text>
+  </g>
+  
+  <!-- Tactile Maximalism裝飾：粗獷幾何線條 -->
+  <g stroke="#1E40AF" stroke-width="4" fill="none" opacity="0.2">
+    <rect x="50" y="50" width="100" height="100" rx="10"/>
+    <rect x="1770" y="930" width="100" height="100" rx="10"/>
+  </g>
+  
+  <!-- 底部標題區 -->
+  <text x="960" y="950" text-anchor="middle" fill="#1E40AF" font-size="36" font-weight="bold" letter-spacing="4">
+    WORKFLOW PROCESS
+  </text>
+</svg>
