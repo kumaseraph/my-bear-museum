@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>餐桌上的時光機：2026 飲食記憶地圖</title>
+<style>
+:root {
+  --bg: #FFF8E7;
+  --bg-secondary: #FFE8C9;
+  --bg-card: #FFFFFF;
+  --text: #3E1A0E;
+  --text-secondary: #6B3410;
+  --accent: #C62828;
+  --accent-alt: #E57373;
+  --accent-glow: rgba(198, 40, 40, 0.18);
+  --accent-deep: #8B1A1A;
+  --border: #E8D4B8;
+  --muted: #9C7A5B;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 20px; }
+
+body {
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.presentation {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: none;
+  padding: 40px 56px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.slide.active { display: flex; flex-direction: column; }
+
+/* ========== 通用導航列 ========== */
+.nav {
+  position: absolute;
+  top: 20px; right: 28px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  z-index: 50;
+  background: rgba(255, 248, 231, 0.92);
+  border: 1px solid var(--accent);
+  border-radius: 28px;
+  padding: 6px 14px;
+}
+.nav button {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav button:hover { background: var(--accent-deep); }
+.nav span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-deep);
+  min-width: 48px;
+  text-align: center;
+}
+.nav a {
+  font-size: 1rem;
+  color: var(--accent);
+  text-decoration: none;
+  margin-left: 8px;
+  border-left: 1px solid var(--border);
+  padding-left: 12px;
+}
+
+/* ========== 封面 (P1) ========== */
+.s1-cover {
+  background: radial-gradient(ellipse at 30% 30%, #FFD8B8 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 70%, #F4A09C 0%, transparent 50%),
+              linear-gradient(135deg, #C62828 0%, #8B1A1A 100%);
+  color: #FFF8E7;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.s1-cover .ring {
+  position: absolute;
+  border: 2px solid rgba(255, 248, 231, 0.18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.s1-cover .r1 { width: 380px; height: 380px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.s1-cover .r2 { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%, -50%); border-style: dashed; }
+.s1-cover .r3 { width: 880px; height: 880px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.s1-cover .plate {
+  position: absolute;
+  width: 280px; height: 280px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(255, 248, 231, 0.08);
+  border: 4px solid rgba(255, 248, 231, 0.35);
+  z-index: 1;
+}
+.s1-cover .spoon {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  opacity: 0.9;
+}
+.s1-cover .title {
+  position: relative;
+  z-index: 3;
+}
+.s1-cover .title .label {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  padding: 6px 22px;
+  border: 1.5px solid rgba(255, 248, 231, 0.6);
+  border-radius: 24px;
+  margin-bottom: 28px;
+}
+.s1-cover .title h1 {
+  font-size: 4.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 18px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+.s1-cover .title h1 .accent { color: #FFE082; }
+.s1-cover .title .sub {
+  font-size: 1.35rem;
+  font-weight: 400;
+  opacity: 0.92;
+  margin-bottom: 24px;
+  letter-spacing: 0.1em;
+}
+.s1-cover .title .meta {
+  display: inline-flex;
+  gap: 14px;
+  font-size: 1rem;
+  opacity: 0.78;
+}
+.s1-cover .title .meta span {
+  padding: 4px 14px;
+  border: 1px solid rgba(255, 248, 231, 0.4);
+  border-radius: 16px;
+}
+
+/* ========== 目錄 (P2) ========== */
+.s2-toc {
+  background: var(--bg);
+  overflow: hidden;
+}
+.s2-toc .header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.s2-toc .header .label {
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 0.3em;
+  font-weight: 700;
+}
+.s2-toc .header h2 {
+  font-size: 2.4rem;
+  color: var(--text);
+  font-weight: 800;
+  margin-top: 6px;
+}
+.s2-toc .header .divider {
+  width: 80px; height: 3px;
+  background: var(--accent);
+  margin: 16px auto 0;
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 18px;
+  flex: 1;
+  padding: 0 12px;
+}
+.toc-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px 20px;
+  border: 1.5px solid var(--border);
+  box-shadow: 0 4px 16px rgba(198, 40, 40, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.toc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 6px; height: 100%;
+  background: var(--accent);
+}
+.toc-card .num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--accent);
+  font-family: 'Georgia', serif;
+  line-height: 1;
+}
+.toc-card h3 {
+  font-size: 1.2rem;
+  color: var(--text);
+  font-weight: 700;
+}
+.toc-card p {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.toc-card .ico {
+  width: 36px; height: 36px;
+  align-self: flex-end;
+  position: absolute;
+  bottom: 14px; right: 14px;
+  opacity: 0.85;
+}
+
+/* ========== P3 關鍵字雲（圓/散） ========== */
+.s3-cloud {
+  background: var(--bg);
+  overflow: hidden;
+}
+.s3-cloud .header h2 {
+  font-size: 2rem;
+  color: var(--text);
+  font-weight: 800;
+}
+.s3-cloud .header .sub {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.cloud-canvas {
+  flex: 1;
+  position: relative;
+  margin-top: 18px;
+}
+.cloud-item {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid var(--accent);
+  box-shadow: 0 6px 20px rgba(198, 40, 40, 0.12);
+}
+.cloud-item.c1 { width: 200px; height: 200px; top: 4%;  left: 8%;  background: var(--accent); color: #fff; }
+.cloud-item.c2 { width: 150px; height: 150px; top: 12%; right: 12%; background: #fff; color: var(--accent); }
+.cloud-item.c3 { width: 170px; height: 170px; top: 44%; left: 26%; background: #FFD8B8; color: var(--accent-deep); }
+.cloud-item.c4 { width: 130px; height: 130px; bottom: 12%; left: 6%; background: #fff; color: var(--accent); }
+.cloud-item.c5 { width: 180px; height: 180px; bottom: 8%; right: 8%; background: var(--accent-deep); color: #FFF8E7; }
+.cloud-item.c6 { width: 110px; height: 110px; top: 32%; right: 30%; background: #FFE8C9; color: var(--accent); }
+.cloud-item .word {
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 6px;
+}
+.cloud-item .num {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-top: 4px;
+}
+
+/* ========== P4 4時段時間軸（線/水） ========== */
+.s4-timeline {
+  background: linear-gradient(180deg, #FFF8E7 0%, #FFE8C9 100%);
+  overflow: hidden;
+}
+.s4-timeline .header h2 {
+  font-size: 2rem;
+  color: var(--text);
+  font-weight: 800;
+}
+.timeline-rail {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin: 40px 0 60px;
+}
+.timeline-rail .line {
+  position: absolute;
+  top: 50%; left: 8%; right: 8%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt), var(--accent));
+}
+.timeline-stops {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6%;
+}
+.timeline-stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  position: relative;
+}
+.timeline-stop .node {
+  width: 56px; height: 56px;
+  background: #fff;
+  border: 4px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  position: relative;
+}
+.timeline-stop:nth-child(2) .node { background: var(--accent); color: #fff; }
+.timeline-stop:nth-child(3) .node { background: var(--accent-deep); color: #fff; }
+.timeline-stop:nth-child(4) .node { background: var(--accent-alt); color: #fff; }
+.timeline-stop .time {
+  margin-top: 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  background: rgba(255, 248, 231, 0.95);
+  padding: 4px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--accent);
+}
+.timeline-stop .card {
+  position: absolute;
+  top: 86px;
+  width: 180px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(198, 40, 40, 0.08);
+  text-align: center;
+}
+.timeline-stop .card h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.timeline-stop .card p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ========== P5 5地區風味象限（特/網） ========== */
+.s5-quad {
+  background: var(--bg);
+  overflow: hidden;
+}
+.s5-quad .header h2 {
+  font-size: 2rem;
+  color: var(--text);
+  font-weight: 800;
+}
+.quadrant {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+  margin-top: 24px;
+  padding: 0 30px 0 30px;
+}
+.quadrant .axis-v, .quadrant .axis-h {
+  position: absolute;
+  background: var(--accent);
+}
+.quadrant-wrap {
+  position: relative;
+  flex: 1;
+}
+.quadrant-wrap .axis-h {
+  position: absolute;
+  top: 50%; left: 6%; right: 6%;
+  height: 2px;
+  z-index: 1;
+}
+.quadrant-wrap .axis-v {
+  position: absolute;
+  left: 50%; top: 6%; bottom: 6%;
+  width: 2px;
+  z-index: 1;
+}
+.quadrant-wrap .axis-label {
+  position: absolute;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  background: #fff;
+  padding: 2px 10px;
+  border-radius: 12px;
+  z-index: 2;
+}
+.quadrant-wrap .label-top { top: 4%; left: 50%; transform: translateX(-50%); }
+.quadrant-wrap .label-bot { bottom: 4%; left: 50%; transform: translateX(-50%); }
+.quadrant-wrap .label-left { top: 50%; left: 4%; transform: translateY(-50%); }
+.quadrant-wrap .label-right { top: 50%; right: 4%; transform: translateY(-50%); }
+.q-cell {
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  border: 1.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 3;
+}
+.q-cell .region {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+.q-cell .flavor {
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 600;
+}
+.q-cell .dish {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.q-cell .marker {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 32px; height: 32px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ========== P6 3階段味覺漏斗（六/垂） ========== */
+.s6-funnel {
+  background: linear-gradient(180deg, #FFF8E7 0%, #FFD8B8 100%);
+  overflow: hidden;
+}
+.s6-funnel .header h2 {
+  font-size: 2rem;
+  color: var(--text);
+  font-weight: 800;
+  text-align: center;
+}
+.s6-funnel .header .sub {
+  font-size: 1rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 4px;
+}
+.funnel-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 30px 80px;
+}
+.funnel-hex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 36px;
+  background: #fff;
+  border: 2px solid var(--accent);
+  position: relative;
+  clip-path: polygon(4% 0%, 96% 0%, 100% 50%, 96% 100%, 4% 100%, 0% 50%);
+  box-shadow: 0 6px 20px rgba(198, 40, 40, 0.12);
+}
+.funnel-hex.f1 { width: 96%; background: var(--accent); color: #fff; }
+.funnel-hex.f2 { width: 76%; background: #FFD8B8; color: var(--accent-deep); }
+.funnel-hex.f3 { width: 56%; background: var(--accent-deep); color: #fff; }
+.funnel-hex .stage {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.funnel-hex .desc {
+  font-size: 1rem;
+  font-weight: 600;
+  opacity: 0.92;
+}
+.funnel-hex .num {
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-family: 'Georgia', serif;
+}
+
+/* ========== P7 6大食材儀表板（圓/水） ========== */
+.s7-dash {
+  background: var(--bg);
+  overflow: hidden;
+}
+.s7-dash .header h2 {
+  font-size: 2rem;
+  color: var(--text);
+  font-weight: 800;
+}
+.s7-dash .header .sub {
+  font-size: 1rem;
+  color: var(--muted);
+}
+.dash-row {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 30px 0 0 0;
+}
+.dash-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px 14px;
+  border: 1.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(198, 40, 40, 0.08);
+}
+.dash-card .icon {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #FFE8C9, var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 4px rgba(198, 40, 40, 0.15);
+}
+.dash-card .icon svg { width: 44px; height: 44px; }
+.dash-card .name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.dash-card .stat {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--accent);
+  font-family: 'Georgia', serif;
+}
+.dash-card .bar {
+  width: 100%;
+  height: 6px;
+  background: #FFE8C9;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.dash-card .bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-alt), var(--accent));
+  border-radius: 3px;
+}
+.dash-card .note {
+  font-size: 1rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ========== P8 未來5預測時間軸（線/水） ========== */
+.s8-future {
+  background: linear-gradient(135deg, #FFF8E7 0%, #FFE8C9 50%, #FFD8B8 100%);
+  overflow: hidden;
+}
+.s8-future .header h2 {
+  font-size: 2rem;
+  color: var(--text);
+  font-weight: 800;
+}
+.s8-future .header .sub {
+  font-size: 1rem;
+  color: var(--muted);
+}
+.future-rail {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+}
+.future-rail .progress {
+  position: absolute;
+  top: 50%; left: 8%; right: 8%;
+  height: 4px;
+  background: rgba(198, 40, 40, 0.18);
+  border-radius: 2px;
+}
+.future-rail .progress-fill {
+  position: absolute;
+  top: 50%; left: 8%;
+  width: 60%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+  border-radius: 2px;
+}
+.future-stops {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6%;
+}
+.future-stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 180px;
+}
+.future-stop .year {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #fff;
+  background: var(--accent);
+  padding: 6px 16px;
+  border-radius: 18px;
+}
+.future-stop:nth-child(1) .year { background: var(--accent-alt); }
+.future-stop:nth-child(3) .year { background: var(--accent); }
+.future-stop:nth-child(5) .year { background: var(--accent-deep); }
+.future-stop .node {
+  width: 50px; height: 50px;
+  background: #fff;
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.future-stop:nth-child(odd) .node { background: var(--accent); color: #fff; }
+.future-stop .card {
+  margin-top: 16px;
+  width: 170px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(198, 40, 40, 0.08);
+  text-align: center;
+}
+.future-stop .card h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.future-stop .card p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ========== P9 總結3大記憶卡（方/網） ========== */
+.s9-summary {
+  background: var(--bg);
+  overflow: hidden;
+}
+.s9-summary .header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.s9-summary .header .label {
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 0.3em;
+  font-weight: 700;
+}
+.s9-summary .header h2 {
+  font-size: 2.4rem;
+  color: var(--text);
+  font-weight: 800;
+  margin-top: 6px;
+}
+.summary-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 0 30px;
+  align-items: stretch;
+}
+.summary-card {
+  background: linear-gradient(180deg, #fff 0%, #FFF8E7 100%);
+  border-radius: 18px;
+  padding: 32px 24px;
+  border: 2px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  box-shadow: 0 12px 28px rgba(198, 40, 40, 0.12);
+}
+.summary-card .ribbon {
+  position: absolute;
+  top: -14px; left: 24px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 4px 16px;
+  border-radius: 14px;
+  letter-spacing: 0.1em;
+}
+.summary-card .icon-frame {
+  width: 80px; height: 80px;
+  align-self: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  box-shadow: 0 6px 20px rgba(198, 40,  40, 0.25);
+}
+.summary-card h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  text-align: center;
+}
+.summary-card .core {
+  font-size: 1.05rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.5;
+}
+.summary-card ul {
+  list-style: none;
+  padding: 0;
+}
+.summary-card ul li {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  padding: 6px 0 6px 24px;
+  position: relative;
+  line-height: 1.5;
+  border-bottom: 1px dashed var(--border);
+}
+.summary-card ul li:last-child { border-bottom: none; }
+.summary-card ul li::before {
+  content: '';
+  position: absolute;
+  left: 4px; top: 14px;
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* ========== P10 結尾（圓/單） ========== */
+.s10-end {
+  background: radial-gradient(ellipse at 50% 40%, #FFD8B8 0%, transparent 60%),
+              linear-gradient(135deg, #C62828 0%, #8B1A1A 100%);
+  color: #FFF8E7;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.s10-end .ring-bg {
+  position: absolute;
+  border: 2px solid rgba(255, 248, 231, 0.18);
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.s10-end .rb1 { width: 460px; height: 460px; }
+.s10-end .rb2 { width: 720px; height: 720px; border-style: dashed; }
+.s10-end .rb3 { width: 1000px; height: 1000px; }
+.s10-end .content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.s10-end .big-thanks {
+  font-size: 6rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  line-height: 1;
+  background: linear-gradient(180deg, #FFF8E7 0%, #FFE082 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.s10-end .message {
+  font-size: 1.5rem;
+  font-weight: 400;
+  opacity: 0.92;
+  max-width: 640px;
+  line-height: 1.6;
+}
+.s10-end .signature {
+  margin-top: 20px;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  padding: 8px 24px;
+  border: 1.5px solid rgba(255, 248, 231, 0.6);
+  border-radius: 24px;
+}
+.s10-end .links {
+  margin-top: 18px;
+  display: flex;
+  gap: 16px;
+  font-size: 1rem;
+  opacity: 0.85;
+}
+.s10-end .links a {
+  color: #FFF8E7;
+  text-decoration: none;
+  padding: 6px 16px;
+  border: 1px solid rgba(255, 248, 231, 0.4);
+  border-radius: 18px;
+}
+.s10-end .links a:hover { background: rgba(255, 248, 231, 0.15); }
+
+/* ========== 通用 header（多頁使用） ========== */
+.header .label { display: inline-block; }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+<!-- ========== 導航 ========== -->
+<div class="nav" id="nav" style="display:none;">
+  <button onclick="prev()" aria-label="上一頁">◀</button>
+  <span id="pageNum">1 / 10</span>
+  <button onclick="next()" aria-label="下一頁">▶</button>
+  <a href="/slides.htm">回列表</a>
+</div>
+
+<!-- ========== P1 封面 ========== -->
+<section class="slide s1-cover active" id="slide-1">
+  <div class="ring r1"></div>
+  <div class="ring r2"></div>
+  <div class="ring r3"></div>
+  <div class="plate"></div>
+  <svg class="spoon" width="220" height="220" viewBox="0 0 64 64" fill="none" stroke="#FFE082" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="32" cy="18" rx="10" ry="13"/>
+    <path d="M32 32 L32 56"/>
+    <path d="M28 50 L36 50"/>
+  </svg>
+  <div class="title">
+    <span class="label">2026 · 美食文化 · V2</span>
+    <h1>餐桌上的<span class="accent">時光機</span></h1>
+    <p class="sub">2026 飲食記憶地圖 · 從地方風味到未來餐桌</p>
+    <div class="meta">
+      <span>2026 / 07 / 19</span>
+      <span>10 頁</span>
+      <span>週日特刊</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P2 目錄 ========== -->
+<section class="slide s2-toc" id="slide-2">
+  <div class="header">
+    <span class="label">CONTENTS</span>
+    <h2>本章六大主題</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="toc-grid">
+    <div class="toc-card">
+      <span class="num">01</span>
+      <h3>年度飲食關鍵字</h3>
+      <p>6 個關鍵詞反映時代的味覺</p>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#C62828" stroke-width="2.5" stroke-linecap="round"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="14"/><circle cx="32" cy="32" r="6"/></svg>
+    </div>
+    <div class="toc-card">
+      <span class="num">02</span>
+      <h3>4 時段餐桌時間軸</h3>
+      <p>從早餐到宵夜的味覺旅程</p>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#C62828" stroke-width="2.5" stroke-linecap="round"><circle cx="32" cy="32" r="6"/><path d="M32 8 L32 18"/><path d="M32 46 L32 56"/><path d="M8 32 L18 32"/><path d="M46 32 L56 32"/></svg>
+    </div>
+    <div class="toc-card">
+      <span class="num">03</span>
+      <h3>5 地區風味象限</h3>
+      <p>在地食材 × 烹飪風格分佈</p>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#C62828" stroke-width="2.5" stroke-linecap="round"><rect x="10" y="10" width="20" height="20"/><rect x="34" y="10" width="20" height="20"/><rect x="10" y="34" width="20" height="20"/><rect x="34" y="34" width="20" height="20"/></svg>
+    </div>
+    <div class="toc-card">
+      <span class="num">04</span>
+      <h3>3 階段味覺演進</h3>
+      <p>從產地到餐桌的價值漏斗</p>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#C62828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="32,8 56,22 56,46 32,56 8,46 8,22"/></svg>
+    </div>
+    <div class="toc-card">
+      <span class="num">05</span>
+      <h3>6 大食材儀表板</h3>
+      <p>2026 年最具影響力的食材</p>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#C62828" stroke-width="2.5" stroke-linecap="round"><circle cx="32" cy="32" r="14"/><path d="M32 4 L32 14"/><path d="M32 50 L32 60"/><path d="M4 32 L14 32"/><path d="M50 32 L60 32"/></svg>
+    </div>
+    <div class="toc-card">
+      <span class="num">06</span>
+      <h3>5 大未來餐飲預測</h3>
+      <p>2027 - 2030 餐桌的轉向訊號</p>
+      <svg class="ico" viewBox="0 0 64 64" fill="none" stroke="#C62828" stroke-width="2.5" stroke-linecap="round"><path d="M12 50 Q24 20 32 32 T52 14"/><circle cx="12" cy="50" r="3"/><circle cx="32" cy="32" r="3"/><circle cx="52" cy="14" r="3"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P3 關鍵字雲 ========== -->
+<section class="slide s3-cloud" id="slide-3">
+  <div class="header">
+    <h2>01 · 2026 年度飲食關鍵字</h2>
+    <p class="sub">6 個詞彙 × 6 種情緒，刻畫餐桌的時代切面</p>
+  </div>
+  <div class="cloud-canvas">
+    <div class="cloud-item c1">
+      <div>
+        <div class="word">永續</div>
+        <span class="num">38%</span>
+      </div>
+    </div>
+    <div class="cloud-item c2">
+      <div>
+        <div class="word">在地</div>
+        <span class="num">29%</span>
+      </div>
+    </div>
+    <div class="cloud-item c3">
+      <div>
+        <div class="word">療癒</div>
+        <span class="num">24%</span>
+      </div>
+    </div>
+    <div class="cloud-item c4">
+      <div>
+        <div class="word">植物系</div>
+        <span class="num">19%</span>
+      </div>
+    </div>
+    <div class="cloud-item c5">
+      <div>
+        <div class="word">懷舊</div>
+        <span class="num">16%</span>
+      </div>
+    </div>
+    <div class="cloud-item c6">
+      <div>
+        <div class="word">儀式感</div>
+        <span class="num">12%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P4 4時段時間軸 ========== -->
+<section class="slide s4-timeline" id="slide-4">
+  <div class="header">
+    <h2>02 · 一日四時段的餐桌記憶</h2>
+  </div>
+  <div class="timeline-rail">
+    <div class="line"></div>
+    <div class="timeline-stops">
+      <div class="timeline-stop">
+        <div class="node">
+          <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#C62828" stroke-width="3" stroke-linecap="round"><circle cx="32" cy="32" r="22"/><path d="M32 18 L32 32 L42 38"/></svg>
+        </div>
+        <div class="time">07:00 晨光</div>
+        <div class="card">
+          <h4>慢食早餐</h4>
+          <p>手沖咖啡 × 在地烘焙 × 鮮果碗，城市最溫柔的開場</p>
+        </div>
+      </div>
+      <div class="timeline-stop">
+        <div class="node">
+          <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="20"/><path d="M20 32 L28 40 L44 24"/></svg>
+        </div>
+        <div class="time">12:30 豐盛</div>
+        <div class="card">
+          <h4>共食午餐</h4>
+          <p>分享餐桌 × 多樣小缽 × 蔬菜主角，工作日的小型慶典</p>
+        </div>
+      </div>
+      <div class="timeline-stop">
+        <div class="node">
+          <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 50 L24 32 L32 42 L42 22 L48 30"/><circle cx="48" cy="30" r="3"/></svg>
+        </div>
+        <div class="time">18:30 餘暉</div>
+        <div class="card">
+          <h4>儀式晚餐</h4>
+          <p>家庭餐桌 × 季節食材 × 一道主廚菜，家的味道重新被召喚</p>
+        </div>
+      </div>
+      <div class="timeline-stop">
+        <div class="node">
+          <svg width="28" height="28" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M22 44 Q22 32 32 32 Q42 32 42 20"/><circle cx="42" cy="20" r="2"/><circle cx="22" cy="44" r="2"/></svg>
+        </div>
+        <div class="time">22:00 靜夜</div>
+        <div class="card">
+          <h4>療癒宵夜</h4>
+          <p>熱湯 × 暖茶 × 一份小甜點，為一天畫下溫柔句號</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P5 5地區風味象限 ========== -->
+<section class="slide s5-quad" id="slide-5">
+  <div class="header">
+    <h2>03 · 五大地區風味座標</h2>
+    <p class="sub">在地食材 × 烹飪風格 × 餐桌溫度</p>
+  </div>
+  <div class="quadrant-wrap">
+    <div class="axis-h"></div>
+    <div class="axis-v"></div>
+    <span class="axis-label label-top">風味濃郁 ↑</span>
+    <span class="axis-label label-bot">清新淡雅 ↓</span>
+    <span class="axis-label label-left">← 傳統</span>
+    <span class="axis-label label-right">創新 →</span>
+    <div class="quadrant">
+      <div class="q-cell" style="grid-column: 1; grid-row: 2;">
+        <span class="marker">A</span>
+        <span class="region">北部 · 沿海</span>
+        <span class="flavor">清新 × 傳統</span>
+        <span class="dish">基隆崁仔頂魚貨、淡水河口小卷、九份芋圓、宜蘭櫻桃鴨</span>
+      </div>
+      <div class="q-cell" style="grid-column: 2; grid-row: 2;">
+        <span class="marker">B</span>
+        <span class="region">中部 · 山城</span>
+        <span class="flavor">清新 × 創新</span>
+        <span class="dish">台中太陽餅 × 法式青醬、彰化花卉餐盒、南投茶餐入菜</span>
+      </div>
+      <div class="q-cell" style="grid-column: 1; grid-row: 1;">
+        <span class="marker">C</span>
+        <span class="region">南部 · 平原</span>
+        <span class="flavor">濃郁 × 傳統</span>
+        <span class="dish">台南担仔麵、嘉義雞肉飯、屏東黑糖、府城牛肉湯</span>
+      </div>
+      <div class="q-cell" style="grid-column: 2; grid-row: 1;">
+        <span class="marker">D</span>
+        <span class="region">東部 · 縱谷</span>
+        <span class="flavor">濃郁 × 創新</span>
+        <span class="dish">花蓮金針 × 馬告醬、台東慢食節、原民香料實驗廚房</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P6 3階段味覺漏斗 ========== -->
+<section class="slide s6-funnel" id="slide-6">
+  <div class="header">
+    <h2>04 · 從產地到餐桌的價值漏斗</h2>
+    <p class="sub">每一層都是一段故事的濃縮</p>
+  </div>
+  <div class="funnel-stack">
+    <div class="funnel-hex f1">
+      <span class="stage">產地直送</span>
+      <span class="desc">農場 / 漁港 / 山林</span>
+      <span class="num">100%</span>
+    </div>
+    <div class="funnel-hex f2">
+      <span class="stage">加工轉譯</span>
+      <span class="desc">釀 / 醃 / 燻 / 風乾</span>
+      <span class="num">48%</span>
+    </div>
+    <div class="funnel-hex f3">
+      <span class="stage">餐桌敘事</span>
+      <span class="desc">故事 × 文化 × 儀式</span>
+      <span class="num">18%</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P7 6大食材儀表板 ========== -->
+<section class="slide s7-dash" id="slide-7">
+  <div class="header">
+    <h2>05 · 2026 年六大關鍵食材</h2>
+    <p class="sub">從產量、影響力、永續性三個維度評比</p>
+  </div>
+  <div class="dash-row">
+    <div class="dash-card">
+      <div class="icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFF8E7" stroke-width="2.5" stroke-linecap="round"><path d="M20 56 L20 24 Q20 16 32 16 Q44 16 44 24 L44 56"/><path d="M28 56 L28 36 L36 36 L36 56"/><path d="M14 56 L50 56"/></svg>
+      </div>
+      <div class="name">國產大豆</div>
+      <div class="stat">+42%</div>
+      <div class="bar"><div class="bar-fill" style="width: 85%"></div></div>
+      <div class="note">植物蛋白自主率突破 18%</div>
+    </div>
+    <div class="dash-card">
+      <div class="icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFF8E7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="28" r="14"/><path d="M22 42 Q22 56 32 56 Q42 56 42 42"/></svg>
+      </div>
+      <div class="name">時令蕈菇</div>
+      <div class="stat">+27%</div>
+      <div class="bar"><div class="bar-fill" style="width: 68%"></div></div>
+      <div class="note">林下經濟 × 主廚選用率第一</div>
+    </div>
+    <div class="dash-card">
+      <div class="icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFF8E7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 36 Q32 16 48 36"/><path d="M20 36 L20 50 L44 50 L44 36"/><circle cx="24" cy="44" r="2"/><circle cx="32" cy="44" r="2"/><circle cx="40" cy="44" r="2"/></svg>
+      </div>
+      <div class="name">原生香料</div>
+      <div class="stat">+33%</div>
+      <div class="bar"><div class="bar-fill" style="width: 75%"></div></div>
+      <div class="note">馬告 × 刺蔥 × 山胡椒</div>
+    </div>
+    <div class="dash-card">
+      <div class="icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFF8E7" stroke-width="2.5" stroke-linecap="round"><path d="M12 24 Q32 8 52 24 Q52 44 32 56 Q12 44 12 24 Z"/></svg>
+      </div>
+      <div class="name">國產小麥</div>
+      <div class="stat">+19%</div>
+      <div class="bar"><div class="bar-fill" style="width: 55%"></div></div>
+      <div class="note">烘焙自給率提升至 12%</div>
+    </div>
+    <div class="dash-card">
+      <div class="icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFF8E7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 28 Q16 16 32 16 Q48 16 48 28 L48 48 L16 48 Z"/><path d="M16 36 L48 36"/></svg>
+      </div>
+      <div class="name">發酵乳品</div>
+      <div class="stat">+15%</div>
+      <div class="bar"><div class="bar-fill" style="width: 48%"></div></div>
+      <div class="note">克菲爾 × 自製優格興起</div>
+    </div>
+    <div class="dash-card">
+      <div class="icon">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFF8E7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 22 L50 22 L46 50 L18 50 Z"/><path d="M20 22 L20 14 Q20 8 28 8 L36 8 Q44 8 44 14 L44 22"/><path d="M26 32 L38 32"/><path d="M32 26 L32 38"/></svg>
+      </div>
+      <div class="name">永續海產</div>
+      <div class="stat">+22%</div>
+      <div class="bar"><div class="bar-fill" style="width: 62%"></div></div>
+      <div class="note">沿岸定置網 × 海洋友善標章</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P8 未來5預測時間軸 ========== -->
+<section class="slide s8-future" id="slide-8">
+  <div class="header">
+    <h2>06 · 未來餐桌五大預測</h2>
+    <p class="sub">2027 - 2030 年的味覺轉向訊號</p>
+  </div>
+  <div class="future-rail">
+    <div class="progress"></div>
+    <div class="progress-fill"></div>
+    <div class="future-stops">
+      <div class="future-stop">
+        <span class="year">2027</span>
+        <div class="node">01</div>
+        <div class="card">
+          <h4>短鏈革命</h4>
+          <p>都市農業 × 社區廚房 × 30 分鐘產地圈成形</p>
+        </div>
+      </div>
+      <div class="future-stop">
+        <span class="year">2028</span>
+        <div class="node">02</div>
+        <div class="card">
+          <h4>混血料理</h4>
+          <p>移民 × 嫁接 × 跨界，地方風味持續解構重組</p>
+        </div>
+      </div>
+      <div class="future-stop">
+        <span class="year">2029</span>
+        <div class="node">03</div>
+        <div class="card">
+          <h4>感性數據</h4>
+          <p>情緒 × 嗅覺 × AI 配對，餐廳開始為心情選菜</p>
+        </div>
+      </div>
+      <div class="future-stop">
+        <span class="year">2030</span>
+        <div class="node">04</div>
+        <div class="card">
+          <h4>微型儀式</h4>
+          <p>一人餐桌 × 兩人共食 × 家庭重新成為味覺重心</p>
+        </div>
+      </div>
+      <div class="future-stop">
+        <span class="year">2030+</span>
+        <div class="node">05</div>
+        <div class="card">
+          <h4>文化回望</h4>
+          <p>阿嬤的味道 × 母系食譜 × 跨代共筆食記浪潮</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P9 總結3大記憶卡 ========== -->
+<section class="slide s9-summary" id="slide-9">
+  <div class="header">
+    <span class="label">SUMMARY</span>
+    <h2>三大核心記憶</h2>
+  </div>
+  <div class="summary-grid">
+    <div class="summary-card">
+      <span class="ribbon">MEMORY 01</span>
+      <div class="icon-frame">
+        <svg width="44" height="44" viewBox="0 0 64 64" fill="none" stroke="#FFF8E7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 48 L32 12 L48 48 Z"/><path d="M24 36 L40 36"/></svg>
+      </div>
+      <h3>風土回歸</h3>
+      <p class="core">吃在地，就是吃故事</p>
+      <ul>
+        <li>食材來源 × 農人姓名透明化</li>
+        <li>季節 × 產地 × 餐桌的距離縮短</li>
+        <li>風土敘事取代異國光環</li>
+      </ul>
+    </div>
+    <div class="summary-card">
+      <span class="ribbon">MEMORY 02</span>
+      <div class="icon-frame">
+        <svg width="44" height="44" viewBox="0 0 64 64" fill="none" stroke="#FFF8E7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="18"/><path d="M32 18 L32 32 L42 38"/></svg>
+      </div>
+      <h3>慢食儀式</h3>
+      <p class="core">讓時間回到餐桌上</p>
+      <ul>
+        <li>共食時間延長 23%</li>
+        <li>手作 × 釀製 × 慢火工序回溫</li>
+        <li>家庭餐桌成為情緒錨點</li>
+      </ul>
+    </div>
+    <div class="summary-card">
+      <span class="ribbon">MEMORY 03</span>
+      <div class="icon-frame">
+        <svg width="44" height="44" viewBox="0 0 64 64" fill="none" stroke="#FFF8E7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 50 Q24 20 32 32 T52 14"/><circle cx="12" cy="50" r="3"/><circle cx="32" cy="32" r="3"/><circle cx="52" cy="14" r="3"/></svg>
+      </div>
+      <h3>永續想像</h3>
+      <p class="core">明日餐桌 × 今日選擇</p>
+      <ul>
+        <li>植物系 × 友善海產 × 雜糧復耕</li>
+        <li>剩食 × 全食利用的設計循環</li>
+        <li>氣候適應菜單成為新常態</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== P10 結尾 ========== -->
+<section class="slide s10-end" id="slide-10">
+  <div class="ring-bg rb1"></div>
+  <div class="ring-bg rb2"></div>
+  <div class="ring-bg rb3"></div>
+  <div class="content">
+    <div class="big-thanks">感謝品味</div>
+    <p class="message">每一道菜都是一段時光的切片，<br/>願這份地圖陪你重新記起吃過的好日子。</p>
+    <span class="signature">熊熊博物館 · 2026 / 07 / 19 · 週日特刊</span>
+    <div class="links">
+      <a href="/slides.htm">回到列表</a>
+      <a href="/">首頁</a>
+      <a href="/meow-time/">喵時光</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+
+function show() {
+  // 先移除所有 slide 的 active（避免多個 slide 同時 active）
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].classList.remove('active');
+  }
+  // 確保 current 在範圍內
+  if (current < 0) current = slides.length - 1;
+  if (current >= slides.length) current = 0;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('pageNum').textContent = (current + 1) + ' / ' + slides.length;
+}
+
+function next() { current++; show(); }
+function prev() { current--; show(); }
+
+// 鍵盤左右鍵控制
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+});
+
+// 初始化
+show();
+document.getElementById('nav').style.display = 'flex';
+</script>
+
+</body>
+</html>
