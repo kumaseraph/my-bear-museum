@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+    <linearGradient id="darkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <filter id="paper" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="gray"/>
+      <feBlend in="SourceGraphic" in2="gray" mode="multiply" result="blend"/>
+      <feComposite in="blend" in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect fill="#F8FAFC" width="1920" height="1080"/>
+
+  <!-- ==================== 左上角 Bento 模組節奏 ==================== -->
+  <!-- 大六邊形 - 外粗空心 -->
+  <g transform="translate(80, 80)">
+    <polygon points="60,0 120,35 120,105 60,140 0,105 0,35"
+      fill="none" stroke="#1E40AF" stroke-width="6"/>
+    <!-- 內部半透明實心 2.5D -->
+    <polygon points="60,14 108,42 108,98 60,126 12,98 12,42"
+      fill="#1E40AF" fill-opacity="0.18"/>
+    <!-- 中心小實心 -->
+    <polygon points="60,42 84,58 84,82 60,98 36,82 36,58"
+      fill="#F59E0B" fill-opacity="0.7"/>
+  </g>
+
+  <!-- 小六邊形叢集 -->
+  <g transform="translate(20, 220)">
+    <polygon points="25,0 50,14 50,43 25,57 0,43 0,14"
+      fill="#3B82F6" fill-opacity="0.5" stroke="#1E40AF" stroke-width="2"/>
+  </g>
+  <g transform="translate(70, 260)">
+    <polygon points="20,0 40,12 40,35 20,47 0,35 0,12"
+      fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+    <polygon points="20,6 36,15 36,33 20,42 4,33 4,15"
+      fill="#F59E0B" fill-opacity="0.25"/>
+  </g>
+  <g transform="translate(115, 230)">
+    <polygon points="18,0 36,10 36,30 18,40 0,30 0,10"
+      fill="#1E40AF" fill-opacity="0.6"/>
+  </g>
+
+  <!-- 左上角引導線：發現 → 解釋 → 行動 -->
+  <g stroke="#1E40AF" stroke-width="1.5" fill="none" opacity="0.5">
+    <path d="M 160 330 Q 200 310, 240 320" stroke-dasharray="6,4"/>
+    <path d="M 260 320 Q 300 300, 340 310" stroke-dasharray="6,4"/>
+    <path d="M 360 310 Q 400 290, 440 300" stroke-dasharray="6,4"/>
+  </g>
+  <!-- 流動視線終點 -->
+  <circle cx="440" cy="300" r="5" fill="#F59E0B"/>
+  <circle cx="440" cy="300" r="10" fill="none" stroke="#F59E0B" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- 左上角垂直連接線 -->
+  <line x1="60" y1="300" x2="60" y2="500" stroke="#3B82F6" stroke-width="1" stroke-dasharray="4,6" opacity="0.35"/>
+
+  <!-- 左下角虛線方格引導 -->
+  <g stroke="#1E40AF" stroke-width="1" opacity="0.25">
+    <line x1="50" y1="700" x2="200" y2="700"/>
+    <line x1="50" y1="750" x2="200" y2="750"/>
+    <line x1="50" y1="800" x2="200" y2="800"/>
+    <line x1="50" y1="850" x2="200" y2="850"/>
+    <line x1="50" y1="900" x2="200" y2="900"/>
+    <line x1="50" y1="950" x2="200" y2="950"/>
+    <line x1="50" y1="700" x2="50" y2="950"/>
+    <line x1="100" y1="700" x2="100" y2="950"/>
+    <line x1="150" y1="700" x2="150" y2="950"/>
+    <line x1="200" y1="700" x2="200" y2="950"/>
+  </g>
+  <!-- 左下角小六邊形標記 -->
+  <g transform="translate(125, 825)">
+    <polygon points="22,0 44,13 44,38 22,51 0,38 0,13"
+      fill="none" stroke="#F59E0B" stroke-width="2"/>
+    <polygon points="22,8 38,18 38,34 22,44 6,34 6,18"
+      fill="#F59E0B" fill-opacity="0.2"/>
+  </g>
+
+  <!-- ==================== 右上角 KPI 主焦點 ==================== -->
+  <!-- 大六邊形 2.5D：外粗空心 + 內半透明實心 -->
+  <g transform="translate(1720, 60)">
+    <!-- 外粗空心 -->
+    <polygon points="100,0 200,58 200,173 100,230 0,173 0,58"
+      fill="none" stroke="#1E40AF" stroke-width="8"/>
+    <!-- 內部半透明實心 -->
+    <polygon points="100,20 184,70 184,163 100,213 16,163 16,70"
+      fill="#1E40AF" fill-opacity="0.2"/>
+    <!-- 中心實心核心 -->
+    <polygon points="100,55 152,87 152,143 100,175 48,143 48,87"
+      fill="#F59E0B" fill-opacity="0.85"/>
+    <!-- 內層亮點 -->
+    <polygon points="100,75 132,96 132,138 100,159 68,138 68,96"
+      fill="#3B82F6" fill-opacity="0.4"/>
+    <!-- 最中心 -->
+    <circle cx="100" cy="120" r="12" fill="#F59E0B"/>
+  </g>
+
+  <!-- 右上角小裝飾六邊形群 -->
+  <g transform="translate(1800, 300)">
+    <polygon points="30,0 60,17 60,52 30,69 0,52 0,17"
+      fill="#3B82F6" fill-opacity="0.4" stroke="#1E40AF" stroke-width="2"/>
+  </g>
+  <g transform="translate(1750, 360)">
+    <polygon points="18,0 36,10 36,30 18,40 0,30 0,10"
+      fill="none" stroke="#F59E0B" stroke-width="2"/>
+  </g>
+  <g transform="translate(1840, 380)">
+    <polygon points="15,0 30,9 30,26 15,35 0,26 0,9"
+      fill="#1E40AF" fill-opacity="0.5"/>
+  </g>
+
+  <!-- 右上角水平引導線 -->
+  <g stroke="#1E40AF" stroke-width="1.5" fill="none" opacity="0.4">
+    <line x1="1600" y1="180" x2="1400" y2="180"/>
+    <line x1="1380" y1="180" x2="1200" y2="200"/>
+    <line x1="1180" y1="205" x2="1000" y2="210"/>
+  </g>
+  <circle cx="1000" cy="210" r="5" fill="#F59E0B" opacity="0.8"/>
+
+  <!-- ==================== 四角邊框線條 ==================== -->
+  <!-- 左上角 -->
+  <path d="M 0 160 L 0 0 L 160 0" fill="none" stroke="url(#blueGrad)" stroke-width="5"/>
+  <path d="M 0 60 L 0 0 L 60 0" fill="none" stroke="#F59E0B" stroke-width="2.5" opacity="0.7"/>
+
+  <!-- 右上角 -->
+  <path d="M 1920 160 L 1920 0 L 1760 0" fill="none" stroke="url(#blueGrad)" stroke-width="5"/>
+  <path d="M 1920 60 L 1920 0 L 1860 0" fill="none" stroke="#F59E0B" stroke-width="2.5" opacity="0.7"/>
+
+  <!-- 左下角 -->
+  <path d="M 0 920 L 0 1080 L 160 1080" fill="none" stroke="url(#blueGrad)" stroke-width="5"/>
+  <path d="M 0 1020 L 0 1080 L 60 1080" fill="none" stroke="#F59E0B" stroke-width="2.5" opacity="0.7"/>
+
+  <!-- 右下角 -->
+  <path d="M 1920 920 L 1920 1080 L 1760 1080" fill="none" stroke="url(#blueGrad)" stroke-width="5"/>
+  <path d="M 1920 1020 L 1920 1080 L 1860 1080" fill="none" stroke="#F59E0B" stroke-width="2.5" opacity="0.7"/>
+
+  <!-- 頂部水平線 -->
+  <line x1="180" y1="0" x2="1740" y2="0" stroke="url(#darkGrad)" stroke-width="2" opacity="0.3"/>
+  <!-- 底部水平線 -->
+  <line x1="180" y1="1080" x2="1740" y2="1080" stroke="url(#darkGrad)" stroke-width="2" opacity="0.3"/>
+  <!-- 左側垂直線 -->
+  <line x1="0" y1="180" x2="0" y2="900" stroke="url(#darkGrad)" stroke-width="2" opacity="0.3"/>
+  <!-- 右側垂直線 -->
+  <line x1="1920" y1="180" x2="1920" y2="900" stroke="url(#darkGrad)" stroke-width="2" opacity="0.3"/>
+
+  <!-- ==================== 右下角輔助裝飾 ==================== -->
+  <g transform="translate(1700, 880)">
+    <polygon points="50,0 100,29 100,86 50,115 0,86 0,29"
+      fill="#1E40AF" fill-opacity="0.15" stroke="#1E40AF" stroke-width="3"/>
+    <polygon points="50,12 90,37 90,78 50,103 10,78 10,37"
+      fill="#3B82F6" fill-opacity="0.25"/>
+    <polygon points="50,24 78,42 78,73 50,91 22,73 22,42"
+      fill="#F59E0B" fill-opacity="0.3"/>
+  </g>
+  <g transform="translate(1820, 940)">
+    <polygon points="20,0 40,12 40,35 20,47 0,35 0,12"
+      fill="none" stroke="#1E40AF" stroke-width="2"/>
+  </g>
+
+  <!-- ==================== 中央啞鈴留白區域 ==================== -->
+  <!-- 中央啞鈴暗示 -->
+  <rect x="760" y="520" width="400" height="40" rx="20"
+    fill="none" stroke="#1E40AF" stroke-width="1.5" stroke-dasharray="8,6" opacity="0.2"/>
+  <circle cx="800" cy="540" r="6" fill="#1E40AF" opacity="0.2"/>
+  <circle cx="1120" cy="540" r="6" fill="#1E40AF" opacity="0.2"/>
+
+  <!-- ==================== 底部數據流線索 ==================== -->
+  <g stroke="#3B82F6" stroke-width="1" fill="none" opacity="0.3">
+    <path d="M 300 1000 Q 600 980, 900 1000 Q 1200 1020, 1500 1000"/>
+    <path d="M 300 1030 Q 600 1010, 900 1030 Q 1200 1050, 1500 1030" stroke-dasharray="5,5"/>
+  </g>
+</svg>

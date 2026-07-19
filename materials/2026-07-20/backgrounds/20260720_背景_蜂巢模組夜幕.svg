@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="nightGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="40%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="honeycombFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#1E40AF" stop-opacity="0.08"/>
+    </linearGradient>
+    <filter id="paperNoise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+      <feBlend in="SourceGraphic" in2="grayNoise" mode="soft-light"/>
+    </filter>
+    <filter id="handDrawn" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="turb"/>
+      <feDisplacementMap in="SourceGraphic" in2="turb" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- 深藍夜幕背景 -->
+  <rect fill="url(#nightGrad)" width="1920" height="1080"/>
+
+  <!-- ==================== 上右蜂巢叢集 ==================== -->
+  <!-- 蜂巢1 (大) -->
+  <g transform="translate(1480, 20)" filter="url(#handDrawn)">
+    <polygon points="80,0 160,46 160,138 80,184 0,138 0,46"
+      fill="url(#honeycombFill)" stroke="#3B82F6" stroke-width="2"/>
+    <polygon points="80,14 146,54 146,130 80,170 14,130 14,54"
+      fill="#1E40AF" fill-opacity="0.2"/>
+  </g>
+  <!-- 蜂巢2 (中) -->
+  <g transform="translate(1680, 120)">
+    <polygon points="55,0 110,32 110,95 55,127 0,95 0,32"
+      fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+    <polygon points="55,10 102,38 102,89 55,117 8,89 8,38"
+      fill="#3B82F6" fill-opacity="0.15"/>
+  </g>
+  <!-- 蜂巢3 (小) -->
+  <g transform="translate(1800, 60)">
+    <polygon points="35,0 70,20 70,60 35,80 0,60 0,20"
+      fill="#1E40AF" fill-opacity="0.4" stroke="#F59E0B" stroke-width="1.5"/>
+    <polygon points="35,8 63,26 63,54 35,72 7,54 7,26"
+      fill="#F59E0B" fill-opacity="0.2"/>
+  </g>
+  <!-- 蜂巢4 (小，填充) -->
+  <g transform="translate(1350, 140)">
+    <polygon points="30,0 60,17 60,52 30,69 0,52 0,17"
+      fill="#3B82F6" fill-opacity="0.5" stroke="#1E40AF" stroke-width="1.5"/>
+  </g>
+  <!-- 蜂巢5 (超小) -->
+  <g transform="translate(1580, 220)">
+    <polygon points="20,0 40,12 40,35 20,47 0,35 0,12"
+      fill="none" stroke="#F59E0B" stroke-width="1.5"/>
+    <polygon points="20,5 36,15 36,31 20,41 4,31 4,15"
+      fill="#F59E0B" fill-opacity="0.2"/>
+  </g>
+  <!-- 蜂巢6 (交錯) -->
+  <g transform="translate(1720, 240)">
+    <polygon points="28,0 56,16 56,48 28,64 0,48 0,16"
+      fill="#1E40AF" fill-opacity="0.6"/>
+  </g>
+  <!-- 蜂巢7 (極小) -->
+  <g transform="translate(1620, 290)">
+    <polygon points="15,0 30,9 30,26 15,35 0,26 0,9"
+      fill="#F59E0B" fill-opacity="0.5"/>
+  </g>
+  <!-- 蜂巢8 (交錯中) -->
+  <g transform="translate(1520, 320)">
+    <polygon points="38,0 76,22 76,66 38,88 0,66 0,22"
+      fill="none" stroke="#3B82F6" stroke-width="2"/>
+    <polygon points="38,8 68,28 68,60 38,80 8,60 8,28"
+      fill="#3B82F6" fill-opacity="0.2"/>
+  </g>
+
+  <!-- ==================== 下左蜂巢叢集 ==================== -->
+  <!-- 蜂巢A (大) -->
+  <g transform="translate(20, 760)" filter="url(#handDrawn)">
+    <polygon points="90,0 180,52 180,155 90,207 0,155 0,52"
+      fill="url(#honeycombFill)" stroke="#3B82F6" stroke-width="2"/>
+    <polygon points="90,16 164,61 164,146 90,191 16,146 16,61"
+      fill="#1E40AF" fill-opacity="0.25"/>
+  </g>
+  <!-- 蜂巢B (中) -->
+  <g transform="translate(180, 920)">
+    <polygon points="50,0 100,29 100,87 50,116 0,87 0,29"
+      fill="none" stroke="#1E40AF" stroke-width="2.5"/>
+    <polygon points="50,9 92,35 92,81 50,107 8,81 8,35"
+      fill="#1E40AF" fill-opacity="0.2"/>
+  </g>
+  <!-- 蜂巢C (小) -->
+  <g transform="translate(320, 840)">
+    <polygon points="32,0 64,18 64,55 32,73 0,55 0,18"
+      fill="#3B82F6" fill-opacity="0.5" stroke="#F59E0B" stroke-width="1.5"/>
+    <polygon points="32,7 58,25 58,50 32,68 6,50 6,25"
+      fill="#F59E0B" fill-opacity="0.2"/>
+  </g>
+  <!-- 蜂巢D (交錯小) -->
+  <g transform="translate(280, 980)">
+    <polygon points="26,0 52,15 52,45 26,60 0,45 0,15"
+      fill="#1E40AF" fill-opacity="0.7"/>
+  </g>
+  <!-- 蜂巢E (超小) -->
+  <g transform="translate(130, 1040)">
+    <polygon points="18,0 36,10 36,30 18,40 0,30 0,10"
+      fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+    <polygon points="18,4 32,13 32,27 18,36 4,27 4,13"
+      fill="#3B82F6" fill-opacity="0.25"/>
+  </g>
+  <!-- 蜂巢F (填充) -->
+  <g transform="translate(420, 1000)">
+    <polygon points="22,0 44,13 44,38 22,51 0,38 0,13"
+      fill="#F59E0B" fill-opacity="0.35" stroke="#F59E0B" stroke-width="1"/>
+  </g>
+  <!-- 蜂巢G (中型填充) -->
+  <g transform="translate(80, 880)">
+    <polygon points="45,0 90,26 90,78 45,104 0,78 0,26"
+      fill="#1E40AF" fill-opacity="0.3" stroke="#3B82F6" stroke-width="1.5"/>
+  </g>
+  <!-- 蜂巢H (極小) -->
+  <g transform="translate(380, 900)">
+    <polygon points="15,0 30,9 30,26 15,35 0,26 0,9"
+      fill="#F59E0B" fill-opacity="0.6"/>
+  </g>
+
+  <!-- ==================== 同色深淺過渡（邊緣淡化） ==================== -->
+  <!-- 上邊緣淡化 -->
+  <rect x="0" y="0" width="1920" height="80" fill="url(#nightGrad)" opacity="0.6"/>
+  <!-- 下邊緣淡化 -->
+  <rect x="0" y="1000" width="1920" height="80" fill="url(#nightGrad)" opacity="0.6"/>
+
+  <!-- ==================== 輕量紙張纖維紋理（約 5-8%） ==================== -->
+  <rect x="0" y="0" width="1920" height="1080" fill="#0F172A" fill-opacity="0.06" filter="url(#paperNoise)"/>
+
+  <!-- ==================== 微手繪瑕疵：邊緣不規則線條 ==================== -->
+  <g stroke="#3B82F6" stroke-width="0.75" fill="none" opacity="0.12">
+    <path d="M 0 50 Q 100 48, 200 52 Q 300 55, 400 49 Q 500 46, 600 53"/>
+    <path d="M 0 1030 Q 150 1028, 300 1032 Q 450 1035, 600 1029"/>
+    <path d="M 50 0 Q 48 100, 52 200 Q 55 300, 49 400 Q 46 500, 53 600"/>
+    <path d="M 1870 0 Q 1872 150, 1868 300 Q 1865 450, 1871 600"/>
+  </g>
+
+  <!-- ==================== 中央 65% 乾淨區域（幾乎無裝飾） ==================== -->
+  <!-- 啞鈴暗示（極淡） -->
+  <rect x="480" y="520" width="960" height="40" rx="20"
+    fill="none" stroke="#1E40AF" stroke-width="1" stroke-dasharray="8,12" opacity="0.08"/>
+  <circle cx="560" cy="540" r="4" fill="#1E40AF" opacity="0.08"/>
+  <circle cx="1360" cy="540" r="4" fill="#1E40AF" opacity="0.08"/>
+
+  <!-- 四角微光 -->
+  <circle cx="600" cy="300" r="3" fill="#3B82F6" opacity="0.15"/>
+  <circle cx="1320" cy="300" r="3" fill="#3B82F6" opacity="0.15"/>
+  <circle cx="600" cy="780" r="3" fill="#3B82F6" opacity="0.15"/>
+  <circle cx="1320" cy="780" r="3" fill="#3B82F6" opacity="0.15"/>
+</svg>

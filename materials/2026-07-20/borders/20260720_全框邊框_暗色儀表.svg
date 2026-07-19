@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="frameGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="50%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#1E40AF" stop-opacity="0.1"/>
+    </linearGradient>
+    <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 暗色背景 -->
+  <rect fill="#0F172A" width="1920" height="1080"/>
+
+  <!-- ==================== 外層粗框 ==================== -->
+  <rect x="0" y="0" width="1920" height="1080"
+    fill="none" stroke="#1E40AF" stroke-width="10"/>
+
+  <!-- ==================== 安全邊距線（72px） ==================== -->
+  <rect x="72" y="72" width="1776" height="936"
+    fill="none" stroke="#1E40AF" stroke-width="1.5" opacity="0.5"/>
+  <rect x="90" y="90" width="1740" height="900"
+    fill="none" stroke="#3B82F6" stroke-width="0.75" opacity="0.25" stroke-dasharray="4,8"/>
+
+  <!-- ==================== Bento Grid 節點分段（頂部） ==================== -->
+  <!-- 頂部水平分段線 -->
+  <line x1="72" y1="220" x2="1848" y2="220" stroke="#1E40AF" stroke-width="1" opacity="0.4"/>
+  <line x1="72" y1="360" x2="1848" y2="360" stroke="#1E40AF" stroke-width="0.75" opacity="0.25" stroke-dasharray="4,8"/>
+
+  <!-- 左上角節點方格 -->
+  <rect x="72" y="72" width="200" height="148"
+    fill="#1E40AF" fill-opacity="0.1" stroke="#1E40AF" stroke-width="1.5"/>
+  <!-- 儀表板光點 -->
+  <circle cx="172" cy="146" r="20" fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+  <circle cx="172" cy="146" r="12" fill="none" stroke="#3B82F6" stroke-width="1"/>
+  <circle cx="172" cy="146" r="4" fill="#3B82F6"/>
+
+  <!-- 頂部第二節點 -->
+  <rect x="290" y="72" width="340" height="148"
+    fill="#1E40AF" fill-opacity="0.06" stroke="#1E40AF" stroke-width="1"/>
+  <!-- 漸層透明疊色 -->
+  <rect x="290" y="72" width="340" height="148"
+    fill="url(#glowGrad)" opacity="0.3"/>
+  <!-- 內部線條暗示 -->
+  <line x1="320" y1="146" x2="600" y2="146" stroke="#3B82F6" stroke-width="1" opacity="0.4"/>
+  <line x1="320" y1="120" x2="550" y2="120" stroke="#3B82F6" stroke-width="0.75" opacity="0.25"/>
+  <line x1="320" y1="170" x2="500" y2="170" stroke="#3B82F6" stroke-width="0.75" opacity="0.25"/>
+
+  <!-- 頂部第三節點 -->
+  <rect x="648" y="72" width="260" height="148"
+    fill="none" stroke="#1E40AF" stroke-width="1"/>
+  <circle cx="778" cy="146" r="8" fill="#F59E0B" filter="url(#softGlow)"/>
+
+  <!-- 頂部第四節點 -->
+  <rect x="926" y="72" width="400" height="148"
+    fill="#1E40AF" fill-opacity="0.08" stroke="#1E40AF" stroke-width="1"/>
+  <!-- 局部透明疊色 -->
+  <rect x="1000" y="90" width="250" height="80"
+    fill="#3B82F6" fill-opacity="0.1"/>
+
+  <!-- 頂部右側節點 -->
+  <rect x="1344" y="72" width="220" height="148"
+    fill="none" stroke="#1E40AF" stroke-width="1.5"/>
+  <circle cx="1454" cy="146" r="15" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="1454" cy="146" r="6" fill="#F59E0B" opacity="0.8"/>
+
+  <!-- 右上角即時光點 -->
+  <circle cx="1800" cy="100" r="8" fill="#F59E0B" opacity="0.9"/>
+  <circle cx="1800" cy="100" r="14" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.4"/>
+
+  <!-- ==================== 左側垂直節點 ==================== -->
+  <line x1="200" y1="220" x2="200" y2="860" stroke="#1E40AF" stroke-width="0.75" opacity="0.3" stroke-dasharray="4,8"/>
+  <line x1="380" y1="220" x2="380" y2="860" stroke="#1E40AF" stroke-width="0.75" opacity="0.2" stroke-dasharray="4,8"/>
+
+  <!-- 左側第一節點 -->
+  <rect x="72" y="238" width="128" height="180"
+    fill="#1E40AF" fill-opacity="0.08" stroke="#1E40AF" stroke-width="1"/>
+  <!-- 微型六邊形裝飾 -->
+  <g transform="translate(136, 328)">
+    <polygon points="30,0 60,17 60,52 30,69 0,52 0,17"
+      fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+    <polygon points="30,8 52,21 52,48 30,61 8,48 8,21"
+      fill="#3B82F6" fill-opacity="0.2"/>
+  </g>
+
+  <!-- 左側第二節點 -->
+  <rect x="72" y="436" width="128" height="200"
+    fill="none" stroke="#1E40AF" stroke-width="1"/>
+  <circle cx="136" cy="536" r="10" fill="#1E40AF" fill-opacity="0.4"/>
+  <circle cx="136" cy="536" r="5" fill="#F59E0B" opacity="0.7"/>
+
+  <!-- 左側第三節點 -->
+  <rect x="72" y="654" width="128" height="180"
+    fill="#1E40AF" fill-opacity="0.06" stroke="#1E40AF" stroke-width="1"/>
+
+  <!-- ==================== 右側垂直節點 ==================== -->
+  <line x1="1720" y1="220" x2="1720" y2="860" stroke="#1E40AF" stroke-width="0.75" opacity="0.3" stroke-dasharray="4,8"/>
+  <line x1="1540" y1="220" x2="1540" y2="860" stroke="#1E40AF" stroke-width="0.75" opacity="0.2" stroke-dasharray="4,8"/>
+
+  <!-- 右側第一節點 -->
+  <rect x="1720" y="238" width="128" height="180"
+    fill="#1E40AF" fill-opacity="0.1" stroke="#1E40AF" stroke-width="1"/>
+  <circle cx="1784" cy="328" r="6" fill="#3B82F6" filter="url(#softGlow)"/>
+
+  <!-- 右側第二節點 -->
+  <rect x="1720" y="436" width="128" height="200"
+    fill="none" stroke="#1E40AF" stroke-width="1"/>
+  <circle cx="1784" cy="536" r="25" fill="none" stroke="#3B82F6" stroke-width="1"/>
+  <circle cx="1784" cy="536" r="15" fill="none" stroke="#3B82F6" stroke-width="0.75" stroke-dasharray="2,4"/>
+  <circle cx="1784" cy="536" r="5" fill="#F59E0B"/>
+
+  <!-- 右側第三節點 -->
+  <rect x="1720" y="654" width="128" height="180"
+    fill="#1E40AF" fill-opacity="0.08" stroke="#1E40AF" stroke-width="1"/>
+
+  <!-- ==================== 底部水平分段 ==================== -->
+  <line x1="72" y1="860" x2="1848" y2="860" stroke="#1E40AF" stroke-width="1" opacity="0.4"/>
+  <line x1="72" y1="940" x2="1848" y2="940" stroke="#1E40AF" stroke-width="0.75" opacity="0.25" stroke-dasharray="4,8"/>
+
+  <!-- 底部節點 -->
+  <rect x="72" y="878" width="200" height="130"
+    fill="#1E40AF" fill-opacity="0.08" stroke="#1E40AF" stroke-width="1"/>
+  <rect x="290" y="878" width="340" height="130"
+    fill="none" stroke="#1E40AF" stroke-width="1"/>
+  <rect x="648" y="878" width="260" height="130"
+    fill="#1E40AF" fill-opacity="0.05" stroke="#1E40AF" stroke-width="1"/>
+  <rect x="926" y="878" width="400" height="130"
+    fill="none" stroke="#1E40AF" stroke-width="1.5"/>
+  <rect x="1344" y="878" width="220" height="130"
+    fill="#1E40AF" fill-opacity="0.06" stroke="#1E40AF" stroke-width="1"/>
+
+  <!-- 右下角儀表板光點 -->
+  <circle cx="1800" cy="940" r="10" fill="#F59E0B" opacity="0.85"/>
+  <circle cx="1800" cy="940" r="18" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.35"/>
+
+  <!-- ==================== 中央內容區（低干擾） ==================== -->
+  <!-- 內層虛線框 -->
+  <rect x="200" y="200" width="1520" height="680"
+    fill="none" stroke="#1E40AF" stroke-width="0.75" stroke-dasharray="12,8" opacity="0.12" rx="6"/>
+
+  <!-- 四角內部小裝飾 -->
+  <circle cx="200" cy="200" r="4" fill="#1E40AF" opacity="0.3"/>
+  <circle cx="1720" cy="200" r="4" fill="#1E40AF" opacity="0.3"/>
+  <circle cx="200" cy="880" r="4" fill="#1E40AF" opacity="0.3"/>
+  <circle cx="1720" cy="880" r="4" fill="#1E40AF" opacity="0.3"/>
+
+  <!-- ==================== 即時儀表板光點裝飾 ==================== -->
+  <!-- 脈動光點暗示 -->
+  <circle cx="460" cy="310" r="3" fill="#3B82F6" opacity="0.6"/>
+  <circle cx="1460" cy="310" r="3" fill="#3B82F6" opacity="0.6"/>
+  <circle cx="460" cy="770" r="3" fill="#3B82F6" opacity="0.6"/>
+  <circle cx="1460" cy="770" r="3" fill="#3B82F6" opacity="0.6"/>
+
+  <!-- 連線暗示 -->
+  <line x1="460" y1="310" x2="600" y2="310" stroke="#3B82F6" stroke-width="0.5" opacity="0.3" stroke-dasharray="3,6"/>
+  <line x1="1320" y1="310" x2="1460" y2="310" stroke="#3B82F6" stroke-width="0.5" opacity="0.3" stroke-dasharray="3,6"/>
+  <line x1="460" y1="770" x2="600" y2="770" stroke="#3B82F6" stroke-width="0.5" opacity="0.3" stroke-dasharray="3,6"/>
+  <line x1="1320" y1="770" x2="1460" y2="770" stroke="#3B82F6" stroke-width="0.5" opacity="0.3" stroke-dasharray="3,6"/>
+</svg>
