@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <title>幾何雙線框 - 工作報告邊框</title>
+  <desc>應用2026觸覺野獸主義趨勢，1px實線邊框+幾何圖案組合，適合工作報告</desc>
+  
+  <defs>
+    <!-- 熊熊溫暖棕金配色 -->
+    <linearGradient id="warmGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="50%" stop-color="#C49A6C"/>
+      <stop offset="100%" stop-color="#A67C52"/>
+    </linearGradient>
+    <linearGradient id="warmBrown" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="100%" stop-color="#5D4417"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 外層粗空心六邊形（2.5D效果） -->
+  <g transform="translate(960,540)">
+    <!-- 大六邊形外框 - 觸覺野獸主義 1px實線 -->
+    <path d="M0,-480 L415.7,-240 L415.7,240 L0,480 L-415.7,240 L-415.7,-240 Z" 
+          fill="none" stroke="#C49A6C" stroke-width="3"/>
+    <!-- 內六邊形 - 虛實對比 -->
+    <path d="M0,-420 L364.1,-210 L364.1,210 L0,420 L-364.1,210 L-364.1,-210 Z" 
+          fill="none" stroke="#D4A574" stroke-width="1.5" stroke-dasharray="8,4"/>
+    
+    <!-- 四角裝飾 - 六邊形叢集 -->
+    <!-- 左上 -->
+    <g transform="translate(-380,-230)">
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+            fill="#D4A574" opacity="0.8"/>
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" 
+            fill="none" stroke="#8B6914" stroke-width="1"/>
+    </g>
+    <!-- 右上 -->
+    <g transform="translate(380,-230)">
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+            fill="#D4A574" opacity="0.8"/>
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" 
+            fill="none" stroke="#8B6914" stroke-width="1"/>
+    </g>
+    <!-- 左下 -->
+    <g transform="translate(-380,230)">
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+            fill="#D4A574" opacity="0.8"/>
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" 
+            fill="none" stroke="#8B6914" stroke-width="1"/>
+    </g>
+    <!-- 右下 -->
+    <g transform="translate(380,230)">
+      <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z" 
+            fill="#D4A574" opacity="0.8"/>
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" 
+            fill="none" stroke="#8B6914" stroke-width="1"/>
+    </g>
+  </g>
+  
+  <!-- 透視線裝飾（#124透視線技巧） -->
+  <g opacity="0.3">
+    <line x1="960" y1="540" x2="200" y2="100" stroke="#C49A6C" stroke-width="1"/>
+    <line x1="960" y1="540" x2="1720" y2="100" stroke="#C49A6C" stroke-width="1"/>
+    <line x1="960" y1="540" x2="200" y2="980" stroke="#C49A6C" stroke-width="1"/>
+    <line x1="960" y1="540" x2="1720" y2="980" stroke="#C49A6C" stroke-width="1"/>
+  </g>
+</svg>

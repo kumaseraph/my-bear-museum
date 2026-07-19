@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <title>流程推進圖標 - 工作報告</title>
+  <desc>應用#121六邊形十形旋轉角度變化，階梯式前進視覺，熊熊溫暖配色</desc>
+  
+  <defs>
+    <linearGradient id="flowGold1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#C49A6C"/>
+    </linearGradient>
+    <linearGradient id="flowGold2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E8C39E"/>
+      <stop offset="100%" stop-color="#D4A574"/>
+    </linearGradient>
+  </defs>
+  
+  <g transform="translate(50,50)">
+    <!-- 第一層六邊形（底部） -->
+    <g transform="translate(-25,15)">
+      <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z" 
+            fill="url(#flowGold1)" opacity="0.5"/>
+    </g>
+    
+    <!-- 第二層六邊形（中部） -->
+    <g transform="translate(0,0)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" 
+            fill="url(#flowGold2)" opacity="0.7"/>
+    </g>
+    
+    <!-- 第三層六邊形（頂部） -->
+    <g transform="translate(25,-15)">
+      <path d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z" 
+            fill="url(#flowGold1)"/>
+      <!-- 頂部標記箭頭 -->
+      <g transform="translate(0,-28)">
+        <path d="M0,-8 L8,0 L3,0 L3,8 L-3,8 L-3,0 L-8,0 Z" 
+              fill="#8B6914"/>
+      </g>
+    </g>
+    
+    <!-- 連接線 -->
+    <line x1="-15" y1="8" x2="12" y2="-8" 
+          stroke="#8B6914" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <line x1="12" y1="-2" x2="22" y2="-10" 
+          stroke="#8B6914" stroke-width="1.5" stroke-dasharray="3,2"/>
+  </g>
+</svg>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <title>階梯平行四邊形邊框 - 工作報告</title>
+  <desc>應用#124階梯排列技巧，動態流程感邊框，適合工作報告流程頁面</desc>
+  
+  <defs>
+    <linearGradient id="stepPurple" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="stepTeal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4ECDC4"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <!-- 熊熊棕金 -->
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 左側階梯排列（#124階梯排列） -->
+  <g transform="translate(50,100)">
+    <polygon points="0,0 150,0 130,80 0,80" fill="url(#bearGold)" opacity="0.9"/>
+    <polygon points="170,100 320,100 300,180 170,180" fill="#C49A6C" opacity="0.8"/>
+    <polygon points="340,200 490,200 470,280 340,280" fill="#D4A574" opacity="0.7"/>
+    <polygon points="510,300 660,300 640,380 510,380" fill="#A67C52" opacity="0.6"/>
+  </g>
+  
+  <!-- 右側階梯排列（對稱） -->
+  <g transform="translate(1720,100)">
+    <polygon points="150,0 0,0 20,80 170,80" fill="url(#bearGold)" opacity="0.9"/>
+    <polygon points="130,100 0,100 20,180 150,180" fill="#C49A6C" opacity="0.8"/>
+    <polygon points="110,200 0,200 20,280 130,280" fill="#D4A574" opacity="0.7"/>
+    <polygon points="90,300 0,300 20,380 110,380" fill="#A67C52" opacity="0.6"/>
+  </g>
+  
+  <!-- 底部階梯 -->
+  <g transform="translate(100,900)">
+    <polygon points="0,0 300,0 320,60 0,60" fill="url(#bearGold)" opacity="0.9"/>
+    <polygon points="320,70 620,70 640,130 320,130" fill="#C49A6C" opacity="0.8"/>
+    <polygon points="640,140 940,140 960,200 640,200" fill="#D4A574" opacity="0.7"/>
+    <polygon points="960,210 1260,210 1280,270 960,270" fill="#A67C52" opacity="0.6"/>
+    <polygon points="1280,280 1580,280 1600,340 1280,340" fill="#8B6914" opacity="0.5"/>
+  </g>
+  
+  <!-- 頂部階梯 -->
+  <g transform="translate(100,20)">
+    <polygon points="0,60 300,60 280,0 0,0" fill="url(#bearGold)" opacity="0.9"/>
+    <polygon points="320,130 620,130 600,70 320,70" fill="#C49A6C" opacity="0.8"/>
+    <polygon points="640,200 940,200 920,140 640,140" fill="#D4A574" opacity="0.7"/>
+    <polygon points="960,270 1260,270 1240,210 960,210" fill="#A67C52" opacity="0.6"/>
+    <polygon points="1280,340 1580,340 1560,280 1280,280" fill="#8B6914" opacity="0.5"/>
+  </g>
+  
+  <!-- 連接線裝飾 -->
+  <g stroke="#D4A574" stroke-width="1" opacity="0.4">
+    <line x1="710" y1="180" x2="1210" y2="180"/>
+    <line x1="710" y1="900" x2="1210" y2="900"/>
+  </g>
+</svg>
