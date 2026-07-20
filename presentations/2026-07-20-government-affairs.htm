@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新北市政府 2026 年 7 月份市政成果報告</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    html { font-size: 20px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0F1629;
+      --bg-secondary: #1A2438;
+      --surface: rgba(15, 22, 41, 0.6);
+      --accent: #00BFA5;
+      --accent-light: #4DD0E1;
+      --accent-glow: rgba(0, 191, 165, 0.4);
+      --text: #E8F0F7;
+      --text-secondary: #B0BEC5;
+      --text-muted: #78909C;
+      --border: rgba(0, 191, 165, 0.2);
+      --border-strong: rgba(0, 191, 165, 0.5);
+      --font-display: clamp(2.5rem, 6vw, 4.5rem);
+      --font-h1: clamp(1.85rem, 3.5vw, 2.6rem);
+      --font-h2: clamp(1.35rem, 2vw, 1.75rem);
+      --font-h3: clamp(1.1rem, 1.5vw, 1.3rem);
+      --font-body: 1rem;
+      --font-caption: 0.9rem;
+      --lh-tight: 1.2;
+      --lh-normal: 1.6;
+      --gap: 24px;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Noto Serif TC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      line-height: var(--lh-normal);
+    }
+
+    .presentation {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: 100vh;
+      margin: 0 auto;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      padding: 56px 64px 80px 64px;
+      z-index: 1;
+    }
+    .slide.active { display: flex; }
+
+    /* ====== NAV ====== */
+    nav {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 10px 20px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      z-index: 100;
+    }
+    /* P3、P6 內容可能撐滿右側時，讓 nav 移到上方避開 */
+    nav button {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 50%;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    nav button:hover { background: rgba(255,255,255,0.1); }
+    nav span { font-size: 1rem; color: var(--text-secondary); min-width: 60px; text-align: center; }
+
+    /* ====== BACK LINK ====== */
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 32px;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      text-decoration: none;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: all 0.2s;
+    }
+    .back-link:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+    /* ====== GLOW ORBS ====== */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: orb-drift 14s ease-in-out infinite alternate;
+    }
+    .glow-orb-1 {
+      width: 460px; height: 460px;
+      background: rgba(0, 191, 165, 0.18);
+      top: -180px; left: -120px;
+    }
+    .glow-orb-2 {
+      width: 360px; height: 360px;
+      background: rgba(79, 195, 247, 0.12);
+      bottom: -120px; right: -80px;
+      animation-delay: -5s;
+    }
+    .glow-orb-3 {
+      width: 280px; height: 280px;
+      background: rgba(77, 208, 225, 0.1);
+      top: 40%; left: 60%;
+      animation-delay: -7s;
+    }
+    @keyframes orb-drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.18); }
+    }
+
+    /* ====== GRID OVERLAY ====== */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 191, 165, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 191, 165, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* ====== CARD ====== */
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+    .card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+
+    /* ====== SECTION TITLE ====== */
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+    .section-title {
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 720px;
+    }
+
+    /* ====== SLIDE 1: COVER ====== */
+    .s1-cover {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .s1-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0, 191, 165, 0.22) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(79, 195, 247, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 40% at 80% 70%, rgba(77, 208, 225, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 191, 165, 0.12);
+      border: 1px solid rgba(0, 191, 165, 0.35);
+      border-radius: 40px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 28px;
+      letter-spacing: 0.15em;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-badge svg { width: 16px; height: 16px; }
+    .cover-title {
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      line-height: 1.15;
+    }
+    .cover-subtitle {
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+      font-weight: 400;
+    }
+    .cover-meta {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .cover-meta-item svg { width: 18px; height: 18px; color: var(--accent); }
+    .cover-divider {
+      width: 60px; height: 1px;
+      background: var(--accent);
+      margin: 32px auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ====== SLIDE 2: TOC ====== */
+    .s2-toc {
+      flex-direction: column;
+      padding-top: 40px;
+    }
+    .toc-header {
+      margin-bottom: 36px;
+    }
+    .toc-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .toc-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .toc-card-num {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .toc-card-label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .toc-card-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .toc-card-icon {
+      position: absolute;
+      top: 20px; right: 20px;
+      width: 36px; height: 36px;
+      color: var(--accent);
+      opacity: 0.6;
+    }
+
+    /* ====== SLIDE 3: KPI 數字（特殊放射） ====== */
+    .s3-kpi {
+      flex-direction: column;
+    }
+    .kpi-header {
+      margin-bottom: 32px;
+    }
+    .kpi-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      align-content: center;
+    }
+    .kpi-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      padding: 32px 20px;
+      position: relative;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 60%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .kpi-card-icon {
+      width: 56px; height: 56px;
+      background: rgba(0, 191, 165, 0.12);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+    .kpi-card-icon svg { width: 28px; height: 28px; }
+    .kpi-card-value {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .kpi-card-unit {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-left: 4px;
+    }
+    .kpi-card-label {
+      font-size: 1.05rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .kpi-card-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ====== SLIDE 4: 交通建設時間軸 ====== */
+    .s4-timeline {
+      flex-direction: column;
+    }
+    .timeline-header { margin-bottom: 40px; }
+    .timeline-track {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+      position: relative;
+    }
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      background: linear-gradient(180deg, transparent, var(--accent) 10%, var(--accent) 90%, transparent);
+    }
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      position: relative;
+    }
+    .timeline-dot {
+      flex: 0 0 56px;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      box-shadow: 0 0 16px var(--accent-glow);
+      z-index: 1;
+    }
+    .timeline-content {
+      flex: 1;
+      padding: 16px 20px;
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    .timeline-content:hover { border-color: var(--border-strong); }
+    .timeline-year {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .timeline-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .timeline-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .timeline-stat {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 12px;
+      background: rgba(0, 191, 165, 0.12);
+      border-radius: 12px;
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ====== SLIDE 5: 環境保護（蜂巢六邊形） ====== */
+    .s5-hex {
+      flex-direction: column;
+    }
+    .hex-header { margin-bottom: 36px; }
+    
+    .hex-grid {
+      flex: 1 1 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 22px 16px;
+      align-content: stretch;
+      padding: 12px 0;
+      min-height: 280px;
+    }
+    .hex-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 12px;
+      position: relative;
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    .hex-cell:hover { border-color: var(--border-strong); }
+    .hex-cell-inner {
+      width: 92%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+    }
+    .hex-icon {
+      width: 40px; height: 40px;
+      background: rgba(0, 191, 165, 0.18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .hex-icon svg { width: 22px; height: 22px; }
+    .hex-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .hex-stat {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 3px;
+    }
+    .hex-unit {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .hex-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+
+    /* ====== SLIDE 6: 社福福利數據儀表板 ====== */
+    .s6-dashboard {
+      flex-direction: column;
+    }
+    .dash-header { margin-bottom: 32px; }
+    .dash-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .dash-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 22px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .dash-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle, rgba(0, 191, 165, 0.12), transparent 70%);
+      border-radius: 50%;
+    }
+    .dash-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }
+    .dash-value {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .dash-unit {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .dash-bar {
+      margin-top: 8px;
+      height: 4px;
+      background: rgba(0, 191, 165, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+    .dash-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 2px;
+    }
+    .dash-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-top: 4px;
+    }
+    .dash-change {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .dash-change svg { width: 12px; height: 12px; }
+
+    /* ====== SLIDE 7: 教育文化階段 ====== */
+    .s7-education {
+      flex-direction: column;
+    }
+    .edu-header { margin-bottom: 32px; }
+    .edu-flow {
+      flex: 1;
+      display: flex;
+      gap: 0;
+      align-items: center;
+      padding: 20px 0;
+      position: relative;
+    }
+    .edu-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px 16px;
+      position: relative;
+    }
+    .edu-stage-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: rgba(0, 191, 165, 0.18);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      box-shadow: 0 0 24px var(--accent-glow);
+      position: relative;
+      z-index: 1;
+    }
+    .edu-stage-icon svg { width: 32px; height: 32px; }
+    .edu-stage-num {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+    }
+    .edu-stage-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .edu-stage-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      text-align: center;
+    }
+    .edu-stage-stat {
+      display: inline-block;
+      padding: 4px 14px;
+      background: rgba(0, 191, 165, 0.12);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .edu-connector {
+      flex: 0 0 32px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 0 -8px;
+      position: relative;
+    }
+    .edu-connector::after {
+      content: '→';
+      position: absolute;
+      right: -4px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent);
+      font-size: 1.4rem;
+    }
+
+    /* ====== SLIDE 8: 經濟發展四象限 ====== */
+    .s8-quadrant {
+      flex-direction: column;
+    }
+    .quad-header { margin-bottom: 32px; }
+    .quad-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      grid-template-rows: 1fr 32px 1fr;
+      gap: 0;
+      align-items: stretch;
+    }
+    .quad-y-axis {
+      grid-row: 1 / 4;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 12px 20px 0;
+      text-align: right;
+    }
+    .quad-y-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      letter-spacing: 0.1em;
+    }
+    .quad-y-stem {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 12px;
+      position: relative;
+    }
+    .quad-y-stem::before {
+      content: '';
+      position: absolute;
+      right: 6px; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, var(--accent), transparent);
+    }
+    .quad-y-mark {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+    .quad-area {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 14px;
+      grid-row: 1 / 4;
+    }
+    .quad-cell {
+      position: relative;
+      padding: 18px 22px;
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.3s ease;
+    }
+    .quad-cell:hover { border-color: var(--border-strong); transform: scale(1.02); }
+    .quad-cell-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-start;
+      padding: 4px 10px;
+      background: rgba(0, 191, 165, 0.18);
+      border-radius: 12px;
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .quad-cell-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .quad-cell-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+    .quad-cell-stat {
+      margin-top: auto;
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+    .quad-cell-stat b {
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .quad-x-axis {
+      grid-column: 2;
+      grid-row: 3;
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px 0 12px;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }
+    .quad-x-label {
+      display: inline-block;
+    }
+    .quad-x-divider {
+      grid-column: 2;
+      grid-row: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      border-top: 1px dashed var(--border);
+    }
+
+    /* ====== SLIDE 9: 市民滿意度雙圓 ====== */
+    .s9-satisfaction {
+      flex-direction: column;
+    }
+    .sat-header { margin-bottom: 36px; }
+    .sat-row {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: center;
+      padding: 20px 0;
+    }
+    .sat-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .sat-ring {
+      width: 200px; height: 200px;
+      position: relative;
+    }
+    .sat-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .sat-ring-bg {
+      fill: none;
+      stroke: rgba(0, 191, 165, 0.1);
+      stroke-width: 14;
+    }
+    .sat-ring-fg {
+      fill: none;
+      stroke: url(#satGradient);
+      stroke-width: 14;
+      stroke-linecap: round;
+    }
+    .sat-ring-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .sat-ring-value {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .sat-ring-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+    .sat-card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .sat-card-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ====== SLIDE 10: 結尾願景 ====== */
+    .s10-end {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .s10-end::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0, 191, 165, 0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 30% 70%, rgba(77, 208, 225, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .end-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 191, 165, 0.12);
+      border: 1px solid rgba(0, 191, 165, 0.35);
+      border-radius: 40px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 28px;
+      letter-spacing: 0.2em;
+      position: relative;
+      z-index: 1;
+    }
+    .end-icon {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      background: rgba(0, 191, 165, 0.15);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin-bottom: 32px;
+      box-shadow: 0 0 32px var(--accent-glow);
+      position: relative;
+      z-index: 1;
+    }
+    .end-icon svg { width: 48px; height: 48px; }
+    .end-title {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .end-subtitle {
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+      color: var(--text-secondary);
+      margin-bottom: 44px;
+      max-width: 720px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+    .end-timeline {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .end-timeline-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .end-timeline-dot {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+    }
+    .end-timeline-dot.large {
+      width: 24px; height: 24px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+    .end-timeline-line {
+      width: 56px; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+    .end-timeline-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .end-thanks {
+      margin-top: 56px;
+      font-size: 1rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide s1-cover active" id="slide1">
+    <div class="grid-overlay"></div>
+    <div class="cover-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M14 9h.01M14 13h.01M14 17h.01"/>
+      </svg>
+      2026 年 7 月份市政成果報告
+    </div>
+    <h1 class="cover-title">新北市政府</h1>
+    <h1 class="cover-subtitle" style="margin-top: -8px; font-weight: 500; letter-spacing: 0.02em;">智慧治理・便民服務・永續城市</h1>
+    <p class="cover-subtitle">7 月份施政亮點、建設進度、福利成果彙報</p>
+    <div class="cover-divider"></div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        報告日期：2026 / 07 / 20
+      </div>
+      <div class="cover-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        新北市府・秘書處
+      </div>
+      <div class="cover-meta-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        第 29 週週報
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: TOC -->
+  <div class="slide s2-toc" id="slide2">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="toc-header">
+      <div class="section-eyebrow">CONTENTS</div>
+      <h2 class="section-title">本次報告綱要</h2>
+      <p class="section-desc">從智慧治理到市民福祉，本週報呈現新北市政府 7 月份重點施政成果</p>
+    </div>
+    <div class="toc-grid">
+      <div class="card toc-card">
+        <svg class="toc-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        <div class="toc-card-num">01</div>
+        <div class="toc-card-label">智慧治理 KPI</div>
+        <div class="toc-card-desc">數位服務整合與市民滿意度指標</div>
+      </div>
+      <div class="card toc-card">
+        <svg class="toc-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <div class="toc-card-num">02</div>
+        <div class="toc-card-label">交通建設里程</div>
+        <div class="toc-card-desc">捷運路網與道路擴建進度報告</div>
+      </div>
+      <div class="card toc-card">
+        <svg class="toc-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+          <line x1="12" y1="22" x2="12" y2="15.5"/>
+          <polyline points="22 8.5 12 15.5 2 8.5"/>
+        </svg>
+        <div class="toc-card-num">03</div>
+        <div class="toc-card-label">環境保護行動</div>
+        <div class="toc-card-desc">六大永續領域指標與實績</div>
+      </div>
+      <div class="card toc-card">
+        <svg class="toc-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <div class="toc-card-num">04</div>
+        <div class="toc-card-label">社福福利成果</div>
+        <div class="toc-card-desc">托育、長照、敬老與補助發放</div>
+      </div>
+      <div class="card toc-card">
+        <svg class="toc-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+        <div class="toc-card-num">05</div>
+        <div class="toc-card-label">教育文化推動</div>
+        <div class="toc-card-desc">校園更新、文化展演與閱讀推廣</div>
+      </div>
+      <div class="card toc-card">
+        <svg class="toc-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="20" x2="12" y2="10"/>
+          <line x1="18" y1="20" x2="18" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="16"/>
+          <line x1="3" y1="20" x2="21" y2="20"/>
+        </svg>
+        <div class="toc-card-num">06</div>
+        <div class="toc-card-label">經濟與滿意度</div>
+        <div class="toc-card-desc">產業發展與市民施政滿意度</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: KPI 數字 -->
+  <div class="slide s3-kpi" id="slide3">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="kpi-header">
+      <div class="section-eyebrow">01 ・ SMART GOVERNANCE</div>
+      <h2 class="section-title">智慧治理關鍵指標</h2>
+      <p class="section-desc">本月數位服務、跨局處協作與市民申辦效率四大關鍵指標</p>
+    </div>
+    <div class="kpi-grid">
+      <div class="card kpi-card">
+        <div class="kpi-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <div class="kpi-card-value">186<span class="kpi-card-unit">萬件</span></div>
+        <div class="kpi-card-label">數位申辦總量</div>
+        <div class="kpi-card-desc">市民卡 + 跨機關整合平台累計服務件數</div>
+      </div>
+      <div class="card kpi-card">
+        <div class="kpi-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="kpi-card-value">3.2<span class="kpi-card-unit">分鐘</span></div>
+        <div class="kpi-card-label">平均申辦時間</div>
+        <div class="kpi-card-desc">較去年同期縮短 47%，流程自動化奏效</div>
+      </div>
+      <div class="card kpi-card">
+        <div class="kpi-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <div class="kpi-card-value">94.6<span class="kpi-card-unit">%</span></div>
+        <div class="kpi-card-label">一次解決率</div>
+        <div class="kpi-card-desc">單一窗口整合服務免重複補件達成率</div>
+      </div>
+      <div class="card kpi-card">
+        <div class="kpi-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <polyline points="2 17 12 22 22 17"/>
+            <polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        <div class="kpi-card-value">+28<span class="kpi-card-unit">項</span></div>
+        <div class="kpi-card-label">AI 試辦服務</div>
+        <div class="kpi-card-desc">智能客服 / 自動審核 / 預警模型三大應用</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: 交通建設時間軸 -->
+  <div class="slide s4-timeline" id="slide4">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="timeline-header">
+      <div class="section-eyebrow">02 ・ TRANSPORTATION</div>
+      <h2 class="section-title">交通建設里程碑</h2>
+      <p class="section-desc">新北捷運路網擴張與道路瓶頸改善四大關鍵進度</p>
+    </div>
+    <div class="timeline-track">
+      <div class="timeline-item">
+        <div class="timeline-dot">Q1</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2026 Q1</div>
+          <div class="timeline-title">汐東線主體工程動工</div>
+          <div class="timeline-desc">串接基隆、汐止與台北東區的關鍵路線，全長 11.95 公里，預計 2031 年通車。</div>
+          <span class="timeline-stat"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#00BFA5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="20 6 9 17 4 12"/></svg> 進度 18%</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">Q2</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2026 Q2</div>
+          <div class="timeline-title">淡海輕軌第二期通車</div>
+          <div class="timeline-desc">新增 6 座車站、3 公里路線，造福淡海新市鎮通勤族，每月運量提升至 48 萬人次。</div>
+          <span class="timeline-stat"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#00BFA5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="20 6 9 17 4 12"/></svg> 已通車營運</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">Q3</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2026 Q3</div>
+          <div class="timeline-title">安坑一號道路瓶頸改善</div>
+          <div class="timeline-desc">拓寬雙向 4 車道、新增人行天橋，預估尖峰時段旅行時間縮短 22 分鐘。</div>
+          <span class="timeline-stat"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#00BFA5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> 施工中 / 預計 9 月完工</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">Q4</div>
+        <div class="timeline-content">
+          <div class="timeline-year">2026 Q4</div>
+          <div class="timeline-title">三鶯線延伸至桃園八德</div>
+          <div class="timeline-desc">跨縣市合作示範路線，全長 2.6 公里、2 座車站，串聯雙北桃園生活圈。</div>
+          <span class="timeline-stat"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#00BFA5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><rect x="2" y="8" width="20" height="8" rx="2"/><line x1="6" y1="16" x2="6" y2="20"/><line x1="18" y1="16" x2="18" y2="20"/><line x1="6" y1="12" x2="18" y2="12"/></svg> 綜合規劃核定中</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: 環境保護蜂巢 -->
+  <div class="slide s5-hex" id="slide5">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="hex-header">
+      <div class="section-eyebrow">03 ・ SUSTAINABILITY</div>
+      <h2 class="section-title">六大永續行動</h2>
+      <p class="section-desc">從空污到海岸，全面打造宜居永續城市</p>
+    </div>
+    <div class="hex-grid">
+        <div class="hex-cell">
+          <div class="hex-cell-inner">
+            <div class="hex-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22h20"/><path d="M6 18c0-3 2-5 6-7 4 2 6 4 6 7"/><path d="M9 11V6a3 3 0 1 1 6 0v5"/></svg></div>
+            <div class="hex-title">空氣品質</div>
+            <div class="hex-stat">-32%<span class="hex-unit">較去年同期</span></div>
+            <div class="hex-desc">PM2.5 年均下降</div>
+          </div>
+        </div>
+        <div class="hex-cell">
+          <div class="hex-cell-inner">
+            <div class="hex-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6"/><path d="M5 12h14"/><path d="M3 12c0 5 4 9 9 9s9-4 9-9"/></svg></div>
+            <div class="hex-title">節能減碳</div>
+            <div class="hex-stat">48.6萬噸<span class="hex-unit">今年累計</span></div>
+            <div class="hex-desc">減碳量</div>
+          </div>
+        </div>
+        <div class="hex-cell">
+          <div class="hex-cell-inner">
+            <div class="hex-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"/><circle cx="12" cy="9" r="2"/></svg></div>
+            <div class="hex-title">污水處理</div>
+            <div class="hex-stat">96.4%<span class="hex-unit">處理率</span></div>
+            <div class="hex-desc">41 個行政區</div>
+          </div>
+        </div>
+        <div class="hex-cell">
+          <div class="hex-cell-inner">
+            <div class="hex-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5.5A2.5 2.5 0 1 0 13.5 8"/><path d="M12 22v-9"/><path d="M9 18h6"/><path d="M3 12c0-3 2-5 5-5"/><path d="M21 12c0-3-2-5-5-5"/></svg></div>
+            <div class="hex-title">資源回收</div>
+            <div class="hex-stat">68.2%<span class="hex-unit">回收率</span></div>
+            <div class="hex-desc">全國領先</div>
+          </div>
+        </div>
+        <div class="hex-cell">
+          <div class="hex-cell-inner">
+            <div class="hex-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18s2-2 5-2 5 2 8 2 5-2 5-2"/><path d="M3 12s2-2 5-2 5 2 8 2 5-2 5-2"/><path d="M3 6s2-2 5-2 5 2 8 2 5-2 5-2"/></svg></div>
+            <div class="hex-title">海岸保育</div>
+            <div class="hex-stat">+12公里<span class="hex-unit">親水空間</span></div>
+            <div class="hex-desc">今年新增</div>
+          </div>
+        </div>
+        <div class="hex-cell">
+          <div class="hex-cell-inner">
+            <div class="hex-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <div class="hex-title">綠覆率</div>
+            <div class="hex-stat">56.8%<span class="hex-unit">全市綠地</span></div>
+            <div class="hex-desc">山林+都市</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLIDE 6: 社福福利儀表板 -->
+  <div class="slide s6-dashboard" id="slide6">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="dash-header">
+      <div class="section-eyebrow">04 ・ SOCIAL WELFARE</div>
+      <h2 class="section-title">社福福利數據儀表板</h2>
+      <p class="section-desc">托育、長照、敬老、急難、補助六大社福面向本月執行實績</p>
+    </div>
+    <div class="dash-grid">
+      <div class="card dash-card">
+        <div class="dash-label">公共托育中心</div>
+        <div class="dash-value">128<span class="dash-unit">家</span></div>
+        <div class="dash-bar"><div class="dash-bar-fill" style="width: 78%"></div></div>
+        <div class="dash-desc">全市佈建率達 78%</div>
+        <div class="dash-change">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          較去年 +18 家
+        </div>
+      </div>
+      <div class="card dash-card">
+        <div class="dash-label">長照服務對象</div>
+        <div class="dash-value">8.6<span class="dash-unit">萬人</span></div>
+        <div class="dash-bar"><div class="dash-bar-fill" style="width: 92%"></div></div>
+        <div class="dash-desc">涵蓋率 92%，服務全國第一</div>
+        <div class="dash-change">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          較去年同期 +9.4%
+        </div>
+      </div>
+      <div class="card dash-card">
+        <div class="dash-label">敬老愛心卡使用</div>
+        <div class="dash-value">2.4<span class="dash-unit">億次</span></div>
+        <div class="dash-bar"><div class="dash-bar-fill" style="width: 86%"></div></div>
+        <div class="dash-desc">每月平均 320 萬次補助點數扣抵</div>
+        <div class="dash-change">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          較去年 +28%
+        </div>
+      </div>
+      <div class="card dash-card">
+        <div class="dash-label">育兒津貼發放</div>
+        <div class="dash-value">42.8<span class="dash-unit">億元</span></div>
+        <div class="dash-bar"><div class="dash-bar-fill" style="width: 84%"></div></div>
+        <div class="dash-desc">今年累計發放，涵蓋 18.6 萬兒童</div>
+        <div class="dash-change">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          覆蓋率 +11.2%
+        </div>
+      </div>
+      <div class="card dash-card">
+        <div class="dash-label">急難救助件數</div>
+        <div class="dash-value">3,860<span class="dash-unit">件</span></div>
+        <div class="dash-bar"><div class="dash-bar-fill" style="width: 62%"></div></div>
+        <div class="dash-desc">48 小時內審核撥款達成率 98%</div>
+        <div class="dash-change">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          效率 +35%
+        </div>
+      </div>
+      <div class="card dash-card">
+        <div class="dash-label">社會住宅入住</div>
+        <div class="dash-value">9,420<span class="dash-unit">戶</span></div>
+        <div class="dash-bar"><div class="dash-bar-fill" style="width: 74%"></div></div>
+        <div class="dash-desc">租金低於市場行情 30%</div>
+        <div class="dash-change">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+            <polyline points="17 6 23 6 23 12"/>
+          </svg>
+          今年新增 1,860 戶
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: 教育文化四階段 -->
+  <div class="slide s7-education" id="slide7">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="edu-header">
+      <div class="section-eyebrow">05 ・ EDUCATION & CULTURE</div>
+      <h2 class="section-title">教育文化四階段推動</h2>
+      <p class="section-desc">從校園更新到閱讀扎根，全方位深耕新北教育文化根基</p>
+    </div>
+    <div class="edu-flow">
+      <div class="edu-stage">
+        <div class="edu-stage-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="edu-stage-num">STEP 01</div>
+        <div class="edu-stage-title">校園更新</div>
+        <div class="edu-stage-stage-stat"></div>
+        <div class="edu-stage-desc">老舊校舍耐震補強與智慧教室建置</div>
+        <span class="edu-stage-stat">42 校完成</span>
+      </div>
+      <div class="edu-connector"></div>
+      <div class="edu-stage">
+        <div class="edu-stage-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div class="edu-stage-num">STEP 02</div>
+        <div class="edu-stage-title">閱讀扎根</div>
+        <div class="edu-stage-desc">圖書館升級與校園閱讀推廣計畫</div>
+        <span class="edu-stage-stat">86 萬冊</span>
+      </div>
+      <div class="edu-connector"></div>
+      <div class="edu-stage">
+        <div class="edu-stage-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="10 8 16 12 10 16 10 8"/>
+          </svg>
+        </div>
+        <div class="edu-stage-num">STEP 03</div>
+        <div class="edu-stage-title">藝文展演</div>
+        <div class="edu-stage-desc">藝文場館票券補助與青年創作培育</div>
+        <span class="edu-stage-stat">158 場</span>
+      </div>
+      <div class="edu-connector"></div>
+      <div class="edu-stage">
+        <div class="edu-stage-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L4 6v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V6l-8-4z"/>
+            <path d="M12 11l-3 3 3 3 3-3"/>
+          </svg>
+        </div>
+        <div class="edu-stage-num">STEP 04</div>
+        <div class="edu-stage-title">終身學習</div>
+        <div class="edu-stage-desc">社區大學、樂齡學習中心擴點</div>
+        <span class="edu-stage-stat">+24 處</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: 經濟發展四象限 -->
+  <div class="slide s8-quadrant" id="slide8">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="quad-header">
+      <div class="section-eyebrow">06 ・ ECONOMIC DEVELOPMENT</div>
+      <h2 class="section-title">產業發展四象限</h2>
+      <p class="section-desc">依「產業規模 × 創新動能」雙軸分析本市重點產業布局</p>
+    </div>
+    <div class="quad-layout">
+      <div class="quad-y-axis">
+        <div class="quad-y-label">產業規模 ↑</div>
+        <div class="quad-y-stem">
+          <span class="quad-y-mark">大</span>
+          <span class="quad-y-mark">中</span>
+          <span class="quad-y-mark">小</span>
+        </div>
+      </div>
+      <div class="quad-area">
+        <div class="quad-cell">
+          <span class="quad-cell-tag">領頭羊</span>
+          <div class="quad-cell-title">智慧製造</div>
+          <div class="quad-cell-desc">半導體、精密機械、AI 自動化產線</div>
+          <div class="quad-cell-stat">產值 <b>1.2 兆</b> ・ 年增 8.4%</div>
+        </div>
+        <div class="quad-cell">
+          <span class="quad-cell-tag">亮點型</span>
+          <div class="quad-cell-title">數位內容</div>
+          <div class="quad-cell-desc">遊戲、動畫、串流媒體、IP 授權</div>
+          <div class="quad-cell-stat">產值 <b>860 億</b> ・ 年增 14.6%</div>
+        </div>
+        <div class="quad-cell">
+          <span class="quad-cell-tag">基盤型</span>
+          <div class="quad-cell-title">民生服務</div>
+          <div class="quad-cell-desc">零售、餐飲、長照、健康照護</div>
+          <div class="quad-cell-stat">就業 <b>32 萬</b> ・ 穩定成長</div>
+        </div>
+        <div class="quad-cell">
+          <span class="quad-cell-tag">新芽型</span>
+          <div class="quad-cell-title">綠能永續</div>
+          <div class="quad-cell-desc">太陽光電、儲能、循環經濟新創</div>
+          <div class="quad-cell-stat">投資 <b>186 億</b> ・ 年增 38%</div>
+        </div>
+      </div>
+      <div class="quad-x-divider">創新動能</div>
+      <div class="quad-x-axis">
+        <span class="quad-x-label">← 傳統 / 穩定</span>
+        <span class="quad-x-label">新興 / 突破 →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: 市民滿意度雙圓 -->
+  <div class="slide s9-satisfaction" id="slide9">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="sat-header">
+      <div class="section-eyebrow">07 ・ SATISFACTION SURVEY</div>
+      <h2 class="section-title">市民施政滿意度</h2>
+      <p class="section-desc">2026 年第二季市民滿意度調查，整體施政滿意度突破歷史新高</p>
+    </div>
+    <div class="sat-row">
+      <div class="card sat-card">
+        <div class="sat-ring">
+          <svg viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="satGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00BFA5"/>
+                <stop offset="100%" stop-color="#4DD0E1"/>
+              </linearGradient>
+            </defs>
+            <circle class="sat-ring-bg" cx="50" cy="50" r="42"/>
+            <circle class="sat-ring-fg" cx="50" cy="50" r="42"
+              stroke-dasharray="263.89" stroke-dashoffset="13.19"/>
+          </svg>
+          <div class="sat-ring-text">
+            <div class="sat-ring-value">89.6</div>
+            <div class="sat-ring-label">% 滿意</div>
+          </div>
+        </div>
+        <div class="sat-card-title">整體施政滿意度</div>
+        <div class="sat-card-desc">較去年同期 +6.4 個百分點，創下 2022 年以來新高</div>
+      </div>
+      <div class="card sat-card">
+        <div class="sat-ring">
+          <svg viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="satGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00BFA5"/>
+                <stop offset="100%" stop-color="#4DD0E1"/>
+              </linearGradient>
+            </defs>
+            <circle class="sat-ring-bg" cx="50" cy="50" r="42"/>
+            <circle class="sat-ring-fg" cx="50" cy="50" r="42"
+              stroke-dasharray="263.89" stroke-dashoffset="39.58"/>
+          </svg>
+          <div class="sat-ring-text">
+            <div class="sat-ring-value">85.0</div>
+            <div class="sat-ring-label">% 信任</div>
+          </div>
+        </div>
+        <div class="sat-card-title">市府團隊信任度</div>
+        <div class="sat-card-desc">逾九成市民肯定市府團隊專業與清廉表現</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: 結尾願景 -->
+  <div class="slide s10-end" id="slide10">
+    <div class="grid-overlay"></div>
+    <a href="/slides.htm" class="back-link">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      回列表
+    </a>
+    <div class="end-badge">VISION 2027</div>
+    <div class="end-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      </svg>
+    </div>
+    <h2 class="end-title">共創新北好生活</h2>
+    <p class="end-subtitle">以人為本、科技為用、環保為根，打造宜居永續的都會典範</p>
+    <div class="end-timeline">
+      <div class="end-timeline-item">
+        <div class="end-timeline-dot"></div>
+        <div class="end-timeline-label">Q3 願景</div>
+      </div>
+      <div class="end-timeline-item">
+        <div class="end-timeline-line"></div>
+        <div class="end-timeline-dot"></div>
+        <div class="end-timeline-label">Q4 衝刺</div>
+      </div>
+      <div class="end-timeline-item">
+        <div class="end-timeline-line"></div>
+        <div class="end-timeline-dot large"></div>
+        <div class="end-timeline-label">2027 達標</div>
+      </div>
+    </div>
+    <div class="end-thanks">— 報告完畢 ・ 敬請指教 —</div>
+  </div>
+
+</div>
+
+<!-- NAV -->
+<nav>
+  <button onclick="prev()" aria-label="上一頁">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+  </button>
+  <span id="pageNum">1 / 10</span>
+  <button onclick="next()" aria-label="下一頁">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+  </button>
+</nav>
+
+<script>
+var current = 0;
+var slides = document.querySelectorAll('.slide');
+var total = slides.length;
+
+function show(n) {
+  slides.forEach(function(s){ s.classList.remove('active'); });
+  slides[n].classList.add('active');
+  document.getElementById('pageNum').textContent = (n+1) + ' / ' + total;
+}
+
+function next() {
+  current = (current + 1) % total;
+  show(current);
+}
+
+function prev() {
+  current = (current - 1 + total) % total;
+  show(current);
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  if(e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+});
+
+var touchStartX = 0;
+document.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', function(e){
+  var dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50) { dx > 0 ? prev() : next(); }
+});
+</script>
+</body>
+</html>
