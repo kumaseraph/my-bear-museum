@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 科技學術前瞻 2026｜熊熊簡報</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    html { font-size: 20px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0B0820;
+      --bg-secondary: #1A0F38;
+      --surface: rgba(20, 12, 48, 0.65);
+      --accent: #B388FF;
+      --accent-light: #E1BEE7;
+      --accent-glow: rgba(179, 136, 255, 0.45);
+      --gold: #FFD180;
+      --teal: #80DEEA;
+      --text: #F3E5F5;
+      --text-secondary: #CE93D8;
+      --text-muted: #9575CD;
+      --border: rgba(179, 136, 255, 0.25);
+      --border-strong: rgba(179, 136, 255, 0.55);
+      --font-display: clamp(2.5rem, 6vw, 4.5rem);
+      --font-h1: clamp(1.85rem, 3.5vw, 2.6rem);
+      --font-h2: clamp(1.35rem, 2vw, 1.75rem);
+      --font-h3: clamp(1.1rem, 1.5vw, 1.3rem);
+      --font-body: 1rem;
+      --font-caption: 1rem;
+      --lh-tight: 1.2;
+      --lh-normal: 1.6;
+      --gap: 24px;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', 'Noto Serif TC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      line-height: var(--lh-normal);
+    }
+
+    .presentation {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: 100vh;
+      margin: 0 auto;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      padding: 56px 64px 80px 64px;
+      z-index: 1;
+    }
+    .slide.active { display: flex; }
+
+    nav {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 10px 20px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      z-index: 100;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 50%;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    nav button:hover { background: rgba(255,255,255,0.1); }
+    nav span { font-size: 1rem; color: var(--text-secondary); min-width: 60px; text-align: center; }
+
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 32px;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      text-decoration: none;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: all 0.2s;
+    }
+    .back-link:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 380px; height: 380px; background: var(--accent-glow); top: -100px; left: -120px; opacity: 0.6; }
+    .orb-2 { width: 300px; height: 300px; background: rgba(128, 222, 234, 0.35); bottom: -80px; right: -80px; opacity: 0.5; }
+    .orb-3 { width: 240px; height: 240px; background: rgba(255, 209, 128, 0.25); top: 40%; left: 60%; opacity: 0.4; }
+
+    /* Slide-specific decoration (no display:flex!) */
+    .s1-cover { background: linear-gradient(135deg, #0B0820 0%, #1A0F38 50%, #2A1656 100%); }
+    .s2-toc { background: linear-gradient(180deg, #0B0820 0%, #150D32 100%); }
+    .s3-kpi { background: linear-gradient(180deg, #0B0820 0%, #1F1240 100%); }
+    .s4-timeline { background: linear-gradient(180deg, #110A28 0%, #1A0F38 100%); }
+    .s5-hex { background: linear-gradient(180deg, #0B0820 0%, #221250 100%); }
+    .s6-stats { background: linear-gradient(180deg, #150D32 0%, #0B0820 100%); }
+    .s7-flow { background: linear-gradient(180deg, #0B0820 0%, #1A0F38 100%); }
+    .s8-quadrant { background: linear-gradient(180deg, #1A0F38 0%, #0B0820 100%); }
+    .s9-text { background: linear-gradient(180deg, #0B0820 0%, #2A1656 100%); }
+    .s10-end { background: linear-gradient(180deg, #1A0F38 0%, #0B0820 100%); }
+
+    /* ============== COVER (P1) ============== */
+    .cover-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+      position: relative;
+      z-index: 2;
+    }
+    .cover-eyebrow {
+      font-size: 1rem;
+      letter-spacing: 0.4em;
+      color: var(--accent-light);
+      padding: 8px 24px;
+      border: 1px solid var(--border-strong);
+      border-radius: 24px;
+      background: var(--surface);
+      backdrop-filter: blur(8px);
+    }
+    .cover-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: var(--font-display);
+      font-weight: 700;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #FFFFFF 0%, var(--accent-light) 50%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.01em;
+      max-width: 1000px;
+    }
+    .cover-subtitle {
+      font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+      color: var(--text-secondary);
+      max-width: 700px;
+    }
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cover-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+    .cover-meta-item svg { width: 20px; height: 20px; }
+
+    /* ============== TOC (P2) ============== */
+    .toc-header { margin-bottom: 32px; }
+    .toc-eyebrow {
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .toc-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: var(--font-h1);
+      font-weight: 700;
+      color: var(--text);
+    }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 18px;
+      flex: 1;
+      align-content: center;
+    }
+    .toc-card {
+      position: relative;
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .toc-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent, var(--accent-glow));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+    .toc-num {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .toc-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .toc-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ============== KPI (P3) ============== */
+    .section-eyebrow {
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: var(--font-h1);
+      font-weight: 700;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .section-title .accent { color: var(--accent); }
+
+    .kpi-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      align-content: center;
+    }
+    .kpi-card {
+      position: relative;
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow: hidden;
+    }
+    .kpi-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+    }
+    .kpi-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .kpi-icon svg { width: 24px; height: 24px; stroke: #fff; }
+    .kpi-value {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+    .kpi-value .unit { font-size: 1.2rem; color: var(--text-secondary); margin-left: 4px; }
+    .kpi-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .kpi-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ============== TIMELINE (P4) ============== */
+    .timeline-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .timeline-track {
+      position: relative;
+      padding: 20px 0;
+    }
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 40px; right: 40px; top: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--gold), var(--teal));
+      opacity: 0.6;
+    }
+    .timeline-list {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+    .tl-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+    }
+    .tl-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      box-shadow: 0 0 24px var(--accent-glow);
+      border: 3px solid var(--bg);
+      position: relative;
+      z-index: 2;
+    }
+    .tl-year {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent-light);
+    }
+    .tl-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+    }
+    .tl-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 160px;
+      line-height: 1.4;
+    }
+
+    /* ============== HEX (P5) ============== */
+    .hex-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .hex-side-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: var(--font-h2);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .hex-side-text {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .hex-side-stats {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .hex-stat .num {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .hex-stat .lbl {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .hex-cluster {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 90px);
+      gap: 10px;
+      justify-items: center;
+      align-items: center;
+    }
+    .hex {
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: 1rem;
+      width: 130px;
+      height: 130px;
+      padding: 8px;
+      line-height: 1.3;
+    }
+    .hex-1 { background: linear-gradient(135deg, #B388FF, #7C4DFF); grid-area: 1 / 2; }
+    .hex-2 { background: linear-gradient(135deg, #80DEEA, #00ACC1); grid-area: 1 / 3; }
+    .hex-3 { background: linear-gradient(135deg, #FFD180, #FF8A65); grid-area: 2 / 2; }
+    .hex-4 { background: linear-gradient(135deg, #F48FB1, #EC407A); grid-area: 2 / 3; }
+    .hex-5 { background: linear-gradient(135deg, #A5D6A7, #43A047); grid-area: 3 / 2; }
+    .hex-6 { background: linear-gradient(135deg, #CE93D8, #8E24AA); grid-area: 3 / 3; }
+    .hex-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    /* ============== STATS (P6) ============== */
+    .stats-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .bar-name { width: 110px; font-size: 1rem; color: var(--text-secondary); font-weight: 500; }
+    .bar-track {
+      flex: 1;
+      height: 30px;
+      background: var(--surface);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--teal));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 12px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .bar-fill.alt { background: linear-gradient(90deg, var(--gold), #FF8A65); }
+    .legend-card {
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .legend-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .legend-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .legend-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .legend-text strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+    .legend-text span { color: var(--text-muted); font-size: 1rem; line-height: 1.5; }
+
+    /* ============== FLOW (P7) ============== */
+    .flow-vertical {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .flow-step {
+      display: grid;
+      grid-template-columns: 80px 1fr 80px;
+      gap: 24px;
+      align-items: center;
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 28px;
+      position: relative;
+    }
+    .flow-step::after {
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 12px solid var(--accent);
+      opacity: 0.7;
+    }
+    .flow-step:last-child::after { display: none; }
+    .flow-step-num {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .flow-step-body h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .flow-step-body p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .flow-step-tag {
+      text-align: center;
+      padding: 6px 14px;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .flow-step-tag.alt { background: var(--teal); color: #0B0820; }
+    .flow-step-tag.gold { background: var(--gold); color: #0B0820; }
+
+    /* ============== QUADRANT (P8) ============== */
+    .quadrant-wrap {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+    .quadrant-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 18px;
+      aspect-ratio: 1 / 1;
+      max-width: 540px;
+      position: relative;
+    }
+    .quadrant-grid::before, .quadrant-grid::after {
+      content: '';
+      position: absolute;
+      background: var(--border-strong);
+      opacity: 0.3;
+    }
+    .quadrant-grid::before { left: 50%; top: 10%; bottom: 10%; width: 1px; }
+    .quadrant-grid::after { top: 50%; left: 10%; right: 10%; height: 1px; }
+    .quad {
+      border-radius: 18px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+    .quad-q1 { background: linear-gradient(135deg, rgba(179,136,255,0.25), rgba(179,136,255,0.05)); }
+    .quad-q2 { background: linear-gradient(135deg, rgba(128,222,234,0.25), rgba(128,222,234,0.05)); }
+    .quad-q3 { background: linear-gradient(135deg, rgba(255,209,128,0.25), rgba(255,209,128,0.05)); }
+    .quad-q4 { background: linear-gradient(135deg, rgba(244,143,177,0.25), rgba(244,143,177,0.05)); }
+    .quad-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .quad-icon svg { width: 20px; height: 20px; }
+    .quad-title { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .quad-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.4; }
+    .quad-axis-x, .quad-axis-y {
+      position: absolute;
+      font-size: 1rem;
+      color: var(--text-muted);
+      letter-spacing: 0.2em;
+    }
+    .quad-axis-x { bottom: -28px; left: 50%; transform: translateX(-50%); }
+    .quad-axis-y { left: -34px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+
+    .quadrant-side h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .quadrant-side p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .quadrant-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .quadrant-tag {
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      background: var(--surface);
+    }
+
+    /* ============== TEXT PAGE (P9) ============== */
+    .text-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .quote-card {
+      background: var(--surface);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 36px;
+      position: relative;
+    }
+    .quote-mark {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: 0.5;
+    }
+    .quote-text {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .quote-author {
+      font-size: 1rem;
+      color: var(--text-muted);
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .principle-list { display: flex; flex-direction: column; gap: 14px; }
+    .principle {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+    .principle-num {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+      width: 36px;
+    }
+    .principle-body strong { color: var(--text); font-size: 1.05rem; display: block; margin-bottom: 4px; }
+    .principle-body span { color: var(--text-muted); font-size: 1rem; line-height: 1.5; }
+
+    /* ============== END (P10) ============== */
+    .end-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+    }
+    .end-eyebrow {
+      font-size: 1rem;
+      letter-spacing: 0.4em;
+      color: var(--accent-light);
+    }
+    .end-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: var(--font-display);
+      font-weight: 700;
+      background: linear-gradient(135deg, #FFFFFF 0%, var(--accent-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .end-thanks {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.2em;
+      padding-top: 16px;
+    }
+    .end-meta {
+      display: flex;
+      gap: 36px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .end-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 1rem;
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--surface);
+      backdrop-filter: blur(8px);
+    }
+    .end-meta-item svg { width: 20px; height: 20px; }
+  </style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- Glow orbs shared -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- P1 COVER -->
+  <div class="slide s1-cover active" id="slide1">
+    <div class="cover-inner">
+      <div class="cover-eyebrow">2026 · 科技學術前瞻報告</div>
+      <h1 class="cover-title">AI 科技學術前瞻</h1>
+      <div class="cover-subtitle">從基礎研究到產業落地 — 2026 下半年的關鍵趨勢與學術觀察</div>
+      <div class="cover-meta">
+        <div class="cover-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span>2026.07.21</span>
+        </div>
+        <div class="cover-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 9l7-7 7 7"/></svg>
+          <span>熊熊簡報系列 · 第 92 期</span>
+        </div>
+        <div class="cover-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>閱讀時間 12 分鐘</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2 TOC -->
+  <div class="slide s2-toc" id="slide2">
+    <div class="toc-header">
+      <div class="toc-eyebrow">CONTENTS</div>
+      <h2 class="toc-title">本期目錄</h2>
+    </div>
+    <div class="toc-grid">
+      <div class="toc-card">
+        <div class="toc-num">01</div>
+        <div class="toc-name">市場規模</div>
+        <div class="toc-desc">全球 AI 產值與投資布局</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-num">02</div>
+        <div class="toc-name">技術路線</div>
+        <div class="toc-desc">模型架構與訓練策略演進</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-num">03</div>
+        <div class="toc-name">時間軸</div>
+        <div class="toc-desc">AI 學術發展關鍵節點</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-num">04</div>
+        <div class="toc-name">研究領域</div>
+        <div class="toc-desc">六大前瞻學術主題</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-num">05</div>
+        <div class="toc-name">論文產出</div>
+        <div class="toc-desc">學術成果分布與引用熱點</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-num">06</div>
+        <div class="toc-name">落地流程</div>
+        <div class="toc-desc">從實驗室到產業化路徑</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-num">07</div>
+        <div class="toc-name">策略象限</div>
+        <div class="toc-desc">產學研合作優先排序</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-num">08</div>
+        <div class="toc-name">研究倫理</div>
+        <div class="toc-desc">學術誠信與治理原則</div>
+      </div>
+      <div class="toc-card">
+        <div class="toc-num">09</div>
+        <div class="toc-name">展望總結</div>
+        <div class="toc-desc">未來 12 個月關鍵觀察</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3 KPI -->
+  <div class="slide s3-kpi" id="slide3">
+    <div class="section-eyebrow">01 · MARKET SCALE</div>
+    <h2 class="section-title">全球 AI 學術與產業<span class="accent">關鍵數據</span></h2>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M5 9l7-7 7 7"/></svg>
+        </div>
+        <div class="kpi-value">1.8<span class="unit">兆美元</span></div>
+        <div class="kpi-label">全球 AI 產值預估</div>
+        <div class="kpi-desc">2026 年市場規模,較去年成長 38%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="kpi-value">128K<span class="unit">+</span></div>
+        <div class="kpi-label">年度 AI 論文數</div>
+        <div class="kpi-desc">arXiv 收錄量,學術產出年增 24%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="kpi-value">42<span class="unit">%</span></div>
+        <div class="kpi-label">產學合作滲透率</div>
+        <div class="kpi-desc">頂級實驗室與企業聯合研究比例</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7L9 18l-5-5"/></svg>
+        </div>
+        <div class="kpi-value">3.2<span class="unit">x</span></div>
+        <div class="kpi-label">訓練效率倍增</div>
+        <div class="kpi-desc">新一代架構每瓦運算效能提升</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P4 TIMELINE -->
+  <div class="slide s4-timeline" id="slide4">
+    <div class="section-eyebrow">02 · MILESTONES</div>
+    <h2 class="section-title">AI 學術發展<span class="accent">關鍵時間軸</span></h2>
+    <div class="timeline-wrap">
+      <div class="timeline-track">
+        <div class="timeline-list">
+          <div class="tl-item">
+            <div class="tl-year">2017</div>
+            <div class="tl-dot"></div>
+            <div class="tl-title">Transformer 誕生</div>
+            <div class="tl-desc">注意力機制奠定現代 LLM 基礎</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2020</div>
+            <div class="tl-dot"></div>
+            <div class="tl-title">GPT-3 突破</div>
+            <div class="tl-desc">少樣本學習展現規模紅利</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2022</div>
+            <div class="tl-dot"></div>
+            <div class="tl-title">對話式 AI 普及</div>
+            <div class="tl-desc">ChatGPT 引爆生成式浪潮</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2024</div>
+            <div class="tl-dot"></div>
+            <div class="tl-title">多模態成熟</div>
+            <div class="tl-desc">文圖音同步推理進入實用</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2026</div>
+            <div class="tl-dot"></div>
+            <div class="tl-title">代理化元年</div>
+            <div class="tl-desc">AI Agent 走入真實工作流</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P5 HEX -->
+  <div class="slide s5-hex" id="slide5">
+    <div class="section-eyebrow">03 · RESEARCH DOMAINS</div>
+    <h2 class="section-title">六大前瞻<span class="accent">學術研究領域</span></h2>
+    <div class="hex-layout">
+      <div>
+        <h3 class="hex-side-title">從基礎理論到產業落地,<br>六個值得關注的研究主軸</h3>
+        <p class="hex-side-text">2026 下半年的學術熱點集中在效率、安全、代理化三大方向。本圖選錄六個最具產業影響力的研究主題,作為後續章節的討論主軸。</p>
+        <div class="hex-side-stats">
+          <div class="hex-stat">
+            <div class="num">6</div>
+            <div class="lbl">核心主題</div>
+          </div>
+          <div class="hex-stat">
+            <div class="num">28%</div>
+            <div class="lbl">論文占比</div>
+          </div>
+          <div class="hex-stat">
+            <div class="num">14</div>
+            <div class="lbl">頂級會議</div>
+          </div>
+        </div>
+      </div>
+      <div class="hex-cluster">
+        <div class="hex hex-1">高效推理</div>
+        <div class="hex hex-2">多模態融合</div>
+        <div class="hex hex-3">AI Agent</div>
+        <div class="hex hex-4">模型安全</div>
+        <div class="hex hex-5">綠能運算</div>
+        <div class="hex hex-6">可信 AI</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P6 STATS -->
+  <div class="slide s6-stats" id="slide6">
+    <div class="section-eyebrow">04 · PAPER OUTPUT</div>
+    <h2 class="section-title">頂級會議<span class="accent">論文分布與引用熱點</span></h2>
+    <div class="stats-layout">
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-name">NeurIPS</div>
+          <div class="bar-track"><div class="bar-fill" style="width:92%">3,840</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">ICML</div>
+          <div class="bar-track"><div class="bar-fill" style="width:78%">2,910</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">ICLR</div>
+          <div class="bar-track"><div class="bar-fill" style="width:65%">2,140</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">CVPR</div>
+          <div class="bar-track"><div class="bar-fill alt" style="width:88%">3,260</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">ACL</div>
+          <div class="bar-track"><div class="bar-fill alt" style="width:58%">1,890</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">AAAI</div>
+          <div class="bar-track"><div class="bar-fill" style="width:72%">2,540</div></div>
+        </div>
+      </div>
+      <div class="legend-card">
+        <div class="legend-title">觀察重點</div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--accent)"></div>
+          <div class="legend-text">
+            <strong>NeurIPS 仍居首位</strong>
+            <span>綜合型 AI 會議,跨領域論文占比最高</span>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--gold)"></div>
+          <div class="legend-text">
+            <strong>視覺領域成長穩健</strong>
+            <span>CVPR 投稿年增 18%,多模態為主要驅動</span>
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--teal)"></div>
+          <div class="legend-text">
+            <strong>NLP 集中化趨勢</strong>
+            <span>ACL 引用熱點前 5 名皆與 LLM 相關</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P7 FLOW -->
+  <div class="slide s7-flow" id="slide7">
+    <div class="section-eyebrow">05 · LAB TO MARKET</div>
+    <h2 class="section-title">學術成果<span class="accent">產業化流程</span></h2>
+    <div class="flow-vertical">
+      <div class="flow-step">
+        <div class="flow-step-num">01</div>
+        <div class="flow-step-body">
+          <h3>基礎研究 · 理論驗證</h3>
+          <p>實驗室階段提出新方法,並在標準 benchmark 上驗證效果</p>
+        </div>
+        <div class="flow-step-tag">研究</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">02</div>
+        <div class="flow-step-body">
+          <h3>原型開發 · 開放原始碼</h3>
+          <p>釋出可重現的程式碼與預訓練權重,接受社群審查</p>
+        </div>
+        <div class="flow-step-tag alt">開源</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">03</div>
+        <div class="flow-step-body">
+          <h3>場域驗證 · 產業測試</h3>
+          <p>與企業合作進行真實情境測試,蒐集失敗案例與回饋</p>
+        </div>
+        <div class="flow-step-tag gold">PoC</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">04</div>
+        <div class="flow-step-body">
+          <h3>規模化 · 服務化部署</h3>
+          <p>整合雲端架構與 API 服務,進入正式商業營運</p>
+        </div>
+        <div class="flow-step-tag">量產</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P8 QUADRANT -->
+  <div class="slide s8-quadrant" id="slide8">
+    <div class="section-eyebrow">06 · PRIORITY MATRIX</div>
+    <h2 class="section-title">產學研合作<span class="accent">策略象限</span></h2>
+    <div class="quadrant-wrap">
+      <div>
+        <div class="quadrant-grid">
+          <div class="quad quad-q1">
+            <div class="quad-icon" style="color:var(--accent)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="quad-title">明星型</div>
+            <div class="quad-desc">高產出 + 高引用,例如高效推理、多模態</div>
+          </div>
+          <div class="quad quad-q2">
+            <div class="quad-icon" style="color:var(--teal)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg>
+            </div>
+            <div class="quad-title">深耕型</div>
+            <div class="quad-desc">高產出 + 低引用,長尾基礎研究</div>
+          </div>
+          <div class="quad quad-q3">
+            <div class="quad-icon" style="color:var(--gold)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div class="quad-title">黑馬型</div>
+            <div class="quad-desc">低產出 + 高引用,具突破潛力</div>
+          </div>
+          <div class="quad quad-q4">
+            <div class="quad-icon" style="color:var(--accent-light)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+            <div class="quad-title">觀望型</div>
+            <div class="quad-desc">低產出 + 低引用,持續觀察</div>
+          </div>
+          <div class="quad-axis-x">學術產出 →</div>
+          <div class="quad-axis-y">引用熱度 →</div>
+        </div>
+      </div>
+      <div class="quadrant-side">
+        <h3>優先投入明星與黑馬型主題</h3>
+        <p>資源應優先投注於高引用潛力的研究主題。「明星型」已有成熟生態,而「黑馬型」雖然當前產出較少,但突破後具有最高槓桿效應。</p>
+        <div class="quadrant-tags">
+          <div class="quadrant-tag">高效推理</div>
+          <div class="quadrant-tag">AI Agent</div>
+          <div class="quadrant-tag">模型安全</div>
+          <div class="quadrant-tag">可信 AI</div>
+          <div class="quadrant-tag">綠能運算</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P9 TEXT -->
+  <div class="slide s9-text" id="slide9">
+    <div class="section-eyebrow">07 · RESEARCH ETHICS</div>
+    <h2 class="section-title">學術倫理<span class="accent">四大基本原則</span></h2>
+    <div class="text-layout">
+      <div class="quote-card">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">真正的學術突破,不只來自於技術的推進,更來自於對研究誠信的堅持。</div>
+        <div class="quote-author">— 2026 AI 學術治理共識宣言</div>
+      </div>
+      <div class="principle-list">
+        <div class="principle">
+          <div class="principle-num">壹</div>
+          <div class="principle-body">
+            <strong>誠信原則</strong>
+            <span>數據真實、方法可重現、結論不誇大</span>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">貳</div>
+          <div class="principle-body">
+            <strong>透明原則</strong>
+            <span>揭露資金來源、衝突關係與模型限制</span>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">參</div>
+          <div class="principle-body">
+            <strong>責任原則</strong>
+            <span>評估社會衝擊,避免有害應用場景</span>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">肆</div>
+          <div class="principle-body">
+            <strong>協作原則</strong>
+            <span>跨機構、跨國界、跨學科共同推進</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P10 END -->
+  <div class="slide s10-end" id="slide10">
+    <div class="end-inner">
+      <div class="end-eyebrow">FINAL OUTLOOK</div>
+      <h2 class="end-title">展望 2026 下半年</h2>
+      <div class="end-thanks">— 報告完畢 ・ 敬請指教 —</div>
+      <div class="end-meta">
+        <div class="end-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>熊熊簡報系列</span>
+        </div>
+        <div class="end-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>kumaweb.pages.dev</span>
+        </div>
+        <div class="end-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span>2026.07.21</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<a href="/slides.htm" class="back-link">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  返回列表
+</a>
+
+<!-- NAV -->
+<nav>
+  <button onclick="prev()" aria-label="上一頁">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+  </button>
+  <span id="pageNum">1 / 10</span>
+  <button onclick="next()" aria-label="下一頁">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+  </button>
+</nav>
+
+<script>
+var current = 0;
+var slides = document.querySelectorAll('.slide');
+var total = slides.length;
+
+// Init: ensure slide 1 is active
+(function init() {
+  slides.forEach(function(s){ s.classList.remove('active'); });
+  slides[0].classList.add('active');
+  current = 0;
+  document.getElementById('pageNum').textContent = '1 / ' + total;
+})();
+
+function show(n) {
+  if (slides[current]) slides[current].classList.remove('active');
+  slides[n].classList.add('active');
+  current = n;
+  document.getElementById('pageNum').textContent = (n+1) + ' / ' + total;
+}
+
+function next() {
+  current = (current + 1) % total;
+  show(current);
+}
+
+function prev() {
+  current = (current - 1 + total) % total;
+  show(current);
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  if(e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+});
+
+var touchStartX = 0;
+document.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', function(e){
+  var dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50) { dx > 0 ? prev() : next(); }
+});
+</script>
+</body>
+</html>
