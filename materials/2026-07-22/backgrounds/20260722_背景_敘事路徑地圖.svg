@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="warmBg2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBF6EC"/>
+      <stop offset="100%" stop-color="#F4E9D2"/>
+    </linearGradient>
+    <linearGradient id="honeyC" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C97B4A"/>
+      <stop offset="100%" stop-color="#A0552A"/>
+    </linearGradient>
+    <linearGradient id="goldC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4C572"/>
+      <stop offset="100%" stop-color="#D89B3F"/>
+    </linearGradient>
+    <filter id="paperTex2" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+      <feBlend in="SourceGraphic" in2="grayNoise" mode="soft-light"/>
+    </filter>
+    <filter id="handDrawn2" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="turbulence" baseFrequency="0.045" numOctaves="2" result="turb"/>
+      <feDisplacementMap in="SourceGraphic" in2="turb" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- 暖棕背景 -->
+  <rect fill="url(#warmBg2)" width="1920" height="1080"/>
+
+  <!-- ============== 橫向敘事路徑 ============== -->
+  <g filter="url(#handDrawn2)">
+    <!-- 主路徑（手繪曲線） -->
+    <path d="M 220 540 Q 480 420, 760 540 T 1300 540 T 1740 540"
+          stroke="#A0552A" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- 路徑節點陰影 -->
+    <path d="M 220 552 Q 480 432, 760 552 T 1300 552 T 1740 552"
+          stroke="#7A3F1D" stroke-width="2" fill="none" opacity="0.2"/>
+
+    <!-- ============== 節點 1：起點（六邊形 #1 大） ============== -->
+    <g transform="translate(220, 540)">
+      <polygon points="0,-65 56,-32 56,32 0,65 -56,32 -56,-32"
+               fill="url(#honeyC)" stroke="#7A3F1D" stroke-width="3"/>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22"
+               fill="url(#goldC)"/>
+      <circle cx="0" cy="0" r="14" fill="#7A3F1D"/>
+    </g>
+
+    <!-- ============== 節點 2：里程碑（六邊形 #1 中） ============== -->
+    <g transform="translate(560, 460)">
+      <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"
+               fill="url(#honeyC)" stroke="#7A3F1D" stroke-width="2.5"/>
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16"
+               fill="#F4C572" stroke="#7A3F1D" stroke-width="1.5"/>
+      <text y="6" font-family="serif" font-size="22" font-weight="bold" fill="#7A3F1D" text-anchor="middle">壹</text>
+    </g>
+
+    <!-- ============== 節點 3：洞察（六邊形 #1 中） ============== -->
+    <g transform="translate(760, 540)">
+      <polygon points="0,-55 48,-28 48,28 0,55 -48,28 -48,-28"
+               fill="#FBF6EC" stroke="#A0552A" stroke-width="3"/>
+      <polygon points="0,-38 33,-19 33,19 0,38 -33,19 -33,-19"
+               fill="url(#honeyC)" fill-opacity="0.35" stroke="#A0552A" stroke-width="1.5"/>
+      <text y="6" font-family="serif" font-size="22" font-weight="bold" fill="#7A3F1D" text-anchor="middle">貳</text>
+    </g>
+
+    <!-- ============== 節點 4：決策（六邊形 #1 中） ============== -->
+    <g transform="translate(960, 460)">
+      <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"
+               fill="url(#honeyC)" stroke="#7A3F1D" stroke-width="2.5"/>
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16"
+               fill="#F4C572" stroke="#7A3F1D" stroke-width="1.5"/>
+      <text y="6" font-family="serif" font-size="22" font-weight="bold" fill="#7A3F1D" text-anchor="middle">參</text>
+    </g>
+
+    <!-- ============== 節點 5：成果（六邊形 #1 中） ============== -->
+    <g transform="translate(1180, 540)">
+      <polygon points="0,-55 48,-28 48,28 0,55 -48,28 -48,-28"
+               fill="#FBF6EC" stroke="#A0552A" stroke-width="3"/>
+      <polygon points="0,-38 33,-19 33,19 0,38 -33,19 -33,-19"
+               fill="url(#honeyC)" fill-opacity="0.35" stroke="#A0552A" stroke-width="1.5"/>
+      <text y="6" font-family="serif" font-size="22" font-weight="bold" fill="#7A3F1D" text-anchor="middle">肆</text>
+    </g>
+
+    <!-- ============== 節點 6：展望（六邊形 #1 中） ============== -->
+    <g transform="translate(1380, 460)">
+      <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"
+               fill="url(#honeyC)" stroke="#7A3F1D" stroke-width="2.5"/>
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16"
+               fill="#F4C572" stroke="#7A3F1D" stroke-width="1.5"/>
+      <text y="6" font-family="serif" font-size="22" font-weight="bold" fill="#7A3F1D" text-anchor="middle">伍</text>
+    </g>
+
+    <!-- ============== 節點 7：終點（大六邊形 #1） ============== -->
+    <g transform="translate(1700, 540)">
+      <polygon points="0,-70 60,-35 60,35 0,70 -60,35 -60,-35"
+               fill="url(#honeyC)" stroke="#7A3F1D" stroke-width="3"/>
+      <polygon points="0,-48 42,-24 42,24 0,48 -42,24 -42,-24"
+               fill="url(#goldC)"/>
+      <polygon points="0,-26 23,-13 23,13 0,26 -23,13 -23,-13"
+               fill="#7A3F1D"/>
+    </g>
+  </g>
+
+  <!-- ============== 周圍裝飾蜂巢（六邊形十式 #9 叢集襯托） ============== -->
+  <g transform="translate(80, 100)">
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15"
+             fill="url(#goldC)" stroke="#7A3F1D" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(160, 60)">
+    <polygon points="0,-15 13,-7 13,7 0,15 -13,7 -13,-7"
+             fill="none" stroke="#A0552A" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(120, 180)">
+    <polygon points="0,-20 17,-10 17,10 0,20 -17,10 -17,-10"
+             fill="#A0552A" fill-opacity="0.45" stroke="#7A3F1D" stroke-width="1.2"/>
+  </g>
+
+  <g transform="translate(1820, 980)">
+    <polygon points="0,-26 23,-13 23,13 0,26 -23,13 -23,-13"
+             fill="url(#goldC)" stroke="#7A3F1D" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(1880, 920)">
+    <polygon points="0,-13 11,-6 11,6 0,13 -11,6 -11,-6"
+             fill="none" stroke="#A0552A" stroke-width="1.2"/>
+  </g>
+  <g transform="translate(1750, 1000)">
+    <polygon points="0,-18 16,-9 16,9 0,18 -16,9 -16,-9"
+             fill="#C97B4A" fill-opacity="0.55" stroke="#7A3F1D" stroke-width="1.2"/>
+  </g>
+
+  <!-- 節點旁裝飾小蜂巢（六邊形十式 #1 大小對比） -->
+  <g transform="translate(560, 600)">
+    <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="url(#goldC)"/>
+  </g>
+  <g transform="translate(960, 600)">
+    <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="url(#goldC)"/>
+  </g>
+  <g transform="translate(1380, 600)">
+    <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="url(#goldC)"/>
+  </g>
+
+  <!-- 路徑終點箭頭 -->
+  <polygon points="1740,540 1760,528 1760,552" fill="#A0552A"/>
+
+  <!-- 手繪邊緣細線 -->
+  <g stroke="#7A3F1D" stroke-width="0.8" fill="none" opacity="0.18">
+    <path d="M 0 70 Q 200 68, 400 72 Q 600 75, 800 70 Q 1000 67, 1200 72 Q 1400 75, 1600 69 Q 1800 66, 1920 70"/>
+    <path d="M 0 1010 Q 200 1008, 400 1012 Q 600 1015, 800 1009 Q 1000 1006, 1200 1011 Q 1400 1014, 1600 1008 Q 1800 1005, 1920 1010"/>
+  </g>
+
+  <!-- 紙張紋理 -->
+  <rect x="0" y="0" width="1920" height="1080" fill="#FBF6EC" fill-opacity="0.07" filter="url(#paperTex2)"/>
+
+  <!-- 角落裝飾小圓點 -->
+  <circle cx="80" cy="80" r="4" fill="#D89B3F" opacity="0.4"/>
+  <circle cx="1840" cy="80" r="4" fill="#D89B3F" opacity="0.4"/>
+  <circle cx="80" cy="1000" r="4" fill="#D89B3F" opacity="0.4"/>
+  <circle cx="1840" cy="1000" r="4" fill="#D89B3F" opacity="0.4"/>
+</svg>

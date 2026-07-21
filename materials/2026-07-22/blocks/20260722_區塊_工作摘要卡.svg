@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">工作報告摘要卡 - 蜂巢焦點版</title>
+  <desc id="desc">標題即結論、單一 insight、可見網格與 2.5D 六邊形焦點組成的熊熊風格摘要卡</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#A0552A" stroke-opacity=".10" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="hexFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4C572"/>
+      <stop offset="100%" stop-color="#D89B3F"/>
+    </linearGradient>
+    <linearGradient id="hexOutline" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C97B4A"/>
+      <stop offset="100%" stop-color="#7A3F1D"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#5C2F18" flood-opacity=".12"/>
+    </filter>
+    <filter id="handDrawn" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="turbulence" baseFrequency="0.045" numOctaves="2" result="turb"/>
+      <feDisplacementMap in="SourceGraphic" in2="turb" scale="1.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- 底色：暖米色 -->
+  <rect width="1920" height="1080" fill="#FBF6EC"/>
+  <!-- 網格背景 -->
+  <rect x="72" y="72" width="1776" height="936" rx="36" fill="url(#grid)"/>
+  <!-- 主卡 -->
+  <rect x="112" y="112" width="1696" height="856" rx="28" fill="#FBF6EC" fill-opacity=".92" stroke="#A0552A" stroke-opacity=".45" stroke-width="2"/>
+
+  <!-- 上分隔線 -->
+  <path d="M160 196H1760" stroke="#7A3F1D" stroke-opacity=".22" stroke-width="2"/>
+
+  <!-- 標題列 -->
+  <text x="160" y="160" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="28" font-weight="600" letter-spacing="5">工作報告摘要  /  INSIGHT 01</text>
+
+  <!-- 主標題（粗體字即結論） -->
+  <text x="160" y="296" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="78" font-weight="800">本週交付穩定，下一焦點：品質驗證</text>
+  <text x="160" y="372" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="32">用一張卡說完進度、證據與下一步。</text>
+
+  <!-- 三欄 insight 卡（蜂巢裝飾） -->
+  <g filter="url(#shadow)">
+    <!-- 左：交付進度 -->
+    <rect x="160" y="478" width="540" height="320" rx="28" fill="#FBF6EC" stroke="#7A3F1D" stroke-width="2.5"/>
+    <!-- 中：完成率（蜂巢焦點） -->
+    <rect x="720" y="478" width="540" height="320" rx="28" fill="#F4C572" fill-opacity=".22" stroke="#A0552A" stroke-width="2.5"/>
+    <!-- 右：下一步 -->
+    <rect x="1280" y="478" width="480" height="320" rx="28" fill="#FBF6EC" stroke="#7A3F1D" stroke-width="2.5"/>
+  </g>
+
+  <!-- 左欄：交付進度 -->
+  <text x="200" y="546" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700">本週交付</text>
+  <text x="200" y="630" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="56" font-weight="800">12 / 14</text>
+  <text x="200" y="680" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26">完成項數</text>
+  <!-- 進度條 -->
+  <rect x="200" y="710" width="460" height="14" rx="7" fill="#7A3F1D" fill-opacity=".15"/>
+  <rect x="200" y="710" width="394" height="14" rx="7" fill="url(#hexOutline)"/>
+  <text x="200" y="762" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="25">86%  •  提前 2 天</text>
+
+  <!-- 中欄：蜂巢焦點 2.5D 效果 -->
+  <text x="760" y="546" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700">品質驗證焦點</text>
+  <!-- 2.5D 六邊形焦點（外粗空心 + 內實心 + 中心圓 + 勾） -->
+  <g transform="translate(990 660)" filter="url(#handDrawn)">
+    <!-- 陰影層 -->
+    <polygon points="0,-93 80,-46 80,46 0,93 -80,46 -80,-46" fill="#7A3F1D" fill-opacity=".20" transform="translate(14 14)"/>
+    <!-- 外粗空心 -->
+    <polygon points="0,-93 80,-46 80,46 0,93 -80,46 -80,-46" fill="none" stroke="#7A3F1D" stroke-width="5"/>
+    <!-- 內實心 -->
+    <polygon points="0,-72 62,-36 62,36 0,72 -62,36 -62,-36" fill="url(#hexFill)" stroke="#7A3F1D" stroke-width="2.5"/>
+    <!-- 中心圓 -->
+    <circle cx="0" cy="0" r="28" fill="#FBF6EC" stroke="#7A3F1D" stroke-width="3"/>
+    <!-- 勾 -->
+    <path d="M-12 1l9 9 18-22" fill="none" stroke="#5C2F18" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="1180" y="640" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="44" font-weight="800">驗證 100%</text>
+  <text x="1180" y="690" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26">涵蓋 5 個核心模組</text>
+  <text x="1180" y="724" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26">缺點 0 項</text>
+
+  <!-- 右欄：下一步 -->
+  <text x="1320" y="546" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700">下一步行動</text>
+  <text x="1320" y="630" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="42" font-weight="800">週四：</text>
+  <text x="1320" y="684" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="42" font-weight="800">交叉審查</text>
+  <path d="M1320 720h380" stroke="#7A3F1D" stroke-opacity=".4" stroke-width="3"/>
+  <text x="1320" y="768" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26">清晰、聚焦、可行動</text>
+
+  <!-- 底部資料來源 -->
+  <text x="160" y="884" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="25">來源：工作報告週報  •  2026.07.22  •  熊熊設計</text>
+
+  <!-- 角落裝飾小蜂巢（六邊形十式 #1 大小對比） -->
+  <g transform="translate(1830 884)">
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="url(#hexFill)" stroke="#7A3F1D" stroke-width="1.5"/>
+    <polygon points="0,-10 8.7,-5 8.7,5 0,10 -8.7,5 -8.7,-5" fill="#7A3F1D"/>
+  </g>
+  <g transform="translate(1860 932)">
+    <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="none" stroke="#7A3F1D" stroke-width="1.5"/>
+  </g>
+</svg>

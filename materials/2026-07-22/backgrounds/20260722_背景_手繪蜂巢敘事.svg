@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="warmBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBF6EC"/>
+      <stop offset="60%" stop-color="#F4E9D2"/>
+      <stop offset="100%" stop-color="#EAD5A8"/>
+    </linearGradient>
+    <linearGradient id="honeyFill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C97B4A" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#A0552A" stop-opacity="0.18"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4C572"/>
+      <stop offset="100%" stop-color="#D89B3F"/>
+    </linearGradient>
+    <filter id="paperTex" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" result="noise"/>
+      <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise"/>
+      <feBlend in="SourceGraphic" in2="grayNoise" mode="soft-light"/>
+    </filter>
+    <filter id="handDrawn" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="turbulence" baseFrequency="0.04" numOctaves="2" result="turb"/>
+      <feDisplacementMap in="SourceGraphic" in2="turb" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- 暖棕背景（熊熊風格底色） -->
+  <rect fill="url(#warmBg)" width="1920" height="1080"/>
+
+  <!-- ============== 左上蜂巢放射叢集（七變化 #3） ============== -->
+  <g transform="translate(140, 130)" filter="url(#handDrawn)">
+    <!-- 中心大六邊形 -->
+    <polygon points="0,-90 78,-45 78,45 0,90 -78,45 -78,-45"
+             fill="url(#honeyFill)" stroke="#A0552A" stroke-width="3"/>
+    <polygon points="0,-66 57,-33 57,33 0,66 -57,33 -57,-33"
+             fill="#C97B4A" fill-opacity="0.55" stroke="#7A3F1D" stroke-width="2"/>
+    <!-- 第一環 6 個中型 -->
+    <g>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22"
+               fill="#F4C572" fill-opacity="0.4" stroke="#D89B3F" stroke-width="2"
+               transform="translate(0,-100)"/>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22"
+               fill="#EAD5A8" fill-opacity="0.5" stroke="#A0552A" stroke-width="2"
+               transform="rotate(60) translate(0,-100)"/>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22"
+               fill="#C97B4A" fill-opacity="0.35" stroke="#7A3F1D" stroke-width="2"
+               transform="rotate(120) translate(0,-100)"/>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22"
+               fill="#F4C572" fill-opacity="0.45" stroke="#D89B3F" stroke-width="2"
+               transform="rotate(180) translate(0,-100)"/>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22"
+               fill="#EAD5A8" fill-opacity="0.4" stroke="#A0552A" stroke-width="2"
+               transform="rotate(240) translate(0,-100)"/>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22"
+               fill="#C97B4A" fill-opacity="0.4" stroke="#7A3F1D" stroke-width="2"
+               transform="rotate(300) translate(0,-100)"/>
+    </g>
+    <!-- 第二環 12 個小六邊形 -->
+    <g>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="url(#goldGrad)" stroke="#7A3F1D" stroke-width="1.2"
+               transform="rotate(30) translate(0,-150)"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="#A0552A" fill-opacity="0.45" stroke="#7A3F1D" stroke-width="1.2"
+               transform="rotate(60) translate(0,-150)"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="#F4C572" fill-opacity="0.55" stroke="#D89B3F" stroke-width="1.2"
+               transform="rotate(90) translate(0,-150)"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="#A0552A" fill-opacity="0.4" stroke="#7A3F1D" stroke-width="1.2"
+               transform="rotate(120) translate(0,-150)"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="url(#goldGrad)" stroke="#7A3F1D" stroke-width="1.2"
+               transform="rotate(150) translate(0,-150)"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="#EAD5A8" fill-opacity="0.6" stroke="#A0552A" stroke-width="1.2"
+               transform="rotate(180) translate(0,-150)"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="#A0552A" fill-opacity="0.5" stroke="#7A3F1D" stroke-width="1.2"
+               transform="rotate(210) translate(0,-150)"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="#F4C572" fill-opacity="0.5" stroke="#D89B3F" stroke-width="1.2"
+               transform="rotate(240) translate(0,-150)"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="url(#goldGrad)" stroke="#7A3F1D" stroke-width="1.2"
+               transform="rotate(270) translate(0,-150)"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="#C97B4A" fill-opacity="0.45" stroke="#7A3F1D" stroke-width="1.2"
+               transform="rotate(300) translate(0,-150)"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="#EAD5A8" fill-opacity="0.55" stroke="#A0552A" stroke-width="1.2"
+               transform="rotate(330) translate(0,-150)"/>
+    </g>
+  </g>
+
+  <!-- ============== 右下蜂巢分組叢集（七變化 #5） ============== -->
+  <g transform="translate(1620, 900)" filter="url(#handDrawn)">
+    <!-- 群組 A -->
+    <g transform="translate(0,0)">
+      <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"
+               fill="#C97B4A" fill-opacity="0.55" stroke="#7A3F1D" stroke-width="2.5"/>
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16"
+               fill="url(#goldGrad)" stroke="#7A3F1D" stroke-width="1.5"/>
+    </g>
+    <!-- 群組 B（相鄰） -->
+    <g transform="translate(110,-40)">
+      <polygon points="0,-36 31,-18 31,18 0,36 -31,18 -31,-18"
+               fill="none" stroke="#A0552A" stroke-width="2"/>
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+               fill="#F4C572" fill-opacity="0.55" stroke="#D89B3F" stroke-width="1.5"/>
+    </g>
+    <!-- 群組 C -->
+    <g transform="translate(-90,80)">
+      <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20"
+               fill="url(#honeyFill)" stroke="#7A3F1D" stroke-width="2"/>
+      <polygon points="0,-24 21,-12 21,12 0,24 -21,12 -21,-12"
+               fill="#A0552A" fill-opacity="0.5"/>
+    </g>
+    <!-- 群組 D（單點焦點） -->
+    <g transform="translate(70,140)">
+      <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14"
+               fill="url(#goldGrad)" stroke="#7A3F1D" stroke-width="1.8"/>
+    </g>
+    <!-- 群組 E（小陪襯） -->
+    <g transform="translate(160,80)">
+      <polygon points="0,-18 16,-9 16,9 0,18 -16,9 -16,-9"
+               fill="none" stroke="#A0552A" stroke-width="1.5"/>
+    </g>
+    <g transform="translate(-130,-30)">
+      <polygon points="0,-14 12,-7 12,7 0,14 -12,7 -12,-7"
+               fill="#A0552A" fill-opacity="0.6"/>
+    </g>
+  </g>
+
+  <!-- ============== 右上小蜂巢（六邊形十式 #1 大小對比） ============== -->
+  <g transform="translate(1750, 100)">
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15"
+             fill="url(#honeyFill)" stroke="#A0552A" stroke-width="2"/>
+    <polygon points="0,-15 13,-7.5 13,7.5 0,15 -13,7.5 -13,-7.5"
+             fill="url(#goldGrad)"/>
+  </g>
+  <g transform="translate(1680, 60)">
+    <polygon points="0,-18 16,-9 16,9 0,18 -16,9 -16,-9"
+             fill="none" stroke="#7A3F1D" stroke-width="1.8"/>
+  </g>
+  <g transform="translate(1830, 200)">
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"
+             fill="#C97B4A" fill-opacity="0.5" stroke="#7A3F1D" stroke-width="1.5"/>
+  </g>
+
+  <!-- ============== 左下小蜂巢叢集 ============== -->
+  <g transform="translate(80, 920)">
+    <polygon points="0,-26 23,-13 23,13 0,26 -23,13 -23,-13"
+             fill="url(#goldGrad)" stroke="#7A3F1D" stroke-width="1.8"/>
+  </g>
+  <g transform="translate(180, 980)">
+    <polygon points="0,-16 14,-8 14,8 0,16 -14,8 -14,-8"
+             fill="none" stroke="#A0552A" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(250, 1010)">
+    <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6"
+             fill="#A0552A" fill-opacity="0.7"/>
+  </g>
+
+  <!-- ============== 中央 65% 留白敘事區 ============== -->
+  <!-- 引導虛線 -->
+  <path d="M 460 540 L 1460 540" stroke="#A0552A" stroke-width="1.5"
+        stroke-dasharray="6,10" fill="none" opacity="0.25"/>
+  <circle cx="460" cy="540" r="6" fill="#A0552A" opacity="0.4"/>
+  <circle cx="1460" cy="540" r="6" fill="#A0552A" opacity="0.4"/>
+
+  <!-- ============== 手繪邊緣細線（保留人的痕跡） ============== -->
+  <g stroke="#7A3F1D" stroke-width="0.8" fill="none" opacity="0.18">
+    <path d="M 0 60 Q 200 58, 400 62 Q 600 65, 800 60 Q 1000 57, 1200 62 Q 1400 65, 1600 59 Q 1800 56, 1920 60"/>
+    <path d="M 0 1020 Q 200 1018, 400 1022 Q 600 1025, 800 1019 Q 1000 1016, 1200 1021 Q 1400 1024, 1600 1018 Q 1800 1015, 1920 1020"/>
+  </g>
+
+  <!-- 紙張纖維紋理（5-8%） -->
+  <rect x="0" y="0" width="1920" height="1080" fill="#FBF6EC" fill-opacity="0.08" filter="url(#paperTex)"/>
+
+  <!-- 四角微光（手繪痕跡） -->
+  <circle cx="480" cy="280" r="3" fill="#D89B3F" opacity="0.35"/>
+  <circle cx="1440" cy="280" r="3" fill="#D89B3F" opacity="0.35"/>
+  <circle cx="480" cy="800" r="3" fill="#D89B3F" opacity="0.35"/>
+  <circle cx="1440" cy="800" r="3" fill="#D89B3F" opacity="0.35"/>
+</svg>
