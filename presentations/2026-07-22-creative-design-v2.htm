@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>視覺符號的設計語言 - 簡報</title>
+  <style>
+    :root {
+      --primary: #7C3AED;
+      --secondary: #A855F7;
+      --accent: #EC4899;
+      --accent-light: #FBCFE8;
+      --bg: #0F0A1E;
+      --bg-light: #1E1B4B;
+      --text: #F8FAFC;
+      --text-muted: #CBD5E1;
+      --card-bg: rgba(124, 58, 237, 0.15);
+      --card-border: rgba(168, 85, 247, 0.3);
+      --teal: #14B8A6;
+      --orange: #FB923C;
+      --pink: #F472B6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { font-size: 20px; }
+
+    body {
+      font-family: "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .presentation {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: 3rem 4rem;
+      flex-direction: column;
+    }
+
+    .slide.active { display: flex; }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      z-index: 100;
+      display: flex;
+      gap: 12px;
+    }
+
+    nav button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1.2rem;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    nav button:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .page-indicator {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      font-size: 1rem;
+      color: var(--text-muted);
+      z-index: 100;
+    }
+
+    /* Glass Card Effect */
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      padding: 1.5rem;
+    }
+
+    /* Title Styles */
+    .slide-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    /* ==================== P1 Cover ==================== */
+    .s1-cover {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 25% 30%, rgba(236, 72, 153, 0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 70%, rgba(124, 58, 237, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(20, 184, 166, 0.15) 0%, transparent 60%),
+        linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .s1-cover::before {
+      content: "";
+      position: absolute;
+      width: 580px;
+      height: 580px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .s1-cover::after {
+      content: "";
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.18) 0%, transparent 70%);
+      animation: pulse 3s ease-in-out infinite reverse;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.85; }
+    }
+
+    .s1-cover .cover-content {
+      position: relative;
+      z-index: 10;
+    }
+
+    .s1-cover .badge {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      color: var(--accent-light);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+
+    .s1-cover h1 {
+      font-size: 4.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent-light) 50%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .s1-cover .subtitle {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .s1-cover .meta {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .s1-cover .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .s1-cover .meta-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent);
+    }
+
+    /* ==================== P2 TOC ==================== */
+    .s2-toc {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .s2-toc .toc-container {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      align-content: center;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .toc-item:hover {
+      background: rgba(124, 58, 237, 0.25);
+      transform: translateX(8px);
+    }
+
+    .toc-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+
+    .toc-text h3 {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .toc-text p {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== P3 Five Elements ==================== */
+    .s3-elements {
+      background:
+        radial-gradient(ellipse at top left, rgba(124, 58, 237, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse at bottom right, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    .s3-elements .elements-flow {
+      flex: 1;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .element-circle {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      position: relative;
+      transition: all 0.4s ease;
+    }
+
+    .element-circle::before {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px dashed var(--accent);
+      opacity: 0.4;
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .element-circle:nth-child(2)::before { border-color: var(--teal); animation-delay: -4s; }
+    .element-circle:nth-child(3)::before { border-color: var(--orange); animation-delay: -8s; }
+    .element-circle:nth-child(4)::before { border-color: var(--pink); animation-delay: -12s; }
+    .element-circle:nth-child(5)::before { border-color: var(--secondary); animation-delay: -16s; }
+
+    .element-circle:hover {
+      transform: translateY(-8px) scale(1.05);
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+    }
+
+    .element-circle .el-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 0.5rem;
+      color: var(--accent-light);
+    }
+
+    .element-circle:nth-child(2) .el-icon { color: var(--teal); }
+    .element-circle:nth-child(3) .el-icon { color: var(--orange); }
+    .element-circle:nth-child(4) .el-icon { color: var(--pink); }
+    .element-circle:nth-child(5) .el-icon { color: var(--secondary); }
+
+    .element-circle h4 {
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+      font-weight: 700;
+    }
+
+    .element-circle p {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== P4 Shape Psychology ==================== */
+    .s4-shapes {
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .s4-shapes .shape-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      align-content: center;
+    }
+
+    .shape-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .shape-card:hover {
+      background: rgba(124, 58, 237, 0.3);
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .shape-icon {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(168, 85, 247, 0.2));
+      border-radius: 12px;
+    }
+
+    .shape-icon svg {
+      width: 36px;
+      height: 36px;
+      color: var(--accent-light);
+    }
+
+    .shape-content h4 {
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .shape-content p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ==================== P5 Color Palette ==================== */
+    .s5-palette {
+      background:
+        radial-gradient(ellipse at center, rgba(168, 85, 247, 0.15) 0%, var(--bg) 70%);
+    }
+
+    .s5-palette .palette-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      align-content: center;
+    }
+
+    .palette-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .palette-card h4 {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .palette-card .emo-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--accent);
+    }
+
+    .palette-swatches {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .swatch {
+      flex: 1;
+      height: 60px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .palette-card p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==================== P6 Case Studies ==================== */
+    .s6-cases {
+      background:
+        radial-gradient(ellipse at top right, rgba(236, 72, 153, 0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at bottom left, rgba(20, 184, 166, 0.12) 0%, transparent 50%),
+        var(--bg);
+      position: relative;
+    }
+
+    .s6-cases .cases-wrap {
+      flex: 1;
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .case-card {
+      position: absolute;
+      width: 280px;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      transition: all 0.4s ease;
+    }
+
+    .case-card:hover {
+      transform: scale(1.05) rotate(0deg) !important;
+      box-shadow: 0 20px 50px rgba(168, 85, 247, 0.4);
+      z-index: 20;
+    }
+
+    .case-card .case-tag {
+      display: inline-block;
+      font-size: 1rem;
+      padding: 0.2rem 0.75rem;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 50px;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .case-card h4 {
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .case-card p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .case-card .case-stat {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent-light);
+      margin-bottom: 0.3rem;
+      line-height: 1;
+    }
+
+    .case-card:nth-child(1) { top: 5%; left: 5%; transform: rotate(-4deg); }
+    .case-card:nth-child(2) { top: 8%; right: 5%; transform: rotate(3deg); }
+    .case-card:nth-child(3) { bottom: 8%; left: 8%; transform: rotate(2deg); }
+    .case-card:nth-child(4) { bottom: 5%; right: 8%; transform: rotate(-3deg); }
+
+    /* ==================== P7 Design Process ==================== */
+    .s7-process {
+      background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg) 100%);
+    }
+
+    .s7-process .process-flow {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 850px;
+      margin: 0 auto;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .process-step {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1rem 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .process-step:hover {
+      transform: translateX(12px);
+      background: rgba(124, 58, 237, 0.25);
+    }
+
+    .step-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
+    }
+
+    .step-content h4 {
+      font-size: 1.25rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .step-content p {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .step-time {
+      margin-left: auto;
+      font-size: 1rem;
+      color: var(--accent);
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+    }
+
+    /* ==================== P8 Future Trend ==================== */
+    .s8-future {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at center, rgba(168, 85, 247, 0.25) 0%, transparent 55%),
+        linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .s8-future .center-hub {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.4) 0%, rgba(168, 85, 247, 0.1) 70%);
+      border: 2px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .s8-future .center-hub::before {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      border: 1px dashed var(--accent);
+      opacity: 0.5;
+      animation: rotate 30s linear infinite;
+    }
+
+    .s8-future .center-hub::after {
+      content: "";
+      position: absolute;
+      inset: -50px;
+      border-radius: 50%;
+      border: 1px solid var(--secondary);
+      opacity: 0.25;
+    }
+
+    .s8-future .big-num {
+      font-size: 5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent-light), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .s8-future .center-hub h3 {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-top: 0.5rem;
+    }
+
+    .orbit-circle {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .orbit-circle svg {
+      width: 32px;
+      height: 32px;
+      color: var(--accent-light);
+    }
+
+    .orbit-circle:nth-child(2) { top: 12%; left: 50%; transform: translateX(-50%); }
+    .orbit-circle:nth-child(3) { top: 45%; right: 8%; }
+    .orbit-circle:nth-child(4) { bottom: 12%; left: 50%; transform: translateX(-50%); }
+    .orbit-circle:nth-child(5) { top: 45%; left: 8%; }
+    .orbit-circle:nth-child(6) { top: 8%; right: 18%; }
+    .orbit-circle:nth-child(7) { bottom: 8%; right: 18%; }
+    .orbit-circle:nth-child(8) { top: 8%; left: 18%; }
+    .orbit-circle:nth-child(9) { bottom: 8%; left: 18%; }
+
+    /* ==================== P9 Contrast Matrix ==================== */
+    .s9-matrix {
+      background:
+        radial-gradient(ellipse at center, rgba(20, 184, 166, 0.1) 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .s9-matrix .matrix-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      align-content: center;
+    }
+
+    .matrix-cell {
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      background: linear-gradient(180deg, var(--card-bg) 0%, rgba(124, 58, 237, 0.08) 100%);
+      border: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.25rem;
+      min-height: 140px;
+      transition: all 0.3s ease;
+    }
+
+    .matrix-cell:hover {
+      background: linear-gradient(180deg, rgba(124, 58, 237, 0.35) 0%, rgba(236, 72, 153, 0.15) 100%);
+      transform: scale(1.05);
+    }
+
+    .matrix-cell .mx-icon {
+      width: 36px;
+      height: 36px;
+      color: var(--accent-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .matrix-cell h4 {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .matrix-cell p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    /* ==================== P10 End ==================== */
+    .s10-end {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      background:
+        radial-gradient(ellipse at center, rgba(236, 72, 153, 0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at center, rgba(124, 58, 237, 0.18) 0%, transparent 35%),
+        linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+    }
+
+    .s10-end::before {
+      content: "";
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 65%);
+      animation: pulse 5s ease-in-out infinite;
+    }
+
+    .s10-end::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.22) 0%, transparent 65%);
+      animation: pulse 3.5s ease-in-out infinite reverse;
+    }
+
+    .s10-end .end-content {
+      position: relative;
+      z-index: 10;
+    }
+
+    .s10-end .end-badge {
+      display: inline-block;
+      padding: 0.4rem 1.25rem;
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      color: var(--accent-light);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+
+    .s10-end h1 {
+      font-size: 4.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent-light) 50%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .s10-end .thankyou {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .s10-end .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .s10-end .back-link:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .s10-end .back-link svg {
+      width: 20px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="presentation">
+    <!-- Navigation -->
+    <nav>
+      <button onclick="prev()" aria-label="上一頁">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
+      </button>
+      <button onclick="next()" aria-label="下一頁">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
+    </nav>
+
+    <div class="page-indicator"><span id="currentPage">1</span> / <span id="totalPages">10</span></div>
+
+    <!-- P1 Cover -->
+    <section class="slide s1-cover active">
+      <div class="cover-content">
+        <span class="badge">CREATIVE DESIGN 2026</span>
+        <h1>視覺符號的設計語言</h1>
+        <p class="subtitle">從形狀到意義 — 解碼圖像背後的設計邏輯</p>
+        <div class="meta">
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span>2026.07.22</span>
+          </div>
+          <div class="meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <span>10 章節 / 60 分鐘</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P2 TOC -->
+    <section class="slide s2-toc">
+      <h2 class="slide-title">目錄大綱</h2>
+      <div class="toc-container">
+        <div class="toc-item">
+          <div class="toc-number">1</div>
+          <div class="toc-text">
+            <h3>五大視覺元素</h3>
+            <p>構成所有設計的基本單位</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-number">2</div>
+          <div class="toc-text">
+            <h3>形狀心理學</h3>
+            <p>不同形狀引發的情緒反應</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-number">3</div>
+          <div class="toc-text">
+            <h3>色彩情緒圖譜</h3>
+            <p>顏色與情感的對應關係</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-number">4</div>
+          <div class="toc-text">
+            <h3>案例對比研究</h3>
+            <p>經典設計的視覺分析</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-number">5</div>
+          <div class="toc-text">
+            <h3>設計流程步驟</h3>
+            <p>從概念到執行的完整路徑</p>
+          </div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-number">6</div>
+          <div class="toc-text">
+            <h3>未來趨勢</h3>
+            <p>AI 時代的設計演進</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P3 Five Elements -->
+    <section class="slide s3-elements">
+      <h2 class="slide-title">五大視覺元素</h2>
+      <div class="elements-flow">
+        <div class="element-circle">
+          <svg class="el-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <h4>點</h4>
+          <p>視覺起點</p>
+        </div>
+        <div class="element-circle">
+          <svg class="el-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="5" y1="19" x2="19" y2="5"/>
+            <circle cx="6" cy="18" r="2"/>
+            <circle cx="18" cy="6" r="2"/>
+          </svg>
+          <h4>線</h4>
+          <p>方向軌跡</p>
+        </div>
+        <div class="element-circle">
+          <svg class="el-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+          </svg>
+          <h4>面</h4>
+          <p>區域構成</p>
+        </div>
+        <div class="element-circle">
+          <svg class="el-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+          <h4>體</h4>
+          <p>立體空間</p>
+        </div>
+        <div class="element-circle">
+          <svg class="el-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <h4>質感</h4>
+          <p>觸覺延伸</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- P4 Shape Psychology -->
+    <section class="slide s4-shapes">
+      <h2 class="slide-title">形狀心理學</h2>
+      <div class="shape-grid">
+        <div class="shape-card">
+          <div class="shape-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+          </div>
+          <div class="shape-content">
+            <h4>圓形</h4>
+            <p>傳達柔和、親切、完整感</p>
+          </div>
+        </div>
+        <div class="shape-card">
+          <div class="shape-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+            </svg>
+          </div>
+          <div class="shape-content">
+            <h4>方形</h4>
+            <p>象徵穩定、秩序、可靠感</p>
+          </div>
+        </div>
+        <div class="shape-card">
+          <div class="shape-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="12,2 22,20 2,20"/>
+            </svg>
+          </div>
+          <div class="shape-content">
+            <h4>三角形</h4>
+            <p>暗示動態、力量、方向性</p>
+          </div>
+        </div>
+        <div class="shape-card">
+          <div class="shape-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="12,2 22,12 12,22 2,12"/>
+            </svg>
+          </div>
+          <div class="shape-content">
+            <h4>菱形</h4>
+            <p>代表奢華、神秘、平衡感</p>
+          </div>
+        </div>
+        <div class="shape-card">
+          <div class="shape-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="6,2 18,2 22,8 18,14 6,14 2,8"/>
+            </svg>
+          </div>
+          <div class="shape-content">
+            <h4>六邊形</h4>
+            <p>傳達自然、和諧、結構性</p>
+          </div>
+        </div>
+        <div class="shape-card">
+          <div class="shape-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 12 Q12 3 21 12 Q12 21 3 12 Z"/>
+            </svg>
+          </div>
+          <div class="shape-content">
+            <h4>曲線</h4>
+            <p>表現流動、優雅、有機感</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P5 Color Palette -->
+    <section class="slide s5-palette">
+      <h2 class="slide-title">色彩情緒圖譜</h2>
+      <div class="palette-grid">
+        <div class="palette-card">
+          <h4>
+            <svg class="emo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+            </svg>
+            暖色系 / 熱情
+          </h4>
+          <div class="palette-swatches">
+            <div class="swatch" style="background:#EF4444"></div>
+            <div class="swatch" style="background:#F97316"></div>
+            <div class="swatch" style="background:#FBBF24"></div>
+            <div class="swatch" style="background:#F472B6"></div>
+          </div>
+          <p>紅橙黃粉，傳遞活力、溫暖與情感張力，適合餐飲、娛樂品牌。</p>
+        </div>
+        <div class="palette-card">
+          <h4>
+            <svg class="emo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 12h20M12 2v20"/>
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+            冷色系 / 冷靜
+          </h4>
+          <div class="palette-swatches">
+            <div class="swatch" style="background:#3B82F6"></div>
+            <div class="swatch" style="background:#06B6D4"></div>
+            <div class="swatch" style="background:#14B8A6"></div>
+            <div class="swatch" style="background:#6366F1"></div>
+          </div>
+          <p>藍綠青紫，營造專業、科技、信賴感，適合科技、金融產業。</p>
+        </div>
+        <div class="palette-card">
+          <h4>
+            <svg class="emo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+            </svg>
+            自然色 / 平衡
+          </h4>
+          <div class="palette-swatches">
+            <div class="swatch" style="background:#84CC16"></div>
+            <div class="swatch" style="background:#22C55E"></div>
+            <div class="swatch" style="background:#A8A29E"></div>
+            <div class="swatch" style="background:#FACC15"></div>
+          </div>
+          <p>綠棕米黃，連結自然、永續、健康概念，適合環保、生活品牌。</p>
+        </div>
+        <div class="palette-card">
+          <h4>
+            <svg class="emo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12,2 22,12 12,22 2,12"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+            </svg>
+            夢幻色 / 神秘
+          </h4>
+          <div class="palette-swatches">
+            <div class="swatch" style="background:#A855F7"></div>
+            <div class="swatch" style="background:#EC4899"></div>
+            <div class="swatch" style="background:#1E1B4B"></div>
+            <div class="swatch" style="background:#F0ABFC"></div>
+          </div>
+          <p>紫黑粉金，營造夢幻、奢華、神秘氛圍，適合美妝、創意產業。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- P6 Case Studies -->
+    <section class="slide s6-cases">
+      <h2 class="slide-title">案例對比研究</h2>
+      <div class="cases-wrap">
+        <div class="case-card">
+          <span class="case-tag">A 品牌</span>
+          <div class="case-stat">+128%</div>
+          <h4>極簡重塑</h4>
+          <p>Apple 透過單一產品焦點與大量留白，建立高端識別。</p>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">B 品牌</span>
+          <div class="case-stat">96%</div>
+          <h4>色彩記憶</h4>
+          <p>Coca-Cola 紅色成為全球辨識度最高的品牌資產之一。</p>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">C 品牌</span>
+          <div class="case-stat">64ms</div>
+          <h4>第一印象</h4>
+          <p>Airbnb 透過簡化符號系統，讓複雜服務變得直覺易懂。</p>
+        </div>
+        <div class="case-card">
+          <span class="case-tag">D 品牌</span>
+          <div class="case-stat">∞</div>
+          <h4>無限延伸</h4>
+          <p>Google 以多彩配色打破企業品牌的嚴肅框架，注入活力。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- P7 Process -->
+    <section class="slide s7-process">
+      <h2 class="slide-title">設計流程</h2>
+      <div class="process-flow">
+        <div class="process-step">
+          <div class="step-circle">1</div>
+          <div class="step-content">
+            <h4>研究洞察</h4>
+            <p>用戶訪談、市場分析、競品研究</p>
+          </div>
+          <span class="step-time">2 週</span>
+        </div>
+        <div class="process-step">
+          <div class="step-circle">2</div>
+          <div class="step-content">
+            <h4>概念發想</h4>
+            <p>腦力激盪、情緒板、風格探索</p>
+          </div>
+          <span class="step-time">1 週</span>
+        </div>
+        <div class="process-step">
+          <div class="step-circle">3</div>
+          <div class="step-content">
+            <h4>原型設計</h4>
+            <p>線框圖、低保真原型、流程驗證</p>
+          </div>
+          <span class="step-time">2 週</span>
+        </div>
+        <div class="process-step">
+          <div class="step-circle">4</div>
+          <div class="step-content">
+            <h4>視覺深化</h4>
+            <p>高保真設計、設計系統建立</p>
+          </div>
+          <span class="step-time">3 週</span>
+        </div>
+        <div class="process-step">
+          <div class="step-circle">5</div>
+          <div class="step-content">
+            <h4>測試交付</h4>
+            <p>用戶測試、修調整合、規格輸出</p>
+          </div>
+          <span class="step-time">2 週</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- P8 Future Trend -->
+    <section class="slide s8-future">
+      <h2 class="slide-title">未來趨勢</h2>
+      <div class="orbit-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+      </div>
+      <div class="orbit-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+        </svg>
+      </div>
+      <div class="orbit-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="orbit-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polygon points="12,2 22,20 2,20"/>
+        </svg>
+      </div>
+      <div class="orbit-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 3h18v18H3z"/>
+          <path d="M3 12h18M12 3v18"/>
+        </svg>
+      </div>
+      <div class="orbit-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="12" r="6"/>
+          <circle cx="12" cy="12" r="2"/>
+        </svg>
+      </div>
+      <div class="orbit-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      </div>
+      <div class="orbit-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+        </svg>
+      </div>
+      <div class="center-hub">
+        <div class="big-num">AI+</div>
+        <h3>共生設計時代</h3>
+      </div>
+    </section>
+
+    <!-- P9 Contrast Matrix -->
+    <section class="slide s9-matrix">
+      <h2 class="slide-title">設計對比矩陣</h2>
+      <div class="matrix-grid">
+        <div class="matrix-cell">
+          <svg class="mx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <rect x="6" y="6" width="12" height="12"/>
+          </svg>
+          <h4>幾何 vs 有機</h4>
+          <p>理性秩序 vs 自然柔和</p>
+        </div>
+        <div class="matrix-cell">
+          <svg class="mx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" fill="currentColor" opacity="0.2"/>
+            <rect x="3" y="3" width="18" height="18" stroke-dasharray="4,4"/>
+          </svg>
+          <h4>實心 vs 虛線</h4>
+          <p>厚重存在感 vs 輕盈穿透感</p>
+        </div>
+        <div class="matrix-cell">
+          <svg class="mx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="8" cy="12" r="4"/>
+            <circle cx="16" cy="12" r="4"/>
+          </svg>
+          <h4>對稱 vs 不對稱</h4>
+          <p>穩定和諧 vs 動態張力</p>
+        </div>
+        <div class="matrix-cell">
+          <svg class="mx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 12h18"/>
+            <path d="M3 6h12"/>
+            <path d="M3 18h8"/>
+          </svg>
+          <h4>留白 vs 滿版</h4>
+          <p>呼吸空間 vs 資訊密度</p>
+        </div>
+        <div class="matrix-cell">
+          <svg class="mx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="4" y1="20" x2="20" y2="4"/>
+            <line x1="4" y1="4" x2="20" y2="20"/>
+          </svg>
+          <h4>直線 vs 曲線</h4>
+          <p>精確銳利 vs 流暢優雅</p>
+        </div>
+        <div class="matrix-cell">
+          <svg class="mx-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+          <h4>靜態 vs 動態</h4>
+          <p>永恆穩定 vs 演進變化</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- P10 End -->
+    <section class="slide s10-end">
+      <div class="end-content">
+        <span class="end-badge">DESIGN NEVER ENDS</span>
+        <h1>設計，永不停止</h1>
+        <p class="thankyou">感謝觀賞 · Thank You for Watching</p>
+        <a href="/slides.htm" class="back-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <polyline points="15,18 9,12 15,6"></polyline>
+          </svg>
+          返回列表
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    var current = 0;
+    var slides;
+    var totalSlides = 10;
+
+    function init() {
+      slides = document.querySelectorAll('.slide');
+      if (slides.length > 0) {
+        totalSlides = slides.length;
+        document.getElementById('totalPages').textContent = totalSlides;
+        show();
+      }
+    }
+
+    function show() {
+      if (!slides || slides.length === 0) return;
+
+      if (slides[current]) {
+        slides[current].classList.remove('active');
+      }
+      current = (current + 1) % slides.length;
+      if (slides[current]) {
+        slides[current].classList.add('active');
+        document.getElementById('currentPage').textContent = current + 1;
+      }
+    }
+
+    function next() {
+      if (!slides || slides.length === 0) return;
+      if (slides[current]) {
+        slides[current].classList.remove('active');
+      }
+      current = (current + 1) % slides.length;
+      if (slides[current]) {
+        slides[current].classList.add('active');
+        document.getElementById('currentPage').textContent = current + 1;
+      }
+    }
+
+    function prev() {
+      if (!slides || slides.length === 0) return;
+      if (slides[current]) {
+        slides[current].classList.remove('active');
+      }
+      current = (current - 1 + slides.length) % slides.length;
+      if (slides[current]) {
+        slides[current].classList.add('active');
+        document.getElementById('currentPage').textContent = current + 1;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        next();
+      } else if (e.key === 'ArrowLeft') {
+        prev();
+      }
+    });
+  </script>
+</body>
+</html>
