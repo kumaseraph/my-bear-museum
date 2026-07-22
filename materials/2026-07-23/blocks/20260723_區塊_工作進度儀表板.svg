@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">工作進度儀表板 - Bento Grid 蜂巢版</title>
+  <desc id="desc">Massive Typography 巨型字標題 + 蜂巢放射環形焦點 + 可探索數據分層的熊熊風格儀表板</desc>
+  <defs>
+    <linearGradient id="bearWarm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4C572"/>
+      <stop offset="100%" stop-color="#D89B3F"/>
+    </linearGradient>
+    <linearGradient id="bearDeep" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C97B4A"/>
+      <stop offset="100%" stop-color="#7A3F1D"/>
+    </linearGradient>
+    <linearGradient id="bgCream" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBF6EC"/>
+      <stop offset="100%" stop-color="#F2E8D5"/>
+    </linearGradient>
+    <pattern id="dotGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#A0552A" fill-opacity=".18"/>
+    </pattern>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#5C2F18" flood-opacity=".14"/>
+    </filter>
+    <filter id="paperTex" x="-2%" y="-2%" width="104%" height="104%">
+      <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="0.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- 底色：暖米色，帶紙張紋理 -->
+  <rect width="1920" height="1080" fill="url(#bgCream)"/>
+  <rect width="1920" height="1080" fill="url(#dotGrid)"/>
+
+  <!-- 巨型字標題（Massive Typography 趨勢） -->
+  <text x="120" y="170" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="120" font-weight="900" letter-spacing="-3">本週完成 86%</text>
+  <text x="120" y="226" fill="#7A3F1D" fill-opacity=".7" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="500">Work Progress Dashboard · 2026.07.23 · 熊熊設計</text>
+
+  <!-- 頂部標籤列 -->
+  <g transform="translate(1500 110)">
+    <rect x="-10" y="-50" width="330" height="80" rx="40" fill="#7A3F1D"/>
+    <text x="0" y="0" fill="#FBF6EC" font-family="Noto Sans TC, sans-serif" font-size="34" font-weight="700">📦 區塊 · 熊熊風格</text>
+  </g>
+
+  <!-- ============ Bento Grid 四區塊 ============ -->
+
+  <!-- A. 蜂巢放射環形焦點（左上） -->
+  <g filter="url(#softShadow)">
+    <rect x="120" y="290" width="540" height="380" rx="32" fill="#FBF6EC" stroke="#A0552A" stroke-opacity=".4" stroke-width="2"/>
+  </g>
+  <text x="160" y="346" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="28" font-weight="700">核心焦點</text>
+  <text x="160" y="378" fill="#A0552A" font-family="Noto Sans TC, sans-serif" font-size="20">放射環形蜂巢 · 2.5D 效果</text>
+
+  <!-- 蜂巢放射環形（技巧 #122，2 環） -->
+  <g transform="translate(390 530)" filter="url(#paperTex)">
+    <!-- 環繞 6 個小六邊形（外環） -->
+    <g transform="rotate(0)">
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="none" stroke="#A0552A" stroke-width="2" transform="translate(0 -100)"/>
+    </g>
+    <g transform="rotate(60)">
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="none" stroke="#A0552A" stroke-width="2" transform="translate(0 -100)"/>
+    </g>
+    <g transform="rotate(120)">
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="none" stroke="#A0552A" stroke-width="2" transform="translate(0 -100)"/>
+    </g>
+    <g transform="rotate(180)">
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="none" stroke="#A0552A" stroke-width="2" transform="translate(0 -100)"/>
+    </g>
+    <g transform="rotate(240)">
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="none" stroke="#A0552A" stroke-width="2" transform="translate(0 -100)"/>
+    </g>
+    <g transform="rotate(300)">
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="none" stroke="#A0552A" stroke-width="2" transform="translate(0 -100)"/>
+    </g>
+    <!-- 中環 6 個 -->
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="#C97B4A" transform="rotate(0) translate(0 -62)"/>
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="#C97B4A" transform="rotate(60) translate(0 -62)"/>
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="#C97B4A" transform="rotate(120) translate(0 -62)"/>
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="#C97B4A" transform="rotate(180) translate(0 -62)"/>
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="#C97B4A" transform="rotate(240) translate(0 -62)"/>
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="#C97B4A" transform="rotate(300) translate(0 -62)"/>
+    <!-- 中心：外粗空心 + 內實心（2.5D 效果） -->
+    <polygon points="0,-38 33,-19 33,19 0,38 -33,19 -33,-19" fill="none" stroke="#7A3F1D" stroke-width="5"/>
+    <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="url(#bearWarm)" stroke="#7A3F1D" stroke-width="2.5"/>
+    <text y="10" text-anchor="middle" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="800">86</text>
+  </g>
+  <text x="160" y="640" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="24" font-weight="700">5 模組 · 全數達標</text>
+
+  <!-- B. 數據條型圖（右上） -->
+  <g filter="url(#softShadow)">
+    <rect x="700" y="290" width="540" height="380" rx="32" fill="#FBF6EC" stroke="#A0552A" stroke-opacity=".4" stroke-width="2"/>
+  </g>
+  <text x="740" y="346" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="28" font-weight="700">數據走勢</text>
+  <text x="740" y="378" fill="#A0552A" font-family="Noto Sans TC, sans-serif" font-size="20">可探索故事 · Data Storytelling</text>
+
+  <!-- 條形圖（5 條；六邊形漸層） -->
+  <g transform="translate(740 420)">
+    <!-- 基線 -->
+    <line x1="0" y1="220" x2="460" y2="220" stroke="#A0552A" stroke-opacity=".3" stroke-width="2"/>
+    <!-- 條 1 -->
+    <polygon points="0,140 60,140 70,170 60,200 0,200 -10,170" fill="#A78BFA" opacity=".5"/>
+    <text x="30" y="240" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="18" font-weight="600" text-anchor="middle">W17</text>
+    <!-- 條 2 -->
+    <polygon points="100,110 160,110 170,170 160,200 100,200 90,170" fill="#6B5CE7" opacity=".55"/>
+    <text x="130" y="240" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="18" font-weight="600" text-anchor="middle">W18</text>
+    <!-- 條 3 -->
+    <polygon points="200,80 260,80 270,170 260,200 200,200 190,170" fill="#C97B4A" opacity=".6"/>
+    <text x="230" y="240" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="18" font-weight="600" text-anchor="middle">W19</text>
+    <!-- 條 4 -->
+    <polygon points="300,50 360,50 370,170 360,200 300,200 290,170" fill="#A0552A" opacity=".7"/>
+    <text x="330" y="240" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="18" font-weight="600" text-anchor="middle">W20</text>
+    <!-- 條 5（本週焦點） -->
+    <polygon points="400,20 460,20 470,170 460,200 400,200 390,170" fill="url(#bearWarm)" stroke="#7A3F1D" stroke-width="2"/>
+    <text x="430" y="240" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="18" font-weight="800" text-anchor="middle">W21</text>
+    <!-- 高亮數字 -->
+    <text x="430" y="14" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="800" text-anchor="middle">86%</text>
+  </g>
+
+  <!-- C. 數據點陣（左下） -->
+  <g filter="url(#softShadow)">
+    <rect x="120" y="710" width="540" height="280" rx="32" fill="#FBF6EC" stroke="#A0552A" stroke-opacity=".4" stroke-width="2"/>
+  </g>
+  <text x="160" y="766" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="28" font-weight="700">團隊脈搏</text>
+  <text x="160" y="798" fill="#A0552A" font-family="Noto Sans TC, sans-serif" font-size="20">12 人 · 4 角色 · 可探索分層</text>
+  <!-- 大圓 + 12 小圓（蜂巢排列 + 大小對比） -->
+  <g transform="translate(390 900)">
+    <circle cx="0" cy="0" r="46" fill="url(#bearDeep)"/>
+    <text y="8" text-anchor="middle" fill="#FBF6EC" font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="800">TEAM</text>
+    <!-- 環繞小圓 12 個（不同 size 模擬叢集大小對比） -->
+    <circle cx="0" cy="-90" r="16" fill="#F4C572"/>
+    <circle cx="46" cy="-78" r="12" fill="#C97B4A"/>
+    <circle cx="78" cy="-46" r="14" fill="#A0552A"/>
+    <circle cx="90" cy="0" r="18" fill="#7A3F1D"/>
+    <circle cx="78" cy="46" r="12" fill="#F4C572"/>
+    <circle cx="46" cy="78" r="14" fill="#C97B4A"/>
+    <circle cx="0" cy="90" r="16" fill="#A0552A"/>
+    <circle cx="-46" cy="78" r="12" fill="#7A3F1D"/>
+    <circle cx="-78" cy="46" r="14" fill="#F4C572"/>
+    <circle cx="-90" cy="0" r="18" fill="#C97B4A"/>
+    <circle cx="-78" cy="-46" r="12" fill="#A0552A"/>
+    <circle cx="-46" cy="-78" r="14" fill="#7A3F1D"/>
+  </g>
+
+  <!-- D. 行動清單（右下） -->
+  <g filter="url(#softShadow)">
+    <rect x="700" y="710" width="1100" height="280" rx="32" fill="#FBF6EC" stroke="#A0552A" stroke-opacity=".4" stroke-width="2"/>
+  </g>
+  <text x="740" y="766" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="28" font-weight="700">下一步 · NEXT ACTIONS</text>
+  <text x="740" y="798" fill="#A0552A" font-family="Noto Sans TC, sans-serif" font-size="20">清晰、聚焦、可行動</text>
+
+  <!-- 3 個行動項（六邊形 check + 描述） -->
+  <g transform="translate(740 830)">
+    <!-- 行動 1：已勾選 -->
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="url(#bearWarm)" stroke="#7A3F1D" stroke-width="2.5"/>
+    <path d="M-9 -1l7 7 14-15" fill="none" stroke="#5C2F18" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="40" y="-2" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700">1. 完成品質驗證 100%</text>
+    <text x="40" y="28" fill="#A0552A" font-family="Noto Sans TC, sans-serif" font-size="18">五模組全數通過 · 預先 2 天</text>
+  </g>
+  <g transform="translate(740 920)">
+    <!-- 行動 2：進行中 -->
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="#FBF6EC" stroke="#7A3F1D" stroke-width="2.5"/>
+    <circle cx="0" cy="0" r="6" fill="#7A3F1D"/>
+    <text x="40" y="-2" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700">2. 交叉審查啟動</text>
+    <text x="40" y="28" fill="#A0552A" font-family="Noto Sans TC, sans-serif" font-size="18">跨組 4 人 · 預計週四完成</text>
+  </g>
+  <g transform="translate(1240 830)">
+    <!-- 行動 3：待啟動 -->
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="none" stroke="#7A3F1D" stroke-width="2.5" stroke-dasharray="4 4"/>
+    <text x="40" y="-2" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700">3. 使用者訪談 5 場</text>
+    <text x="40" y="28" fill="#A0552A" font-family="Noto Sans TC, sans-serif" font-size="18">下週排程 · 已發邀請</text>
+  </g>
+  <g transform="translate(1240 920)">
+    <!-- 行動 4：待啟動 -->
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="none" stroke="#7A3F1D" stroke-width="2.5" stroke-dasharray="4 4"/>
+    <text x="40" y="-2" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700">4. 週報彙整送出</text>
+    <text x="40" y="28" fill="#A0552A" font-family="Noto Sans TC, sans-serif" font-size="18">週五 17:00 · 統一寄送</text>
+  </g>
+
+  <!-- 頁尾 -->
+  <text x="120" y="1042" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="20">來源：工作報告週報 · 2026.07.23 · 🐻 熊熊設計 · 配 Mass Typography + Bento + Data Storytelling + Dopamine + 手繪紋理</text>
+</svg>

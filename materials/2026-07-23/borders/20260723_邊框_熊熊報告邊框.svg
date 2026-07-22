@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">熊熊報告邊框 - 六邊形十式四角</title>
+  <desc id="desc">運用技巧 #120 大小對比、2.5D 效果與虛實對比的四角邊框，熊熊風格工作報告專用</desc>
+  <defs>
+    <linearGradient id="honeyFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4C572"/>
+      <stop offset="100%" stop-color="#D89B3F"/>
+    </linearGradient>
+    <filter id="handDrawn" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="1.0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- 透明底（保持邊框透明） -->
+  <rect width="1920" height="1080" fill="none"/>
+
+  <!-- 四角邊框（六邊形十式組合） -->
+  <g filter="url(#handDrawn)">
+    <!-- 左上角：大六邊形（外粗空心）+ 小六邊形（內實心，大小對比） -->
+    <g transform="translate(120 120)">
+      <polygon points="0,-90 78,-45 78,45 0,90 -78,45 -78,-45" fill="none" stroke="#7A3F1D" stroke-width="6"/>
+      <polygon points="0,-66 57,-33 57,33 0,66 -57,33 -57,-33" fill="url(#honeyFill)" stroke="#7A3F1D" stroke-width="2.5"/>
+      <polygon points="0,-34 29,-17 29,17 0,34 -29,17 -29,-17" fill="#7A3F1D"/>
+    </g>
+
+    <!-- 右上角：半透明旋轉 30°（#120 旋轉角度對比） -->
+    <g transform="translate(1800 120) rotate(30)">
+      <polygon points="0,-90 78,-45 78,45 0,90 -78,45 -78,-45" fill="none" stroke="#7A3F1D" stroke-width="6"/>
+      <polygon points="0,-66 57,-33 57,33 0,66 -57,33 -57,-33" fill="#C97B4A" fill-opacity=".65" stroke="#7A3F1D" stroke-width="2.5"/>
+      <polygon points="0,-34 29,-17 29,17 0,34 -29,17 -29,-17" fill="#7A3F1D"/>
+    </g>
+
+    <!-- 左下角：雙層虛實對比（#120 虛實對比） -->
+    <g transform="translate(120 960)">
+      <polygon points="0,-90 78,-45 78,45 0,90 -78,45 -78,-45" fill="url(#honeyFill)" stroke="#7A3F1D" stroke-width="2.5"/>
+      <polygon points="0,-58 50,-29 50,29 0,58 -50,29 -50,-29" fill="none" stroke="#7A3F1D" stroke-width="4"/>
+      <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="#7A3F1D"/>
+    </g>
+
+    <!-- 右下角：漸層填充分層（#120 填充方式對比） -->
+    <g transform="translate(1800 960)">
+      <polygon points="0,-90 78,-45 78,45 0,90 -78,45 -78,-45" fill="none" stroke="#7A3F1D" stroke-width="6"/>
+      <polygon points="0,-66 57,-33 57,33 0,66 -57,33 -57,-33" fill="url(#honeyFill)" stroke="#7A3F1D" stroke-width="2.5" fill-opacity=".85"/>
+      <polygon points="0,-34 29,-17 29,17 0,34 -29,17 -29,-17" fill="#5C2F18"/>
+    </g>
+  </g>
+
+  <!-- 邊緣裝飾小六邊形（沿對角線，虛實引導） -->
+  <g opacity=".7" filter="url(#handDrawn)">
+    <polygon points="0,-18 16,-9 16,9 0,18 -16,9 -16,-9" fill="none" stroke="#7A3F1D" stroke-width="1.5" transform="translate(400 180)"/>
+    <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="#C97B4A" transform="translate(480 200)"/>
+    <polygon points="0,-18 16,-9 16,9 0,18 -16,9 -16,-9" fill="none" stroke="#7A3F1D" stroke-width="1.5" transform="translate(1440 180)"/>
+    <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="#C97B4A" transform="translate(1520 200)"/>
+    <polygon points="0,-18 16,-9 16,9 0,18 -16,9 -16,-9" fill="none" stroke="#7A3F1D" stroke-width="1.5" transform="translate(480 900)"/>
+    <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="#C97B4A" transform="translate(400 880)"/>
+    <polygon points="0,-18 16,-9 16,9 0,18 -16,9 -16,-9" fill="none" stroke="#7A3F1D" stroke-width="1.5" transform="translate(1440 900)"/>
+    <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="#C97B4A" transform="translate(1520 880)"/>
+  </g>
+
+  <!-- 中央可放內容區（淡引導線） -->
+  <rect x="260" y="220" width="1400" height="640" fill="none" stroke="#A0552A" stroke-opacity=".12" stroke-width="1" stroke-dasharray="6 8"/>
+  <text x="960" y="560" fill="#A0552A" fill-opacity=".5" font-family="Noto Sans TC, sans-serif" font-size="24" font-weight="500" text-anchor="middle">— 內文區 · 工作報告主視覺 —</text>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">週報結構卡 - 環形蜂巢 4 步驟</title>
+  <desc id="desc">放射環形蜂巢承載 4 步驟，搭配手繪紙張紋理與巨型段落的熊熊風格結構卡</desc>
+  <defs>
+    <linearGradient id="ringA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4C572"/>
+      <stop offset="100%" stop-color="#D89B3F"/>
+    </linearGradient>
+    <linearGradient id="ringB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C97B4A"/>
+      <stop offset="100%" stop-color="#7A3F1D"/>
+    </linearGradient>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBF6EC"/>
+      <stop offset="100%" stop-color="#F2E8D5"/>
+    </linearGradient>
+    <filter id="paper" x="-2%" y="-2%" width="104%" height="104%">
+      <feTurbulence type="turbulence" baseFrequency="0.045" numOctaves="2" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="0.9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#5C2F18" flood-opacity=".16"/>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- 主標題（Massive Typography 巨型字） -->
+  <text x="960" y="140" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="74" font-weight="900" text-anchor="middle">本週工作結構</text>
+  <text x="960" y="190" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="500" text-anchor="middle">Weekly Report Structure · 4 步驟 · 環形蜂巢</text>
+
+  <!-- 分隔 -->
+  <path d="M120 250H1800" stroke="#7A3F1D" stroke-opacity=".25" stroke-width="2"/>
+
+  <!-- 環形蜂巢（#122 放射環形，4 步）中心 540, 500 -->
+  <g transform="translate(960 580)" filter="url(#paper)">
+    <!-- 中心空心六邊形（給 4 個外步驟一個圓心） -->
+    <polygon points="0,-72 62,-36 62,36 0,72 -62,36 -62,-36" fill="#FBF6EC" stroke="#7A3F1D" stroke-width="3"/>
+    <text y="-8" text-anchor="middle" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="800">WORK</text>
+    <text y="22" text-anchor="middle" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="20" font-weight="600">WEEK 21</text>
+
+    <!-- 連接線（4 條引導） -->
+    <line x1="0" y1="0" x2="0" y2="-220" stroke="#7A3F1D" stroke-opacity=".4" stroke-width="3" stroke-dasharray="6 6"/>
+    <line x1="0" y1="0" x2="220" y2="0" stroke="#7A3F1D" stroke-opacity=".4" stroke-width="3" stroke-dasharray="6 6"/>
+    <line x1="0" y1="0" x2="0" y2="220" stroke="#7A3F1D" stroke-opacity=".4" stroke-width="3" stroke-dasharray="6 6"/>
+    <line x1="0" y1="0" x2="-220" y2="0" stroke="#7A3F1D" stroke-opacity=".4" stroke-width="3" stroke-dasharray="6 6"/>
+
+    <!-- 4 個步驟六邊形（放射環形 + 大小對比） -->
+    <g transform="translate(0 -300)">
+      <polygon points="0,-58 50,-29 50,29 0,58 -50,29 -50,-29" fill="none" stroke="#7A3F1D" stroke-width="4"/>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22" fill="url(#ringA)" stroke="#7A3F1D" stroke-width="2.5"/>
+      <text y="10" text-anchor="middle" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="900">01</text>
+    </g>
+    <g transform="translate(300 0)">
+      <polygon points="0,-58 50,-29 50,29 0,58 -50,29 -50,-29" fill="none" stroke="#7A3F1D" stroke-width="4"/>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22" fill="url(#ringB)" stroke="#7A3F1D" stroke-width="2.5"/>
+      <text y="10" text-anchor="middle" fill="#FBF6EC" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="900">02</text>
+    </g>
+    <g transform="translate(0 300)">
+      <polygon points="0,-58 50,-29 50,29 0,58 -50,29 -50,-29" fill="none" stroke="#7A3F1D" stroke-width="4"/>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22" fill="url(#ringA)" stroke="#7A3F1D" stroke-width="2.5"/>
+      <text y="10" text-anchor="middle" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="900">03</text>
+    </g>
+    <g transform="translate(-300 0)">
+      <polygon points="0,-58 50,-29 50,29 0,58 -50,29 -50,-29" fill="none" stroke="#7A3F1D" stroke-width="4"/>
+      <polygon points="0,-44 38,-22 38,22 0,44 -38,22 -38,-22" fill="url(#ringB)" stroke="#7A3F1D" stroke-width="2.5"/>
+      <text y="10" text-anchor="middle" fill="#FBF6EC" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="900">04</text>
+    </g>
+  </g>
+
+  <!-- 4 個說明卡片 -->
+  <g filter="url(#cardShadow)">
+    <rect x="160" y="280" width="380" height="120" rx="22" fill="#FBF6EC" stroke="#A0552A" stroke-opacity=".35" stroke-width="1.5"/>
+    <rect x="1380" y="280" width="380" height="120" rx="22" fill="#FBF6EC" stroke="#A0552A" stroke-opacity=".35" stroke-width="1.5"/>
+    <rect x="160" y="860" width="380" height="120" rx="22" fill="#FBF6EC" stroke="#A0552A" stroke-opacity=".35" stroke-width="1.5"/>
+    <rect x="1380" y="860" width="380" height="120" rx="22" fill="#FBF6EC" stroke="#A0552A" stroke-opacity=".35" stroke-width="1.5"/>
+  </g>
+  <!-- 01：規劃 -->
+  <text x="200" y="332" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="800">01 · 規劃</text>
+  <text x="200" y="370" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="18" font-weight="600">梳理本週交付清單 · 設定 14 項</text>
+  <!-- 02：執行 -->
+  <text x="1420" y="332" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="800">02 · 執行</text>
+  <text x="1420" y="370" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="18" font-weight="600">完成 12 項 · 進行 2 項</text>
+  <!-- 03：驗證 -->
+  <text x="200" y="912" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="800">03 · 驗證</text>
+  <text x="200" y="950" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="18" font-weight="600">品質 100% 通過 · 0 缺點</text>
+  <!-- 04：彙報 -->
+  <text x="1420" y="912" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="32" font-weight="800">04 · 彙報</text>
+  <text x="1420" y="950" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="18" font-weight="600">週五 17:00 統一寄送</text>
+
+  <!-- 頁尾 -->
+  <text x="120" y="1042" fill="#7A3F1D" fill-opacity=".55" font-family="Noto Sans TC, sans-serif" font-size="20">熊熊設計 · Weekly Report Structure · 配 Massive Typography + 環形蜂巢 + Data Storytelling + 手繪紋理</text>
+</svg>

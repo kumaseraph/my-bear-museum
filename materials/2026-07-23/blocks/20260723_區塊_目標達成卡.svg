@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">目標達成卡 - Massive Typography × 2.5D 六邊形</title>
+  <desc id="desc">以巨型數字「92%」為單一視覺焦點，搭配 2.5D 六邊形、星徽與手繪感紋理的熊熊風格達成卡</desc>
+  <defs>
+    <linearGradient id="bigNum" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4C572"/>
+      <stop offset="50%" stop-color="#D89B3F"/>
+      <stop offset="100%" stop-color="#7A3F1D"/>
+    </linearGradient>
+    <linearGradient id="hexA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4C572"/>
+      <stop offset="100%" stop-color="#D89B3F"/>
+    </linearGradient>
+    <linearGradient id="hexB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C97B4A"/>
+      <stop offset="100%" stop-color="#7A3F1D"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F4C572" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="#F4C572" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="handDrawn" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="turbulence" baseFrequency="0.04" numOctaves="2" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="1.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="bigShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#5C2F18" flood-opacity=".22"/>
+    </filter>
+  </defs>
+
+  <!-- 底色：暖米 -->
+  <rect width="1920" height="1080" fill="#FBF6EC"/>
+
+  <!-- 中心輻射光暈 -->
+  <ellipse cx="960" cy="540" rx="800" ry="600" fill="url(#glow)"/>
+
+  <!-- 背景蜂巢紋理（低透明度，#122 蜂巢叢集） -->
+  <g opacity=".14">
+    <polygon points="200,180 240,180 260,210 240,240 200,240 180,210" fill="none" stroke="#7A3F1D" stroke-width="1.5"/>
+    <polygon points="260,180 300,180 320,210 300,240 260,240 240,210" fill="none" stroke="#7A3F1D" stroke-width="1.5"/>
+    <polygon points="1600,820 1640,820 1660,850 1640,880 1600,880 1580,850" fill="none" stroke="#7A3F1D" stroke-width="1.5"/>
+    <polygon points="1660,820 1700,820 1720,850 1700,880 1660,880 1640,850" fill="none" stroke="#7A3F1D" stroke-width="1.5"/>
+    <polygon points="100,940 140,940 160,970 140,1000 100,1000 80,970" fill="none" stroke="#7A3F1D" stroke-width="1.5"/>
+    <polygon points="1800,160 1840,160 1860,190 1840,220 1800,220 1780,190" fill="none" stroke="#7A3F1D" stroke-width="1.5"/>
+    <polygon points="240,820 280,820 300,850 280,880 240,880 220,850" fill="none" stroke="#7A3F1D" stroke-width="1.5"/>
+  </g>
+
+  <!-- 標題列 -->
+  <g transform="translate(120 160)">
+    <rect x="0" y="0" width="320" height="56" rx="28" fill="#7A3F1D"/>
+    <text x="160" y="38" fill="#FBF6EC" font-family="Noto Sans TC, sans-serif" font-size="24" font-weight="700" text-anchor="middle">Q3 目標達成</text>
+  </g>
+  <text x="460" y="200" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="500">單一焦點 · 單一結論</text>
+
+  <!-- 巨型數字 92%（Massive Typography > 80pt） -->
+  <g filter="url(#bigShadow)">
+    <text x="960" y="600" font-family="Noto Sans TC, sans-serif" font-size="420" font-weight="900" text-anchor="middle" fill="url(#bigNum)" letter-spacing="-15">92%</text>
+  </g>
+
+  <!-- 2.5D 六邊形焦點（中心偏上） -->
+  <g transform="translate(960 380)" filter="url(#handDrawn)">
+    <!-- 陰影層 -->
+    <polygon points="0,-78 68,-39 68,39 0,78 -68,39 -68,-39" fill="#7A3F1D" fill-opacity=".22" transform="translate(10 10)"/>
+    <!-- 外粗空心（技巧 #120，2.5D 效果） -->
+    <polygon points="0,-78 68,-39 68,39 0,78 -68,39 -68,-39" fill="none" stroke="#7A3F1D" stroke-width="5"/>
+    <!-- 內實心 -->
+    <polygon points="0,-58 50,-29 50,29 0,58 -50,29 -50,-29" fill="url(#hexA)" stroke="#7A3F1D" stroke-width="2.5"/>
+    <!-- 中心圓 -->
+    <circle cx="0" cy="0" r="22" fill="#FBF6EC" stroke="#7A3F1D" stroke-width="3"/>
+    <!-- 星徽（人類工藝痕跡） -->
+    <path d="M0,-14 L4,-4 L14,-4 L6,2 L9,12 L0,6 L-9,12 L-6,2 L-14,-4 L-4,-4 Z" fill="#7A3F1D"/>
+  </g>
+
+  <!-- 副標題 -->
+  <text x="960" y="730" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="58" font-weight="800" text-anchor="middle">目標提前 5 天達陣</text>
+  <text x="960" y="790" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="28" font-weight="500" text-anchor="middle">23 項關鍵指標 · 21 項超標 · 2 項達標 · 0 項落後</text>
+
+  <!-- 三段證據帶 -->
+  <g transform="translate(260 880)" filter="url(#handDrawn)">
+    <!-- 三組小六邊形（大小對比，#120） -->
+    <g transform="translate(0 0)">
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="url(#hexA)" stroke="#7A3F1D" stroke-width="2"/>
+      <text y="8" text-anchor="middle" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="800">A+</text>
+    </g>
+    <text x="50" y="-4" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="30" font-weight="800">品質</text>
+    <text x="50" y="26" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="20">100% 通過</text>
+  </g>
+  <g transform="translate(820 880)" filter="url(#handDrawn)">
+    <g transform="translate(0 0)">
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="url(#hexB)" stroke="#7A3F1D" stroke-width="2"/>
+      <text y="8" text-anchor="middle" fill="#FBF6EC" font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="800">A+</text>
+    </g>
+    <text x="50" y="-4" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="30" font-weight="800">時程</text>
+    <text x="50" y="26" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="20">提前 5 天</text>
+  </g>
+  <g transform="translate(1380 880)" filter="url(#handDrawn)">
+    <g transform="translate(0 0)">
+      <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="none" stroke="#7A3F1D" stroke-width="3"/>
+      <text y="8" text-anchor="middle" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="800">A</text>
+    </g>
+    <text x="50" y="-4" fill="#5C2F18" font-family="Noto Sans TC, sans-serif" font-size="30" font-weight="800">滿意度</text>
+    <text x="50" y="26" fill="#7A3F1D" font-family="Noto Sans TC, sans-serif" font-size="20">4.6 / 5.0</text>
+  </g>
+
+  <!-- 頁尾 -->
+  <text x="120" y="1042" fill="#7A3F1D" fill-opacity=".55" font-family="Noto Sans TC, sans-serif" font-size="20">熊熊設計 · Goal Achievement Card · 2026.07.23</text>
+</svg>
