@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" role="img" aria-label="極簡進度分母頁碼設計">
+  <title>極簡進度分母</title>
+  <desc>現代簡潔風格，07/12進度資訊，外粗空心+內實心2.5D，無障礙高對比。應用#120/#121技巧：2.5D效果+六邊形+圓形組合。融合趨勢：Accessibility as design、Simple shapes、高對比配色。適用工作報告PPT進度追蹤場景。</desc>
+
+  <defs>
+    <linearGradient id="pgd_outer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+    <linearGradient id="pgd_inner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+    <clipPath id="pgd_clip">
+      <rect x="0" y="0" width="400" height="160"/>
+    </clipPath>
+  </defs>
+
+  <!-- 左側大六邊形襯托 (實心，0°旋轉) -->
+  <g transform="translate(70, 80)">
+    <path d="M0,-45 L39.1,-22.5 L39.1,22.5 L0,45 L-39.1,22.5 L-39.1,-22.5 Z"
+          fill="#6B5CE7" fill-opacity="0.08"/>
+    <path d="M0,-45 L39.1,-22.5 L39.1,22.5 L0,45 L-39.1,22.5 L-39.1,-22.5 Z"
+          fill="none" stroke="#6B5CE7" stroke-width="1" stroke-opacity="0.2"/>
+  </g>
+
+  <!-- 主進度區塊 -->
+  <g transform="translate(200, 80)">
+    <!-- 外六邊形：粗空心 (2.5D第一步) -->
+    <path d="M0,-55 L47.7,-27.5 L47.7,27.5 L0,55 L-47.7,27.5 L-47.7,-27.5 Z"
+          fill="none" stroke="url(#pgd_outer)" stroke-width="6" stroke-linejoin="round"/>
+
+    <!-- 內六邊形：實心半透明 (2.5D第二步) -->
+    <path d="M0,-40 L34.7,-20 L34.7,20 L0,40 L-34.7,20 L-34.7,-20 Z"
+          fill="url(#pgd_inner)" fill-opacity="0.35"/>
+
+    <!-- 內圓 (靶心結構) -->
+    <circle cx="0" cy="0" r="28" fill="#FFFFFF" fill-opacity="0.9"/>
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#6B5CE7" stroke-width="2"/>
+    <circle cx="0" cy="0" r="18" fill="none" stroke="#4ECDC4" stroke-width="1.5" stroke-opacity="0.6"/>
+    <circle cx="0" cy="0" r="8" fill="#6B5CE7"/>
+
+    <!-- 進度分子 -->
+    <text x="0" y="6" text-anchor="middle" fill="#4C1D95"
+          font-family="system-ui, sans-serif" font-size="26" font-weight="800">07</text>
+
+    <!-- 進度分母標註 -->
+    <text x="0" y="-62" text-anchor="middle" fill="#6B5CE7"
+          font-family="system-ui, sans-serif" font-size="10" font-weight="600" letter-spacing="0.5" fill-opacity="0.7">PROGRESS</text>
+    <text x="0" y="75" text-anchor="middle" fill="#94A3B8"
+          font-family="system-ui, sans-serif" font-size="14">12</text>
+
+    <!-- 右側小圓點裝飾 (無障礙高對比) -->
+    <circle cx="40" cy="-40" r="4" fill="#FF8C00"/>
+    <circle cx="52" cy="-30" r="2.5" fill="#6B5CE7" fill-opacity="0.5"/>
+    <circle cx="52" cy="-18" r="2" fill="#4ECDC4" fill-opacity="0.4"/>
+  </g>
+
+  <!-- 右側小六邊形 (30°旋轉呼應) -->
+  <g transform="translate(330, 80) rotate(30)">
+    <path d="M0,-35 L30.4,-17.5 L30.4,17.5 L0,35 L-30.4,17.5 L-30.4,-17.5 Z"
+          fill="#4ECDC4" fill-opacity="0.12"/>
+    <path d="M0,-35 L30.4,-17.5 L30.4,17.5 L0,35 L-30.4,17.5 L-30.4,-17.5 Z"
+          fill="none" stroke="#4ECDC4" stroke-width="1.5" stroke-opacity="0.4"/>
+  </g>
+
+  <!-- 底部連接線 -->
+  <line x1="115" y1="80" x2="145" y2="80" stroke="#6B5CE7" stroke-width="1.5" stroke-opacity="0.3" stroke-dasharray="2,3"/>
+  <line x1="255" y1="80" x2="295" y2="80" stroke="#4ECDC4" stroke-width="1.5" stroke-opacity="0.3" stroke-dasharray="2,3"/>
+</svg>
