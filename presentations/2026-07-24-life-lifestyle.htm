@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生活休閒密碼：在忙碌裡找回自己的節奏｜2026-07-24</title>
+<style>
+/* ============================================================
+   配色：colors/colors-C2.css 內容（內嵌；C2 暖白紙藝）
+   結構：structures/V8-structure.css 內容（內嵌；V8 和紙質感）
+   載入順序意圖：C2 → V8
+   ============================================================ */
+
+/* ===== C2 暖白紙藝：CSS 變數 ===== */
+:root {
+  --bg: #f7f3eb;
+  --bg-secondary: #eee8dc;
+  --bg-card: rgba(255, 255, 255, 0.72);
+  --text: #2c2c2c;
+  --text-secondary: #6b6b6b;
+  --text-soft: #8a8a8a;
+  --accent: #b8860b;
+  --accent-warm: #c4a882;
+  --accent-deep: #8a6914;
+  --accent-glow: rgba(184, 134, 11, 0.2);
+  --ink: #3a3024;
+  --ink-soft: #6b5e4a;
+  --paper-edge: rgba(180, 160, 130, 0.35);
+  --nav-bg: rgba(247, 243, 235, 0.95);
+  --shadow-soft: 0 6px 24px rgba(120, 90, 40, 0.12);
+  --shadow-mid: 0 12px 36px rgba(120, 90, 40, 0.18);
+  --border-warm: rgba(184, 134, 11, 0.25);
+}
+
+/* ===== V8 和紙質感結構 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 20px;
+  font-family: 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(180,160,130,0.04) 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(135deg, rgba(180,160,130,0.03) 0 2px, transparent 2px 12px),
+    radial-gradient(ellipse 70% 60% at 20% 10%, rgba(255,248,235,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(232,210,170,0.25) 0%, transparent 60%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.presentation {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: var(--shadow-mid);
+  background: var(--bg);
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  padding: 40px 56px 80px;
+  color: var(--text);
+}
+.slide.active { display: flex; }
+
+/* 和紙邊框與紙紋 */
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid var(--paper-edge);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(160,140,100,0.025) 0 1px, transparent 1px 4px);
+  pointer-events: none;
+}
+
+/* 共用元件 */
+.page-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: var(--accent-deep);
+  font-weight: 600;
+  text-transform: none;
+}
+.page-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-top: 6px;
+}
+.page-sub {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+}
+.title-bar {
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+  border-radius: 1px;
+  margin-top: 12px;
+}
+
+.section-num {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  background: rgba(184, 134, 11, 0.12);
+  padding: 4px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.2em;
+}
+
+/* 導航 */
+.nav {
+  position: absolute;
+  bottom: 24px; right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--nav-bg);
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: 1px solid var(--border-warm);
+  box-shadow: var(--shadow-soft);
+  z-index: 1000;
+}
+.nav button {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent-deep);
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.nav button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.nav .page-indicator {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* 卡片 */
+.paper-card {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+/* ============================================================
+   P1 封面 — 特/單（大標題 + 生活軌道 SVG）
+   ============================================================ */
+.s1-cover {
+  background:
+    radial-gradient(circle at 25% 30%, rgba(232,201,160,0.5) 0%, transparent 50%),
+    radial-gradient(circle at 80% 75%, rgba(255,248,235,0.6) 0%, transparent 55%),
+    var(--bg);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .cover-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 18px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid var(--border-warm);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+  letter-spacing: 0.25em;
+  margin-bottom: 24px;
+}
+.s1-cover .cover-stamp::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.s1-cover h1 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.s1-cover .cover-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.2em;
+  margin-bottom: 32px;
+}
+.s1-cover .cover-orbit {
+  width: 360px;
+  height: 220px;
+  margin: 0 auto 24px;
+  position: relative;
+}
+.s1-cover .cover-meta {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.15em;
+}
+.s1-cover .cover-meta strong {
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+/* ============================================================
+   P2 目錄 — 方/網（八個生活面向）
+   ============================================================ */
+.s2-toc {
+  background:
+    linear-gradient(180deg, #f5efe5 0%, #f7f3eb 100%);
+  flex-direction: column;
+  padding: 40px 56px 88px;
+  overflow: hidden;
+}
+.s2-toc .toc-head {
+  margin-bottom: 24px;
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 14px;
+  flex: 1;
+}
+.toc-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+}
+.toc-cell .toc-idx {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--accent-deep);
+  letter-spacing: 0.05em;
+}
+.toc-cell .toc-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.toc-cell .toc-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.toc-cell .toc-svg {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 28px; height: 28px;
+  opacity: 0.7;
+}
+
+/* ============================================================
+   P3 數位減法 — 圓/水（三圈同心）
+   ============================================================ */
+.s3-digital {
+  background:
+    radial-gradient(ellipse at 70% 50%, #f5efe5 0%, var(--bg) 60%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.s3-digital .circles {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 24px;
+  margin-top: 20px;
+}
+.circle-card {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+  border: 2px solid var(--paper-edge);
+}
+.circle-card.c1 {
+  background: radial-gradient(circle at 30% 30%, #fff8ec 0%, #f0e2c6 100%);
+}
+.circle-card.c2 {
+  background: radial-gradient(circle at 30% 30%, #f9efdc 0%, #e3cf9a 100%);
+}
+.circle-card.c3 {
+  background: radial-gradient(circle at 30% 30%, #ecdcb0 0%, #c4a882 100%);
+}
+.circle-card .circle-num {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.circle-card .circle-unit {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.circle-card .circle-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 10px;
+}
+.circle-card .circle-tip {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  line-height: 1.4;
+  max-width: 200px;
+}
+.circle-card .circle-mark {
+  position: absolute;
+  top: 16px;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-warm);
+}
+.circle-card .circle-svg { width: 20px; height: 20px; }
+.s3-digital .rings-explain {
+  margin-top: 18px;
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* ============================================================
+   P4 睡眠 — 線/垂（晚間流程）
+   ============================================================ */
+.s4-sleep {
+  background: linear-gradient(180deg, #f7f3eb 0%, #eee8dc 100%);
+  flex-direction: row;
+  padding: 36px 56px 88px;
+  gap: 32px;
+}
+.s4-sleep .sleep-head {
+  flex: 0 0 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.s4-sleep .sleep-head h2 { margin-top: 12px; }
+.s4-sleep .sleep-head-quote {
+  margin-top: 20px;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  border-left: 3px solid var(--accent);
+  padding-left: 14px;
+}
+.timeline {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding-left: 24px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-warm));
+}
+.tl-item {
+  display: flex;
+  gap: 16px;
+  padding: 10px 0;
+  align-items: flex-start;
+  position: relative;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -22px;
+  top: 18px;
+  width: 14px; height: 14px;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  z-index: 1;
+}
+.tl-item .tl-time {
+  flex: 0 0 80px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: 0.05em;
+}
+.tl-item .tl-body {
+  flex: 1;
+}
+.tl-item .tl-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.tl-item .tl-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   P5 飲食 — 六/散（五色拼圖）
+   ============================================================ */
+.s5-diet {
+  background:
+    radial-gradient(circle at 50% 50%, #f9efdc 0%, var(--bg) 70%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.s5-diet .six-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+}
+.hex-tile {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 16px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+}
+.hex-tile::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 8px; height: 100%;
+  border-radius: 6px 0 0 6px;
+}
+.hex-tile.tone-red::before { background: #c44d3a; }
+.hex-tile.tone-orange::before { background: #d97a2c; }
+.hex-tile.tone-yellow::before { background: #c4a020; }
+.hex-tile.tile-green::before, .hex-tile.tone-green::before { background: #5d8a3f; }
+.hex-tile.tone-blue::before { background: #3a7ca5; }
+.hex-tile.tone-purple::before { background: #7b5698; }
+.hex-tile .tile-mark {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--paper-edge);
+  flex-shrink: 0;
+}
+.hex-tile .tile-mark svg { width: 26px; height: 26px; }
+.hex-tile .tile-info { flex: 1; }
+.hex-tile .tile-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.hex-tile .tile-tag {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P6 居家 — 方/水（分區整理）
+   ============================================================ */
+.s6-home {
+  background:
+    linear-gradient(135deg, #f9f4ea 0%, #eee8dc 100%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.zone-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 16px;
+  flex: 1;
+}
+.zone-card {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-left: 4px solid var(--accent);
+  border-radius: 6px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow-soft);
+}
+.zone-card .zone-mark {
+  width: 36px; height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(184, 134, 11, 0.15);
+  border-radius: 6px;
+}
+.zone-card .zone-mark svg { width: 22px; height: 22px; }
+.zone-card .zone-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+}
+.zone-card .zone-task {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.zone-card .zone-min {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-top: auto;
+}
+.s6-home .zone-foot {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   P7 社交 — 特/網（社交能量矩陣）
+   ============================================================ */
+.s7-social {
+  background:
+    radial-gradient(ellipse at 50% 0%, #f9f4ea 0%, var(--bg) 60%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 160px 1fr 1fr;
+  grid-template-rows: 36px 1fr 1fr;
+  gap: 8px;
+  flex: 1;
+  margin-top: 16px;
+}
+.matrix-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: var(--shadow-soft);
+}
+.matrix-cell.axis-label {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+.matrix-cell.q-header {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-align: center;
+  letter-spacing: 0.15em;
+}
+.matrix-cell .q-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.matrix-cell .q-tip {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.matrix-cell .q-emoji-replace { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.matrix-cell .q-emoji-replace svg { width: 22px; height: 22px; opacity: 0.8; }
+.matrix-cell.high-energy {
+  border-left: 4px solid var(--accent);
+}
+.matrix-cell.low-energy {
+  border-left: 4px solid var(--accent-warm);
+}
+.matrix-cell.deep-energy {
+  border-top: 4px solid var(--accent-deep);
+}
+
+/* ============================================================
+   P8 休閒恢復力 — 圓/散（雷達替代）
+   ============================================================ */
+.s8-recovery {
+  background:
+    radial-gradient(ellipse at 70% 70%, #f9efdc 0%, var(--bg) 60%);
+  flex-direction: row;
+  padding: 36px 56px 88px;
+  gap: 28px;
+}
+.s8-recovery .recovery-head { flex: 0 0 280px; }
+.s8-recovery .radar-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.radar-svg { width: 100%; max-width: 460px; height: auto; }
+.s8-recovery .recovery-legend {
+  margin-top: 16px;
+}
+.recovery-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--paper-edge);
+}
+.recovery-row:last-child { border-bottom: none; }
+.recovery-row .rr-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.recovery-row .rr-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  flex: 0 0 100px;
+}
+.recovery-row .rr-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P9 微習慣七日節奏 — 線/水
+   ============================================================ */
+.s9-rhythm {
+  background: linear-gradient(180deg, #f7f3eb 0%, #eee8dc 100%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.day-strip {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  flex: 1;
+}
+.day-card {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.day-card .day-label {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: 0.1em;
+}
+.day-card .day-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.day-card .day-svg-wrap {
+  width: 48px; height: 48px;
+  background: rgba(184, 134, 11, 0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.day-card .day-svg-wrap svg { width: 26px; height: 26px; }
+.day-card .day-task {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-top: auto;
+}
+.day-card::after {
+  content: '';
+  position: absolute;
+  bottom: 12px; right: -7px;
+  width: 14px; height: 2px;
+  background: var(--accent);
+}
+.day-card:last-child::after { display: none; }
+.s9-rhythm .rhythm-note {
+  margin-top: 14px;
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* ============================================================
+   P10 總結 — 六/單（生活羅盤）
+   ============================================================ */
+.s10-end {
+  background:
+    radial-gradient(circle at 50% 50%, #f9efdc 0%, var(--bg) 65%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 56px 88px;
+}
+.s10-end .end-stamp {
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff8ec 0%, #e3cf9a 100%);
+  border: 3px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-mid);
+}
+.s10-end .end-stamp svg { width: 70px; height: 70px; }
+.s10-end h2 {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+.s10-end .end-poem {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 2;
+  letter-spacing: 0.1em;
+  margin-bottom: 28px;
+}
+.s10-end .end-actions {
+  display: flex;
+  gap: 14px;
+}
+.end-action {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 1.05rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.end-action svg { width: 18px; height: 18px; }
+.end-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  border-bottom: 1px dashed var(--paper-edge);
+  padding-bottom: 4px;
+}
+.end-back svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<div class="presentation" id="pres">
+  <!-- ============================ P1 封面 ============================ -->
+  <section class="slide s1-cover active" id="slide-1">
+    <div class="cover-stamp">FRIDAY · 生活休閒 · 第 24 號</div>
+    <h1>生活休閒密碼</h1>
+    <div class="cover-subtitle">在忙碌裡找回自己的節奏</div>
+    <div class="cover-orbit">
+      <svg viewBox="0 0 360 220" width="360" height="220" xmlns="http://www.w3.org/2000/svg" aria-label="生活軌道示意">
+        <defs>
+          <radialGradient id="orbit-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#c4a882" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#b8860b" stop-opacity="0.05"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="180" cy="110" rx="160" ry="80" fill="none" stroke="#b8860b" stroke-width="1.4" stroke-dasharray="4 4" opacity="0.6"/>
+        <ellipse cx="180" cy="110" rx="110" ry="55" fill="none" stroke="#c4a882" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.7"/>
+        <circle cx="180" cy="110" r="42" fill="url(#orbit-grad)"/>
+        <circle cx="180" cy="110" r="42" fill="none" stroke="#8a6914" stroke-width="1.5"/>
+        <circle cx="180" cy="110" r="14" fill="#fff8ec" stroke="#8a6914" stroke-width="1.5"/>
+        <!-- 七個行星分佈 -->
+        <g fill="#b8860b">
+          <circle cx="40" cy="110" r="6"/>
+          <circle cx="320" cy="110" r="6"/>
+          <circle cx="180" cy="36" r="5"/>
+          <circle cx="180" cy="184" r="5"/>
+          <circle cx="100" cy="60" r="4"/>
+          <circle cx="260" cy="60" r="4"/>
+          <circle cx="100" cy="160" r="4"/>
+          <circle cx="260" cy="160" r="4"/>
+        </g>
+        <text x="180" y="113" text-anchor="middle" fill="#8a6914" font-size="11" font-family="serif" font-weight="700">節奏</text>
+      </svg>
+    </div>
+    <div class="cover-meta">
+      <span><strong>2026 · 07 · 24</strong> 星期五</span>
+      <span>·</span>
+      <span>熊熊博物館 · <strong>生活休閒</strong></span>
+    </div>
+  </section>
+
+  <!-- ============================ P2 目錄 ============================ -->
+  <section class="slide s2-toc" id="slide-2">
+    <div class="toc-head">
+      <div class="page-eyebrow">CONTENTS · 章節導覽</div>
+      <div class="page-title">八個生活面向，重新編輯你的節奏</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="toc-grid">
+      <div class="toc-cell">
+        <div class="toc-idx">01</div>
+        <div class="toc-name">數位減法</div>
+        <div class="toc-desc">把滑手機的時間留給自己</div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.5"><rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="18" r="1" fill="#b8860b"/></svg>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-idx">02</div>
+        <div class="toc-name">睡眠節律</div>
+        <div class="toc-desc">一夜好眠是給未來自己的禮物</div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-idx">03</div>
+        <div class="toc-name">飲食拼圖</div>
+        <div class="toc-desc">五色食物把營養吃齊全</div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3 v18 M3 12 h18"/></svg>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-idx">04</div>
+        <div class="toc-name">居家分區</div>
+        <div class="toc-desc">把房間分成可被整理的區塊</div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.5"><path d="M3 12 l9-9 9 9"/><path d="M5 10 v10 h14 v-10"/></svg>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-idx">05</div>
+        <div class="toc-name">社交能量</div>
+        <div class="toc-desc">分得出滋養與耗損的人際關係</div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.5"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 19 c1-3 4-5 5-5 M21 19 c-1-3 -4-5 -5-5"/></svg>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-idx">06</div>
+        <div class="toc-name">休閒恢復</div>
+        <div class="toc-desc">六種活動補回被消耗的自己</div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.5"><path d="M12 2 v6 M12 16 v6 M2 12 h6 M16 12 h6"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-idx">07</div>
+        <div class="toc-name">微習慣七日</div>
+        <div class="toc-desc">七個微型行動撐起整週節奏</div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9 h18"/><path d="M8 3 v4 M16 3 v4"/></svg>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-idx">08</div>
+        <div class="toc-name">週節奏羅盤</div>
+        <div class="toc-desc">把以上串成可持續的生活循環</div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><polygon points="12,5 14,12 12,19 10,12" fill="#b8860b" opacity="0.4"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P3 數位減法 ============================ -->
+  <section class="slide s3-digital" id="slide-3">
+    <div>
+      <div class="section-num">01 · 數位減法</div>
+      <div class="page-title">三圈同心，把螢幕時間還給自己</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="circles">
+      <div class="circle-card c1">
+        <div class="circle-mark">
+          <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 2"/></svg>
+        </div>
+        <div class="circle-num">30</div>
+        <div class="circle-unit">分鐘</div>
+        <div class="circle-label">起床緩衝</div>
+        <div class="circle-tip">醒來 30 分鐘內不碰手機，先讓自己準備好</div>
+      </div>
+      <div class="circle-card c2">
+        <div class="circle-mark">
+          <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M5 11 l4 4 L19 5"/></svg>
+        </div>
+        <div class="circle-num">1</div>
+        <div class="circle-unit">小時</div>
+        <div class="circle-label">睡前斷網</div>
+        <div class="circle-tip">睡眠 1 小時前關閉通知，換成書本或伸展</div>
+      </div>
+      <div class="circle-card c3">
+        <div class="circle-mark">
+          <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M4 12 h16 M12 4 v16"/></svg>
+        </div>
+        <div class="circle-num">3</div>
+        <div class="circle-unit">個裝置</div>
+        <div class="circle-label">客廳淨空</div>
+        <div class="circle-tip">把多餘裝置請出客廳，吃飯配對話而非螢幕</div>
+      </div>
+    </div>
+    <div class="rings-explain">外圈：生活習慣 · 中圈：睡前儀式 · 內圈：環境設計</div>
+  </section>
+
+  <!-- ============================ P4 睡眠 ============================ -->
+  <section class="slide s4-sleep" id="slide-4">
+    <div class="sleep-head">
+      <div class="section-num">02 · 睡眠節律</div>
+      <div class="page-title">晚間九十分鐘，讓身體慢慢下線</div>
+      <div class="title-bar"></div>
+      <div class="sleep-head-quote">
+        睡眠不是按按鈕，是一段循序漸進的<strong style="color:var(--accent-deep);">下線儀式</strong>。把晚上九十分鐘整理成流程，隔天早上會告訴你值不值得。
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">T−90</div>
+        <div class="tl-body">
+          <div class="tl-title">關閉最後一個工作視窗</div>
+          <div class="tl-desc">把電腦、郵件、訊息分頁關閉，結束今天的工作</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">T−60</div>
+        <div class="tl-body">
+          <div class="tl-title">進入暖光模式</div>
+          <div class="tl-desc">把家裡主燈切換成 2700K 以下暖色，螢幕也開夜覽</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">T−30</div>
+        <div class="tl-body">
+          <div class="tl-title">完成沐浴與保養</div>
+          <div class="tl-desc">熱水沖五分鐘幫助降溫，再做基礎保養</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">T−15</div>
+        <div class="tl-body">
+          <div class="tl-title">寫下明日三件事</div>
+          <div class="tl-desc">把焦慮倒出腦袋，斷開「怕忘記」的擔心</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">T 0</div>
+        <div class="tl-body">
+          <div class="tl-title">關燈，上床</div>
+          <div class="tl-desc">房間降到 18-22°C，整晚勿再碰手機</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P5 飲食五色 ============================ -->
+  <section class="slide s5-diet" id="slide-5">
+    <div>
+      <div class="section-num">03 · 飲食拼圖</div>
+      <div class="page-title">把五種顏色放進一週的餐盤</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="six-grid">
+      <div class="hex-tile tone-red">
+        <div class="tile-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#c44d3a" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8 v8 M8 12 h8"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-name">紅：茄紅素</div>
+          <div class="tile-tag">番茄、紅椒、草莓、木瓜</div>
+        </div>
+      </div>
+      <div class="hex-tile tone-orange">
+        <div class="tile-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#d97a2c" stroke-width="1.8"><path d="M4 16 c4 4 12 4 16 0 M6 10 c3 3 9 3 12 0"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-name">橘：β-胡蘿蔔素</div>
+          <div class="tile-tag">胡蘿蔔、地瓜、南瓜、芒果</div>
+        </div>
+      </div>
+      <div class="hex-tile tone-yellow">
+        <div class="tile-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#c4a020" stroke-width="1.8"><path d="M5 19 l7-14 7 14 z"/><path d="M9 14 h6"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-name">黃：類黃酮</div>
+          <div class="tile-tag">柑橘、洋蔥、玉米、香蕉</div>
+        </div>
+      </div>
+      <div class="hex-tile tone-green">
+        <div class="tile-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#5d8a3f" stroke-width="1.8"><path d="M12 4 c4 4 6 8 6 12 H6 c0-4 2-8 6-12 z"/><path d="M12 4 v16"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-name">綠：葉綠素</div>
+          <div class="tile-tag">菠菜、花椰菜、奇異果、抹茶</div>
+        </div>
+      </div>
+      <div class="hex-tile tone-blue">
+        <div class="tile-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#3a7ca5" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="9" cy="10" r="1" fill="#3a7ca5"/><circle cx="14" cy="11" r="1" fill="#3a7ca5"/><circle cx="11" cy="15" r="1" fill="#3a7ca5"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-name">藍紫：花青素</div>
+          <div class="tile-tag">藍莓、葡萄、紫高麗、茄子</div>
+        </div>
+      </div>
+      <div class="hex-tile tone-purple">
+        <div class="tile-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#7b5698" stroke-width="1.8"><path d="M6 6 h12 v12 H6 z"/><path d="M6 6 l6 6 m6 -6 l-6 6 m0 0 v6"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-name">白：植化素</div>
+          <div class="tile-tag">高麗菜、洋蔥、大蒜、豆腐</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P6 居家分區 ============================ -->
+  <section class="slide s6-home" id="slide-6">
+    <div>
+      <div class="section-num">04 · 居家分區</div>
+      <div class="page-title">把房間切成五區，每晚只清一區</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="zone-row">
+      <div class="zone-card">
+        <div class="zone-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M3 4 h18 v4 H3 z M3 10 h18 v10 H3 z"/><path d="M5 6 h2 M5 14 h6"/></svg></div>
+        <div class="zone-name">玄關 · 進門</div>
+        <div class="zone-task">鞋歸鞋櫃、鑰匙進盤、外套掛起</div>
+        <div class="zone-min">3 分鐘</div>
+      </div>
+      <div class="zone-card">
+        <div class="zone-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><rect x="3" y="8" width="18" height="12"/><path d="M5 8 v-2 a2 2 0 0 1 2-2 h10 a2 2 0 0 1 2 2 v2"/></svg></div>
+        <div class="zone-name">廚房 · 餐桌</div>
+        <div class="zone-task">洗碗擦乾、流理台歸零、桌面剩一壺水</div>
+        <div class="zone-min">8 分鐘</div>
+      </div>
+      <div class="zone-card">
+        <div class="zone-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><rect x="4" y="6" width="16" height="14"/><path d="M4 10 h16"/></svg></div>
+        <div class="zone-name">書桌 · 工作</div>
+        <div class="zone-task">雜物進盒、筆歸筆筒、桌面只留當下</div>
+        <div class="zone-min">5 分鐘</div>
+      </div>
+      <div class="zone-card">
+        <div class="zone-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M3 12 l9-8 9 8"/><path d="M5 10 v10 h14 v-10"/></svg></div>
+        <div class="zone-name">客廳 · 共處</div>
+        <div class="zone-task">遙控回原位、沙發歸平整、地板撿大件</div>
+        <div class="zone-min">4 分鐘</div>
+      </div>
+      <div class="zone-card">
+        <div class="zone-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M3 18 v-7 a2 2 0 0 1 2-2 h14 a2 2 0 0 1 2 2 v7"/><path d="M3 18 h18 M7 14 h10"/></svg></div>
+        <div class="zone-name">臥室 · 入眠</div>
+        <div class="zone-task">明日衣服掛起、床單拉平、空調定時</div>
+        <div class="zone-min">6 分鐘</div>
+      </div>
+    </div>
+    <div class="zone-foot">一週輪一輪，每天 5 分鐘，整月就是把房間「再養回來」</div>
+  </section>
+
+  <!-- ============================ P7 社交能量矩陣 ============================ -->
+  <section class="slide s7-social" id="slide-7">
+    <div>
+      <div class="section-num">05 · 社交能量</div>
+      <div class="page-title">社交能量矩陣：分得出滋養與耗損</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="matrix-grid">
+      <div class="matrix-cell axis-label"></div>
+      <div class="matrix-cell q-header">淺、輕、短</div>
+      <div class="matrix-cell q-header">深、長、真</div>
+
+      <div class="matrix-cell axis-label">正 向<br/>充 電</div>
+      <div class="matrix-cell high-energy">
+        <div class="q-emoji-replace">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.8"><circle cx="12" cy="12" r="6"/><path d="M12 4 v2 M12 18 v2 M4 12 h2 M18 12 h2"/></svg>
+          <div class="q-name">輕快補給型</div>
+        </div>
+        <div class="q-tip">咖啡閨蜜、午餐戰友、同事閒聊——短而溫暖</div>
+      </div>
+      <div class="matrix-cell high-energy deep-energy">
+        <div class="q-emoji-replace">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="1.8"><path d="M12 3 l3 7 h7 l-5 5 2 8 -7-5 -7 5 2-8 -5-5 h7 z"/></svg>
+          <div class="q-name">心靈錨定型</div>
+        </div>
+        <div class="q-tip">知心老友、家人深聊、亦師亦友——長而篤定</div>
+      </div>
+
+      <div class="matrix-cell axis-label">負 向<br/>耗 損</div>
+      <div class="matrix-cell low-energy">
+        <div class="q-emoji-replace">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c4a882" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 9 l6 6 M15 9 l-6 6"/></svg>
+          <div class="q-name">閃避消耗型</div>
+        </div>
+        <div class="q-tip">純抱怨、炫耀、抱怨式抱怨——禮貌拒絕</div>
+      </div>
+      <div class="matrix-cell low-energy deep-energy">
+        <div class="q-emoji-replace">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="1.8"><path d="M4 4 l16 16 M20 4 l-16 16"/></svg>
+          <div class="q-name">沉重拉扯型</div>
+        </div>
+        <div class="q-tip">情緒勒索、討好陷阱、過度責任——設界線</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P8 休閒恢復 ============================ -->
+  <section class="slide s8-recovery" id="slide-8">
+    <div class="recovery-head">
+      <div class="section-num">06 · 休閒恢復</div>
+      <div class="page-title">六角雷達：六個面向補回自己</div>
+      <div class="title-bar"></div>
+      <div class="recovery-legend">
+        <div class="recovery-row"><span class="rr-dot" style="background:#b8860b"></span><span class="rr-name">身體</span><span class="rr-desc">散步、伸展、泡澡——喚醒體感</span></div>
+        <div class="recovery-row"><span class="rr-dot" style="background:#c4a882"></span><span class="rr-name">心智</span><span class="rr-desc">閱讀、拼圖、學習——讓好奇心在</span></div>
+        <div class="recovery-row"><span class="rr-dot" style="background:#8a6914"></span><span class="rr-name">情緒</span><span class="rr-desc">寫日記、談心、哭一場——允許流動</span></div>
+        <div class="recovery-row"><span class="rr-dot" style="background:#5d8a3f"></span><span class="rr-name">關係</span><span class="rr-desc">聚餐、通訊、擁抱——給予與接收</span></div>
+        <div class="recovery-row"><span class="rr-dot" style="background:#3a7ca5"></span><span class="rr-name">美感</span><span class="rr-desc">看展、聽音樂、做菜——感受秩序</span></div>
+        <div class="recovery-row"><span class="rr-dot" style="background:#7b5698"></span><span class="rr-name">意義</span><span class="rr-desc">志工、宗教、冥想——連結比自己更大的</span></div>
+      </div>
+    </div>
+    <div class="radar-wrap">
+      <svg class="radar-svg" viewBox="0 0 460 380" xmlns="http://www.w3.org/2000/svg" aria-label="六角雷達圖">
+        <!-- 背景六層網格 -->
+        <g transform="translate(230,190)" fill="none" stroke="#c4a882" stroke-width="1" opacity="0.5">
+          <polygon points="0,-150 130,75 -130,75"/>
+          <polygon points="0,-150 130,-75 -130,-75"/>
+          <polygon points="0,-150 130,-75 130,75 -130,75 -130,-75"/>
+          <polygon points="0,0" opacity="0.4"/>
+          <polygon points="0,-75" opacity="0.4"/>
+          <polygon points="0,-120" opacity="0.4"/>
+          <polygon points="0,-150" opacity="0.4"/>
+        </g>
+        <!-- 軸線 -->
+        <g transform="translate(230,190)" stroke="#b8860b" stroke-width="1" opacity="0.7">
+          <line x1="0" y1="0" x2="0" y2="-150"/>
+          <line x1="0" y1="0" x2="130" y2="-75"/>
+          <line x1="0" y1="0" x2="130" y2="75"/>
+          <line x1="0" y1="0" x2="0" y2="150"/>
+          <line x1="0" y1="0" x2="-130" y2="75"/>
+          <line x1="0" y1="0" x2="-130" y2="-75"/>
+        </g>
+        <!-- 雷達實心（6 面向，數值示意 4,3,5,2,4,3） -->
+        <polygon points="0,-90 87,-50 87,30 0,75 -87,45 -87,-45" fill="rgba(184,134,11,0.25)" stroke="#8a6914" stroke-width="2"/>
+        <!-- 節點 -->
+        <g fill="#fff8ec" stroke="#8a6914" stroke-width="2">
+          <circle cx="230" cy="100" r="5"/>
+          <circle cx="317" cy="140" r="5"/>
+          <circle cx="317" cy="220" r="5"/>
+          <circle cx="230" cy="265" r="5"/>
+          <circle cx="143" cy="235" r="5"/>
+          <circle cx="143" cy="145" r="5"/>
+        </g>
+        <!-- 標籤 -->
+        <g font-family="serif" font-size="16" font-weight="700" fill="#3a3024" text-anchor="middle">
+          <text x="230" y="80">身體</text>
+          <text x="350" y="135">心智</text>
+          <text x="350" y="230">情緒</text>
+          <text x="230" y="295">關係</text>
+          <text x="110" y="250">美感</text>
+          <text x="110" y="140">意義</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============================ P9 微習慣七日 ============================ -->
+  <section class="slide s9-rhythm" id="slide-9">
+    <div>
+      <div class="section-num">07 · 微習慣七日</div>
+      <div class="page-title">七日節奏：每天只多做一件小事</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="day-strip">
+      <div class="day-card">
+        <div class="day-label">MON</div>
+        <div class="day-name">一 · 整理</div>
+        <div class="day-svg-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M4 12 l4 4 L20 6"/></svg></div>
+        <div class="day-task">把玄關與書桌清空 5 分鐘</div>
+      </div>
+      <div class="day-card">
+        <div class="day-label">TUE</div>
+        <div class="day-name">二 · 補水</div>
+        <div class="day-svg-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M12 3 c5 6 7 9 7 12 a7 7 0 0 1-14 0 c0-3 2-6 7-12 z"/></svg></div>
+        <div class="day-task">每日 1500ml·記錄在瓶身</div>
+      </div>
+      <div class="day-card">
+        <div class="day-label">WED</div>
+        <div class="day-name">三 · 走路</div>
+        <div class="day-svg-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><circle cx="13" cy="5" r="2"/><path d="M9 22 l3-7 -3-4 2-4 4 3 3 1"/></svg></div>
+        <div class="day-task">午休 15 分鐘微散步</div>
+      </div>
+      <div class="day-card">
+        <div class="day-label">THU</div>
+        <div class="day-name">四 · 閱讀</div>
+        <div class="day-svg-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M4 5 h7 a3 3 0 0 1 3 3 v12 a3 3 0 0 0-3-3 H4 z"/><path d="M20 5 h-7 a3 3 0 0 0-3 3 v12 a3 3 0 0 1 3-3 h7 z"/></svg></div>
+        <div class="day-task">睡前 20 頁紙本書</div>
+      </div>
+      <div class="day-card">
+        <div class="day-label">FRI</div>
+        <div class="day-name">五 · 斷網</div>
+        <div class="day-svg-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 9 l6 6 M15 9 l-6 6"/></svg></div>
+        <div class="day-task">晚間 9-10 點完全不開</div>
+      </div>
+      <div class="day-card">
+        <div class="day-label">SAT</div>
+        <div class="day-name">六 · 連結</div>
+        <div class="day-svg-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M3 12 c3-4 7-4 9 0 c2-4 6-4 9 0 c-3 5-7 6-9 2 c-2 4-6 3-9-2 z"/></svg></div>
+        <div class="day-task">約一位朋友出門走走</div>
+      </div>
+      <div class="day-card">
+        <div class="day-label">SUN</div>
+        <div class="day-name">日 · 復盤</div>
+        <div class="day-svg-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M5 4 h11 l3 3 v13 H5 z"/><path d="M9 9 h6 M9 13 h6 M9 17 h4"/></svg></div>
+        <div class="day-task">寫下三件感恩 + 一件調整</div>
+      </div>
+    </div>
+    <div class="rhythm-note">每天進步 1%，52 週後的你會感謝現在這個小小的自己</div>
+  </section>
+
+  <!-- ============================ P10 總結 ============================ -->
+  <section class="slide s10-end" id="slide-10">
+    <div class="end-stamp">
+      <svg viewBox="0 0 80 80" fill="none" stroke="#8a6914" stroke-width="2.5">
+        <polygon points="40,8 48,32 72,32 53,46 60,68 40,55 20,68 27,46 8,32 32,32"/>
+      </svg>
+    </div>
+    <h2>把節奏過成生活</h2>
+    <div class="end-poem">
+      減法一點、睡眠早半小時、<br/>
+      餐盤有五色、家分成五區、<br/>
+      關係挑著用、休閒六面補、<br/>
+      七日一循環——節奏就是這樣長出來的。
+    </div>
+    <div class="end-actions">
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M4 12 l4 4 L20 6"/></svg>
+        今晚先做一件
+      </span>
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 2"/></svg>
+        七天養成習慣
+      </span>
+    </div>
+    <a href="/slides.htm" class="end-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="1.8"><path d="M15 18 l-6-6 6-6"/></svg>
+      返回簡報列表
+    </a>
+  </section>
+</div>
+
+<!-- 導航（最後一頁的「返回列表」按鈕也會帶 nav） -->
+<div class="nav">
+  <button onclick="prev()">上一頁</button>
+  <span class="page-indicator" id="pageInd">1 / 10</span>
+  <button onclick="next()">下一頁</button>
+</div>
+
+<script>
+  // 防禦性 show()：確認 slides[current] 存在再操作
+  var slides = document.querySelectorAll('.slide');
+  var current = 0;
+  var pageInd = document.getElementById('pageInd');
+  var total = slides.length;
+
+  function show() {
+    if (slides[current] && slides[current].classList.contains('active')) {
+      slides[current].classList.remove('active');
+    } else if (slides[current]) {
+      // 強制移除（無 active class 時）
+      slides[current].classList.remove('active');
+    }
+    // 加到下一頁
+    var next = (current + 1) % total;
+    if (slides[current]) slides[current].classList.remove('active');
+    current = next;
+    if (slides[current]) slides[current].classList.add('active');
+    if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function showIdx(i) {
+    if (!slides[i]) return;
+    if (slides[current]) slides[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('active');
+    if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function next() { showIdx((current + 1) % total); }
+  function prev() { showIdx((current - 1 + total) % total); }
+
+  // 初始化第一頁
+  (function init() {
+    if (slides.length > 0) {
+      // 確保 slide-1 預設 active
+      var first = slides[0];
+      if (!first.classList.contains('active')) {
+        for (var i = 1; i < slides.length; i++) slides[i].classList.remove('active');
+        first.classList.add('active');
+      }
+      current = 0;
+      if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+    }
+  })();
+
+  // 鍵盤左右鍵換頁
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+
+</body>
+</html>
