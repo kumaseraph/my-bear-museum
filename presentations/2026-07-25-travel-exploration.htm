@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>山海之間的週末：給不想走遠的旅人｜2026-07-25</title>
+<style>
+/* ============================================================
+   配色：C6 暖橘夕陽
+   模板：V5 結構（淺色系）
+   ============================================================ */
+:root {
+  --primary:      #E07B39;
+  --primary-dark: #C4622A;
+  --primary-light:#F4A261;
+  --accent:       #2E86AB;
+  --accent-dark:  #1B4965;
+  --accent-warm:  #E07B54;
+  --bg:           #FFF8F0;
+  --bg-secondary: #FEF0E5;
+  --card:         #FFFFFF;
+  --text:         #3D2314;
+  --text-light:   #7A5C4A;
+  --text-muted:   #A68B7A;
+  --warm-gray:    #E8D5C4;
+  --gold:         #D4A843;
+  --teal:         #3AAFA9;
+  --shadow-soft:  0 6px 24px rgba(224,123,57,0.10);
+  --shadow-mid:   0 12px 36px rgba(224,123,57,0.18);
+  --border-warm:  rgba(224,123,57,0.22);
+  --nav-bg:       rgba(255,248,240,0.94);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 20px; scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 15% 12%, rgba(244,162,97,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(46,134,171,0.10) 0%, transparent 60%);
+  color: var(--text);
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: hidden;
+}
+
+.presentation {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: var(--shadow-mid);
+  background: var(--bg);
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  padding: 48px 56px 80px;
+  color: var(--text);
+  flex-direction: column;
+}
+.slide.active { display: flex; }
+
+/* 共用元件 */
+.page-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+.page-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-top: 6px;
+}
+.page-sub {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+}
+.title-bar {
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 2px;
+  margin-top: 12px;
+}
+.section-num {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  background: rgba(224,123,57,0.12);
+  padding: 4px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.2em;
+}
+
+/* 導航 */
+.nav {
+  position: absolute;
+  bottom: 24px; right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--nav-bg);
+  padding: 10px 18px;
+  border-radius: 40px;
+  border: 1px solid var(--border-warm);
+  box-shadow: var(--shadow-soft);
+  z-index: 1000;
+}
+.nav button {
+  background: transparent;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.nav button:hover {
+  background: var(--primary);
+  color: #fff;
+}
+.nav .page-indicator {
+  font-size: 1rem;
+  color: var(--text-light);
+  letter-spacing: 0.1em;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* ============================================================
+   P1 封面 — 六/散（六邊形山海宇宙）
+   ============================================================ */
+.s1-cover {
+  background:
+    radial-gradient(circle at 30% 40%, rgba(244,162,97,0.4) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(46,134,171,0.25) 0%, transparent 55%),
+    var(--bg);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .cover-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 18px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--border-warm);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--primary-dark);
+  letter-spacing: 0.25em;
+  margin-bottom: 20px;
+}
+.s1-cover .cover-stamp::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+.s1-cover h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.s1-cover .cover-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-light);
+  letter-spacing: 0.18em;
+  margin-bottom: 20px;
+}
+.s1-cover .hex-cluster {
+  width: 380px; height: 240px;
+  margin: 0 auto 20px;
+  position: relative;
+}
+.s1-cover .cover-meta {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--text-light);
+  letter-spacing: 0.15em;
+}
+.s1-cover .cover-meta strong {
+  color: var(--primary-dark);
+}
+
+/* ============================================================
+   P2 目錄 — 線/垂（垂直時間軸式）
+   ============================================================ */
+.s2-toc {
+  background: var(--bg);
+}
+.s2-toc .toc-head { margin-bottom: 28px; }
+.s2-toc .toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.s2-toc .toc-row {
+  display: grid;
+  grid-template-columns: 60px 80px 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 20px;
+  background: var(--card);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+  box-shadow: var(--shadow-soft);
+}
+.s2-toc .toc-row:nth-child(even) { border-left-color: var(--accent); }
+.s2-toc .toc-idx {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+}
+.s2-toc .toc-row:nth-child(even) .toc-idx { color: var(--accent); }
+.s2-toc .toc-cat {
+  font-size: 1rem;
+  color: var(--text-light);
+  letter-spacing: 0.1em;
+}
+.s2-toc .toc-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.s2-toc .toc-desc {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.s2-toc .toc-svg { width: 28px; height: 28px; }
+
+/* ============================================================
+   P3 海岸線 — 圓/水（水平圓形）
+   ============================================================ */
+.s3-coast {
+  background:
+    radial-gradient(ellipse at 70% 50%, rgba(46,134,171,0.10) 0%, transparent 60%),
+    var(--bg);
+}
+.s3-coast .coast-head { margin-bottom: 28px; }
+.s3-coast .circle-row {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  flex: 1;
+}
+.s3-coast .circle-card {
+  flex: 1;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+.s3-coast .circle-card::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  background: rgba(46,134,171,0.10);
+}
+.s3-coast .circle-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+.s3-coast .circle-icon svg { width: 32px; height: 32px; }
+.s3-coast .circle-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.s3-coast .circle-km {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+.s3-coast .circle-unit {
+  font-size: 1rem;
+  color: var(--text-light);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.s3-coast .circle-tip {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P4 山岳 — 方/網（4 卡片網格）
+   ============================================================ */
+.s4-mountain {
+  background: var(--bg);
+}
+.s4-mountain .mountain-head { margin-bottom: 24px; }
+.s4-mountain .mountain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+  flex: 1;
+}
+.s4-mountain .mtn-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  border-top: 4px solid var(--primary);
+}
+.s4-mountain .mtn-card:nth-child(2) { border-top-color: var(--accent); }
+.s4-mountain .mtn-card:nth-child(3) { border-top-color: var(--teal); }
+.s4-mountain .mtn-card:nth-child(4) { border-top-color: var(--gold); }
+.s4-mountain .mtn-tag {
+  display: inline-block;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+.s4-mountain .mtn-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.s4-mountain .mtn-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: var(--primary-dark);
+}
+.s4-mountain .mtn-stats strong {
+  font-size: 1.1rem;
+  color: var(--text);
+}
+.s4-mountain .mtn-desc {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   P5 鐵道 — 特/散（散落剪影）
+   ============================================================ */
+.s5-rail {
+  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-secondary) 100%);
+}
+.s5-rail .rail-head { margin-bottom: 24px; }
+.s5-rail .rail-svg-wrap {
+  flex: 1;
+  position: relative;
+}
+.s5-rail .rail-svg-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+.s5-rail .rail-stations {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  gap: 12px;
+}
+.s5-rail .station-card {
+  flex: 1;
+  background: var(--card);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+}
+.s5-rail .station-time {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+.s5-rail .station-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.s5-rail .station-tip {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   P6 步道 — 六/垂（垂直六邊形）
+   ============================================================ */
+.s6-trail {
+  background: var(--bg);
+}
+.s6-trail .trail-head { margin-bottom: 24px; }
+.s6-trail .trail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.s6-trail .trail-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 1fr 110px;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 18px;
+  background: var(--card);
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.s6-trail .trail-hex {
+  width: 56px; height: 64px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-right: 14px;
+}
+.s6-trail .trail-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.s6-trail .trail-desc {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+.s6-trail .trail-time {
+  font-size: 1rem;
+  color: var(--primary-dark);
+  font-weight: 700;
+  text-align: right;
+}
+
+/* ============================================================
+   P7 在地餐桌 — 線/水（水平連線）
+   ============================================================ */
+.s7-local {
+  background: var(--bg);
+}
+.s7-local .local-head { margin-bottom: 24px; }
+.s7-local .local-row {
+  display: flex;
+  gap: 14px;
+  flex: 1;
+  align-items: stretch;
+}
+.s7-local .local-card {
+  flex: 1;
+  background: var(--card);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.s7-local .local-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 16px; right: 16px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+.s7-local .local-num {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+}
+.s7-local .local-area {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.s7-local .local-dish {
+  font-size: 1rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.s7-local .local-note {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* ============================================================
+   P8 住宿 — 圓/單（單一中央大圓）
+   ============================================================ */
+.s8-stay {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(244,162,97,0.20) 0%, transparent 60%),
+    var(--bg);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s8-stay .stay-eyebrow { margin-bottom: 8px; }
+.s8-stay .stay-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.s8-stay .stay-circle {
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin: 0 auto 24px;
+  box-shadow: 0 12px 40px rgba(224,123,57,0.30);
+  position: relative;
+}
+.s8-stay .stay-circle::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 2px dashed rgba(255,255,255,0.5);
+  border-radius: 50%;
+}
+.s8-stay .stay-big-num {
+  font-size: 4.5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+.s8-stay .stay-big-unit {
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  margin-top: 4px;
+  opacity: 0.95;
+}
+.s8-stay .stay-tags {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 720px;
+}
+.s8-stay .stay-tag {
+  padding: 6px 14px;
+  background: var(--card);
+  border: 1px solid var(--border-warm);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.s8-stay .stay-tag::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+/* ============================================================
+   P9 永續 — 方/網（4 卡片網格）
+   ============================================================ */
+.s9-sustain {
+  background: var(--bg);
+}
+.s9-sustain .sustain-head { margin-bottom: 24px; }
+.s9-sustain .sustain-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  flex: 1;
+}
+.s9-sustain .sus-card {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 16px 14px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+}
+.s9-sustain .sus-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--teal), var(--accent-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.s9-sustain .sus-icon svg { width: 24px; height: 24px; }
+.s9-sustain .sus-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.s9-sustain .sus-action {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.45;
+  flex: 1;
+}
+.s9-sustain .sus-meta {
+  margin-top: 8px;
+  font-size: 1rem;
+  color: var(--primary-dark);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   P10 結尾 — 無/單（純文字居中）
+   ============================================================ */
+.s10-end {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(244,162,97,0.30) 0%, transparent 60%),
+    radial-gradient(circle at 50% 80%, rgba(46,134,171,0.20) 0%, transparent 60%),
+    var(--bg);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s10-end .end-stamp {
+  width: 64px; height: 64px;
+  margin-bottom: 20px;
+}
+.s10-end h2 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.s10-end .end-poem {
+  font-size: 1.15rem;
+  color: var(--text-light);
+  line-height: 2;
+  letter-spacing: 0.1em;
+  margin-bottom: 28px;
+}
+.s10-end .end-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+.s10-end .end-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: var(--card);
+  border: 1px solid var(--border-warm);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--primary-dark);
+  letter-spacing: 0.1em;
+}
+.s10-end .end-action svg { width: 18px; height: 18px; }
+.s10-end .end-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 1rem;
+  color: var(--text-light);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  border-bottom: 1px dashed var(--border-warm);
+  padding-bottom: 4px;
+}
+.s10-end .end-back svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<div class="presentation" id="pres">
+  <!-- ============================ P1 封面 ============================ -->
+  <section class="slide s1-cover active" id="slide-1">
+    <div class="cover-stamp">SATURDAY · 旅遊探索 · 第 25 號</div>
+    <h1>山海之間的週末</h1>
+    <div class="cover-subtitle">給不想走遠的旅人</div>
+    <div class="hex-cluster">
+      <svg viewBox="0 0 380 240" width="380" height="240" xmlns="http://www.w3.org/2000/svg" aria-label="山海宇宙">
+        <defs>
+          <linearGradient id="sea-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2E86AB" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#1B4965" stop-opacity="0.95"/>
+          </linearGradient>
+          <linearGradient id="sun-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F4A261"/>
+            <stop offset="100%" stop-color="#E07B39"/>
+          </linearGradient>
+        </defs>
+        <!-- 中央大六邊（山） -->
+        <polygon points="190,40 270,85 270,175 190,220 110,175 110,85" fill="none" stroke="#E07B39" stroke-width="2" stroke-dasharray="5,3" opacity="0.5"/>
+        <polygon points="190,55 258,93 258,168 190,205 122,168 122,93" fill="url(#sea-grad)"/>
+        <!-- 太陽 -->
+        <circle cx="190" cy="120" r="22" fill="url(#sun-grad)"/>
+        <circle cx="190" cy="120" r="34" fill="none" stroke="#E07B39" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+        <!-- 周圍小六邊 -->
+        <polygon points="60,120 80,110 100,120 100,140 80,150 60,140" fill="#F4A261" opacity="0.7"/>
+        <polygon points="320,80 340,70 360,80 360,100 340,110 320,100" fill="#3AAFA9" opacity="0.6"/>
+        <polygon points="320,170 340,160 360,170 360,190 340,200 320,190" fill="#D4A843" opacity="0.6"/>
+        <polygon points="40,180 60,170 80,180 80,200 60,210 40,200" fill="#2E86AB" opacity="0.5"/>
+        <polygon points="60,40 80,30 100,40 100,60 80,70 60,60" fill="#E07B39" opacity="0.6"/>
+        <!-- 路線連線 -->
+        <path d="M70 130 L122 110 M310 90 L258 105 M310 180 L258 165 M70 190 L122 165 M70 50 L122 80" stroke="#C4622A" stroke-width="1" stroke-dasharray="2,3" opacity="0.45" fill="none"/>
+        <text x="190" y="125" text-anchor="middle" fill="#fff" font-size="20" font-weight="700" letter-spacing="1">山海</text>
+      </svg>
+    </div>
+    <div class="cover-meta">
+      <span><strong>2026 · 07 · 25</strong> 星期六</span>
+      <span>·</span>
+      <span>熊熊博物館 · <strong>旅遊探索</strong></span>
+    </div>
+  </section>
+
+  <!-- ============================ P2 目錄 ============================ -->
+  <section class="slide s2-toc" id="slide-2">
+    <div class="toc-head">
+      <div class="page-eyebrow">CONTENTS · 章節導覽</div>
+      <div class="page-title">九種週末移動方式，找到屬於你的步調</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="toc-list">
+      <div class="toc-row">
+        <div class="toc-idx">01</div>
+        <div class="toc-cat">海岸</div>
+        <div>
+          <div class="toc-name">藍色公路巡禮</div>
+          <div class="toc-desc">把車窗搖下，讓海風當副駕</div>
+        </div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#2E86AB" stroke-width="1.8"><path d="M2 12 c2-3 4-3 6 0 s4 3 6 0 s4-3 6 0 M2 17 c2-2 4-2 6 0 s4 2 6 0 s4-2 6 0"/></svg>
+      </div>
+      <div class="toc-row">
+        <div class="toc-idx">02</div>
+        <div class="toc-cat">山岳</div>
+        <div>
+          <div class="toc-name">週末登山提案</div>
+          <div class="toc-desc">四座郊山，半日攻頂</div>
+        </div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#E07B39" stroke-width="1.8"><polygon points="12,3 21,20 3,20"/><circle cx="12" cy="13" r="2" fill="#E07B39"/></svg>
+      </div>
+      <div class="toc-row">
+        <div class="toc-idx">03</div>
+        <div class="toc-cat">鐵道</div>
+        <div>
+          <div class="toc-name">慢速移動美學</div>
+          <div class="toc-desc">區間車上的四種停留</div>
+        </div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#C4622A" stroke-width="1.8"><rect x="4" y="5" width="16" height="13" rx="2"/><circle cx="8" cy="18" r="1.5"/><circle cx="16" cy="18" r="1.5"/><path d="M4 9 h16"/></svg>
+      </div>
+      <div class="toc-row">
+        <div class="toc-idx">04</div>
+        <div class="toc-cat">步道</div>
+        <div>
+          <div class="toc-name">四種步行速度</div>
+          <div class="toc-desc">從散步到行山，依體能選路線</div>
+        </div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#3AAFA9" stroke-width="1.8"><path d="M4 18 q3-4 6-2 t6-2 t4-4"/><circle cx="4" cy="18" r="1.5" fill="#3AAFA9"/><circle cx="20" cy="10" r="1.5" fill="#3AAFA9"/></svg>
+      </div>
+      <div class="toc-row">
+        <div class="toc-idx">05</div>
+        <div class="toc-cat">在地</div>
+        <div>
+          <div class="toc-name">六個產地餐桌</div>
+          <div class="toc-desc">從產地到餐桌，吃進一段地理</div>
+        </div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#D4A843" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3 v18 M3 12 h18"/><circle cx="12" cy="12" r="3" fill="#D4A843"/></svg>
+      </div>
+      <div class="toc-row">
+        <div class="toc-idx">06</div>
+        <div class="toc-cat">住宿</div>
+        <div>
+          <div class="toc-name">一晚的旅行感</div>
+          <div class="toc-desc">把過夜變成行程的一部分</div>
+        </div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#E07B54" stroke-width="1.8"><path d="M3 12 l9-8 9 8"/><path d="M5 10 v10 h14 v-10"/><rect x="9" y="13" width="6" height="7"/></svg>
+      </div>
+      <div class="toc-row">
+        <div class="toc-idx">07</div>
+        <div class="toc-cat">永續</div>
+        <div>
+          <div class="toc-name">負責任的旅人</div>
+          <div class="toc-desc">四個小選擇，累積成大改變</div>
+        </div>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#3AAFA9" stroke-width="1.8"><path d="M12 2 v6 M12 16 v6 M2 12 h6 M16 12 h6"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P3 海岸線 ============================ -->
+  <section class="slide s3-coast" id="slide-3">
+    <div class="coast-head">
+      <div class="section-num">01 · 海岸線</div>
+      <div class="page-title">藍色公路巡禮：四段海岸，四種心情</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="circle-row">
+      <div class="circle-card">
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 16 c2-2 4-2 6 0 s4 2 6 0 s4-2 6 0"/><path d="M3 12 c2-2 4-2 6 0 s4 2 6 0 s4-2 6 0"/><circle cx="20" cy="6" r="2"/></svg>
+        </div>
+        <div class="circle-name">北海岸</div>
+        <div class="circle-km">42</div>
+        <div class="circle-unit">公里 · 風稜岩</div>
+        <div class="circle-tip">從淡水到福隆，沿途停靠三個漁港，吃海鮮配海風</div>
+      </div>
+      <div class="circle-card">
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M2 18 q5-6 10-3 t10-3"/><path d="M2 22 q5-4 10-2 t10-2"/><circle cx="6" cy="8" r="2"/></svg>
+        </div>
+        <div class="circle-name">東海岸</div>
+        <div class="circle-km">68</div>
+        <div class="circle-unit">公里 · 太平洋</div>
+        <div class="circle-tip">蘇花改通車後更親民，磯崎到石梯坪段最值得停留</div>
+      </div>
+      <div class="circle-card">
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12 c2-3 6-3 8 0"/><path d="M8 15 c2 2 6 2 8 0"/></svg>
+        </div>
+        <div class="circle-name">西海岸</div>
+        <div class="circle-km">85</div>
+        <div class="circle-unit">公里 · 潟湖夕陽</div>
+        <div class="circle-tip">七股潟湖搭竹筏看黑面琵鷺，傍晚到井仔腳瓦盤鹽田</div>
+      </div>
+      <div class="circle-card">
+        <div class="circle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 14 l8-8 8 8"/><path d="M6 14 v6 h12 v-6"/><path d="M10 17 v3 M14 17 v3"/></svg>
+        </div>
+        <div class="circle-name">龜山島</div>
+        <div class="circle-km">24</div>
+        <div class="circle-unit">公里 · 登島</div>
+        <div class="circle-tip">登島每日限額 1,800 人，需 14 天前申請，牛奶海浮潛是亮點</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P4 山岳 ============================ -->
+  <section class="slide s4-mountain" id="slide-4">
+    <div class="mountain-head">
+      <div class="section-num">02 · 山岳</div>
+      <div class="page-title">週末登山提案：四座郊山，半日攻頂</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="mountain-grid">
+      <div class="mtn-card">
+        <div class="mtn-tag">★ 入門 · 台北</div>
+        <div class="mtn-name">象山親山步道</div>
+        <div class="mtn-stats">
+          <span>海拔 <strong>183 m</strong></span>
+          <span>時間 <strong>1.5 小時</strong></span>
+        </div>
+        <div class="mtn-desc">捷運站直達，六巨石拍 101 倒影是經典畫面。建議下午四點起登，可同時收日景與夜景</div>
+      </div>
+      <div class="mtn-card">
+        <div class="mtn-tag">★★ 中級 · 新北</div>
+        <div class="mtn-name">金面山剪刀石</div>
+        <div class="mtn-stats">
+          <span>海拔 <strong>258 m</strong></span>
+          <span>時間 <strong>2.5 小時</strong></span>
+        </div>
+        <div class="mtn-desc">大岩壁路段需手腳併用，剪刀石頂端可俯瞰內湖。建議穿防滑鞋，下午四點後光線最美</div>
+      </div>
+      <div class="mtn-card">
+        <div class="mtn-tag">★★★ 進階 · 桃園</div>
+        <div class="mtn-name">石門山（韭菜湖山）</div>
+        <div class="mtn-stats">
+          <span>海拔 <strong>551 m</strong></span>
+          <span>時間 <strong>4 小時</strong></span>
+        </div>
+        <div class="mtn-desc">台灣小百岳之一，山頂有 360 度視野。秋天可順遊石門水庫，周邊活魚餐廳密集</div>
+      </div>
+      <div class="mtn-card">
+        <div class="mtn-tag">★ 親子 · 宜蘭</div>
+        <div class="mtn-name">林美山步道</div>
+        <div class="mtn-stats">
+          <span>海拔 <strong>220 m</strong></span>
+          <span>時間 <strong>1.5 小時</strong></span>
+        </div>
+        <div class="mtn-desc">平坦碎石路適合全家，沿途有苔園與瀑布。建議搭配礁溪溫泉一日遊，下午回程泡湯</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P5 鐵道 ============================ -->
+  <section class="slide s5-rail" id="slide-5">
+    <div class="rail-head">
+      <div class="section-num">03 · 鐵道</div>
+      <div class="page-title">慢速移動美學：四個車站，四段停留</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="rail-svg-wrap">
+      <svg viewBox="0 0 1000 280" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-label="鐵道路線">
+        <!-- 主軌道 -->
+        <path d="M50 180 Q250 80 500 180 T950 180" fill="none" stroke="#C4622A" stroke-width="3" stroke-dasharray="8,6"/>
+        <path d="M50 200 Q250 100 500 200 T950 200" fill="none" stroke="#E07B39" stroke-width="2" stroke-dasharray="3,4" opacity="0.5"/>
+        <!-- 站點散落裝飾：樹、山、房子 -->
+        <g fill="#3AAFA9" opacity="0.55">
+          <polygon points="120,200 130,180 140,200"/><polygon points="135,200 145,180 155,200"/><polygon points="150,200 160,180 170,200"/>
+          <polygon points="780,200 790,180 800,200"/><polygon points="795,200 805,180 815,200"/>
+        </g>
+        <g fill="#1B4965" opacity="0.5">
+          <polygon points="350,210 370,170 390,210"/>
+          <polygon points="370,210 390,170 410,210"/>
+        </g>
+        <g fill="#E07B39" opacity="0.4">
+          <rect x="600" y="195" width="14" height="14"/><polygon points="600,195 614,180 628,195"/>
+          <rect x="880" y="195" width="14" height="14"/><polygon points="880,195 894,180 908,195"/>
+        </g>
+        <!-- 站點圓 -->
+        <circle cx="120" cy="180" r="14" fill="#E07B39" stroke="#fff" stroke-width="3"/>
+        <circle cx="350" cy="160" r="14" fill="#2E86AB" stroke="#fff" stroke-width="3"/>
+        <circle cx="600" cy="170" r="14" fill="#3AAFA9" stroke="#fff" stroke-width="3"/>
+        <circle cx="880" cy="180" r="14" fill="#D4A843" stroke="#fff" stroke-width="3"/>
+        <text x="120" y="184" text-anchor="middle" fill="#fff" font-size="20" font-weight="800">1</text>
+        <text x="350" y="164" text-anchor="middle" fill="#fff" font-size="20" font-weight="800">2</text>
+        <text x="600" y="174" text-anchor="middle" fill="#fff" font-size="20" font-weight="800">3</text>
+        <text x="880" y="184" text-anchor="middle" fill="#fff" font-size="20" font-weight="800">4</text>
+      </svg>
+    </div>
+    <div class="rail-stations">
+      <div class="station-card">
+        <div class="station-time">08:30</div>
+        <div class="station-name">福隆站</div>
+        <div class="station-tip">下車即沙灘，自行車道 20 公里</div>
+      </div>
+      <div class="station-card">
+        <div class="station-time">11:15</div>
+        <div class="station-name">十分站</div>
+        <div class="station-tip">放天燈、拍火車過老街橋</div>
+      </div>
+      <div class="station-card">
+        <div class="station-time">14:00</div>
+        <div class="station-name">菁桐站</div>
+        <div class="station-tip">日式木造車站、平溪線終點</div>
+      </div>
+      <div class="station-card">
+        <div class="station-time">16:30</div>
+        <div class="station-name">猴硐站</div>
+        <div class="station-tip">貓村散步、貓咪咖啡廳林立</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P6 步道 ============================ -->
+  <section class="slide s6-trail" id="slide-6">
+    <div class="trail-head">
+      <div class="section-num">04 · 步道</div>
+      <div class="page-title">四種步行速度：從散步到行山</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="trail-list">
+      <div class="trail-row">
+        <div class="trail-hex">慢</div>
+        <div class="trail-name">城市散步路線</div>
+        <div class="trail-desc">每小時 3 公里。適合飯後、帶長輩、推嬰兒車。河濱與老街都是好選擇</div>
+        <div class="trail-time">1-2 小時</div>
+      </div>
+      <div class="trail-row">
+        <div class="trail-hex">行</div>
+        <div class="trail-name">郊山健行路線</div>
+        <div class="trail-desc">每小時 4 公里。有階梯與坡度，需要基本體能。建議帶登山杖與 1 公升水</div>
+        <div class="trail-time">3-4 小時</div>
+      </div>
+      <div class="trail-row">
+        <div class="trail-hex">登</div>
+        <div class="trail-name">中級山路線</div>
+        <div class="trail-desc">每小時 2.5 公里。碎石坡、拉繩、岩階混雜。需事前查氣象與申請入山</div>
+        <div class="trail-time">6-8 小時</div>
+      </div>
+      <div class="trail-row">
+        <div class="trail-hex">宿</div>
+        <div class="trail-name">百岳縱走行程</div>
+        <div class="trail-desc">每小時 1.5 公里。多日行程需揹負帳篷與糧食。建議結伴、入山前完成體能訓練</div>
+        <div class="trail-time">2-3 天</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P7 在地餐桌 ============================ -->
+  <section class="slide s7-local" id="slide-7">
+    <div class="local-head">
+      <div class="section-num">05 · 在地餐桌</div>
+      <div class="page-title">六個產地餐桌：把地理吃進肚子</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="local-row">
+      <div class="local-card">
+        <div class="local-num">01</div>
+        <div class="local-area">宜蘭員山</div>
+        <div class="local-dish">鴨賞配金棗</div>
+        <div class="local-note">冬山河畔的鴨舍直送，搭配蜜漬金棗去油膩</div>
+      </div>
+      <div class="local-card">
+        <div class="local-num">02</div>
+        <div class="local-area">南投仁愛</div>
+        <div class="local-dish">梅宴合菜</div>
+        <div class="local-note">梅餐廳 12 道手路菜，從梅醋前菜到梅酒甜點</div>
+      </div>
+      <div class="local-card">
+        <div class="local-num">03</div>
+        <div class="local-area">屏東枋寮</div>
+        <div class="local-dish">午仔魚一夜干</div>
+        <div class="local-note">鹽烤保留油脂，搭蒜苗辣椒醬油是最對味的吃法</div>
+      </div>
+      <div class="local-card">
+        <div class="local-num">04</div>
+        <div class="local-area">花蓮富里</div>
+        <div class="local-dish">米貝果早餐</div>
+        <div class="local-note">有機米穀粉製作，搭配鳳林梅子抹醬很在地</div>
+      </div>
+      <div class="local-card">
+        <div class="local-num">05</div>
+        <div class="local-area">台南官田</div>
+        <div class="local-dish">菱角豬腳煲</div>
+        <div class="local-note">菱角產季限定的古早味，燉到骨肉分離最對味</div>
+      </div>
+      <div class="local-card">
+        <div class="local-num">06</div>
+        <div class="local-area">台東長濱</div>
+        <div class="local-dish">金剛窯烤披薩</div>
+        <div class="local-note">海邊窯燒 90 秒，食材全是東海岸小農當日直送</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P8 住宿 ============================ -->
+  <section class="slide s8-stay" id="slide-8">
+    <div class="stay-eyebrow page-eyebrow">06 · 住宿</div>
+    <div class="stay-title">一晚的旅行感</div>
+    <div class="stay-circle">
+      <div class="stay-big-num">1</div>
+      <div class="stay-big-unit">晚 · 也要有主題</div>
+    </div>
+    <div class="stay-tags">
+      <span class="stay-tag">山城民宿</span>
+      <span class="stay-tag">海景露營車</span>
+      <span class="stay-tag">溫泉老屋</span>
+      <span class="stay-tag">森林小木屋</span>
+      <span class="stay-tag">背包旅店</span>
+      <span class="stay-tag">船屋泊宿</span>
+      <span class="stay-tag">星空泡泡屋</span>
+    </div>
+  </section>
+
+  <!-- ============================ P9 永續 ============================ -->
+  <section class="slide s9-sustain" id="slide-9">
+    <div class="sustain-head">
+      <div class="section-num">07 · 永續</div>
+      <div class="page-title">負責任的旅人：四個小選擇</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="sustain-grid">
+      <div class="sus-card">
+        <div class="sus-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M6 6 h12 v12 H6 z"/><path d="M9 9 h6 M9 13 h6"/></svg>
+        </div>
+        <div class="sus-name">自備三寶</div>
+        <div class="sus-action">購物袋、餐具、飲水瓶，每次出門省下一次性垃圾</div>
+        <div class="sus-meta">每月減 1.5 kg</div>
+      </div>
+      <div class="sus-card">
+        <div class="sus-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 3 v9 M8 7 l4 -4 l4 4"/><path d="M5 14 h14 v7 H5 z"/></svg>
+        </div>
+        <div class="sus-name">大眾運輸</div>
+        <div class="sus-action">鐵路加公車組合優先，租車留給真正需要的目的地</div>
+        <div class="sus-meta">碳排 -65%</div>
+      </div>
+      <div class="sus-card">
+        <div class="sus-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 12 l4-8 h10 l4 8"/><path d="M5 12 v8 h14 v-8"/><circle cx="9" cy="20" r="1.5"/><circle cx="16" cy="20" r="1.5"/></svg>
+        </div>
+        <div class="sus-name">在地消費</div>
+        <div class="sus-action">吃住買優先選小農、小店、工坊，錢留在土地</div>
+        <div class="sus-meta">回流 70%</div>
+      </div>
+      <div class="sus-card">
+        <div class="sus-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 19 q3-6 7-6 t7 6"/><path d="M12 4 v9"/><circle cx="12" cy="3" r="1.5" fill="#fff"/></svg>
+        </div>
+        <div class="sus-name">無痕山林</div>
+        <div class="sus-action">帶走所有垃圾、不餵野生動物、不離開既有步道</div>
+        <div class="sus-meta">LNT 七原則</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P10 結尾 ============================ -->
+  <section class="slide s10-end" id="slide-10">
+    <div class="end-stamp">
+      <svg viewBox="0 0 64 64" fill="none" stroke="#C4622A" stroke-width="2.5">
+        <polygon points="32,8 38,26 56,26 42,38 48,56 32,46 16,56 22,38 8,26 26,26"/>
+      </svg>
+    </div>
+    <h2>下一次出發</h2>
+    <div class="end-poem">
+      海風會記得你走過的每段弧線，<br/>
+      山徑會記得你留下的每一個腳印，<br/>
+      城鎮會記得你在餐桌前說過的故事，<br/>
+      而你——會記得自己是怎麼慢慢走遠的。
+    </div>
+    <div class="end-actions">
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#E07B39" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 2"/></svg>
+        週末就出發
+      </span>
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2E86AB" stroke-width="2"><path d="M3 12 c2-2 4-2 6 0 s4 2 6 0 s4-2 6 0"/><path d="M3 17 c2-2 4-2 6 0 s4 2 6 0 s4-2 6 0"/></svg>
+        帶走的只有回憶
+      </span>
+    </div>
+    <a href="/slides.htm" class="end-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#7A5C4A" stroke-width="1.8"><path d="M15 18 l-6-6 6-6"/></svg>
+      返回簡報列表
+    </a>
+  </section>
+</div>
+
+<!-- 導航 -->
+<div class="nav">
+  <button onclick="prev()">上一頁</button>
+  <span class="page-indicator" id="pageInd">1 / 10</span>
+  <button onclick="next()">下一頁</button>
+</div>
+
+<script>
+  // 防禦性 show()：確認 slides[current] 存在再操作
+  var slides = document.querySelectorAll('.slide');
+  var current = 0;
+  var pageInd = document.getElementById('pageInd');
+  var total = slides.length;
+
+  function showIdx(i) {
+    if (!slides[i]) return;
+    if (slides[current]) slides[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('active');
+    if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function next() { showIdx((current + 1) % total); }
+  function prev() { showIdx((current - 1 + total) % total); }
+
+  // 初始化第一頁
+  (function init() {
+    if (slides.length > 0) {
+      var first = slides[0];
+      if (!first.classList.contains('active')) {
+        for (var i = 1; i < slides.length; i++) slides[i].classList.remove('active');
+        first.classList.add('active');
+      }
+      current = 0;
+      if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+    }
+  })();
+
+  // 鍵盤左右鍵換頁
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+
+</body>
+</html>
