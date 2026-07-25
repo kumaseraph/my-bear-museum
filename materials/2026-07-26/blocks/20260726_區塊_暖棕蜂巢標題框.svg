@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="800" height="300">
+  <defs>
+    <!-- 標題框漸層 -->
+    <linearGradient id="titleBox" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7"/>
+      <stop offset="50%" stop-color="#F5E6D3"/>
+      <stop offset="100%" stop-color="#E8D5B7"/>
+    </linearGradient>
+
+    <!-- 蜂巢 pattern -->
+    <pattern id="honeycombBox" x="0" y="0" width="40" height="44" patternUnits="userSpaceOnUse">
+      <path d="M20,0 L40,11 L40,33 L20,44 L0,33 L0,11 Z"
+            fill="none" stroke="#B8860B" stroke-width="0.6" opacity="0.3"/>
+    </pattern>
+
+    <!-- 民俗紋理 -->
+    <pattern id="folkBox" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <g opacity="0.12">
+        <path d="M30,10 L40,20 L40,30 L30,40 L20,30 L20,20 Z"
+              fill="none" stroke="#8B4513" stroke-width="0.8"/>
+        <circle cx="30" cy="25" r="1.5" fill="#8B4513"/>
+      </g>
+    </pattern>
+
+    <!-- 陰影 -->
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="2" dy="3" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 底層光暈（連接方式：邊對邊） -->
+  <g opacity="0.4">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="#D4A574" fill-opacity="0.3"
+          transform="translate(-60, 150)"/>
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="#A0826D" fill-opacity="0.4"
+          transform="translate(860, 150)"/>
+  </g>
+
+  <!-- 主標題框（2.5D 蜂巢外形） -->
+  <g transform="translate(400, 150)" filter="url(#boxShadow)">
+    <!-- 外粗空心（2.5D 邊框） -->
+    <path d="M-340,-80 L0,-110 L340,-80 L340,80 L0,110 L-340,80 Z"
+          fill="none" stroke="#8B4513" stroke-width="4"/>
+    <!-- 內實心 -->
+    <path d="M-340,-80 L0,-110 L340,-80 L340,80 L0,110 L-340,80 Z"
+          fill="url(#titleBox)"/>
+    <!-- 蜂巢紋理層 -->
+    <path d="M-340,-80 L0,-110 L340,-80 L340,80 L0,110 L-340,80 Z"
+          fill="url(#honeycombBox)"/>
+    <!-- 民俗紋理層 -->
+    <path d="M-340,-80 L0,-110 L340,-80 L340,80 L0,110 L-340,80 Z"
+          fill="url(#folkBox)"/>
+
+    <!-- 內邊框（裝飾細線） -->
+    <path d="M-310,-65 L0,-95 L310,-65 L310,65 L0,95 L-310,65 Z"
+          fill="none" stroke="#B8860B" stroke-width="1" opacity="0.5"
+          stroke-dasharray="3,3"/>
+  </g>
+
+  <!-- 標題文字區 -->
+  <g transform="translate(400, 150)">
+    <!-- 蜜蜂小圖標（Digi-Cute）-->
+    <g transform="translate(-260, 0)">
+      <ellipse cx="0" cy="0" rx="22" ry="16" fill="#FFD89B"/>
+      <path d="M-12,-14 Q-8,0 -12,14" stroke="#8B4513" stroke-width="4" fill="none"/>
+      <path d="M0,-16 Q4,0 0,16" stroke="#8B4513" stroke-width="4" fill="none"/>
+      <path d="M12,-14 Q16,0 12,14" stroke="#8B4513" stroke-width="4" fill="none"/>
+      <ellipse cx="-12" cy="-16" rx="11" ry="6" fill="#FFFFFF" opacity="0.7" transform="rotate(-20 -12 -16)"/>
+      <ellipse cx="12" cy="-16" rx="11" ry="6" fill="#FFFFFF" opacity="0.7" transform="rotate(20 12 -16)"/>
+      <circle cx="-3" cy="-3" r="1.5" fill="#8B4513"/>
+      <circle cx="3" cy="-3" r="1.5" fill="#8B4513"/>
+      <path d="M-6,-15 Q-10,-22 -14,-25" stroke="#8B4513" stroke-width="1.5" fill="none"/>
+      <path d="M6,-15 Q10,-22 14,-25" stroke="#8B4513" stroke-width="1.5" fill="none"/>
+    </g>
+
+    <!-- 主標題（中文 - 工作報告）-->
+    <text x="-180" y="5" font-family="Noto Sans TC, sans-serif" font-size="36" font-weight="700"
+          fill="#8B4513" letter-spacing="4">工作報告</text>
+
+    <!-- 副標題 -->
+    <text x="-180" y="40" font-family="Noto Sans TC, sans-serif" font-size="16"
+          fill="#A0826D" letter-spacing="2">Work Report · 2026</text>
+
+    <!-- 裝飾點（小六邊形 - 大小對比） -->
+    <g transform="translate(200, -25)">
+      <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+            fill="#8B4513" fill-opacity="0.7"/>
+      <path d="M0,-7 L6,-3.5 L6,3.5 L0,7 L-6,3.5 L-6,-3.5 Z"
+            fill="#FFF8DC" transform="translate(15, 10)"/>
+      <path d="M0,-8 L6.9,-4 L6.9,4 L0,8 L-6.9,4 L-6.9,-4 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.2"
+            transform="translate(-15, 10)"/>
+    </g>
+  </g>
+</svg>

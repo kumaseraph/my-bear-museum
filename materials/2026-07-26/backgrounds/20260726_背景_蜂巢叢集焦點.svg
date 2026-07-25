@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 漸層統一背景（深→淺棕） -->
+    <radialGradient id="focusBg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#FFF8DC"/>
+      <stop offset="60%" stop-color="#F5E6D3"/>
+      <stop offset="100%" stop-color="#E8D5B7"/>
+    </radialGradient>
+
+    <!-- 六邊形漸層 -->
+    <linearGradient id="hexGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A0826D"/>
+      <stop offset="100%" stop-color="#8B4513"/>
+    </linearGradient>
+
+    <linearGradient id="hexGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#A0826D"/>
+    </linearGradient>
+
+    <!-- 蜂巢 pattern（稀疏背景） -->
+    <pattern id="honeycombSparse" x="0" y="0" width="200" height="220" patternUnits="userSpaceOnUse">
+      <path d="M100,0 L200,55 L200,165 L100,220 L0,165 L0,55 Z"
+            fill="none" stroke="#B8860B" stroke-width="0.6" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景層 -->
+  <rect width="1920" height="1080" fill="url(#focusBg)"/>
+  <rect width="1920" height="1080" fill="url(#honeycombSparse)"/>
+
+  <!-- 右上小型蜂巢叢（裝飾用） -->
+  <g transform="translate(1700, 180)" opacity="0.5">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#D4A574" fill-opacity="0.6" transform="rotate(15)"/>
+    <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+          fill="#8B4513" fill-opacity="0.5" transform="rotate(15) translate(45, 35)"/>
+  </g>
+
+  <!-- 左下裝飾蜂巢 -->
+  <g transform="translate(180, 880)" opacity="0.5">
+    <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+          fill="none" stroke="#8B4513" stroke-width="2" transform="rotate(30)"/>
+    <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+          fill="#D4A574" fill-opacity="0.5" transform="rotate(30) translate(50, 30)"/>
+  </g>
+
+  <!-- 中央放射環形蜂巢（單一關鍵焦點 - 3環結構） -->
+  <g transform="translate(960, 540)">
+    <!-- 外環（小六邊形 12個，虛實對比） -->
+    <g opacity="0.4">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(0) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(30) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(60) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(90) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(120) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(150) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(180) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(210) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(240) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(270) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(300) translate(0,-180)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"
+            transform="rotate(330) translate(0,-180)"/>
+    </g>
+
+    <!-- 中環（中六邊形 6個） -->
+    <g>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+            fill="url(#hexGrad2)" fill-opacity="0.7"
+            transform="rotate(0) translate(0,-115)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+            fill="url(#hexGrad2)" fill-opacity="0.7"
+            transform="rotate(60) translate(0,-115)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+            fill="url(#hexGrad2)" fill-opacity="0.7"
+            transform="rotate(120) translate(0,-115)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+            fill="url(#hexGrad2)" fill-opacity="0.7"
+            transform="rotate(180) translate(0,-115)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+            fill="url(#hexGrad2)" fill-opacity="0.7"
+            transform="rotate(240) translate(0,-115)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+            fill="url(#hexGrad2)" fill-opacity="0.7"
+            transform="rotate(300) translate(0,-115)"/>
+    </g>
+
+    <!-- 中心大型六邊形（2.5D效果 - 外粗空心 + 內實心） -->
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+          fill="none" stroke="#8B4513" stroke-width="5"/>
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+          fill="url(#hexGrad1)" fill-opacity="0.9"/>
+    <!-- 中心裝飾星 -->
+    <path d="M0,-15 L4,-4 L15,-4 L6,3 L10,15 L0,8 L-10,15 L-6,3 L-15,-4 L-4,-4 Z"
+          fill="#FFF8DC" opacity="0.9"/>
+  </g>
+
+  <!-- 周圍點綴小蜂巢（連接方式：角對角） -->
+  <g transform="translate(960, 540)" opacity="0.6">
+    <!-- 左側 -->
+    <g transform="translate(-280, 0)">
+      <path d="M0,-25 L21.6,-12.5 L21.6,12.5 L0,25 L-21.6,12.5 L-21.6,-12.5 Z"
+            fill="#D4A574" fill-opacity="0.5"/>
+    </g>
+    <g transform="translate(-220, -120)">
+      <path d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"/>
+    </g>
+    <!-- 右側 -->
+    <g transform="translate(280, 0)">
+      <path d="M0,-25 L21.6,-12.5 L21.6,12.5 L0,25 L-21.6,12.5 L-21.6,-12.5 Z"
+            fill="#A0826D" fill-opacity="0.6"/>
+    </g>
+    <g transform="translate(220, 120)">
+      <path d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5"/>
+    </g>
+  </g>
+
+  <!-- 蜜蜂裝飾（Digi-Cute 可愛元素） -->
+  <g transform="translate(550, 350)" opacity="0.7">
+    <ellipse cx="0" cy="0" rx="18" ry="13" fill="#FFD89B"/>
+    <path d="M-10,-11 Q-7,0 -10,11" stroke="#8B4513" stroke-width="3.5" fill="none"/>
+    <path d="M0,-13 Q3,0 0,13" stroke="#8B4513" stroke-width="3.5" fill="none"/>
+    <path d="M10,-11 Q13,0 10,11" stroke="#8B4513" stroke-width="3.5" fill="none"/>
+    <ellipse cx="-10" cy="-13" rx="9" ry="5" fill="#FFFFFF" opacity="0.6" transform="rotate(-20 -10 -13)"/>
+    <ellipse cx="10" cy="-13" rx="9" ry="5" fill="#FFFFFF" opacity="0.6" transform="rotate(20 10 -13)"/>
+  </g>
+
+  <!-- 飛舞軌跡（手繪不完美感） -->
+  <g opacity="0.3" stroke="#8B4513" stroke-width="1.2" fill="none" stroke-dasharray="2,4">
+    <path d="M550,350 Q700,300 850,250 T960,200"/>
+  </g>
+</svg>

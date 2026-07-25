@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 暖棕漸層背景 -->
+    <linearGradient id="warmBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7"/>
+      <stop offset="50%" stop-color="#F5E6D3"/>
+      <stop offset="100%" stop-color="#E8D5B7"/>
+    </linearGradient>
+
+    <!-- 蜂巢 pattern（標準排列） -->
+    <pattern id="honeycombBg" x="0" y="0" width="156" height="173.2" patternUnits="userSpaceOnUse">
+      <path d="M78,0 L156,43.3 L156,129.9 L78,173.2 L0,129.9 L0,43.3 Z"
+            fill="none" stroke="#B8860B" stroke-width="0.8" opacity="0.25"/>
+      <path d="M78,0 L156,43.3 L156,129.9 L78,173.2 L0,129.9 L0,43.3 Z"
+            fill="#D4A574" opacity="0.05"/>
+    </pattern>
+
+    <!-- Elemental Folk 民俗紋理 -->
+    <pattern id="folkPattern" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      <g opacity="0.08">
+        <!-- 北歐花紋風格的菱形 -->
+        <path d="M60,20 L80,40 L80,60 L60,80 L40,60 L40,40 Z"
+              fill="none" stroke="#8B4513" stroke-width="1"/>
+        <circle cx="60" cy="50" r="3" fill="#8B4513"/>
+        <path d="M30,90 L40,100 L40,110 L30,120 L20,110 L20,100 Z"
+              fill="none" stroke="#8B4513" stroke-width="0.8"/>
+        <path d="M90,90 L100,100 L100,110 L90,120 L80,110 L80,100 Z"
+              fill="none" stroke="#8B4513" stroke-width="0.8"/>
+      </g>
+    </pattern>
+
+    <!-- 暖色光暈 -->
+    <radialGradient id="warmGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FFD89B" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FFD89B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 背景層 -->
+  <rect width="1920" height="1080" fill="url(#warmBg)"/>
+  <rect width="1920" height="1080" fill="url(#honeycombBg)"/>
+  <rect width="1920" height="1080" fill="url(#folkPattern)"/>
+  <rect width="1920" height="1080" fill="url(#warmGlow)"/>
+
+  <!-- 大型裝飾六邊形（左上）- 大小對比 + 2.5D效果 -->
+  <g transform="translate(280, 280)">
+    <!-- 外粗空心（2.5D 邊框） -->
+    <path d="M0,-100 L86.6,-50 L86.6,50 L0,100 L-86.6,50 L-86.6,-50 Z"
+          fill="none" stroke="#B8860B" stroke-width="4" opacity="0.4"/>
+    <!-- 內實心 -->
+    <path d="M0,-100 L86.6,-50 L86.6,50 L0,100 L-86.6,50 L-86.6,-50 Z"
+          fill="#D4A574" fill-opacity="0.15"/>
+    <!-- 中心小六邊形（焦點突出） -->
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#8B4513" fill-opacity="0.6"/>
+  </g>
+
+  <!-- 右上叢集六邊形（3個，大小對比） -->
+  <g transform="translate(1500, 200)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="#A0826D" fill-opacity="0.35"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="none" stroke="#8B4513" stroke-width="2" opacity="0.5"
+          transform="translate(70, 50)"/>
+    <path d="M0,-25 L21.6,-12.5 L21.6,12.5 L0,25 L-21.6,12.5 L-21.6,-12.5 Z"
+          fill="#8B4513" fill-opacity="0.4"
+          transform="translate(-60, 80)"/>
+  </g>
+
+  <!-- 右下放射環形蜂巢（單一關鍵焦點） -->
+  <g transform="translate(1600, 850)">
+    <!-- 中心大六邊形 -->
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+          fill="#8B4513" fill-opacity="0.5"/>
+    <!-- 環繞六個 -->
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#D4A574" fill-opacity="0.4"
+          transform="rotate(0) translate(0,-70)"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#D4A574" fill-opacity="0.4"
+          transform="rotate(60) translate(0,-70)"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#D4A574" fill-opacity="0.4"
+          transform="rotate(120) translate(0,-70)"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#D4A574" fill-opacity="0.4"
+          transform="rotate(180) translate(0,-70)"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#D4A574" fill-opacity="0.4"
+          transform="rotate(240) translate(0,-70)"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#D4A574" fill-opacity="0.4"
+          transform="rotate(300) translate(0,-70)"/>
+  </g>
+
+  <!-- 左下散落蜂巢碎片（Imperfect Realness 不完美真實感） -->
+  <g opacity="0.6">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#8B4513" stroke-width="1.5"
+          transform="translate(200, 850)"/>
+    <path d="M0,-25 L21.6,-12.5 L21.6,12.5 L0,25 L-21.6,12.5 L-21.6,-12.5 Z"
+          fill="#A0826D" fill-opacity="0.3"
+          transform="translate(380, 920)"/>
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z"
+          fill="#8B4513" fill-opacity="0.5"
+          transform="translate(520, 880)"/>
+    <path d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z"
+          fill="none" stroke="#8B4513" stroke-width="1"
+          transform="translate(680, 950)"/>
+  </g>
+
+  <!-- 中央標題區裝飾（虛實對比） -->
+  <g transform="translate(960, 540)">
+    <!-- 空心引導 -->
+    <path d="M-300,-2 L-150,-2" stroke="#B8860B" stroke-width="2" opacity="0.5"/>
+    <path d="M150,-2 L300,-2" stroke="#B8860B" stroke-width="2" opacity="0.5"/>
+    <!-- 中心實心焦點 -->
+    <path d="M0,-25 L21.6,-12.5 L21.6,12.5 L0,25 L-21.6,12.5 L-21.6,-12.5 Z"
+          fill="#8B4513" fill-opacity="0.7"/>
+  </g>
+</svg>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 柔和米色基底 -->
+    <linearGradient id="baseBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FAF3E0"/>
+      <stop offset="100%" stop-color="#F0E4CC"/>
+    </linearGradient>
+
+    <!-- 觸覺紋理（顆粒感） -->
+    <pattern id="tactileTexture" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.4" fill="#8B4513" opacity="0.15"/>
+      <circle cx="6" cy="5" r="0.3" fill="#A0826D" opacity="0.12"/>
+      <circle cx="4" cy="7" r="0.35" fill="#8B4513" opacity="0.1"/>
+    </pattern>
+
+    <!-- 紙質顆粒紋理（Imperfect Realness） -->
+    <filter id="paperGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3"/>
+      <feColorMatrix values="0 0 0 0 0.55
+                             0 0 0 0 0.27
+                             0 0 0 0 0.07
+                             0 0 0 0.08 0"/>
+    </filter>
+
+    <!-- 溫暖光斑 -->
+    <radialGradient id="warmSpot" cx="30%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#FFE4B5" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FFE4B5" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="warmSpot2" cx="80%" cy="80%" r="40%">
+      <stop offset="0%" stop-color="#FFD89B" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FFD89B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 背景層 -->
+  <rect width="1920" height="1080" fill="url(#baseBg)"/>
+  <rect width="1920" height="1080" fill="url(#tactileTexture)"/>
+  <rect width="1920" height="1080" filter="url(#paperGrain)"/>
+  <rect width="1920" height="1080" fill="url(#warmSpot)"/>
+  <rect width="1920" height="1080" fill="url(#warmSpot2)"/>
+
+  <!-- 隨機碎片蜂巢叢集（藝術背景風格） -->
+  <g opacity="0.85">
+    <!-- 大型蜂巢群（左中）-->
+    <g transform="translate(450, 480)">
+      <path d="M0,-80 L69.3,-40 L69.3,40 L0,80 L-69.3,40 L-69.3,-40 Z"
+            fill="#D4A574" fill-opacity="0.5" transform="rotate(15)"/>
+      <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+            fill="none" stroke="#8B4513" stroke-width="2.5"
+            transform="rotate(15) translate(100, -60)"/>
+      <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+            fill="#A0826D" fill-opacity="0.6" transform="rotate(15) translate(-100, 70)"/>
+    </g>
+
+    <!-- 中型蜂巢（中右）-->
+    <g transform="translate(1100, 350)">
+      <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+            fill="none" stroke="#B8860B" stroke-width="3"
+            transform="rotate(-20)"/>
+      <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+            fill="#D4A574" fill-opacity="0.7"
+            transform="rotate(-20) translate(80, 50)"/>
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+            fill="#8B4513" fill-opacity="0.5"
+            transform="rotate(-20) translate(-70, 80)"/>
+    </g>
+
+    <!-- 散落小蜂巢（Digi-Cute 隨機分散）-->
+    <g transform="translate(1500, 600)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+            fill="#FFB6C1" fill-opacity="0.4" transform="rotate(30)"/>
+    </g>
+    <g transform="translate(1620, 720)">
+      <path d="M0,-25 L21.6,-12.5 L21.6,12.5 L0,25 L-21.6,12.5 L-21.6,-12.5 Z"
+            fill="none" stroke="#8B4513" stroke-width="2" transform="rotate(45)"/>
+    </g>
+    <g transform="translate(1680, 540)">
+      <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+            fill="#D4A574" fill-opacity="0.6" transform="rotate(-15)"/>
+    </g>
+
+    <!-- 底部散落 -->
+    <g transform="translate(280, 880)">
+      <path d="M0,-28 L24.2,-14 L24.2,14 L0,28 L-24.2,14 L-24.2,-14 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.8" transform="rotate(25)"/>
+    </g>
+    <g transform="translate(420, 950)">
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="#A0826D" fill-opacity="0.5"/>
+    </g>
+    <g transform="translate(620, 900)">
+      <path d="M0,-25 L21.6,-12.5 L21.6,12.5 L0,25 L-21.6,12.5 L-21.6,-12.5 Z"
+            fill="#FFB6C1" fill-opacity="0.4" transform="rotate(-30)"/>
+    </g>
+
+    <!-- 右上小蜂巢群 -->
+    <g transform="translate(1400, 180)">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+            fill="#D4A574" fill-opacity="0.6" transform="rotate(20)"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="#8B4513" fill-opacity="0.5"
+            transform="rotate(20) translate(50, 30)"/>
+    </g>
+
+    <!-- 左上角落 -->
+    <g transform="translate(220, 200)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+            fill="none" stroke="#B8860B" stroke-width="2" transform="rotate(40)"/>
+      <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+            fill="#D4A574" fill-opacity="0.5"
+            transform="rotate(40) translate(45, 40)"/>
+    </g>
+  </g>
+
+  <!-- 蜜蜂裝飾（Digi-Cute 可愛元素）-->
+  <g transform="translate(820, 250)" opacity="0.7">
+    <!-- 蜜蜂身體（橢圓）-->
+    <ellipse cx="0" cy="0" rx="20" ry="14" fill="#FFD89B"/>
+    <!-- 條紋 -->
+    <path d="M-12,-12 Q-8,0 -12,12" stroke="#8B4513" stroke-width="4" fill="none"/>
+    <path d="M0,-14 Q4,0 0,14" stroke="#8B4513" stroke-width="4" fill="none"/>
+    <path d="M12,-12 Q16,0 12,12" stroke="#8B4513" stroke-width="4" fill="none"/>
+    <!-- 翅膀 -->
+    <ellipse cx="-12" cy="-15" rx="10" ry="6" fill="#FFFFFF" opacity="0.6" transform="rotate(-20 -12 -15)"/>
+    <ellipse cx="12" cy="-15" rx="10" ry="6" fill="#FFFFFF" opacity="0.6" transform="rotate(20 12 -15)"/>
+    <!-- 觸角 -->
+    <path d="M-6,-14 Q-10,-22 -14,-24" stroke="#8B4513" stroke-width="1.5" fill="none"/>
+    <path d="M6,-14 Q10,-22 14,-24" stroke="#8B4513" stroke-width="1.5" fill="none"/>
+    <circle cx="-14" cy="-24" r="2" fill="#8B4513"/>
+    <circle cx="14" cy="-24" r="2" fill="#8B4513"/>
+  </g>
+
+  <!-- 中央引導線（Imperfect Realness 手繪感） -->
+  <g opacity="0.4" stroke="#8B4513" stroke-width="1.5" fill="none">
+    <path d="M650,540 Q800,535 950,540 T1250,540" stroke-dasharray="3,5"/>
+  </g>
+
+  <!-- 底部裝飾點綴 -->
+  <g opacity="0.5">
+    <circle cx="960" cy="980" r="4" fill="#8B4513"/>
+    <circle cx="940" cy="985" r="2.5" fill="#A0826D"/>
+    <circle cx="980" cy="985" r="3" fill="#D4A574"/>
+  </g>
+</svg>

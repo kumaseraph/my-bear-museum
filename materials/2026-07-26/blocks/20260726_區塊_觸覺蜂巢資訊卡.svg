@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <!-- 卡片漸層（暖棕） -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7"/>
+      <stop offset="100%" stop-color="#F0E4CC"/>
+    </linearGradient>
+
+    <!-- 觸覺紋理 -->
+    <pattern id="cardTexture" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.3" fill="#8B4513" opacity="0.12"/>
+      <circle cx="4" cy="4" r="0.25" fill="#A0826D" opacity="0.1"/>
+    </pattern>
+
+    <!-- 蜂巢 pattern -->
+    <pattern id="cardHoneycomb" x="0" y="0" width="30" height="34" patternUnits="userSpaceOnUse">
+      <path d="M15,0 L30,8.5 L30,25.5 L15,34 L0,25.5 L0,8.5 Z"
+            fill="none" stroke="#B8860B" stroke-width="0.5" opacity="0.25"/>
+    </pattern>
+
+    <!-- 紙質顆粒（Imperfect Realness） -->
+    <filter id="cardGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="5"/>
+      <feColorMatrix values="0 0 0 0 0.55
+                             0 0 0 0 0.27
+                             0 0 0 0 0.07
+                             0 0 0 0.06 0"/>
+    </filter>
+
+    <!-- 陰影 -->
+    <filter id="cardShadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="4" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.35"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 號碼漸層 -->
+    <linearGradient id="numGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A0826D"/>
+      <stop offset="100%" stop-color="#8B4513"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景蜂巢裝飾（左下角） -->
+  <g opacity="0.4">
+    <path d="M0,-25 L21.6,-12.5 L21.6,12.5 L0,25 L-21.6,12.5 L-21.6,-12.5 Z"
+          fill="none" stroke="#8B4513" stroke-width="1.5"
+          transform="translate(40, 360)"/>
+    <path d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z"
+          fill="#D4A574" fill-opacity="0.4"
+          transform="translate(80, 380)"/>
+  </g>
+
+  <!-- 右上蜂巢裝飾 -->
+  <g opacity="0.4">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="#A0826D" fill-opacity="0.5"
+          transform="translate(560, 50)"/>
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z"
+          fill="none" stroke="#8B4513" stroke-width="1.2"
+          transform="translate(530, 75)"/>
+  </g>
+
+  <!-- 主卡片（2.5D 蜂巢外形 - 上下兩端為蜂巢頂點） -->
+  <g transform="translate(300, 200)" filter="url(#cardShadow)">
+    <!-- 外粗空心（2.5D 邊框） -->
+    <path d="M0,-160 L200,-100 L200,100 L0,160 L-200,100 L-200,-100 Z"
+          fill="none" stroke="#8B4513" stroke-width="4"/>
+    <!-- 內實心（卡片底） -->
+    <path d="M0,-160 L200,-100 L200,100 L0,160 L-200,100 L-200,-100 Z"
+          fill="url(#cardGrad)"/>
+    <!-- 蜂巢紋理 -->
+    <path d="M0,-160 L200,-100 L200,100 L0,160 L-200,100 L-200,-100 Z"
+          fill="url(#cardHoneycomb)"/>
+    <!-- 觸覺紋理 -->
+    <path d="M0,-160 L200,-100 L200,100 L0,160 L-200,100 L-200,-100 Z"
+          fill="url(#cardTexture)"/>
+    <!-- 紙質顆粒（Imperfect Realness）-->
+    <path d="M0,-160 L200,-100 L200,100 L0,160 L-200,100 L-200,-100 Z"
+          filter="url(#cardGrain)"/>
+
+    <!-- 內邊框（虛線裝飾） -->
+    <path d="M0,-145 L185,-90 L185,90 L0,145 L-185,90 L-185,-90 Z"
+          fill="none" stroke="#B8860B" stroke-width="0.8" opacity="0.5"
+          stroke-dasharray="2,4"/>
+  </g>
+
+  <!-- 號碼區（左上 - 大型 2.5D 蜂巢） -->
+  <g transform="translate(180, 130)">
+    <!-- 外粗空心 -->
+    <path d="M0,-45 L39,-22.5 L39,22.5 L0,45 L-39,22.5 L-39,-22.5 Z"
+          fill="none" stroke="#8B4513" stroke-width="3"/>
+    <!-- 內實心（漸層） -->
+    <path d="M0,-45 L39,-22.5 L39,22.5 L0,45 L-39,22.5 L-39,-22.5 Z"
+          fill="url(#numGrad)" fill-opacity="0.85"/>
+    <!-- 數字 -->
+    <text x="0" y="14" text-anchor="middle"
+          font-family="Georgia, serif" font-size="42" font-weight="700"
+          fill="#FFF8DC">01</text>
+  </g>
+
+  <!-- 標題文字 -->
+  <g transform="translate(330, 145)">
+    <text x="0" y="0" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700"
+          fill="#8B4513" letter-spacing="2">專案概述</text>
+    <text x="0" y="25" font-family="Noto Sans TC, sans-serif" font-size="13"
+          fill="#A0826D" letter-spacing="1">Project Overview</text>
+  </g>
+
+  <!-- 內容描述區 -->
+  <g transform="translate(190, 240)">
+    <text font-family="Noto Sans TC, sans-serif" font-size="13" fill="#5C3317" letter-spacing="1">
+      <tspan x="0" dy="0">• 目標設定與執行策略</tspan>
+      <tspan x="0" dy="22">• 關鍵指標與預期成效</tspan>
+      <tspan x="0" dy="22">• 資源配置與時程規劃</tspan>
+      <tspan x="0" dy="22">• 風險評估與因應對策</tspan>
+    </text>
+  </g>
+
+  <!-- 右下角蜂巢圖示（虛實對比） -->
+  <g transform="translate(430, 270)">
+    <!-- 大蜂巢（實心） -->
+    <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+          fill="#8B4513" fill-opacity="0.7"/>
+    <!-- 小蜂巢（空心 - 角對角連接） -->
+    <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+          fill="none" stroke="#8B4513" stroke-width="1.5"
+          transform="translate(28, -15)"/>
+    <!-- 更小蜂巢 -->
+    <path d="M0,-8 L6.9,-4 L6.9,4 L0,8 L-6.9,4 L-6.9,-4 Z"
+          fill="#D4A574" fill-opacity="0.6"
+          transform="translate(45, -8)"/>
+  </g>
+
+  <!-- 底部蜜蜂裝飾（Digi-Cute） -->
+  <g transform="translate(380, 320)" opacity="0.7">
+    <ellipse cx="0" cy="0" rx="14" ry="10" fill="#FFD89B"/>
+    <path d="M-8,-9 Q-5,0 -8,9" stroke="#8B4513" stroke-width="2.5" fill="none"/>
+    <path d="M0,-10 Q3,0 0,10" stroke="#8B4513" stroke-width="2.5" fill="none"/>
+    <path d="M8,-9 Q11,0 8,9" stroke="#8B4513" stroke-width="2.5" fill="none"/>
+    <ellipse cx="-7" cy="-10" rx="7" ry="4" fill="#FFFFFF" opacity="0.6" transform="rotate(-20 -7 -10)"/>
+    <ellipse cx="7" cy="-10" rx="7" ry="4" fill="#FFFFFF" opacity="0.6" transform="rotate(20 7 -10)"/>
+  </g>
+</svg>

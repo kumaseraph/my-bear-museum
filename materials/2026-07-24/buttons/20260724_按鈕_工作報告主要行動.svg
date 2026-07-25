@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <title>工作報告主要行動按鈕</title>
+  <desc>應用#124技巧：雙重交叉線+邊界引導線，融合洞察先於圖表、模組化設計趨勢</desc>
+
+  <defs>
+    <linearGradient id="ctaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="ctaGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F3F4F6"/>
+    </linearGradient>
+    <pattern id="crossLines" patternUnits="userSpaceOnUse" width="18" height="18">
+      <line x1="0" y1="18" x2="18" y2="0" stroke="#1E40AF" stroke-width="1" opacity="0.3"/>
+      <line x1="0" y1="0" x2="18" y2="18" stroke="#1E40AF" stroke-width="1" opacity="0.3"/>
+    </pattern>
+    <filter id="ctaShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+      <feOffset dx="0" dy="4" result="offsetblur"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.28"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#F8FAFC"/>
+
+  <!-- 標題 -->
+  <text x="960" y="200" text-anchor="middle" font-family="Microsoft JhengHei, PingFang TC, sans-serif" font-size="56" font-weight="700" fill="#1E40AF">工作報告 · 主要行動按鈕</text>
+  <text x="960" y="250" text-anchor="middle" font-family="Microsoft JhengHei, PingFang TC, sans-serif" font-size="24" fill="#64748B">Primary CTA · 雙重交叉線 + 邊界引導</text>
+  <line x1="900" y1="280" x2="1020" y2="280" stroke="#F59E0B" stroke-width="4"/>
+
+  <!-- 邊界引導虛線 -->
+  <g stroke="#3B82F6" stroke-width="2" stroke-dasharray="10,5" opacity="0.4">
+    <line x1="240" y1="600" x2="660" y2="600"/>
+    <line x1="1260" y1="600" x2="1680" y2="600"/>
+  </g>
+
+  <!-- 主要 CTA 按鈕 -->
+  <g transform="translate(660, 480)" filter="url(#ctaShadow)">
+    <!-- 雙重交叉：兩個平行四邊形交錯 -->
+    <polygon points="40,0 580,0 540,240 0,240" fill="url(#ctaGrad)"/>
+    <polygon points="40,0 580,0 540,240 0,240" fill="url(#crossLines)" opacity="0.4"/>
+    <polygon points="40,0 580,0 540,240 0,240" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+    <!-- 雙重交叉輔助形 -->
+    <polygon points="0,30 540,30 500,210 -40,210" fill="#FFFFFF" opacity="0.08"/>
+    <!-- 文字 -->
+    <text x="290" y="130" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="48" font-weight="700" fill="#FFFFFF">立即檢視報告</text>
+    <text x="290" y="180" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" fill="#FEF3C7">View Full Report</text>
+    <!-- 圖示 -->
+    <circle cx="80" cy="120" r="22" fill="#FFFFFF"/>
+    <polygon points="72,108 72,132 94,120" fill="#F59E0B"/>
+  </g>
+
+  <!-- 次要 CTA 按鈕 -->
+  <g transform="translate(1260, 480)" filter="url(#ctaShadow)">
+    <polygon points="40,0 380,0 340,240 0,240" fill="url(#ctaGrad2)"/>
+    <polygon points="40,0 380,0 340,240 0,240" fill="none" stroke="#1E40AF" stroke-width="4"/>
+    <polygon points="40,0 380,0 340,240 0,240" fill="url(#crossLines)" opacity="0.2"/>
+    <text x="190" y="130" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="36" font-weight="700" fill="#1E40AF">下載 PDF</text>
+    <text x="190" y="180" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#64748B">Download PDF</text>
+    <g transform="translate(170, 80)" stroke="#1E40AF" stroke-width="3" fill="none">
+      <line x1="0" y1="0" x2="0" y2="20"/>
+      <line x1="-8" y1="12" x2="0" y2="20"/>
+      <line x1="8" y1="12" x2="0" y2="20"/>
+      <line x1="-10" y1="24" x2="10" y2="24"/>
+    </g>
+  </g>
+
+  <!-- 底部說明 -->
+  <g transform="translate(360, 820)">
+    <rect x="0" y="0" width="1200" height="160" rx="8" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="0" y="0" width="6" height="160" fill="#F59E0B"/>
+    <text x="40" y="50" font-family="Microsoft JhengHei, sans-serif" font-size="24" font-weight="700" fill="#1E40AF">設計重點</text>
+    <text x="40" y="92" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#374151">· 金色主 CTA = 高對比、高優先級；白色次 CTA = 視覺降階</text>
+    <text x="40" y="124" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#374151">· 雙重交叉線 = 增加層次感，邊界引導虛線 = 視覺聚焦</text>
+  </g>
+</svg>
