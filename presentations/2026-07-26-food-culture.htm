@@ -186,15 +186,17 @@ body {
 .s1-cover .dish-svg {
   position: absolute;
   top: 50%; left: 50%;
-  transform: translate(-50%, calc(-50% - 110px));
+  transform: translate(-50%, calc(-50% - 240px));
   z-index: 3;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
 }
 .s1-cover .hero-content {
   position: relative;
-  z-index: 5;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 90px;
 }
 .s1-cover .eyebrow {
   font-size: 1.05rem;
@@ -814,6 +816,12 @@ body {
   font-weight: 900;
   color: #F4A261;
   letter-spacing: -0.01em;
+}
+.pm-big .unit-sm {
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.75;
+  margin-left: 2px;
 }
 .night-pulse .pulse-meta .pm-label {
   font-size: 1rem;
@@ -1440,7 +1448,7 @@ body {
           <p>所有攤位滿載，蚵仔煎大火爆香，剉冰機轉速拉到最高。</p>
         </div>
         <div class="pulse-meta">
-          <div class="pm-big">86<span style="font-size:0.5em;">dB</span></div>
+          <div class="pm-big">86<span class="unit-sm">dB</span></div>
           <div class="pm-label">環境噪音</div>
         </div>
       </div>
@@ -1451,7 +1459,7 @@ body {
           <p>最後幾攤關燈，剩下的紙碗紙袋被掃進夜色裡，準備明天。</p>
         </div>
         <div class="pulse-meta">
-          <div class="pm-big">8<span style="font-size:0.5em;">℃↓</span></div>
+          <div class="pm-big">8<span class="unit-sm">℃↓</span></div>
           <div class="pm-label">氣溫 / 涼意</div>
         </div>
       </div>
