@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="blockBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="blockNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+    <linearGradient id="blockGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+    <!-- 內部斜線（#124 條紋疊加） -->
+    <pattern id="blockStripes" patternUnits="userSpaceOnUse" width="14" height="14" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="14" stroke="#1E40AF" stroke-width="1.2" opacity="0.15"/>
+    </pattern>
+    <pattern id="blockStripes2" patternUnits="userSpaceOnUse" width="18" height="18" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="18" stroke="#FFFFFF" stroke-width="1.5" opacity="0.12"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#F8FAFC"/>
+
+  <!-- 標題列 -->
+  <text x="120" y="100" font-family="Microsoft JhengHei, sans-serif" font-size="44" font-weight="700" fill="#1E3A8A">工作報告｜模組化卡片區塊</text>
+  <text x="120" y="148" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#64748B">#124 平行四邊形階梯 + 內部斜線 + bento 獨立 headline</text>
+
+  <!-- ============ 大標題區塊（階梯左側）============ -->
+  <g transform="translate(120, 220)">
+    <!-- 平行四邊形背景 -->
+    <polygon points="20,0 560,0 530,180 0,180" fill="url(#blockNavy)"/>
+    <polygon points="20,0 560,0 530,180 0,180" fill="url(#blockStripes2)"/>
+    <polygon points="20,0 560,0 530,180 0,180" fill="none" stroke="#F59E0B" stroke-width="2"/>
+    <text x="40" y="60" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="700" fill="#FBBF24">｜ 報告期間 ｜</text>
+    <text x="40" y="110" font-family="Microsoft JhengHei, sans-serif" font-size="36" font-weight="800" fill="#FFFFFF">2026 Q2 工作報告</text>
+    <text x="40" y="150" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#CBD5E1">2026/04/01 – 2026/06/30｜期末總結</text>
+  </g>
+
+  <!-- ============ 第二階 ============ -->
+  <g transform="translate(640, 220)">
+    <polygon points="20,0 320,0 300,180 0,180" fill="url(#blockBlue)"/>
+    <polygon points="20,0 320,0 300,180 0,180" fill="url(#blockStripes)"/>
+    <polygon points="20,0 320,0 300,180 0,180" fill="none" stroke="#1E3A8A" stroke-width="2"/>
+    <text x="35" y="60" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#FCD34D">｜ 撰寫人 ｜</text>
+    <text x="35" y="100" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">王○○</text>
+    <text x="35" y="130" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#CBD5E1">業務單位</text>
+    <text x="35" y="155" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#CBD5E1">分機 2234</text>
+  </g>
+
+  <!-- ============ 第三階 ============ -->
+  <g transform="translate(960, 220)">
+    <polygon points="20,0 320,0 300,180 0,180" fill="url(#blockGold)"/>
+    <polygon points="20,0 320,0 300,180 0,180" fill="url(#blockStripes)"/>
+    <polygon points="20,0 320,0 300,180 0,180" fill="none" stroke="#B45309" stroke-width="2"/>
+    <text x="35" y="60" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#7C2D12">｜ 狀態 ｜</text>
+    <text x="35" y="110" font-family="Microsoft JhengHei, sans-serif" font-size="28" font-weight="800" fill="#1E3A8A">依進度</text>
+    <text x="35" y="140" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#7C2D12">RAG: Green</text>
+    <circle cx="295" cy="50" r="14" fill="#059669"/>
+    <circle cx="295" cy="50" r="22" fill="none" stroke="#059669" stroke-width="1.5" opacity="0.4"/>
+  </g>
+
+  <!-- ============ 第四階 ============ -->
+  <g transform="translate(1280, 220)">
+    <polygon points="20,0 460,0 440,180 0,180" fill="#FFFFFF"/>
+    <polygon points="20,0 460,0 440,180 0,180" fill="url(#blockStripes)" opacity="0.6"/>
+    <polygon points="20,0 460,0 440,180 0,180" fill="none" stroke="#1E40AF" stroke-width="2"/>
+    <text x="35" y="60" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#1E40AF">｜ 關鍵指標 ｜</text>
+    <text x="35" y="105" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="800" fill="#1E3A8A">92%</text>
+    <text x="120" y="105" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">KPI 達成率</text>
+    <text x="35" y="140" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="800" fill="#1E3A8A">+8.3%</text>
+    <text x="120" y="140" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">環比成長</text>
+  </g>
+
+  <!-- ============ 中段：bento 3 個獨立 headline 卡片 ============ -->
+  <g transform="translate(120, 440)">
+    <rect x="0" y="0" width="540" height="220" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+    <rect x="0" y="0" width="540" height="6" fill="#1E40AF"/>
+    <text x="20" y="40" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#1E40AF">① 階段成果</text>
+    <text x="20" y="80" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="700" fill="#1E3A8A">完成 6 項關鍵任務</text>
+    <text x="20" y="115" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">• 系統升級上線</text>
+    <text x="20" y="140" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">• 人員培訓完成（12 人）</text>
+    <text x="20" y="165" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">• SOP 文件建置</text>
+    <text x="20" y="195" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="#94A3B8" font-style="italic">結論：階段目標達成</text>
+  </g>
+
+  <g transform="translate(690, 440)">
+    <rect x="0" y="0" width="540" height="220" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+    <rect x="0" y="0" width="540" height="6" fill="#F59E0B"/>
+    <text x="20" y="40" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#B45309">② 關鍵數據</text>
+    <text x="20" y="80" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="700" fill="#1E3A8A">服務量年增 8.3%</text>
+    <text x="20" y="115" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">本月服務 12,450 人次</text>
+    <text x="20" y="140" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">使用者滿意度 4.6/5.0</text>
+    <text x="20" y="165" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">申辦案件處理時效 -2.4 天</text>
+    <text x="20" y="195" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="#94A3B8" font-style="italic">結論：成效穩健提升</text>
+  </g>
+
+  <g transform="translate(1260, 440)">
+    <rect x="0" y="0" width="540" height="220" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+    <rect x="0" y="0" width="540" height="6" fill="#059669"/>
+    <text x="20" y="40" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#047857">③ 下期重點</text>
+    <text x="20" y="80" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="700" fill="#1E3A8A">業務推廣 v2.0</text>
+    <text x="20" y="115" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">• 跨單位協作 3 場</text>
+    <text x="20" y="140" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">• 業務流程優化</text>
+    <text x="20" y="165" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">• 風險預防機制</text>
+    <text x="20" y="195" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="#94A3B8" font-style="italic">結論：持續精進</text>
+  </g>
+
+  <!-- ============ 底部：行動呼籲區 ============ -->
+  <g transform="translate(120, 700)">
+    <rect x="0" y="0" width="1680" height="180" fill="url(#blockBlue)"/>
+    <rect x="0" y="0" width="1680" height="180" fill="url(#blockStripes2)"/>
+    <text x="40" y="55" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#FCD34D">｜ 行動呼籲 ｜</text>
+    <text x="40" y="105" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="800" fill="#FFFFFF">請委員於 7/31 前核閱本案</text>
+    <text x="40" y="145" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#CBD5E1">若需調整，請回信至 contact@example.gov.tw</text>
+    <!-- CTA 按鈕 -->
+    <g transform="translate(1400, 60)">
+      <rect x="0" y="0" width="240" height="60" rx="6" fill="url(#blockGold)"/>
+      <rect x="0" y="0" width="240" height="60" rx="6" fill="none" stroke="#B45309" stroke-width="2"/>
+      <text x="120" y="38" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="700" fill="#1E3A8A">同意核閱 →</text>
+    </g>
+  </g>
+
+  <!-- 底部技術標籤 -->
+  <text x="120" y="990" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#94A3B8">技巧 #124 平行四邊形線條｜階梯 + 內部斜線 + CTA</text>
+  <text x="1800" y="990" text-anchor="end" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#94A3B8">2026-07-27 熊熊生成</text>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#FFFFFF"/>
+
+  <!-- 標題列 -->
+  <text x="120" y="100" font-family="Microsoft JhengHei, sans-serif" font-size="44" font-weight="700" fill="#1E3A8A">工作報告｜資訊卡雙線框</text>
+  <text x="120" y="148" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#64748B">bento grid 敘事並排 × 逐格 headline × 雙線邊框</text>
+
+  <!-- ===== 主框：雙線邊框（外實 + 內虛線）==== -->
+  <rect x="100" y="200" width="1720" height="680" fill="none" stroke="#1E3A8A" stroke-width="3"/>
+  <rect x="118" y="218" width="1684" height="644" fill="none" stroke="#3B82F6" stroke-width="1" stroke-dasharray="8,5"/>
+
+  <!-- 頂部 headline 槽位 -->
+  <rect x="120" y="220" width="1680" height="80" fill="url(#cardGrad)"/>
+  <text x="960" y="275" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">HEADLINE — 每張 slide 單獨成立的結論</text>
+
+  <!-- 三個獨立 bento 格子（每格有獨立 headline）-->
+  <!-- 格子 1 -->
+  <g>
+    <rect x="150" y="340" width="540" height="280" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <rect x="150" y="340" width="540" height="44" fill="url(#goldGrad)"/>
+    <text x="170" y="372" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="700" fill="#1E3A8A">① 階段成果</text>
+    <text x="170" y="430" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">• KPI 達成率 92%</text>
+    <text x="170" y="460" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">• 預算執行 78%</text>
+    <text x="170" y="490" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">• 重大里程碑完成</text>
+    <text x="170" y="540" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#94A3B8" font-style="italic">結論：穩健推進</text>
+  </g>
+
+  <!-- 格子 2 -->
+  <g>
+    <rect x="710" y="340" width="500" height="280" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <rect x="710" y="340" width="500" height="44" fill="url(#goldGrad)"/>
+    <text x="730" y="372" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="700" fill="#1E3A8A">② 關鍵數據</text>
+    <text x="730" y="430" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">本月服務人次：12,450</text>
+    <text x="730" y="460" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">較上月成長 +8.3%</text>
+    <text x="730" y="490" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">滿意度 4.6 / 5.0</text>
+    <text x="730" y="540" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#94A3B8" font-style="italic">結論：成效顯著</text>
+  </g>
+
+  <!-- 格子 3 -->
+  <g>
+    <rect x="1230" y="340" width="540" height="280" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <rect x="1230" y="340" width="540" height="44" fill="url(#goldGrad)"/>
+    <text x="1250" y="372" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="700" fill="#1E3A8A">③ 下期重點</text>
+    <text x="1250" y="430" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">• 第二季推廣策略</text>
+    <text x="1250" y="460" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">• 跨單位協作會議</text>
+    <text x="1250" y="490" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">• 風險預防機制</text>
+    <text x="1250" y="540" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#94A3B8" font-style="italic">結論：持續精進</text>
+  </g>
+
+  <!-- 底部資料區 -->
+  <rect x="120" y="660" width="1680" height="200" fill="#F1F5F9"/>
+  <text x="150" y="700" font-family="Microsoft JhengHei, sans-serif" font-size="18" font-weight="700" fill="#1E3A8A">｜ 補充說明 ｜</text>
+  <text x="150" y="740" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">本區可放入方法論、引用、圖表來源等補充資訊，保持各格獨立 headline 結構。</text>
+  <text x="150" y="770" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">每個 bento cell 各自表達一段，視覺重量接近，行動呼籲分散。</text>
+
+  <!-- 底部角落六邊形裝飾 -->
+  <g transform="translate(110, 870)">
+    <path d="M0,0 L40,12 L40,42 L0,54 L-40,42 L-40,12 Z" fill="none" stroke="#1E40AF" stroke-width="2"/>
+    <path d="M0,10 L28,18 L28,36 L0,44 L-28,36 L-28,18 Z" fill="#F59E0B"/>
+  </g>
+  <g transform="translate(1810, 870)">
+    <path d="M0,0 L40,12 L40,42 L0,54 L-40,42 L-40,12 Z" fill="none" stroke="#1E40AF" stroke-width="2"/>
+    <path d="M0,10 L28,18 L28,36 L0,44 L-28,36 L-28,18 Z" fill="#F59E0B"/>
+  </g>
+
+  <!-- 技術標籤 -->
+  <text x="120" y="990" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#94A3B8">技巧 #120 + bento grid 概念｜雙線邊框 + 逐格 headline</text>
+  <text x="1800" y="990" text-anchor="end" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#94A3B8">2026-07-27 熊熊生成</text>
+</svg>
