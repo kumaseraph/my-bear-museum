@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" width="240" height="120">
+  <defs>
+    <!-- 主六邊形漸層 -->
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <!-- 強調色 -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 主六邊形（外粗空心 - 2.5D）-->
+  <path d="M40,10 L100,10 L120,55 L100,100 L40,100 L20,55 Z"
+        fill="none" stroke="url(#hexGrad)" stroke-width="3.5"/>
+  <!-- 內實心（半透明紫） -->
+  <path d="M40,18 L94,18 L112,55 L94,92 L40,92 L26,55 Z"
+        fill="url(#hexGrad)" fill-opacity="0.18"/>
+
+  <!-- 內部裝飾小六邊形 -->
+  <path d="M0,-10 L8.66,-5 L8.66,5 L0,10 L-8.66,5 L-8.66,-5 Z"
+        fill="#7C3AED" transform="translate(155, 30) rotate(15)"/>
+
+  <!-- 大型頁碼文字（誇張字體） -->
+  <text x="58" y="70" font-family="Arial Black, sans-serif" font-size="40"
+        font-weight="900" fill="#5B21B6" letter-spacing="-1">12</text>
+
+  <!-- 分隔條 -->
+  <line x1="155" y1="50" x2="195" y2="50" stroke="url(#accentGrad)" stroke-width="2.5"/>
+  <line x1="155" y1="56" x2="195" y2="56" stroke="url(#accentGrad)" stroke-width="1"/>
+
+  <!-- 總頁數 (較小) -->
+  <text x="155" y="78" font-family="Arial, sans-serif" font-size="12"
+        font-weight="700" fill="#7C3AED" letter-spacing="2">/ 24</text>
+
+  <!-- 底部裝飾虛線 -->
+  <line x1="40" y1="108" x2="195" y2="108" stroke="#A78BFA" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+</svg>

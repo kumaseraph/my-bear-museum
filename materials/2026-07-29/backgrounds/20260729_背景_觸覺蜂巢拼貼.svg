@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 拼貼層次漸層 -->
+    <linearGradient id="patchGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDF4FF"/>
+      <stop offset="100%" stop-color="#FCE7F3"/>
+    </linearGradient>
+    <linearGradient id="patchGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF3C7"/>
+      <stop offset="100%" stop-color="#FED7AA"/>
+    </linearGradient>
+    <linearGradient id="patchGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DDEAFE"/>
+      <stop offset="100%" stop-color="#C7D2FE"/>
+    </linearGradient>
+
+    <!-- 蜂巢 pattern（標準排列 + 虛實對比） -->
+    <pattern id="honeycombPatch" x="0" y="0" width="156" height="173.2" patternUnits="userSpaceOnUse">
+      <path d="M78,0 L156,43.3 L156,129.9 L78,173.2 L0,129.9 L0,43.3 Z"
+            fill="none" stroke="#A78BFA" stroke-width="0.8" opacity="0.22"/>
+      <path d="M78,0 L156,43.3 L156,129.9 L78,173.2 L0,129.9 L0,43.3 Z"
+            fill="#C4B5FD" opacity="0.04"/>
+    </pattern>
+
+    <!-- 細點紋理 (紙質顆粒) -->
+    <pattern id="paperGrain" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <g opacity="0.18">
+        <circle cx="10" cy="20" r="0.6" fill="#6B21A8"/>
+        <circle cx="40" cy="35" r="0.5" fill="#BE185D"/>
+        <circle cx="25" cy="50" r="0.7" fill="#1E40AF"/>
+        <circle cx="50" cy="10" r="0.4" fill="#047857"/>
+      </g>
+    </pattern>
+
+    <!-- 觸覺光暈（薰衣草紫 + 鮭魚橙） -->
+    <radialGradient id="warmGlowA" cx="20%" cy="20%" r="55%">
+      <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#A78BFA" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="warmGlowB" cx="85%" cy="85%" r="55%">
+      <stop offset="0%" stop-color="#FB7185" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#FB7185" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="warmGlowC" cx="65%" cy="35%" r="40%">
+      <stop offset="0%" stop-color="#FCD34D" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#FCD34D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 基礎底色：米白 -->
+  <rect width="1920" height="1080" fill="#FFFBF5"/>
+
+  <!-- 蜂巢 pattern 全幅襯底 -->
+  <rect width="1920" height="1080" fill="url(#honeycombPatch)"/>
+  <rect width="1920" height="1080" fill="url(#paperGrain)"/>
+
+  <!-- 三層光暈 -->
+  <rect width="1920" height="1080" fill="url(#warmGlowA)"/>
+  <rect width="1920" height="1080" fill="url(#warmGlowB)"/>
+  <rect width="1920" height="1080" fill="url(#warmGlowC)"/>
+
+  <!-- 拼貼區塊 1：左上 薰衣草紫 (2.5D 效果) -->
+  <g transform="translate(180, 180) rotate(-3)">
+    <rect x="-180" y="-100" width="380" height="220" rx="12"
+          fill="none" stroke="#A78BFA" stroke-width="4"/>
+    <rect x="-180" y="-100" width="380" height="220" rx="12"
+          fill="url(#patchGrad1)" opacity="0.85"/>
+  </g>
+
+  <!-- 拼貼區塊 2：右上 鮭魚橙 -->
+  <g transform="translate(1480, 200) rotate(4)">
+    <rect x="-160" y="-90" width="340" height="200" rx="12"
+          fill="none" stroke="#FB7185" stroke-width="3.5"/>
+    <rect x="-160" y="-90" width="340" height="200" rx="12"
+          fill="url(#patchGrad2)" opacity="0.82"/>
+  </g>
+
+  <!-- 拼貼區塊 3：中下 靛藍 -->
+  <g transform="translate(900, 820) rotate(-2)">
+    <rect x="-180" y="-100" width="400" height="200" rx="12"
+          fill="none" stroke="#6366F1" stroke-width="3.5"/>
+    <rect x="-180" y="-100" width="400" height="200" rx="12"
+          fill="url(#patchGrad3)" opacity="0.85"/>
+  </g>
+
+  <!-- 大型裝飾六邊形（左上拼貼內）- 大小對比 -->
+  <g transform="translate(180, 180) rotate(-3)">
+    <!-- 外粗空心 (2.5D) -->
+    <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z"
+          fill="none" stroke="#7C3AED" stroke-width="3.5"/>
+    <!-- 內實心（半透明） -->
+    <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z"
+          fill="#A78BFA" fill-opacity="0.35"/>
+    <!-- 中心小六邊形（焦點） -->
+    <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+          fill="#6D28D9"/>
+  </g>
+
+  <!-- 中右叢集六邊形 (3 個大小對比，鮭魚橙系) -->
+  <g transform="translate(1560, 220) rotate(4)">
+    <path d="M0,-45 L39,-22.5 L39,22.5 L0,45 L-39,22.5 L-39,-22.5 Z"
+          fill="#FB7185" opacity="0.85"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#E11D48" stroke-width="2"
+          transform="translate(50, 20)"/>
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z"
+          fill="#FCD34D"
+          transform="translate(-30, 40)"/>
+  </g>
+
+  <!-- 底部拼貼六邊形群 (4 個交錯排列，靛藍系) -->
+  <g transform="translate(960, 860)">
+    <path d="M0,-55 L47.6,-27.5 L47.6,27.5 L0,55 L-47.6,27.5 L-47.6,-27.5 Z"
+          fill="#6366F1" fill-opacity="0.7"
+          transform="translate(-90, 0)"/>
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="none" stroke="#4F46E5" stroke-width="2.5"
+          transform="translate(20, -30)"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#A78BFA" opacity="0.8"
+          transform="translate(90, 10)"/>
+    <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+          fill="none" stroke="#7C3AED" stroke-width="2"
+          transform="translate(-30, 50)"/>
+  </g>
+
+  <!-- 散布小型六邊形（隨機碎片感）-->
+  <g opacity="0.55">
+    <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+          fill="#FB7185" transform="translate(450, 320) rotate(15)"/>
+    <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+          fill="none" stroke="#A78BFA" stroke-width="1.5"
+          transform="translate(640, 580) rotate(25)"/>
+    <path d="M0,-14 L12,-7 L12,7 L0,14 L-12,7 L-12,-7 Z"
+          fill="#FCD34D" transform="translate(1300, 480) rotate(-15)"/>
+    <path d="M0,-10 L8.66,-5 L8.66,5 L0,10 L-8.66,5 L-8.66,-5 Z"
+          fill="#6366F1" transform="translate(500, 750) rotate(30)"/>
+    <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+          fill="none" stroke="#FB7185" stroke-width="1.5"
+          transform="translate(1400, 720) rotate(-20)"/>
+  </g>
+
+  <!-- 連接虛線（漸進揭露路徑） -->
+  <g stroke="#7C3AED" stroke-width="1.5" fill="none" opacity="0.35" stroke-dasharray="6,5">
+    <path d="M 380,180 Q 800,80 1480,220"/>
+    <path d="M 180,300 Q 500,700 900,860"/>
+    <path d="M 1560,400 Q 1300,700 960,860"/>
+  </g>
+
+  <!-- 中心焦點提示（虛線圓環，提示單一關鍵洞察） -->
+  <g transform="translate(960, 540)" opacity="0.25">
+    <circle cx="0" cy="0" r="220" fill="none" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="4,6"/>
+    <circle cx="0" cy="0" r="180" fill="none" stroke="#A78BFA" stroke-width="1" stroke-dasharray="3,8"/>
+  </g>
+</svg>

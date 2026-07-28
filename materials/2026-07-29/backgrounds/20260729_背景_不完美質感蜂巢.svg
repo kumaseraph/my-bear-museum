@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 民俗紙質底色 -->
+    <linearGradient id="paperBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FAF7F0"/>
+      <stop offset="50%" stop-color="#F5F0E1"/>
+      <stop offset="100%" stop-color="#EDE5D0"/>
+    </linearGradient>
+
+    <!-- 民俗蜂巢 pattern (虛實對比 + 邊框粗細) -->
+    <pattern id="folkHoneycomb" x="0" y="0" width="180" height="207.8" patternUnits="userSpaceOnUse">
+      <!-- 外粗邊框 -->
+      <path d="M90,0 L180,51.95 L180,155.85 L90,207.8 L0,155.85 L0,51.95 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.5" opacity="0.25"/>
+      <!-- 內細描邊 -->
+      <path d="M90,0 L180,51.95 L180,155.85 L90,207.8 L0,155.85 L0,51.95 Z"
+            fill="none" stroke="#A0522D" stroke-width="0.5" opacity="0.4"
+            transform="scale(0.7) translate(38.6, 38.6)"/>
+    </pattern>
+
+    <!-- 民俗紋理（北歐花紋菱形） -->
+    <pattern id="folkTexture" x="0" y="0" width="160" height="160" patternUnits="userSpaceOnUse">
+      <g opacity="0.16" fill="none" stroke="#5C3317" stroke-width="1.2">
+        <!-- 民俗菱形 -->
+        <path d="M80,30 L110,60 L110,90 L80,120 L50,90 L50,60 Z"/>
+        <circle cx="80" cy="75" r="3" fill="#5C3317"/>
+        <!-- 邊角小花紋 -->
+        <path d="M20,140 L30,150 L30,160 L20,170 L10,160 L10,150 Z" stroke-width="0.8"/>
+        <path d="M140,140 L150,150 L150,160 L140,170 L130,160 L130,150 Z" stroke-width="0.8"/>
+      </g>
+    </pattern>
+
+    <!-- 不完美紙質顆粒 -->
+    <pattern id="imperfectGrain" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <g opacity="0.25">
+        <circle cx="8" cy="12" r="0.5" fill="#3F2A1A"/>
+        <circle cx="22" cy="28" r="0.6" fill="#5C3317"/>
+        <circle cx="34" cy="6" r="0.4" fill="#3F2A1A"/>
+        <circle cx="14" cy="34" r="0.5" fill="#5C3317"/>
+        <line x1="0" y1="20" x2="40" y2="20" stroke="#3F2A1A" stroke-width="0.2" opacity="0.3"/>
+      </g>
+    </pattern>
+
+    <!-- 溫暖光暈 -->
+    <radialGradient id="folkGlow" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#F5DEB3" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#F5DEB3" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 米白底色 -->
+  <rect width="1920" height="1080" fill="url(#paperBg)"/>
+
+  <!-- 蜂巢 pattern 襯底（透明度低，營造不完美紙質） -->
+  <rect width="1920" height="1080" fill="url(#folkHoneycomb)"/>
+  <rect width="1920" height="1080" fill="url(#folkTexture)"/>
+  <rect width="1920" height="1080" fill="url(#imperfectGrain)"/>
+  <rect width="1920" height="1080" fill="url(#folkGlow)"/>
+
+  <!-- 大型隨機碎片六邊形群（左上，大小對比 + 不規則角度） -->
+  <g opacity="0.85">
+    <!-- 大六邊形 1 -->
+    <path d="M0,-90 L78,-45 L78,45 L0,90 L-78,45 L-78,-45 Z"
+          fill="#D2B48C" fill-opacity="0.4"
+          stroke="#8B4513" stroke-width="3"
+          transform="translate(280, 280) rotate(-8)"/>
+    <!-- 中六邊形 -->
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+          fill="none" stroke="#5C3317" stroke-width="2.5"
+          transform="translate(440, 380) rotate(15)"/>
+    <!-- 小六邊形實心 -->
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#8B4513" fill-opacity="0.7"
+          transform="translate(180, 420) rotate(20)"/>
+    <!-- 焦點小六邊形 -->
+    <path d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z"
+          fill="#5C3317"
+          transform="translate(380, 200) rotate(-12)"/>
+  </g>
+
+  <!-- 民俗花紋裝飾（右側垂直排列） -->
+  <g transform="translate(1640, 540)" opacity="0.85">
+    <!-- 上菱形 -->
+    <path d="M0,-40 L30,-20 L30,20 L0,40 L-30,20 L-30,-20 Z"
+          fill="none" stroke="#8B4513" stroke-width="2.5"/>
+    <circle cx="0" cy="0" r="5" fill="#8B4513"/>
+    <!-- 下菱形（不同角度） -->
+    <path d="M0,-30 L22,-15 L22,15 L0,30 L-22,15 L-22,-15 Z"
+          fill="#5C3317"
+          transform="translate(0, 90) rotate(15)"/>
+    <!-- 連接線（民俗飾帶） -->
+    <line x1="0" y1="-40" x2="0" y2="-90" stroke="#8B4513" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="0" y1="40" x2="0" y2="60" stroke="#8B4513" stroke-width="1.5" stroke-dasharray="4,3"/>
+  </g>
+
+  <!-- 中央焦點六邊形群 (尺寸漸層 - 中心放射) -->
+  <g transform="translate(960, 540)" opacity="0.9">
+    <!-- 中心大六邊形（焦點） -->
+    <path d="M0,-100 L86.6,-50 L86.6,50 L0,100 L-86.6,50 L-86.6,-50 Z"
+          fill="#5C3317" fill-opacity="0.85"/>
+    <!-- 內部裝飾 -->
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+          fill="none" stroke="#F5DEB3" stroke-width="2.5"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="#F5DEB3"/>
+    <!-- 第二環 6 個六邊形（尺寸漸層） -->
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="#A0522D"
+          transform="rotate(0) translate(0, -120)"/>
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="#A0522D"
+          transform="rotate(60) translate(0, -120)"/>
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="#A0522D"
+          transform="rotate(120) translate(0, -120)"/>
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="#A0522D"
+          transform="rotate(180) translate(0, -120)"/>
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="#A0522D"
+          transform="rotate(240) translate(0, -120)"/>
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="#A0522D"
+          transform="rotate(300) translate(0, -120)"/>
+  </g>
+
+  <!-- 不規則手繪邊框痕跡（左下角虛實對比） -->
+  <g transform="translate(220, 880)" opacity="0.7">
+    <path d="M0,-30 L60,-15 L60,15 L0,30 L-60,15 L-60,-15 Z"
+          fill="none" stroke="#5C3317" stroke-width="3"
+          stroke-dasharray="8,4"/>
+    <path d="M0,-15 L30,-7.5 L30,7.5 L0,15 L-30,7.5 L-30,-7.5 Z"
+          fill="#8B4513"/>
+  </g>
+
+  <!-- 民俗裝飾邊條（右下）-->
+  <g transform="translate(1700, 880)" opacity="0.75">
+    <line x1="-150" y1="0" x2="150" y2="0" stroke="#8B4513" stroke-width="2"/>
+    <path d="M0,-10 L8,0 L0,10 L-8,0 Z" fill="#5C3317"/>
+    <path d="M-50,-10 L-42,0 L-50,10 L-58,0 Z" fill="#5C3317"/>
+    <path d="M50,-10 L58,0 L50,10 L42,0 Z" fill="#5C3317"/>
+  </g>
+
+  <!-- 散落裝飾小元素（不完美真實感） -->
+  <g opacity="0.6">
+    <circle cx="600" cy="200" r="3" fill="#5C3317"/>
+    <circle cx="1280" cy="280" r="2.5" fill="#5C3317"/>
+    <circle cx="780" cy="800" r="2" fill="#5C3317"/>
+    <circle cx="1140" cy="880" r="3" fill="#5C3317"/>
+    <line x1="700" y1="500" x2="730" y2="510" stroke="#5C3317" stroke-width="1"/>
+    <line x1="1180" y1="450" x2="1210" y2="460" stroke="#5C3317" stroke-width="1"/>
+  </g>
+</svg>

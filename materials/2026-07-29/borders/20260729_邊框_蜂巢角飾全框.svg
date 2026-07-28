@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="50%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#5B21B6"/>
+    </linearGradient>
+
+    <!-- 六邊形 pattern 用於外框 -->
+    <pattern id="hexFrame" x="0" y="0" width="60" height="69.3" patternUnits="userSpaceOnUse">
+      <path d="M30,0 L60,17.3 L60,51.95 L30,69.3 L0,51.95 L0,17.3 Z"
+            fill="none" stroke="url(#borderGrad)" stroke-width="1.2"/>
+    </pattern>
+  </defs>
+
+  <!-- 外粗框 (2.5D 效果 - 大小對比 + 虛實對比) -->
+  <rect x="40" y="40" width="1120" height="720" rx="8"
+        fill="none" stroke="url(#borderGrad)" stroke-width="6"/>
+
+  <!-- 內細框 -->
+  <rect x="58" y="58" width="1084" height="684" rx="6"
+        fill="none" stroke="#A78BFA" stroke-width="2.5"/>
+
+  <!-- 蜂巢 pattern 框（內部裝飾） -->
+  <rect x="78" y="78" width="1044" height="644" rx="4"
+        fill="url(#hexFrame)" opacity="0.5"/>
+
+  <!-- 四角裝飾六邊形 (強調 - 旋轉角度對比) -->
+  <!-- 左上 -->
+  <g transform="translate(85, 85)">
+    <path d="M0,-32 L27.7,-16 L27.7,16 L0,32 L-27.7,16 L-27.7,-16 Z"
+          fill="none" stroke="#5B21B6" stroke-width="3.5"/>
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="#FBBF24" transform="rotate(15)"/>
+  </g>
+  <!-- 右上 -->
+  <g transform="translate(1115, 85)">
+    <path d="M0,-32 L27.7,-16 L27.7,16 L0,32 L-27.7,16 L-27.7,-16 Z"
+          fill="none" stroke="#5B21B6" stroke-width="3.5"/>
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="#FBBF24" transform="rotate(-15)"/>
+  </g>
+  <!-- 左下 -->
+  <g transform="translate(85, 715)">
+    <path d="M0,-32 L27.7,-16 L27.7,16 L0,32 L-27.7,16 L-27.7,-16 Z"
+          fill="none" stroke="#5B21B6" stroke-width="3.5"/>
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="#FBBF24" transform="rotate(-15)"/>
+  </g>
+  <!-- 右下 -->
+  <g transform="translate(1115, 715)">
+    <path d="M0,-32 L27.7,-16 L27.7,16 L0,32 L-27.7,16 L-27.7,-16 Z"
+          fill="none" stroke="#5B21B6" stroke-width="3.5"/>
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="#FBBF24" transform="rotate(15)"/>
+  </g>
+
+  <!-- 邊邊小型六邊形裝飾 (邊對邊/角對角 連接方式) -->
+  <g opacity="0.85">
+    <!-- 上邊 5 個 -->
+    <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+          fill="#7C3AED" transform="translate(220, 70)"/>
+    <path d="M0,-10 L8.66,-5 L8.66,5 L0,10 L-8.66,5 L-8.66,-5 Z"
+          fill="none" stroke="#A78BFA" stroke-width="1.5"
+          transform="translate(420, 70) rotate(30)"/>
+    <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+          fill="#A78BFA" transform="translate(620, 70)"/>
+    <path d="M0,-10 L8.66,-5 L8.66,5 L0,10 L-8.66,5 L-8.66,-5 Z"
+          fill="none" stroke="#7C3AED" stroke-width="1.5"
+          transform="translate(820, 70) rotate(30)"/>
+    <!-- 下邊 -->
+    <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+          fill="#A78BFA" transform="translate(220, 730)"/>
+    <path d="M0,-10 L8.66,-5 L8.66,5 L0,10 L-8.66,5 L-8.66,-5 Z"
+          fill="none" stroke="#7C3AED" stroke-width="1.5"
+          transform="translate(420, 730) rotate(30)"/>
+    <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+          fill="#7C3AED" transform="translate(620, 730)"/>
+    <path d="M0,-10 L8.66,-5 L8.66,5 L0,10 L-8.66,5 L-8.66,-5 Z"
+          fill="none" stroke="#A78BFA" stroke-width="1.5"
+          transform="translate(820, 730) rotate(30)"/>
+  </g>
+
+  <!-- 內側裝飾虛線（提示漸進揭露路徑） -->
+  <line x1="78" y1="400" x2="1122" y2="400" stroke="#A78BFA" stroke-width="1"
+        stroke-dasharray="3,5" opacity="0.3"/>
+</svg>
