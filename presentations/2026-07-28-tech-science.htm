@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-07-28 AI 與機器學習的未來十年｜科技學術</title>
+<style>
+/* ===== C1 NIGHT PURPLE + V3 NEO-BRUTALIST ===== */
+html { font-size: 20px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #1a1a2e;
+  --bg-secondary: #16213e;
+  --text: #FFFFFF;
+  --text-secondary: #a0a0c0;
+  --accent: #7c3aed;
+  --accent-alt: #a78bfa;
+  --accent-glow: rgba(124, 58, 237, 0.4);
+  --border-color: rgba(124, 58, 237, 0.3);
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --yellow: #fbbf24;
+  --hot: #f43f5e;
+  --cyan: #22d3ee;
+}
+
+body {
+  font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  background-image: radial-gradient(circle, rgba(124,58,237,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== SLIDE SYSTEM ===== */
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  padding: 48px 64px 80px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+.slide-eyebrow {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--yellow);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.slide-title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+.slide-title .accent { color: var(--accent-alt); }
+
+.slide-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  background: rgba(26,26,46,0.92);
+  padding: 6px 12px;
+  border-radius: 30px;
+  border: 2px solid var(--accent);
+  backdrop-filter: blur(8px);
+}
+.nav button {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.nav button:hover { background: var(--yellow); color: #000; transform: scale(1.08); }
+.nav span { color: var(--text); font-weight: 700; min-width: 60px; text-align: center; font-size: 1rem; }
+
+.back-link {
+  position: fixed;
+  top: 24px;
+  left: 32px;
+  z-index: 1000;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 2px solid var(--yellow);
+}
+.back-link:hover { background: var(--yellow); color: #000; }
+
+.page-num {
+  position: absolute;
+  top: 32px;
+  right: 200px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+/* ============= P1 COVER (無/單) ============= */
+.slide-1 {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #2d1b69 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.slide-1::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 60%);
+  border-radius: 50%;
+}
+.slide-1::after {
+  content: '';
+  position: absolute;
+  bottom: -150px; left: -150px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(251,191,36,0.18) 0%, transparent 60%);
+  border-radius: 50%;
+}
+.cover-date {
+  font-size: 1.1rem;
+  color: var(--yellow);
+  letter-spacing: 0.3em;
+  font-weight: 700;
+  margin-bottom: 32px;
+  z-index: 1;
+}
+.cover-title {
+  font-size: 4.8rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  z-index: 1;
+}
+.cover-title .hl { color: var(--yellow); }
+.cover-sub {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 56px;
+  z-index: 1;
+}
+.cover-tags {
+  display: flex;
+  gap: 16px;
+  z-index: 1;
+}
+.cover-tag {
+  padding: 10px 22px;
+  border: 2px solid var(--accent);
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  background: rgba(124,58,237,0.15);
+}
+.cover-tag.hot { background: var(--hot); border-color: var(--hot); }
+.cover-tag.yellow { background: var(--yellow); color: #000; border-color: var(--yellow); }
+
+/* ============= P2 HEX GRID (六/網) ============= */
+.slide-2 { padding: 70px 64px 90px 64px; }
+.hex-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hex {
+  aspect-ratio: 1 / 1.1547;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 12px;
+  position: relative;
+}
+.hex-1 { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+.hex-2 { background: linear-gradient(135deg, #f43f5e, #fb7185); }
+.hex-3 { background: linear-gradient(135deg, #22d3ee, #06b6d4); }
+.hex-4 { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+.hex-5 { background: linear-gradient(135deg, #10b981, #34d399); }
+.hex-6 { background: linear-gradient(135deg, #ec4899, #f472b6); }
+
+.hex-label {
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  line-height: 1.3;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+/* ============= P3 TIMELINE (線/垂) ============= */
+.slide-3 { padding: 70px 64px 100px 64px; }
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  padding-left: 30px;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 12px;
+  bottom: 12px;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--cyan) 50%, var(--hot) 100%);
+}
+.tl-item {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  padding: 10px 18px;
+  background: var(--card-bg);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  position: relative;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -38px;
+  top: 20px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 3px var(--accent);
+}
+.tl-year {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--yellow);
+  min-width: 70px;
+}
+.tl-content { flex: 1; }
+.tl-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; }
+.tl-desc { font-size: 1rem; color: var(--text-secondary); line-height: 1.4; }
+
+/* ============= P4 KPI CIRCLES (圓/水) ============= */
+.kpi-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 24px;
+  gap: 24px;
+}
+.kpi-circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-alt) 0%, var(--accent) 70%, var(--bg-secondary) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(124,58,237,0.4), inset 0 -4px 12px rgba(0,0,0,0.3);
+  border: 3px solid var(--yellow);
+}
+.kpi-num {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+.kpi-label {
+  font-size: 1rem;
+  color: var(--yellow);
+  margin-top: 8px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ============= P5 SQUARE GRID (方/網) ============= */
+.slide-5 { padding: 70px 64px 100px 64px; }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 16px;
+}
+.card {
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 0;
+  padding: 20px;
+  position: relative;
+  transition: all 0.2s;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 8px; left: 8px;
+  right: 8px; bottom: 8px;
+  border: 1px solid var(--border-color);
+  pointer-events: none;
+}
+.card-num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--yellow);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.card-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ============= P6 SPECIAL PYRAMID (特/垂) ============= */
+.pyramid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+.pyr-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 32px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.15rem;
+  clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+  text-align: center;
+}
+.pyr-row.lvl-1 { width: 50%; background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+.pyr-row.lvl-2 { width: 65%; background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+.pyr-row.lvl-3 { width: 80%; background: linear-gradient(90deg, #22d3ee, #06b6d4); }
+.pyr-row.lvl-4 { width: 92%; background: linear-gradient(90deg, #f43f5e, #ec4899); }
+
+/* ============= P7 SCATTER POINTS (線/散) ============= */
+.scatter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+  justify-content: space-around;
+}
+.scatter-item {
+  width: 22%;
+  padding: 22px 16px;
+  background: var(--card-bg);
+  border: 2px dashed var(--accent-alt);
+  border-radius: 16px;
+  text-align: center;
+}
+.scatter-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto 12px;
+}
+.scatter-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.scatter-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ============= P8 ARC PROCESS (圓/水) ============= */
+.arc-process {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+  position: relative;
+}
+.arc-step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.arc-circle {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-alt));
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #fff;
+  border: 4px solid var(--yellow);
+  box-shadow: 0 6px 24px rgba(124,58,237,0.5);
+}
+.arc-step-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.arc-step-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  padding: 0 8px;
+}
+.arc-arrow {
+  position: absolute;
+  top: 55px;
+  width: calc(25% - 110px);
+  height: 4px;
+  background: linear-gradient(90deg, var(--yellow), var(--accent));
+}
+.arc-arrow.a1 { left: calc(25% - 55px); }
+.arc-arrow.a2 { left: calc(50% - 55px); }
+.arc-arrow.a3 { left: calc(75% - 55px); }
+
+/* ============= P9 COMPARE GRID (方/網) ============= */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 20px;
+}
+.compare-card {
+  padding: 28px;
+  border-radius: 16px;
+  position: relative;
+}
+.compare-card.left {
+  background: linear-gradient(135deg, rgba(124,58,237,0.25), rgba(124,58,237,0.05));
+  border: 2px solid var(--accent);
+}
+.compare-card.right {
+  background: linear-gradient(135deg, rgba(34,211,238,0.25), rgba(34,211,238,0.05));
+  border: 2px solid var(--cyan);
+}
+.compare-head {
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.compare-card.left .compare-head { color: var(--accent-alt); }
+.compare-card.right .compare-head { color: var(--cyan); }
+.compare-list {
+  list-style: none;
+  padding: 0;
+}
+.compare-list li {
+  font-size: 1rem;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.compare-list li:last-child { border-bottom: none; }
+.compare-list li strong { color: var(--text); margin-right: 8px; }
+
+/* ============= P10 ENDING (無/單) ============= */
+.slide-10 {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #2d1b69 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.slide-10::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(124,58,237,0.3) 0%, transparent 50%),
+              radial-gradient(circle at 70% 70%, rgba(251,191,36,0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+.end-thanks {
+  font-size: 5.5rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+  z-index: 1;
+  background: linear-gradient(135deg, var(--yellow) 0%, var(--accent-alt) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.end-sub {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  z-index: 1;
+}
+.end-meta {
+  font-size: 1.1rem;
+  color: var(--accent-alt);
+  z-index: 1;
+  font-weight: 700;
+}
+.end-meta .sep { margin: 0 16px; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<a href="/slides.htm" class="back-link">← 回列表</a>
+
+<div class="presentation">
+
+<!-- ==================== P1 COVER ==================== -->
+<section class="slide slide-1 active" id="slide-1">
+  <div class="page-num">01 / 10</div>
+  <div class="cover-date">2026.07.28 — TUESDAY</div>
+  <h1 class="cover-title">AI 與<span class="hl">機器學習</span><br>的未來十年</h1>
+  <p class="cover-sub">從 GPT-5 到通用人工智慧：科技學術最前線觀察</p>
+  <div class="cover-tags">
+    <span class="cover-tag hot">人工智慧</span>
+    <span class="cover-tag yellow">機器學習</span>
+    <span class="cover-tag">深度學習</span>
+  </div>
+</section>
+
+<!-- ==================== P2 HEX GRID ==================== -->
+<section class="slide slide-2" id="slide-2">
+  <div class="page-num">02 / 10</div>
+  <div class="slide-eyebrow">六大核心領域</div>
+  <h2 class="slide-title">AI 技術 <span class="accent">主要分支</span></h2>
+  <p class="slide-subtitle">2026 年科技學術界最活躍的六個 AI 領域，每個都在重新定義產業的可能性</p>
+  <div class="hex-grid">
+    <div class="hex hex-1"><div class="hex-label">大型語言模型<br>(LLM)</div></div>
+    <div class="hex hex-2"><div class="hex-label">電腦視覺<br>(CV)</div></div>
+    <div class="hex hex-3"><div class="hex-label">強化學習<br>(RL)</div></div>
+    <div class="hex hex-4"><div class="hex-label">生成式 AI<br>(GenAI)</div></div>
+    <div class="hex hex-5"><div class="hex-label">聯邦學習<br>(FL)</div></div>
+    <div class="hex hex-6"><div class="hex-label">可解釋 AI<br>(XAI)</div></div>
+  </div>
+</section>
+
+<!-- ==================== P3 TIMELINE ==================== -->
+<section class="slide slide-3" id="slide-3">
+  <div class="page-num">03 / 10</div>
+  <div class="slide-eyebrow">關鍵時間軸</div>
+  <h2 class="slide-title">AI 發展 <span class="accent">重要里程碑</span></h2>
+  <p class="slide-subtitle">從 2017 年 Transformer 架構誕生到 2030 年通用 AI 願景，關鍵轉折點回顧</p>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2017</div>
+      <div class="tl-content">
+        <div class="tl-title">Transformer 架構誕生</div>
+        <div class="tl-desc">Google 發表「Attention is All You Need」，奠定現代 LLM 基礎</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2020</div>
+      <div class="tl-content">
+        <div class="tl-title">GPT-3 開啟規模化時代</div>
+        <div class="tl-desc">1,750 億參數模型證明 Scaling Law 威力，引爆生成式 AI 浪潮</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div class="tl-content">
+        <div class="tl-title">ChatGPT 突破 1 億用戶</div>
+        <div class="tl-desc">史上最快達到 1 億月活躍用戶的應用，僅用 2 個月</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2026</div>
+      <div class="tl-content">
+        <div class="tl-title">多模態原生模型普及</div>
+        <div class="tl-desc">GPT-5、Gemini 2.5、Claude 4 同台競技，原生支援文字/影像/音訊/3D</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2030+</div>
+      <div class="tl-content">
+        <div class="tl-title">通用人工智慧 (AGI) 願景</div>
+        <div class="tl-desc">學界預測人類等級 AI 可能在 2030 年代中後期實現</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== P4 KPI CIRCLES ==================== -->
+<section class="slide slide-4" id="slide-4">
+  <div class="page-num">04 / 10</div>
+  <div class="slide-eyebrow">數據儀表板</div>
+  <h2 class="slide-title">AI 產業 <span class="accent">關鍵指標</span></h2>
+  <p class="slide-subtitle">2026 年最新統計：規模、應用、影響力的三項核心數字</p>
+  <div class="kpi-row">
+    <div class="kpi-circle">
+      <div class="kpi-num">$1.3T</div>
+      <div class="kpi-label">全球 AI 市場規模<br>（2026 年估值）</div>
+    </div>
+    <div class="kpi-circle">
+      <div class="kpi-num">82%</div>
+      <div class="kpi-label">企業採用 AI 比例<br>（較 2024 +37%）</div>
+    </div>
+    <div class="kpi-circle">
+      <div class="kpi-num">9.7x</div>
+      <div class="kpi-label">生產力提升倍數<br>（AI 輔助開發）</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== P5 SQUARE CARD GRID ==================== -->
+<section class="slide slide-5" id="slide-5">
+  <div class="page-num">05 / 10</div>
+  <div class="slide-eyebrow">六大應用場景</div>
+  <h2 class="slide-title">AI 落地 <span class="accent">實際應用</span></h2>
+  <p class="slide-subtitle">從醫療到金融，從製造到教育，AI 已深入各行各業的核心工作流程</p>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-num">01</div>
+      <div class="card-title">醫療診斷</div>
+      <div class="card-desc">影像辨識準確率達 96%，輔助醫師判讀 X 光、CT、MRI</div>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <div class="card-title">金融風控</div>
+      <div class="card-desc">即時偵測異常交易，反洗錢準確率提升 8.4 倍</div>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <div class="card-title">智慧製造</div>
+      <div class="card-desc">瑕疵檢測速度提升 23 倍，預測性維護降低停機 67%</div>
+    </div>
+    <div class="card">
+      <div class="card-num">04</div>
+      <div class="card-title">教育輔助</div>
+      <div class="card-desc">個人化學習路徑，學習成效平均提升 41%</div>
+    </div>
+    <div class="card">
+      <div class="card-num">05</div>
+      <div class="card-title">自駕車</div>
+      <div class="card-desc">Level 4 自駕累計里程突破 2 億公里，事故率低於人類 12 倍</div>
+    </div>
+    <div class="card">
+      <div class="card-num">06</div>
+      <div class="card-title">科研加速</div>
+      <div class="card-desc">AlphaFold 3 預測所有蛋白質結構，新藥研發時間砍半</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== P6 PYRAMID ==================== -->
+<section class="slide slide-6" id="slide-6">
+  <div class="page-num">06 / 10</div>
+  <div class="slide-eyebrow">能力分層模型</div>
+  <h2 class="slide-title">AI 能力 <span class="accent">四大層級</span></h2>
+  <p class="slide-subtitle">從感知到決策，AI 能力可分為四個層級，越上層越接近人類認知</p>
+  <div class="pyramid">
+    <div class="pyr-row lvl-1">L1 感知：看、聽、讀（Perception）</div>
+    <div class="pyr-row lvl-2">L2 推理：分析、歸納、推論（Reasoning）</div>
+    <div class="pyr-row lvl-3">L3 創造：生成、設計、發明（Creation）</div>
+    <div class="pyr-row lvl-4">L4 決策：自主判斷、長程規劃（Decision）</div>
+  </div>
+</section>
+
+<!-- ==================== P7 SCATTER ==================== -->
+<section class="slide slide-7" id="slide-7">
+  <div class="page-num">07 / 10</div>
+  <div class="slide-eyebrow">關鍵挑戰</div>
+  <h2 class="slide-title">AI 發展 <span class="accent">四大瓶頸</span></h2>
+  <p class="slide-subtitle">技術突破之外，AI 仍面臨四大挑戰需學術與產業界共同解決</p>
+  <div class="scatter">
+    <div class="scatter-item">
+      <svg class="scatter-icon" viewBox="0 0 64 64" fill="none" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="22"/>
+        <path d="M32 16v16l10 10"/>
+      </svg>
+      <div class="scatter-title">算力能耗</div>
+      <div class="scatter-desc">訓練 GPT-5 耗電相當於 1.2 萬戶家庭一年用電</div>
+    </div>
+    <div class="scatter-item">
+      <svg class="scatter-icon" viewBox="0 0 64 64" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 32h40M32 12v40"/>
+        <circle cx="32" cy="32" r="6"/>
+      </svg>
+      <div class="scatter-title">資料偏見</div>
+      <div class="scatter-desc">訓練資料隱含偏見，影響模型公平性與可信度</div>
+    </div>
+    <div class="scatter-item">
+      <svg class="scatter-icon" viewBox="0 0 64 64" fill="none" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 20h32v28H16z"/>
+        <path d="M22 28h20M22 36h12"/>
+      </svg>
+      <div class="scatter-title">法規治理</div>
+      <div class="scatter-desc">EU AI Act、UNESCO 等規範正快速成形中</div>
+    </div>
+    <div class="scatter-item">
+      <svg class="scatter-icon" viewBox="0 0 64 64" fill="none" stroke="#f43f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 44l-8-8 8-8M44 44l8-8-8-8M28 16l8 32"/>
+      </svg>
+      <div class="scatter-title">可解釋性</div>
+      <div class="scatter-desc">黑盒決策難以驗證，醫療司法等高風險領域受限</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== P8 ARC PROCESS ==================== -->
+<section class="slide slide-8" id="slide-8">
+  <div class="page-num">08 / 10</div>
+  <div class="slide-eyebrow">研究方法論</div>
+  <h2 class="slide-title">AI 專案 <span class="accent">開發流程</span></h2>
+  <p class="slide-subtitle">從資料準備到部署監控，標準化的四階段研究流程</p>
+  <div class="arc-process">
+    <div class="arc-arrow a1"></div>
+    <div class="arc-arrow a2"></div>
+    <div class="arc-arrow a3"></div>
+    <div class="arc-step">
+      <div class="arc-circle">1</div>
+      <div class="arc-step-name">資料準備</div>
+      <div class="arc-step-desc">蒐集、清洗、標註<br>建立高品質訓練集</div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-circle">2</div>
+      <div class="arc-step-name">模型訓練</div>
+      <div class="arc-step-desc">選擇架構、調參<br>迭代優化效能</div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-circle">3</div>
+      <div class="arc-step-name">評估驗證</div>
+      <div class="arc-step-desc">測試集驗證<br>A/B 實務測試</div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-circle">4</div>
+      <div class="arc-step-name">部署監控</div>
+      <div class="arc-step-desc">上線追蹤<br>持續學習更新</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== P9 COMPARE ==================== -->
+<section class="slide slide-9" id="slide-9">
+  <div class="page-num">09 / 10</div>
+  <div class="slide-eyebrow">未來展望</div>
+  <h2 class="slide-title">短期 vs <span class="accent">長期</span> 趨勢</h2>
+  <p class="slide-subtitle">未來 5 年與未來 10 年的 AI 發展方向有何不同？</p>
+  <div class="compare-grid">
+    <div class="compare-card left">
+      <div class="compare-head">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="16" cy="16" r="12"/>
+          <path d="M16 8v8l5 5"/>
+        </svg>
+        短期 (2026-2030)
+      </div>
+      <ul class="compare-list">
+        <li><strong>●</strong>多模態原生模型普及，所有裝置內建 AI</li>
+        <li><strong>●</strong>AI Agent 自主完成 80% 重複性工作</li>
+        <li><strong>●</strong>科學研究加速，新材料、新藥發現倍增</li>
+        <li><strong>●</strong>教育醫療普及化，偏鄉資源落差縮小</li>
+        <li><strong>●</strong>全球 AI 監管框架成形，倫理標準確立</li>
+      </ul>
+    </div>
+    <div class="compare-card right">
+      <div class="compare-head">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 4l4 8h8l-6 6 2 10-8-4-8 4 2-10-6-6h8z"/>
+        </svg>
+        長期 (2030-2036)
+      </div>
+      <ul class="compare-list">
+        <li><strong>●</strong>AGI（通用人工智慧）可能問世</li>
+        <li><strong>●</strong>人機協作成為職場標準模式</li>
+        <li><strong>●</strong>量子運算與 AI 結合，運算力再躍進</li>
+        <li><strong>●</strong>意識與創造力的本質重新被定義</li>
+        <li><strong>●</strong>人類文明進入「後稀缺」新階段</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== P10 ENDING ==================== -->
+<section class="slide slide-10" id="slide-10">
+  <div class="page-num">10 / 10</div>
+  <div class="end-thanks">Thank You</div>
+  <p class="end-sub">歡迎一起探索 AI 的無限可能</p>
+  <div class="end-meta">
+    2026.07.28 <span class="sep">·</span> 科技學術 <span class="sep">·</span> 熊熊博物館
+  </div>
+</section>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button onclick="prev()" aria-label="上一頁">◀</button>
+  <span id="nav-text">1 / 10</span>
+  <button onclick="next()" aria-label="下一頁">▶</button>
+</div>
+
+<script>
+  var slides = document.querySelectorAll('.slide');
+  var navText = document.getElementById('nav-text');
+  var current = 0;
+
+  function goto(idx) {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = ((idx % slides.length) + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    navText.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  function next() { goto(current + 1); }
+  function prev() { goto(current - 1); }
+
+  // 鍵盤導航
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+
+</body>
+</html>
