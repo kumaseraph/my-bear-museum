@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字體的呼吸節奏 - 簡報</title>
+  <style>
+    :root {
+      --primary: #7C3AED;
+      --primary-light: #A78BFA;
+      --accent: #F472B6;
+      --accent2: #FCD34D;
+      --teal: #14B8A6;
+      --orange: #FB923C;
+      --bg: #0F0A1E;
+      --bg2: #1E1B4B;
+      --bg3: #312E81;
+      --text: #F8FAFC;
+      --text-muted: #CBD5E1;
+      --text-dim: #A78BFA;
+      --card-bg: rgba(124, 58, 237, 0.12);
+      --card-border: rgba(167, 139, 250, 0.35);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { font-size: 20px; }
+
+    body {
+      font-family: "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .presentation {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: 48px 64px;
+    }
+    .slide.active { display: flex; }
+
+    /* === 通用排版 === */
+    h1, h2, h3 { font-weight: 800; line-height: 1.2; }
+    .slide-title {
+      font-size: 2.4rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 28px;
+      color: var(--text);
+      position: relative;
+      padding-left: 24px;
+    }
+    .slide-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      bottom: 12px;
+      width: 6px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--primary) 100%);
+      border-radius: 3px;
+    }
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      margin-bottom: 36px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+    .lead {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* === 導航列 === */
+    .nav {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 100;
+      background: rgba(15, 10, 30, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+    }
+    .nav button {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px 12px;
+      transition: color 0.2s;
+    }
+    .nav button:hover { color: var(--accent); }
+    .nav .page-info {
+      font-size: 1rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* === 回列表 === */
+    .back-link {
+      position: absolute;
+      top: 24px;
+      left: 32px;
+      z-index: 100;
+      font-size: 1rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      background: rgba(15, 10, 30, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      transition: all 0.2s;
+    }
+    .back-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* === 卡片 === */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 28px 24px;
+      transition: all 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    /* === 字體定義 === */
+    .display-serif {
+      font-family: "Noto Serif TC", "PingFang TC", serif;
+      font-weight: 900;
+    }
+    .display-sans {
+      font-family: "PingFang TC", "Inter", sans-serif;
+      font-weight: 800;
+    }
+    .display-mono {
+      font-family: "JetBrains Mono", "Menlo", monospace;
+    }
+
+    /* === 進場動畫 === */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .slide.active > * {
+      animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .slide.active > *:nth-child(1) { animation-delay: 0.05s; }
+    .slide.active > *:nth-child(2) { animation-delay: 0.15s; }
+    .slide.active > *:nth-child(3) { animation-delay: 0.25s; }
+    .slide.active > *:nth-child(4) { animation-delay: 0.35s; }
+    .slide.active > *:nth-child(5) { animation-delay: 0.45s; }
+
+    /* === 封面頁 === */
+    .s1-cover {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover-eyebrow {
+      font-size: 1rem;
+      letter-spacing: 0.4em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    .cover-title {
+      font-size: 4.2rem;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 50%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 24px;
+    }
+    .cover-sub {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      max-width: 720px;
+      line-height: 1.6;
+    }
+    .cover-meta {
+      margin-top: 36px;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      color: var(--text-dim);
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+    }
+    .cover-meta .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .cover-glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244, 114, 182, 0.25) 0%, transparent 60%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(40px);
+    }
+    .s1-cover > *:not(.cover-glow) { position: relative; z-index: 1; }
+    .cover-decor {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border: 1px dashed rgba(167, 139, 250, 0.3);
+      border-radius: 50%;
+      top: -40px;
+      right: -80px;
+      pointer-events: none;
+    }
+    .cover-decor-2 {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      border: 1px solid rgba(244, 114, 182, 0.3);
+      border-radius: 50%;
+      bottom: -40px;
+      left: -50px;
+      pointer-events: none;
+    }
+
+    /* === 目錄頁 === */
+    .s2-toc { flex-direction: column; }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 18px;
+      flex: 1;
+    }
+    .toc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .toc-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+    }
+    .toc-card .toc-num {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      font-variant-numeric: tabular-nums;
+    }
+    .toc-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .toc-card p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .toc-card .toc-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 4px;
+    }
+
+    /* === P3 字體家族 === */
+    .s3-fonts { flex-direction: column; }
+    .fonts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+    .font-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .font-card .font-spec {
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+    .font-card .font-sample {
+      font-size: 2.6rem;
+      line-height: 1;
+      color: var(--text);
+      margin: 8px 0;
+    }
+    .font-card .font-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .font-card .font-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .font-card .tag {
+      font-size: 1rem;
+      padding: 6px 14px;
+      background: rgba(167, 139, 250, 0.15);
+      color: var(--secondary);
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    /* === P4 字距圓球 === */
+    .s4-tracking { flex-direction: column; }
+    .tracking-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 18px 0;
+      border-bottom: 1px dashed rgba(167, 139, 250, 0.2);
+    }
+    .tracking-row:last-child { border-bottom: none; }
+    .track-label {
+      flex: 0 0 180px;
+      font-size: 1rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+    .track-sample {
+      flex: 1;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .track-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .track-dot.primary { background: var(--primary); }
+    .track-dot.teal { background: var(--teal); }
+    .track-dot.orange { background: var(--orange); }
+    .track-dot.accent2 { background: var(--accent2); }
+    .track-value {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1rem;
+      color: var(--text-dim);
+      flex: 0 0 100px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* === P5 行高節奏 === */
+    .s5-leading { flex-direction: column; }
+    .leading-demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      flex: 1;
+    }
+    .leading-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .leading-card .lead-label {
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      font-weight: 700;
+    }
+    .leading-card .lead-text {
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .leading-card.tight .lead-text { line-height: 1.2; }
+    .leading-card.normal .lead-text { line-height: 1.6; }
+    .leading-card.loose .lead-text { line-height: 2.0; }
+    .leading-card.airy .lead-text { line-height: 2.4; }
+    .leading-meta {
+      font-size: 1rem;
+      color: var(--text-dim);
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    /* === P6 字級階梯 === */
+    .s6-scale { flex-direction: column; }
+    .scale-row {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(167, 139, 250, 0.15);
+    }
+    .scale-row:last-child { border-bottom: none; }
+    .scale-tag {
+      flex: 0 0 80px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1rem;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+    .scale-name {
+      flex: 0 0 140px;
+      font-size: 1rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+    .scale-sample {
+      flex: 1;
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .scale-px {
+      flex: 0 0 90px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* === P7 留白美學 === */
+    .s7-whitespace { flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
+    .quote {
+      font-family: "Noto Serif TC", serif;
+      font-size: 2.6rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .quote-mark {
+      font-size: 4rem;
+      color: var(--accent);
+      opacity: 0.5;
+      line-height: 0.5;
+    }
+    .quote-mark.open { margin-bottom: 16px; }
+    .quote-mark.close { display: block; text-align: right; margin-top: 16px; }
+    .quote-author {
+      margin-top: 32px;
+      font-size: 1rem;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+    }
+    .whitespace-decor {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border: 1px solid rgba(244, 114, 182, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .whitespace-decor.tl { top: 80px; left: 80px; }
+    .whitespace-decor.br { bottom: 80px; right: 80px; width: 120px; height: 120px; }
+    .whitespace-decor.tr { top: 100px; right: 200px; width: 12px; height: 12px; background: var(--accent); border: none; }
+
+    /* === P8 字重對比 === */
+    .s8-weight { flex-direction: column; }
+    .weight-row {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 16px 0;
+    }
+    .weight-label {
+      flex: 0 0 200px;
+      font-size: 1rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+    .weight-circle {
+      flex: 0 0 auto;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bg);
+      font-size: 1.4rem;
+      font-weight: 900;
+    }
+    .weight-circle.w1 { background: var(--accent); }
+    .weight-circle.w2 { background: var(--secondary); }
+    .weight-circle.w3 { background: var(--primary); }
+    .weight-circle.w4 { background: var(--bg3); color: var(--text); }
+    .weight-sample {
+      flex: 1;
+      font-size: 2.4rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    /* === P9 排版演進時間軸 === */
+    .s9-timeline { flex-direction: column; }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+      position: relative;
+      padding-left: 60px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--primary) 100%);
+    }
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -42px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--accent);
+    }
+    .tl-year {
+      flex: 0 0 80px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .tl-hex {
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+      background: var(--card-bg);
+      clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--text);
+      font-weight: 700;
+    }
+    .tl-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tl-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .tl-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* === P10 結尾 === */
+    .s10-end {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .end-eyebrow {
+      font-size: 1rem;
+      letter-spacing: 0.4em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .end-title {
+      font-size: 4.5rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 32px;
+    }
+    .end-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .end-tags {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .end-tag {
+      padding: 8px 20px;
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      border-radius: 999px;
+      font-size: 1rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+    .end-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      filter: blur(60px);
+    }
+  </style>
+</head>
+<body>
+  <div class="presentation">
+    <a href="/slides.htm" class="back-link">← 回列表</a>
+    <nav class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="page-info"><span id="cur">1</span> / <span id="total">10</span></span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </nav>
+
+    <!-- P1 封面 -->
+    <section class="slide s1-cover active">
+      <div class="cover-glow"></div>
+      <div class="cover-decor"></div>
+      <div class="cover-decor-2"></div>
+      <div class="cover-eyebrow">CREATIVE · DESIGN · 2026</div>
+      <h1 class="cover-title" style="background: linear-gradient(135deg, #F472B6 0%, #A78BFA 50%, #7C3AED 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;">字體的呼吸節奏</h1>
+      <p class="cover-sub">當排版遇見空間：字距、行高與留白的設計美學</p>
+      <div class="cover-meta">
+        <span>排版研究室</span>
+        <span class="dot"></span>
+        <span>2026.07.29</span>
+        <span class="dot"></span>
+        <span>TYPOGRAPHY · RHYTHM</span>
+      </div>
+    </section>
+
+    <!-- P2 目錄 -->
+    <section class="slide s2-toc">
+      <h2 class="slide-title">目錄大綱</h2>
+      <p class="slide-subtitle">六大章節，探索字體設計的呼吸之道</p>
+      <div class="toc-grid">
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="16" cy="16" r="13"/><path d="M8 16h16M16 8v16"/></svg>
+          <span class="toc-num">01 · FAMILIES</span>
+          <h3>字體家族</h3>
+          <p>襯線、無襯線、等寬字——六種風格的氣質對照</p>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="24" height="24" rx="2"/><path d="M10 12h12M10 16h12M10 20h8"/></svg>
+          <span class="toc-num">02 · TRACKING</span>
+          <h3>字距圓舞曲</h3>
+          <p>從緊到鬆——五個層級的情緒張力</p>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h24M4 16h24M4 24h24"/></svg>
+          <span class="toc-num">03 · LEADING</span>
+          <h3>行高的呼吸</h3>
+          <p>1.2 到 2.4——四種密度如何影響閱讀</p>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 24L8 8M24 24L24 8M8 8L24 8M8 24L24 24"/></svg>
+          <span class="toc-num">04 · SCALE</span>
+          <h3>字級階梯</h3>
+          <p>Major Third 1.25——九個層級的數學之美</p>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="16" cy="16" r="8"/><circle cx="16" cy="16" r="3"/></svg>
+          <span class="toc-num">05 · WEIGHT</span>
+          <h3>字重同心圓</h3>
+          <p>從 300 到 900——四種重量的視覺重量</p>
+        </div>
+        <div class="toc-card">
+          <svg class="toc-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16h6l3-8 6 16 3-8h6"/></svg>
+          <span class="toc-num">06 · HISTORY</span>
+          <h3>排版演進史</h3>
+          <p>從谷騰堡到變數字體——六個時代的里程碑</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- P3 字體家族 -->
+    <section class="slide s3-fonts">
+      <h2 class="slide-title">六大字體家族</h2>
+      <p class="slide-subtitle">從襯線到手寫，每一種字體都有自己的呼吸節奏</p>
+      <div class="fonts-grid">
+        <div class="font-card">
+          <span class="font-spec">SERIF · 襯線</span>
+          <div class="font-sample display-serif">Aa</div>
+          <p class="font-desc">傳統權威感，適合編輯設計與書籍排版。襯線引導視線橫向移動。</p>
+          <div class="font-tags"><span class="tag">編輯</span><span class="tag">書籍</span><span class="tag">古典</span></div>
+        </div>
+        <div class="font-card">
+          <span class="font-spec">SANS · 無襯線</span>
+          <div class="font-sample display-sans">Aa</div>
+          <p class="font-desc">現代簡潔，適合數位介面與品牌識別。線條直接、無裝飾延伸。</p>
+          <div class="font-tags"><span class="tag">UI/UX</span><span class="tag">品牌</span><span class="tag">現代</span></div>
+        </div>
+        <div class="font-card">
+          <span class="font-spec">MONO · 等寬</span>
+          <div class="font-sample display-mono">Aa</div>
+          <p class="font-desc">每個字元等寬，適合程式碼與數據表格。帶有工程師的精準氣質。</p>
+          <div class="font-tags"><span class="tag">程式碼</span><span class="tag">表格</span><span class="tag">技術</span></div>
+        </div>
+        <div class="font-card">
+          <span class="font-spec">SLAB · 板狀襯線</span>
+          <div class="font-sample display-serif" style="font-weight: 900;">Aa</div>
+          <p class="font-desc">厚重襯線，適合海報標題。粗獷有力量，常用於娛樂產業。</p>
+          <div class="font-tags"><span class="tag">標題</span><span class="tag">海報</span><span class="tag">粗獷</span></div>
+        </div>
+        <div class="font-card">
+          <span class="font-spec">SCRIPT · 手寫</span>
+          <div class="font-sample" style="font-family: 'Brush Script MT', cursive; font-style: italic;">Aa</div>
+          <p class="font-desc">流暢手寫感，適合邀請函與品牌故事。帶有溫度與人情味。</p>
+          <div class="font-tags"><span class="tag">邀請</span><span class="tag">品牌</span><span class="tag">手寫</span></div>
+        </div>
+        <div class="font-card">
+          <span class="font-spec">DISPLAY · 展示</span>
+          <div class="font-sample" style="font-family: 'Impact', sans-serif; font-weight: 900;">Aa</div>
+          <p class="font-desc">高度裝飾性，適合海報與封面。張力強烈，不適合長篇閱讀。</p>
+          <div class="font-tags"><span class="tag">封面</span><span class="tag">標語</span><span class="tag">裝飾</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P4 字距 -->
+    <section class="slide s4-tracking">
+      <h2 class="slide-title">字距的圓舞曲</h2>
+      <p class="slide-subtitle">從緊縮到疏闊——五個層級，決定文字的情緒張力</p>
+      <div class="tracking-row">
+        <div class="track-label">極緊 · -50</div>
+        <div class="track-sample" style="letter-spacing: -0.05em;">排版的美感</div>
+        <div class="track-dot accent2"></div>
+        <div class="track-value">-0.05em</div>
+      </div>
+      <div class="tracking-row">
+        <div class="track-label">緊密 · -25</div>
+        <div class="track-sample" style="letter-spacing: -0.025em;">排版的美感</div>
+        <div class="track-dot orange"></div>
+        <div class="track-value">-0.025em</div>
+      </div>
+      <div class="tracking-row">
+        <div class="track-label">標準 · 0</div>
+        <div class="track-sample" style="letter-spacing: 0em;">排版的美感</div>
+        <div class="track-dot primary"></div>
+        <div class="track-value">0em</div>
+      </div>
+      <div class="tracking-row">
+        <div class="track-label">寬鬆 · +50</div>
+        <div class="track-sample" style="letter-spacing: 0.05em;">排版的美感</div>
+        <div class="track-dot teal"></div>
+        <div class="track-value">+0.05em</div>
+      </div>
+      <div class="tracking-row">
+        <div class="track-label">極寬 · +150</div>
+        <div class="track-sample" style="letter-spacing: 0.15em;">排版的美感</div>
+        <div class="track-dot"></div>
+        <div class="track-value">+0.15em</div>
+      </div>
+    </section>
+
+    <!-- P5 行高 -->
+    <section class="slide s5-leading">
+      <h2 class="slide-title">行高的呼吸韻律</h2>
+      <p class="slide-subtitle">從 1.2 緊縮到 2.4 舒展——四種密度，四種閱讀體驗</p>
+      <div class="leading-demo">
+        <div class="leading-card tight">
+          <span class="lead-label">TIGHT · 1.2</span>
+          <p class="lead-text">緊湊的行高讓文字形成視覺塊面，適合標題、海報、儀表板等需要高密度資訊的場景。但連續閱讀會造成疲勞。</p>
+          <span class="leading-meta">line-height: 1.2 — 海報/儀表板</span>
+        </div>
+        <div class="leading-card normal">
+          <span class="lead-label">NORMAL · 1.6</span>
+          <p class="lead-text">標準的行高是閱讀舒適度的甜蜜點。瀏覽器預設多採用此值，適合正文、部落格、文件等需要長時間閱讀的內容。</p>
+          <span class="leading-meta">line-height: 1.6 — 正文/閱讀</span>
+        </div>
+        <div class="leading-card loose">
+          <span class="lead-label">LOOSE · 2.0</span>
+          <p class="lead-text">寬鬆的行高賦予文字呼吸感，適合引文、詩歌、情緒文案。視覺上營造緩慢、深思的氛圍，邀請讀者放慢速度。</p>
+          <span class="leading-meta">line-height: 2.0 — 引文/詩歌</span>
+        </div>
+        <div class="leading-card airy">
+          <span class="lead-label">AIRY · 2.4</span>
+          <p class="lead-text">極寬的行高創造強烈的視覺節奏，適合封面、英雄區塊、品牌宣言。文字如漂浮在版面中，傳遞高端、留白的設計語言。</p>
+          <span class="leading-meta">line-height: 2.4 — 封面/品牌</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- P6 字級 -->
+    <section class="slide s6-scale">
+      <h2 class="slide-title">字級階梯 · Major Third 1.25</h2>
+      <p class="slide-subtitle">九個層級、嚴格的數學比例——和諧的視覺層級系統</p>
+      <div class="scale-row">
+        <span class="scale-tag">H0</span>
+        <span class="scale-name">Display</span>
+        <span class="scale-sample" style="font-size: 3.81rem;">設計</span>
+        <span class="scale-px">76.2px</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-tag">H1</span>
+        <span class="scale-name">Title</span>
+        <span class="scale-sample" style="font-size: 3.05rem;">設計</span>
+        <span class="scale-px">61.0px</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-tag">H2</span>
+        <span class="scale-name">Subtitle</span>
+        <span class="scale-sample" style="font-size: 2.44rem;">設計</span>
+        <span class="scale-px">48.8px</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-tag">H3</span>
+        <span class="scale-name">Heading</span>
+        <span class="scale-sample" style="font-size: 1.95rem;">設計</span>
+        <span class="scale-px">39.0px</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-tag">H4</span>
+        <span class="scale-name">Subhead</span>
+        <span class="scale-sample" style="font-size: 1.56rem;">設計</span>
+        <span class="scale-px">31.2px</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-tag">H5</span>
+        <span class="scale-name">Body Large</span>
+        <span class="scale-sample" style="font-size: 1.25rem;">設計的呼吸節奏</span>
+        <span class="scale-px">25.0px</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-tag">BODY</span>
+        <span class="scale-name">Base</span>
+        <span class="scale-sample" style="font-size: 1.1rem;">設計的呼吸節奏在每個層級中開展</span>
+        <span class="scale-px">22.0px</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-tag">CAPTION</span>
+        <span class="scale-name">Footer</span>
+        <span class="scale-sample" style="font-size: 1rem;">設計的呼吸節奏——每一個層級都是</span>
+        <span class="scale-px">20.0px</span>
+      </div>
+      <div class="scale-row">
+        <span class="scale-tag">RATIO</span>
+        <span class="scale-name">Math</span>
+        <span class="scale-sample" style="font-size: 1.25rem; color: var(--accent);">1.25ⁿ 比例系統</span>
+        <span class="scale-px">25.0px</span>
+      </div>
+    </section>
+
+    <!-- P7 留白 -->
+    <section class="slide s7-whitespace">
+      <div class="whitespace-decor tl"></div>
+      <div class="whitespace-decor br"></div>
+      <div class="whitespace-decor tr"></div>
+      <span class="quote-mark open">"</span>
+      <p class="quote">留白不是空無，而是讓重要的東西得以呼吸的空間。</p>
+      <span class="quote-mark close">"</span>
+      <span class="quote-author">— 排版的第一守則</span>
+    </section>
+
+    <!-- P8 字重 -->
+    <section class="slide s8-weight">
+      <h2 class="slide-title">字重的同心圓</h2>
+      <p class="slide-subtitle">從 Light 300 到 Black 900——四種重量，決定視覺份量</p>
+      <div class="weight-row">
+        <span class="weight-label">LIGHT · 300</span>
+        <div class="weight-circle w4">Aa</div>
+        <span class="weight-sample" style="font-weight: 300;">排版的美感</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">REGULAR · 400</span>
+        <div class="weight-circle w3">Aa</div>
+        <span class="weight-sample" style="font-weight: 400;">排版的美感</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">BOLD · 700</span>
+        <div class="weight-circle w2">Aa</div>
+        <span class="weight-sample" style="font-weight: 700;">排版的美感</span>
+      </div>
+      <div class="weight-row">
+        <span class="weight-label">BLACK · 900</span>
+        <div class="weight-circle w1">Aa</div>
+        <span class="weight-sample" style="font-weight: 900;">排版的美感</span>
+      </div>
+    </section>
+
+    <!-- P9 演進史 -->
+    <section class="slide s9-timeline">
+      <h2 class="slide-title">排版演進史 · 六個時代</h2>
+      <p class="slide-subtitle">從谷騰堡印刷機到變數字體——五百年的視覺革命</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="tl-year">1450</span>
+          <span class="tl-hex">01</span>
+          <div class="tl-content">
+            <span class="tl-title">谷騰堡印刷機</span>
+            <span class="tl-desc">金屬活字版讓書籍普及，開啟西方知識傳播的新時代</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-year">1734</span>
+          <span class="tl-hex">02</span>
+          <div class="tl-content">
+            <span class="tl-title">Caslon 襯線誕生</span>
+            <span class="tl-desc">第一套現代英文字型，奠定襯線字體美學的標準</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-year">1928</span>
+          <span class="tl-hex">03</span>
+          <div class="tl-content">
+            <span class="tl-title">Futura 幾何無襯線</span>
+            <span class="tl-desc">包浩斯運動的視覺產物，極簡幾何成為現代設計語彙</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-year">1957</span>
+          <span class="tl-hex">04</span>
+          <div class="tl-content">
+            <span class="tl-title">Helvetica 瑞士學派</span>
+            <span class="tl-desc">「世界上最受歡迎的字型」，中立、清晰、可讀性極高</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-year">1984</span>
+          <span class="tl-hex">05</span>
+          <div class="tl-content">
+            <span class="tl-title">PostScript 字型</span>
+            <span class="tl-desc">Adobe 開啟數位排版時代，螢幕上第一次能精準呈現字體</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-year">2017</span>
+          <span class="tl-hex">06</span>
+          <div class="tl-content">
+            <span class="tl-title">Variable Fonts 變數字體</span>
+            <span class="tl-desc">單一字型檔包含無限字重、寬度，響應式排版成為可能</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P10 結尾 -->
+    <section class="slide s10-end">
+      <div class="end-glow"></div>
+      <span class="end-eyebrow">FINALE · 2026</span>
+      <h2 class="end-title" style="background: linear-gradient(135deg, #F472B6 0%, #A78BFA 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;">排版即呼吸</h2>
+      <p class="end-sub">每一個字都是一段對話，每一行的距離都是一聲嘆息。當我們理解了排版的呼吸節奏，便掌握了設計中最深層的安靜。</p>
+      <div class="end-tags">
+        <span class="end-tag">TYPOGRAPHY</span>
+        <span class="end-tag">RHYTHM</span>
+        <span class="end-tag">BREATH</span>
+        <span class="end-tag">DESIGN</span>
+        <span class="end-tag">2026</span>
+      </div>
+    </section>
+
+  </div>
+  <script>
+    var slides = document.querySelectorAll('.slide');
+    var total = slides.length;
+    var current = 0;
+    document.getElementById('total').textContent = total;
+    function show() {
+      // 移除所有 slide 的 active class
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].classList.remove('active');
+      }
+      // 設定當前 slide 為 active
+      if (slides[current]) {
+        slides[current].classList.add('active');
+      }
+      document.getElementById('cur').textContent = current + 1;
+    }
+    function next() {
+      current = (current + 1) % total;
+      show();
+    }
+    function prev() {
+      current = (current - 1 + total) % total;
+      show();
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    });
+  </script>
+</body>
+</html>
