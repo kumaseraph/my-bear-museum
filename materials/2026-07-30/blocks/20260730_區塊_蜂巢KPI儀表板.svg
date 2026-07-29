@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- 熊熊工作報告 - KPI 蜂巢儀表板區塊 (Bento Grid + 蜂巢尺寸漸層) -->
+  <defs>
+    <!-- 卡片漸層 -->
+    <linearGradient id="kpiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7"/>
+      <stop offset="100%" stop-color="#F0E4CC"/>
+    </linearGradient>
+
+    <!-- 蜂巢 pattern -->
+    <pattern id="kpiHoneycomb" x="0" y="0" width="32" height="36" patternUnits="userSpaceOnUse">
+      <path d="M16,0 L32,9 L32,27 L16,36 L0,27 L0,9 Z"
+            fill="none" stroke="#B8860B" stroke-width="0.5" opacity="0.25"/>
+    </pattern>
+
+    <!-- 印刷感 grain -->
+    <filter id="kpiGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="11"/>
+      <feColorMatrix values="0 0 0 0 0.55
+                             0 0 0 0 0.27
+                             0 0 0 0 0.07
+                             0 0 0 0.05 0"/>
+    </filter>
+
+    <!-- 陰影 -->
+    <filter id="kpiShadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="3" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- 號碼漸層 -->
+    <linearGradient id="kpiNumGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A0826D"/>
+      <stop offset="100%" stop-color="#8B4513"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 主標題 -->
+  <text x="40" y="50" font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="700"
+        fill="#8B4513" letter-spacing="3">關鍵績效指標</text>
+  <text x="40" y="75" font-family="Noto Sans TC, sans-serif" font-size="13"
+        fill="#A0826D" letter-spacing="2">Key Performance Indicators</text>
+
+  <!-- KPI 卡片 1：營收成長（蜂巢尺寸漸層） -->
+  <g transform="translate(200, 200)" filter="url(#kpiShadow)">
+    <!-- 卡片外框（蜂巢形） -->
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          fill="none" stroke="#8B4513" stroke-width="3"/>
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          fill="url(#kpiGrad)"/>
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          fill="url(#kpiHoneycomb)"/>
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          filter="url(#kpiGrain)"/>
+    <!-- 內虛線 -->
+    <path d="M0,-95 L115,-55 L115,55 L0,95 L-115,55 L-115,-55 Z"
+          fill="none" stroke="#B8860B" stroke-width="0.8" opacity="0.5"
+          stroke-dasharray="2,3"/>
+    <!-- 號碼蜂巢 -->
+    <g transform="translate(-75, -55)">
+      <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+            fill="none" stroke="#8B4513" stroke-width="2.5"/>
+      <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+            fill="url(#kpiNumGrad)" fill-opacity="0.85"/>
+      <text x="0" y="7" text-anchor="middle"
+            font-family="Georgia, serif" font-size="20" font-weight="700"
+            fill="#FFF8DC">01</text>
+    </g>
+    <!-- 數值 -->
+    <text x="-30" y="-30" font-family="Georgia, serif" font-size="42" font-weight="700"
+          fill="#8B4513">+28%</text>
+    <!-- 標題 -->
+    <text x="-30" y="0" font-family="Noto Sans TC, sans-serif" font-size="14" font-weight="700"
+          fill="#5C3317" letter-spacing="2">營收成長</text>
+    <!-- 副說明 -->
+    <text x="-30" y="22" font-family="Noto Sans TC, sans-serif" font-size="11"
+          fill="#A0826D" letter-spacing="1">Revenue Growth</text>
+    <!-- 底部小蜂巢裝飾（尺寸漸層：3 個遞減） -->
+    <g transform="translate(0, 65)">
+      <path d="M0,-10 L8.7,-5 L8.7,5 L0,10 L-8.7,5 L-8.7,-5 Z" fill="#8B4513"/>
+      <path d="M0,-7 L6,-3.5 L6,3.5 L0,7 L-6,3.5 L-6,-3.5 Z"
+            fill="none" stroke="#8B4513" stroke-width="1" transform="translate(15, 0)"/>
+      <path d="M0,-5 L4.3,-2.5 L4.3,2.5 L0,5 L-4.3,2.5 L-4.3,-2.5 Z"
+            fill="#D4A574" transform="translate(28, 0)"/>
+    </g>
+  </g>
+
+  <!-- KPI 卡片 2：客戶滿意度 -->
+  <g transform="translate(450, 200)" filter="url(#kpiShadow)">
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          fill="none" stroke="#8B4513" stroke-width="3"/>
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          fill="url(#kpiGrad)"/>
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          fill="url(#kpiHoneycomb)"/>
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          filter="url(#kpiGrain)"/>
+    <path d="M0,-95 L115,-55 L115,55 L0,95 L-115,55 L-115,-55 Z"
+          fill="none" stroke="#B8860B" stroke-width="0.8" opacity="0.5"
+          stroke-dasharray="2,3"/>
+    <g transform="translate(-75, -55)">
+      <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+            fill="none" stroke="#8B4513" stroke-width="2.5"/>
+      <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+            fill="url(#kpiNumGrad)" fill-opacity="0.85"/>
+      <text x="0" y="7" text-anchor="middle"
+            font-family="Georgia, serif" font-size="20" font-weight="700"
+            fill="#FFF8DC">02</text>
+    </g>
+    <text x="-30" y="-30" font-family="Georgia, serif" font-size="42" font-weight="700"
+          fill="#8B4513">94<tspan font-size="20">分</tspan></text>
+    <text x="-30" y="0" font-family="Noto Sans TC, sans-serif" font-size="14" font-weight="700"
+          fill="#5C3317" letter-spacing="2">客戶滿意度</text>
+    <text x="-30" y="22" font-family="Noto Sans TC, sans-serif" font-size="11"
+          fill="#A0826D" letter-spacing="1">Customer Satisfaction</text>
+    <g transform="translate(0, 65)">
+      <path d="M0,-10 L8.7,-5 L8.7,5 L0,10 L-8.7,5 L-8.7,-5 Z" fill="#8B4513"/>
+      <path d="M0,-7 L6,-3.5 L6,3.5 L0,7 L-6,3.5 L-6,-3.5 Z"
+            fill="none" stroke="#8B4513" stroke-width="1" transform="translate(15, 0)"/>
+      <path d="M0,-5 L4.3,-2.5 L4.3,2.5 L0,5 L-4.3,2.5 L-4.3,-2.5 Z"
+            fill="#D4A574" transform="translate(28, 0)"/>
+    </g>
+  </g>
+
+  <!-- KPI 卡片 3：專案完成率 -->
+  <g transform="translate(700, 200)" filter="url(#kpiShadow)">
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          fill="none" stroke="#8B4513" stroke-width="3"/>
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          fill="url(#kpiGrad)"/>
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          fill="url(#kpiHoneycomb)"/>
+    <path d="M0,-110 L130,-65 L130,65 L0,110 L-130,65 L-130,-65 Z"
+          filter="url(#kpiGrain)"/>
+    <path d="M0,-95 L115,-55 L115,55 L0,95 L-115,55 L-115,-55 Z"
+          fill="none" stroke="#B8860B" stroke-width="0.8" opacity="0.5"
+          stroke-dasharray="2,3"/>
+    <g transform="translate(-75, -55)">
+      <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+            fill="none" stroke="#8B4513" stroke-width="2.5"/>
+      <path d="M0,-22 L19,-11 L19,11 L0,22 L-19,11 L-19,-11 Z"
+            fill="url(#kpiNumGrad)" fill-opacity="0.85"/>
+      <text x="0" y="7" text-anchor="middle"
+            font-family="Georgia, serif" font-size="20" font-weight="700"
+            fill="#FFF8DC">03</text>
+    </g>
+    <text x="-30" y="-30" font-family="Georgia, serif" font-size="42" font-weight="700"
+          fill="#8B4513">87<tspan font-size="20">%</tspan></text>
+    <text x="-30" y="0" font-family="Noto Sans TC, sans-serif" font-size="14" font-weight="700"
+          fill="#5C3317" letter-spacing="2">專案完成率</text>
+    <text x="-30" y="22" font-family="Noto Sans TC, sans-serif" font-size="11"
+          fill="#A0826D" letter-spacing="1">Completion Rate</text>
+    <g transform="translate(0, 65)">
+      <path d="M0,-10 L8.7,-5 L8.7,5 L0,10 L-8.7,5 L-8.7,-5 Z" fill="#8B4513"/>
+      <path d="M0,-7 L6,-3.5 L6,3.5 L0,7 L-6,3.5 L-6,-3.5 Z"
+            fill="none" stroke="#8B4513" stroke-width="1" transform="translate(15, 0)"/>
+      <path d="M0,-5 L4.3,-2.5 L4.3,2.5 L0,5 L-4.3,2.5 L-4.3,-2.5 Z"
+            fill="#D4A574" transform="translate(28, 0)"/>
+    </g>
+  </g>
+
+  <!-- 底部說明（高層 KPI 摘要 + 下鑽） -->
+  <g transform="translate(400, 410)">
+    <text x="0" y="0" text-anchor="middle"
+          font-family="Noto Sans TC, sans-serif" font-size="13" font-weight="500"
+          fill="#5C3317" letter-spacing="2">
+      以上為高層 KPI 摘要 · 點擊各卡片可下鑽查看細節
+    </text>
+    <!-- 提示蜂巢 -->
+    <g transform="translate(-280, -3)" opacity="0.6">
+      <path d="M0,-6 L5.2,-3 L5.2,3 L0,6 L-5.2,3 L-5.2,-3 Z" fill="#8B4513"/>
+    </g>
+    <g transform="translate(280, -3)" opacity="0.6">
+      <path d="M0,-6 L5.2,-3 L5.2,3 L0,6 L-5.2,3 L-5.2,-3 Z" fill="#8B4513"/>
+    </g>
+  </g>
+</svg>

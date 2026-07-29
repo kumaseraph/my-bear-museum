@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <!-- 熊熊工作報告 - 章節分組叢集區塊 (分組叢集變化) -->
+  <defs>
+    <!-- 卡片漸層 -->
+    <linearGradient id="grpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7"/>
+      <stop offset="100%" stop-color="#F0E4CC"/>
+    </linearGradient>
+
+    <!-- 蜂巢 pattern -->
+    <pattern id="grpHoneycomb" x="0" y="0" width="36" height="40" patternUnits="userSpaceOnUse">
+      <path d="M18,0 L36,10 L36,30 L18,40 L0,30 L0,10 Z"
+            fill="none" stroke="#B8860B" stroke-width="0.5" opacity="0.25"/>
+    </pattern>
+
+    <!-- 印刷感 grain -->
+    <filter id="grpGrain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="13"/>
+      <feColorMatrix values="0 0 0 0 0.55
+                             0 0 0 0 0.27
+                             0 0 0 0 0.07
+                             0 0 0 0.05 0"/>
+    </filter>
+
+    <!-- 陰影 -->
+    <filter id="grpShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="3" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 頂部主標題 -->
+  <text x="600" y="45" text-anchor="middle"
+        font-family="Noto Sans TC, sans-serif" font-size="22" font-weight="700"
+        fill="#8B4513" letter-spacing="3">本季重點工作 · 三大方塊</text>
+  <text x="600" y="70" text-anchor="middle"
+        font-family="Noto Sans TC, sans-serif" font-size="13"
+        fill="#A0826D" letter-spacing="2">Three Key Focus Areas</text>
+
+  <!-- 叢集 A：營運優化 -->
+  <g transform="translate(230, 230)" filter="url(#grpShadow)">
+    <!-- 主蜂巢（大） -->
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          fill="none" stroke="#8B4513" stroke-width="3"/>
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          fill="url(#grpGrad)"/>
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          fill="url(#grpHoneycomb)"/>
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          filter="url(#grpGrain)"/>
+    <!-- 內虛線 -->
+    <path d="M0,-115 L135,-65 L135,65 L0,115 L-135,65 L-135,-65 Z"
+          fill="none" stroke="#B8860B" stroke-width="0.8" opacity="0.5"
+          stroke-dasharray="2,3"/>
+    <!-- 右上角小蜂巢裝飾（叢集內大小對比） -->
+    <g transform="translate(95, -55)">
+      <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+            fill="#8B4513"/>
+      <path d="M0,-8 L6.9,-4 L6.9,4 L0,8 L-6.9,4 L-6.9,-4 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.2"
+            transform="translate(15, -2)"/>
+    </g>
+    <!-- 標籤 -->
+    <text x="-115" y="-65" font-family="Noto Sans TC, sans-serif" font-size="11" font-weight="500"
+          fill="#A0826D" letter-spacing="2">A · 營運</text>
+    <!-- 標題 -->
+    <text x="-115" y="-30" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700"
+          fill="#8B4513" letter-spacing="3">營運優化</text>
+    <!-- 副標題 -->
+    <text x="-115" y="-5" font-family="Noto Sans TC, sans-serif" font-size="11"
+          fill="#A0826D" letter-spacing="1">Operations Excellence</text>
+    <!-- 重點列表 -->
+    <g transform="translate(-115, 30)">
+      <circle cx="0" cy="-3" r="2" fill="#8B4513"/>
+      <text x="10" y="0" font-family="Noto Sans TC, sans-serif" font-size="12"
+            fill="#5C3317">流程效率提升 18%</text>
+    </g>
+    <g transform="translate(-115, 55)">
+      <circle cx="0" cy="-3" r="2" fill="#8B4513"/>
+      <text x="10" y="0" font-family="Noto Sans TC, sans-serif" font-size="12"
+            fill="#5C3317">成本下降 12%</text>
+    </g>
+    <g transform="translate(-115, 80)">
+      <circle cx="0" cy="-3" r="2" fill="#8B4513"/>
+      <text x="10" y="0" font-family="Noto Sans TC, sans-serif" font-size="12"
+            fill="#5C3317">庫存周轉加速</text>
+    </g>
+  </g>
+
+  <!-- 叢集 B：客戶體驗 -->
+  <g transform="translate(600, 230)" filter="url(#grpShadow)">
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          fill="none" stroke="#8B4513" stroke-width="3"/>
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          fill="url(#grpGrad)"/>
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          fill="url(#grpHoneycomb)"/>
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          filter="url(#grpGrain)"/>
+    <path d="M0,-115 L135,-65 L135,65 L0,115 L-135,65 L-135,-65 Z"
+          fill="none" stroke="#B8860B" stroke-width="0.8" opacity="0.5"
+          stroke-dasharray="2,3"/>
+    <g transform="translate(95, -55)">
+      <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+            fill="#8B4513"/>
+      <path d="M0,-8 L6.9,-4 L6.9,4 L0,8 L-6.9,4 L-6.9,-4 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.2"
+            transform="translate(15, -2)"/>
+    </g>
+    <text x="-115" y="-65" font-family="Noto Sans TC, sans-serif" font-size="11" font-weight="500"
+          fill="#A0826D" letter-spacing="2">B · 體驗</text>
+    <text x="-115" y="-30" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700"
+          fill="#8B4513" letter-spacing="3">客戶體驗</text>
+    <text x="-115" y="-5" font-family="Noto Sans TC, sans-serif" font-size="11"
+          fill="#A0826D" letter-spacing="1">Customer Experience</text>
+    <g transform="translate(-115, 30)">
+      <circle cx="0" cy="-3" r="2" fill="#8B4513"/>
+      <text x="10" y="0" font-family="Noto Sans TC, sans-serif" font-size="12"
+            fill="#5C3317">滿意度達 94 分</text>
+    </g>
+    <g transform="translate(-115, 55)">
+      <circle cx="0" cy="-3" r="2" fill="#8B4513"/>
+      <text x="10" y="0" font-family="Noto Sans TC, sans-serif" font-size="12"
+            fill="#5C3317">回客率 +25%</text>
+    </g>
+    <g transform="translate(-115, 80)">
+      <circle cx="0" cy="-3" r="2" fill="#8B4513"/>
+      <text x="10" y="0" font-family="Noto Sans TC, sans-serif" font-size="12"
+            fill="#5C3317">NPS 達 68</text>
+    </g>
+  </g>
+
+  <!-- 叢集 C：創新發展 -->
+  <g transform="translate(970, 230)" filter="url(#grpShadow)">
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          fill="none" stroke="#8B4513" stroke-width="3"/>
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          fill="url(#grpGrad)"/>
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          fill="url(#grpHoneycomb)"/>
+    <path d="M0,-130 L150,-75 L150,75 L0,130 L-150,75 L-150,-75 Z"
+          filter="url(#grpGrain)"/>
+    <path d="M0,-115 L135,-65 L135,65 L0,115 L-135,65 L-135,-65 Z"
+          fill="none" stroke="#B8860B" stroke-width="0.8" opacity="0.5"
+          stroke-dasharray="2,3"/>
+    <g transform="translate(95, -55)">
+      <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z"
+            fill="#8B4513"/>
+      <path d="M0,-8 L6.9,-4 L6.9,4 L0,8 L-6.9,4 L-6.9,-4 Z"
+            fill="none" stroke="#8B4513" stroke-width="1.2"
+            transform="translate(15, -2)"/>
+    </g>
+    <text x="-115" y="-65" font-family="Noto Sans TC, sans-serif" font-size="11" font-weight="500"
+          fill="#A0826D" letter-spacing="2">C · 創新</text>
+    <text x="-115" y="-30" font-family="Noto Sans TC, sans-serif" font-size="26" font-weight="700"
+          fill="#8B4513" letter-spacing="3">創新發展</text>
+    <text x="-115" y="-5" font-family="Noto Sans TC, sans-serif" font-size="11"
+          fill="#A0826D" letter-spacing="1">Innovation Growth</text>
+    <g transform="translate(-115, 30)">
+      <circle cx="0" cy="-3" r="2" fill="#8B4513"/>
+      <text x="10" y="0" font-family="Noto Sans TC, sans-serif" font-size="12"
+            fill="#5C3317">新產品線 5 項</text>
+    </g>
+    <g transform="translate(-115, 55)">
+      <circle cx="0" cy="-3" r="2" fill="#8B4513"/>
+      <text x="10" y="0" font-family="Noto Sans TC, sans-serif" font-size="12"
+            fill="#5C3317">專利申請 12 件</text>
+    </g>
+    <g transform="translate(-115, 80)">
+      <circle cx="0" cy="-3" r="2" fill="#8B4513"/>
+      <text x="10" y="0" font-family="Noto Sans TC, sans-serif" font-size="12"
+            fill="#5C3317">AI 工具導入</text>
+    </g>
+  </g>
+
+  <!-- 底部裝飾（分組叢集連接線 - 連接方式：角對角） -->
+  <g opacity="0.5">
+    <line x1="395" y1="370" x2="505" y2="370" stroke="#8B4513" stroke-width="1.5"/>
+    <line x1="765" y1="370" x2="875" y2="370" stroke="#8B4513" stroke-width="1.5"/>
+    <!-- 中心裝飾蜂巢 -->
+    <path d="M0,-6 L5.2,-3 L5.2,3 L0,6 L-5.2,3 L-5.2,-3 Z" fill="#8B4513"
+          transform="translate(450, 370)"/>
+    <path d="M0,-6 L5.2,-3 L5.2,3 L0,6 L-5.2,3 L-5.2,-3 Z" fill="#8B4513"
+          transform="translate(600, 370)"/>
+    <path d="M0,-6 L5.2,-3 L5.2,3 L0,6 L-5.2,3 L-5.2,-3 Z" fill="#8B4513"
+          transform="translate(820, 370)"/>
+  </g>
+</svg>
