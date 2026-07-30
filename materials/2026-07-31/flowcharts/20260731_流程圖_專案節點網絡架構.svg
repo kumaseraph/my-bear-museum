@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <radialGradient id="nodeHub">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </radialGradient>
+    <radialGradient id="nodeA">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </radialGradient>
+    <radialGradient id="nodeB">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </radialGradient>
+    <filter id="nodeShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.25"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bgGrad2)"/>
+
+  <!-- 標題 -->
+  <text x="120" y="120" font-family="Microsoft JhengHei, sans-serif" font-size="56" font-weight="700" fill="#1E3A8A">專案節點網絡架構</text>
+  <text x="120" y="170" font-family="Microsoft JhengHei, sans-serif" font-size="24" fill="#64748B">Project Node Network — 核心 → 五大工作流</text>
+  <line x1="120" y1="200" x2="320" y2="200" stroke="#F59E0B" stroke-width="4"/>
+
+  <!-- 中央 Hub 節點（技巧#124 組合#9 節點網絡） -->
+  <g filter="url(#nodeShadow)">
+    <polygon points="940,510 1020,460 1100,510 1100,610 1020,660 940,610" fill="url(#nodeHub)"/>
+    <polygon points="940,510 1020,460 1100,510 1100,610 1020,660 940,610" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+    <text x="1020" y="545" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" text-anchor="middle">PROJECT</text>
+    <text x="1020" y="585" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF" text-anchor="middle">核心</text>
+    <circle cx="1020" cy="615" r="8" fill="#F59E0B"/>
+  </g>
+
+  <!-- 連接線（三重視覺編碼：顏色＋線寬＋節點大小） -->
+  <g fill="none">
+    <!-- 主線到五大節點 -->
+    <line x1="940" y1="540" x2="500" y2="320" stroke="#1E40AF" stroke-width="4"/>
+    <line x1="940" y1="540" x2="500" y2="540" stroke="#1E40AF" stroke-width="4"/>
+    <line x1="940" y1="540" x2="500" y2="760" stroke="#1E40AF" stroke-width="4"/>
+    <line x1="940" y1="540" x2="1540" y2="320" stroke="#1E40AF" stroke-width="4"/>
+    <line x1="940" y1="540" x2="1540" y2="760" stroke="#1E40AF" stroke-width="4"/>
+    <!-- 次線（細虛線） -->
+    <line x1="500" y1="320" x2="500" y2="540" stroke="#94A3B8" stroke-width="2" stroke-dasharray="6,4"/>
+    <line x1="500" y1="540" x2="500" y2="760" stroke="#94A3B8" stroke-width="2" stroke-dasharray="6,4"/>
+    <line x1="1540" y1="320" x2="1540" y2="760" stroke="#94A3B8" stroke-width="2" stroke-dasharray="6,4"/>
+  </g>
+
+  <!-- 五個節點（節點大小代表工作量權重） -->
+  <!-- 節點 1: 規劃 (大) -->
+  <g filter="url(#nodeShadow)">
+    <polygon points="430,290 580,220 730,290 730,360 580,400 430,360" fill="url(#nodeA)"/>
+    <text x="580" y="305" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">NODE 01</text>
+    <text x="580" y="335" font-family="Microsoft JhengHei, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF" text-anchor="middle">規劃</text>
+    <text x="580" y="375" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#DBEAFE" text-anchor="middle">Planning · 30%</text>
+  </g>
+
+  <!-- 節點 2: 設計 (中) -->
+  <g filter="url(#nodeShadow)">
+    <polygon points="445,495 580,440 715,495 715,555 580,600 445,555" fill="url(#nodeB)"/>
+    <text x="580" y="510" font-family="Microsoft JhengHei, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">NODE 02</text>
+    <text x="580" y="540" font-family="Microsoft JhengHei, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF" text-anchor="middle">設計</text>
+    <text x="580" y="578" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="#DBEAFE" text-anchor="middle">Design · 20%</text>
+  </g>
+
+  <!-- 節點 3: 開發 (大) -->
+  <g filter="url(#nodeShadow)">
+    <polygon points="430,720 580,650 730,720 730,790 580,830 430,790" fill="url(#nodeA)"/>
+    <text x="580" y="735" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">NODE 03</text>
+    <text x="580" y="765" font-family="Microsoft JhengHei, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF" text-anchor="middle">開發</text>
+    <text x="580" y="805" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#DBEAFE" text-anchor="middle">Development · 30%</text>
+  </g>
+
+  <!-- 節點 4: 測試 (中) -->
+  <g filter="url(#nodeShadow)">
+    <polygon points="1480,290 1610,235 1740,290 1740,350 1610,395 1480,350" fill="url(#nodeB)"/>
+    <text x="1610" y="305" font-family="Microsoft JhengHei, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">NODE 04</text>
+    <text x="1610" y="335" font-family="Microsoft JhengHei, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF" text-anchor="middle">測試</text>
+    <text x="1610" y="372" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="#DBEAFE" text-anchor="middle">QA · 10%</text>
+  </g>
+
+  <!-- 節點 5: 上線 (中) -->
+  <g filter="url(#nodeShadow)">
+    <polygon points="1480,720 1610,665 1740,720 1740,780 1610,825 1480,780" fill="url(#nodeB)"/>
+    <text x="1610" y="735" font-family="Microsoft JhengHei, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">NODE 05</text>
+    <text x="1610" y="765" font-family="Microsoft JhengHei, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF" text-anchor="middle">上線</text>
+    <text x="1610" y="802" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="#DBEAFE" text-anchor="middle">Launch · 10%</text>
+  </g>
+
+  <!-- 圖例 -->
+  <g transform="translate(140, 920)">
+    <text font-family="Microsoft JhengHei, sans-serif" font-size="18" font-weight="700" fill="#1E40AF">三重視覺編碼圖例</text>
+    <g transform="translate(0, 30)">
+      <circle cx="10" cy="10" r="12" fill="url(#nodeA)"/>
+      <text x="40" y="16" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">大節點 = 高工作量</text>
+    </g>
+    <g transform="translate(280, 30)">
+      <line x1="0" y1="10" x2="40" y2="10" stroke="#1E40AF" stroke-width="4"/>
+      <text x="60" y="16" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">粗線 = 主流程</text>
+    </g>
+    <g transform="translate(560, 30)">
+      <line x1="0" y1="10" x2="40" y2="10" stroke="#94A3B8" stroke-width="2" stroke-dasharray="6,4"/>
+      <text x="60" y="16" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">虛線 = 支援流</text>
+    </g>
+    <g transform="translate(840, 30)">
+      <circle cx="10" cy="10" r="6" fill="#F59E0B"/>
+      <text x="40" y="16" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">橘點 = 里程碑</text>
+    </g>
+  </g>
+
+  <!-- 底部頁碼 -->
+  <g transform="translate(120, 990)">
+    <text font-family="Microsoft JhengHei, sans-serif" font-size="18" fill="#64748B">熊熊設計 · 工作報告素材庫</text>
+    <text x="1680" font-family="Arial" font-size="18" fill="#64748B">02 / 06</text>
+  </g>
+</svg>

@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="stepGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="stepGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="stepGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#64748B"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="4" result="offsetblur"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="diagStripes" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="skewX(-20)">
+      <line x1="0" y1="6" x2="12" y2="6" stroke="#F59E0B" stroke-width="2" opacity="0.35"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- 標題 -->
+  <text x="120" y="120" font-family="Microsoft JhengHei, sans-serif" font-size="56" font-weight="700" fill="#1E3A8A">工作報告 · 六階段流程</text>
+  <text x="120" y="170" font-family="Microsoft JhengHei, sans-serif" font-size="24" fill="#64748B">Work Report Workflow — 階段 01 → 06</text>
+  <line x1="120" y1="200" x2="320" y2="200" stroke="#F59E0B" stroke-width="4"/>
+
+  <!-- 階梯式六階段流程（技巧#124 組合#3 階梯排列） -->
+  <g filter="url(#softShadow)">
+    <!-- Step 01 - 議題設定 -->
+    <g transform="translate(140, 320)">
+      <polygon points="40,0 280,0 250,120 10,120" fill="url(#stepGrad1)"/>
+      <polygon points="40,0 280,0 250,120 10,120" fill="url(#diagStripes)"/>
+      <text x="50" y="55" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" letter-spacing="2">STEP 01</text>
+      <text x="50" y="92" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">議題設定</text>
+      <circle cx="240" cy="60" r="14" fill="#F59E0B"/>
+      <text x="240" y="67" font-family="Arial" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+    </g>
+    <!-- Step 02 - 資料蒐集 -->
+    <g transform="translate(420, 320)">
+      <polygon points="40,0 280,0 250,120 10,120" fill="url(#stepGrad2)"/>
+      <text x="50" y="55" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" letter-spacing="2">STEP 02</text>
+      <text x="50" y="92" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">資料蒐集</text>
+      <circle cx="240" cy="60" r="14" fill="#F59E0B"/>
+      <text x="240" y="67" font-family="Arial" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+    </g>
+    <!-- Step 03 - 分析整合 -->
+    <g transform="translate(700, 320)">
+      <polygon points="40,0 280,0 250,120 10,120" fill="url(#stepGrad1)"/>
+      <text x="50" y="55" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" letter-spacing="2">STEP 03</text>
+      <text x="50" y="92" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">分析整合</text>
+      <circle cx="240" cy="60" r="14" fill="#F59E0B"/>
+      <text x="240" y="67" font-family="Arial" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+    </g>
+    <!-- Step 04 - 草稿撰寫 -->
+    <g transform="translate(980, 320)">
+      <polygon points="40,0 280,0 250,120 10,120" fill="url(#stepGrad2)"/>
+      <text x="50" y="55" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" letter-spacing="2">STEP 04</text>
+      <text x="50" y="92" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">草稿撰寫</text>
+      <circle cx="240" cy="60" r="14" fill="#F59E0B"/>
+      <text x="240" y="67" font-family="Arial" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+    </g>
+    <!-- Step 05 - 主管審閱 -->
+    <g transform="translate(1260, 320)">
+      <polygon points="40,0 280,0 250,120 10,120" fill="url(#stepGrad3)"/>
+      <text x="50" y="55" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" letter-spacing="2">STEP 05</text>
+      <text x="50" y="92" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">主管審閱</text>
+      <circle cx="240" cy="60" r="14" fill="#F59E0B"/>
+      <text x="240" y="67" font-family="Arial" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">5</text>
+    </g>
+    <!-- Step 06 - 定稿發布 -->
+    <g transform="translate(1540, 320)">
+      <polygon points="40,0 280,0 250,120 10,120" fill="url(#stepGrad1)"/>
+      <polygon points="40,0 280,0 250,120 10,120" fill="url(#diagStripes)"/>
+      <text x="50" y="55" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" letter-spacing="2">STEP 06</text>
+      <text x="50" y="92" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="700" fill="#FFFFFF">定稿發布</text>
+      <circle cx="240" cy="60" r="14" fill="#F59E0B"/>
+      <text x="240" y="67" font-family="Arial" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">6</text>
+    </g>
+  </g>
+
+  <!-- 連接箭頭（節點網絡） -->
+  <g stroke="#F59E0B" stroke-width="3" fill="none">
+    <line x1="400" y1="380" x2="450" y2="380" stroke-dasharray="6,4"/>
+    <polygon points="450,380 442,374 442,386" fill="#F59E0B"/>
+    <line x1="680" y1="380" x2="730" y2="380" stroke-dasharray="6,4"/>
+    <polygon points="730,380 722,374 722,386" fill="#F59E0B"/>
+    <line x1="960" y1="380" x2="1010" y2="380" stroke-dasharray="6,4"/>
+    <polygon points="1010,380 1002,374 1002,386" fill="#F59E0B"/>
+    <line x1="1240" y1="380" x2="1290" y2="380" stroke-dasharray="6,4"/>
+    <polygon points="1290,380 1282,374 1282,386" fill="#F59E0B"/>
+    <line x1="1520" y1="380" x2="1570" y2="380" stroke-dasharray="6,4"/>
+    <polygon points="1570,380 1562,374 1562,386" fill="#F59E0B"/>
+  </g>
+
+  <!-- 下方三層 Bento 對照區 -->
+  <g transform="translate(140, 600)">
+    <rect x="0" y="0" width="500" height="320" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+    <text x="30" y="50" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#1E40AF">過去做法</text>
+    <text x="30" y="80" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#64748B">線性流程 · 一次性產出</text>
+    <g transform="translate(30, 110)">
+      <rect x="0" y="0" width="420" height="40" rx="4" fill="#E2E8F0"/>
+      <rect x="0" y="50" width="420" height="40" rx="4" fill="#E2E8F0"/>
+      <rect x="0" y="100" width="420" height="40" rx="4" fill="#E2E8F0"/>
+      <text x="15" y="26" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">▢ Word 文件一條線寫到底</text>
+      <text x="15" y="76" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">▢ 缺少章節導覽 · 翻找耗時</text>
+      <text x="15" y="126" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">▢ 字級 14pt · 主講者缺席就失焦</text>
+    </g>
+  </g>
+
+  <g transform="translate(680, 600)">
+    <rect x="0" y="0" width="1100" height="320" rx="12" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2"/>
+    <text x="30" y="50" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#1E40AF">2026 工作報告方式</text>
+    <text x="30" y="80" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#64748B">Bento Grid · 一圖一 insight · 無障礙優先</text>
+
+    <!-- 三格 Bento -->
+    <g transform="translate(30, 110)">
+      <!-- 大格 -->
+      <rect x="0" y="0" width="500" height="180" rx="8" fill="#DBEAFE"/>
+      <text x="20" y="40" font-family="Microsoft JhengHei, sans-serif" font-size="18" font-weight="700" fill="#1E40AF">📊 核心指標 · 一圖一洞察</text>
+      <g transform="translate(20, 60)">
+        <rect x="0" y="0" width="120" height="100" rx="4" fill="#FFFFFF"/>
+        <text x="60" y="40" font-family="Arial" font-size="36" font-weight="700" fill="#1E40AF" text-anchor="middle">87%</text>
+        <text x="60" y="65" font-family="Microsoft JhengHei, sans-serif" font-size="12" fill="#64748B" text-anchor="middle">完成率</text>
+        <rect x="140" y="0" width="120" height="100" rx="4" fill="#FFFFFF"/>
+        <text x="200" y="40" font-family="Arial" font-size="36" font-weight="700" fill="#3B82F6" text-anchor="middle">12</text>
+        <text x="200" y="65" font-family="Microsoft JhengHei, sans-serif" font-size="12" fill="#64748B" text-anchor="middle">進行中</text>
+        <rect x="280" y="0" width="200" height="100" rx="4" fill="#FEF3C7"/>
+        <text x="380" y="40" font-family="Arial" font-size="36" font-weight="700" fill="#D97706" text-anchor="middle">+24%</text>
+        <text x="380" y="65" font-family="Microsoft JhengHei, sans-serif" font-size="12" fill="#92400E" text-anchor="middle">YoY 成長</text>
+      </g>
+
+      <!-- 右側兩小格 -->
+      <rect x="520" y="0" width="240" height="85" rx="8" fill="#FEF3C7"/>
+      <text x="535" y="32" font-family="Microsoft JhengHei, sans-serif" font-size="16" font-weight="700" fill="#92400E">🎯 點選式章節選單</text>
+      <text x="535" y="58" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="#92400E">非線性導覽 · 主講者缺席也能讀懂</text>
+
+      <rect x="520" y="95" width="240" height="85" rx="8" fill="#D1FAE5"/>
+      <text x="535" y="127" font-family="Microsoft JhengHei, sans-serif" font-size="16" font-weight="700" fill="#065F46">♿ EU 無障礙法案</text>
+      <text x="535" y="153" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="#065F46">字級 24pt+ · 對比 4.5:1</text>
+
+      <rect x="780" y="0" width="260" height="85" rx="8" fill="#EDE9FE"/>
+      <text x="795" y="32" font-family="Microsoft JhengHei, sans-serif" font-size="16" font-weight="700" fill="#5B21B6">🔄 視覺層級靠尺寸</text>
+      <text x="795" y="58" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="#5B21B6">大格子放主 CTA · 留白放大</text>
+
+      <rect x="780" y="95" width="260" height="85" rx="8" fill="#FCE7F3"/>
+      <text x="795" y="127" font-family="Microsoft JhengHei, sans-serif" font-size="16" font-weight="700" fill="#9D174D">📐 9:16 行動版優先</text>
+      <text x="795" y="153" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="#9D174D">手機閱讀順序重排</text>
+    </g>
+  </g>
+
+  <!-- 底部頁碼/章節 -->
+  <g transform="translate(120, 990)">
+    <text font-family="Microsoft JhengHei, sans-serif" font-size="18" fill="#64748B">熊熊設計 · 工作報告素材庫</text>
+    <text x="1680" font-family="Arial" font-size="18" fill="#64748B">01 / 06</text>
+  </g>
+</svg>

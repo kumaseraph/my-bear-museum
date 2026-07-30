@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 720" width="1920" height="720">
+  <defs>
+    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+    <linearGradient id="outlineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#64748B"/>
+    </linearGradient>
+    <pattern id="btnStripes" patternUnits="userSpaceOnUse" width="14" height="14" patternTransform="skewX(-15)">
+      <line x1="0" y1="7" x2="14" y2="7" stroke="#FFFFFF" stroke-width="1.5" opacity="0.3"/>
+    </pattern>
+    <filter id="btnShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+      <feOffset dx="0" dy="4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.22"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1920" height="720" fill="url(#bgGrad4)"/>
+
+  <!-- 標題 -->
+  <text x="120" y="100" font-family="Microsoft JhengHei, sans-serif" font-size="44" font-weight="700" fill="#1E3A8A">報告導航 CTA 按鈕組</text>
+  <text x="120" y="140" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#64748B">Work Report Navigation Buttons · 三大類型（實心 / 描邊 / 重點強調）</text>
+  <line x1="120" y1="170" x2="320" y2="170" stroke="#F59E0B" stroke-width="4"/>
+
+  <!-- A. 主 CTA (Primary) - 平行四邊形實心 -->
+  <g filter="url(#btnShadow)" transform="translate(140, 260)">
+    <polygon points="30,0 360,0 330,100 0,100" fill="url(#primaryGrad)"/>
+    <polygon points="30,0 360,0 330,100 0,100" fill="url(#btnStripes)"/>
+    <polygon points="30,0 360,0 330,100 0,100" fill="none" stroke="#1E3A8A" stroke-width="2"/>
+    <text x="180" y="58" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" text-anchor="middle">▸ 查看完整報告</text>
+    <circle cx="320" cy="50" r="14" fill="#F59E0B"/>
+    <text x="320" y="58" font-family="Arial" font-size="20" font-weight="700" fill="#FFFFFF" text-anchor="middle">→</text>
+  </g>
+  <text x="140" y="400" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#64748B">A · Primary CTA（主行動呼籲）</text>
+
+  <!-- B. 次 CTA (Secondary) - 描邊平行四邊形 -->
+  <g filter="url(#btnShadow)" transform="translate(560, 260)">
+    <polygon points="30,0 360,0 330,100 0,100" fill="#FFFFFF"/>
+    <polygon points="30,0 360,0 330,100 0,100" fill="none" stroke="url(#outlineGrad)" stroke-width="3"/>
+    <line x1="40" y1="50" x2="100" y2="50" stroke="#1E40AF" stroke-width="3"/>
+    <text x="195" y="58" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#1E40AF" text-anchor="middle">下載附件 PDF</text>
+  </g>
+  <text x="560" y="400" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#64748B">B · Secondary（次要行動）</text>
+
+  <!-- C. 重點 CTA - 黃金強調 -->
+  <g filter="url(#btnShadow)" transform="translate(980, 260)">
+    <polygon points="30,0 360,0 330,100 0,100" fill="url(#accentGrad)"/>
+    <polygon points="30,0 360,0 330,100 0,100" fill="url(#btnStripes)"/>
+    <polygon points="30,0 360,0 330,100 0,100" fill="none" stroke="#B45309" stroke-width="2"/>
+    <text x="180" y="58" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" text-anchor="middle">★ 提交本期報告</text>
+    <circle cx="320" cy="50" r="14" fill="#FFFFFF"/>
+    <text x="320" y="58" font-family="Arial" font-size="20" font-weight="700" fill="#B45309" text-anchor="middle">✓</text>
+  </g>
+  <text x="980" y="400" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#64748B">C · Accent（重點強調）</text>
+
+  <!-- D. 頁碼導航 -->
+  <g transform="translate(140, 460)">
+    <text font-family="Microsoft JhengHei, sans-serif" font-size="18" font-weight="700" fill="#1E40AF">頁碼導航組合</text>
+    <g transform="translate(0, 30)">
+      <!-- Prev -->
+      <polygon points="20,0 120,0 100,60 0,60" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2"/>
+      <text x="60" y="38" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#1E40AF" text-anchor="middle">◂ 上一頁</text>
+      <!-- 頁碼 -->
+      <polygon points="140,0 240,0 220,60 120,60" fill="#1E40AF"/>
+      <text x="180" y="38" font-family="Arial" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">01 / 06</text>
+      <!-- Next -->
+      <polygon points="260,0 360,0 340,60 240,60" fill="#F59E0B"/>
+      <text x="300" y="38" font-family="Microsoft JhengHei, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">下一頁 ▸</text>
+    </g>
+  </g>
+
+  <!-- E. 章節錨點 -->
+  <g transform="translate(620, 460)">
+    <text font-family="Microsoft JhengHei, sans-serif" font-size="18" font-weight="700" fill="#1E40AF">章節錨點（章節選單）</text>
+    <g transform="translate(0, 30)">
+      <polygon points="0,0 110,0 100,50 0,50" fill="#DBEAFE"/>
+      <text x="55" y="32" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#1E40AF" text-anchor="middle">▢ 議題設定</text>
+      <polygon points="120,0 230,0 220,50 120,50" fill="#DBEAFE"/>
+      <text x="175" y="32" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#1E40AF" text-anchor="middle">▢ 資料蒐集</text>
+      <polygon points="240,0 350,0 340,50 240,50" fill="#1E40AF"/>
+      <text x="295" y="32" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">● 分析整合</text>
+      <polygon points="360,0 470,0 460,50 360,50" fill="#DBEAFE"/>
+      <text x="415" y="32" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#1E40AF" text-anchor="middle">▢ 草稿撰寫</text>
+      <polygon points="480,0 590,0 580,50 480,50" fill="#DBEAFE"/>
+      <text x="535" y="32" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#1E40AF" text-anchor="middle">▢ 主管審閱</text>
+    </g>
+  </g>
+
+  <!-- 底部 -->
+  <text x="140" y="650" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#64748B">熊熊設計 · 工作報告素材庫 · 按鈕</text>
+</svg>
