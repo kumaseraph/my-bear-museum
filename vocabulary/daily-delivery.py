@@ -40,6 +40,7 @@ BEAR_QUOTES = VOCAB_DIR / "bear-quotes.json"
 WORLD_BUILDING = VOCAB_DIR / "world-building.json"
 VOCABULARY = VOCAB_DIR / "vocabulary.json"
 BEAR_FRIENDS = VOCAB_DIR / "bear-friends.json"
+BEAR_CONDITIONS = VOCAB_DIR / "bear-conditions.json"
 
 COMFYUI_URL = "http://fjjhomei9.fjj.home:8188"
 COMFY_WORKFLOW = Path("/home/fjj04/comfyui/Flux.2-Klein-文生图_API.json")
@@ -72,7 +73,16 @@ Rules:
 - Friends can be: human child, small dog, cat, rabbit, hamster, duckling, teddy bear toy, or small doll
 - Scenarios for friends: adventure (forest, beach, mountain camping, cave, stargazing), play (bubbles, kite, swings, soccer, snowman), outing (picnic, market, train, boat, blossoms, skiing)
 - When adding friends, the bear should be the main focus (larger in foreground) OR all characters equally important
-- Describe the friendship and interaction between characters"""
+- Describe the friendship and interaction between characters
+- Optional conditions can be added based on probability:
+  - Weather: sunny, rainy, snowy, typhoon, rainbow, foggy morning
+  - Time: dawn, morning, noon, sunset, starry night, moonlight
+  - Holiday: New Year, Lunar New Year, Mid-Autumn, Halloween, Christmas, Valentine's, Birthday
+  - Props: glasses, balloons, umbrella, crown, backpack, guitar, scarf, microphone
+  - Emotions: laughing, shy smile, curious, surprised, thoughtful, excited
+- Multiple conditions can combine: e.g. "in snowy weather at dusk playing guitar"
+- When conditions are present, weave them naturally into the scene description (e.g. weather sets atmosphere, time affects lighting, props are held/worn by the bear, emotions shape facial expression and pose)
+- The image should reflect all provided conditions as a coherent whole, not as a checklist"""
 
 
 class DeliveryConfig:
@@ -268,25 +278,69 @@ def get_friend_info():
     """根據 60% 機率隨機決定是否有朋友，若有則隨機選 1-3 個朋友類型和場景。"""
     friends_data = load_json(BEAR_FRIENDS)
     prob = friends_data.get("friend_probability", 0.6)
-    
+
     if random.random() > prob:
         return None  # 40% 機率只有熊熊自己
-    
+
     # 有朋友：隨機選 1-3 個
     num_friends = random.randint(1, 3)
     friend_types = friends_data["friend_types"]
     selected_friends = random.sample(friend_types, min(num_friends, len(friend_types)))
-    
+
     # 隨機選一個場景類型，再從中選一個具體場景
     scenario_types = friends_data["scenarios"]
     scenario_category = random.choice(list(scenario_types.keys()))
     scenario = random.choice(scenario_types[scenario_category])
-    
+
     return {
         "friends": selected_friends,
         "scenario_type": scenario_category,
         "scenario": scenario,
     }
+
+
+def load_conditions():
+    """從 bear-conditions.json 載入條件詞彙庫。"""
+    return load_json(BEAR_CONDITIONS)
+
+
+def select_conditions(conditions_data=None):
+    """根據 condition_probability 隨機決定要加入哪些條件。
+
+    回傳結構：
+        {
+            "weather": {...} | None,
+            "time_of_day": {...} | None,
+            "holiday": {...} | None,
+            "prop": {...} | None,
+            "emotion": {...} | None,
+        }
+    """
+    if conditions_data is None:
+        conditions_data = load_conditions()
+
+    probability = conditions_data.get("condition_probability", {})
+
+    # 對應 JSON 鍵 → 機率表鍵 的映射：
+    #   holidays (JSON)  ↔  holiday (prob)
+    #   props   (JSON)   ↔  props   (prob)
+    #   其他              ↔  同名
+    def _pick(json_key, prob_key):
+        prob = probability.get(prob_key, 0.0)
+        items = conditions_data.get(json_key, [])
+        if not items:
+            return None
+        if random.random() > prob:
+            return None
+        return random.choice(items)
+
+    selected = {}
+    selected["weather"] = _pick("weather", "weather")
+    selected["time_of_day"] = _pick("time_of_day", "time_of_day")
+    selected["holiday"] = _pick("holidays", "holiday")
+    selected["prop"] = _pick("props", "props")
+    selected["emotion"] = _pick("emotions", "emotion")
+    return selected
 
 
 def prepare_bear_metadata(name, style):
@@ -299,12 +353,19 @@ def prepare_bear_metadata(name, style):
         "quote": get_random_quote(),
         "title": derive_title(name),
     }
-    
+
     # 加入朋友資訊
     friend_info = get_friend_info()
     if friend_info:
         metadata["friend_info"] = friend_info
-    
+
+    # 加入 5 個獨立條件（天氣/時間/節日/道具/情緒）
+    conditions = select_conditions()
+    # 篩掉 None，保留實際啟用的條件
+    active_conditions = {k: v for k, v in conditions.items() if v}
+    if active_conditions:
+        metadata["conditions"] = active_conditions
+
     return metadata
 
 
@@ -350,21 +411,27 @@ def clean_minimax_text(content):
     return content.strip().strip("\"'")
 
 
-def build_prompt_fallback(name, style, series, personality, title, friend_info=None):
+def build_prompt_fallback(name, style, series, personality, title, friend_info=None, conditions=None):
     """MiniMax 失敗時的本地 fallback prompt。"""
     prompt = (
         f"A cute adorable bear character, {title}, "
         f"inspired by {series}, {personality}, "
         f"{style} art style, dreamy atmosphere"
     )
-    
+
     # 若有朋友資訊，加入朋友描述
     if friend_info:
         friend_descs = [f["en"] for f in friend_info["friends"]]
         friends_str = ", ".join(friend_descs)
         scenario = friend_info["scenario"]
         prompt += f", together with {friends_str}, {scenario}"
-    
+
+    # 若有條件，加入條件描述
+    if conditions:
+        cond_descs = [cond["en"] for cond in conditions.values() if cond]
+        if cond_descs:
+            prompt += ", " + ", ".join(cond_descs)
+
     prompt += f", {PROMPT_QUALITY_SUFFIX}"
     return prompt
 
@@ -440,7 +507,7 @@ def _call_minimax_prompt(user_content, max_tokens=1024):
     return content, choice.get("finish_reason", "")
 
 
-def generate_prompt_via_minimax(name, style, series, personality, title, friend_info=None):
+def generate_prompt_via_minimax(name, style, series, personality, title, friend_info=None, conditions=None):
     """用 MiniMax Chat API 依 metadata 產生英文生圖 prompt。"""
     user_content = (
         f"Bear name: {name}\n"
@@ -457,6 +524,13 @@ def generate_prompt_via_minimax(name, style, series, personality, title, friend_
             f"Scenario type: {friend_info['scenario_type']}\n"
             f"Scenario: {friend_info['scenario']}"
         )
+    if conditions:
+        cond_lines = []
+        for key, cond in conditions.items():
+            if cond:
+                cond_lines.append(f"- {key}: {cond['zh']} ({cond['en']})")
+        if cond_lines:
+            user_content += "\nOptional conditions:\n" + "\n".join(cond_lines)
     log(f"  MiniMax 產生 prompt: {name}")
 
     try:
@@ -480,7 +554,7 @@ def generate_prompt_via_minimax(name, style, series, personality, title, friend_
         return content
     except Exception as e:
         log(f"  MiniMax prompt 生成失敗: {e}，使用 fallback")
-        fallback = build_prompt_fallback(name, style, series, personality, title, friend_info)
+        fallback = build_prompt_fallback(name, style, series, personality, title, friend_info, conditions)
         log(f"  prompt (fallback): {fallback}")
         return fallback
 
@@ -660,7 +734,7 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
         filename = bear_filename(collection_no, name)
         log(
             f"  No.{collection_no} metadata: title={metadata['title']}, series={metadata['series']}, "
-            f"personality={metadata['personality']}"
+            f"personality={metadata['personality']}, conditions={metadata.get('conditions')}"
         )
         prompt = generate_prompt_via_minimax(
             metadata["name"],
@@ -669,6 +743,7 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             metadata["personality"],
             metadata["title"],
             metadata.get("friend_info"),
+            metadata.get("conditions"),
         )
         output = today_dir / filename
 
@@ -700,7 +775,7 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
         filename = bear_filename(collection_no, name)
         log(
             f"  No.{collection_no} metadata: title={metadata['title']}, series={metadata['series']}, "
-            f"personality={metadata['personality']}"
+            f"personality={metadata['personality']}, conditions={metadata.get('conditions')}"
         )
         prompt = generate_prompt_via_minimax(
             metadata["name"],
@@ -709,6 +784,7 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             metadata["personality"],
             metadata["title"],
             metadata.get("friend_info"),
+            metadata.get("conditions"),
         )
         output = today_dir / filename
         if generate_minimax_image(prompt, name, style, output, slot, config):
@@ -829,7 +905,7 @@ def main(config):
         return
 
     log("\n--- 步驟 6: Git Commit ---")
-    run_cmd(f"cd {PROJECT_DIR} && git add bears.json bears/ vocabulary/style-rotation.json vocabulary/daily-delivery.py")
+    run_cmd(f"cd {PROJECT_DIR} && git add bears.json bears/ vocabulary/style-rotation.json vocabulary/daily-delivery.py vocabulary/bear-conditions.json")
     run_cmd(f'cd {PROJECT_DIR} && git commit -m "新增 {today} 熊熊"')
     run_cmd(f"cd {PROJECT_DIR} && git push")
     log("Git push 完成")
