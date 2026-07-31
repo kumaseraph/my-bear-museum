@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>週末的儀式感：把平凡過成值得期待｜2026-07-31</title>
+<style>
+/* ============================================================
+   配色：colors/colors-C2.css 內容（內嵌；C2 暖白紙藝）
+   結構：structures/V8-structure.css 內容（內嵌；V8 和紙質感）
+   載入順序意圖：C2 → V8
+   ============================================================ */
+
+:root {
+  --bg: #f7f3eb;
+  --bg-secondary: #eee8dc;
+  --bg-card: rgba(255, 255, 255, 0.72);
+  --text: #2c2c2c;
+  --text-secondary: #6b6b6b;
+  --text-soft: #8a8a8a;
+  --accent: #b8860b;
+  --accent-warm: #c4a882;
+  --accent-deep: #8a6914;
+  --accent-glow: rgba(184, 134, 11, 0.2);
+  --ink: #3a3024;
+  --ink-soft: #6b5e4a;
+  --paper-edge: rgba(180, 160, 130, 0.35);
+  --nav-bg: rgba(247, 243, 235, 0.95);
+  --shadow-soft: 0 6px 24px rgba(120, 90, 40, 0.12);
+  --shadow-mid: 0 12px 36px rgba(120, 90, 40, 0.18);
+  --border-warm: rgba(184, 134, 11, 0.25);
+  --teal: #4d7c6f;
+  --terracotta: #b35a3a;
+  --moss: #6b7d3f;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 20px;
+  font-family: 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(180,160,130,0.04) 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(135deg, rgba(180,160,130,0.03) 0 2px, transparent 2px 12px),
+    radial-gradient(ellipse 70% 60% at 20% 10%, rgba(255,248,235,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(232,210,170,0.25) 0%, transparent 60%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.presentation {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: var(--shadow-mid);
+  background: var(--bg);
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  padding: 40px 56px 80px;
+  color: var(--text);
+}
+.slide.active { display: flex; }
+
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid var(--paper-edge);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.page-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+.page-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-top: 6px;
+}
+.page-sub {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+}
+.title-bar {
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+  border-radius: 1px;
+  margin-top: 12px;
+}
+.section-num {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  background: rgba(184, 134, 11, 0.12);
+  padding: 4px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.2em;
+}
+
+/* 導航 */
+.nav {
+  position: absolute;
+  top: 24px; right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--nav-bg);
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: 1px solid var(--border-warm);
+  box-shadow: var(--shadow-soft);
+  z-index: 1000;
+}
+.nav button {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent-deep);
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.nav button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.nav .page-indicator {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* 卡片 */
+.paper-card {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+/* ============================================================
+   P1 封面 — 特/單（手寫儀式印章 + 大標題）
+   ============================================================ */
+.s1-cover {
+  background:
+    radial-gradient(circle at 20% 25%, rgba(232,201,160,0.45) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255,248,235,0.6) 0%, transparent 55%),
+    var(--bg);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.s1-cover .cover-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 18px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid var(--border-warm);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+  letter-spacing: 0.25em;
+  margin-bottom: 24px;
+}
+.s1-cover .cover-stamp::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.s1-cover h1 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+.s1-cover .cover-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.2em;
+  margin-bottom: 32px;
+}
+.cover-seal {
+  width: 200px; height: 200px;
+  margin: 0 auto 28px;
+  position: relative;
+}
+.cover-meta {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.15em;
+}
+.cover-meta strong {
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+/* ============================================================
+   P2 目錄 — 方/網（八個儀式單元）
+   ============================================================ */
+.s2-toc {
+  background: linear-gradient(180deg, #f5efe5 0%, #f7f3eb 100%);
+  flex-direction: column;
+  padding: 40px 56px 88px;
+  overflow: hidden;
+}
+.s2-toc .toc-head { margin-bottom: 24px; }
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 14px;
+  flex: 1;
+}
+.toc-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+}
+.toc-cell .toc-idx {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--accent-deep);
+  letter-spacing: 0.05em;
+}
+.toc-cell .toc-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.toc-cell .toc-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.toc-cell .toc-svg {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 28px; height: 28px;
+  opacity: 0.7;
+}
+
+/* ============================================================
+   P3 早晨儀式 — 線/垂（五個時段清單）
+   ============================================================ */
+.s3-morning {
+  background: radial-gradient(ellipse at 70% 50%, #f5efe5 0%, var(--bg) 60%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.morning-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 0.95fr 1.1fr;
+  gap: 32px;
+  margin-top: 18px;
+}
+.morning-left {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.morning-left .quote {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.morning-left .quote::before {
+  content: '「';
+  font-size: 2.6rem;
+  color: var(--accent);
+  line-height: 0;
+  vertical-align: -0.3em;
+  margin-right: 4px;
+}
+.morning-left .quote-source {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  text-align: right;
+  letter-spacing: 0.1em;
+}
+.morning-left .morning-stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--paper-edge);
+}
+.stat-block {
+  flex: 1;
+  text-align: center;
+}
+.stat-block .stat-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent-deep);
+  line-height: 1;
+}
+.stat-block .stat-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.morning-timeline {
+  position: relative;
+  padding-left: 26px;
+}
+.morning-timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-warm));
+}
+.mt-item {
+  display: flex;
+  gap: 14px;
+  padding: 8px 0;
+  align-items: flex-start;
+  position: relative;
+}
+.mt-item::before {
+  content: '';
+  position: absolute;
+  left: -22px; top: 14px;
+  width: 12px; height: 12px;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  z-index: 1;
+}
+.mt-item .mt-time {
+  flex: 0 0 70px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: 0.05em;
+}
+.mt-item .mt-body { flex: 1; }
+.mt-item .mt-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.mt-item .mt-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   P4 數位排毒 — 圓/水（三層同心圓）
+   ============================================================ */
+.s4-digital {
+  background: linear-gradient(180deg, #f7f3eb 0%, #eee8dc 100%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.digital-circles {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 24px;
+  margin-top: 20px;
+}
+.d-circle {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 22px;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+  border: 2px solid var(--paper-edge);
+}
+.d-circle.c1 { background: radial-gradient(circle at 30% 30%, #fff8ec 0%, #f0e2c6 100%); }
+.d-circle.c2 { background: radial-gradient(circle at 30% 30%, #f9efdc 0%, #e3cf9a 100%); }
+.d-circle.c3 { background: radial-gradient(circle at 30% 30%, #ecdcb0 0%, #c4a882 100%); }
+.d-circle .dc-time {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.d-circle .dc-unit {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.d-circle .dc-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 10px;
+}
+.d-circle .dc-tip {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  line-height: 1.4;
+  max-width: 200px;
+}
+.d-circle .dc-mark {
+  position: absolute;
+  top: 16px;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-warm);
+}
+.d-circle .dc-svg { width: 20px; height: 20px; }
+.digital-note {
+  margin-top: 18px;
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* ============================================================
+   P5 五感日常 — 六/散（五種感官六邊形）
+   ============================================================ */
+.s5-five-senses {
+  background: radial-gradient(circle at 50% 50%, #f9efdc 0%, var(--bg) 70%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.senses-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+}
+.sense-tile {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 16px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+}
+.sense-hex {
+  flex: 0 0 56px; height: 56px;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent));
+  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.3rem;
+}
+.sense-body { flex: 1; }
+.sense-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.sense-action {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.sense-tile .sense-svg {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  width: 18px; height: 18px;
+  opacity: 0.4;
+}
+
+/* ============================================================
+   P6 儀式感 — 方/水（階梯式 5 步驟）
+   ============================================================ */
+.s6-ritual {
+  background: linear-gradient(180deg, #f5efe5 0%, #f7f3eb 100%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.staircase {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 22px;
+  padding: 8px 32px;
+}
+.stair {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  border-radius: 4px 16px 16px 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  gap: 24px;
+}
+.stair.s1 { width: 70%; margin-left: 0; background: linear-gradient(90deg, #f7eed8 0%, #f0e2c6 100%); }
+.stair.s2 { width: 78%; margin-left: 6%; background: linear-gradient(90deg, #f0e2c6 0%, #e3cf9a 100%); }
+.stair.s3 { width: 86%; margin-left: 8%; background: linear-gradient(90deg, #e3cf9a 0%, #d4b888 100%); }
+.stair.s4 { width: 94%; margin-left: 3%; background: linear-gradient(90deg, #d4b888 0%, #c4a882 100%); }
+.stair.s5 { width: 100%; margin-left: 0; background: linear-gradient(90deg, #c4a882 0%, #b8860b 100%); color: #fff; }
+.stair .st-num {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  width: 50px;
+  text-align: center;
+}
+.stair.s5 .st-num { color: #fff8ec; }
+.stair .st-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  flex: 1;
+}
+.stair .st-desc {
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
+.stair .st-svg {
+  width: 28px; height: 28px;
+  flex: 0 0 28px;
+}
+
+/* ============================================================
+   P7 心流時刻 — 特/網（4 種沉浸活動網格）
+   ============================================================ */
+.s7-flow {
+  background: radial-gradient(ellipse at 30% 40%, #f9efdc 0%, var(--bg) 60%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.flow-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 20px;
+}
+.flow-card {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 8px;
+  padding: 22px 24px;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.flow-icon {
+  flex: 0 0 64px; height: 64px;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent-deep));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  position: relative;
+}
+.flow-icon::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1px dashed var(--accent);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+.flow-icon svg { width: 32px; height: 32px; }
+.flow-body { flex: 1; }
+.flow-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.flow-duration {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.flow-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   P8 週末計畫 — 線/水（水平時間軸）
+   ============================================================ */
+.s8-weekend {
+  background: linear-gradient(180deg, #f7f3eb 0%, #eee8dc 100%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.weekend-timeline {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 20px;
+  position: relative;
+  padding: 0 60px;
+}
+.weekend-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 20px; bottom: 20px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-warm), var(--accent));
+  transform: translateX(-50%);
+  z-index: 0;
+}
+.w-item {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.w-time {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: 0.05em;
+  text-align: center;
+  grid-column: 2;
+}
+.w-card {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 12px 16px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.w-item:nth-child(odd) .w-card { grid-column: 1; grid-row: 1; }
+.w-item:nth-child(odd) .w-time { grid-column: 2; grid-row: 1; }
+.w-item:nth-child(odd) .w-spacer { grid-column: 3; grid-row: 1; }
+.w-item:nth-child(even) .w-card { grid-column: 3; grid-row: 1; }
+.w-item:nth-child(even) .w-time { grid-column: 2; grid-row: 1; }
+.w-item:nth-child(even) .w-spacer { grid-column: 1; grid-row: 1; }
+.w-dot {
+  flex: 0 0 14px; height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--accent);
+  position: relative;
+  z-index: 1;
+}
+.w-body { flex: 1; }
+.w-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.w-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* ============================================================
+   P9 七日節奏 — 圓/散（七個圓點散落）
+   ============================================================ */
+.s9-rhythm {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,248,235,0.5) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(232,201,160,0.4) 0%, transparent 55%),
+    var(--bg);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.rhythm-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+  align-items: stretch;
+}
+.day-orb {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 16px;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.day-orb .day-dot {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 0 4px rgba(184,134,11,0.15);
+}
+.day-orb .day-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.day-orb .day-task {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+}
+.rhythm-note {
+  margin-top: 16px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ============================================================
+   P10 結尾 — 無/單（純粹靜心大標）
+   ============================================================ */
+.s10-end {
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255,248,235,0.6) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(232,201,160,0.3) 0%, transparent 50%),
+    var(--bg);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.end-stamp {
+  width: 120px; height: 120px;
+  margin-bottom: 24px;
+  position: relative;
+}
+.end-stamp svg { width: 100%; height: 100%; }
+.s10-end h2 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+.s10-end .end-poem {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  letter-spacing: 0.1em;
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+.end-actions {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+.end-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+  letter-spacing: 0.1em;
+}
+.end-action svg { width: 16px; height: 16px; }
+.end-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(184,134,11,0.1);
+  border: 1px solid var(--accent);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: all 0.2s;
+}
+.end-back:hover { background: var(--accent); color: #fff; }
+.end-back svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+<div class="presentation">
+
+  <!-- ============================ P1 封面 ============================ -->
+  <section class="slide s1-cover active" id="slide-1">
+    <span class="cover-stamp">WEEKEND · RITUAL · 2026</span>
+    <div class="cover-seal">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- 印章外圓 -->
+        <circle cx="100" cy="100" r="92" fill="none" stroke="#8a6914" stroke-width="3" stroke-dasharray="2 4"/>
+        <circle cx="100" cy="100" r="80" fill="rgba(184,134,11,0.08)" stroke="#b8860b" stroke-width="2"/>
+        <!-- 篆書風格的「儀」字風元素 -->
+        <g stroke="#8a6914" stroke-width="2.5" fill="none" stroke-linecap="round">
+          <line x1="60" y1="65" x2="140" y2="65"/>
+          <line x1="100" y1="65" x2="100" y2="105"/>
+          <circle cx="100" cy="100" r="8" fill="#b8860b"/>
+          <path d="M70 105 L100 130 L130 105" stroke-width="2"/>
+          <path d="M55 135 L145 135"/>
+          <path d="M55 135 L60 145 M145 135 L140 145 M100 135 L100 150"/>
+        </g>
+        <text x="100" y="178" text-anchor="middle" font-family="serif" font-size="20" font-weight="700" fill="#8a6914" letter-spacing="0.3em">週末的儀式</text>
+      </svg>
+    </div>
+    <h1>把平凡，過成值得期待</h1>
+    <div class="cover-subtitle">七個週末的儀式感練習</div>
+    <div class="cover-meta">
+      <span><strong>08</strong> 個生活面向</span>
+      <span><strong>10</strong> 頁建議</span>
+      <span><strong>2026.07.31</strong></span>
+    </div>
+  </section>
+
+  <!-- ============================ P2 目錄 ============================ -->
+  <section class="slide s2-toc" id="slide-2">
+    <div class="toc-head">
+      <span class="page-eyebrow">CONTENTS · 目錄</span>
+      <h2 class="page-title">本週末的八個儀式單元</h2>
+      <div class="title-bar"></div>
+    </div>
+    <div class="toc-grid">
+      <div class="toc-cell">
+        <span class="toc-idx">01</span>
+        <span class="toc-name">早晨儀式</span>
+        <span class="toc-desc">起床一小時的節奏錨點</span>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 2"/></svg>
+      </div>
+      <div class="toc-cell">
+        <span class="toc-idx">02</span>
+        <span class="toc-name">數位排毒</span>
+        <span class="toc-desc">三段離線時光，換回專注</span>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="18" r="0.8" fill="#b8860b"/></svg>
+      </div>
+      <div class="toc-cell">
+        <span class="toc-idx">03</span>
+        <span class="toc-name">五感日常</span>
+        <span class="toc-desc">重新感受身體的五個入口</span>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2.5" fill="#b8860b"/></svg>
+      </div>
+      <div class="toc-cell">
+        <span class="toc-idx">04</span>
+        <span class="toc-name">儀式階梯</span>
+        <span class="toc-desc">五步讓週末過得像週末</span>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M3 18 h6 v-4 h6 v-4 h6 v-4 H3 z"/></svg>
+      </div>
+      <div class="toc-cell">
+        <span class="toc-idx">05</span>
+        <span class="toc-name">心流時刻</span>
+        <span class="toc-desc">四種沉浸活動找回時間感</span>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M12 3 a9 9 0 1 0 9 9 c0-2 -2-3 -4-3 s-3 1 -3 3 a3 3 0 0 0 6 0"/></svg>
+      </div>
+      <div class="toc-cell">
+        <span class="toc-idx">06</span>
+        <span class="toc-name">週末計畫</span>
+        <span class="toc-desc">一日五段式時間配置範本</span>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 2"/></svg>
+      </div>
+      <div class="toc-cell">
+        <span class="toc-idx">07</span>
+        <span class="toc-name">七日節奏</span>
+        <span class="toc-desc">一週七天，每天做一件小事</span>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="12" r="3"/></svg>
+      </div>
+      <div class="toc-cell">
+        <span class="toc-idx">08</span>
+        <span class="toc-name">收心靜心</span>
+        <span class="toc-desc">結尾：三件值得慶祝的小事</span>
+        <svg class="toc-svg" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="2"><path d="M12 3 l2.5 6 6.5 0.5 -5 4.5 1.5 6.5 -5.5 -3.5 -5.5 3.5 1.5 -6.5 -5 -4.5 6.5 -0.5 z"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P3 早晨儀式 ============================ -->
+  <section class="slide s3-morning" id="slide-3">
+    <div>
+      <span class="section-num">01 · 早晨儀式</span>
+      <h2 class="page-title">醒來的第一個小時，決定整天的色溫</h2>
+      <div class="page-sub">MORNING RITUAL · 起床一小時的節奏錨點</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="morning-grid">
+      <div class="morning-left">
+        <div class="quote">「你如何度過一個早晨，就如何度過一生。」</div>
+        <div class="quote-source">— 簡化自達利歐《原則》</div>
+        <div class="morning-stats">
+          <div class="stat-block">
+            <div class="stat-num">21%</div>
+            <div class="stat-label">起床後立即看手機者比例</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">+34%</div>
+            <div class="stat-label">早起儀式感者的專注時數</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">5 min</div>
+            <div class="stat-label">最低啟動門檻</div>
+          </div>
+        </div>
+      </div>
+      <div class="morning-timeline">
+        <div class="mt-item">
+          <span class="mt-time">06:30</span>
+          <div class="mt-body">
+            <div class="mt-title">睜眼深呼吸三次</div>
+            <div class="mt-desc">不下床、不滑手機，讓身體先醒</div>
+          </div>
+        </div>
+        <div class="mt-item">
+          <span class="mt-time">06:40</span>
+          <div class="mt-body">
+            <div class="mt-title">一杯常溫水</div>
+            <div class="mt-desc">補一夜水分流失，啟動腸胃</div>
+          </div>
+        </div>
+        <div class="mt-item">
+          <span class="mt-time">06:50</span>
+          <div class="mt-body">
+            <div class="mt-title">書寫三行晨間筆記</div>
+            <div class="mt-desc">昨日感謝、今日意圖、此刻感受</div>
+          </div>
+        </div>
+        <div class="mt-item">
+          <span class="mt-time">07:00</span>
+          <div class="mt-body">
+            <div class="mt-title">伸展或步行 10 分鐘</div>
+            <div class="mt-desc">陽光下活動，讓節律重新啟動</div>
+          </div>
+        </div>
+        <div class="mt-item">
+          <span class="mt-time">07:20</span>
+          <div class="mt-body">
+            <div class="mt-title">一杯茶，靜靜坐著</div>
+            <div class="mt-desc">這是屬於自己的第一個節奏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P4 數位排毒 ============================ -->
+  <section class="slide s4-digital" id="slide-4">
+    <div>
+      <span class="section-num">02 · 數位排毒</span>
+      <h2 class="page-title">三段離線時光，把注意力還給自己</h2>
+      <div class="page-sub">DIGITAL DETOX · 週末的三個螢幕暫停區</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="digital-circles">
+      <div class="d-circle c1">
+        <div class="dc-mark">
+          <svg class="dc-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12 l2 2 4-4"/></svg>
+        </div>
+        <div class="dc-time">30</div>
+        <div class="dc-unit">MINUTES</div>
+        <div class="dc-name">晨間離線</div>
+        <div class="dc-tip">起床後 30 分鐘不打開手機與電腦</div>
+      </div>
+      <div class="d-circle c2">
+        <div class="dc-mark">
+          <svg class="dc-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M10 18 h4"/></svg>
+        </div>
+        <div class="dc-time">60</div>
+        <div class="dc-unit">MINUTES</div>
+        <div class="dc-name">午間漫步</div>
+        <div class="dc-tip">午餐後關閉螢幕，外出走一圈</div>
+      </div>
+      <div class="d-circle c3">
+        <div class="dc-mark">
+          <svg class="dc-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M21 12 a9 9 0 1 1 -3 -6.7"/><path d="M21 4 v5 h-5"/></svg>
+        </div>
+        <div class="dc-time">90</div>
+        <div class="dc-unit">MINUTES</div>
+        <div class="dc-name">睡前收心</div>
+        <div class="dc-tip">睡前 90 分鐘關掉所有發光螢幕</div>
+      </div>
+    </div>
+    <div class="digital-note">合計 180 分鐘離線時光，週末找回一整個工作天的注意力預算</div>
+  </section>
+
+  <!-- ============================ P5 五感日常 ============================ -->
+  <section class="slide s5-five-senses" id="slide-5">
+    <div>
+      <span class="section-num">03 · 五感日常</span>
+      <h2 class="page-title">重新開機：五種感官的週末練習</h2>
+      <div class="page-sub">FIVE SENSES · 用身體接收週末的訊號</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="senses-grid">
+      <div class="sense-tile">
+        <div class="sense-hex">視</div>
+        <div class="sense-body">
+          <div class="sense-name">觀 · 看見細節</div>
+          <div class="sense-action">走一條沒走過的路，拍三張「為什麼」的畫</div>
+        </div>
+        <svg class="sense-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12 c4-7 16-7 20 0 c-4 7-16 7-20 0 z"/></svg>
+      </div>
+      <div class="sense-tile">
+        <div class="sense-hex">聽</div>
+        <div class="sense-body">
+          <div class="sense-name">聽 · 環境音</div>
+          <div class="sense-action">關掉耳機十分鐘，數出窗外五種聲音</div>
+        </div>
+        <svg class="sense-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M3 10 v4 h4 l5 4 V6 l-5 4 z"/><path d="M16 8 a5 5 0 0 1 0 8"/></svg>
+      </div>
+      <div class="sense-tile">
+        <div class="sense-hex">嗅</div>
+        <div class="sense-body">
+          <div class="sense-name">嗅 · 找一道氣味</div>
+          <div class="sense-action">為自己做一道料理，記下三種香氣</div>
+        </div>
+        <svg class="sense-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M12 3 c4 5 6 8 6 11 a6 6 0 0 1-12 0 c0-3 2-6 6-11 z"/></svg>
+      </div>
+      <div class="sense-tile">
+        <div class="sense-hex">味</div>
+        <div class="sense-body">
+          <div class="sense-name">味 · 慢慢吃</div>
+          <div class="sense-action">每一口咬 15 下，體會溫度與層次</div>
+        </div>
+        <svg class="sense-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M6 4 v8 a6 6 0 0 0 12 0 V4"/><line x1="6" y1="4" x2="18" y2="4"/></svg>
+      </div>
+      <div class="sense-tile">
+        <div class="sense-hex">觸</div>
+        <div class="sense-body">
+          <div class="sense-name">觸 · 赤腳走走</div>
+          <div class="sense-action">草地、沙地、木地板，記下三種腳感</div>
+        </div>
+        <svg class="sense-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M5 21 v-7 a4 4 0 0 1 4-4 h6 a4 4 0 0 1 4 4 v7"/><circle cx="9" cy="11" r="1.5" fill="#8a6914"/></svg>
+      </div>
+      <div class="sense-tile">
+        <div class="sense-hex">心</div>
+        <div class="sense-body">
+          <div class="sense-name">覺 · 第三感官</div>
+          <div class="sense-action">寫下一件讓你心跳停半拍的小事</div>
+        </div>
+        <svg class="sense-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M12 21 s-7-5 -7-11 a4 4 0 0 1 7-2 a4 4 0 0 1 7 2 c0 6-7 11-7 11 z"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P6 儀式階梯 ============================ -->
+  <section class="slide s6-ritual" id="slide-6">
+    <div>
+      <span class="section-num">04 · 儀式階梯</span>
+      <h2 class="page-title">五步，讓週末過得像週末</h2>
+      <div class="page-sub">RITUAL STAIRCASE · 從「待著」到「過著」</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="staircase">
+      <div class="stair s1">
+        <span class="st-num">01</span>
+        <span class="st-name">宣告開場</span>
+        <span class="st-desc">對自己說一句「這個週末是為了我」</span>
+        <svg class="st-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M12 3 l2 6 6 0 -5 4 2 6 -5-4 -5 4 2-6 -5-4 6 0 z"/></svg>
+      </div>
+      <div class="stair s2">
+        <span class="st-num">02</span>
+        <span class="st-name">換一件衣服</span>
+        <span class="st-desc">不是睡衣——為週末挑一個角色扮演</span>
+        <svg class="st-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M6 4 l6 4 6-4 -2 16 h-8 z"/></svg>
+      </div>
+      <div class="stair s3">
+        <span class="st-num">03</span>
+        <span class="st-name">走進自然</span>
+        <span class="st-desc">至少 30 分鐘戶外，重新校準節律</span>
+        <svg class="st-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M3 21 L12 4 L21 21 z"/><path d="M3 21 H21"/></svg>
+      </div>
+      <div class="stair s4">
+        <span class="st-num">04</span>
+        <span class="st-name">做一件慢事</span>
+        <span class="st-desc">手沖咖啡、烘焙、繪畫——只求過程</span>
+        <svg class="st-svg" viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M5 9 h11 v6 a4 4 0 0 1-4 4 h-3 a4 4 0 0 1-4-4 z"/><path d="M16 11 h2 a2 2 0 0 1 0 4 h-2"/></svg>
+      </div>
+      <div class="stair s5">
+        <span class="st-num">05</span>
+        <span class="st-name">睡前感恩</span>
+        <span class="st-desc">寫下三件值得慶祝的小事，明天會更期待</span>
+        <svg class="st-svg" viewBox="0 0 24 24" fill="none" stroke="#fff8ec" stroke-width="2"><path d="M5 4 h11 l3 3 v13 H5 z"/><path d="M9 9 h6 M9 13 h6 M9 17 h4"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P7 心流時刻 ============================ -->
+  <section class="slide s7-flow" id="slide-7">
+    <div>
+      <span class="section-num">05 · 心流時刻</span>
+      <h2 class="page-title">四種沉浸活動，找回時間的厚度</h2>
+      <div class="page-sub">FLOW MOMENTS · 當下即是最值得的所在</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="flow-grid">
+      <div class="flow-card">
+        <div class="flow-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 19 v-7 a3 3 0 0 1 3-3 h10 a3 3 0 0 1 3 3 v7"/><path d="M9 9 h6 M9 13 h4"/></svg>
+        </div>
+        <div class="flow-body">
+          <div class="flow-name">閱讀 90 分鐘</div>
+          <div class="flow-duration">⏱ 一次 90 分鐘，不被打斷</div>
+          <div class="flow-desc">紙本、小說、散文皆可。書桌只有書、茶、筆，沒有手機。</div>
+        </div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 3 c5 6 7 9 7 12 a7 7 0 0 1-14 0 c0-3 2-6 7-12 z"/></svg>
+        </div>
+        <div class="flow-body">
+          <div class="flow-name">手作料理</div>
+          <div class="flow-duration">⏱ 一次 2 小時，一道主菜 + 一道甜點</div>
+          <div class="flow-desc">從備料到擺盤，每一步都專注。完成後坐下來慢慢吃，謝謝自己。</div>
+        </div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 21 L12 4 L21 21 z"/><path d="M8 21 L12 13 L16 21"/></svg>
+        </div>
+        <div class="flow-body">
+          <div class="flow-name">自然步行</div>
+          <div class="flow-duration">⏱ 一次 60 分鐘，一段熟悉路線</div>
+          <div class="flow-desc">不戴耳機，看見樹、雲、光線，聽見風、鳥、自己的呼吸。</div>
+        </div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 3 v18 M3 12 h18"/><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <div class="flow-body">
+          <div class="flow-name">手繪塗鴉</div>
+          <div class="flow-duration">⏱ 一次 45 分鐘，畫完撕掉也沒關係</div>
+          <div class="flow-desc">不為作品，只為進入心流。畫筆觸紙的沙沙聲，是週末的呼吸。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P8 週末計畫 ============================ -->
+  <section class="slide s8-weekend" id="slide-8">
+    <div>
+      <span class="section-num">06 · 週末計畫</span>
+      <h2 class="page-title">一日五段式：把週末拆成值得期待的小島</h2>
+      <div class="page-sub">WEEKEND ITINERARY · 一天裡的五個小島嶼</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="weekend-timeline">
+      <div class="w-item">
+        <div class="w-spacer"></div>
+        <span class="w-time">08:00</span>
+        <div class="w-card">
+          <div class="w-dot"></div>
+          <div class="w-body">
+            <div class="w-name">島嶼一 · 慢島</div>
+            <div class="w-desc">晨間儀式 + 早餐 + 一本書的第一章</div>
+          </div>
+        </div>
+      </div>
+      <div class="w-item">
+        <div class="w-card">
+          <div class="w-dot"></div>
+          <div class="w-body">
+            <div class="w-name">島嶼二 · 動島</div>
+            <div class="w-desc">戶外活動、散步、家事、整理一個抽屜</div>
+          </div>
+        </div>
+        <span class="w-time">10:30</span>
+        <div class="w-spacer"></div>
+      </div>
+      <div class="w-item">
+        <div class="w-spacer"></div>
+        <span class="w-time">13:00</span>
+        <div class="w-card">
+          <div class="w-dot"></div>
+          <div class="w-body">
+            <div class="w-name">島嶼三 · 味島</div>
+            <div class="w-desc">慢慢做一道主菜 + 午間離線 60 分鐘</div>
+          </div>
+        </div>
+      </div>
+      <div class="w-item">
+        <div class="w-card">
+          <div class="w-dot"></div>
+          <div class="w-body">
+            <div class="w-name">島嶼四 · 心島</div>
+            <div class="w-desc">心流活動 90 分鐘：閱讀、手作、繪畫任選</div>
+          </div>
+        </div>
+        <span class="w-time">15:30</span>
+        <div class="w-spacer"></div>
+      </div>
+      <div class="w-item">
+        <div class="w-spacer"></div>
+        <span class="w-time">19:00</span>
+        <div class="w-card">
+          <div class="w-dot"></div>
+          <div class="w-body">
+            <div class="w-name">島嶼五 · 靜島</div>
+            <div class="w-desc">關螢幕、寫感恩日記、明天的晨間準備</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P9 七日節奏 ============================ -->
+  <section class="slide s9-rhythm" id="slide-9">
+    <div>
+      <span class="section-num">07 · 七日節奏</span>
+      <h2 class="page-title">一週七個微儀式：每天只多做一件小事</h2>
+      <div class="page-sub">WEEKLY RHYTHM · 把週末延伸到每一個工作日</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="rhythm-grid">
+      <div class="day-orb">
+        <div class="day-dot">MON</div>
+        <div class="day-name">一 · 整理</div>
+        <div class="day-task">把玄關與書桌清空 5 分鐘</div>
+      </div>
+      <div class="day-orb">
+        <div class="day-dot">TUE</div>
+        <div class="day-name">二 · 補水</div>
+        <div class="day-task">每日 1500ml，記錄在瓶身</div>
+      </div>
+      <div class="day-orb">
+        <div class="day-dot">WED</div>
+        <div class="day-name">三 · 走路</div>
+        <div class="day-task">午休 15 分鐘微散步</div>
+      </div>
+      <div class="day-orb">
+        <div class="day-dot">THU</div>
+        <div class="day-name">四 · 閱讀</div>
+        <div class="day-task">睡前 20 頁紙本書</div>
+      </div>
+      <div class="day-orb">
+        <div class="day-dot">FRI</div>
+        <div class="day-name">五 · 斷網</div>
+        <div class="day-task">晚間 9-10 點完全不開</div>
+      </div>
+      <div class="day-orb">
+        <div class="day-dot">SAT</div>
+        <div class="day-name">六 · 連結</div>
+        <div class="day-task">約一位朋友出門走走</div>
+      </div>
+      <div class="day-orb">
+        <div class="day-dot">SUN</div>
+        <div class="day-name">日 · 復盤</div>
+        <div class="day-task">寫下三件感恩 + 一件調整</div>
+      </div>
+    </div>
+    <div class="rhythm-note">每天進步 1%，52 週後的你會感謝現在這個小小的自己</div>
+  </section>
+
+  <!-- ============================ P10 結尾 ============================ -->
+  <section class="slide s10-end" id="slide-10">
+    <div class="end-stamp">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="56" fill="none" stroke="#8a6914" stroke-width="2" stroke-dasharray="2 4"/>
+        <circle cx="60" cy="60" r="46" fill="rgba(184,134,11,0.08)" stroke="#b8860b" stroke-width="1.5"/>
+        <polygon points="60,30 67,50 88,50 71,62 78,82 60,70 42,82 49,62 32,50 53,50" fill="none" stroke="#8a6914" stroke-width="2"/>
+        <circle cx="60" cy="60" r="4" fill="#b8860b"/>
+      </svg>
+    </div>
+    <h2>週末，是給自己的禮物</h2>
+    <div class="end-poem">
+      早晨一杯水、午後一場雨、<br/>
+      傍晚一道菜、睡前一段感謝——<br/>
+      把這些微小的事，串成一個值得期待的日子，<br/>
+      平凡就會自己發光。
+    </div>
+    <div class="end-actions">
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><path d="M4 12 l4 4 L20 6"/></svg>
+        今晚先做一件
+      </span>
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 2"/></svg>
+        七天養成習慣
+      </span>
+    </div>
+    <a href="/slides.htm" class="end-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#8a6914" stroke-width="1.8"><path d="M15 18 l-6-6 6-6"/></svg>
+      返回簡報列表
+    </a>
+  </section>
+
+</div>
+
+<!-- 導航 -->
+<div class="nav">
+  <button onclick="prev()">上一頁</button>
+  <span class="page-indicator" id="pageInd">1 / 10</span>
+  <button onclick="next()">下一頁</button>
+</div>
+
+<script>
+  // 防禦性 show()：確認 slides[current] 存在再操作
+  var slides = document.querySelectorAll('.slide');
+  var current = 0;
+  var pageInd = document.getElementById('pageInd');
+  var total = slides.length;
+
+  function showIdx(i) {
+    if (!slides[i]) return;
+    if (slides[current]) slides[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('active');
+    if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function next() { showIdx((current + 1) % total); }
+  function prev() { showIdx((current - 1 + total) % total); }
+
+  // 初始化第一頁
+  (function init() {
+    if (slides.length > 0) {
+      var first = slides[0];
+      if (!first.classList.contains('active')) {
+        for (var i = 1; i < slides.length; i++) slides[i].classList.remove('active');
+        first.classList.add('active');
+      }
+      current = 0;
+      if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+    }
+  })();
+
+  // 鍵盤左右鍵換頁
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+
+</body>
+</html>
