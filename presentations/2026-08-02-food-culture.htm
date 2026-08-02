@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台灣味覺地圖：地方、技藝與餐桌｜2026-08-02</title>
+<style>
+/* ============================================================
+   配色：C2 暖白紙藝（Warm White Paper Art）
+   模板：V4（紙藝＋柔邊圓角＋極簡留白）
+   主題：Sunday 美食文化
+   CSS 載入順序：colors/colors-C2.css → structures/V4-structure.css
+   （本專案實際無此獨立檔案，採 inline CSS 等價實現，記錄原因）
+   ============================================================ */
+:root {
+  --primary:      #B8860B;        /* 暖紙金 */
+  --primary-dark: #8B6508;
+  --primary-soft: #D9B656;
+  --primary-glow: rgba(184,134,11,0.20);
+  --accent:       #6B4423;        /* 茶褐 */
+  --accent-dark:  #4A2F18;
+  --accent-soft:  #C9A982;
+  --bg:           #F7F3EB;        /* 暖白紙 */
+  --bg-secondary: #EEE8DC;        /* 紙藝副色 */
+  --bg-card:      #FFFCF5;        /* 紙卡 */
+  --text:         #2C2C2C;
+  --text-light:   #6B6B6B;
+  --text-muted:   #9C8F80;
+  --warm-gray:    #D7CFC0;
+  --gold:         #C49A3A;
+  --teal:         #4D7C7E;
+  --olive:        #6B7A3E;
+  --ink:          #3A3027;
+  --shadow-soft:  0 6px 24px rgba(184,134,11,0.10);
+  --shadow-mid:   0 12px 36px rgba(74,47,24,0.18);
+  --shadow-paper: 0 2px 0 rgba(255,255,255,0.6) inset, 0 8px 24px rgba(74,47,24,0.08);
+  --border-warm:  2px solid var(--warm-gray);
+  --nav-bg:       rgba(247,243,235,0.96);
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 40px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { font-size: 20px; scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Serif TC', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: hidden;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 15% 12%, rgba(184,134,11,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 90%, rgba(107,68,35,0.06) 0%, transparent 60%);
+}
+
+.presentation {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: var(--shadow-mid);
+  background: var(--bg);
+}
+
+/* === V4 模板：紙藝質感（紙張陰影＋壓凸邊框＋輕柔紋理） === */
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  padding: 44px 56px 80px;
+  color: var(--text);
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse 80% 100% at 50% 0%, rgba(255,255,255,0.45) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%);
+}
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(184,134,11,0.18);
+  border-radius: 10px;
+  pointer-events: none;
+}
+.slide.active { display: flex; }
+.slide.active * { font-size: 1rem; }
+.slide.active h1 { font-size: 2.8rem; line-height: 1.15; }
+.slide.active h2 { font-size: 2rem; line-height: 1.2; }
+.slide.active h3 { font-size: 1.4rem; line-height: 1.3; }
+.slide.active .bignum { font-size: 4.4rem; line-height: 1; }
+.slide.active .small-num { font-size: 1.1rem; line-height: 1.1; }
+
+/* ========== 通用導航列 ========== */
+.nav {
+  position: absolute;
+  top: 24px; right: 32px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  z-index: 50;
+  background: var(--nav-bg);
+  border: 1.5px solid var(--primary);
+  border-radius: 28px;
+  padding: 6px 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-soft);
+}
+.nav button {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+.nav button:hover { background: var(--primary-dark); transform: scale(1.08); }
+.nav span { min-width: 56px; text-align: center; }
+.nav a {
+  font-size: 1rem;
+  color: var(--primary);
+  text-decoration: none;
+  margin-left: 8px;
+  border-left: 1.5px solid var(--warm-gray);
+  padding-left: 12px;
+}
+.nav a:hover { color: var(--primary-dark); }
+
+/* ========== 頁眉 Eyebrow ========== */
+.page-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.page-eyebrow::before {
+  content: '';
+  width: 40px;
+  height: 2px;
+  background: var(--primary);
+}
+.page-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.page-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  margin-bottom: 22px;
+  max-width: 720px;
+}
+
+/* ============================================================
+   P1 封面：特/單（靶心＋放射狀章節索引）
+   ============================================================ */
+.s1-cover {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 38%, rgba(184,134,11,0.18) 0%, transparent 60%),
+    linear-gradient(135deg, #F7F3EB 0%, #EEE8DC 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.s1-cover .target-bg {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 720px; height: 720px;
+  pointer-events: none;
+}
+.s1-cover .target-bg .ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(184,134,11,0.18);
+  border-radius: 50%;
+}
+.s1-cover .target-bg .r1 { width: 220px; height: 220px; border-width: 2px; }
+.s1-cover .target-bg .r2 { width: 360px; height: 360px; }
+.s1-cover .target-bg .r3 { width: 520px; height: 520px; }
+.s1-cover .target-bg .r4 { width: 700px; height: 700px; border-style: dashed; opacity: 0.6; }
+
+.s1-cover .dish-svg {
+  position: relative;
+  z-index: 3;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 6px 18px rgba(107,68,35,0.18));
+}
+
+.s1-cover .hero-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.s1-cover .eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.42em;
+  color: var(--primary-dark);
+  margin-bottom: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.s1-cover h1 {
+  font-size: 4.2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.s1-cover .subtitle {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+  font-style: italic;
+}
+.s1-cover .chapter-strip {
+  display: flex;
+  gap: 14px;
+  padding: 14px 22px;
+  border: 1.5px solid var(--warm-gray);
+  border-radius: 32px;
+  background: rgba(255,252,245,0.6);
+  backdrop-filter: blur(8px);
+}
+.s1-cover .chapter-strip span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-right: 1px dashed var(--warm-gray);
+}
+.s1-cover .chapter-strip span:last-child { border-right: none; }
+.s1-cover .meta-row {
+  display: flex;
+  gap: 28px;
+  margin-top: 26px;
+  font-size: 1rem;
+  color: var(--text-light);
+  letter-spacing: 0.10em;
+}
+.s1-cover .meta-row strong {
+  font-weight: 700;
+  margin-right: 6px;
+  color: var(--primary-dark);
+}
+
+/* ============================================================
+   P2 目錄：方/網（2x3 編號網格＋導引線）
+   ============================================================ */
+.s2-toc { background: var(--bg); }
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 14px;
+  flex: 1;
+  position: relative;
+}
+.toc-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--warm-gray);
+  border-radius: 18px;
+  padding: 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease;
+  box-shadow: var(--shadow-paper);
+}
+.toc-card:hover { transform: translateY(-3px); }
+.toc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 6px; height: 100%;
+  background: var(--primary);
+}
+.toc-card .num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.toc-card .num::after {
+  content: '';
+  display: inline-block;
+  width: 28px; height: 3px;
+  background: var(--primary-soft);
+  margin-left: 8px;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+.toc-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+.toc-card p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  flex: 1;
+}
+.toc-card .toc-icon {
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 32px; height: 32px;
+  opacity: 0.6;
+}
+.toc-card .guide-line {
+  position: absolute;
+  bottom: 12px;
+  right: 18px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   P3 早餐：圓/散（三個早餐場景光暈圓環）
+   ============================================================ */
+.s3-breakfast {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(184,134,11,0.10) 0%, transparent 70%),
+    var(--bg);
+}
+.bf-scene-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 18px;
+  flex: 1;
+}
+.bf-scene {
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 24px 22px;
+  border: 1.5px solid var(--warm-gray);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-paper);
+}
+.bf-scene::after {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.bf-scene .halo {
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  box-shadow: 0 0 0 8px rgba(184,134,11,0.10), 0 8px 24px rgba(107,68,35,0.18);
+  position: relative;
+  z-index: 2;
+}
+.bf-scene .halo svg { width: 52px; height: 52px; }
+.bf-scene .time {
+  font-size: 1rem;
+  color: var(--primary-dark);
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.bf-scene h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.bf-scene p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  flex: 1;
+}
+.bf-scene .flavor-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.bf-scene .flavor-row span {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  color: var(--primary-dark);
+  border: 1px solid var(--warm-gray);
+}
+
+/* ============================================================
+   P4 午餐：線/水（流程線＋四時間節點）
+   ============================================================ */
+.s4-lunch {
+  background: var(--bg);
+}
+.flow-line {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 0 10px;
+  position: relative;
+  flex: 1;
+}
+.flow-line::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  left: 60px;
+  right: 60px;
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--primary) 0%, var(--primary-soft) 50%, var(--primary) 100%);
+  border-radius: 2px;
+  z-index: 1;
+}
+.flow-step {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 150px;
+}
+.flow-step .dot {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  font-size: 2rem;
+  font-weight: 900;
+  box-shadow: 0 8px 24px rgba(184,134,11,0.30);
+  margin-bottom: 16px;
+  position: relative;
+}
+.flow-step .dot::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px dashed rgba(184,134,11,0.45);
+}
+.flow-step .clock {
+  font-size: 1rem;
+  color: var(--primary-dark);
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.flow-step h4 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+  text-align: center;
+  line-height: 1.25;
+}
+.flow-step p {
+  font-size: 1rem;
+  color: var(--text-light);
+  text-align: center;
+  line-height: 1.5;
+}
+.flow-step .loc {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  color: var(--accent-dark);
+  border: 1px solid var(--warm-gray);
+}
+
+/* ============================================================
+   P5 食材：六/垂（三層六邊形供應鏈）
+   ============================================================ */
+.s5-ingredient {
+  background: var(--bg);
+}
+.supply-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 16px;
+  flex: 1;
+  position: relative;
+}
+.supply-tier {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--warm-gray);
+  border-radius: 18px;
+  padding: 18px 22px;
+  position: relative;
+  box-shadow: var(--shadow-paper);
+}
+.supply-tier.t1 { background: linear-gradient(90deg, rgba(184,134,11,0.10) 0%, rgba(255,252,245,0.5) 100%); }
+.supply-tier.t2 { background: linear-gradient(90deg, rgba(107,68,35,0.08) 0%, rgba(255,252,245,0.5) 100%); }
+.supply-tier.t3 { background: linear-gradient(90deg, rgba(107,122,62,0.10) 0%, rgba(255,252,245,0.5) 100%); }
+.supply-tier .hex-svg {
+  width: 96px; height: 88px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.supply-tier .tier-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+.supply-tier h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.supply-tier p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+.supply-tier .tier-stat {
+  text-align: right;
+}
+.supply-tier .tier-stat .num {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.supply-tier .tier-stat .lbl {
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-top: 2px;
+  letter-spacing: 0.08em;
+}
+.supply-tier .tier-label {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid var(--warm-gray);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  letter-spacing: 0.10em;
+  margin-bottom: 6px;
+}
+
+/* ============================================================
+   P6 技法：方/網（2x2 技法比較卡）
+   ============================================================ */
+.s6-technique { background: var(--bg); }
+.tech-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 18px;
+  margin-top: 14px;
+  flex: 1;
+}
+.tech-card {
+  background: var(--bg-card);
+  border-radius: 18px;
+  padding: 22px 24px;
+  border: 1.5px solid var(--warm-gray);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--shadow-paper);
+}
+.tech-card.t1 { border-top: 5px solid var(--primary); }
+.tech-card.t2 { border-top: 5px solid var(--accent); }
+.tech-card.t3 { border-top: 5px solid var(--teal); }
+.tech-card.t4 { border-top: 5px solid var(--olive); }
+.tech-card .tech-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 4px;
+}
+.tech-card .tech-icon {
+  width: 56px; height: 56px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border: 1.5px solid var(--warm-gray);
+}
+.tech-card.t1 .tech-icon { background: rgba(184,134,11,0.12); }
+.tech-card.t2 .tech-icon { background: rgba(107,68,35,0.12); }
+.tech-card.t3 .tech-icon { background: rgba(77,124,126,0.12); }
+.tech-card.t4 .tech-icon { background: rgba(107,122,62,0.12); }
+.tech-card .tech-icon svg { width: 30px; height: 30px; }
+.tech-card h3 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+}
+.tech-card .tech-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  background: var(--bg-secondary);
+  color: var(--primary-dark);
+  border: 1px solid var(--warm-gray);
+  align-self: flex-start;
+}
+.tech-card p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  flex: 1;
+}
+.tech-card .tech-meter {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--warm-gray);
+}
+.tech-card .tech-meter .cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tech-card .tech-meter .lbl {
+  font-size: 1rem;
+  color: var(--text-light);
+  letter-spacing: 0.08em;
+}
+.tech-card .tech-meter .val {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+/* ============================================================
+   P7 文化：圓/水（三個記憶同心圓環）
+   ============================================================ */
+.s7-culture {
+  background: var(--bg);
+}
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 18px;
+  flex: 1;
+}
+.memory-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--warm-gray);
+  border-radius: 22px;
+  padding: 22px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-paper);
+}
+.memory-rings {
+  width: 150px; height: 150px;
+  position: relative;
+  margin-bottom: 14px;
+}
+.memory-rings .ring {
+  position: absolute;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--primary);
+  opacity: 0.6;
+}
+.memory-rings .r1 { width: 56px; height: 56px; background: var(--primary); border-color: var(--primary); }
+.memory-rings .r2 { width: 100px; height: 100px; border-color: var(--primary-soft); }
+.memory-rings .r3 { width: 148px; height: 148px; border-color: rgba(184,134,11,0.30); }
+.memory-rings .core-svg {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px; height: 32px;
+  z-index: 2;
+}
+.memory-card .tag {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.memory-card h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+.memory-card p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  flex: 1;
+}
+.memory-card .quote {
+  font-size: 1rem;
+  color: var(--accent);
+  font-style: italic;
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   P8 夜市：特/散（攤位動線＋人流資料散點）
+   ============================================================ */
+.s8-night {
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 50%, rgba(184,134,11,0.12) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%);
+}
+.nm-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 24px;
+  margin-top: 18px;
+  flex: 1;
+}
+.nm-map {
+  background: var(--bg-card);
+  border: 1.5px solid var(--warm-gray);
+  border-radius: 18px;
+  padding: 18px;
+  position: relative;
+  box-shadow: var(--shadow-paper);
+}
+.nm-map h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: 0.06em;
+}
+.nm-stall {
+  position: absolute;
+  width: 92px;
+  background: var(--bg);
+  border: 1.5px solid var(--warm-gray);
+  border-radius: 12px;
+  padding: 8px 6px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  box-shadow: var(--shadow-paper);
+}
+.nm-stall .price {
+  font-size: 1rem;
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+.nm-stall .stall-num {
+  position: absolute;
+  top: -8px; left: -8px;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--bg);
+  font-size: 1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nm-stall.hot {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: var(--bg);
+}
+.nm-stall.hot .price { color: rgba(255,252,245,0.85); }
+.nm-arrow {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.nm-data {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.nm-stat-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--warm-gray);
+  border-left: 5px solid var(--primary);
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: var(--shadow-paper);
+}
+.nm-stat-card.alt { border-left-color: var(--accent); }
+.nm-stat-card.alt2 { border-left-color: var(--teal); }
+.nm-stat-card .nm-stat-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.nm-stat-card .nm-bignum {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.nm-stat-card.alt .nm-bignum { color: var(--accent); }
+.nm-stat-card.alt2 .nm-bignum { color: var(--teal); }
+.nm-stat-card .nm-stat-lbl {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.nm-stat-card p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   P9 永續：線/垂（三步行動時間軸＋指標）
+   ============================================================ */
+.s9-sustain {
+  background: var(--bg);
+}
+.sustain-timeline {
+  position: relative;
+  margin-top: 18px;
+  padding: 0 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sustain-timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: repeating-linear-gradient(180deg,
+    var(--primary) 0, var(--primary) 10px,
+    transparent 10px, transparent 18px);
+}
+.sustain-step {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 18px;
+  align-items: center;
+  position: relative;
+}
+.sustain-step .step-time {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: right;
+}
+.sustain-step .step-side-l, .sustain-step .step-side-r {
+  background: var(--bg-card);
+  border: 1.5px solid var(--warm-gray);
+  border-radius: 14px;
+  padding: 16px 20px;
+  position: relative;
+  box-shadow: var(--shadow-paper);
+}
+.sustain-step .step-side-l::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid var(--warm-gray);
+  border-right: 2px solid var(--warm-gray);
+  transform: translateY(-50%) rotate(45deg);
+}
+.sustain-step .step-side-r::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid var(--warm-gray);
+  border-left: 2px solid var(--warm-gray);
+  transform: translateY(-50%) rotate(-45deg);
+}
+.sustain-step .step-side-r { grid-column: 3; }
+.sustain-step .step-side-l { grid-column: 1; }
+.sustain-step:nth-child(1) .step-side-l, .sustain-step:nth-child(3) .step-side-l { grid-column: 1; }
+.sustain-step:nth-child(2) .step-side-r { grid-column: 1; }
+.sustain-step:nth-child(2) .step-side-l { grid-column: 3; }
+
+.sustain-step .step-dot {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 4px solid var(--bg);
+  box-shadow: 0 0 0 3px var(--primary);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  font-weight: 800;
+  font-size: 1rem;
+  position: relative;
+  z-index: 2;
+}
+.sustain-step h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+.sustain-step p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.sustain-step .metric {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.sustain-step .metric span {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  background: rgba(184,134,11,0.10);
+  padding: 3px 9px;
+  border-radius: 10px;
+}
+
+/* ============================================================
+   P10 結尾：無/單（三項承諾＋回列表）
+   ============================================================ */
+.s10-end {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(184,134,11,0.15) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.42em;
+  color: var(--primary-dark);
+  margin-bottom: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.s10-end h1 {
+  font-size: 3.6rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 14px;
+  line-height: 1.15;
+}
+.s10-end .end-sub {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  max-width: 620px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+  font-style: italic;
+}
+.promise-row {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.promise {
+  background: var(--bg-card);
+  border: 1.5px solid var(--warm-gray);
+  border-radius: 16px;
+  padding: 22px 28px;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  box-shadow: var(--shadow-paper);
+  position: relative;
+  overflow: hidden;
+}
+.promise::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 4px;
+  background: var(--primary);
+}
+.promise .promise-num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.promise h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.25;
+}
+.promise p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+.back-row {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--primary);
+  color: var(--bg);
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(184,134,11,0.30);
+  transition: transform 0.15s ease;
+}
+.back-btn:hover { transform: translateY(-2px); background: var(--primary-dark); }
+.back-btn svg { width: 18px; height: 18px; }
+.signature {
+  margin-top: 18px;
+  font-size: 1rem;
+  color: var(--text-light);
+  letter-spacing: 0.18em;
+}
+.signature strong { color: var(--primary-dark); font-weight: 800; }
+
+.sub-note { font-size: 1rem; font-weight: 400; }
+
+</style>
+</head>
+<body>
+
+<div class="presentation" id="presentation">
+
+<!-- ================ P1 封面 ================ -->
+<section class="slide s1-cover active" id="slide-1">
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">‹</button>
+    <span id="nav-label">1 / 10</span>
+    <button onclick="next()" aria-label="下一頁">›</button>
+    <a href="/slides.htm">回列表</a>
+  </div>
+  <div class="target-bg" aria-hidden="true">
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+    <div class="ring r4"></div>
+  </div>
+  <div class="hero-content">
+    <svg class="dish-svg" width="120" height="120" viewBox="0 0 120 120" fill="none" aria-label="餐碗">
+      <circle cx="60" cy="68" r="48" fill="#FFFCF5" stroke="#B8860B" stroke-width="3"/>
+      <ellipse cx="60" cy="58" rx="42" ry="10" fill="#EEE8DC" stroke="#B8860B" stroke-width="2"/>
+      <path d="M 30 72 Q 60 88 90 72" stroke="#B8860B" stroke-width="1.5" fill="none" opacity="0.5"/>
+      <path d="M 25 78 Q 60 96 95 78" stroke="#B8860B" stroke-width="1.2" fill="none" opacity="0.35"/>
+      <circle cx="44" cy="55" r="5" fill="#C49A3A"/>
+      <circle cx="60" cy="50" r="6" fill="#6B4423"/>
+      <circle cx="78" cy="55" r="5" fill="#6B7A3E"/>
+      <path d="M 50 50 Q 60 38 72 50" stroke="#B8860B" stroke-width="1.5" fill="none"/>
+      <line x1="20" y1="80" x2="100" y2="80" stroke="#B8860B" stroke-width="1.5" opacity="0.4"/>
+    </svg>
+    <div class="eyebrow">TAIWAN · TASTE · MAP</div>
+    <h1>台灣味覺地圖</h1>
+    <p class="subtitle">從清晨市場到深夜夜市，餐桌是一場穿越地方的旅行</p>
+    <div class="chapter-strip">
+      <span>壹 早餐</span>
+      <span>貳 午餐</span>
+      <span>參 食材</span>
+      <span>肆 技法</span>
+      <span>伍 文化</span>
+      <span>陸 夜市</span>
+    </div>
+    <div class="meta-row">
+      <span><strong>2026</strong> 08 / 02</span>
+      <span><strong>週日</strong> 美食文化</span>
+      <span><strong>10</strong> 個章節</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================ P2 目錄 ================ -->
+<section class="slide s2-toc" id="slide-2">
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">‹</button>
+    <span>2 / 10</span>
+    <button onclick="next()" aria-label="下一頁">›</button>
+    <a href="/slides.htm">回列表</a>
+  </div>
+  <span class="page-eyebrow">一日餐桌路線 · DAILY TABLE ROUTE</span>
+  <h2 class="page-title">目錄：六個場景，六種地方</h2>
+  <p class="page-subtitle">從清晨攤車到深夜燈海，把一日三餐寫成一張可被翻閱的地方索引。</p>
+  <div class="toc-grid">
+    <div class="toc-card">
+      <svg class="toc-icon" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.8"><path d="M12 2v6m0 0a4 4 0 100 8 4 4 0 000-8zm-7 14c0-3.866 3.134-7 7-7s7 3.134 7 7"/></svg>
+      <div class="num">01</div>
+      <h3>清晨市場</h3>
+      <p>豆漿燒餅、菜粿與蒸氣構成的一天序章。</p>
+      <span class="guide-line">→ P3</span>
+    </div>
+    <div class="toc-card">
+      <svg class="toc-icon" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.8"><path d="M3 7l9-4 9 4-9 4-9-4zm0 5l9 4 9-4M3 17l9 4 9-4"/></svg>
+      <div class="num">02</div>
+      <h3>街角小吃</h3>
+      <p>午間節奏、爐火與排隊動線的城市切片。</p>
+      <span class="guide-line">→ P4</span>
+    </div>
+    <div class="toc-card">
+      <svg class="toc-icon" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.8"><path d="M12 2L4 7v10l8 5 8-5V7l-8-5z"/><path d="M12 22V12M4 7l8 5 8-5"/></svg>
+      <div class="num">03</div>
+      <h3>產地供應鏈</h3>
+      <p>從魚塭、稻田到餐桌的三層產地關係。</p>
+      <span class="guide-line">→ P5</span>
+    </div>
+    <div class="toc-card">
+      <svg class="toc-icon" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+      <div class="num">04</div>
+      <h3>蒸煮煎炸</h3>
+      <p>四種基本技法，溫度與時間的風味科學。</p>
+      <span class="guide-line">→ P6</span>
+    </div>
+    <div class="toc-card">
+      <svg class="toc-icon" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.8"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 7v5l3 2"/></svg>
+      <div class="num">05</div>
+      <h3>味道的記憶</h3>
+      <p>人物、場所、聲音交織的地方感。</p>
+      <span class="guide-line">→ P7</span>
+    </div>
+    <div class="toc-card">
+      <svg class="toc-icon" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.8"><path d="M4 21v-2a4 4 0 014-4h8a4 4 0 014 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <div class="num">06</div>
+      <h3>夜市的呼吸</h3>
+      <p>高密度味覺社交與攤位動線觀察。</p>
+      <span class="guide-line">→ P8</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================ P3 早餐：圓/散 ================ -->
+<section class="slide s3-breakfast" id="slide-3">
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">‹</button>
+    <span>3 / 10</span>
+    <button onclick="next()" aria-label="下一頁">›</button>
+    <a href="/slides.htm">回列表</a>
+  </div>
+  <span class="page-eyebrow">BREAKFAST · 清晨市場的第一口</span>
+  <h2 class="page-title">三個場景，蒸氣、油煙與光線</h2>
+  <p class="page-subtitle">清晨四點到八點，是這座島嶼一天裡最安靜、最有秩序的時段。</p>
+  <div class="bf-scene-grid">
+    <div class="bf-scene">
+      <div class="halo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.5" fill="#FFFCF5"/></svg>
+      </div>
+      <div class="time">04 : 30</div>
+      <h3>豆漿店</h3>
+      <p>石磨聲、蒸籠白煙、油條落鍋的聲響，三件事構成一天的底色。</p>
+      <div class="flavor-row">
+        <span>鹹豆漿</span>
+        <span>燒餅油條</span>
+        <span>蛋餅</span>
+      </div>
+    </div>
+    <div class="bf-scene">
+      <div class="halo" style="background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M8 14h2M14 14h2"/></svg>
+      </div>
+      <div class="time">06 : 00</div>
+      <h3>傳統市場</h3>
+      <p>菜籃族、叫賣聲、剛切下的果肉香，市場的早晨是一座開放式廚房。</p>
+      <div class="flavor-row">
+        <span>菜粿</span>
+        <span>碗粿</span>
+        <span>豬血湯</span>
+      </div>
+    </div>
+    <div class="bf-scene">
+      <div class="halo" style="background: linear-gradient(135deg, var(--olive) 0%, var(--accent) 100%);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="2"><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg>
+      </div>
+      <div class="time">07 : 30</div>
+      <h3>街邊早餐車</h3>
+      <p>三輪車、紅塑膠凳、塑膠袋裝的漢堡，是台灣特有的城市早餐風景。</p>
+      <div class="flavor-row">
+        <span>蛋餅</span>
+        <span>飯糰</span>
+        <span>米漿</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ P4 午餐：線/水 ================ -->
+<section class="slide s4-lunch" id="slide-4">
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">‹</button>
+    <span>4 / 10</span>
+    <button onclick="next()" aria-label="下一頁">›</button>
+    <a href="/slides.htm">回列表</a>
+  </div>
+  <span class="page-eyebrow">LUNCH · 街角小吃的城市節奏</span>
+  <h2 class="page-title">四個時段，一條城市味覺的時間線</h2>
+  <p class="page-subtitle">正午的小吃店節奏，是城市的第二顆心臟。</p>
+  <div class="flow-line">
+    <div class="flow-step">
+      <div class="dot">11</div>
+      <div class="clock">11 : 00</div>
+      <h4>上班族搶食</h4>
+      <p>便當店、麵攤、快速出餐的儀式感。</p>
+      <span class="loc">南機場</span>
+    </div>
+    <div class="flow-step">
+      <div class="dot">12</div>
+      <div class="clock">12 : 30</div>
+      <h4>排隊高峰</h4>
+      <p>名店前的隊伍與站立吃麵的風景。</p>
+      <span class="loc">永康街</span>
+    </div>
+    <div class="flow-step">
+      <div class="dot">14</div>
+      <div class="clock">14 : 00</div>
+      <h4>午後補湯</h4>
+      <p>燉湯、甜湯、補一頓被省略的午餐。</p>
+      <span class="loc">迪化街</span>
+    </div>
+    <div class="flow-step">
+      <div class="dot">15</div>
+      <div class="clock">15 : 30</div>
+      <h4>下午茶間奏</h4>
+      <p>豆花、芋圓、米苔目，冰與熱的轉場。</p>
+      <span class="loc">鹿港</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================ P5 食材：六/垂 ================ -->
+<section class="slide s5-ingredient" id="slide-5">
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">‹</button>
+    <span>5 / 10</span>
+    <button onclick="next()" aria-label="下一頁">›</button>
+    <a href="/slides.htm">回列表</a>
+  </div>
+  <span class="page-eyebrow">INGREDIENT · 一桌菜的產地關係</span>
+  <h2 class="page-title">三層供應鏈，把地圖放進碗裡</h2>
+  <p class="page-subtitle">一頓飯的背後，是三層地理與三種人的接力。</p>
+  <div class="supply-stack">
+    <div class="supply-tier t1">
+      <div class="hex-svg">
+        <svg viewBox="0 0 100 88" fill="none">
+          <polygon points="50,4 92,26 92,62 50,84 8,62 8,26" fill="#B8860B" stroke="#8B6508" stroke-width="2"/>
+          <text x="50" y="52" text-anchor="middle" fill="#FFFCF5" font-size="22" font-weight="900">1</text>
+        </svg>
+      </div>
+      <div class="tier-body">
+        <div>
+          <span class="tier-label">第一層 · 生產者</span>
+          <h3>漁民、農民、牧者</h3>
+          <p>從沿海魚塭、東部稻田到中央山脈的小農，食材的第一個名字來自他們。</p>
+        </div>
+        <div class="tier-stat">
+          <div class="num">42</div>
+          <div class="lbl">產地縣市</div>
+        </div>
+      </div>
+    </div>
+    <div class="supply-tier t2">
+      <div class="hex-svg">
+        <svg viewBox="0 0 100 88" fill="none">
+          <polygon points="50,4 92,26 92,62 50,84 8,62 8,26" fill="#6B4423" stroke="#4A2F18" stroke-width="2"/>
+          <text x="50" y="52" text-anchor="middle" fill="#FFFCF5" font-size="22" font-weight="900">2</text>
+        </svg>
+      </div>
+      <div class="tier-body">
+        <div>
+          <span class="tier-label">第二層 · 中介者</span>
+          <h3>批發、運輸、揀貨</h3>
+          <p>凌晨的果菜市場、長途的冷藏車，把產地的氣味準時送到每一個廚房。</p>
+        </div>
+        <div class="tier-stat">
+          <div class="num">96<span style="font-size:1rem;opacity:0.7">%</span></div>
+          <div class="lbl">到貨準時率</div>
+        </div>
+      </div>
+    </div>
+    <div class="supply-tier t3">
+      <div class="hex-svg">
+        <svg viewBox="0 0 100 88" fill="none">
+          <polygon points="50,4 92,26 92,62 50,84 8,62 8,26" fill="#6B7A3E" stroke="#4D5827" stroke-width="2"/>
+          <text x="50" y="52" text-anchor="middle" fill="#FFFCF5" font-size="22" font-weight="900">3</text>
+        </svg>
+      </div>
+      <div class="tier-body">
+        <div>
+          <span class="tier-label">第三層 · 料理者</span>
+          <h3>廚師、家庭煮婦煮夫</h3>
+          <p>他們決定了食材被切片、蒸煮、調味後成為一道地方菜的最後形狀。</p>
+        </div>
+        <div class="tier-stat">
+          <div class="num">3.2</div>
+          <div class="lbl">億 餐/年</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ P6 技法：方/網 ================ -->
+<section class="slide s6-technique" id="slide-6">
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">‹</button>
+    <span>6 / 10</span>
+    <button onclick="next()" aria-label="下一頁">›</button>
+    <a href="/slides.htm">回列表</a>
+  </div>
+  <span class="page-eyebrow">TECHNIQUE · 蒸煮煎炸的風味科學</span>
+  <h2 class="page-title">四種基本技法的溫度與時間</h2>
+  <p class="page-subtitle">每一種火候都是一種對話：和食材、和時間、和記憶。</p>
+  <div class="tech-grid">
+    <div class="tech-card t1">
+      <div class="tech-head">
+        <div class="tech-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="2"><path d="M3 12c2-4 6-4 9 0s7 4 9 0"/><path d="M3 17h18M5 21h14a2 2 0 002-2v-1H3v1a2 2 0 002 2z"/></svg>
+        </div>
+        <h3>蒸</h3>
+      </div>
+      <span class="tech-tag">STEAMING</span>
+      <p>水蒸氣的均勻包覆，保留食材原味與水分，是台灣小吃最溫柔的處理方式。</p>
+      <div class="tech-meter">
+        <div class="cell">
+          <span class="lbl">溫度</span>
+          <span class="val">100 °C</span>
+        </div>
+        <div class="cell">
+          <span class="lbl">時間</span>
+          <span class="val">8 – 25 分</span>
+        </div>
+      </div>
+    </div>
+    <div class="tech-card t2">
+      <div class="tech-head">
+        <div class="tech-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6B4423" stroke-width="2"><path d="M6 2h12v8a6 6 0 11-12 0V2z"/><path d="M6 10h12M9 22h6"/></svg>
+        </div>
+        <h3>煮</h3>
+      </div>
+      <span class="tech-tag">BOILING</span>
+      <p>滾水裡的對流，把膠質與澱粉溶進湯底，是台式湯麵的靈魂動作。</p>
+      <div class="tech-meter">
+        <div class="cell">
+          <span class="lbl">溫度</span>
+          <span class="val">95 – 100 °C</span>
+        </div>
+        <div class="cell">
+          <span class="lbl">時間</span>
+          <span class="val">3 – 40 分</span>
+        </div>
+      </div>
+    </div>
+    <div class="tech-card t3">
+      <div class="tech-head">
+        <div class="tech-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4D7C7E" stroke-width="2"><rect x="3" y="3" width="18" height="6" rx="2"/><rect x="3" y="15" width="18" height="6" rx="2"/><circle cx="12" cy="6" r="1" fill="#4D7C7E"/><circle cx="12" cy="18" r="1" fill="#4D7C7E"/></svg>
+        </div>
+        <h3>煎</h3>
+      </div>
+      <span class="tech-tag">PAN-FRY</span>
+      <p>油脂導熱創造梅納反應，從蛋餅到蚵仔煎，是台灣街邊最迷人的焦香。</p>
+      <div class="tech-meter">
+        <div class="cell">
+          <span class="lbl">溫度</span>
+          <span class="val">160 – 200 °C</span>
+        </div>
+        <div class="cell">
+          <span class="lbl">時間</span>
+          <span class="val">2 – 6 分</span>
+        </div>
+      </div>
+    </div>
+    <div class="tech-card t4">
+      <div class="tech-head">
+        <div class="tech-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6B7A3E" stroke-width="2"><path d="M3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9"/><path d="M7 12c0-3 2-5 5-5s5 2 5 5-2 5-5 5"/></svg>
+        </div>
+        <h3>炸</h3>
+      </div>
+      <span class="tech-tag">DEEP-FRY</span>
+      <p>高溫油浴瞬間脫水，從鹽酥雞到甜酥捲，台灣夜市的酥脆密碼。</p>
+      <div class="tech-meter">
+        <div class="cell">
+          <span class="lbl">溫度</span>
+          <span class="val">170 – 190 °C</span>
+        </div>
+        <div class="cell">
+          <span class="lbl">時間</span>
+          <span class="val">1 – 4 分</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ P7 文化：圓/水 ================ -->
+<section class="slide s7-culture" id="slide-7">
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">‹</button>
+    <span>7 / 10</span>
+    <button onclick="next()" aria-label="下一頁">›</button>
+    <a href="/slides.htm">回列表</a>
+  </div>
+  <span class="page-eyebrow">MEMORY · 味道如何成為記憶</span>
+  <h2 class="page-title">三個記憶圓環，地方感的同心圓</h2>
+  <p class="page-subtitle">味道從來不是單一事件，而是人物、場所、聲音的同心擴散。</p>
+  <div class="memory-grid">
+    <div class="memory-card">
+      <div class="memory-rings">
+        <div class="ring r3"></div>
+        <div class="ring r2"></div>
+        <div class="ring r1"></div>
+        <svg class="core-svg" viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="2.5"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <span class="tag">PEOPLE · 人物</span>
+      <h3>阿婆的灶腳</h3>
+      <p>掌心的溫度、傳下的食譜、被喊回來吃飯的那一聲：食物與親情綁在一起。</p>
+      <span class="quote">「這鍋湯阿嬤煮了五十年。」</span>
+    </div>
+    <div class="memory-card">
+      <div class="memory-rings">
+        <div class="ring r3"></div>
+        <div class="ring r2"></div>
+        <div class="ring r1"></div>
+        <svg class="core-svg" viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
+      </div>
+      <span class="tag">PLACE · 場所</span>
+      <h3>廟口的圓桌</h3>
+      <p>板凳、紅圓桌、塑膠碗——夜市與廟埕的用餐空間，是地方感的容器。</p>
+      <span class="quote">「一個座位就是一個地方。」</span>
+    </div>
+    <div class="memory-card">
+      <div class="memory-rings">
+        <div class="ring r3"></div>
+        <div class="ring r2"></div>
+        <div class="ring r1"></div>
+        <svg class="core-svg" viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+      </div>
+      <span class="tag">SOUND · 聲音</span>
+      <h3>鼎邊銼的蒸氣</h3>
+      <p>鐵鏟刮鍋邊的鏘鏘聲、叫賣聲、碗盤碰撞，是地方味覺的背景音樂。</p>
+      <span class="quote">「沒聽過這聲音，就不算到過。」</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================ P8 夜市：特/散 ================ -->
+<section class="slide s8-night" id="slide-8">
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">‹</button>
+    <span>8 / 10</span>
+    <button onclick="next()" aria-label="下一頁">›</button>
+    <a href="/slides.htm">回列表</a>
+  </div>
+  <span class="page-eyebrow">NIGHT MARKET · 高密度的味覺社交</span>
+  <h2 class="page-title">一條街，數十個攤位，兩萬人次的夜晚</h2>
+  <p class="page-subtitle">夜市是台灣最密集的味覺實驗室：距離三步、口味各異。</p>
+  <div class="nm-layout">
+    <div class="nm-map">
+      <h4>士林夜市 · 攤位動線圖</h4>
+      <svg style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;" viewBox="0 0 480 360" preserveAspectRatio="none">
+        <line x1="40" y1="80" x2="450" y2="80" stroke="#D7CFC0" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="40" y1="200" x2="450" y2="200" stroke="#D7CFC0" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="40" y1="320" x2="450" y2="320" stroke="#D7CFC0" stroke-width="1.5" stroke-dasharray="4,3"/>
+      </svg>
+      <div class="nm-stall" style="top:40px; left:40px;">
+        <span class="stall-num">01</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
+        <span>大餅包小餅</span><span class="price">$ 50</span>
+      </div>
+      <div class="nm-stall hot" style="top:40px; left:170px;">
+        <span class="stall-num">02</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5 2 7-6.5-4.5L5.5 20.5l2-7L2 9h7z"/></svg>
+        <span>生炒花枝</span><span class="price">$ 80</span>
+      </div>
+      <div class="nm-stall" style="top:40px; left:300px;">
+        <span class="stall-num">03</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="2"/></svg>
+        <span>蚵仔煎</span><span class="price">$ 70</span>
+      </div>
+      <div class="nm-stall hot" style="top:160px; left:40px;">
+        <span class="stall-num">04</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="2"><path d="M12 2L4 7v10l8 5 8-5V7z"/></svg>
+        <span>臭豆腐</span><span class="price">$ 45</span>
+      </div>
+      <div class="nm-stall" style="top:160px; left:170px;">
+        <span class="stall-num">05</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18"/></svg>
+        <span>地瓜球</span><span class="price">$ 30</span>
+      </div>
+      <div class="nm-stall" style="top:160px; left:300px;">
+        <span class="stall-num">06</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="2"><path d="M5 21V10l7-5 7 5v11"/></svg>
+        <span>青蛙下蛋</span><span class="price">$ 35</span>
+      </div>
+      <div class="nm-stall" style="top:280px; left:170px;">
+        <span class="stall-num">07</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="2"><path d="M3 12h18M12 3v18"/></svg>
+        <span>藥燉排骨</span><span class="price">$ 90</span>
+      </div>
+    </div>
+    <div class="nm-data">
+      <div class="nm-stat-card">
+        <div class="nm-stat-head">
+          <span class="nm-bignum">2.3<span class="sub-note" style="font-size:1rem;opacity:0.7"> 萬</span></span>
+          <span class="nm-stat-lbl">單日人流</span>
+        </div>
+        <p>週五至週日夜市平均承載人次，相當於一個小鎮的人口瞬時湧入。</p>
+      </div>
+      <div class="nm-stat-card alt">
+        <div class="nm-stat-head">
+          <span class="nm-bignum">$ 45</span>
+          <span class="nm-stat-lbl">平均客單價</span>
+        </div>
+        <p>三樣小吃的預算，足以飽足一頓晚餐——夜市是最平民的美食入口。</p>
+      </div>
+      <div class="nm-stat-card alt2">
+        <div class="nm-stat-head">
+          <span class="nm-bignum">85 <span class="sub-note" style="font-size:1rem;opacity:0.7">%</span></span>
+          <span class="nm-stat-lbl">回客比例</span>
+        </div>
+        <p>夜市最迷人的不是新奇，而是鄰居熟客與攤主的那份默契與招呼。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ P9 永續：線/垂 ================ -->
+<section class="slide s9-sustain" id="slide-9">
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">‹</button>
+    <span>9 / 10</span>
+    <button onclick="next()" aria-label="下一頁">›</button>
+    <a href="/slides.htm">回列表</a>
+  </div>
+  <span class="page-eyebrow">SUSTAINABILITY · 吃得好，也讓地方走得久</span>
+  <h2 class="page-title">三步行動，把美味留給下一代</h2>
+  <p class="page-subtitle">從產地到餐桌，每一步都可以更輕、更近、更永續。</p>
+  <div class="sustain-timeline">
+    <div class="sustain-step">
+      <div class="step-side-l">
+        <div class="step-time">STEP 01 · 短期</div>
+        <h4>在地採買 × 縮短食物里程</h4>
+        <p>優先選擇 100 公里內的食材：節能、新鮮、也支持地方小農的下一季。</p>
+        <div class="metric">
+          <span>− 40 % CO₂</span>
+          <span>+ 1 倍 社區循環</span>
+        </div>
+      </div>
+      <div class="step-dot">1</div>
+      <div class="step-side-r">
+        <div class="step-time">地方案例</div>
+        <p>南投仁愛鄉的小農直送便當，在地食材占比達 72%，成為校園午餐新選。</p>
+      </div>
+    </div>
+    <div class="sustain-step">
+      <div class="step-side-l">
+        <div class="step-time">地方案例</div>
+        <p>台南「餐桌共學」：以未事先拍賣剩食食材入菜，讓營養與惜食同時發生。</p>
+      </div>
+      <div class="step-dot">2</div>
+      <div class="step-side-r">
+        <div class="step-time">STEP 02 · 中期</div>
+        <h4>惜食計畫 × 醜食再生</h4>
+        <p>把賣相不佳、外型不齊的食材，變成地方料理的下一道招牌。</p>
+        <div class="metric">
+          <span>− 30 % 廚餘</span>
+          <span>+ 18 家 合作餐廳</span>
+        </div>
+      </div>
+    </div>
+    <div class="sustain-step">
+      <div class="step-side-l">
+        <div class="step-time">STEP 03 · 長期</div>
+        <h4>技藝傳承 × 地方味資料庫</h4>
+        <p>為老師傅的配方、地方食材譜系留下數位檔案，讓味道能跨世代延續。</p>
+        <div class="metric">
+          <span>120 套 食譜典藏</span>
+          <span>15 縣市 收錄</span>
+        </div>
+      </div>
+      <div class="step-dot">3</div>
+      <div class="step-side-r">
+        <div class="step-time">地方案例</div>
+        <p>彰化「風味保存計畫」與在地廟宇合作，把辦桌菜單寫成可永久查閱的檔案。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================ P10 結尾：無/單 ================ -->
+<section class="slide s10-end" id="slide-10">
+  <div class="nav">
+    <button onclick="prev()" aria-label="上一頁">‹</button>
+    <span>10 / 10</span>
+    <button onclick="next()" aria-label="下一頁">›</button>
+    <a href="/slides.htm">回列表</a>
+  </div>
+  <div class="end-eyebrow">COMMITMENT · 把地方味帶回日常</div>
+  <h1>把今天的三道菜，<br>放回你的一週裡</h1>
+  <p class="end-sub">味道不會自己留下來——它需要你每一次重新走進市場、坐進攤前。</p>
+  <div class="promise-row">
+    <div class="promise">
+      <div class="promise-num">01</div>
+      <h3>每週一次地方市場</h3>
+      <p>走進一座你沒去過的市場，帶回三樣沒煮過的食材。</p>
+    </div>
+    <div class="promise">
+      <div class="promise-num">02</div>
+      <h3>每月一場小吃探險</h3>
+      <p>挑一條沒走過的街，吃一碗你叫不出名字的湯。</p>
+    </div>
+    <div class="promise">
+      <div class="promise-num">03</div>
+      <h3>每年一道家傳食譜</h3>
+      <p>向長輩學一道菜，寫下過程，讓味道有人接手。</p>
+    </div>
+  </div>
+  <div class="back-row">
+    <a href="/slides.htm" class="back-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FFFCF5" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      回列表
+    </a>
+  </div>
+  <div class="signature">— <strong>台灣味覺地圖</strong> · 2026 / 08 / 02 · 美食文化週日 —</div>
+</section>
+
+</div>
+
+<script>
+  // ============================================================
+  // 換頁系統（含防禦性檢查）
+  // ============================================================
+  var slides = document.querySelectorAll('.slide');
+  var current = 0;
+  var navLabels = document.querySelectorAll('.nav span');
+
+  function show() {
+    if (slides[current]) {
+      slides[current].classList.remove('active');
+    }
+    current = (current + 1) % slides.length;
+    if (slides[current]) {
+      slides[current].classList.add('active');
+      if (navLabels[current]) {
+        navLabels[current].textContent = (current + 1) + ' / ' + slides.length;
+      }
+    }
+  }
+  function next() {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    if (slides[current]) {
+      slides[current].classList.add('active');
+      if (navLabels[current]) {
+        navLabels[current].textContent = (current + 1) + ' / ' + slides.length;
+      }
+    }
+  }
+  function prev() {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current - 1 + slides.length) % slides.length;
+    if (slides[current]) {
+      slides[current].classList.add('active');
+      if (navLabels[current]) {
+        navLabels[current].textContent = (current + 1) + ' / ' + slides.length;
+      }
+    }
+  }
+
+  // 鍵盤左右鍵換頁
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+
+</body>
+</html>
