@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新北 2050 淨零路徑：智慧治理 × 永續轉型｜2026-08-03</title>
+<style>
+html { font-size: 20px; }
+body {
+  background: #0d1f22;
+  color: #e8f5e9;
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  margin: 0;
+  padding: 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0, 191, 165, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255, 61, 0, 0.10) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: #0d1f22;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 48px 56px 72px;
+  color: #e8f5e9;
+}
+.slide.active { display: flex; }
+
+.slide * { font-size: 1rem; line-height: 1.5; }
+
+/* === VH1 光暈粗野：粗黑卡片 + 3D 偏移 === */
+.card-vh1 {
+  background: #0d1f22;
+  border: 4px solid #00bfa5;
+  box-shadow: 8px 8px 0 rgba(0, 191, 165, 0.5), 0 0 24px rgba(0, 191, 165, 0.25);
+  padding: 24px;
+}
+.card-vh1-dark {
+  background: #00bfa5;
+  color: #0d1f22;
+  border: 4px solid #e8f5e9;
+  box-shadow: 8px 8px 0 #4dd0e1, 0 0 24px rgba(255, 61, 0, 0.3);
+  padding: 24px;
+}
+.card-vh1-warm {
+  background: #0d1f22;
+  border: 4px solid #ff3d00;
+  box-shadow: 8px 8px 0 rgba(255, 61, 0, 0.5);
+  padding: 24px;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 {
+  width: 320px; height: 320px;
+  background: rgba(0, 191, 165, 0.20);
+  top: -100px; right: -100px;
+}
+.glow-orb-2 {
+  width: 240px; height: 240px;
+  background: rgba(255, 61, 0, 0.18);
+  bottom: -80px; left: -80px;
+}
+
+h1, h2, h3 { font-weight: 900; letter-spacing: -0.02em; line-height: 1.05; margin: 0; }
+.slide h1 { font-size: 3.6rem; }
+.slide h2 { font-size: 2.4rem; }
+.slide h3 { font-size: 1.6rem; }
+
+.bignum {
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: transparent;
+  -webkit-text-stroke: 2px #00bfa5;
+  text-shadow: 0 0 30px rgba(0, 191, 165, 0.5);
+}
+.bignum-warm {
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 0.9;
+  color: #00bfa5;
+}
+
+.tag {
+  display: inline-block;
+  border: 2px solid #00bfa5;
+  padding: 6px 14px;
+  color: #00bfa5;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  margin-right: 10px;
+}
+.tag-warm {
+  display: inline-block;
+  border: 2px solid #ff3d00;
+  padding: 6px 14px;
+  color: #ff3d00;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  margin-right: 10px;
+}
+
+.nav {
+  position: absolute;
+  top: 24px; right: 32px;
+  display: flex;
+  gap: 10px;
+  z-index: 50;
+  background: #00bfa5;
+  border: 3px solid #e8f5e9;
+  border-radius: 28px;
+  padding: 6px 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0d1f22;
+  box-shadow: 4px 4px 0 #ff3d00;
+}
+.nav button {
+  background: transparent;
+  border: none;
+  color: #0d1f22;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 10px;
+}
+.nav .counter { padding: 4px 10px; color: #0d1f22; }
+
+.page-tag {
+  position: absolute;
+  bottom: 24px; left: 56px;
+  font-size: 1rem;
+  color: #80cbc4;
+  letter-spacing: 0.1em;
+  z-index: 30;
+}
+
+.back-link {
+  position: absolute;
+  bottom: 24px; right: 32px;
+  z-index: 30;
+}
+.back-link a {
+  display: inline-block;
+  background: #0d1f22;
+  color: #00bfa5;
+  border: 3px solid #00bfa5;
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 #ff3d00;
+}
+
+/* === P1 封面 === */
+.p1-wrap {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.p1-left h1 { color: #e8f5e9; margin-bottom: 24px; }
+.p1-subtitle {
+  font-size: 1.4rem;
+  color: #80cbc4;
+  margin-bottom: 28px;
+  line-height: 1.4;
+}
+.p1-index {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.p1-index span {
+  background: #00bfa5;
+  color: #0d1f22;
+  padding: 6px 12px;
+  border: 2px solid #e8f5e9;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.p1-right { position: relative; }
+.p1-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* === P2 議程 6 區 === */
+.p2-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 24px;
+  align-content: center;
+}
+.p2-card {
+  background: #0d1f22;
+  border: 4px solid #00bfa5;
+  box-shadow: 8px 8px 0 rgba(0, 191, 165, 0.45);
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.p2-card-num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #00bfa5;
+  line-height: 1;
+}
+.p2-card-body h3 { color: #e8f5e9; margin-bottom: 8px; font-size: 1.4rem; }
+.p2-card-body p { color: #80cbc4; font-size: 1rem; }
+
+/* === P3 同心靶心 === */
+.p3-wrap {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 32px;
+  align-items: center;
+}
+.p3-left h2 { color: #e8f5e9; margin-bottom: 20px; }
+.p3-left p { color: #80cbc4; margin-bottom: 16px; font-size: 1.2rem; }
+.p3-target {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.p3-target svg { width: 100%; height: 100%; }
+
+/* === P4 時間軸 === */
+.p4-wrap { flex: 1; display: flex; flex-direction: column; }
+.p4-timeline {
+  flex: 1;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  align-items: stretch;
+  margin-top: 20px;
+}
+.p4-node {
+  background: #0d1f22;
+  border: 4px solid #00bfa5;
+  box-shadow: 6px 6px 0 rgba(0, 191, 165, 0.4);
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.p4-node-milestone {
+  background: #00bfa5;
+  color: #0d1f22;
+  border: 4px solid #ff3d00;
+  box-shadow: 6px 6px 0 rgba(255, 61, 0, 0.5);
+}
+.p4-node-year {
+  font-size: 2rem;
+  font-weight: 900;
+  color: inherit;
+  line-height: 1;
+}
+.p4-node-text {
+  font-size: 1rem;
+  color: inherit;
+  line-height: 1.4;
+}
+.p4-node-milestone .p4-node-text { color: #0d1f22; font-weight: 700; }
+
+/* === P5 KPI 儀表 === */
+.p5-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+.p5-card {
+  background: #0d1f22;
+  border: 4px solid #00bfa5;
+  box-shadow: 8px 8px 0 rgba(0, 191, 165, 0.45);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.p5-card-label {
+  color: #80cbc4;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.p5-card-num {
+  font-size: 3.6rem;
+  font-weight: 900;
+  color: #00bfa5;
+  line-height: 1;
+}
+.p5-card-unit {
+  font-size: 1.2rem;
+  color: #80cbc4;
+}
+.p5-card-foot {
+  font-size: 1rem;
+  color: #e8f5e9;
+  border-top: 2px solid rgba(0, 191, 165, 0.3);
+  padding-top: 12px;
+}
+
+/* === P6 城市場景 === */
+.p6-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 18px;
+}
+.p6-card {
+  background: #0d1f22;
+  border: 4px solid #00bfa5;
+  box-shadow: 6px 6px 0 rgba(0, 191, 165, 0.4);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.p6-card h3 {
+  font-size: 1.4rem;
+  color: #00bfa5;
+  margin-bottom: 4px;
+}
+.p6-card-data {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.p6-card-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #e8f5e9;
+  line-height: 1;
+}
+.p6-card-desc {
+  color: #80cbc4;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* === P7 AI 蜂巢 === */
+.p7-wrap {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 24px;
+}
+.p7-center {
+  background: #00bfa5;
+  color: #0d1f22;
+  border: 4px solid #ff3d00;
+  box-shadow: 10px 10px 0 rgba(255, 61, 0, 0.5);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.p7-center h3 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #0d1f22;
+}
+.p7-center p {
+  color: #0d1f22;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.p7-hex {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px;
+}
+.p7-hex-card {
+  background: #0d1f22;
+  border: 4px solid #00bfa5;
+  box-shadow: 6px 6px 0 rgba(0, 191, 165, 0.4);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.p7-hex-card h3 {
+  font-size: 1.2rem;
+  color: #00bfa5;
+}
+.p7-hex-card p {
+  color: #80cbc4;
+  font-size: 1rem;
+}
+
+/* === P8 不對稱 Bento === */
+.p8-wrap {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+}
+.p8-big {
+  background: #0d1f22;
+  border: 4px solid #00bfa5;
+  box-shadow: 10px 10px 0 rgba(0, 191, 165, 0.5);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.p8-big h3 { font-size: 2rem; color: #00bfa5; }
+.p8-big p { color: #e8f5e9; font-size: 1.1rem; line-height: 1.5; }
+.p8-side {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+}
+.p8-small {
+  background: #0d1f22;
+  border: 4px solid #ff3d00;
+  box-shadow: 6px 6px 0 rgba(255, 61, 0, 0.45);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.p8-small h3 { font-size: 1.3rem; color: #ff3d00; }
+.p8-small p { color: #80cbc4; font-size: 1rem; line-height: 1.4; }
+
+/* === P9 未來行動時間軸 === */
+.p9-wrap { flex: 1; display: flex; flex-direction: column; }
+.p9-steps {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  align-items: stretch;
+  margin-top: 20px;
+}
+.p9-step {
+  background: #0d1f22;
+  border: 4px solid #00bfa5;
+  box-shadow: 6px 6px 0 rgba(0, 191, 165, 0.4);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.p9-step-num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #00bfa5;
+  line-height: 1;
+}
+.p9-step h3 {
+  font-size: 1.2rem;
+  color: #e8f5e9;
+}
+.p9-step p {
+  font-size: 1rem;
+  color: #80cbc4;
+  line-height: 1.4;
+}
+
+/* === P10 結尾 === */
+.p10-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.p10-quote {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #e8f5e9;
+  line-height: 1.3;
+  margin-bottom: 32px;
+  max-width: 80%;
+}
+.p10-quote span { color: #00bfa5; }
+.p10-cta {
+  display: inline-block;
+  background: #00bfa5;
+  color: #0d1f22;
+  border: 4px solid #e8f5e9;
+  box-shadow: 8px 8px 0 #ff3d00;
+  padding: 16px 32px;
+  font-size: 1.2rem;
+  font-weight: 900;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+</style>
+</head>
+<body>
+
+<div class="presentation" id="pres">
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">1</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <!-- ============== P1 封面 ============== -->
+  <section class="slide active" data-num="1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="p1-wrap">
+      <div class="p1-left">
+        <span class="tag">MONDAY 2026.08.03</span>
+        <span class="tag-warm">政府公務</span>
+        <h1>新北 2050 淨零路徑：<br>智慧治理 × 永續轉型</h1>
+        <p class="p1-subtitle">從 AI 智慧分選到淨零 2050：城市治理的下一個十年</p>
+        <div class="p1-index">
+          <span>01 議程</span>
+          <span>02 願景</span>
+          <span>03 時間軸</span>
+          <span>04 KPI</span>
+          <span>05 場景</span>
+          <span>06 AI 蜂巢</span>
+          <span>07 透明</span>
+          <span>08 行動</span>
+          <span>09 致謝</span>
+        </div>
+      </div>
+      <div class="p1-right">
+        <svg class="p1-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- 山脈地標 -->
+          <defs>
+            <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0d1f22"/>
+              <stop offset="100%" stop-color="#102428"/>
+            </linearGradient>
+            <linearGradient id="mtn1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#00bfa5"/>
+              <stop offset="100%" stop-color="#0d1f22"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="400" height="400" fill="url(#sky1)"/>
+          <!-- 月亮 -->
+          <circle cx="310" cy="80" r="40" fill="#00bfa5" opacity="0.9"/>
+          <circle cx="310" cy="80" r="56" fill="none" stroke="#00bfa5" stroke-width="2" opacity="0.4"/>
+          <circle cx="310" cy="80" r="72" fill="none" stroke="#00bfa5" stroke-width="1" opacity="0.2"/>
+          <!-- 遠山 -->
+          <polygon points="0,280 80,180 140,240 220,160 320,250 400,200 400,400 0,400" fill="#102428"/>
+          <!-- 近山 -->
+          <polygon points="0,330 60,260 130,300 200,240 280,300 360,260 400,290 400,400 0,400" fill="url(#mtn1)"/>
+          <!-- 城市天際線 -->
+          <rect x="40" y="320" width="20" height="60" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="70" y="305" width="14" height="75" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="92" y="290" width="22" height="90" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="122" y="315" width="16" height="65" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="146" y="295" width="20" height="85" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="174" y="320" width="14" height="60" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="196" y="300" width="18" height="80" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="222" y="315" width="20" height="65" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="250" y="295" width="14" height="85" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="272" y="310" width="22" height="70" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="302" y="320" width="16" height="60" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="326" y="305" width="18" height="75" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <rect x="352" y="315" width="14" height="65" fill="#0d1f22" stroke="#4dd0e1" stroke-width="1.5"/>
+          <!-- 窗光 -->
+          <rect x="46" y="330" width="3" height="3" fill="#ff3d00"/>
+          <rect x="56" y="340" width="3" height="3" fill="#00bfa5"/>
+          <rect x="76" y="320" width="3" height="3" fill="#ff3d00"/>
+          <rect x="98" y="305" width="3" height="3" fill="#00bfa5"/>
+          <rect x="108" y="320" width="3" height="3" fill="#ff3d00"/>
+          <rect x="150" y="310" width="3" height="3" fill="#ff3d00"/>
+          <rect x="160" y="330" width="3" height="3" fill="#00bfa5"/>
+          <rect x="200" y="315" width="3" height="3" fill="#ff3d00"/>
+          <rect x="208" y="340" width="3" height="3" fill="#00bfa5"/>
+          <rect x="226" y="330" width="3" height="3" fill="#ff3d00"/>
+          <rect x="256" y="310" width="3" height="3" fill="#00bfa5"/>
+          <rect x="280" y="325" width="3" height="3" fill="#ff3d00"/>
+          <rect x="290" y="345" width="3" height="3" fill="#00bfa5"/>
+          <rect x="332" y="320" width="3" height="3" fill="#ff3d00"/>
+          <rect x="356" y="330" width="3" height="3" fill="#00bfa5"/>
+          <!-- 光暈底 -->
+          <ellipse cx="200" cy="395" rx="180" ry="6" fill="#00bfa5" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+    <div class="page-tag">P1 / 封面</div>
+  </section>
+
+  <!-- ============== P2 議程 6 區 ============== -->
+  <section class="slide" data-num="2">
+    <span class="tag-warm">AGENDA</span>
+    <h2 style="margin: 16px 0 28px;">六大議題面向：城市治理的六個工區</h2>
+    <div class="p2-grid">
+      <div class="p2-card">
+        <div class="p2-card-num">01</div>
+        <div class="p2-card-body">
+          <h3>淨零路徑</h3>
+          <p>2050 碳中和：能源、運具、綠建築三軌並進</p>
+        </div>
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 4 L42 38 L6 38 Z" fill="none" stroke="#00bfa5" stroke-width="3"/>
+          <circle cx="24" cy="24" r="4" fill="#00bfa5"/>
+        </svg>
+      </div>
+      <div class="p2-card">
+        <div class="p2-card-num">02</div>
+        <div class="p2-card-body">
+          <h3>AI 智慧治理</h3>
+          <p>智慧分選、智慧交通、AI 文書加速公部門效率</p>
+        </div>
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="10" width="32" height="22" rx="2" fill="none" stroke="#00bfa5" stroke-width="3"/>
+          <rect x="20" y="36" width="8" height="4" fill="#00bfa5"/>
+          <line x1="24" y1="32" x2="24" y2="36" stroke="#00bfa5" stroke-width="3"/>
+          <circle cx="18" cy="21" r="2" fill="#ff3d00"/>
+          <circle cx="30" cy="21" r="2" fill="#ff3d00"/>
+        </svg>
+      </div>
+      <div class="p2-card">
+        <div class="p2-card-num">03</div>
+        <div class="p2-card-body">
+          <h3>社會福利</h3>
+          <p>長照 AI、社會安全網、托育公共化擴增</p>
+        </div>
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="16" r="6" fill="none" stroke="#00bfa5" stroke-width="3"/>
+          <path d="M12 40 Q12 28 24 28 Q36 28 36 40" fill="none" stroke="#00bfa5" stroke-width="3"/>
+          <path d="M18 18 L24 24 L30 18" fill="none" stroke="#ff3d00" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="p2-card">
+        <div class="p2-card-num">04</div>
+        <div class="p2-card-body">
+          <h3>智慧交通</h3>
+          <p>電動公車、智駛巴士、自行車路網串接</p>
+        </div>
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="18" width="36" height="16" rx="3" fill="none" stroke="#00bfa5" stroke-width="3"/>
+          <circle cx="14" cy="38" r="4" fill="#00bfa5"/>
+          <circle cx="34" cy="38" r="4" fill="#00bfa5"/>
+          <rect x="10" y="22" width="10" height="8" fill="#ff3d00"/>
+          <rect x="28" y="22" width="10" height="8" fill="#ff3d00"/>
+        </svg>
+      </div>
+      <div class="p2-card">
+        <div class="p2-card-num">05</div>
+        <div class="p2-card-body">
+          <h3>產業轉型</h3>
+          <p>綠色金融、循環經濟、淨零產業聚落輔導</p>
+        </div>
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="14" fill="none" stroke="#00bfa5" stroke-width="3"/>
+          <path d="M16 28 Q24 36 32 28" fill="none" stroke="#ff3d00" stroke-width="3"/>
+          <path d="M24 10 L24 4 M10 24 L4 24 M38 24 L44 24" stroke="#00bfa5" stroke-width="3"/>
+          <circle cx="24" cy="24" r="3" fill="#00bfa5"/>
+        </svg>
+      </div>
+      <div class="p2-card">
+        <div class="p2-card-num">06</div>
+        <div class="p2-card-body">
+          <h3>文化共融</h3>
+          <p>在地節慶、公共藝術、雙語友善城市</p>
+        </div>
+        <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 36 L24 12 L40 36 Z" fill="none" stroke="#00bfa5" stroke-width="3"/>
+          <line x1="24" y1="12" x2="24" y2="36" stroke="#ff3d00" stroke-width="2"/>
+          <line x1="14" y1="24" x2="34" y2="24" stroke="#ff3d00" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+    <div class="page-tag">P2 / 議程</div>
+  </section>
+
+  <!-- ============== P3 願景：2050 淨零 ============== -->
+  <section class="slide" data-num="3">
+    <span class="tag">VISION</span>
+    <div class="p3-wrap">
+      <div class="p3-left">
+        <h2>願景：2050 淨零目標</h2>
+        <p>三階段減碳路徑，逐年驗證、滾動修正</p>
+        <p>對齊 IPCC 1.5°C 情境與國家 2050 淨零承諾</p>
+      </div>
+      <div class="p3-target">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- 同心圓靶心 -->
+          <circle cx="200" cy="200" r="180" fill="#102428" stroke="#4dd0e1" stroke-width="3"/>
+          <circle cx="200" cy="200" r="150" fill="none" stroke="#80cbc4" stroke-width="2" stroke-dasharray="6 6"/>
+          <circle cx="200" cy="200" r="115" fill="none" stroke="#00bfa5" stroke-width="3"/>
+          <circle cx="200" cy="200" r="75" fill="rgba(0, 191, 165, 0.25)" stroke="#00bfa5" stroke-width="3"/>
+          <circle cx="200" cy="200" r="38" fill="#00bfa5"/>
+          <!-- 標籤 -->
+          <text x="200" y="68" text-anchor="middle" fill="#4dd0e1" font-size="22" font-weight="900">2030</text>
+          <text x="200" y="92" text-anchor="middle" fill="#4dd0e1" font-size="14">−30%</text>
+          <text x="370" y="170" text-anchor="middle" fill="#80cbc4" font-size="20" font-weight="900">2040</text>
+          <text x="370" y="190" text-anchor="middle" fill="#80cbc4" font-size="14">−60%</text>
+          <text x="335" y="265" text-anchor="middle" fill="#00bfa5" font-size="22" font-weight="900">2050</text>
+          <text x="335" y="285" text-anchor="middle" fill="#00bfa5" font-size="14">淨零</text>
+          <text x="200" y="208" text-anchor="middle" fill="#0d1f22" font-size="20" font-weight="900">100%</text>
+          <text x="200" y="226" text-anchor="middle" fill="#0d1f22" font-size="11">碳中和</text>
+          <!-- 箭頭 -->
+          <path d="M 230 130 L 260 110 L 258 120 L 280 118 L 270 105" fill="none" stroke="#ff3d00" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+    <div class="page-tag">P3 / 願景</div>
+  </section>
+
+  <!-- ============== P4 政策時間軸 ============== -->
+  <section class="slide" data-num="4">
+    <span class="tag-warm">TIMELINE</span>
+    <h2 style="margin: 16px 0 8px;">2026–2030 政策里程碑</h2>
+    <p style="color: #80cbc4; margin-bottom: 8px;">新北市永續發展行動方案：每季滾動檢核、每年公開進度</p>
+    <div class="p4-wrap">
+      <div class="p4-timeline">
+        <div class="p4-node p4-node-milestone">
+          <div class="p4-node-year">2026</div>
+          <div class="p4-node-text">智慧分選 AI 啟動，榮獲智慧城市創新應用獎</div>
+        </div>
+        <div class="p4-node">
+          <div class="p4-node-year">2027</div>
+          <div class="p4-node-text">電動公車占比突破 35%，汰舊柴油公務車</div>
+        </div>
+        <div class="p4-node">
+          <div class="p4-node-year">2028</div>
+          <div class="p4-node-text">六大場域 AI 蜂巢落地，VLR 自願審查啟動</div>
+        </div>
+        <div class="p4-node">
+          <div class="p4-node-year">2029</div>
+          <div class="p4-node-text">公有建築全面 LED + 屋頂光電，綠覆率達 65%</div>
+        </div>
+        <div class="p4-node">
+          <div class="p4-node-year">2030</div>
+          <div class="p4-node-text">減碳 −30%，社福 AI 對話平台全市上線</div>
+        </div>
+        <div class="p4-node p4-node-milestone">
+          <div class="p4-node-year">→50</div>
+          <div class="p4-node-text">2040 −60% → 2050 淨零：城市即淨零場域</div>
+        </div>
+      </div>
+    </div>
+    <div class="page-tag">P4 / 時間軸</div>
+  </section>
+
+  <!-- ============== P5 5 大 KPI ============== -->
+  <section class="slide" data-num="5">
+    <span class="tag">KPI</span>
+    <h2 style="margin: 16px 0 8px;">五大 KPI 儀表板</h2>
+    <p style="color: #80cbc4; margin-bottom: 16px;">以「可衡量、可驗證、可公告」為原則的城市治理儀表</p>
+    <div class="p5-grid">
+      <div class="p5-card">
+        <div class="p5-card-label">PM2.5 年均</div>
+        <div class="p5-card-num">9.8</div>
+        <div class="p5-card-unit">μg/m³（目標 8.0）</div>
+        <div class="p5-card-foot">較 2018 下降 42%</div>
+      </div>
+      <div class="p5-card">
+        <div class="p5-card-label">AI 智慧案量</div>
+        <div class="p5-card-num">142</div>
+        <div class="p5-card-unit">件 / 年（目標 200）</div>
+        <div class="p5-card-foot">含分選、交通、文書</div>
+      </div>
+      <div class="p5-card">
+        <div class="p5-card-label">年度減碳</div>
+        <div class="p5-card-num">186</div>
+        <div class="p5-card-unit">萬噸 CO₂e</div>
+        <div class="p5-card-foot">對齊 2030 −30% 軌道</div>
+      </div>
+      <div class="p5-card">
+        <div class="p5-card-label">電動公車</div>
+        <div class="p5-card-num">682</div>
+        <div class="p5-card-unit">輛（占比 31%）</div>
+        <div class="p5-card-foot">2030 目標：1,200 輛</div>
+      </div>
+    </div>
+    <div class="page-tag">P5 / KPI</div>
+  </section>
+
+  <!-- ============== P6 城市場景 ============== -->
+  <section class="slide" data-num="6">
+    <span class="tag-warm">SCENES</span>
+    <h2 style="margin: 16px 0 20px;">六大場景分佈：新北 29 區的示範基地</h2>
+    <div class="p6-grid">
+      <div class="p6-card">
+        <h3>板橋區</h3>
+        <div class="p6-card-data">
+          <div class="p6-card-num">28</div>
+          <div class="p6-card-desc">處社福 AI 試點</div>
+        </div>
+        <div class="p6-card-desc">都會核心 × 智慧長照 × 雙語櫃檯</div>
+      </div>
+      <div class="p6-card">
+        <h3>三重區</h3>
+        <div class="p6-card-data">
+          <div class="p6-card-num">12</div>
+          <div class="p6-card-desc">條電動公車路線</div>
+        </div>
+        <div class="p6-card-desc">智慧轉運站 + 公共住宅示範</div>
+      </div>
+      <div class="p6-card">
+        <h3>中和區</h3>
+        <div class="p6-card-data">
+          <div class="p6-card-num">9</div>
+          <div class="p6-card-desc">處綠能屋頂</div>
+        </div>
+        <div class="p6-card-desc">光電 + 儲能微電網試辦</div>
+      </div>
+      <div class="p6-card">
+        <h3>新莊區</h3>
+        <div class="p6-card-data">
+          <div class="p6-card-num">4</div>
+          <div class="p6-card-desc">座 AI 智慧分選場</div>
+        </div>
+        <div class="p6-card-desc">資源回收 + 智慧製造雙軸</div>
+      </div>
+      <div class="p6-card">
+        <h3>淡水區</h3>
+        <div class="p6-card-data">
+          <div class="p6-card-num">3</div>
+          <div class="p6-card-desc">處低碳示範社區</div>
+        </div>
+        <div class="p6-card-desc">河岸整治 × 文化觀光 × 自行車網</div>
+      </div>
+      <div class="p6-card">
+        <h3>汐止區</h3>
+        <div class="p6-card-data">
+          <div class="p6-card-num">7</div>
+          <div class="p6-card-desc">處 AI 防災點位</div>
+        </div>
+        <div class="p6-card-desc">坡地智慧監測 + 緊急疏散</div>
+      </div>
+    </div>
+    <div class="page-tag">P6 / 場景</div>
+  </section>
+
+  <!-- ============== P7 AI 應用蜂巢 ============== -->
+  <section class="slide" data-num="7">
+    <span class="tag">AI HUB</span>
+    <h2 style="margin: 16px 0 20px;">AI 應用蜂巢：一中心 × 六場域</h2>
+    <div class="p7-wrap">
+      <div class="p7-center">
+        <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="40,4 72,22 72,58 40,76 8,58 8,22" fill="none" stroke="#0d1f22" stroke-width="4"/>
+          <circle cx="40" cy="40" r="14" fill="#0d1f22"/>
+          <circle cx="40" cy="40" r="6" fill="#ff3d00"/>
+        </svg>
+        <h3>新北 AI 中心</h3>
+        <p>Single Source of Truth<br>資料治理 × 模型部署 × 公民共筆</p>
+      </div>
+      <div class="p7-hex">
+        <div class="p7-hex-card">
+          <h3>智慧分選</h3>
+          <p>影像辨識 + 機械手臂，回收準確率 96%</p>
+        </div>
+        <div class="p7-hex-card">
+          <h3>智慧交通</h3>
+          <p>路口 AI 號誌、彈性公車優先號誌</p>
+        </div>
+        <div class="p7-hex-card">
+          <h3>AI 對話</h3>
+          <p>1999 市民專線 + 多語客服 24 小時</p>
+        </div>
+        <div class="p7-hex-card">
+          <h3>長照 AI</h3>
+          <p>跌倒偵測、用藥提醒、獨老關懷</p>
+        </div>
+        <div class="p7-hex-card">
+          <h3>AI 文書</h3>
+          <p>公文摘要、會議紀錄、法規檢核</p>
+        </div>
+        <div class="p7-hex-card">
+          <h3>AI 防災</h3>
+          <p>坡地、淹水、地震三合一預警</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-tag">P7 / AI 蜂巢</div>
+  </section>
+
+  <!-- ============== P8 數據透明 ============== -->
+  <section class="slide" data-num="8">
+    <span class="tag-warm">OPEN</span>
+    <h2 style="margin: 16px 0 20px;">數據透明 × 公民參與</h2>
+    <div class="p8-wrap">
+      <div class="p8-big">
+        <h3>Open Data 開放資料平台</h3>
+        <p>• 全市 1,200 個資料集即時更新，符合國際 FAIR 原則</p>
+        <p>• 每年釋出 60+ 組高價值資料集（能源、交通、社福）</p>
+        <p>• 提供標準 API、JSON / CSV / GeoJSON 多格式下載</p>
+        <p>• 公民開發者累計 4,200 個應用案例上架</p>
+        <p>• 開放資料品質 AI 自動檢核，每月公告異常率</p>
+      </div>
+      <div class="p8-side">
+        <div class="p8-small">
+          <h3>公民參與平台</h3>
+          <p>市政預算 iVoting、公民咖啡館、審議式預算，每年 12 場實體會議</p>
+        </div>
+        <div class="p8-small">
+          <h3>永續 VLR</h3>
+          <p>自願地方審查（Voluntary Local Review），每年向市民報告 SDG 進度</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-tag">P8 / 透明</div>
+  </section>
+
+  <!-- ============== P9 未來行動 ============== -->
+  <section class="slide" data-num="9">
+    <span class="tag">ACTION</span>
+    <h2 style="margin: 16px 0 8px;">未來行動時間軸</h2>
+    <p style="color: #80cbc4; margin-bottom: 8px;">市民、政府、企業三方協力，把永續當日常</p>
+    <div class="p9-wrap">
+      <div class="p9-steps">
+        <div class="p9-step">
+          <div class="p9-step-num">01</div>
+          <h3>短期</h3>
+          <p>2026 完成 6 區 AI 蜂巢試點、啟動 VLR 審查機制</p>
+        </div>
+        <div class="p9-step">
+          <div class="p9-step-num">02</div>
+          <h3>中期</h3>
+          <p>2027–2028 公有場域全面 LED、光電目標 80MW</p>
+        </div>
+        <div class="p9-step">
+          <div class="p9-step-num">03</div>
+          <h3>中期</h3>
+          <p>2029 全市電動公車 1,000 輛、自行車路網 600 km</p>
+        </div>
+        <div class="p9-step">
+          <div class="p9-step-num">04</div>
+          <h3>長期</h3>
+          <p>2030 減碳 −30%、2040 −60%，每 5 年滾動檢核</p>
+        </div>
+        <div class="p9-step">
+          <div class="p9-step-num">05</div>
+          <h3>願景</h3>
+          <p>2050 淨零：新北成為宜居、智慧、永續的示範城市</p>
+        </div>
+      </div>
+    </div>
+    <div class="page-tag">P9 / 行動</div>
+  </section>
+
+  <!-- ============== P10 致謝 ============== -->
+  <section class="slide" data-num="10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="p10-wrap">
+      <span class="tag">FINAL</span>
+      <p class="p10-quote" style="margin-top: 24px;">把永續當日常，<br><span>淨零不是口號</span>，<br>是下一個十年的城市契約。</p>
+      <a class="p10-cta" href="/slides.htm">回簡報列表</a>
+    </div>
+    <div class="page-tag">P10 / 致謝</div>
+  </section>
+
+  <div class="back-link">
+    <a href="/slides.htm">回到列表</a>
+  </div>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+function show() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current + 1) % slides.length;
+  slides[current].classList.add('active');
+  document.getElementById('cur').textContent = current + 1;
+}
+function prev() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current - 1 + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  document.getElementById('cur').textContent = current + 1;
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (slides[0]) slides[0].classList.add('active');
+  document.querySelectorAll('[onclick*="next"]').forEach(b => b.onclick = show);
+  document.querySelectorAll('[onclick*="prev"]').forEach(b => b.onclick = prev);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') show();
+    if (e.key === 'ArrowLeft') prev();
+  });
+});
+</script>
+
+</body>
+</html>
