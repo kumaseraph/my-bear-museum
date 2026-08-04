@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>邊緣智慧 × 聯邦學習：AI 運算新前沿｜2026-08-04 科技學術</title>
+<style>
+html { font-size: 20px; }
+body {
+  background: #0f0a1f;
+  color: #ede7f6;
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  margin: 0;
+  padding: 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(179, 136, 255, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(94, 53, 177, 0.20) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: #0f0a1f;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 48px 56px 72px;
+  color: #ede7f6;
+}
+.slide.active { display: flex; }
+
+.slide * { font-size: 1rem; line-height: 1.5; }
+
+/* === V3 玻璃深紫：玻璃卡 + 紫色漸層 === */
+.card-v3 {
+  background: rgba(179, 136, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(179, 136, 255, 0.35);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(94, 53, 177, 0.25),
+              inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.card-v3-solid {
+  background: linear-gradient(135deg, #5e35b1 0%, #7e57c2 100%);
+  border-radius: 16px;
+  padding: 24px;
+  color: #ede7f6;
+  border: 1px solid rgba(179, 136, 255, 0.5);
+  box-shadow: 0 8px 24px rgba(94, 53, 177, 0.4);
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 {
+  width: 320px; height: 320px;
+  background: rgba(179, 136, 255, 0.22);
+  top: -100px; right: -100px;
+}
+.glow-orb-2 {
+  width: 240px; height: 240px;
+  background: rgba(94, 53, 177, 0.20);
+  bottom: -80px; left: -80px;
+}
+
+h1, h2, h3 { font-weight: 900; letter-spacing: -0.02em; line-height: 1.05; margin: 0; }
+.slide h1 { font-size: 3.4rem; }
+.slide h2 { font-size: 2.2rem; }
+.slide h2 span { color: #b388ff; font-weight: 900; display: inline-block; padding-left: 4px; }
+.slide h3 { font-size: 1.4rem; }
+
+.bignum {
+  font-size: 4.8rem;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: transparent;
+  -webkit-text-stroke: 2px #b388ff;
+  text-shadow: 0 0 30px rgba(179, 136, 255, 0.4);
+}
+.bignum-solid {
+  font-size: 4.8rem;
+  font-weight: 900;
+  line-height: 0.9;
+  color: #b388ff;
+}
+
+.tag {
+  display: inline-block;
+  border: 1px solid rgba(179, 136, 255, 0.6);
+  background: rgba(179, 136, 255, 0.12);
+  padding: 6px 14px;
+  color: #d1c4e9;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  margin-right: 10px;
+  border-radius: 14px;
+}
+.tag-warm {
+  display: inline-block;
+  border: 1px solid #ff6e40;
+  background: rgba(255, 110, 64, 0.12);
+  padding: 6px 14px;
+  color: #ff8a65;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  margin-right: 10px;
+  border-radius: 14px;
+}
+
+.nav {
+  position: absolute;
+  top: 24px; right: 32px;
+  display: flex;
+  gap: 10px;
+  z-index: 50;
+  background: rgba(179, 136, 255, 0.18);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(179, 136, 255, 0.5);
+  border-radius: 24px;
+  padding: 6px 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ede7f6;
+}
+.nav button {
+  background: transparent;
+  border: none;
+  color: #ede7f6;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 10px;
+}
+.nav .counter { padding: 4px 10px; color: #d1c4e9; }
+
+.page-tag {
+  position: absolute;
+  bottom: 24px; left: 56px;
+  font-size: 1rem;
+  color: #b39ddb;
+  letter-spacing: 0.1em;
+  z-index: 30;
+}
+
+.back-link {
+  position: absolute;
+  bottom: 24px; right: 32px;
+  z-index: 30;
+}
+.back-link a {
+  display: inline-block;
+  background: rgba(15, 10, 31, 0.7);
+  color: #b388ff;
+  border: 1px solid rgba(179, 136, 255, 0.6);
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+}
+
+/* === P1 封面：放射 + 散落 icon === */
+.p1-wrap {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 32px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.p1-left h1 { color: #ede7f6; margin-bottom: 24px; }
+.p1-subtitle {
+  font-size: 1.3rem;
+  color: #b39ddb;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.p1-left .accent {
+  color: #b388ff;
+  font-weight: 800;
+  border-bottom: 3px solid #ff6e40;
+  padding-bottom: 2px;
+}
+.p1-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.p1-meta span {
+  background: rgba(179, 136, 255, 0.18);
+  color: #d1c4e9;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 1rem;
+  border: 1px solid rgba(179, 136, 255, 0.4);
+}
+.p1-right { position: relative; display: flex; align-items: center; justify-content: center; }
+.p1-svg { width: 100%; height: 100%; }
+
+/* === P2 議程 6 條：垂直堆疊 === */
+.p2-stack { flex: 1; display: flex; flex-direction: column; gap: 7px; justify-content: center; padding-bottom: 30px; }
+.p2-row {
+  display: grid;
+  grid-template-columns: 50px 2fr 3fr;
+  gap: 14px;
+  align-items: center;
+  padding: 8px 16px;
+  background: rgba(179, 136, 255, 0.08);
+  border-left: 4px solid #b388ff;
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+.p2-num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #b388ff;
+  line-height: 1;
+}
+.p2-row h3 { color: #ede7f6; font-size: 1.1rem; }
+.p2-row p { color: #b39ddb; font-size: 1rem; line-height: 1.35; }
+
+/* === P3 同心靶心：單一居中 === */
+.p3-wrap { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: center; }
+.p3-left h2 { color: #ede7f6; margin-bottom: 18px; }
+.p3-left p { color: #b39ddb; margin-bottom: 14px; font-size: 1.15rem; line-height: 1.5; }
+.p3-bullseye { position: relative; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
+.p3-bullseye svg { width: 100%; height: 100%; }
+
+/* === P4 蜂巢水平：4 項 === */
+.p4-wrap { flex: 1; display: flex; flex-direction: column; }
+.p4-hex-row {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  align-items: center;
+  margin-top: 16px;
+}
+.p4-hex {
+  background: rgba(179, 136, 255, 0.12);
+  border: 1px solid rgba(179, 136, 255, 0.5);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  aspect-ratio: 1 / 1.1547;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  backdrop-filter: blur(8px);
+  text-align: center;
+}
+.p4-hex-icon {
+  width: 56px; height: 56px;
+  margin-bottom: 10px;
+}
+.p4-hex h3 { color: #ede7f6; font-size: 1.2rem; margin-bottom: 6px; }
+.p4-hex p { color: #b39ddb; font-size: 1rem; line-height: 1.4; }
+
+/* === P5 KPI 儀表：網格 2x3 === */
+.p5-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 18px;
+  padding-bottom: 16px;
+}
+.p5-card {
+  background: rgba(179, 136, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(179, 136, 255, 0.4);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.p5-card-icon { width: 44px; height: 44px; }
+.p5-card-label {
+  color: #b39ddb;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.p5-card-num {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #b388ff;
+  line-height: 1;
+}
+.p5-card-unit { font-size: 1rem; color: #d1c4e9; }
+.p5-card-foot {
+  font-size: 1rem;
+  color: #ede7f6;
+  border-top: 1px solid rgba(179, 136, 255, 0.3);
+  padding-top: 10px;
+}
+
+/* === P6 時間軸 6 步：垂直 + 散落節點 === */
+.p6-wrap { flex: 1; display: flex; flex-direction: column; }
+.p6-timeline {
+  flex: 1;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
+.p6-timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #b388ff, transparent);
+}
+.p6-node {
+  position: relative;
+  background: rgba(179, 136, 255, 0.08);
+  border: 1px solid rgba(179, 136, 255, 0.5);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  backdrop-filter: blur(8px);
+}
+.p6-node:nth-child(odd) { align-self: flex-start; }
+.p6-node:nth-child(even) { align-self: flex-end; }
+.p6-node-dot {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: #b388ff;
+  border: 2px solid #ede7f6;
+  box-shadow: 0 0 12px rgba(179, 136, 255, 0.8);
+}
+.p6-node-year {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #b388ff;
+  line-height: 1;
+}
+.p6-node-text { font-size: 1rem; color: #d1c4e9; line-height: 1.4; }
+
+/* === P7 放射對比：水平水狀 === */
+.p7-wrap { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch; }
+.p7-side {
+  background: rgba(179, 136, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(179, 136, 255, 0.4);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.p7-side-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid rgba(179, 136, 255, 0.3);
+  padding-bottom: 14px;
+}
+.p7-side-head svg { width: 48px; height: 48px; }
+.p7-side-head h3 { color: #ede7f6; font-size: 1.6rem; }
+.p7-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 8px 0;
+}
+.p7-item-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #b388ff;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+.p7-item p { color: #d1c4e9; font-size: 1rem; line-height: 1.5; }
+
+/* === P8 甜甜圈/環形儀表板：網格 === */
+.p8-grid { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; }
+.p8-left h2 { color: #ede7f6; margin-bottom: 14px; }
+.p8-left p { color: #b39ddb; margin-bottom: 12px; font-size: 1.15rem; line-height: 1.5; }
+.p8-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.p8-ring {
+  background: rgba(179, 136, 255, 0.08);
+  border: 1px solid rgba(179, 136, 255, 0.4);
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(8px);
+}
+.p8-ring svg { width: 110px; height: 110px; }
+.p8-ring-label { font-size: 1rem; color: #b39ddb; }
+.p8-ring-num { font-size: 1.4rem; font-weight: 900; color: #b388ff; }
+
+/* === P9 應用場景：垂直卡片 === */
+.p9-wrap { flex: 1; display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+.p9-card {
+  background: rgba(179, 136, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(179, 136, 255, 0.4);
+  border-radius: 14px;
+  padding: 18px 24px;
+  display: grid;
+  grid-template-columns: 80px 1fr 2fr;
+  gap: 20px;
+  align-items: center;
+}
+.p9-card-icon {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, #5e35b1, #b388ff);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(179, 136, 255, 0.6);
+}
+.p9-card-icon svg { width: 38px; height: 38px; }
+.p9-card h3 { color: #ede7f6; font-size: 1.3rem; margin-bottom: 4px; }
+.p9-card p { color: #b39ddb; font-size: 1rem; line-height: 1.4; }
+
+/* === P10 結尾頁：純文字居中 === */
+.p10-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 20px; }
+.p10-title { font-size: 4.2rem; font-weight: 900; color: #ede7f6; line-height: 1.05; margin-bottom: 10px; }
+.p10-title .accent {
+  background: linear-gradient(135deg, #b388ff, #ff6e40);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.p10-subtitle { font-size: 1.4rem; color: #b39ddb; max-width: 720px; line-height: 1.5; }
+.p10-meta { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.p10-meta span {
+  background: rgba(179, 136, 255, 0.18);
+  color: #d1c4e9;
+  padding: 8px 16px;
+  border-radius: 14px;
+  font-size: 1rem;
+  border: 1px solid rgba(179, 136, 255, 0.4);
+}
+
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+<!-- ============== P1 封面 放射/散落 ============== -->
+<section class="slide active" id="slide-1">
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">1</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <div class="p1-wrap">
+    <div class="p1-left">
+      <div class="tag">2026 / 08 / 04 ・ 科技學術</div>
+      <h1>邊緣智慧 × 聯邦學習<br><span class="accent">AI 運算新前沿</span></h1>
+      <p class="p1-subtitle">
+        從雲端集中式運算，到終端裝置即時推理——當模型參數不再回傳原廠，<br>
+        隱私、效率、能耗，三條曲線如何同時被改寫？
+      </p>
+      <div class="p1-meta">
+        <span>Edge AI</span>
+        <span>Federated Learning</span>
+        <span>Privacy-Preserving</span>
+        <span>On-Device Inference</span>
+      </div>
+    </div>
+
+    <div class="p1-right">
+      <svg class="p1-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <!-- 中央節點 -->
+        <circle cx="200" cy="200" r="48" fill="#b388ff" opacity="0.95"/>
+        <circle cx="200" cy="200" r="48" fill="none" stroke="#ede7f6" stroke-width="2"/>
+        <text x="200" y="208" text-anchor="middle" fill="#0f0a1f" font-size="22" font-weight="900">Edge</text>
+        <!-- 散落節點 -->
+        <circle cx="80" cy="90" r="22" fill="none" stroke="#b388ff" stroke-width="2"/>
+        <circle cx="80" cy="90" r="6" fill="#ff6e40"/>
+        <circle cx="330" cy="70" r="18" fill="none" stroke="#b388ff" stroke-width="2"/>
+        <circle cx="330" cy="70" r="5" fill="#b388ff"/>
+        <circle cx="350" cy="320" r="20" fill="none" stroke="#b388ff" stroke-width="2"/>
+        <circle cx="350" cy="320" r="6" fill="#ede7f6"/>
+        <circle cx="60" cy="330" r="16" fill="none" stroke="#b388ff" stroke-width="2"/>
+        <circle cx="60" cy="330" r="5" fill="#b388ff"/>
+        <circle cx="200" cy="60" r="14" fill="none" stroke="#b388ff" stroke-width="2"/>
+        <circle cx="200" cy="60" r="4" fill="#ff6e40"/>
+        <circle cx="200" cy="350" r="14" fill="none" stroke="#b388ff" stroke-width="2"/>
+        <circle cx="200" cy="350" r="4" fill="#ede7f6"/>
+        <!-- 連線（放射狀） -->
+        <line x1="200" y1="200" x2="80" y2="90" stroke="#b388ff" stroke-width="1" opacity="0.5" stroke-dasharray="4,4"/>
+        <line x1="200" y1="200" x2="330" y2="70" stroke="#b388ff" stroke-width="1" opacity="0.5" stroke-dasharray="4,4"/>
+        <line x1="200" y1="200" x2="350" y2="320" stroke="#b388ff" stroke-width="1" opacity="0.5" stroke-dasharray="4,4"/>
+        <line x1="200" y1="200" x2="60" y2="330" stroke="#b388ff" stroke-width="1" opacity="0.5" stroke-dasharray="4,4"/>
+        <line x1="200" y1="200" x2="200" y2="60" stroke="#b388ff" stroke-width="1" opacity="0.5" stroke-dasharray="4,4"/>
+        <line x1="200" y1="200" x2="200" y2="350" stroke="#b388ff" stroke-width="1" opacity="0.5" stroke-dasharray="4,4"/>
+        <!-- 散落裝飾小點 -->
+        <circle cx="150" cy="120" r="3" fill="#b388ff" opacity="0.6"/>
+        <circle cx="280" cy="160" r="3" fill="#ff6e40" opacity="0.6"/>
+        <circle cx="120" cy="270" r="3" fill="#b388ff" opacity="0.6"/>
+        <circle cx="290" cy="240" r="3" fill="#ede7f6" opacity="0.6"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="page-tag">P01 · 封面 Cover</div>
+  <div class="back-link"><a href="/slides.htm">回列表</a></div>
+</section>
+
+<!-- ============== P2 議程 6 條 垂直堆疊 ============== -->
+<section class="slide" id="slide-2">
+  <div class="glow-orb glow-orb-1"></div>
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">2</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <div class="page-tag" style="left:56px; top:24px; bottom:auto;">P02 · 議程大綱 Agenda</div>
+
+  <h2 style="margin-bottom:18px;">六個關鍵視角，看懂 AI 運算的轉移</h2>
+
+  <div class="p2-stack">
+    <div class="p2-row">
+      <div class="p2-num">01</div>
+      <h3>雲端到終端的典範轉移</h3>
+      <p>為何推論必須發生在使用者身邊？延遲、頻寬、私密性的三難命題</p>
+    </div>
+    <div class="p2-row">
+      <div class="p2-num">02</div>
+      <h3>邊緣 AI 的硬體基礎</h3>
+      <p>NPU、神經加速器、低功耗 SoC——支撐本地推理的晶片生態</p>
+    </div>
+    <div class="p2-row">
+      <div class="p2-num">03</div>
+      <h3>聯邦學習的核心機制</h3>
+      <p>參數交換而非資料交換，從分散節點共同訓練一個共享模型</p>
+    </div>
+    <div class="p2-row">
+      <div class="p2-num">04</div>
+      <h3>隱私與能耗的權衡曲線</h3>
+      <p>差分隱私、同態加密、模型剪枝——三條工程折衷路線</p>
+    </div>
+    <div class="p2-row">
+      <div class="p2-num">05</div>
+      <h3>醫療與自駕車的實戰案例</h3>
+      <p>離線推論＋跨院協作的醫療影像，與即時反應的車載系統</p>
+    </div>
+    <div class="p2-row">
+      <div class="p2-num">06</div>
+      <h3>未來五年的關鍵指標</h3>
+      <p>裝置端模型大小、能源效率、訓練收斂速度的量化目標</p>
+    </div>
+  </div>
+
+  <div class="back-link"><a href="/slides.htm">回列表</a></div>
+</section>
+
+<!-- ============== P3 同心靶心 單一居中 ============== -->
+<section class="slide" id="slide-3">
+  <div class="glow-orb glow-orb-2"></div>
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">3</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <div class="page-tag" style="left:56px; top:24px; bottom:auto;">P03 · 典範轉移 Paradigm Shift</div>
+
+  <div class="p3-wrap">
+    <div class="p3-left">
+      <h2>從集中走向分散：<br>雲端 AI 的三個瓶頸</h2>
+      <p>當模型推論必須在資料產生現場完成，雲端的角色從「執行者」退位為「協調者」。</p>
+      <p>邊緣智慧的本質不是「更小的雲端」，而是<strong style="color:#b388ff;">一套全新的運算拓樸</strong>——資料留在原處，知識在裝置間流動。</p>
+    </div>
+
+    <div class="p3-bullseye">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- 同心靶心 -->
+        <circle cx="150" cy="150" r="140" fill="none" stroke="#b388ff" stroke-width="1" opacity="0.4" stroke-dasharray="4,4"/>
+        <circle cx="150" cy="150" r="115" fill="rgba(179, 136, 255, 0.10)" stroke="#b388ff" stroke-width="1.5"/>
+        <circle cx="150" cy="150" r="85" fill="rgba(179, 136, 255, 0.18)" stroke="#b388ff" stroke-width="1.5"/>
+        <circle cx="150" cy="150" r="55" fill="#b388ff" stroke="#ede7f6" stroke-width="2"/>
+        <text x="150" y="148" text-anchor="middle" fill="#0f0a1f" font-size="18" font-weight="900">EDGE</text>
+        <text x="150" y="168" text-anchor="middle" fill="#0f0a1f" font-size="12" font-weight="700">device</text>
+        <!-- 標籤 -->
+        <text x="150" y="22" text-anchor="middle" fill="#d1c4e9" font-size="11" font-weight="700">CLOUD 雲端</text>
+        <text x="150" y="290" text-anchor="middle" fill="#d1c4e9" font-size="11" font-weight="700">DEVICE 裝置</text>
+        <text x="14" y="155" text-anchor="middle" fill="#ff8a65" font-size="11" font-weight="700">LATENCY</text>
+        <text x="286" y="155" text-anchor="middle" fill="#ff8a65" font-size="11" font-weight="700">PRIVACY</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="back-link"><a href="/slides.htm">回列表</a></div>
+</section>
+
+<!-- ============== P4 蜂巢水平 4 項 ============== -->
+<section class="slide" id="slide-4">
+  <div class="glow-orb glow-orb-1"></div>
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">4</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <div class="page-tag" style="left:56px; top:24px; bottom:auto;">P04 · 邊緣硬體 Edge Hardware</div>
+
+  <h2 style="margin-bottom:14px;">支撐本地推論的<span style="color:#b388ff;">四種晶片生態</span></h2>
+  <p style="color:#b39ddb; font-size:1.05rem;">每種架構為不同任務而生——CPU 處理流程、GPU 處理矩陣、NPU 處理神經網路、DSP 處理訊號</p>
+
+  <div class="p4-hex-row">
+    <div class="p4-hex">
+      <svg class="p4-hex-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="14" y="14" width="36" height="36" fill="none" stroke="#b388ff" stroke-width="2.5" rx="3"/>
+        <rect x="22" y="22" width="20" height="20" fill="#b388ff" opacity="0.4"/>
+        <line x1="14" y1="22" x2="6" y2="22" stroke="#b388ff" stroke-width="2"/>
+        <line x1="14" y1="32" x2="6" y2="32" stroke="#b388ff" stroke-width="2"/>
+        <line x1="14" y1="42" x2="6" y2="42" stroke="#b388ff" stroke-width="2"/>
+        <line x1="58" y1="22" x2="50" y2="22" stroke="#b388ff" stroke-width="2"/>
+        <line x1="58" y1="32" x2="50" y2="32" stroke="#b388ff" stroke-width="2"/>
+        <line x1="58" y1="42" x2="50" y2="42" stroke="#b388ff" stroke-width="2"/>
+      </svg>
+      <h3>CPU</h3>
+      <p>通用流程控制<br>低功耗待機</p>
+    </div>
+    <div class="p4-hex">
+      <svg class="p4-hex-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="44" height="44" fill="none" stroke="#b388ff" stroke-width="2.5" rx="3"/>
+        <g stroke="#b388ff" stroke-width="2">
+          <line x1="20" y1="22" x2="28" y2="22"/>
+          <line x1="20" y1="32" x2="28" y2="32"/>
+          <line x1="20" y1="42" x2="28" y2="42"/>
+          <line x1="36" y1="22" x2="44" y2="22"/>
+          <line x1="36" y1="32" x2="44" y2="32"/>
+          <line x1="36" y1="42" x2="44" y2="42"/>
+        </g>
+        <circle cx="32" cy="32" r="4" fill="#ff6e40"/>
+      </svg>
+      <h3>GPU</h3>
+      <p>平行矩陣運算<br>訓練與推論主力</p>
+    </div>
+    <div class="p4-hex">
+      <svg class="p4-hex-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="32,8 56,22 56,42 32,56 8,42 8,22" fill="none" stroke="#b388ff" stroke-width="2.5"/>
+        <circle cx="32" cy="32" r="12" fill="#b388ff" opacity="0.4"/>
+        <circle cx="32" cy="32" r="6" fill="#ff6e40"/>
+        <line x1="32" y1="14" x2="32" y2="20" stroke="#b388ff" stroke-width="2"/>
+        <line x1="32" y1="44" x2="32" y2="50" stroke="#b388ff" stroke-width="2"/>
+      </svg>
+      <h3>NPU</h3>
+      <p>神經網路專用<br>手機與 IoT 標配</p>
+    </div>
+    <div class="p4-hex">
+      <svg class="p4-hex-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="22" fill="none" stroke="#b388ff" stroke-width="2.5"/>
+        <path d="M 16 32 Q 24 22, 32 32 T 48 32" fill="none" stroke="#b388ff" stroke-width="2.5"/>
+        <circle cx="32" cy="32" r="4" fill="#ff6e40"/>
+      </svg>
+      <h3>DSP</h3>
+      <p>訊號處理專用<br>音訊、感測器</p>
+    </div>
+  </div>
+
+  <div class="back-link"><a href="/slides.htm">回列表</a></div>
+</section>
+
+<!-- ============== P5 KPI 儀表板 2x3 網格 ============== -->
+<section class="slide" id="slide-5">
+  <div class="glow-orb glow-orb-2"></div>
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">5</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <div class="page-tag" style="left:56px; top:24px; bottom:auto;">P05 · 量化指標 Quantitative Metrics</div>
+
+  <h2 style="margin-bottom:18px;">2026 邊緣 AI 的<span style="color:#b388ff;">六項關鍵指標</span></h2>
+
+  <div class="p5-grid">
+    <div class="p5-card">
+      <svg class="p5-card-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="8" width="48" height="48" fill="none" stroke="#b388ff" stroke-width="2.5" rx="3"/>
+        <text x="32" y="40" text-anchor="middle" fill="#b388ff" font-size="20" font-weight="900">ms</text>
+      </svg>
+      <div class="p5-card-label">推論延遲</div>
+      <div class="p5-card-num">12</div>
+      <div class="p5-card-unit">毫秒 / 次</div>
+      <div class="p5-card-foot">相較 2022 年下降 87%</div>
+    </div>
+
+    <div class="p5-card">
+      <svg class="p5-card-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="32,8 56,22 56,42 32,56 8,42 8,22" fill="none" stroke="#b388ff" stroke-width="2.5"/>
+        <circle cx="32" cy="32" r="8" fill="#b388ff" opacity="0.6"/>
+      </svg>
+      <div class="p5-card-label">裝置端模型大小</div>
+      <div class="p5-card-num">1.8</div>
+      <div class="p5-card-unit">GB（中位數）</div>
+      <div class="p5-card-foot">量化後可壓至 380MB</div>
+    </div>
+
+    <div class="p5-card">
+      <svg class="p5-card-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 12 32 L 24 20 L 36 32 L 52 16" fill="none" stroke="#b388ff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="52" cy="16" r="4" fill="#ff6e40"/>
+      </svg>
+      <div class="p5-card-label">每瓦推論次數</div>
+      <div class="p5-card-num">450</div>
+      <div class="p5-card-unit">inf / Watt</div>
+      <div class="p5-card-foot">手機晶片能源效率</div>
+    </div>
+
+    <div class="p5-card">
+      <svg class="p5-card-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="22" fill="none" stroke="#b388ff" stroke-width="2.5"/>
+        <path d="M 32 18 L 32 32 L 42 38" fill="none" stroke="#ff6e40" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <div class="p5-card-label">訓練收斂輪數</div>
+      <div class="p5-card-num">42</div>
+      <div class="p5-card-unit">rounds（FL）</div>
+      <div class="p5-card-foot">聯邦學習達 95% 精度</div>
+    </div>
+
+    <div class="p5-card">
+      <svg class="p5-card-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="14" y="20" width="36" height="32" fill="none" stroke="#b388ff" stroke-width="2.5" rx="3"/>
+        <circle cx="32" cy="14" r="6" fill="none" stroke="#b388ff" stroke-width="2.5"/>
+        <line x1="32" y1="20" x2="32" y2="14" stroke="#b388ff" stroke-width="2.5"/>
+        <line x1="22" y1="32" x2="42" y2="32" stroke="#ff6e40" stroke-width="2.5"/>
+      </svg>
+      <div class="p5-card-label">隱私保證強度</div>
+      <div class="p5-card-num">ε=0.5</div>
+      <div class="p5-card-unit">差分隱私 ε</div>
+      <div class="p5-card-foot">醫療級合規邊界</div>
+    </div>
+
+    <div class="p5-card">
+      <svg class="p5-card-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="20" fill="none" stroke="#b388ff" stroke-width="2.5"/>
+        <circle cx="32" cy="32" r="6" fill="#b388ff"/>
+        <line x1="32" y1="6" x2="32" y2="14" stroke="#b388ff" stroke-width="2.5"/>
+        <line x1="32" y1="50" x2="32" y2="58" stroke="#b388ff" stroke-width="2.5"/>
+        <line x1="6" y1="32" x2="14" y2="32" stroke="#b388ff" stroke-width="2.5"/>
+        <line x1="50" y1="32" x2="58" y2="32" stroke="#b388ff" stroke-width="2.5"/>
+      </svg>
+      <div class="p5-card-label">支援裝置數</div>
+      <div class="p5-card-num">2.4B</div>
+      <div class="p5-card-unit">edge nodes</div>
+      <div class="p5-card-foot">全球已部署裝置</div>
+    </div>
+  </div>
+
+  <div class="back-link"><a href="/slides.htm">回列表</a></div>
+</section>
+
+<!-- ============== P6 時間軸 6 步 垂直散落 ============== -->
+<section class="slide" id="slide-6">
+  <div class="glow-orb glow-orb-1"></div>
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">6</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <div class="page-tag" style="left:56px; top:24px; bottom:auto;">P06 · 技術路線 Technical Roadmap</div>
+
+  <h2 style="margin-bottom:14px;">邊緣 AI 與聯邦學習的<span style="color:#b388ff;">五年演進路線</span></h2>
+
+  <div class="p6-wrap">
+    <div class="p6-timeline">
+      <div class="p6-node">
+        <div class="p6-node-dot"></div>
+        <div class="p6-node-year">2021</div>
+        <div class="p6-node-text">雲端 AI 主流<br>邊緣實驗室階段</div>
+      </div>
+      <div class="p6-node">
+        <div class="p6-node-dot"></div>
+        <div class="p6-node-year">2023</div>
+        <div class="p6-node-text">手機端 LLM<br>首次離線推論</div>
+      </div>
+      <div class="p6-node">
+        <div class="p6-node-dot"></div>
+        <div class="p6-node-year">2024</div>
+        <div class="p6-node-text">聯邦學習標準化<br>FL 框架開源</div>
+      </div>
+      <div class="p6-node">
+        <div class="p6-node-dot"></div>
+        <div class="p6-node-year">2025</div>
+        <div class="p6-node-text">隱私法規落地<br>歐盟 AI Act 生效</div>
+      </div>
+      <div class="p6-node">
+        <div class="p6-node-dot"></div>
+        <div class="p6-node-year">2026</div>
+        <div class="p6-node-text">端雲協同普及<br>Edge-LLM 量產</div>
+      </div>
+      <div class="p6-node">
+        <div class="p6-node-dot"></div>
+        <div class="p6-node-year">2028</div>
+        <div class="p6-node-text">全裝置本地化<br>雲端僅做匯總</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-link"><a href="/slides.htm">回列表</a></div>
+</section>
+
+<!-- ============== P7 對比兩欄 水平 ============== -->
+<section class="slide" id="slide-7">
+  <div class="glow-orb glow-orb-2"></div>
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">7</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <div class="page-tag" style="left:56px; top:24px; bottom:auto;">P07 · 對比 Contrast</div>
+
+  <h2 style="margin-bottom:18px;">集中式 vs 分散式：<span style="color:#b388ff;">兩條工程路線</span></h2>
+
+  <div class="p7-wrap">
+    <div class="p7-side">
+      <div class="p7-side-head">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="20" r="10" fill="#b388ff"/>
+          <line x1="32" y1="30" x2="32" y2="50" stroke="#b388ff" stroke-width="2"/>
+          <line x1="20" y1="50" x2="44" y2="50" stroke="#b388ff" stroke-width="2"/>
+          <circle cx="32" cy="50" r="6" fill="#ff6e40"/>
+        </svg>
+        <h3>集中式 Cloud AI</h3>
+      </div>
+      <div class="p7-item"><div class="p7-item-dot"></div><p>單一大型模型在資料中心運作，推理請求需經網路往返</p></div>
+      <div class="p7-item"><div class="p7-item-dot"></div><p>原始資料上傳至雲端，隱私暴露面大、頻寬成本高</p></div>
+      <div class="p7-item"><div class="p7-item-dot"></div><p>離線即停機——地震、停電、訊號死角都會中斷服務</p></div>
+      <div class="p7-item"><div class="p7-item-dot"></div><p>擴充靠堆疊 GPU，單一模型可達數千億參數</p></div>
+    </div>
+
+    <div class="p7-side" style="border-color: rgba(255,110,64,0.4);">
+      <div class="p7-side-head">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="6" fill="#ff8a65"/>
+          <circle cx="44" cy="20" r="6" fill="#ff8a65"/>
+          <circle cx="32" cy="44" r="6" fill="#ff8a65"/>
+          <line x1="20" y1="20" x2="32" y2="44" stroke="#ff8a65" stroke-width="2"/>
+          <line x1="44" y1="20" x2="32" y2="44" stroke="#ff8a65" stroke-width="2"/>
+          <line x1="20" y1="20" x2="44" y2="20" stroke="#ff8a65" stroke-width="2"/>
+        </svg>
+        <h3 style="color:#ffab91;">分散式 Edge AI</h3>
+      </div>
+      <div class="p7-item"><div class="p7-item-dot" style="background:#ff8a65;"></div><p>模型分散於終端裝置，推理在資料產生現場完成</p></div>
+      <div class="p7-item"><div class="p7-item-dot" style="background:#ff8a65;"></div><p>資料不出裝置，僅傳遞模型參數或梯度——隱私優先</p></div>
+      <div class="p7-item"><div class="p7-item-dot" style="background:#ff8a65;"></div><p>離線仍可運作；聯邦學習在裝置間交換知識</p></div>
+      <div class="p7-item"><div class="p7-item-dot" style="background:#ff8a65;"></div><p>受限於裝置算力，模型需量化、剪枝、知識蒸餾</p></div>
+    </div>
+  </div>
+
+  <div class="back-link"><a href="/slides.htm">回列表</a></div>
+</section>
+
+<!-- ============== P8 環形儀表板 網格 ============== -->
+<section class="slide" id="slide-8">
+  <div class="glow-orb glow-orb-1"></div>
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">8</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <div class="page-tag" style="left:56px; top:24px; bottom:auto;">P08 · 應用領域 Application Domains</div>
+
+  <div class="p8-grid">
+    <div class="p8-left">
+      <h2>四個<span style="color:#b388ff;">最先落地</span>的產業場景</h2>
+      <p>邊緣 AI 並非萬靈丹——在低延遲、隱私敏感、頻寬受限的場景，它比雲端更具結構性優勢。</p>
+      <p>以下四個領域已進入規模化部署階段，是觀察「模型如何離開機房」的最佳切入點。</p>
+    </div>
+
+    <div class="p8-right">
+      <div class="p8-ring">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(179,136,255,0.2)" stroke-width="8"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#b388ff" stroke-width="8"
+                  stroke-dasharray="251.3" stroke-dashoffset="25.13" transform="rotate(-90 50 50)" stroke-linecap="round"/>
+        </svg>
+        <div class="p8-ring-num">90%</div>
+        <div class="p8-ring-label">醫療影像</div>
+      </div>
+
+      <div class="p8-ring">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(179,136,255,0.2)" stroke-width="8"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#ff8a65" stroke-width="8"
+                  stroke-dasharray="251.3" stroke-dashoffset="50.26" transform="rotate(-90 50 50)" stroke-linecap="round"/>
+        </svg>
+        <div class="p8-ring-num" style="color:#ff8a65;">80%</div>
+        <div class="p8-ring-label">自駕車</div>
+      </div>
+
+      <div class="p8-ring">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(179,136,255,0.2)" stroke-width="8"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#b388ff" stroke-width="8"
+                  stroke-dasharray="251.3" stroke-dashoffset="75.39" transform="rotate(-90 50 50)" stroke-linecap="round"/>
+        </svg>
+        <div class="p8-ring-num">70%</div>
+        <div class="p8-ring-label">智慧製造</div>
+      </div>
+
+      <div class="p8-ring">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(179,136,255,0.2)" stroke-width="8"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#ff8a65" stroke-width="8"
+                  stroke-dasharray="251.3" stroke-dashoffset="125.65" transform="rotate(-90 50 50)" stroke-linecap="round"/>
+        </svg>
+        <div class="p8-ring-num" style="color:#ff8a65;">50%</div>
+        <div class="p8-ring-label">行動裝置</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-link"><a href="/slides.htm">回列表</a></div>
+</section>
+
+<!-- ============== P9 應用場景 垂直卡片 ============== -->
+<section class="slide" id="slide-9">
+  <div class="glow-orb glow-orb-2"></div>
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">9</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <div class="page-tag" style="left:56px; top:24px; bottom:auto;">P09 · 實戰案例 Real Cases</div>
+
+  <h2 style="margin-bottom:18px;">三個<span style="color:#b388ff;">正在發生</span>的場景</h2>
+
+  <div class="p9-wrap">
+    <div class="p9-card">
+      <div class="p9-card-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <rect x="14" y="14" width="36" height="36" fill="none" stroke="#ede7f6" stroke-width="2.5" rx="3"/>
+          <path d="M 14 28 L 50 28" stroke="#ede7f6" stroke-width="2"/>
+          <path d="M 32 14 L 32 50" stroke="#ede7f6" stroke-width="2"/>
+          <circle cx="32" cy="32" r="6" fill="#ff6e40"/>
+        </svg>
+      </div>
+      <div>
+        <h3>醫療影像</h3>
+        <p style="color:#b39ddb;">醫院 AI 協作</p>
+      </div>
+      <p>32 家醫院共同訓練肺結節偵測模型，原始病歷從未離開醫院，僅交換模型參數。隱私合規與診斷精度首次同步達標。</p>
+    </div>
+
+    <div class="p9-card">
+      <div class="p9-card-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="20" width="48" height="20" fill="none" stroke="#ede7f6" stroke-width="2.5" rx="4"/>
+          <circle cx="18" cy="44" r="5" fill="none" stroke="#ede7f6" stroke-width="2.5"/>
+          <circle cx="46" cy="44" r="5" fill="none" stroke="#ede7f6" stroke-width="2.5"/>
+          <circle cx="32" cy="30" r="3" fill="#ff6e40"/>
+        </svg>
+      </div>
+      <div>
+        <h3>車載感知</h3>
+        <p style="color:#b39ddb;">即時反應 &lt; 50ms</p>
+      </div>
+      <p>Level 4 自駕車在車端晶片完成物件偵測與路徑規劃，雲端僅接收匿名化的駕駛行為統計用於模型更新。</p>
+    </div>
+
+    <div class="p9-card">
+      <div class="p9-card-icon">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="8" width="24" height="48" fill="none" stroke="#ede7f6" stroke-width="2.5" rx="4"/>
+          <line x1="32" y1="48" x2="32" y2="54" stroke="#ede7f6" stroke-width="2.5"/>
+          <circle cx="32" cy="26" r="6" fill="#ff6e40"/>
+        </svg>
+      </div>
+      <div>
+        <h3>手機助理</h3>
+        <p style="color:#b39ddb;">離線 LLM</p>
+      </div>
+      <p>1.8GB 量化模型完全在裝置端執行語音轉文字、智慧回覆與翻譯，無需網路亦無隱私外洩疑慮。</p>
+    </div>
+  </div>
+
+  <div class="back-link"><a href="/slides.htm">回列表</a></div>
+</section>
+
+<!-- ============== P10 結尾 純文字居中 ============== -->
+<section class="slide" id="slide-10">
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+
+  <div class="nav">
+    <button onclick="prev()">◀</button>
+    <span class="counter"><span id="cur">10</span> / 10</span>
+    <button onclick="next()">▶</button>
+  </div>
+
+  <div class="p10-wrap">
+    <div class="tag">THANKS FOR LISTENING</div>
+    <div class="p10-title">運算回歸現場<br><span class="accent">智慧向邊緣流動</span></div>
+    <div class="p10-subtitle">
+      下一個十年的 AI 主旋律，不是更大、更集中、更昂貴——<br>
+      而是更小、更分散、更貼近每一個資料發生的瞬間。
+    </div>
+    <div class="p10-meta">
+      <span>邊緣智慧 Edge AI</span>
+      <span>聯邦學習 Federated Learning</span>
+      <span>隱私計算 Privacy-Preserving</span>
+    </div>
+  </div>
+
+  <div class="back-link"><a href="/slides.htm">回列表</a></div>
+</section>
+
+</div>
+
+<script>
+var slides = document.querySelectorAll('.slide');
+var current = 0;
+
+function show() {
+  if (slides[current]) {
+    slides[current].classList.remove('active');
+  }
+  // 防禦性：確認 current 範圍
+  if (current < 0) current = slides.length - 1;
+  if (current >= slides.length) current = 0;
+  slides[current].classList.add('active');
+  // 更新計數器
+  document.querySelectorAll('#cur').forEach(function(el) {
+    el.textContent = current + 1;
+  });
+}
+
+function next() {
+  current = (current + 1) % slides.length;
+  show();
+}
+function prev() {
+  current = (current - 1 + slides.length) % slides.length;
+  show();
+}
+
+// 鍵盤導航
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' || e.key === ' ') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+</script>
+
+</body>
+</html>
