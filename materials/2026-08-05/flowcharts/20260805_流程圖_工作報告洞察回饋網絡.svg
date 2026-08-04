@@ -56,71 +56,67 @@
   <text x="960" y="75" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="52" font-weight="bold" fill="#F8FAFC" text-anchor="middle">工作報告洞察回饋網絡</text>
   <text x="960" y="115" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="24" fill="#22D3EE" text-anchor="middle" opacity="0.85">持續優化的循環流程</text>
 
-  <!-- 外圈5節點順時針連接路徑 - 用粗弧線連接各節點邊界 -->
-  <!-- 01右邊界(1060,260) → 02上邊界(1320,430) -->
-  <path d="M 1060 260 Q 1200 260 1320 430" fill="none" stroke="#22D3EE" stroke-width="4" marker-end="url(#arrow1)"/>
-  <!-- 02右下邊界(1450,610) → 03左上邊界(1100,720) -->
-  <path d="M 1450 610 Q 1300 720 1100 720" fill="none" stroke="#FB7185" stroke-width="4" marker-end="url(#arrow2)"/>
-  <!-- 03左邊界(1050,770) → 04右邊界(720,770) -->
-  <path d="M 1050 770 Q 880 770 720 770" fill="none" stroke="#FBBF24" stroke-width="4" marker-end="url(#arrow3)"/>
-  <!-- 04左上邊界(580,610) → 05右下邊界(470,520) -->
-  <path d="M 580 610 Q 470 560 470 520" fill="none" stroke="#34d399" stroke-width="4" marker-end="url(#arrow4)"/>
-  <!-- 05左上邊界(470,390) → 01左邊界(860,260) -->
-  <path d="M 470 390 Q 600 260 860 260" fill="none" stroke="#a78bfa" stroke-width="4" marker-end="url(#arrow5)"/>
-
-  <!-- 節點 1：01 數據收集 (上方) -->
-  <g transform="translate(960, 260)">
-    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="url(#node1Grad)" opacity="0.92"/>
-    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+  <!-- 節點形狀先畫 -->
+  <!-- 01 數據收集：center (960,230), bbox (840..1080,170..290) -->
+  <g transform="translate(960,230)">
+    <rect x="-120" y="-60" width="240" height="120" rx="16" fill="url(#node1Grad)" opacity="0.92"/>
+    <rect x="-120" y="-60" width="240" height="120" rx="16" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
     <text x="0" y="-15" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="20" font-weight="bold" fill="#F8FAFC" text-anchor="middle">01</text>
     <text x="0" y="18" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">數據收集</text>
     <text x="0" y="48" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#cffafe" text-anchor="middle">定量＋定性</text>
   </g>
 
-  <!-- 節點 2：02 分析洞察 (右上) -->
-  <g transform="translate(1320, 430)">
-    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="url(#node2Grad)" opacity="0.92"/>
-    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+  <!-- 02 分析洞察：center (1370,450), bbox (1250..1490,390..510) -->
+  <g transform="translate(1370,450)">
+    <rect x="-120" y="-60" width="240" height="120" rx="16" fill="url(#node2Grad)" opacity="0.92"/>
+    <rect x="-120" y="-60" width="240" height="120" rx="16" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
     <text x="0" y="-15" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="20" font-weight="bold" fill="#F8FAFC" text-anchor="middle">02</text>
     <text x="0" y="18" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">分析洞察</text>
     <text x="0" y="48" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#fce7f3" text-anchor="middle">趨勢與模式</text>
   </g>
 
-  <!-- 節點 3：03 決策方案 (右下) -->
-  <g transform="translate(1050, 720)">
-    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="url(#node3Grad)" opacity="0.92"/>
-    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+  <!-- 03 決策方案：center (1210,780), bbox (1090..1330,720..840) -->
+  <g transform="translate(1210,780)">
+    <rect x="-120" y="-60" width="240" height="120" rx="16" fill="url(#node3Grad)" opacity="0.92"/>
+    <rect x="-120" y="-60" width="240" height="120" rx="16" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
     <text x="0" y="-15" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="20" font-weight="bold" fill="#172554" text-anchor="middle">03</text>
     <text x="0" y="18" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#172554" text-anchor="middle">決策方案</text>
     <text x="0" y="48" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#422006" text-anchor="middle">策略與計畫</text>
   </g>
 
-  <!-- 節點 4：04 行動執行 (左下) -->
-  <g transform="translate(720, 720)">
-    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="url(#node4Grad)" opacity="0.92"/>
-    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+  <!-- 04 行動執行：center (710,780), bbox (590..830,720..840) -->
+  <g transform="translate(710,780)">
+    <rect x="-120" y="-60" width="240" height="120" rx="16" fill="url(#node4Grad)" opacity="0.92"/>
+    <rect x="-120" y="-60" width="240" height="120" rx="16" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
     <text x="0" y="-15" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="20" font-weight="bold" fill="#F8FAFC" text-anchor="middle">04</text>
     <text x="0" y="18" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">行動執行</text>
     <text x="0" y="48" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#d1fae5" text-anchor="middle">落地與追蹤</text>
   </g>
 
-  <!-- 節點 5：05 回饋修正 (左上) -->
-  <g transform="translate(470, 430)">
-    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="url(#node5Grad)" opacity="0.92"/>
-    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+  <!-- 05 回饋修正：center (550,450), bbox (430..670,390..510) -->
+  <g transform="translate(550,450)">
+    <rect x="-120" y="-60" width="240" height="120" rx="16" fill="url(#node5Grad)" opacity="0.92"/>
+    <rect x="-120" y="-60" width="240" height="120" rx="16" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
     <text x="0" y="-15" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="20" font-weight="bold" fill="#F8FAFC" text-anchor="middle">05</text>
     <text x="0" y="18" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">回饋修正</text>
     <text x="0" y="48" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#ede9fe" text-anchor="middle">Loop Back</text>
   </g>
 
-  <!-- 中心焦點：成果評估／持續優化 -->
-  <g transform="translate(960, 500)">
+  <!-- 中心核心：成果評估／持續優化, center (960,520), radius <= 85 -->
+  <g transform="translate(960,520)">
     <circle cx="0" cy="0" r="80" fill="#172554" opacity="0.88"/>
     <circle cx="0" cy="0" r="80" fill="none" stroke="#22D3EE" stroke-width="3" stroke-dasharray="8,4"/>
     <circle cx="0" cy="0" r="50" fill="none" stroke="#FB7185" stroke-width="2" opacity="0.5"/>
     <text x="0" y="-8" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="22" font-weight="bold" fill="#F8FAFC" text-anchor="middle">成果評估</text>
     <text x="0" y="20" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="22" font-weight="bold" fill="#22D3EE" text-anchor="middle">持續優化</text>
   </g>
+
+  <!-- 連線與箭頭：端點接觸邊界 -->
+  <path d="M 1080 250 Q 1190 280 1250 420" fill="none" stroke="#22D3EE" stroke-width="4" marker-end="url(#arrow1)"/>
+  <path d="M 1390 510 Q 1390 640 1280 720" fill="none" stroke="#FB7185" stroke-width="4" marker-end="url(#arrow2)"/>
+  <path d="M 1090 780 L 830 780" fill="none" stroke="#FBBF24" stroke-width="4" marker-end="url(#arrow3)"/>
+  <path d="M 640 720 Q 530 640 530 510" fill="none" stroke="#34d399" stroke-width="4" marker-end="url(#arrow4)"/>
+  <path d="M 670 420 Q 780 280 840 250" fill="none" stroke="#a78bfa" stroke-width="4" marker-end="url(#arrow5)"/>
 
   <!-- 底部敘事 -->
   <rect x="0" y="1000" width="1920" height="80" fill="#172554" opacity="0.4"/>

@@ -32,20 +32,20 @@
       <stop offset="0%" stop-color="#a78bfa"/>
       <stop offset="100%" stop-color="#8b5cf6"/>
     </linearGradient>
-    <marker id="arrowCyan" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#22D3EE"/>
+    <marker id="arrowCyan" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,12 L12,6 z" fill="#22D3EE"/>
     </marker>
-    <marker id="arrowPink" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#FB7185"/>
+    <marker id="arrowPink" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,12 L12,6 z" fill="#FB7185"/>
     </marker>
-    <marker id="arrowYellow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#FBBF24"/>
+    <marker id="arrowYellow" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,12 L12,6 z" fill="#FBBF24"/>
     </marker>
-    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#34d399"/>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,12 L12,6 z" fill="#34d399"/>
     </marker>
-    <marker id="arrowPurple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#a78bfa"/>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,12 L12,6 z" fill="#a78bfa"/>
     </marker>
   </defs>
 
@@ -56,60 +56,57 @@
   <text x="960" y="75" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="52" font-weight="bold" fill="#F8FAFC" text-anchor="middle">工作報告敘事流程</text>
   <text x="960" y="115" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="24" fill="#22D3EE" text-anchor="middle" opacity="0.85">5步驟完成高效工作報告</text>
 
-  <!-- 連接線 - 從前一節點右邊界 → 下一節點左邊界 -->
-  <!-- 線1: STEP1 右邊界(350,270) → STEP2 左邊界(580,370) -->
-  <line x1="350" y1="270" x2="580" y2="370" stroke="#22D3EE" stroke-width="3" marker-end="url(#arrowCyan)"/>
-  <!-- 線2: STEP2 右邊界(820,370) → STEP3 左邊界(1050,470) -->
-  <line x1="820" y1="370" x2="1050" y2="470" stroke="#FB7185" stroke-width="3" marker-end="url(#arrowPink)"/>
-  <!-- 線3: STEP3 右邊界(1290,470) → STEP4 左邊界(1520,570) -->
-  <line x1="1290" y1="470" x2="1520" y2="570" stroke="#FBBF24" stroke-width="3" marker-end="url(#arrowYellow)"/>
-  <!-- 線4: STEP4 右邊界(1750,570) → STEP5 左邊界(1380,670) - 向下彎曲連接 -->
-  <path d="M 1750 570 Q 1860 570 1860 670 Q 1860 770 1380 770" stroke="#34d399" stroke-width="3" fill="none" marker-end="url(#arrowGreen)"/>
-
-  <!-- 步驟 1：起點規劃 - 平行四邊形寬220,高110,斜角30px -->
-  <g transform="translate(80, 170)">
-    <polygon points="0,15 190,0 220,110 30,125" fill="url(#step1Grad)" opacity="0.92"/>
-    <polygon points="0,15 190,0 220,110 30,125" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
-    <text x="110" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 1</text>
-    <text x="110" y="70" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="22" font-weight="bold" fill="#172554" text-anchor="middle">明確目標</text>
-    <text x="110" y="98" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#1e3a5f" text-anchor="middle">設定SMART目標</text>
+  <!-- 步驟節點：先畫形狀 -->
+  <!-- STEP 1: translate(100,200), bbox (100..360, 200..350) -->
+  <g transform="translate(100,200)">
+    <polygon points="0,0 220,0 260,150 40,150" fill="url(#step1Grad)" opacity="0.92"/>
+    <polygon points="0,0 220,0 260,150 40,150" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+    <text x="130" y="55" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="24" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 1</text>
+    <text x="130" y="95" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#172554" text-anchor="middle">明確目標</text>
+    <text x="130" y="125" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#1e3a5f" text-anchor="middle">設定SMART目標</text>
   </g>
 
-  <!-- 步驟 2：資料收集 -->
-  <g transform="translate(460, 290)">
-    <polygon points="0,15 190,0 220,110 30,125" fill="url(#step2Grad)" opacity="0.92"/>
-    <polygon points="0,15 190,0 220,110 30,125" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
-    <text x="110" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 2</text>
-    <text x="110" y="70" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="22" font-weight="bold" fill="#F8FAFC" text-anchor="middle">資料收集</text>
-    <text x="110" y="98" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#fce7f3" text-anchor="middle">數據與事實</text>
+  <!-- STEP 2: translate(440,320), bbox (440..700, 320..470) -->
+  <g transform="translate(440,320)">
+    <polygon points="0,0 220,0 260,150 40,150" fill="url(#step2Grad)" opacity="0.92"/>
+    <polygon points="0,0 220,0 260,150 40,150" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+    <text x="130" y="55" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="24" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 2</text>
+    <text x="130" y="95" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">資料收集</text>
+    <text x="130" y="125" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#fce7f3" text-anchor="middle">數據與事實</text>
   </g>
 
-  <!-- 步驟 3：結構建構 -->
-  <g transform="translate(840, 410)">
-    <polygon points="0,15 190,0 220,110 30,125" fill="url(#step3Grad)" opacity="0.92"/>
-    <polygon points="0,15 190,0 220,110 30,125" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
-    <text x="110" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#172554" text-anchor="middle">STEP 3</text>
-    <text x="110" y="70" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="22" font-weight="bold" fill="#172554" text-anchor="middle">結構建構</text>
-    <text x="110" y="98" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#422006" text-anchor="middle">金字塔原理</text>
+  <!-- STEP 3: translate(780,440), bbox (780..1040, 440..590) -->
+  <g transform="translate(780,440)">
+    <polygon points="0,0 220,0 260,150 40,150" fill="url(#step3Grad)" opacity="0.92"/>
+    <polygon points="0,0 220,0 260,150 40,150" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+    <text x="130" y="55" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="24" font-weight="bold" fill="#172554" text-anchor="middle">STEP 3</text>
+    <text x="130" y="95" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#172554" text-anchor="middle">結構建構</text>
+    <text x="130" y="125" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#422006" text-anchor="middle">金字塔原理</text>
   </g>
 
-  <!-- 步驟 4：行動建議 -->
-  <g transform="translate(1220, 530)">
-    <polygon points="0,15 190,0 220,110 30,125" fill="url(#step4Grad)" opacity="0.92"/>
-    <polygon points="0,15 190,0 220,110 30,125" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
-    <text x="110" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 4</text>
-    <text x="110" y="70" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="22" font-weight="bold" fill="#F8FAFC" text-anchor="middle">行動方案</text>
-    <text x="110" y="98" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#d1fae5" text-anchor="middle">具體可行</text>
+  <!-- STEP 4: translate(1120,560), bbox (1120..1380, 560..710) -->
+  <g transform="translate(1120,560)">
+    <polygon points="0,0 220,0 260,150 40,150" fill="url(#step4Grad)" opacity="0.92"/>
+    <polygon points="0,0 220,0 260,150 40,150" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+    <text x="130" y="55" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="24" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 4</text>
+    <text x="130" y="95" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">行動方案</text>
+    <text x="130" y="125" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#d1fae5" text-anchor="middle">具體可行</text>
   </g>
 
-  <!-- 步驟 5：成果呈現 -->
-  <g transform="translate(1050, 690)">
-    <polygon points="0,15 190,0 220,110 30,125" fill="url(#step5Grad)" opacity="0.92"/>
-    <polygon points="0,15 190,0 220,110 30,125" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
-    <text x="110" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 5</text>
-    <text x="110" y="70" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="22" font-weight="bold" fill="#F8FAFC" text-anchor="middle">成果展現</text>
-    <text x="110" y="98" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#ddd6fe" text-anchor="middle">總結與呼籲</text>
+  <!-- STEP 5: translate(1460,680), bbox (1460..1720, 680..830) -->
+  <g transform="translate(1460,680)">
+    <polygon points="0,0 220,0 260,150 40,150" fill="url(#step5Grad)" opacity="0.92"/>
+    <polygon points="0,0 220,0 260,150 40,150" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+    <text x="130" y="55" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="24" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 5</text>
+    <text x="130" y="95" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">成果展現</text>
+    <text x="130" y="125" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#ddd6fe" text-anchor="middle">總結與呼籲</text>
   </g>
+
+  <!-- 連接線：端點僅接觸邊界 -->
+  <path d="M 340 275 L 460 395" fill="none" stroke="#22D3EE" stroke-width="4" marker-end="url(#arrowCyan)"/>
+  <path d="M 680 395 L 800 515" fill="none" stroke="#FB7185" stroke-width="4" marker-end="url(#arrowPink)"/>
+  <path d="M 1020 515 L 1140 635" fill="none" stroke="#FBBF24" stroke-width="4" marker-end="url(#arrowYellow)"/>
+  <path d="M 1360 635 L 1480 755" fill="none" stroke="#34d399" stroke-width="4" marker-end="url(#arrowGreen)"/>
 
   <!-- 底部裝飾 -->
   <rect x="0" y="1000" width="1920" height="80" fill="#172554" opacity="0.5"/>
