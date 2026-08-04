@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img">
+  <title>工作報告放射洞察背景</title>
+  <desc>放射環形焦點背景，右側保留文字安全區</desc>
+  <defs>
+    <filter id="noiseGrain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" mode="soft-light" result="grainy"/>
+      <feComposite in="grainy" in2="SourceGraphic" operator="in"/>
+    </filter>
+    <linearGradient id="radialBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="100%" stop-color="#172554"/>
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.3"/>
+      <stop offset="70%" stop-color="#172554" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#172554" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="coralAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FB7185"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#radialBg)"/>
+
+  <!-- 中心發光焦點 -->
+  <ellipse cx="750" cy="540" rx="500" ry="450" fill="url(#centerGlow)"/>
+
+  <!-- 放射環形結構 - 左側焦點 -->
+  <g transform="translate(750, 540)" opacity="0.65">
+    <!-- 最外圈 -->
+    <circle r="380" fill="none" stroke="#22D3EE" stroke-width="2" stroke-dasharray="12,6" opacity="0.5"/>
+    <circle r="340" fill="none" stroke="#FB7185" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.45"/>
+    <!-- 中圈 -->
+    <circle r="290" fill="none" stroke="#FBBF24" stroke-width="2" opacity="0.5"/>
+    <circle r="240" fill="none" stroke="#22D3EE" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.4"/>
+    <!-- 內圈 -->
+    <circle r="190" fill="none" stroke="#FB7185" stroke-width="2.5" opacity="0.55"/>
+    <circle r="140" fill="none" stroke="#FBBF24" stroke-width="1.5" opacity="0.45"/>
+    <!-- 核心圈 -->
+    <circle r="90" fill="#22D3EE" opacity="0.12"/>
+    <circle r="90" fill="none" stroke="#22D3EE" stroke-width="3"/>
+    <circle r="45" fill="#FB7185" opacity="0.15"/>
+    <circle r="45" fill="none" stroke="#FB7185" stroke-width="2.5"/>
+  </g>
+
+  <!-- 放射引導線 -->
+  <g opacity="0.35">
+    <line x1="750" y1="540" x2="0" y2="0" stroke="#22D3EE" stroke-width="1.5"/>
+    <line x1="750" y1="540" x2="0" y2="300" stroke="#22D3EE" stroke-width="1.2"/>
+    <line x1="750" y1="540" x2="0" y2="600" stroke="#FB7185" stroke-width="1.2"/>
+    <line x1="750" y1="540" x2="0" y2="900" stroke="#FBBF24" stroke-width="1"/>
+    <line x1="750" y1="540" x2="0" y2="1080" stroke="#22D3EE" stroke-width="1.5"/>
+    <line x1="750" y1="540" x2="300" y2="0" stroke="#FB7185" stroke-width="1"/>
+    <line x1="750" y1="540" x2="600" y2="0" stroke="#FBBF24" stroke-width="1"/>
+    <line x1="750" y1="540" x2="900" y2="0" stroke="#22D3EE" stroke-width="1"/>
+    <line x1="750" y1="540" x2="1100" y2="0" stroke="#FB7185" stroke-width="1.2"/>
+    <line x1="750" y1="540" x2="1500" y2="0" stroke="#FBBF24" stroke-width="1"/>
+  </g>
+
+  <!-- 六邊形點綴裝置 -->
+  <g transform="translate(400, 250) rotate(20)" opacity="0.5">
+    <polygon points="0,-40 34.6,-20 34.6,20 0,40 -34.6,20 -34.6,-20" fill="none" stroke="#22D3EE" stroke-width="2.5"/>
+    <polygon points="0,-24 20.8,-12 20.8,12 0,24 -20.8,12 -20.8,-12" fill="#22D3EE" opacity="0.2"/>
+  </g>
+  <g transform="translate(500, 750) rotate(-15)" opacity="0.45">
+    <polygon points="0,-50 43.3,-25 43.3,25 0,50 -43.3,25 -43.3,-25" fill="none" stroke="#FB7185" stroke-width="2.5"/>
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" fill="#FB7185" opacity="0.18"/>
+  </g>
+  <g transform="translate(300, 500) rotate(35)" opacity="0.4">
+    <polygon points="0,-35 30.3,-17.5 30.3,17.5 0,35 -30.3,17.5 -30.3,-17.5" fill="none" stroke="#FBBF24" stroke-width="2"/>
+    <polygon points="0,-21 18.2,-10.5 18.2,10.5 0,21 -18.2,10.5 -18.2,-10.5" fill="#FBBF24" opacity="0.22"/>
+  </g>
+  <g transform="translate(550, 400) rotate(-25)" opacity="0.35">
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" fill="none" stroke="#22D3EE" stroke-width="2"/>
+    <polygon points="0,-18 15.6,-9 15.6,9 0,18 -15.6,9 -15.6,-9" fill="#22D3EE" opacity="0.25"/>
+  </g>
+  <g transform="translate(420, 680) rotate(10)" opacity="0.38">
+    <polygon points="0,-28 24.2,-14 24.2,14 0,28 -24.2,14 -24.2,-14" fill="none" stroke="#FBBF24" stroke-width="2"/>
+    <polygon points="0,-17 14.7,-8.5 14.7,8.5 0,17 -14.7,8.5 -14.7,-8.5" fill="#FBBF24" opacity="0.2"/>
+  </g>
+
+  <!-- 右側文字安全區 -->
+  <rect x="1220" y="0" width="700" height="1080" fill="#172554" opacity="0.92"/>
+
+  <!-- 安全區裝飾 -->
+  <rect x="1220" y="0" width="700" height="1080" fill="none" stroke="#22D3EE" stroke-width="1.5" stroke-dasharray="10,5" opacity="0.25"/>
+  <line x1="1220" y1="0" x2="1220" y2="1080" stroke="#FB7185" stroke-width="2" opacity="0.3"/>
+
+  <!-- 安全區內小裝置 -->
+  <circle cx="1280" cy="540" r="8" fill="#22D3EE" opacity="0.4"/>
+  <circle cx="1860" cy="540" r="8" fill="#FB7185" opacity="0.4"/>
+
+  <!-- 顆粒紋理覆蓋 -->
+  <rect width="1920" height="1080" fill="#f8fafc" opacity="0.025" filter="url(#noiseGrain)"/>
+</svg>

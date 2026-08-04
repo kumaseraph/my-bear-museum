@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img">
+  <title>工作報告敘事階梯流程圖</title>
+  <desc>5步驟平行四邊形階梯式工作報告流程圖</desc>
+  <defs>
+    <filter id="paperTexture" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" mode="multiply" result="textured"/>
+      <feComposite in="textured" in2="SourceGraphic" operator="in"/>
+    </filter>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#172554"/>
+      <stop offset="100%" stop-color="#1e3a5f"/>
+    </linearGradient>
+    <linearGradient id="step1Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="step2Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FB7185"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
+    <linearGradient id="step3Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="step4Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="step5Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="connectorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#FB7185"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- 標題區 -->
+  <text x="960" y="80" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="52" font-weight="bold" fill="#F8FAFC" text-anchor="middle">工作報告敘事流程</text>
+  <text x="960" y="120" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="24" fill="#22D3EE" text-anchor="middle" opacity="0.8">5步驟完成高效工作報告</text>
+
+  <!-- 連接線 - 階梯引導線 -->
+  <g opacity="0.6">
+    <line x1="290" y1="265" x2="500" y2="365" stroke="url(#connectorGrad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="690" y1="365" x2="900" y2="465" stroke="url(#connectorGrad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="1090" y1="465" x2="1300" y2="565" stroke="url(#connectorGrad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="1490" y1="565" x2="1700" y2="665" stroke="url(#connectorGrad)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- 步驟 1：起點規劃 -->
+  <g transform="translate(200, 220)">
+    <polygon points="0,0 220,0 190,90 0,90" fill="url(#step1Grad)" opacity="0.9"/>
+    <polygon points="0,0 220,0 190,90 0,90" fill="none" stroke="#F8FAFC" stroke-width="2"/>
+    <text x="110" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 1</text>
+    <text x="110" y="65" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" fill="#172554" text-anchor="middle">起點規劃</text>
+    <text x="110" y="95" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="20" font-weight="bold" fill="#F8FAFC" text-anchor="middle">明確目標</text>
+    <text x="110" y="120" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#e2e8f0" text-anchor="middle">設定SMART目標</text>
+    <text x="110" y="140" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#e2e8f0" text-anchor="middle">界定範圍與受眾</text>
+  </g>
+
+  <!-- 步驟 2：資料收集 -->
+  <g transform="translate(600, 320)">
+    <polygon points="0,0 220,0 190,90 0,90" fill="url(#step2Grad)" opacity="0.9"/>
+    <polygon points="0,0 220,0 190,90 0,90" fill="none" stroke="#F8FAFC" stroke-width="2"/>
+    <text x="110" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 2</text>
+    <text x="110" y="65" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" fill="#172554" text-anchor="middle">分析研究</text>
+    <text x="110" y="95" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="20" font-weight="bold" fill="#F8FAFC" text-anchor="middle">資料收集</text>
+    <text x="110" y="120" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#fce7f3" text-anchor="middle">數據與事實</text>
+    <text x="110" y="140" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#fce7f3" text-anchor="middle">圖表與視覺化</text>
+  </g>
+
+  <!-- 步驟 3：結構建構 -->
+  <g transform="translate(1000, 420)">
+    <polygon points="0,0 220,0 190,90 0,90" fill="url(#step3Grad)" opacity="0.9"/>
+    <polygon points="0,0 220,0 190,90 0,90" fill="none" stroke="#F8FAFC" stroke-width="2"/>
+    <text x="110" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#172554" text-anchor="middle">STEP 3</text>
+    <text x="110" y="65" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" fill="#451a03" text-anchor="middle">邏輯組織</text>
+    <text x="110" y="95" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="20" font-weight="bold" fill="#172554" text-anchor="middle">結構建構</text>
+    <text x="110" y="120" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#422006" text-anchor="middle">金字塔原理</text>
+    <text x="110" y="140" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#422006" text-anchor="middle">時間線與因果</text>
+  </g>
+
+  <!-- 步驟 4：行動建議 -->
+  <g transform="translate(1400, 520)">
+    <polygon points="0,0 220,0 190,90 0,90" fill="url(#step4Grad)" opacity="0.9"/>
+    <polygon points="0,0 220,0 190,90 0,90" fill="none" stroke="#F8FAFC" stroke-width="2"/>
+    <text x="110" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 4</text>
+    <text x="110" y="65" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" fill="#ecfdf5" text-anchor="middle">策略建議</text>
+    <text x="110" y="95" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="20" font-weight="bold" fill="#F8FAFC" text-anchor="middle">行動方案</text>
+    <text x="110" y="120" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#d1fae5" text-anchor="middle">具體可行</text>
+    <text x="110" y="140" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#d1fae5" text-anchor="middle">優先順序排列</text>
+  </g>
+
+  <!-- 步驟 5：成果呈現 -->
+  <g transform="translate(1600, 620)">
+    <polygon points="0,0 220,0 190,90 0,90" fill="url(#step5Grad)" opacity="0.9"/>
+    <polygon points="0,0 220,0 190,90 0,90" fill="none" stroke="#F8FAFC" stroke-width="2"/>
+    <text x="110" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">STEP 5</text>
+    <text x="110" y="65" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" fill="#ede9fe" text-anchor="middle">完美收尾</text>
+    <text x="110" y="95" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="20" font-weight="bold" fill="#F8FAFC" text-anchor="middle">成果展現</text>
+    <text x="110" y="120" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#ddd6fe" text-anchor="middle">總結與呼籲</text>
+    <text x="110" y="140" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#ddd6fe" text-anchor="middle">後續追蹤計畫</text>
+  </g>
+
+  <!-- 底部裝飾 -->
+  <rect x="0" y="1000" width="1920" height="80" fill="#172554" opacity="0.5"/>
+  <text x="960" y="1045" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#94a3b8" text-anchor="middle">一圖一洞見 · 可訪問性高對比 · 行動優先資料極簡</text>
+
+  <!-- 紙紋覆蓋 -->
+  <rect width="1920" height="1080" fill="#f8fafc" opacity="0.025" filter="url(#paperTexture)"/>
+</svg>

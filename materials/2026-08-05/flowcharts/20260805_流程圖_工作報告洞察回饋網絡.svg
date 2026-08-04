@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img">
+  <title>工作報告洞察回饋網絡流程圖</title>
+  <desc>5節點循環回饋網絡工作報告流程圖</desc>
+  <defs>
+    <filter id="textureGrain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" mode="overlay" result="grainy"/>
+      <feComposite in="grainy" in2="SourceGraphic" operator="in"/>
+    </filter>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#172554"/>
+      <stop offset="100%" stop-color="#1a365d"/>
+    </linearGradient>
+    <linearGradient id="node1Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#0891b2"/>
+    </linearGradient>
+    <linearGradient id="node2Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FB7185"/>
+      <stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+    <linearGradient id="node3Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="node4Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="node5Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FB7185" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGradient)"/>
+
+  <!-- 標題 -->
+  <text x="960" y="80" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="52" font-weight="bold" fill="#F8FAFC" text-anchor="middle">工作報告洞察回饋網絡</text>
+  <text x="960" y="120" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="24" fill="#22D3EE" text-anchor="middle" opacity="0.85">持續優化的循環流程</text>
+
+  <!-- 連接弧線 - 循環回饋 -->
+  <g fill="none" stroke-width="3" opacity="0.5">
+    <!-- 順時鐘連接線 -->
+    <path d="M 960,280 Q 1300,250 1380,500" stroke="#22D3EE"/>
+    <path d="M 1380,620 Q 1350,820 960,870" stroke="#FB7185"/>
+    <path d="M 820,870 Q 500,850 500,620" stroke="#FBBF24"/>
+    <path d="M 500,500 Q 550,280 960,280" stroke="#34d399"/>
+    <!-- 中心連接 -->
+    <path d="M 960,330 L 1180,560" stroke="#a78bfa" stroke-dasharray="8,4"/>
+    <path d="M 1180,660 L 960,870" stroke="#a78bfa" stroke-dasharray="8,4"/>
+    <path d="M 820,660 L 960,870" stroke="#a78bfa" stroke-dasharray="8,4"/>
+  </g>
+
+  <!-- 節點 1：數據收集 (上方) -->
+  <g transform="translate(960, 220)">
+    <ellipse cx="0" cy="0" rx="140" ry="60" fill="url(#node1Grad)" opacity="0.9"/>
+    <ellipse cx="0" cy="0" rx="140" ry="60" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+    <text x="0" y="-8" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">數據收集</text>
+    <text x="0" y="22" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" fill="#cffafe" text-anchor="middle">定量＋定性資料</text>
+    <!-- 箭頭指示 -->
+    <polygon points="80,50 110,30 110,70" fill="#22D3EE" opacity="0.7"/>
+  </g>
+
+  <!-- 節點 2：分析洞察 (右下) -->
+  <g transform="translate(1380, 560)">
+    <ellipse cx="0" cy="0" rx="150" ry="65" fill="url(#node2Grad)" opacity="0.9"/>
+    <ellipse cx="0" cy="0" rx="150" ry="65" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+    <text x="0" y="-10" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">分析洞察</text>
+    <text x="0" y="22" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" fill="#fce7f3" text-anchor="middle">趨勢與模式識別</text>
+    <polygon points="-95,45 -125,25 -125,65" fill="#FB7185" opacity="0.7"/>
+  </g>
+
+  <!-- 節點 3：行動方案 (右下下) -->
+  <g transform="translate(1200, 750)">
+    <ellipse cx="0" cy="0" rx="145" ry="62" fill="url(#node3Grad)" opacity="0.9"/>
+    <ellipse cx="0" cy="0" rx="145" ry="62" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+    <text x="0" y="-10" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#172554" text-anchor="middle">行動方案</text>
+    <text x="0" y="22" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" fill="#422006" text-anchor="middle">策略與執行計畫</text>
+    <polygon points="-90,42 -120,22 -120,62" fill="#FBBF24" opacity="0.7"/>
+  </g>
+
+  <!-- 節點 4：實施執行 (左下下) -->
+  <g transform="translate(720, 750)">
+    <ellipse cx="0" cy="0" rx="145" ry="62" fill="url(#node4Grad)" opacity="0.9"/>
+    <ellipse cx="0" cy="0" rx="145" ry="62" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+    <text x="0" y="-10" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">實施執行</text>
+    <text x="0" y="22" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" fill="#d1fae5" text-anchor="middle">落地與追蹤</text>
+    <polygon points="90,42 120,22 120,62" fill="#34d399" opacity="0.7"/>
+  </g>
+
+  <!-- 節點 5：成果評估 (左下) -->
+  <g transform="translate(540, 560)">
+    <ellipse cx="0" cy="0" rx="150" ry="65" fill="url(#node5Grad)" opacity="0.9"/>
+    <ellipse cx="0" cy="0" rx="150" ry="65" fill="none" stroke="#F8FAFC" stroke-width="2.5"/>
+    <text x="0" y="-10" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="28" font-weight="bold" fill="#F8FAFC" text-anchor="middle">成果評估</text>
+    <text x="0" y="22" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" fill="#ede9fe" text-anchor="middle">KPI與效益分析</text>
+    <polygon points="95,45 125,25 125,65" fill="#a78bfa" opacity="0.7"/>
+  </g>
+
+  <!-- 中心焦點：持續優化 -->
+  <g transform="translate(960, 540)">
+    <circle cx="0" cy="0" r="85" fill="#172554" opacity="0.85"/>
+    <circle cx="0" cy="0" r="85" fill="none" stroke="#22D3EE" stroke-width="3" stroke-dasharray="6,3"/>
+    <circle cx="0" cy="0" r="55" fill="none" stroke="#FB7185" stroke-width="2" opacity="0.6"/>
+    <text x="0" y="-12" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="22" font-weight="bold" fill="#F8FAFC" text-anchor="middle">持續</text>
+    <text x="0" y="15" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="22" font-weight="bold" fill="#22D3EE" text-anchor="middle">優化</text>
+    <text x="0" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="14" fill="#94a3b8" text-anchor="middle">循環迭代</text>
+  </g>
+
+  <!-- 回饋標籤 -->
+  <g transform="translate(1700, 680)" opacity="0.8">
+    <rect x="0" y="0" width="160" height="50" rx="8" fill="#172554" opacity="0.7"/>
+    <rect x="0" y="0" width="160" height="50" rx="8" fill="none" stroke="#FB7185" stroke-width="2"/>
+    <text x="80" y="22" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="16" font-weight="bold" fill="#FB7185" text-anchor="middle">回饋修正</text>
+    <text x="80" y="40" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="12" fill="#fda4af" text-anchor="middle">Loop Back</text>
+  </g>
+
+  <!-- 底部敘事 -->
+  <rect x="0" y="1000" width="1920" height="80" fill="#172554" opacity="0.4"/>
+  <text x="960" y="1045" font-family="system-ui, -apple-system, 'Microsoft JhengHei', sans-serif" font-size="18" fill="#94a3b8" text-anchor="middle">敘事儀表板 · 分章節敘事 · Narrative Illustration</text>
+
+  <!-- 顆粒紋理覆蓋 -->
+  <rect width="1920" height="1080" fill="#f8fafc" opacity="0.02" filter="url(#textureGrain)"/>
+</svg>

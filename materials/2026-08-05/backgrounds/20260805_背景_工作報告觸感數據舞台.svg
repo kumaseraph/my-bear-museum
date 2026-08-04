@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img">
+  <title>工作報告觸感數據舞台背景</title>
+  <desc>觸感拼貼與2.5D六邊形背景，中央保留文字安全區</desc>
+  <defs>
+    <filter id="paperGrain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" mode="overlay" result="textured"/>
+      <feComposite in="textured" in2="SourceGraphic" operator="in"/>
+    </filter>
+    <linearGradient id="centerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a5f"/>
+      <stop offset="50%" stop-color="#172554"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="coralGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FB7185"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <clipPath id="centerSafe">
+      <rect x="560" y="140" width="800" height="800" rx="20"/>
+    </clipPath>
+  </defs>
+
+  <!-- 深色背景 -->
+  <rect width="1920" height="1080" fill="url(#centerGrad)"/>
+
+  <!-- 左上角拼貼裝飾 -->
+  <rect x="50" y="80" width="180" height="180" rx="15" fill="#22D3EE" opacity="0.15" transform="rotate(-8 140 170)"/>
+  <rect x="80" y="120" width="140" height="140" rx="12" fill="#FB7185" opacity="0.12" transform="rotate(5 150 190)"/>
+  <rect x="120" y="60" width="100" height="100" rx="8" fill="#FBBF24" opacity="0.1" transform="rotate(-3 170 110)"/>
+
+  <!-- 左下角拼貼 -->
+  <rect x="60" y="750" width="200" height="200" rx="18" fill="#FBBF24" opacity="0.12" transform="rotate(6 160 850)"/>
+  <rect x="100" y="800" width="150" height="150" rx="10" fill="#22D3EE" opacity="0.1" transform="rotate(-4 175 875)"/>
+
+  <!-- 右上角拼貼 -->
+  <rect x="1600" y="60" width="220" height="220" rx="20" fill="#FB7185" opacity="0.12" transform="rotate(10 1710 170)"/>
+  <rect x="1650" y="100" width="160" height="160" rx="14" fill="#22D3EE" opacity="0.1" transform="rotate(-6 1730 180)"/>
+
+  <!-- 右下角拼貼 -->
+  <rect x="1550" y="800" width="240" height="200" rx="16" fill="#FBBF24" opacity="0.1" transform="rotate(-5 1670 900)"/>
+  <rect x="1620" y="850" width="180" height="150" rx="12" fill="#FB7185" opacity="0.08" transform="rotate(8 1710 925)"/>
+
+  <!-- 中央 2.5D 六邊形焦點裝置 -->
+  <g transform="translate(960, 540)">
+    <!-- 最外層大六邊形 - 空心粗線 -->
+    <polygon points="0,-280 242.5,-140 242.5,140 0,280 -242.5,140 -242.5,-140"
+             fill="none" stroke="#22D3EE" stroke-width="8" opacity="0.7"/>
+    <!-- 第二層 - 半透明實心 -->
+    <polygon points="0,-220 190.5,-110 190.5,110 0,220 -190.5,110 -190.5,-110"
+             fill="#22D3EE" opacity="0.15"/>
+    <!-- 第三層 -->
+    <polygon points="0,-160 138.6,-80 138.6,80 0,160 -138.6,80 -138.6,-80"
+             fill="none" stroke="#FB7185" stroke-width="4" opacity="0.6"/>
+    <!-- 第四層 - 半透明 -->
+    <polygon points="0,-110 95.3,-55 95.3,55 0,110 -95.3,55 -95.3,-55"
+             fill="#FB7185" opacity="0.12"/>
+    <!-- 核心六邊形 -->
+    <polygon points="0,-60 52,-30 52,30 0,60 -52,30 -52,-30"
+             fill="#FBBF24" opacity="0.25"/>
+    <polygon points="0,-60 52,-30 52,30 0,60 -52,30 -52,-30"
+             fill="none" stroke="#FBBF24" stroke-width="3" opacity="0.8"/>
+  </g>
+
+  <!-- 四周小型 2.5D 六邊形襯托 -->
+  <g opacity="0.55">
+    <g transform="translate(280, 280) rotate(15)">
+      <polygon points="0,-50 43.3,-25 43.3,25 0,50 -43.3,25 -43.3,-25" fill="none" stroke="#22D3EE" stroke-width="3"/>
+      <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" fill="#22D3EE" opacity="0.3"/>
+    </g>
+    <g transform="translate(1640, 280) rotate(-15)">
+      <polygon points="0,-45 39,-19.5 39,19.5 0,45 -39,19.5 -39,-19.5" fill="none" stroke="#FB7185" stroke-width="3"/>
+      <polygon points="0,-27 23.4,-13.5 23.4,13.5 0,27 -23.4,13.5 -23.4,-13.5" fill="#FB7185" opacity="0.25"/>
+    </g>
+    <g transform="translate(280, 800) rotate(-20)">
+      <polygon points="0,-55 47.7,-27 47.7,27 0,55 -47.7,27 -47.7,-27" fill="none" stroke="#FBBF24" stroke-width="3"/>
+      <polygon points="0,-33 28.6,-16.5 28.6,16.5 0,33 -28.6,16.5 -28.6,-16.5" fill="#FBBF24" opacity="0.25"/>
+    </g>
+    <g transform="translate(1640, 800) rotate(10)">
+      <polygon points="0,-50 43.3,-25 43.3,25 0,50 -43.3,25 -43.3,-25" fill="none" stroke="#22D3EE" stroke-width="3"/>
+      <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15" fill="#22D3EE" opacity="0.28"/>
+    </g>
+  </g>
+
+  <!-- 中央文字安全區 -->
+  <rect x="560" y="140" width="800" height="800" rx="20" fill="#172554" opacity="0.85"/>
+  <rect x="560" y="140" width="800" height="800" rx="20" fill="none" stroke="#22D3EE" stroke-width="2" opacity="0.4"/>
+
+  <!-- 觸感紙紋覆蓋 -->
+  <rect width="1920" height="1080" fill="#f8fafc" opacity="0.03" filter="url(#paperGrain)"/>
+
+  <!-- 四角焦點裝置 -->
+  <circle cx="560" cy="140" r="6" fill="#22D3EE" opacity="0.6"/>
+  <circle cx="1360" cy="140" r="6" fill="#FB7185" opacity="0.6"/>
+  <circle cx="560" cy="940" r="6" fill="#FBBF24" opacity="0.6"/>
+  <circle cx="1360" cy="940" r="6" fill="#22D3EE" opacity="0.6"/>
+</svg>
