@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊蜂蜜暖棕漸層（#120 顏色深淺對比：深→中→淺） -->
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#FFF8E7"/><stop offset="1" stop-color="#F5E6D3"/></linearGradient>
+    <linearGradient id="honey" x2="1" y2="1"><stop stop-color="#B8860B"/><stop offset="0.5" stop-color="#D4A017"/><stop offset="1" stop-color="#F2B94B"/></linearGradient>
+    <linearGradient id="cream" x2="1" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFF8E7"/></linearGradient>
+    <!-- 蜂巢 pattern（#122 標準排列，opacity 0.15 襯底） -->
+    <pattern id="honeycomb" x="0" y="0" width="78" height="86.6" patternUnits="userSpaceOnUse">
+      <path d="M39,0 L78,21.65 L78,64.95 L39,86.6 L0,64.95 L0,21.65 Z" fill="none" stroke="#B8860B" stroke-width="0.6" opacity="0.15"/>
+    </pattern>
+    <!-- 印刷感 grain -->
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 0.55  0 0 0 0 0.27  0 0 0 0 0.07  0 0 0 0.04 0"/></filter>
+    <!-- 軟陰影 -->
+    <filter id="s" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#8B6914" flood-opacity=".15"/></filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#honeycomb)"/>
+  <rect width="1920" height="1080" filter="url(#grain)" opacity="0.5"/>
+  <g font-family="Noto Sans TC, Microsoft JhengHei, sans-serif">
+    <text x="120" y="130" font-size="28" fill="#B8860B" font-weight="700" letter-spacing="5">HONEY KPI · 工作報告大圖卡</text>
+    <text x="120" y="205" font-size="62" fill="#5C3A0E" font-weight="800">本期績效 · 一眼就懂</text>
+    <text x="120" y="253" font-size="25" fill="#8B6914">跨介面設計語言｜50 毫秒第一印象</text>
+  </g>
+  <!-- #122 放射環形蜂巢（大 KPI 焦點區） -->
+  <g transform="translate(220 530)" filter="url(#s)">
+    <path d="M0,-280 L242,-140 L242,140 L0,280 L-242,140 L-242,-140 Z" fill="url(#cream)" stroke="#B8860B" stroke-width="6"/>
+    <!-- 中心放射蜂巢（#122 變化3：放射環形） -->
+    <g transform="translate(0 0)">
+      <path d="M0,-90 L77.9,-45 L77.9,45 L0,90 L-77.9,45 L-77.9,-45 Z" fill="url(#honey)"/>
+      <path d="M0,-60 L51.96,-30 L51.96,30 L0,60 L-51.96,30 L-51.96,-30 Z" fill="#FFFFFF" opacity="0.95"/>
+    </g>
+    <!-- 大數字（#120 大小對比） -->
+    <text x="0" y="-30" font-family="Arial" font-size="220" font-weight="800" fill="#5C3A0E" text-anchor="middle">87%</text>
+    <text x="0" y="40" font-size="32" fill="#8B6914" text-anchor="middle" font-weight="700">整體完成率</text>
+    <text x="0" y="80" font-size="22" fill="#B8860B" text-anchor="middle">較上期 +12 pp</text>
+  </g>
+  <!-- 三個小六邊形 KPI（#120 大小對比：大中+小；#122 變化6：尺寸漸層） -->
+  <g transform="translate(680 380)" filter="url(#s)">
+    <path d="M0,-150 L129.9,-75 L129.9,75 L0,150 L-129.9,75 L-129.9,-75 Z" fill="#FFFFFF" stroke="#D4A017" stroke-width="4"/>
+    <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" fill="url(#honey)" transform="translate(0 -90)"/>
+    <text x="0" y="-50" font-size="24" fill="#8B6914" text-anchor="middle">里程碑達成</text>
+    <text x="0" y="35" font-family="Arial" font-size="92" font-weight="800" fill="#5C3A0E" text-anchor="middle">14<tspan fill="#B8860B" font-size="48">/16</tspan></text>
+    <text x="0" y="75" font-size="20" fill="#B8860B" text-anchor="middle">88% 達標</text>
+  </g>
+  <g transform="translate(1000 380)" filter="url(#s)">
+    <path d="M0,-150 L129.9,-75 L129.9,75 L0,150 L-129.9,75 L-129.9,-75 Z" fill="#FFFFFF" stroke="#D4A017" stroke-width="4"/>
+    <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" fill="url(#honey)" transform="translate(0 -90)"/>
+    <text x="0" y="-50" font-size="24" fill="#8B6914" text-anchor="middle">客戶滿意度</text>
+    <text x="0" y="35" font-family="Arial" font-size="92" font-weight="800" fill="#5C3A0E" text-anchor="middle">4.6</text>
+    <text x="0" y="75" font-size="20" fill="#B8860B" text-anchor="middle">/ 5.0 ★</text>
+  </g>
+  <g transform="translate(1320 380)" filter="url(#s)">
+    <path d="M0,-150 L129.9,-75 L129.9,75 L0,150 L-129.9,75 L-129.9,-75 Z" fill="#FFFFFF" stroke="#D4A017" stroke-width="4"/>
+    <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z" fill="url(#honey)" transform="translate(0 -90)"/>
+    <text x="0" y="-50" font-size="24" fill="#8B6914" text-anchor="middle">營收成長</text>
+    <text x="0" y="35" font-family="Arial" font-size="92" font-weight="800" fill="#5C3A0E" text-anchor="middle">+24<tspan fill="#B8860B" font-size="48">%</tspan></text>
+    <text x="0" y="75" font-size="20" fill="#B8860B" text-anchor="middle">YoY 對比</text>
+  </g>
+  <!-- 底部標籤列（What Sets It Apart 兩段式） -->
+  <g transform="translate(120 870)" font-family="Noto Sans TC, Microsoft JhengHei, sans-serif">
+    <rect x="0" y="0" width="1680" height="100" rx="16" fill="#FFFFFF" stroke="#D4A017" stroke-width="2"/>
+    <circle cx="50" cy="50" r="20" fill="url(#honey)"/>
+    <text x="95" y="42" font-size="22" fill="#8B6914" font-weight="700">獨特設計選擇</text>
+    <text x="95" y="74" font-size="20" fill="#5C3A0E">蜂蜜色系 + 蜂巢叢集，跨頁面保持品牌一致性</text>
+    <line x1="840" y1="20" x2="840" y2="80" stroke="#D4A017" stroke-width="2" stroke-dasharray="4 4"/>
+    <circle cx="890" cy="50" r="20" fill="#5C3A0E"/>
+    <text x="935" y="42" font-size="22" fill="#8B6914" font-weight="700">可量化優勢</text>
+    <text x="935" y="74" font-size="20" fill="#5C3A0E">50 毫秒內傳達 87% 完成率 · 12 pp 提升</text>
+  </g>
+</svg>
