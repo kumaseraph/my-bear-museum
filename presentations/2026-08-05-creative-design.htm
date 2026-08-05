@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活的識別：從固定 Logo 到動態品牌系統 - 簡報</title>
+  <style>
+    /* ===== C4 variables (must come before V11 structure) ===== */
+    :root {
+      --bg: #2d1b4e;
+      --bg-secondary: #1a0f2e;
+      --text: #f3e5f5;
+      --text-secondary: #ce93d8;
+      --accent: #e040fb;
+      --accent-alt: #ba68c8;
+      --accent-glow: rgba(224, 64, 251, 0.35);
+      --border-color: rgba(224, 64, 251, 0.2);
+      --card-bg: rgba(255, 255, 255, 0.06);
+      --nav-bg: rgba(45, 27, 78, 0.95);
+      --cyan: #22d3ee;
+      --gold: #fbbf24;
+    }
+
+    /* ===== V11 structure: 霓虹都會 neon-noir ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { font-size: 20px; }
+
+    body {
+      font-family: "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+      background: #0a0418;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .presentation {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      height: auto;
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(224, 64, 251, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 90%, rgba(34, 211, 238, 0.10) 0%, transparent 50%),
+        linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg) 100%);
+      box-shadow: 0 20px 80px rgba(224, 64, 251, 0.25);
+    }
+
+    /* 雨夜直線紋理 */
+    .presentation::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(90deg,
+          rgba(224, 64, 251, 0.03) 0px,
+          transparent 1px,
+          transparent 3px,
+          rgba(34, 211, 238, 0.03) 4px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      padding: 48px 64px;
+      z-index: 2;
+    }
+    .slide.active { display: flex; }
+
+    /* Slide-specific classes must NOT use display:flex/grid */
+    .s1-cover { background: transparent; justify-content: flex-start; }
+    .s2-hex { background: transparent; }
+    .s3-orbit { background: transparent; }
+    .s4-time { background: transparent; }
+    .s5-bento { background: transparent; }
+    .s6-funnel { background: transparent; }
+    .s7-constellation { background: transparent; }
+    .s8-compass { background: transparent; }
+    .s9-flow { background: transparent; }
+    .s10-declare { background: transparent; }
+
+    /* === V11 neon tokens === */
+    .led-display {
+      font-family: "Courier New", monospace;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      text-shadow: 0 0 8px var(--accent-glow), 0 0 16px var(--accent-glow);
+    }
+    .neon-tube {
+      color: var(--accent);
+      text-shadow:
+        0 0 4px var(--accent),
+        0 0 12px var(--accent-glow),
+        0 0 24px var(--accent-glow);
+    }
+    .glow-text {
+      color: var(--accent);
+      text-shadow: 0 0 6px var(--accent-glow);
+    }
+    .scan-card {
+      background:
+        linear-gradient(180deg,
+          transparent 0%,
+          rgba(224, 64, 251, 0.04) 50%,
+          transparent 100%),
+        var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      backdrop-filter: blur(6px);
+      position: relative;
+      overflow: hidden;
+    }
+    .scan-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.6;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    /* === 通用排版 === */
+    h1, h2, h3 { font-weight: 800; line-height: 1.2; }
+    .slide-title {
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+      color: var(--text);
+      padding-left: 20px;
+      position: relative;
+    }
+    .slide-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 5px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--cyan) 100%);
+      border-radius: 3px;
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+
+    /* === 導航 === */
+    .back-link {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 1rem;
+      z-index: 50;
+      padding: 6px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: rgba(45, 27, 78, 0.6);
+      transition: all 0.2s;
+    }
+    .back-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .nav {
+      position: absolute;
+      bottom: 24px;
+      right: 32px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 8px 16px;
+      background: var(--nav-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+    .nav button {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .nav button:hover {
+      background: var(--accent);
+      color: var(--bg-secondary);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .page-info {
+      color: var(--text);
+      font-size: 1rem;
+      font-family: "Courier New", monospace;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* ===== P1 封面 ===== */
+    .cover-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      height: 100%;
+      gap: 24px;
+      position: relative;
+    }
+    .cover-eyebrow {
+      font-size: 1rem;
+      color: var(--cyan);
+      letter-spacing: 0.3em;
+      font-family: "Courier New", monospace;
+      margin-bottom: 8px;
+    }
+    .cover-mega {
+      font-size: 6rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 24px var(--accent-glow));
+    }
+    .cover-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0.06em;
+      margin-top: 8px;
+    }
+    .cover-sub {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 760px;
+      line-height: 1.6;
+    }
+    .cover-fragments {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .cover-fragment {
+      width: 96px;
+      height: 96px;
+      border: 2px solid var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--accent);
+      background: rgba(224, 64, 251, 0.08);
+      box-shadow: 0 0 16px var(--accent-glow), inset 0 0 16px rgba(224, 64, 251, 0.1);
+      transform: rotate(-3deg);
+    }
+    .cover-fragment:nth-child(2) { transform: rotate(2deg); border-color: var(--cyan); color: var(--cyan); }
+    .cover-fragment:nth-child(3) { transform: rotate(-1deg); border-style: dashed; }
+    .cover-decor {
+      position: absolute;
+      top: 60px;
+      right: 64px;
+      width: 220px;
+      height: 220px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .cover-decor::before {
+      content: '';
+      position: absolute;
+      inset: 30px;
+      border: 1px dashed var(--cyan);
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.05); opacity: 0.5; }
+    }
+    .cover-meta {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-top: 16px;
+    }
+    .cover-meta .dot {
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cover-decor { animation: none; }
+    }
+
+    /* ===== P2 六邊形蜂巢 ===== */
+    .hex-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+      height: 100%;
+      align-items: center;
+    }
+    .hex-core {
+      grid-column: 2 / 4;
+      grid-row: 1 / 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 320px;
+    }
+    .hex-core-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.5;
+    }
+    .hex-core-label {
+      font-size: 1rem;
+      color: var(--cyan);
+      letter-spacing: 0.4em;
+      font-family: "Courier New", monospace;
+      margin-bottom: 12px;
+      z-index: 2;
+    }
+    .hex-core-title {
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 24px var(--accent-glow), 0 0 48px var(--accent-glow);
+      z-index: 2;
+    }
+    .hex-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--card-bg);
+      min-height: 100px;
+    }
+    .hex-cell-icon {
+      width: 36px;
+      height: 36px;
+    }
+    .hex-cell-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .hex-cell-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* ===== P3 同心圓軌道 ===== */
+    .orbit-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 32px;
+      height: 100%;
+      align-items: center;
+    }
+    .orbit-core {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+    .orbit-core svg {
+      width: 100%;
+      height: 100%;
+    }
+    .orbit-params {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .orbit-param {
+      padding: 18px 20px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .orbit-param-tag {
+      font-size: 1rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-family: "Courier New", monospace;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+    .tag-fixed { background: rgba(34, 211, 238, 0.15); color: var(--cyan); border: 1px solid var(--cyan); }
+    .tag-variable { background: rgba(224, 64, 251, 0.15); color: var(--accent); border: 1px solid var(--accent); }
+    .orbit-param-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .orbit-param-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-left: auto;
+      text-align: right;
+      max-width: 220px;
+    }
+
+    /* ===== P4 垂直時間軸 ===== */
+    .time-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      height: 100%;
+      align-items: stretch;
+    }
+    .time-axis {
+      position: relative;
+      padding: 20px 0;
+    }
+    .time-axis::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, transparent, var(--accent), var(--cyan), transparent);
+      transform: translateX(-50%);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+    .time-marker {
+      position: relative;
+      text-align: center;
+      padding: 24px 0;
+      cursor: pointer;
+    }
+    .time-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      margin: 0 auto;
+      box-shadow: 0 0 8px var(--accent-glow);
+      position: relative;
+      z-index: 2;
+    }
+    .time-year {
+      font-size: 1rem;
+      color: var(--cyan);
+      font-family: "Courier New", monospace;
+      margin-top: 8px;
+      letter-spacing: 0.1em;
+    }
+    .time-events {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px 0;
+    }
+    .time-event {
+      padding: 16px 20px;
+      border-left: 3px solid var(--accent);
+      background: var(--card-bg);
+      border-radius: 0 8px 8px 0;
+    }
+    .time-event-era {
+      font-size: 1rem;
+      color: var(--cyan);
+      letter-spacing: 0.2em;
+      font-family: "Courier New", monospace;
+    }
+    .time-event-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 4px 0;
+    }
+    .time-event-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ===== P5 Bento 不對稱 ===== */
+    .bento-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      gap: 16px;
+      height: 100%;
+    }
+    .bento-big {
+      grid-column: 1 / 2;
+      grid-row: 1 / 4;
+      padding: 28px;
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(224, 64, 251, 0.12) 0%, rgba(34, 211, 238, 0.06) 100%),
+        var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-big::after {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .bento-small {
+      padding: 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--card-bg);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .bento-num {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .bento-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 4px;
+    }
+    .bento-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .bento-big-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+    .bento-big-text {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-top: 12px;
+    }
+    .bento-big-visual {
+      display: flex;
+      gap: 12px;
+      margin-top: auto;
+    }
+    .bento-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      background: rgba(224, 64, 251, 0.1);
+    }
+    .bento-dot.cyan { border-color: var(--cyan); background: rgba(34, 211, 238, 0.1); }
+    .bento-dot.gold { border-color: var(--gold); background: rgba(251, 191, 36, 0.1); }
+
+    /* ===== P6 雙向漏斗 ===== */
+    .funnel-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      gap: 24px;
+      height: 100%;
+      align-items: stretch;
+    }
+    .funnel-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .funnel-col-title {
+      font-size: 1rem;
+      color: var(--cyan);
+      letter-spacing: 0.3em;
+      font-family: "Courier New", monospace;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .funnel-item {
+      padding: 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--card-bg);
+    }
+    .funnel-item.input { border-color: rgba(34, 211, 238, 0.3); }
+    .funnel-item.output { border-color: rgba(224, 64, 251, 0.4); }
+    .funnel-item-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .funnel-item-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+    .funnel-engine {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at center, rgba(224, 64, 251, 0.15) 0%, transparent 70%),
+        var(--card-bg);
+      position: relative;
+    }
+    .funnel-engine-label {
+      font-size: 1rem;
+      color: var(--cyan);
+      letter-spacing: 0.3em;
+      margin-bottom: 8px;
+    }
+    .funnel-engine-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 12px var(--accent-glow);
+      text-align: center;
+    }
+    .funnel-engine-sub {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-top: 12px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .funnel-arrows {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+    }
+
+    /* ===== P7 菱形星座 ===== */
+    .constellation-layout {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .constellation-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.6;
+    }
+    .constellation-center {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(224, 64, 251, 0.4) 0%, transparent 70%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 40px var(--accent-glow), inset 0 0 40px rgba(224, 64, 251, 0.2);
+    }
+    .constellation-center-glyph {
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--accent);
+      text-shadow: 0 0 20px var(--accent-glow);
+    }
+    .constellation-center-label {
+      font-size: 1rem;
+      color: var(--cyan);
+      letter-spacing: 0.3em;
+      margin-top: 4px;
+    }
+    .constellation-variant {
+      position: absolute;
+      width: 96px;
+      height: 96px;
+      border-radius: 16px;
+      border: 1px solid var(--accent);
+      background: rgba(224, 64, 251, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+    }
+    .constellation-variant.v2 { border-color: var(--cyan); background: rgba(34, 211, 238, 0.1); }
+    .constellation-variant.v3 { border-color: var(--gold); background: rgba(251, 191, 36, 0.1); }
+    .constellation-variant.v4 { border-style: dashed; }
+    .constellation-variant.v5 { border-color: var(--accent-alt); background: rgba(186, 104, 200, 0.1); }
+    .constellation-variant.v6 { border-color: var(--cyan); background: rgba(34, 211, 238, 0.06); border-style: dashed; }
+    .variant-shape {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .constellation-variant.v2 .variant-shape { color: var(--cyan); }
+    .constellation-variant.v3 .variant-shape { color: var(--gold); }
+    .constellation-variant.v5 .variant-shape { color: var(--accent-alt); }
+    .variant-name {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      letter-spacing: 0.1em;
+    }
+    .constellation-note {
+      position: absolute;
+      bottom: 32px;
+      left: 64px;
+      right: 64px;
+      text-align: center;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      padding: 12px;
+      border-top: 1px solid var(--border-color);
+    }
+    .constellation-note strong { color: var(--accent); }
+
+    /* ===== P8 環形治理羅盤 ===== */
+    .compass-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      height: 100%;
+      align-items: center;
+    }
+    .compass-visual {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+    .compass-visual svg {
+      width: 100%;
+      height: 100%;
+    }
+    .compass-rules {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .compass-rule {
+      padding: 16px 20px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .compass-rule-num {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--accent);
+      min-width: 40px;
+      font-family: "Courier New", monospace;
+    }
+    .compass-rule-content {
+      flex: 1;
+    }
+    .compass-rule-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .compass-rule-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* ===== P9 垂直流程 ===== */
+    .flow-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      height: 100%;
+    }
+    .flow-step {
+      display: grid;
+      grid-template-columns: 100px 1fr 280px;
+      gap: 24px;
+      align-items: center;
+      padding: 18px 24px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--card-bg);
+    }
+    .flow-step.big {
+      border-color: var(--accent);
+      background:
+        linear-gradient(90deg, rgba(224, 64, 251, 0.15) 0%, transparent 100%),
+        var(--card-bg);
+    }
+    .flow-num {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 12px var(--accent-glow);
+      font-family: "Courier New", monospace;
+      line-height: 1;
+    }
+    .flow-step.big .flow-num { color: var(--cyan); text-shadow: 0 0 12px rgba(34, 211, 238, 0.5); }
+    .flow-content-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
+    .flow-content-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .flow-deliverable {
+      padding: 10px 14px;
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      border-radius: 8px;
+      font-size: 1rem;
+      color: var(--cyan);
+      font-family: "Courier New", monospace;
+    }
+
+    /* ===== P10 結尾宣言 ===== */
+    .declare-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      gap: 24px;
+      position: relative;
+    }
+    .declare-frame {
+      position: absolute;
+      inset: 40px;
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      box-shadow:
+        inset 0 0 32px var(--accent-glow),
+        0 0 32px var(--accent-glow);
+      pointer-events: none;
+    }
+    .declare-frame::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px dashed var(--cyan);
+      border-radius: 12px;
+      opacity: 0.5;
+    }
+    .declare-eyebrow {
+      font-size: 1rem;
+      color: var(--cyan);
+      letter-spacing: 0.4em;
+      font-family: "Courier New", monospace;
+      z-index: 2;
+    }
+    .declare-title {
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      z-index: 2;
+      text-shadow: 0 0 24px var(--accent-glow);
+    }
+    .declare-statements {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 760px;
+      z-index: 2;
+    }
+    .declare-statement {
+      font-size: 1.15rem;
+      color: var(--text);
+      padding: 14px 24px;
+      border-left: 4px solid var(--accent);
+      background: rgba(224, 64, 251, 0.06);
+      border-radius: 0 8px 8px 0;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .declare-statement:nth-child(2) { border-left-color: var(--cyan); background: rgba(34, 211, 238, 0.06); }
+    .declare-statement:nth-child(3) { border-left-color: var(--gold); background: rgba(251, 191, 36, 0.06); }
+    .declare-statement strong { color: var(--accent); font-weight: 700; }
+    .declare-statement:nth-child(2) strong { color: var(--cyan); }
+    .declare-statement:nth-child(3) strong { color: var(--gold); }
+    .declare-cta {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      z-index: 2;
+      margin-top: 8px;
+    }
+    .declare-cta a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+    }
+    .declare-sources {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      opacity: 0.7;
+      z-index: 2;
+      margin-top: 4px;
+      font-family: "Courier New", monospace;
+    }
+
+  </style>
+</head>
+<body class="v11-neon-noir">
+  <div class="presentation">
+    <a href="/slides.htm" class="back-link">← 回列表</a>
+    <nav class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="page-info"><span id="cur">1</span> / <span id="total">10</span></span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </nav>
+
+    <!-- P1 封面：G10/BIGNUM + 霓虹透視字框 -->
+    <section class="slide s1-cover active">
+      <div class="cover-decor"></div>
+      <div class="cover-stack">
+        <span class="cover-eyebrow">CREATIVE · DESIGN · 2026.08.05</span>
+        <h1 class="cover-mega">IDENTITY</h1>
+        <h2 class="cover-title">活的識別</h2>
+        <p class="cover-sub">從固定 Logo 到動態品牌系統：讓品牌在每個情境中保持同一個靈魂</p>
+        <div class="cover-fragments">
+          <div class="cover-fragment">A</div>
+          <div class="cover-fragment">β</div>
+          <div class="cover-fragment">∞</div>
+        </div>
+        <div class="cover-meta">
+          <span>DYNAMIC IDENTITY</span>
+          <span class="dot"></span>
+          <span>品牌研究室</span>
+          <span class="dot"></span>
+          <span>2026.08.05 · WED</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- P2 六邊形蜂巢：中央 CORE + 周圍 5 格 -->
+    <section class="slide s2-hex">
+      <h2 class="slide-title">品牌不是一個圖案，而是一套規則</h2>
+      <p class="slide-subtitle">CORE 是中心不變的承諾，五個維度組成可變的識別系統</p>
+      <div class="hex-layout">
+        <div class="hex-cell">
+          <svg class="hex-cell-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+            <rect x="10" y="10" width="44" height="44" rx="4"/>
+            <path d="M10 22h44M10 32h44M10 42h44"/>
+          </svg>
+          <span class="hex-cell-name">形</span>
+          <span class="hex-cell-desc">幾何骨架、比例、輪廓線</span>
+        </div>
+        <div class="hex-cell">
+          <svg class="hex-cell-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--cyan);">
+            <circle cx="32" cy="32" r="20"/>
+            <path d="M32 12a20 20 0 0 1 0 40M32 12a20 20 0 0 0 0 40"/>
+          </svg>
+          <span class="hex-cell-name">色</span>
+          <span class="hex-cell-desc">主色、輔色、情境色票</span>
+        </div>
+        <div class="hex-core">
+          <svg class="hex-core-svg" viewBox="0 0 400 400" fill="none">
+            <polygon points="200,40 340,120 340,280 200,360 60,280 60,120" stroke="rgba(224,64,251,0.4)" stroke-width="2" fill="none"/>
+            <polygon points="200,80 300,140 300,260 200,320 100,260 100,140" stroke="rgba(34,211,238,0.3)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+            <line x1="200" y1="40" x2="200" y2="360" stroke="rgba(224,64,251,0.2)" stroke-width="1"/>
+            <line x1="60" y1="120" x2="340" y2="280" stroke="rgba(224,64,251,0.2)" stroke-width="1"/>
+            <line x1="340" y1="120" x2="60" y2="280" stroke="rgba(224,64,251,0.2)" stroke-width="1"/>
+          </svg>
+          <span class="hex-core-label">CENTER · FIXED</span>
+          <span class="hex-core-title neon-tube">CORE</span>
+        </div>
+        <div class="hex-cell">
+          <svg class="hex-cell-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--gold);">
+            <path d="M14 50V14h12l16 36M14 50h44"/>
+            <path d="M44 14v36M14 32h30"/>
+          </svg>
+          <span class="hex-cell-name">字</span>
+          <span class="hex-cell-desc">主字體、字重、變數字體</span>
+        </div>
+        <div class="hex-cell">
+          <svg class="hex-cell-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-alt);">
+            <path d="M8 32c8-12 16-12 24 0s16 12 24 0"/>
+            <path d="M8 42c8-12 16-12 24 0s16 12 24 0"/>
+          </svg>
+          <span class="hex-cell-name">動</span>
+          <span class="hex-cell-desc">緩動、曲率、過場語法</span>
+        </div>
+        <div class="hex-cell">
+          <svg class="hex-cell-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+            <circle cx="32" cy="32" r="20"/>
+            <path d="M22 32c2-4 6-6 10-6s8 2 10 6"/>
+            <path d="M20 40h24"/>
+          </svg>
+          <span class="hex-cell-name">聲</span>
+          <span class="hex-cell-desc">音色、節奏、品牌旋律</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- P3 同心圓軌道：固定核心 × 可變參數 -->
+    <section class="slide s3-orbit">
+      <h2 class="slide-title">固定核心 × 可變參數</h2>
+      <p class="slide-subtitle">核心是品牌承諾，參數決定它在每個情境的樣子</p>
+      <div class="orbit-layout">
+        <div class="orbit-core">
+          <svg viewBox="0 0 400 400" fill="none">
+            <circle cx="200" cy="200" r="60" stroke="rgba(224,64,251,0.6)" stroke-width="2" fill="rgba(224,64,251,0.15)"/>
+            <circle cx="200" cy="200" r="60" stroke="var(--accent)" stroke-width="1" stroke-dasharray="2 4"/>
+            <circle cx="200" cy="200" r="120" stroke="rgba(224,64,251,0.3)" stroke-width="1" fill="none"/>
+            <circle cx="200" cy="200" r="170" stroke="rgba(34,211,238,0.25)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+            <text x="200" y="195" text-anchor="middle" fill="var(--accent)" font-size="22" font-weight="900" font-family="Courier New, monospace">CORE</text>
+            <text x="200" y="220" text-anchor="middle" fill="var(--text-secondary)" font-size="20" font-family="Courier New, monospace">PROMISE</text>
+            <circle cx="200" cy="80" r="6" fill="var(--cyan)"/>
+            <circle cx="320" cy="200" r="6" fill="var(--cyan)"/>
+            <circle cx="200" cy="320" r="6" fill="var(--cyan)"/>
+            <circle cx="80" cy="200" r="6" fill="var(--cyan)"/>
+            <text x="200" y="60" text-anchor="middle" fill="var(--cyan)" font-size="20" font-family="Courier New, monospace">CONTEXT</text>
+            <text x="345" y="205" text-anchor="start" fill="var(--cyan)" font-size="20" font-family="Courier New, monospace">AUDIENCE</text>
+            <text x="200" y="345" text-anchor="middle" fill="var(--cyan)" font-size="20" font-family="Courier New, monospace">PLATFORM</text>
+            <text x="55" y="205" text-anchor="end" fill="var(--cyan)" font-size="20" font-family="Courier New, monospace">DATA</text>
+          </svg>
+        </div>
+        <div class="orbit-params">
+          <div class="orbit-param">
+            <span class="orbit-param-tag tag-fixed">FIXED</span>
+            <span class="orbit-param-name">品牌承諾</span>
+            <span class="orbit-param-desc">不變的核心價值與語氣</span>
+          </div>
+          <div class="orbit-param">
+            <span class="orbit-param-tag tag-variable">VAR</span>
+            <span class="orbit-param-name">情境</span>
+            <span class="orbit-param-desc">節慶、時事、活動主題</span>
+          </div>
+          <div class="orbit-param">
+            <span class="orbit-param-tag tag-variable">VAR</span>
+            <span class="orbit-param-name">受眾</span>
+            <span class="orbit-param-desc">年齡、地域、文化脈絡</span>
+          </div>
+          <div class="orbit-param">
+            <span class="orbit-param-tag tag-variable">VAR</span>
+            <span class="orbit-param-name">平台</span>
+            <span class="orbit-param-desc">手機、看板、社群、實體</span>
+          </div>
+          <div class="orbit-param">
+            <span class="orbit-param-tag tag-variable">VAR</span>
+            <span class="orbit-param-name">資料輸入</span>
+            <span class="orbit-param-desc">天氣、股價、即時資訊</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P4 垂直時間軸：從商標到生成式識別 -->
+    <section class="slide s4-time">
+      <h2 class="slide-title">從商標到生成式識別</h2>
+      <p class="slide-subtitle">五個時代，品牌從靜態標記走向會思考的系統</p>
+      <div class="time-layout">
+        <div class="time-axis">
+          <div class="time-marker">
+            <div class="time-dot"></div>
+            <div class="time-year">1950s</div>
+          </div>
+          <div class="time-marker">
+            <div class="time-dot"></div>
+            <div class="time-year">1980s</div>
+          </div>
+          <div class="time-marker">
+            <div class="time-dot"></div>
+            <div class="time-year">2000s</div>
+          </div>
+          <div class="time-marker">
+            <div class="time-dot"></div>
+            <div class="time-year">2010s</div>
+          </div>
+          <div class="time-marker">
+            <div class="time-dot"></div>
+            <div class="time-year">2026</div>
+          </div>
+        </div>
+        <div class="time-events">
+          <div class="time-event">
+            <span class="time-event-era">ERA · 01</span>
+            <div class="time-event-name">固定商標時代</div>
+            <div class="time-event-desc">Logo 是神聖的符號，跨場景複印，不容修改。識別 = 一張圖。</div>
+          </div>
+          <div class="time-event">
+            <span class="time-event-era">ERA · 02</span>
+            <div class="time-event-name">系統化品牌手冊</div>
+            <div class="time-event-desc">CI / VI 規範建立：色票、字級、版型。識別開始有規則，但仍以靜態為主。</div>
+          </div>
+          <div class="time-event">
+            <span class="time-event-era">ERA · 03</span>
+            <div class="time-event-name">響應式識別</div>
+            <div class="time-event-desc">Logo 開始隨尺寸、媒介調整：精簡版、橫式、直式。識別 = 一組變體。</div>
+          </div>
+          <div class="time-event">
+            <span class="time-event-era">ERA · 04</span>
+            <div class="time-event-name">演算法識別</div>
+            <div class="time-event-desc">MIT Media Lab 等案例以程式生成大量變體。識別 = 一個產生器。</div>
+          </div>
+          <div class="time-event">
+            <span class="time-event-era">ERA · 05</span>
+            <div class="time-event-name">Motion-First 動態系統</div>
+            <div class="time-event-desc">2026 設計趨勢：動態先於靜態、人本、彈性、有手感。識別 = 一個會呼吸的系統。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P5 Bento 不對稱：活系統五層次 -->
+    <section class="slide s5-bento">
+      <h2 class="slide-title">一套活系統的五個層次</h2>
+      <p class="slide-subtitle">從資產到治理，五層疊出可持續的動態品牌</p>
+      <div class="bento-layout">
+        <div class="bento-big">
+          <div>
+            <span class="cover-eyebrow" style="color: var(--cyan);">LAYER · FOUNDATION</span>
+            <h3 class="bento-big-title">核心資產</h3>
+            <p class="bento-big-text">Logo、骨幹圖形、主色票、主字體、語氣關鍵字——它們是品牌的 DNA。所有變體都從這裡長出來。</p>
+          </div>
+          <div class="bento-big-visual">
+            <div class="bento-dot"></div>
+            <div class="bento-dot cyan"></div>
+            <div class="bento-dot gold"></div>
+            <div class="bento-dot cyan"></div>
+            <div class="bento-dot"></div>
+          </div>
+        </div>
+        <div class="bento-small">
+          <span class="bento-num">02</span>
+          <span class="bento-name">變體規則</span>
+          <span class="bento-desc">哪些參數可動、幅度上限、組合限制</span>
+        </div>
+        <div class="bento-small">
+          <span class="bento-num">03</span>
+          <span class="bento-name">動態語法</span>
+          <span class="bento-desc">緩動函式、過場時間、節奏與韻律</span>
+        </div>
+        <div class="bento-small">
+          <span class="bento-num">04</span>
+          <span class="bento-name">觸點適配</span>
+          <span class="bento-desc">每個接觸點的輸出規則與邊界</span>
+        </div>
+        <div class="bento-small">
+          <span class="bento-num">05</span>
+          <span class="bento-name">治理工具</span>
+          <span class="bento-desc">版本管理、測試、回滾、稽核流程</span>
+        </div>
+        <div class="bento-small" style="background: rgba(224, 64, 251, 0.08); border-color: var(--accent);">
+          <span class="bento-num">01</span>
+          <span class="bento-name" style="color: var(--accent);">核心資產</span>
+          <span class="bento-desc">DNA 級的不變元素</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- P6 雙向漏斗：變，不等於亂 -->
+    <section class="slide s6-funnel">
+      <h2 class="slide-title">變，不等於亂</h2>
+      <p class="slide-subtitle">輸入是多元情境，輸出是多點一致；中間是規則引擎在守護</p>
+      <div class="funnel-layout">
+        <div class="funnel-col">
+          <span class="funnel-col-title">INPUTS</span>
+          <div class="funnel-item input">
+            <div class="funnel-item-name">受眾訊號</div>
+            <div class="funnel-item-desc">年齡、位置、興趣</div>
+          </div>
+          <div class="funnel-item input">
+            <div class="funnel-item-name">平台規格</div>
+            <div class="funnel-item-desc">尺寸、比例、互動</div>
+          </div>
+          <div class="funnel-item input">
+            <div class="funnel-item-name">時機脈絡</div>
+            <div class="funnel-item-desc">節慶、時事、活動</div>
+          </div>
+          <div class="funnel-item input">
+            <div class="funnel-item-name">即時資料</div>
+            <div class="funnel-item-desc">天氣、股價、賽事</div>
+          </div>
+        </div>
+        <div class="funnel-engine">
+          <svg class="funnel-arrows" viewBox="0 0 400 500" fill="none">
+            <path d="M0 250 L100 250" stroke="rgba(34,211,238,0.4)" stroke-width="2" marker-end="url(#arrow-cyan)"/>
+            <path d="M400 250 L300 250" stroke="rgba(224,64,251,0.4)" stroke-width="2" marker-end="url(#arrow-pink)"/>
+            <defs>
+              <marker id="arrow-cyan" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0 L10 5 L0 10 z" fill="rgba(34,211,238,0.6)"/>
+              </marker>
+              <marker id="arrow-pink" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                <path d="M0 0 L10 5 L0 10 z" fill="rgba(224,64,251,0.6)"/>
+              </marker>
+            </defs>
+          </svg>
+          <span class="funnel-engine-label">RULE · ENGINE</span>
+          <span class="funnel-engine-title">RULES</span>
+          <p class="funnel-engine-sub">每個輸入都經過變體規則校驗，<br>確保輸出仍在品牌承諾之內</p>
+        </div>
+        <div class="funnel-col">
+          <span class="funnel-col-title">OUTPUTS</span>
+          <div class="funnel-item output">
+            <div class="funnel-item-name">社群動態貼文</div>
+            <div class="funnel-item-desc">方形、垂直、短秒數</div>
+          </div>
+          <div class="funnel-item output">
+            <div class="funnel-item-name">包裝印刷</div>
+            <div class="funnel-item-desc">紙材、墨色、版面</div>
+          </div>
+          <div class="funnel-item output">
+            <div class="funnel-item-name">數位互動</div>
+            <div class="funnel-item-desc">網站、App、互動裝置</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P7 菱形星座：MIT 案例 -->
+    <section class="slide s7-constellation">
+      <h2 class="slide-title">案例：同一靈魂的千種表情</h2>
+      <p class="slide-subtitle">MIT Media Lab 以演算法讓一個 glyph 產生 40,000+ permutations</p>
+      <div class="constellation-layout">
+        <svg class="constellation-svg" viewBox="0 0 1200 600" fill="none">
+          <line x1="600" y1="300" x2="180" y2="120" stroke="rgba(224,64,251,0.3)" stroke-width="1" stroke-dasharray="3 5"/>
+          <line x1="600" y1="300" x2="1020" y2="120" stroke="rgba(34,211,238,0.3)" stroke-width="1" stroke-dasharray="3 5"/>
+          <line x1="600" y1="300" x2="180" y2="480" stroke="rgba(251,191,36,0.3)" stroke-width="1" stroke-dasharray="3 5"/>
+          <line x1="600" y1="300" x2="1020" y2="480" stroke="rgba(186,104,200,0.3)" stroke-width="1" stroke-dasharray="3 5"/>
+          <line x1="600" y1="300" x2="100" y2="300" stroke="rgba(34,211,238,0.3)" stroke-width="1" stroke-dasharray="3 5"/>
+          <line x1="600" y1="300" x2="1100" y2="300" stroke="rgba(224,64,251,0.3)" stroke-width="1" stroke-dasharray="3 5"/>
+          <circle cx="180" cy="120" r="3" fill="var(--accent)"/>
+          <circle cx="1020" cy="120" r="3" fill="var(--cyan)"/>
+          <circle cx="180" cy="480" r="3" fill="var(--gold)"/>
+          <circle cx="1020" cy="480" r="3" fill="var(--accent-alt)"/>
+          <circle cx="100" cy="300" r="3" fill="var(--cyan)"/>
+          <circle cx="1100" cy="300" r="3" fill="var(--accent)"/>
+        </svg>
+        <div class="constellation-center">
+          <span class="constellation-center-glyph">M</span>
+          <span class="constellation-center-label">FIXED</span>
+        </div>
+        <div class="constellation-variant" style="top: 12%; left: 8%;">
+          <span class="variant-shape">M</span>
+          <span class="variant-name">VAR · 01</span>
+        </div>
+        <div class="constellation-variant v2" style="top: 12%; right: 8%;">
+          <span class="variant-shape">M</span>
+          <span class="variant-name">VAR · 02</span>
+        </div>
+        <div class="constellation-variant v3" style="bottom: 12%; left: 8%;">
+          <span class="variant-shape">M</span>
+          <span class="variant-name">VAR · 03</span>
+        </div>
+        <div class="constellation-variant v4" style="bottom: 12%; right: 8%;">
+          <span class="variant-shape">M</span>
+          <span class="variant-name">VAR · 04</span>
+        </div>
+        <div class="constellation-variant v5" style="top: 45%; left: 2%;">
+          <span class="variant-shape">M</span>
+          <span class="variant-name">VAR · 05</span>
+        </div>
+        <div class="constellation-variant v6" style="top: 45%; right: 2%;">
+          <span class="variant-shape">M</span>
+          <span class="variant-name">VAR · 06</span>
+        </div>
+        <div class="constellation-note">
+          案例：<strong>MIT Media Lab</strong>（Pentagram, 2011）以程式讓一個 M 字形在不同實驗室、研究領域下產生大量合法變體。
+          同一個靈魂，不同的表情。
+        </div>
+      </div>
+    </section>
+
+    <!-- P8 環形治理羅盤 -->
+    <section class="slide s8-compass">
+      <h2 class="slide-title">四道邊界，守住辨識度</h2>
+      <p class="slide-subtitle">自由不是沒有邊界，治理讓變化可被信任</p>
+      <div class="compass-layout">
+        <div class="compass-visual">
+          <svg viewBox="0 0 400 400" fill="none">
+            <circle cx="200" cy="200" r="180" stroke="rgba(224,64,251,0.4)" stroke-width="2" fill="rgba(224,64,251,0.04)"/>
+            <circle cx="200" cy="200" r="135" stroke="rgba(34,211,238,0.4)" stroke-width="1.5" fill="rgba(34,211,238,0.04)" stroke-dasharray="4 4"/>
+            <circle cx="200" cy="200" r="90" stroke="rgba(251,191,36,0.4)" stroke-width="1.5" fill="rgba(251,191,36,0.04)"/>
+            <circle cx="200" cy="200" r="45" stroke="var(--accent)" stroke-width="2" fill="rgba(224,64,251,0.15)"/>
+            <text x="200" y="195" text-anchor="middle" fill="var(--accent)" font-size="20" font-weight="900" font-family="Courier New, monospace">RECOG-</text>
+            <text x="200" y="210" text-anchor="middle" fill="var(--accent)" font-size="20" font-weight="900" font-family="Courier New, monospace">NITION</text>
+            <text x="200" y="40" text-anchor="middle" fill="var(--accent)" font-size="20" font-family="Courier New, monospace">MUST STAY</text>
+            <text x="360" y="205" text-anchor="start" fill="var(--cyan)" font-size="20" font-family="Courier New, monospace">MAY FLEX</text>
+            <text x="200" y="380" text-anchor="middle" fill="var(--gold)" font-size="20" font-family="Courier New, monospace">NEVER DO</text>
+            <text x="40" y="205" text-anchor="end" fill="var(--accent-alt)" font-size="20" font-family="Courier New, monospace">TEST &amp; LEARN</text>
+          </svg>
+        </div>
+        <div class="compass-rules">
+          <div class="compass-rule">
+            <span class="compass-rule-num">01</span>
+            <div class="compass-rule-content">
+              <div class="compass-rule-name">MUST STAY · 不能動</div>
+              <div class="compass-rule-desc">核心承諾、語氣、價值觀——任何情境都不能違反</div>
+            </div>
+          </div>
+          <div class="compass-rule">
+            <span class="compass-rule-num">02</span>
+            <div class="compass-rule-content">
+              <div class="compass-rule-name">MAY FLEX · 可以變</div>
+              <div class="compass-rule-desc">顏色、比例、節奏、字重——在規則幅度內調整</div>
+            </div>
+          </div>
+          <div class="compass-rule">
+            <span class="compass-rule-num">03</span>
+            <div class="compass-rule-content">
+              <div class="compass-rule-name">NEVER DO · 不能做</div>
+              <div class="compass-rule-desc">失真、低品質、誤導資訊、歧視性符號</div>
+            </div>
+          </div>
+          <div class="compass-rule">
+            <span class="compass-rule-num">04</span>
+            <div class="compass-rule-content">
+              <div class="compass-rule-name">TEST &amp; LEARN · 持續測</div>
+              <div class="compass-rule-desc">A/B 測試、辨識度回饋、定期審視與回滾</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P9 30 天啟動流程 -->
+    <section class="slide s9-flow">
+      <h2 class="slide-title">30 天啟動一套動態識別</h2>
+      <p class="slide-subtitle">五個步驟，把靜態 Logo 升級為會呼吸的系統</p>
+      <div class="flow-layout">
+        <div class="flow-step">
+          <span class="flow-num">01</span>
+          <div>
+            <div class="flow-content-name">Discover · 探勘</div>
+            <div class="flow-content-desc">盤點現有視覺資產、收集受眾印象、識別辨識痛點</div>
+          </div>
+          <div class="flow-deliverable">品牌資產清單</div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">02</span>
+          <div>
+            <div class="flow-content-name">Define · 定義</div>
+            <div class="flow-content-desc">寫下 MUST STAY 與 MAY FLEX 的明確邊界</div>
+          </div>
+          <div class="flow-deliverable">變體規則文件</div>
+        </div>
+        <div class="flow-step big">
+          <span class="flow-num">03</span>
+          <div>
+            <div class="flow-content-name">Generate · 生成</div>
+            <div class="flow-content-desc">以模板、變數字體或程式工具，產出第一批變體</div>
+          </div>
+          <div class="flow-deliverable">100+ 變體庫</div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">04</span>
+          <div>
+            <div class="flow-content-name">Prototype · 落地</div>
+            <div class="flow-content-desc">將變體套用到 3-5 個真實觸點，觀察實際表現</div>
+          </div>
+          <div class="flow-deliverable">觸點 mock-up</div>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">05</span>
+          <div>
+            <div class="flow-content-name">Govern · 治理</div>
+            <div class="flow-content-desc">建立版本管理、回饋機制、定期審視流程</div>
+          </div>
+          <div class="flow-deliverable">治理手冊上線</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- P10 結尾宣言 -->
+    <section class="slide s10-declare">
+      <div class="declare-frame"></div>
+      <span class="declare-eyebrow">FINALE · 2026.08.05</span>
+      <h2 class="declare-title">讓品牌保持同一個靈魂</h2>
+      <div class="declare-statements">
+        <div class="declare-statement">
+          <strong>固定的</strong> 是承諾——不論場景怎麼變，品牌說的話始終一致。
+        </div>
+        <div class="declare-statement">
+          <strong>可變的</strong> 是表達——顏色、節奏、版型隨情境呼吸，但語氣不變。
+        </div>
+        <div class="declare-statement">
+          <strong>治理</strong> 讓自由可持續——沒有邊界的動態，最終會變成失控。
+        </div>
+      </div>
+      <p class="declare-cta">回到簡報列表：<a href="/slides.htm">/slides.htm</a></p>
+      <p class="declare-sources">SOURCES · pentagram.com · eroonkang.com · adobe.com/express · threerooms.com</p>
+    </section>
+
+  </div>
+  <script>
+    var slides = document.querySelectorAll('.slide');
+    var total = slides.length;
+    var current = 0;
+    document.getElementById('total').textContent = total;
+    function show(index) {
+      if (typeof index === 'number') {
+        if (index >= 0 && index < total) current = index;
+      }
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].classList.remove('active');
+        slides[i].setAttribute('aria-hidden', 'true');
+      }
+      if (slides[current]) {
+        slides[current].classList.add('active');
+        slides[current].setAttribute('aria-hidden', 'false');
+      }
+      var curEl = document.getElementById('cur');
+      if (curEl) curEl.textContent = current + 1;
+    }
+    function next() {
+      current = (current + 1) % total;
+      show();
+    }
+    function prev() {
+      current = (current - 1 + total) % total;
+      show();
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    });
+    show(0);
+  </script>
+</body>
+</html>
