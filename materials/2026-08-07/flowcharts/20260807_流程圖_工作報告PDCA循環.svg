@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 背景：溫暖米色 + 輕微格紋（Anti-AI 手作感）-->
+  <defs>
+    <pattern id="paperGrid" patternUnits="userSpaceOnUse" width="40" height="40">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E8E0D0" stroke-width="0.5" opacity="0.6"/>
+    </pattern>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1E40AF"/>
+    </marker>
+    <marker id="arrowGold" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#F59E0B"/>
+    </marker>
+  </defs>
+  <rect width="1920" height="1080" fill="#FBF7EE"/>
+  <rect width="1920" height="1080" fill="url(#paperGrid)"/>
+
+  <!-- 標題：結論式標題（Outcrowd 2026 趨勢）-->
+  <text x="160" y="140" font-family="'Noto Sans TC', sans-serif" font-size="68" font-weight="900" fill="#1E1E1E">PDCA 循環讓問題少 47%</text>
+  <text x="160" y="200" font-family="'Noto Sans TC', sans-serif" font-size="28" font-weight="400" fill="#6B5B3C">工作報告 · 持續改善流程 · 用數據驗證成效</text>
+  <line x1="160" y1="230" x2="380" y2="230" stroke="#F59E0B" stroke-width="4"/>
+
+  <!-- 中央核心圓 -->
+  <circle cx="960" cy="600" r="110" fill="#1E40AF" stroke="#F59E0B" stroke-width="6"/>
+  <text x="960" y="585" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="36" font-weight="900" fill="#FBF7EE">改善</text>
+  <text x="960" y="630" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="22" font-weight="700" fill="#F59E0B">PDCA</text>
+  <text x="960" y="660" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="14" fill="#FFFFFF" opacity="0.85">CYCLE</text>
+
+  <!-- 4 個階段：平行四邊形（技巧 #124 skewX=-20）+ 階梯排列 -->
+  <!-- Plan 計畫 -->
+  <g transform="translate(280,380)">
+    <polygon points="40,0 280,0 240,140 0,140" fill="#1E40AF" stroke="#F59E0B" stroke-width="2"/>
+    <polygon points="40,0 280,0 240,140 0,140" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.25" stroke-dasharray="4,4"/>
+    <text x="160" y="55" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="52" font-weight="900" fill="#F59E0B">01</text>
+    <text x="160" y="95" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="32" font-weight="700" fill="#FBF7EE">計畫</text>
+    <text x="160" y="125" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" fill="#FBF7EE" opacity="0.85">Plan / 目標拆解</text>
+  </g>
+  <!-- Plan 連接線指向 Do -->
+  <path d="M 530 460 Q 760 480 1380 460" stroke="#1E40AF" stroke-width="3" fill="none" stroke-dasharray="8,6" marker-end="url(#arrowBlue)"/>
+  <text x="950" y="440" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#1E40AF" opacity="0.7">執行 →</text>
+
+  <!-- Do 執行 -->
+  <g transform="translate(1340,380)">
+    <polygon points="40,0 280,0 240,140 0,140" fill="#3B82F6" stroke="#F59E0B" stroke-width="2"/>
+    <text x="160" y="55" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="52" font-weight="900" fill="#F59E0B">02</text>
+    <text x="160" y="95" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="32" font-weight="700" fill="#FBF7EE">執行</text>
+    <text x="160" y="125" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" fill="#FBF7EE" opacity="0.85">Do / 落地實作</text>
+  </g>
+  <!-- Do 連接線指向 Check -->
+  <path d="M 1480 540 Q 1480 700 960 720" stroke="#3B82F6" stroke-width="3" fill="none" stroke-dasharray="8,6" marker-end="url(#arrowBlue)"/>
+
+  <!-- Check 檢核 -->
+  <g transform="translate(1340,720)">
+    <polygon points="40,0 280,0 240,140 0,140" fill="#1E40AF" stroke="#F59E0B" stroke-width="2"/>
+    <text x="160" y="55" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="52" font-weight="900" fill="#F59E0B">03</text>
+    <text x="160" y="95" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="32" font-weight="700" fill="#FBF7EE">檢核</text>
+    <text x="160" y="125" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" fill="#FBF7EE" opacity="0.85">Check / 數據驗證</text>
+  </g>
+  <!-- Check 連接線指向 Act -->
+  <path d="M 1340 790 Q 760 820 530 790" stroke="#1E40AF" stroke-width="3" fill="none" stroke-dasharray="8,6" marker-end="url(#arrowBlue)"/>
+  <text x="950" y="845" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#1E40AF" opacity="0.7">← 改善</text>
+
+  <!-- Act 改善 -->
+  <g transform="translate(280,720)">
+    <polygon points="40,0 280,0 240,140 0,140" fill="#3B82F6" stroke="#F59E0B" stroke-width="2"/>
+    <text x="160" y="55" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="52" font-weight="900" fill="#F59E0B">04</text>
+    <text x="160" y="95" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="32" font-weight="700" fill="#FBF7EE">改善</text>
+    <text x="160" y="125" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" fill="#FBF7EE" opacity="0.85">Act / 標準化</text>
+  </g>
+  <!-- Act 連接線回到 Plan -->
+  <path d="M 440 720 Q 440 600 530 460" stroke="#1E40AF" stroke-width="3" fill="none" stroke-dasharray="8,6" marker-end="url(#arrowBlue)"/>
+
+  <!-- Footer 標籤 -->
+  <line x1="160" y1="970" x2="1760" y2="970" stroke="#1E40AF" stroke-width="1" opacity="0.3"/>
+  <text x="160" y="1020" font-family="'Noto Sans TC', sans-serif" font-size="20" fill="#6B5B3C">🏛️ 熊熊素材庫 · 工作報告系列</text>
+  <text x="1760" y="1020" text-anchor="end" font-family="'Noto Sans TC', sans-serif" font-size="20" fill="#6B5B3C">技巧 #124 平行四邊形 + 階梯排列</text>
+</svg>

@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <pattern id="dotGrid" patternUnits="userSpaceOnUse" width="32" height="32">
+      <circle cx="2" cy="2" r="0.8" fill="#1E40AF" opacity="0.18"/>
+    </pattern>
+    <marker id="arrowNet" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1E40AF"/>
+    </marker>
+  </defs>
+  <rect width="1920" height="1080" fill="#FBF7EE"/>
+  <rect width="1920" height="1080" fill="url(#dotGrid)"/>
+
+  <!-- 標題：結論即標題 -->
+  <text x="160" y="140" font-family="'Noto Sans TC', sans-serif" font-size="64" font-weight="900" fill="#1E1E1E">6 個決策節點 · 9 條因果鏈</text>
+  <text x="160" y="195" font-family="'Noto Sans TC', sans-serif" font-size="26" fill="#6B5B3C">決策網絡圖 · 平行四邊形節點 + 線條連接 · 找出瓶頸</text>
+  <line x1="160" y1="225" x2="380" y2="225" stroke="#F59E0B" stroke-width="4"/>
+
+  <!-- 連接線（先畫，節點在上層）-->
+  <g stroke="#1E40AF" stroke-width="2.5" fill="none" opacity="0.7">
+    <line x1="500" y1="450" x2="800" y2="380" marker-end="url(#arrowNet)"/>
+    <line x1="500" y1="450" x2="500" y2="700" stroke-dasharray="6,4"/>
+    <line x1="500" y1="700" x2="800" y2="770" marker-end="url(#arrowNet)"/>
+    <line x1="820" y1="400" x2="1100" y2="500" marker-end="url(#arrowNet)"/>
+    <line x1="820" y1="790" x2="1100" y2="700" marker-end="url(#arrowNet)"/>
+    <line x1="1110" y1="540" x2="1400" y2="600" marker-end="url(#arrowNet)"/>
+    <line x1="1110" y1="660" x2="1400" y2="600" stroke-dasharray="6,4"/>
+    <line x1="1410" y1="640" x2="1620" y2="780" marker-end="url(#arrowNet)"/>
+    <line x1="1410" y1="560" x2="1620" y2="420" stroke-dasharray="6,4" marker-end="url(#arrowNet)"/>
+  </g>
+
+  <!-- 6 個節點（平行四邊形 + 節點圓，技巧 #124 變化 #9）-->
+  <!-- 節點 1：市場調研 -->
+  <g transform="translate(380,400)">
+    <polygon points="30,0 240,0 210,100 0,100" fill="#1E40AF" stroke="#F59E0B" stroke-width="2"/>
+    <circle cx="120" cy="50" r="22" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+    <text x="120" y="58" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" font-weight="900" fill="#1E1E1E">01</text>
+    <text x="120" y="92" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="20" font-weight="700" fill="#FBF7EE">市場調研</text>
+  </g>
+
+  <!-- 節點 2：用戶訪談 -->
+  <g transform="translate(700,330)">
+    <polygon points="30,0 240,0 210,100 0,100" fill="#3B82F6" stroke="#F59E0B" stroke-width="2"/>
+    <circle cx="120" cy="50" r="22" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+    <text x="120" y="58" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" font-weight="900" fill="#1E1E1E">02</text>
+    <text x="120" y="92" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="20" font-weight="700" fill="#FBF7EE">用戶訪談</text>
+  </g>
+
+  <!-- 節點 3：數據分析 -->
+  <g transform="translate(380,650)">
+    <polygon points="30,0 240,0 210,100 0,100" fill="#1E40AF" stroke="#F59E0B" stroke-width="2"/>
+    <circle cx="120" cy="50" r="22" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+    <text x="120" y="58" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" font-weight="900" fill="#1E1E1E">03</text>
+    <text x="120" y="92" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="20" font-weight="700" fill="#FBF7EE">數據分析</text>
+  </g>
+
+  <!-- 節點 4：方案設計 -->
+  <g transform="translate(700,720)">
+    <polygon points="30,0 240,0 210,100 0,100" fill="#3B82F6" stroke="#F59E0B" stroke-width="2"/>
+    <circle cx="120" cy="50" r="22" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+    <text x="120" y="58" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" font-weight="900" fill="#1E1E1E">04</text>
+    <text x="120" y="92" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="20" font-weight="700" fill="#FBF7EE">方案設計</text>
+  </g>
+
+  <!-- 節點 5：A/B 測試 -->
+  <g transform="translate(1000,450)">
+    <polygon points="30,0 240,0 210,100 0,100" fill="#1E40AF" stroke="#F59E0B" stroke-width="2"/>
+    <circle cx="120" cy="50" r="22" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+    <text x="120" y="58" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" font-weight="900" fill="#1E1E1E">05</text>
+    <text x="120" y="92" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="20" font-weight="700" fill="#FBF7EE">A/B 測試</text>
+  </g>
+
+  <!-- 節點 6：決策評估 -->
+  <g transform="translate(1000,650)">
+    <polygon points="30,0 240,0 210,100 0,100" fill="#3B82F6" stroke="#F59E0B" stroke-width="2"/>
+    <circle cx="120" cy="50" r="22" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+    <text x="120" y="58" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" font-weight="900" fill="#1E1E1E">06</text>
+    <text x="120" y="92" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="20" font-weight="700" fill="#FBF7EE">決策評估</text>
+  </g>
+
+  <!-- 節點 7：最終決策 -->
+  <g transform="translate(1300,550)">
+    <polygon points="30,0 240,0 210,100 0,100" fill="#F59E0B" stroke="#1E40AF" stroke-width="3"/>
+    <circle cx="120" cy="50" r="22" fill="#1E40AF" stroke="#F59E0B" stroke-width="2"/>
+    <text x="120" y="58" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="18" font-weight="900" fill="#FBF7EE">07</text>
+    <text x="120" y="92" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="20" font-weight="700" fill="#1E1E1E">最終決策</text>
+  </g>
+
+  <!-- 旁註：實線 = 強相關、虛線 = 弱相關 -->
+  <g transform="translate(1620,370)">
+    <polygon points="0,0 200,0 180,40 0,40" fill="#FBF7EE" stroke="#1E40AF" stroke-width="1.5"/>
+    <text x="20" y="25" font-family="'Noto Sans TC', sans-serif" font-size="14" fill="#1E40AF">實線 = 強相關</text>
+  </g>
+  <g transform="translate(1620,730)">
+    <polygon points="0,0 200,0 180,40 0,40" fill="#FBF7EE" stroke="#1E40AF" stroke-width="1.5"/>
+    <text x="20" y="25" font-family="'Noto Sans TC', sans-serif" font-size="14" fill="#1E40AF">虛線 = 待確認</text>
+  </g>
+
+  <!-- 圖例：節點圓示意 -->
+  <circle cx="1840" cy="390" r="6" fill="#F59E0B" stroke="#1E40AF" stroke-width="1.5"/>
+  <circle cx="1840" cy="750" r="6" fill="#F59E0B" stroke="#1E40AF" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Footer -->
+  <line x1="160" y1="970" x2="1760" y2="970" stroke="#1E40AF" stroke-width="1" opacity="0.3"/>
+  <text x="160" y="1020" font-family="'Noto Sans TC', sans-serif" font-size="20" fill="#6B5B3C">🏛️ 熊熊素材庫 · 工作報告系列</text>
+  <text x="1760" y="1020" text-anchor="end" font-family="'Noto Sans TC', sans-serif" font-size="20" fill="#6B5B3C">技巧 #124 節點網絡 + 線條引導</text>
+</svg>

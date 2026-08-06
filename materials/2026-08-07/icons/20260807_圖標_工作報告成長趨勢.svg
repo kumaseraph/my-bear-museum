@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <linearGradient id="iconUp" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#1E40AF"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+    <pattern id="iconGrid" patternUnits="userSpaceOnUse" width="40" height="40">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1E40AF" stroke-width="0.5" opacity="0.15"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="800" fill="#FBF7EE"/>
+  <rect width="800" height="800" fill="url(#iconGrid)"/>
+
+  <!-- 標題 -->
+  <text x="80" y="100" font-family="'Noto Sans TC', sans-serif" font-size="40" font-weight="900" fill="#1E1E1E">成長趨勢</text>
+  <text x="80" y="135" font-family="'Noto Sans TC', sans-serif" font-size="18" fill="#6B5B3C">Growth Trend</text>
+  <line x1="80" y1="155" x2="200" y2="155" stroke="#F59E0B" stroke-width="3"/>
+
+  <!-- 主圖標：上升箭頭 + 平行四邊形節點（技巧 #124 變化 #9）-->
+  <g transform="translate(120,200)">
+    <!-- 背景裝飾：上升的三個柱子（虛線）-->
+    <g stroke="#1E40AF" stroke-width="2" stroke-dasharray="4,4" opacity="0.4">
+      <line x1="80" y1="380" x2="80" y2="380"/>
+      <rect x="60" y="280" width="40" height="100" fill="none"/>
+      <rect x="180" y="200" width="40" height="180" fill="none"/>
+      <rect x="300" y="120" width="40" height="260" fill="none"/>
+    </g>
+    <!-- 實心柱子（藍色漸層）-->
+    <polygon points="60,280 100,280 100,380 60,380" fill="#3B82F6" opacity="0.85"/>
+    <polygon points="180,200 220,200 220,380 180,380" fill="#1E40AF" opacity="0.9"/>
+    <polygon points="300,120 340,120 340,380 300,380" fill="url(#iconUp)"/>
+    <!-- 柱子上的平行四邊形節點 -->
+    <polygon points="60,260 110,260 105,275 55,275" fill="#F59E0B" stroke="#1E40AF" stroke-width="1.5"/>
+    <polygon points="180,180 230,180 225,195 175,195" fill="#F59E0B" stroke="#1E40AF" stroke-width="1.5"/>
+    <polygon points="300,100 350,100 345,115 295,115" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+
+    <!-- 上升趨勢線（粗體 + 箭頭）-->
+    <polyline points="80,250 200,170 320,90" stroke="#F59E0B" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="80" cy="250" r="10" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+    <circle cx="200" cy="170" r="10" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+    <circle cx="320" cy="90" r="10" fill="#1E40AF" stroke="#F59E0B" stroke-width="2"/>
+    <!-- 箭頭 -->
+    <polygon points="320,90 305,75 340,75" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+    <polygon points="320,90 305,105 340,105" fill="#F59E0B" stroke="#1E40AF" stroke-width="2"/>
+    <line x1="320" y1="90" x2="360" y2="50" stroke="#F59E0B" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- 基線 -->
+    <line x1="40" y1="380" x2="380" y2="380" stroke="#1E40AF" stroke-width="2"/>
+    <text x="80" y="410" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="14" fill="#6B5B3C">Q1</text>
+    <text x="200" y="410" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="14" fill="#6B5B3C">Q2</text>
+    <text x="320" y="410" text-anchor="middle" font-family="'Noto Sans TC', sans-serif" font-size="14" fill="#6B5B3C">Q3</text>
+  </g>
+
+  <!-- 標籤與說明 -->
+  <g transform="translate(80,640)">
+    <line x1="0" y1="0" x2="640" y2="0" stroke="#1E40AF" stroke-width="1" opacity="0.3"/>
+    <text x="0" y="35" font-family="'Noto Sans TC', sans-serif" font-size="16" fill="#1E40AF" font-weight="700">▲ 季度營收成長 +47%</text>
+    <text x="0" y="60" font-family="'Noto Sans TC', sans-serif" font-size="14" fill="#6B5B3C">連續 3 季正成長 · 趨勢確認向上</text>
+    <text x="640" y="35" text-anchor="end" font-family="'Noto Sans TC', sans-serif" font-size="14" fill="#6B5B3C">🏛️ 工作報告 · 趨勢分析</text>
+  </g>
+</svg>
