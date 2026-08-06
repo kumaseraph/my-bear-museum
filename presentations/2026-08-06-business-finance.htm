@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Q3 全球商業財經觀察｜熊熊博物館</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    font-size: 20px;
+    font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  }
+
+  body {
+    background: #07101f;
+    color: #e0e8f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .presentation {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    background: #0c1a30;
+  }
+
+  .slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    padding: 40px 56px;
+    color: #e8edf5;
+  }
+
+  .slide.active { display: block; }
+
+  /* === P1-P10 頁面背景（深色 C5 企業深藍） === */
+  .s1-cover {
+    background:
+      radial-gradient(circle at 18% 28%, rgba(96,165,250,0.30) 0%, transparent 50%),
+      radial-gradient(circle at 82% 75%, rgba(59,130,246,0.20) 0%, transparent 50%),
+      linear-gradient(135deg, #07101f 0%, #163a72 100%);
+  }
+  .s2-toc {
+    background:
+      radial-gradient(circle at 92% 8%, rgba(96,165,250,0.18) 0%, transparent 45%),
+      linear-gradient(180deg, #0c1a30 0%, #1a3057 100%);
+  }
+  .s3-kpi {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(96,165,250,0.22) 0%, transparent 60%),
+      linear-gradient(180deg, #0c1a30 0%, #142849 100%);
+  }
+  .s4-trends {
+    background:
+      radial-gradient(circle at 30% 70%, rgba(96,165,250,0.20) 0%, transparent 55%),
+      linear-gradient(135deg, #07101f 0%, #1c3a6e 100%);
+  }
+  .s5-grid {
+    background: linear-gradient(180deg, #0c1a30 0%, #183157 100%);
+    padding-bottom: 70px;
+  }
+  .s6-timeline {
+    background:
+      radial-gradient(ellipse at 0% 50%, rgba(96,165,250,0.18) 0%, transparent 55%),
+      linear-gradient(135deg, #07101f 0%, #1a3a6e 100%);
+  }
+  .s7-risk {
+    background:
+      radial-gradient(circle at 50% 50%, rgba(244,114,182,0.15) 0%, transparent 60%),
+      linear-gradient(180deg, #0c1a30 0%, #1a2e52 100%);
+  }
+  .s8-bignum {
+    background:
+      radial-gradient(circle at 70% 30%, rgba(96,165,250,0.25) 0%, transparent 50%),
+      radial-gradient(circle at 20% 80%, rgba(129,199,132,0.18) 0%, transparent 50%),
+      linear-gradient(135deg, #07101f 0%, #1e3a6e 100%);
+  }
+  .s9-cases {
+    background:
+      radial-gradient(circle at 80% 20%, rgba(96,165,250,0.15) 0%, transparent 50%),
+      linear-gradient(180deg, #0c1a30 0%, #142849 100%);
+  }
+  .s10-end {
+    background:
+      radial-gradient(circle at 50% 50%, rgba(96,165,250,0.28) 0%, transparent 60%),
+      linear-gradient(135deg, #07101f 0%, #1a3a6e 100%);
+  }
+
+  /* === 頁面標題 === */
+  .pg-eyebrow {
+    color: #60a5fa;
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .pg-title {
+    color: #ffffff;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .title-bar {
+    width: 64px; height: 4px;
+    background: linear-gradient(90deg, #60a5fa, #93c5fd);
+    border-radius: 2px;
+    margin: 16px 0 24px 0;
+  }
+  .subtitle {
+    font-size: 1.05rem;
+    color: #b8c6dd;
+    margin-bottom: 16px;
+  }
+
+  /* === P1 封面 === */
+  .cover-deco {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+  }
+  .cover-deco.tl {
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, #60a5fa 0%, transparent 70%);
+    top: -80px; left: -80px;
+  }
+  .cover-deco.br {
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+    bottom: -120px; right: -120px;
+  }
+  .cover-mark {
+    color: #93c5fd;
+    font-size: 1.05rem;
+    letter-spacing: 0.20em;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .cover-title {
+    color: #ffffff;
+    font-size: 3.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .cover-en {
+    color: #b8c6dd;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 32px;
+    letter-spacing: 0.02em;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    color: #d1dcec;
+    font-size: 1rem;
+  }
+  .cover-meta strong {
+    color: #93c5fd;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .cover-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: calc(100% - 130px);
+    gap: 32px;
+  }
+  .cover-left {
+    flex: 1.5;
+    z-index: 1;
+    min-width: 0;
+  }
+  .cover-title {
+    color: #ffffff;
+    font-size: 3.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .cover-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+  }
+  .cover-orbit {
+    width: 320px;
+    height: 320px;
+    max-width: 100%;
+  }
+
+  /* === P2 目錄 === */
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .toc-item {
+    background: rgba(96,165,250,0.08);
+    border: 1px solid rgba(96,165,250,0.25);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s ease;
+  }
+  .toc-num {
+    color: #93c5fd;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    font-family: 'Segoe UI', monospace;
+  }
+  .toc-text {
+    color: #d1dcec;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  /* === P3 KPI（4 個並列卡片 + 中央大圖） === */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 12px;
+  }
+  .kpi-card {
+    background: linear-gradient(180deg, rgba(96,165,250,0.10) 0%, rgba(96,165,250,0.04) 100%);
+    border: 1px solid rgba(96,165,250,0.30);
+    border-radius: 12px;
+    padding: 32px 16px 28px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+  }
+  .kpi-label {
+    color: #93c5fd;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    color: #ffffff;
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .kpi-delta {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .kpi-delta.up { color: #81c784; }
+  .kpi-delta.down { color: #f48fb1; }
+  .kpi-note {
+    color: #b8c6dd;
+    font-size: 1rem;
+    margin-top: 4px;
+  }
+
+  /* === P4 三大趨勢（蜂巢散落） === */
+  .trend-container {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 100px);
+    margin-top: 16px;
+  }
+  .trend-hex {
+    position: absolute;
+    width: 280px; height: 320px;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    background: linear-gradient(180deg, rgba(96,165,250,0.18) 0%, rgba(59,130,246,0.05) 100%);
+    border: 2px solid rgba(96,165,250,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 24px;
+    text-align: center;
+  }
+  .trend-hex.t1 { top: 0; left: 8%; }
+  .trend-hex.t2 { top: 30%; right: 5%; }
+  .trend-hex.t3 { bottom: 0; left: 38%; }
+  .trend-icon {
+    width: 64px; height: 64px;
+    margin-bottom: 16px;
+    color: #93c5fd;
+  }
+  .trend-name {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .trend-desc {
+    color: #d1dcec;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  /* === P5 六大產業（3×2 網格卡片） === */
+  .industry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+    height: calc(100% - 110px);
+  }
+  .industry-card {
+    background: rgba(96,165,250,0.06);
+    border: 1px solid rgba(96,165,250,0.20);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .industry-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .industry-num {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .industry-name {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  .industry-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex: 1;
+  }
+  .industry-text {
+    color: #d1dcec;
+    font-size: 1rem;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .industry-pct {
+    color: #93c5fd;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-left: 12px;
+  }
+
+  /* === P6 時間軸（垂直） === */
+  .timeline-v {
+    position: relative;
+    margin-top: 20px;
+    padding-left: 40px;
+    height: calc(100% - 120px);
+  }
+  .timeline-v::before {
+    content: '';
+    position: absolute;
+    left: 12px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, #60a5fa 0%, #93c5fd 50%, #60a5fa 100%);
+  }
+  .tl-item {
+    position: relative;
+    padding: 6px 0 6px 24px;
+    margin-bottom: 4px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -32px; top: 14px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #60a5fa;
+    border: 3px solid #0c1a30;
+    box-shadow: 0 0 0 2px #60a5fa;
+  }
+  .tl-date {
+    color: #93c5fd;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .tl-title {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 2px;
+    margin-bottom: 4px;
+  }
+  .tl-desc {
+    color: #b8c6dd;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  /* === P7 風險評估（特殊形：菱形 + 箭頭） === */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .risk-card {
+    background: rgba(244,114,182,0.08);
+    border: 1px solid rgba(244,114,182,0.30);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .risk-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .risk-icon {
+    width: 36px; height: 36px;
+    color: #f48fb1;
+  }
+  .risk-level {
+    color: #f48fb1;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .risk-name {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .risk-bar {
+    height: 8px;
+    background: rgba(255,255,255,0.10);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 12px 0 8px 0;
+  }
+  .risk-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f48fb1, #f472b6);
+    border-radius: 4px;
+  }
+  .risk-desc {
+    color: #d1dcec;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  /* === P8 大數字（單一焦點 + 裝飾） === */
+  .bignum-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    position: relative;
+  }
+  .bignum-deco {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(96,165,250,0.25) 0%, transparent 65%);
+    z-index: 0;
+  }
+  .bignum-label {
+    color: #93c5fd;
+    font-size: 1.2rem;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    margin-bottom: 16px;
+    z-index: 1;
+  }
+  .bignum-value {
+    color: #ffffff;
+    font-size: 7.2rem;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    z-index: 1;
+  }
+  .bignum-unit {
+    color: #b8c6dd;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 24px;
+    z-index: 1;
+  }
+  .bignum-note {
+    color: #d1dcec;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    max-width: 600px;
+    z-index: 1;
+  }
+  .bignum-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 24px;
+    z-index: 1;
+  }
+  .bignum-meta-item {
+    color: #d1dcec;
+    font-size: 1rem;
+    text-align: center;
+  }
+  .bignum-meta-item strong {
+    display: block;
+    color: #93c5fd;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+
+  /* === P9 案例（蜂巢 + 文字） === */
+  .cases-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 12px;
+    height: calc(100% - 110px);
+  }
+  .case-hex {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px 28px;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    background: linear-gradient(180deg, rgba(96,165,250,0.18) 0%, rgba(59,130,246,0.04) 100%);
+    border: 2px solid rgba(96,165,250,0.40);
+    min-height: 280px;
+  }
+  .case-emoji-deco {
+    position: absolute;
+    top: 14px; right: 18px;
+    width: 40px; height: 40px;
+    color: #93c5fd;
+    opacity: 0.6;
+  }
+  .case-num {
+    color: #93c5fd;
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: 'Segoe UI', monospace;
+    margin-bottom: 8px;
+  }
+  .case-name {
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .case-desc {
+    color: #d1dcec;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .case-stat {
+    color: #93c5fd;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  /* === P10 結尾 === */
+  .end-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+  }
+  .end-deco {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    box-shadow: 0 0 60px rgba(96,165,250,0.5);
+  }
+  .end-deco svg {
+    width: 64px; height: 64px;
+    color: #ffffff;
+  }
+  .end-thanks {
+    color: #ffffff;
+    font-size: 4.2rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .end-tag {
+    color: #93c5fd;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+  }
+  .end-cta {
+    display: inline-block;
+    color: #07101f;
+    background: linear-gradient(135deg, #93c5fd, #60a5fa);
+    padding: 14px 36px;
+    border-radius: 999px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 24px;
+  }
+  .end-back {
+    color: #93c5fd;
+    font-size: 1.05rem;
+    text-decoration: none;
+    padding: 8px 20px;
+    border: 1px solid rgba(96,165,250,0.4);
+    border-radius: 999px;
+  }
+
+  /* === 共用導航列 === */
+  .nav {
+    position: absolute;
+    bottom: 16px; right: 24px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(7,16,31,0.75);
+    padding: 6px 10px;
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(96,165,250,0.25);
+    z-index: 10;
+  }
+  .nav button {
+    background: transparent;
+    border: none;
+    color: #93c5fd;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px 12px;
+    border-radius: 999px;
+    transition: all 0.2s ease;
+  }
+  .nav button:hover {
+    background: rgba(96,165,250,0.20);
+  }
+  .nav .counter {
+    color: #d1dcec;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0 8px;
+    font-family: 'Segoe UI', monospace;
+  }
+  .nav .back-link {
+    color: #93c5fd;
+    text-decoration: none;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+  .nav .back-link:hover {
+    background: rgba(96,165,250,0.20);
+  }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- P1 封面 -->
+  <div class="slide s1-cover active" id="slide-1">
+    <div class="cover-deco tl"></div>
+    <div class="cover-deco br"></div>
+    <div class="cover-mark">2026 Q3 GLOBAL OUTLOOK</div>
+    <div class="cover-layout">
+      <div class="cover-left">
+        <h1 class="cover-title">2026 Q3<br>全球商業財經觀察</h1>
+        <div class="cover-en">Global Business &amp; Finance Quarterly Review</div>
+        <div class="cover-meta">
+          <span><strong>10</strong> 大章節</span>
+          <span><strong>30+</strong> 關鍵指標</span>
+          <span><strong>2026.08.06</strong> 發布</span>
+        </div>
+      </div>
+      <div class="cover-right">
+        <svg viewBox="0 0 320 320" class="cover-orbit">
+          <circle cx="160" cy="160" r="150" fill="none" stroke="#60a5fa" stroke-width="1" stroke-dasharray="4 6" opacity="0.5"/>
+          <circle cx="160" cy="160" r="115" fill="none" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="2 4" opacity="0.6"/>
+          <circle cx="160" cy="160" r="80" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+          <circle cx="160" cy="160" r="50" fill="rgba(96,165,250,0.18)" stroke="#93c5fd" stroke-width="2"/>
+          <text x="160" y="156" text-anchor="middle" fill="#93c5fd" font-size="14" font-weight="700" letter-spacing="2">Q3</text>
+          <text x="160" y="178" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800">2026</text>
+          <circle cx="310" cy="160" r="6" fill="#93c5fd"/>
+          <circle cx="160" cy="10" r="5" fill="#60a5fa"/>
+          <circle cx="45" cy="240" r="4" fill="#ffffff" opacity="0.6"/>
+          <circle cx="240" cy="50" r="3" fill="#ffffff" opacity="0.5"/>
+          <text x="310" y="146" text-anchor="middle" fill="#b8c6dd" font-size="11">MSCI</text>
+          <text x="310" y="186" text-anchor="middle" fill="#93c5fd" font-size="13" font-weight="700">+12.4%</text>
+        </svg>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="back-link" onclick="window.location.href='/slides.htm'">⟵ 列表</button>
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="counter" id="counter">1 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- P2 目錄 -->
+  <div class="slide s2-toc" id="slide-2">
+    <div class="pg-eyebrow">CONTENTS</div>
+    <h2 class="pg-title">六大主題 · 由淺入深</h2>
+    <div class="title-bar"></div>
+    <div class="toc-grid">
+      <div class="toc-item">
+        <div class="toc-num">01</div>
+        <div class="toc-text">市場總覽：四大關鍵指標速覽</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">02</div>
+        <div class="toc-text">三大趨勢：AI / 永續 / 區域化</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">03</div>
+        <div class="toc-text">競爭格局：六大產業解析</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">04</div>
+        <div class="toc-text">季度節點：四大關鍵時程</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">05</div>
+        <div class="toc-text">風險評估：三大逆風訊號</div>
+      </div>
+      <div class="toc-item">
+        <div class="toc-num">06</div>
+        <div class="toc-text">企業案例：兩大成功路徑</div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="back-link" onclick="window.location.href='/slides.htm'">⟵ 列表</button>
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="counter" id="counter">2 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- P3 KPI（4 個並列） -->
+  <div class="slide s3-kpi" id="slide-3">
+    <div class="pg-eyebrow">01 · MARKET SNAPSHOT</div>
+    <h2 class="pg-title">四大關鍵指標速覽</h2>
+    <div class="title-bar"></div>
+    <div class="subtitle">2026 Q2 收盤數據 · 全球市場概覽</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">MSCI 全球指數</div>
+        <div class="kpi-value">+12.4%</div>
+        <div class="kpi-delta up">▲ YoY</div>
+        <div class="kpi-note">連四季成長</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">聯邦基金利率</div>
+        <div class="kpi-value">4.25%</div>
+        <div class="kpi-delta down">▼ -25bp</div>
+        <div class="kpi-note">8 月例會決議</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">美元指數 DXY</div>
+        <div class="kpi-value">102.8</div>
+        <div class="kpi-delta down">▼ -3.2%</div>
+        <div class="kpi-note">半年新低</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">西德州原油</div>
+        <div class="kpi-value">$78.3</div>
+        <div class="kpi-delta up">▲ +6.1%</div>
+        <div class="kpi-note">OPEC+ 減產</div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="back-link" onclick="window.location.href='/slides.htm'">⟵ 列表</button>
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="counter" id="counter">3 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- P4 三大趨勢（蜂巢散落） -->
+  <div class="slide s4-trends" id="slide-4">
+    <div class="pg-eyebrow">02 · MEGA TRENDS</div>
+    <h2 class="pg-title">三大趨勢：AI / 永續 / 區域化</h2>
+    <div class="title-bar"></div>
+    <div class="trend-container">
+      <div class="trend-hex t1">
+        <svg class="trend-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="12" y="20" width="40" height="28" rx="3"/>
+          <path d="M22 12 L22 20 M42 12 L42 20"/>
+          <circle cx="32" cy="34" r="3"/>
+          <path d="M28 44 L36 44"/>
+        </svg>
+        <div class="trend-name">AI 落地年</div>
+        <div class="trend-desc">企業 LLM 採用率突破 65%，算力投資年增 28%，從試點進入規模化部署</div>
+      </div>
+      <div class="trend-hex t2">
+        <svg class="trend-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 8 C20 18 18 32 24 42 L32 56 L40 42 C46 32 44 18 32 8 Z"/>
+          <path d="M32 22 L32 50 M22 36 L42 36"/>
+        </svg>
+        <div class="trend-name">永續轉型</div>
+        <div class="trend-desc">CBAM 全面啟動，ESG 揭露成為標配，企業綠色溢價達 12-18%</div>
+      </div>
+      <div class="trend-hex t3">
+        <svg class="trend-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="20" cy="32" r="8"/>
+          <circle cx="44" cy="32" r="8"/>
+          <path d="M28 32 L36 32 M20 24 L20 40 M44 24 L44 40"/>
+        </svg>
+        <div class="trend-name">區域化重組</div>
+        <div class="trend-desc">供應鏈從全球化走向區域化，友岸外包規模達 1.2 兆美元</div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="back-link" onclick="window.location.href='/slides.htm'">⟵ 列表</button>
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="counter" id="counter">4 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- P5 六大產業（3×2 網格） -->
+  <div class="slide s5-grid" id="slide-5">
+    <div class="pg-eyebrow">03 · INDUSTRY MAP</div>
+    <h2 class="pg-title">六大產業成長解析</h2>
+    <div class="title-bar"></div>
+    <div class="industry-grid">
+      <div class="industry-card">
+        <div class="industry-head">
+          <div class="industry-num">01</div>
+          <div class="industry-name">半導體</div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-text">AI 晶片需求帶動先進製程產能滿載，HBM 供不應求</div>
+          <div class="industry-pct">+24%</div>
+        </div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-head">
+          <div class="industry-num">02</div>
+          <div class="industry-name">金融服務</div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-text">財富管理 AUM 創新高，AI 投顧普及率突破 40%</div>
+          <div class="industry-pct">+15%</div>
+        </div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-head">
+          <div class="industry-num">03</div>
+          <div class="industry-name">醫療生技</div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-text">GLP-1 藥物市場擴大，基因療法進入臨床三期</div>
+          <div class="industry-pct">+18%</div>
+        </div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-head">
+          <div class="industry-num">04</div>
+          <div class="industry-name">能源</div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-text">再生能源裝置容量年增 32%，傳統能源轉型陣痛</div>
+          <div class="industry-pct">+9%</div>
+        </div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-head">
+          <div class="industry-num">05</div>
+          <div class="industry-name">零售消費</div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-text">電商滲透率達 28%，體驗式零售回流實體通路</div>
+          <div class="industry-pct">+7%</div>
+        </div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-head">
+          <div class="industry-num">06</div>
+          <div class="industry-name">不動產</div>
+        </div>
+        <div class="industry-body">
+          <div class="industry-text">商辦空置率仍高，資料中心與物流倉儲成新熱點</div>
+          <div class="industry-pct">+3%</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="back-link" onclick="window.location.href='/slides.htm'">⟵ 列表</button>
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="counter" id="counter">5 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- P6 時間軸（垂直） -->
+  <div class="slide s6-timeline" id="slide-6">
+    <div class="pg-eyebrow">04 · QUARTER TIMELINE</div>
+    <h2 class="pg-title">四大關鍵時程節點</h2>
+    <div class="title-bar"></div>
+    <div class="timeline-v">
+      <div class="tl-item">
+        <div class="tl-date">08 月中旬</div>
+        <div class="tl-title">FOMC 利率決策會議</div>
+        <div class="tl-desc">聯準會例會，市場預期降息 25 基點，關注聲明稿前瞻指引</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">09 月初</div>
+        <div class="tl-title">ECB 政策會議</div>
+        <div class="tl-desc">歐洲央行利率決議，歐元區通膨數據將成關鍵指引</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">09 月下旬</div>
+        <div class="tl-title">UNGA 聯合國大會</div>
+        <div class="tl-desc">氣候融資與永續發展目標進度成為主要議程</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">10 月初</div>
+        <div class="tl-title">Q3 企業財報季啟動</div>
+        <div class="tl-desc">大型科技股與金融股率先公布，AI 變現能力成焦點</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">11 月初</div>
+        <div class="tl-title">G20 領袖峰會</div>
+        <div class="tl-desc">全球治理與貿易議題，地緣政治風險管控為核心</div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="back-link" onclick="window.location.href='/slides.htm'">⟵ 列表</button>
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="counter" id="counter">6 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- P7 風險評估（特殊形） -->
+  <div class="slide s7-risk" id="slide-7">
+    <div class="pg-eyebrow">05 · RISK ASSESSMENT</div>
+    <h2 class="pg-title">三大逆風訊號</h2>
+    <div class="title-bar"></div>
+    <div class="subtitle">市場風險雷達 · 2026 Q3 警示</div>
+    <div class="risk-grid">
+      <div class="risk-card">
+        <div class="risk-head">
+          <svg class="risk-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 L56 50 L8 50 Z"/>
+            <path d="M32 24 L32 38"/>
+            <circle cx="32" cy="44" r="1.5" fill="currentColor"/>
+          </svg>
+          <div class="risk-level">HIGH RISK</div>
+        </div>
+        <div class="risk-name">地緣政治</div>
+        <div class="risk-bar"><div class="risk-bar-fill" style="width:78%"></div></div>
+        <div class="risk-desc">美中科技管制升級，半導體與 AI 晶片出口管制擴大至 14 類技術</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-head">
+          <svg class="risk-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="20"/>
+            <path d="M32 20 L32 32 L42 38"/>
+          </svg>
+          <div class="risk-level">MED RISK</div>
+        </div>
+        <div class="risk-name">通膨僵固</div>
+        <div class="risk-bar"><div class="risk-bar-fill" style="width:62%"></div></div>
+        <div class="risk-desc">核心服務通膨黏性高，房租與工資成長放緩速度低於預期</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-head">
+          <svg class="risk-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="20" width="44" height="28" rx="2"/>
+            <path d="M18 28 L26 36 L34 30 L46 42 M46 28 L46 42 M40 28 L46 28"/>
+          </svg>
+          <div class="risk-level">MED RISK</div>
+        </div>
+        <div class="risk-name">企業違約</div>
+        <div class="risk-bar"><div class="risk-bar-fill" style="width:54%"></div></div>
+        <div class="risk-desc">高利率環境下 BBB 級以下債券違約率升至 5.8%，逼近警戒線</div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="back-link" onclick="window.location.href='/slides.htm'">⟵ 列表</button>
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="counter" id="counter">7 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- P8 大數字（單一焦點 + 裝飾） -->
+  <div class="slide s8-bignum" id="slide-8">
+    <div class="bignum-wrap">
+      <div class="bignum-deco"></div>
+      <div class="bignum-label">GLOBAL AI INVESTMENT 2026</div>
+      <div class="bignum-value">$1.8T</div>
+      <div class="bignum-unit">兆美元 · 全球 AI 投資總額</div>
+      <div class="bignum-note">創歷史新高，較 2025 年成長 32%，佔全球 GDP 比例突破 1.6%</div>
+      <div class="bignum-meta">
+        <div class="bignum-meta-item">
+          <strong>54%</strong>
+          企業 LLM 採用率
+        </div>
+        <div class="bignum-meta-item">
+          <strong>+28%</strong>
+          算力投資年增
+        </div>
+        <div class="bignum-meta-item">
+          <strong>3.2M</strong>
+          新增 AI 職缺
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="back-link" onclick="window.location.href='/slides.htm'">⟵ 列表</button>
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="counter" id="counter">8 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- P9 案例（蜂巢 + 文字） -->
+  <div class="slide s9-cases" id="slide-9">
+    <div class="pg-eyebrow">06 · CASE STUDIES</div>
+    <h2 class="pg-title">兩大成功路徑</h2>
+    <div class="title-bar"></div>
+    <div class="cases-wrap">
+      <div class="case-hex">
+        <svg class="case-emoji-deco" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="10" y="14" width="44" height="40" rx="3"/>
+          <path d="M10 26 L54 26 M22 14 L22 54 M22 30 L48 30 M22 38 L48 38"/>
+        </svg>
+        <div class="case-num">CASE 01</div>
+        <div class="case-name">半導體 AI 化轉型</div>
+        <div class="case-desc">台積電 CoWoS 產能擴大 3 倍，單一客戶 AI 營收佔比達 28%，毛利率提升至 56%</div>
+        <div class="case-stat">市值：$820B+</div>
+      </div>
+      <div class="case-hex">
+        <svg class="case-emoji-deco" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="32" r="20"/>
+          <path d="M22 32 L29 39 L42 24"/>
+        </svg>
+        <div class="case-num">CASE 02</div>
+        <div class="case-name">金融 AI 投顧普及</div>
+        <div class="case-desc">摩根大通 IndexGPT 服務用戶突破 240 萬，AUM 從 $4B 升至 $48B，僅 18 個月</div>
+        <div class="case-stat">AUM：+1100%</div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="back-link" onclick="window.location.href='/slides.htm'">⟵ 列表</button>
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="counter" id="counter">9 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- P10 結尾 -->
+  <div class="slide s10-end" id="slide-10">
+    <div class="end-wrap">
+      <div class="end-deco">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 8 L40 24 L56 28 L44 40 L48 56 L32 48 L16 56 L20 40 L8 28 L24 24 Z"/>
+        </svg>
+      </div>
+      <div class="end-thanks">感謝聆聽</div>
+      <div class="end-tag">THANK YOU FOR YOUR ATTENTION</div>
+      <a class="end-cta" href="/slides.htm">回到簡報列表</a>
+      <a class="end-back" href="https://kumaweb.pages.dev/">熊熊博物館首頁 →</a>
+    </div>
+    <div class="nav">
+      <button class="back-link" onclick="window.location.href='/slides.htm'">⟵ 列表</button>
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span class="counter" id="counter">10 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var current = 0;
+  var slides = document.querySelectorAll('.slide');
+  var total = slides.length;
+
+  function show() {
+    if (slides[current]) {
+      slides[current].classList.remove('active');
+    }
+    current = (current + 1) % total;
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+  }
+
+  function next() { show(); }
+  function prev() {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current - 1 + total) % total;
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+  }
+</script>
+
+</body>
+</html>
