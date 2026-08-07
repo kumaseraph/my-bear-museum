@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 邊框_蜂巢交錯報告全框 | 工作報告系列 | 正式專業風格 -->
+  <!-- 技巧: #120 #122 六邊形 - 交錯排列 + 叢集 + 大小對比 + 虛實對比 -->
+  <defs>
+    <linearGradient id="hcDeep" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F2942"/>
+      <stop offset="100%" stop-color="#1E4976"/>
+    </linearGradient>
+    <linearGradient id="hcMid" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2C5282"/>
+      <stop offset="100%" stop-color="#4A6FA5"/>
+    </linearGradient>
+    <linearGradient id="hcGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B8860B"/>
+      <stop offset="100%" stop-color="#E5B946"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#FAFAF7"/>
+
+  <!-- 外框主線 -->
+  <rect x="70" y="70" width="1780" height="940" fill="none" stroke="url(#hcDeep)" stroke-width="3"/>
+  <!-- 內框細線 -->
+  <rect x="90" y="90" width="1740" height="900" fill="none" stroke="#94A3B8" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- 四角蜂巢叢集（每角 3 大 + 3 中 + 3 小，交錯排列） -->
+  <!-- 左上 -->
+  <g transform="translate(70, 70)">
+    <!-- 大六邊形 -->
+    <path d="M30,0 L58,16 L58,46 L30,62 L2,46 L2,16 Z" fill="url(#hcDeep)"/>
+    <path d="M75,15 L103,31 L103,61 L75,77 L47,61 L47,31 Z" fill="url(#hcMid)"/>
+    <path d="M52,55 L80,71 L80,101 L52,117 L24,101 L24,71 Z" fill="url(#hcGold)"/>
+    <!-- 中六邊形（空心） -->
+    <path d="M115,5 L132,15 L132,33 L115,43 L98,33 L98,15 Z" fill="none" stroke="url(#hcDeep)" stroke-width="1.5"/>
+    <path d="M5,80 L22,90 L22,108 L5,118 L-12,108 L-12,90 Z" fill="none" stroke="url(#hcDeep)" stroke-width="1.5"/>
+    <path d="M105,90 L122,100 L122,118 L105,128 L88,118 L88,100 Z" fill="url(#hcMid)" opacity="0.7"/>
+    <!-- 小六邊形（焦點） -->
+    <path d="M30,30 L40,36 L40,48 L30,54 L20,48 L20,36 Z" fill="url(#hcGold)"/>
+    <path d="M75,40 L85,46 L85,58 L75,64 L65,58 L65,46 Z" fill="#FFFFFF" stroke="url(#hcGold)" stroke-width="1"/>
+  </g>
+  <!-- 右上 -->
+  <g transform="translate(1850, 70) scale(-1,1)">
+    <path d="M30,0 L58,16 L58,46 L30,62 L2,46 L2,16 Z" fill="url(#hcDeep)"/>
+    <path d="M75,15 L103,31 L103,61 L75,77 L47,61 L47,31 Z" fill="url(#hcMid)"/>
+    <path d="M52,55 L80,71 L80,101 L52,117 L24,101 L24,71 Z" fill="url(#hcGold)"/>
+    <path d="M115,5 L132,15 L132,33 L115,43 L98,33 L98,15 Z" fill="none" stroke="url(#hcDeep)" stroke-width="1.5"/>
+    <path d="M5,80 L22,90 L22,108 L5,118 L-12,108 L-12,90 Z" fill="none" stroke="url(#hcDeep)" stroke-width="1.5"/>
+    <path d="M105,90 L122,100 L122,118 L105,128 L88,118 L88,100 Z" fill="url(#hcMid)" opacity="0.7"/>
+    <path d="M30,30 L40,36 L40,48 L30,54 L20,48 L20,36 Z" fill="url(#hcGold)"/>
+    <path d="M75,40 L85,46 L85,58 L75,64 L65,58 L65,46 Z" fill="#FFFFFF" stroke="url(#hcGold)" stroke-width="1"/>
+  </g>
+  <!-- 左下 -->
+  <g transform="translate(70, 1010) scale(1,-1)">
+    <path d="M30,0 L58,16 L58,46 L30,62 L2,46 L2,16 Z" fill="url(#hcDeep)"/>
+    <path d="M75,15 L103,31 L103,61 L75,77 L47,61 L47,31 Z" fill="url(#hcMid)"/>
+    <path d="M52,55 L80,71 L80,101 L52,117 L24,101 L24,71 Z" fill="url(#hcGold)"/>
+    <path d="M115,5 L132,15 L132,33 L115,43 L98,33 L98,15 Z" fill="none" stroke="url(#hcDeep)" stroke-width="1.5"/>
+    <path d="M5,80 L22,90 L22,108 L5,118 L-12,108 L-12,90 Z" fill="none" stroke="url(#hcDeep)" stroke-width="1.5"/>
+    <path d="M105,90 L122,100 L122,118 L105,128 L88,118 L88,100 Z" fill="url(#hcMid)" opacity="0.7"/>
+    <path d="M30,30 L40,36 L40,48 L30,54 L20,48 L20,36 Z" fill="url(#hcGold)"/>
+    <path d="M75,40 L85,46 L85,58 L75,64 L65,58 L65,46 Z" fill="#FFFFFF" stroke="url(#hcGold)" stroke-width="1"/>
+  </g>
+  <!-- 右下 -->
+  <g transform="translate(1850, 1010) scale(-1,-1)">
+    <path d="M30,0 L58,16 L58,46 L30,62 L2,46 L2,16 Z" fill="url(#hcDeep)"/>
+    <path d="M75,15 L103,31 L103,61 L75,77 L47,61 L47,31 Z" fill="url(#hcMid)"/>
+    <path d="M52,55 L80,71 L80,101 L52,117 L24,101 L24,71 Z" fill="url(#hcGold)"/>
+    <path d="M115,5 L132,15 L132,33 L115,43 L98,33 L98,15 Z" fill="none" stroke="url(#hcDeep)" stroke-width="1.5"/>
+    <path d="M5,80 L22,90 L22,108 L5,118 L-12,108 L-12,90 Z" fill="none" stroke="url(#hcDeep)" stroke-width="1.5"/>
+    <path d="M105,90 L122,100 L122,118 L105,128 L88,118 L88,100 Z" fill="url(#hcMid)" opacity="0.7"/>
+    <path d="M30,30 L40,36 L40,48 L30,54 L20,48 L20,36 Z" fill="url(#hcGold)"/>
+    <path d="M75,40 L85,46 L85,58 L75,64 L65,58 L65,46 Z" fill="#FFFFFF" stroke="url(#hcGold)" stroke-width="1"/>
+  </g>
+
+  <!-- 頂部：交錯蜂巢列（小型，裝飾） -->
+  <g transform="translate(380, 90)">
+    <path d="M15,0 L29,8 L29,22 L15,30 L1,22 L1,8 Z" fill="url(#hcDeep)" opacity="0.6"/>
+    <path d="M60,15 L74,23 L74,37 L60,45 L46,37 L46,23 Z" fill="url(#hcMid)" opacity="0.7"/>
+    <path d="M105,0 L119,8 L119,22 L105,30 L91,22 L91,8 Z" fill="url(#hcDeep)" opacity="0.6"/>
+    <path d="M150,15 L164,23 L164,37 L150,45 L136,37 L136,23 Z" fill="url(#hcMid)" opacity="0.7"/>
+    <path d="M195,0 L209,8 L209,22 L195,30 L181,22 L181,8 Z" fill="url(#hcDeep)" opacity="0.6"/>
+  </g>
+  <!-- 頂部右側 -->
+  <g transform="translate(1540, 90)">
+    <path d="M15,0 L29,8 L29,22 L15,30 L1,22 L1,8 Z" fill="url(#hcDeep)" opacity="0.6"/>
+    <path d="M60,15 L74,23 L74,37 L60,45 L46,37 L46,23 Z" fill="url(#hcMid)" opacity="0.7"/>
+    <path d="M105,0 L119,8 L119,22 L105,30 L91,22 L91,8 Z" fill="url(#hcDeep)" opacity="0.6"/>
+    <path d="M150,15 L164,23 L164,37 L150,45 L136,37 L136,23 Z" fill="url(#hcMid)" opacity="0.7"/>
+    <path d="M195,0 L209,8 L209,22 L195,30 L181,22 L181,8 Z" fill="url(#hcDeep)" opacity="0.6"/>
+  </g>
+
+  <!-- 中央：報告徽章（蜂巢構圖） -->
+  <g transform="translate(960, 540)">
+    <!-- 中心大蜂巢 -->
+    <path d="M-40,0 L-12,16 L-12,48 L-40,64 L-68,48 L-68,16 Z" fill="url(#hcDeep)"/>
+    <path d="M40,0 L68,16 L68,48 L40,64 L12,48 L12,16 Z" fill="url(#hcDeep)"/>
+    <path d="M0,-40 L28,-24 L28,8 L0,24 L-28,8 L-28,-24 Z" fill="url(#hcMid)"/>
+    <path d="M0,40 L28,56 L28,88 L0,104 L-28,88 L-28,56 Z" fill="url(#hcMid)"/>
+    <path d="M0,0 L18,10 L18,30 L0,40 L-18,30 L-18,10 Z" fill="url(#hcGold)"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#0F2942" text-anchor="middle">報</text>
+  </g>
+
+  <!-- 中央留白 -->
+  <text x="960" y="780" font-family="Arial, sans-serif" font-size="40" fill="#94A3B8" text-anchor="middle" letter-spacing="12">年 度 工 作 報 告</text>
+  <text x="960" y="820" font-family="Arial, sans-serif" font-size="20" fill="#CBD5E1" text-anchor="middle" letter-spacing="4">ANNUAL REPORT</text>
+</svg>

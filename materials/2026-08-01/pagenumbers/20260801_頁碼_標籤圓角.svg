@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <linearGradient id="tagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 標籤主體（圓角矩形 + 切角） -->
+  <path d="M 20,30 L 280,30 L 300,60 L 280,90 L 20,90 Q 10,90 10,80 L 10,40 Q 10,30 20,30 Z"
+        fill="url(#tagGrad)"/>
+
+  <!-- 內部裝飾虛線（邊界引導） -->
+  <line x1="25" y1="45" x2="270" y2="45" stroke="#FFFFFF" stroke-width="0.5" opacity="0.3" stroke-dasharray="4,3"/>
+  <line x1="25" y1="75" x2="270" y2="75" stroke="#FFFFFF" stroke-width="0.5" opacity="0.3" stroke-dasharray="4,3"/>
+
+  <!-- 左側大數字「02」（虛實對比 #120 變化 #6：實心數字+空心陰影） -->
+  <text x="50" y="78" font-family="'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="900" fill="#FFFFFF">02</text>
+  <text x="50" y="78" font-family="'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="900" fill="none" stroke="#1E3A8A" stroke-width="1" opacity="0.5" transform="translate(2,2)">02</text>
+
+  <!-- 斜線分隔 -->
+  <line x1="110" y1="35" x2="125" y2="85" stroke="#F59E0B" stroke-width="2" opacity="0.7"/>
+
+  <!-- 右側說明文字 -->
+  <text x="145" y="55" font-family="'PingFang TC', 'Noto Sans TC', sans-serif" font-size="16" font-weight="600" fill="#FFFFFF">第二季</text>
+  <text x="145" y="78" font-family="'PingFang TC', 'Noto Sans TC', sans-serif" font-size="12" font-weight="400" fill="#FFFFFF" opacity="0.8">Q2 / 2026</text>
+
+  <!-- 右上角小圓點（節點感） -->
+  <circle cx="270" cy="42" r="3" fill="#F59E0B"/>
+  <circle cx="280" cy="42" r="2" fill="#FBBF24" opacity="0.6"/>
+  <circle cx="260" cy="42" r="2" fill="#FBBF24" opacity="0.4"/>
+</svg>

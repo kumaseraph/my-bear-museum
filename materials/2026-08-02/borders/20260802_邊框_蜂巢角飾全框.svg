@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊漸層 -->
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#B8845C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 四角蜂巢角飾（技巧 #120 大小對比 + 2.5D 效果） -->
+  <!-- 左上角 -->
+  <g transform="translate(80,80)">
+    <!-- 大六邊形外框（粗空心） -->
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="none" stroke="#B8845C" stroke-width="4"/>
+    <!-- 內部實心小六邊形 -->
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="url(#bearGold)" fill-opacity="0.85"/>
+    <!-- 中心焦點 -->
+    <circle r="6" fill="#FFF8E7"/>
+  </g>
+  <!-- 左上延伸小六邊形 -->
+  <g transform="translate(170,80)">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#B8845C" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(80,170)">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#B8845C" stroke-width="1.5"/>
+  </g>
+
+  <!-- 右上角 -->
+  <g transform="translate(1840,80)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="none" stroke="#B8845C" stroke-width="4"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="url(#bearGold)" fill-opacity="0.85"/>
+    <circle r="6" fill="#FFF8E7"/>
+  </g>
+  <g transform="translate(1750,80)">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#B8845C" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(1840,170)">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#B8845C" stroke-width="1.5"/>
+  </g>
+
+  <!-- 左下角 -->
+  <g transform="translate(80,1000)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="none" stroke="#B8845C" stroke-width="4"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="url(#bearGold)" fill-opacity="0.85"/>
+    <circle r="6" fill="#FFF8E7"/>
+  </g>
+  <g transform="translate(170,1000)">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#B8845C" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(80,910)">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#B8845C" stroke-width="1.5"/>
+  </g>
+
+  <!-- 右下角 -->
+  <g transform="translate(1840,1000)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="none" stroke="#B8845C" stroke-width="4"/>
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="url(#bearGold)" fill-opacity="0.85"/>
+    <circle r="6" fill="#FFF8E7"/>
+  </g>
+  <g transform="translate(1750,1000)">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#B8845C" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(1840,910)">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#B8845C" stroke-width="1.5"/>
+  </g>
+
+  <!-- 邊緣引導線（虛線，材質服從資訊） -->
+  <line x1="200" y1="80" x2="1720" y2="80" stroke="#B8845C" stroke-width="1.2"
+        stroke-dasharray="8,6" opacity="0.4"/>
+  <line x1="200" y1="1000" x2="1720" y2="1000" stroke="#B8845C" stroke-width="1.2"
+        stroke-dasharray="8,6" opacity="0.4"/>
+  <line x1="80" y1="200" x2="80" y2="880" stroke="#B8845C" stroke-width="1.2"
+        stroke-dasharray="8,6" opacity="0.4"/>
+  <line x1="1840" y1="200" x2="1840" y2="880" stroke="#B8845C" stroke-width="1.2"
+        stroke-dasharray="8,6" opacity="0.4"/>
+</svg>

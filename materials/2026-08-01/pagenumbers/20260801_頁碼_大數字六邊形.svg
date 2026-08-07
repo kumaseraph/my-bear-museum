@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 大六邊形（s=50, 2.5D 效果 #120 變化 #6：外粗空心+內實心） -->
+  <!-- 外粗框 -->
+  <path d="M 60,15 L 100,40 L 100,80 L 60,105 L 20,80 L 20,40 Z"
+        fill="none" stroke="#1E40AF" stroke-width="4"/>
+  <!-- 內實心半透明 -->
+  <path d="M 60,15 L 100,40 L 100,80 L 60,105 L 20,80 L 20,40 Z"
+        fill="url(#hexGrad)" fill-opacity="0.3"/>
+
+  <!-- 內部大數字「01」 -->
+  <text x="60" y="73" font-family="'Helvetica Neue', Arial, sans-serif" font-size="38" font-weight="800" fill="#1E40AF" text-anchor="middle">01</text>
+
+  <!-- 中間小六邊形（s=25, 大小對比 #120 變化 #1） -->
+  <path d="M 150,38 L 167,48 L 167,68 L 150,78 L 133,68 L 133,48 Z"
+        fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="150" y="63" font-family="'Helvetica Neue', Arial, sans-serif" font-size="16" font-weight="700" fill="#3B82F6" text-anchor="middle">/</text>
+
+  <!-- 右側裝飾分隔線 -->
+  <line x1="190" y1="50" x2="220" y2="50" stroke="#3B82F6" stroke-width="1.5"/>
+  <line x1="190" y1="70" x2="220" y2="70" stroke="#3B82F6" stroke-width="1.5"/>
+
+  <!-- 描述文字「工作報告」 -->
+  <text x="240" y="55" font-family="'PingFang TC', 'Noto Sans TC', sans-serif" font-size="18" font-weight="600" fill="#1E40AF">工作報告</text>
+  <text x="240" y="78" font-family="'PingFang TC', 'Noto Sans TC', sans-serif" font-size="12" font-weight="400" fill="#3B82F6" opacity="0.8">WORK REPORT</text>
+
+  <!-- 右側裝飾小六邊形（旋轉 30° #120 變化 #2） -->
+  <g transform="rotate(30, 360, 60)">
+    <path d="M 360,40 L 380,52 L 380,68 L 360,80 L 340,68 L 340,52 Z"
+          fill="none" stroke="#F59E0B" stroke-width="1.5"/>
+  </g>
+</svg>

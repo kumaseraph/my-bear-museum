@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- 圖標_工作報告目標達成 | 工作報告系列 | 正式專業風格 -->
+  <!-- 技巧: #121 六邊形十形 - 大小對比 + 填充方式對比 + 焦點突出 -->
+  <defs>
+    <linearGradient id="tgBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#2C5282"/>
+    </linearGradient>
+    <linearGradient id="tgGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B8860B"/>
+      <stop offset="100%" stop-color="#E5B946"/>
+    </linearGradient>
+    <linearGradient id="tgGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#15803D"/>
+      <stop offset="100%" stop-color="#22C55E"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 底色 -->
+  <rect width="400" height="400" fill="#F8FAFC"/>
+
+  <!-- 主六邊形外框（深藍實心） -->
+  <path d="M200,50 L320,120 L320,280 L200,350 L80,280 L80,120 Z" fill="url(#tgBlue)"/>
+
+  <!-- 內六邊形（白色，形成六邊形十形結構） -->
+  <path d="M200,80 L298,138 L298,262 L200,320 L102,262 L102,138 Z" fill="#FFFFFF"/>
+
+  <!-- 目標標靶三圈（從外到內） -->
+  <circle cx="200" cy="200" r="90" fill="none" stroke="url(#tgBlue)" stroke-width="3" opacity="0.4"/>
+  <circle cx="200" cy="200" r="65" fill="none" stroke="url(#tgBlue)" stroke-width="3" opacity="0.6"/>
+  <circle cx="200" cy="200" r="40" fill="url(#tgBlue)" opacity="0.15"/>
+
+  <!-- 箭矢命中靶心（金色箭頭+綠色箭羽） -->
+  <!-- 箭桿 -->
+  <line x1="120" y1="120" x2="200" y2="200" stroke="url(#tgGold)" stroke-width="6" stroke-linecap="round"/>
+  <!-- 箭頭（金色實心三角） -->
+  <polygon points="200,200 185,193 193,205" fill="url(#tgGold)"/>
+  <polygon points="200,200 195,180 210,193" fill="url(#tgGold)"/>
+  <!-- 箭羽（綠色） -->
+  <polygon points="120,120 100,115 105,135" fill="url(#tgGreen)"/>
+  <polygon points="120,120 110,100 130,105" fill="url(#tgGreen)"/>
+
+  <!-- 焦點圓（靶心金色） -->
+  <circle cx="200" cy="200" r="12" fill="url(#tgGold)"/>
+  <circle cx="200" cy="200" r="6" fill="#FFFFFF"/>
+
+  <!-- 六個角頂點裝飾小圓 -->
+  <circle cx="200" cy="50" r="5" fill="url(#tgGold)"/>
+  <circle cx="320" cy="120" r="5" fill="url(#tgGold)"/>
+  <circle cx="320" cy="280" r="5" fill="url(#tgGold)"/>
+  <circle cx="200" cy="350" r="5" fill="url(#tgGold)"/>
+  <circle cx="80" cy="280" r="5" fill="url(#tgGold)"/>
+  <circle cx="80" cy="120" r="5" fill="url(#tgGold)"/>
+
+  <!-- 標籤 -->
+  <text x="200" y="385" font-family="Arial, sans-serif" font-size="14" fill="#64748B" text-anchor="middle" letter-spacing="2">目標達成報告</text>
+</svg>

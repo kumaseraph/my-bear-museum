@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 邊框_六邊雙層報告全框 | 工作報告系列 | 正式專業風格 -->
+  <!-- 技巧: #120 六邊形十式組合 - 大小對比 + 2.5D 效果 + 交錯排列 -->
+  <defs>
+    <linearGradient id="hexFormalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#2C5282"/>
+    </linearGradient>
+    <linearGradient id="hexAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B8860B"/>
+      <stop offset="100%" stop-color="#DAA520"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景（簡潔） -->
+  <rect width="1920" height="1080" fill="#F8FAFC"/>
+
+  <!-- 外框主線（深藍） -->
+  <rect x="60" y="60" width="1800" height="960" fill="none" stroke="url(#hexFormalGrad)" stroke-width="4" rx="2"/>
+  <!-- 內框副線（淺藍） -->
+  <rect x="80" y="80" width="1760" height="920" fill="none" stroke="#4A6FA5" stroke-width="1" opacity="0.6"/>
+
+  <!-- 四角裝飾：六邊形叢集（大小對比 + 2.5D 效果） -->
+  <!-- 左上 -->
+  <g transform="translate(60, 60)">
+    <path d="M30,0 L58,16 L58,46 L30,62 L2,46 L2,16 Z" fill="url(#hexFormalGrad)"/>
+    <path d="M20,20 L38,30 L38,50 L20,60 L2,50 L2,30 Z" fill="none" stroke="#DAA520" stroke-width="2"/>
+    <path d="M10,32 L22,39 L22,53 L10,60 L-2,53 L-2,39 Z" fill="url(#hexAccentGrad)" opacity="0.85"/>
+  </g>
+  <!-- 右上 -->
+  <g transform="translate(1860, 60) scale(-1,1)">
+    <path d="M30,0 L58,16 L58,46 L30,62 L2,46 L2,16 Z" fill="url(#hexFormalGrad)"/>
+    <path d="M20,20 L38,30 L38,50 L20,60 L2,50 L2,30 Z" fill="none" stroke="#DAA520" stroke-width="2"/>
+    <path d="M10,32 L22,39 L22,53 L10,60 L-2,53 L-2,39 Z" fill="url(#hexAccentGrad)" opacity="0.85"/>
+  </g>
+  <!-- 左下 -->
+  <g transform="translate(60, 1020) scale(1,-1)">
+    <path d="M30,0 L58,16 L58,46 L30,62 L2,46 L2,16 Z" fill="url(#hexFormalGrad)"/>
+    <path d="M20,20 L38,30 L38,50 L20,60 L2,50 L2,30 Z" fill="none" stroke="#DAA520" stroke-width="2"/>
+    <path d="M10,32 L22,39 L22,53 L10,60 L-2,53 L-2,39 Z" fill="url(#hexAccentGrad)" opacity="0.85"/>
+  </g>
+  <!-- 右下 -->
+  <g transform="translate(1860, 1020) scale(-1,-1)">
+    <path d="M30,0 L58,16 L58,46 L30,62 L2,46 L2,16 Z" fill="url(#hexFormalGrad)"/>
+    <path d="M20,20 L38,30 L38,50 L20,60 L2,50 L2,30 Z" fill="none" stroke="#DAA520" stroke-width="2"/>
+    <path d="M10,32 L22,39 L22,53 L10,60 L-2,53 L-2,39 Z" fill="url(#hexAccentGrad)" opacity="0.85"/>
+  </g>
+
+  <!-- 邊緣裝飾條（左右各一排小型六邊形，交錯排列） -->
+  <!-- 左側 -->
+  <g transform="translate(0, 200)">
+    <path d="M30,0 L46,9 L46,27 L30,36 L14,27 L14,9 Z" fill="url(#hexFormalGrad)" opacity="0.6"/>
+    <path d="M30,80 L46,89 L46,107 L30,116 L14,107 L14,89 Z" fill="none" stroke="#2C5282" stroke-width="1.5" opacity="0.6"/>
+    <path d="M30,160 L46,169 L46,187 L30,196 L14,187 L14,169 Z" fill="url(#hexFormalGrad)" opacity="0.6"/>
+    <path d="M30,240 L46,249 L46,267 L30,276 L14,267 L14,249 Z" fill="none" stroke="#2C5282" stroke-width="1.5" opacity="0.6"/>
+    <path d="M30,320 L46,329 L46,347 L30,356 L14,347 L14,329 Z" fill="url(#hexFormalGrad)" opacity="0.6"/>
+    <path d="M30,400 L46,409 L46,427 L30,436 L14,427 L14,409 Z" fill="none" stroke="#2C5282" stroke-width="1.5" opacity="0.6"/>
+    <path d="M30,480 L46,489 L46,507 L30,516 L14,507 L14,489 Z" fill="url(#hexFormalGrad)" opacity="0.6"/>
+    <path d="M30,560 L46,569 L46,587 L30,596 L14,587 L14,569 Z" fill="none" stroke="#2C5282" stroke-width="1.5" opacity="0.6"/>
+    <path d="M30,640 L46,649 L46,667 L30,676 L14,667 L14,649 Z" fill="url(#hexFormalGrad)" opacity="0.6"/>
+  </g>
+  <!-- 右側 -->
+  <g transform="translate(1890, 200)">
+    <path d="M-16,0 L0,9 L0,27 L-16,36 L-32,27 L-32,9 Z" fill="url(#hexFormalGrad)" opacity="0.6"/>
+    <path d="M-16,80 L0,89 L0,107 L-16,116 L-32,107 L-32,89 Z" fill="none" stroke="#2C5282" stroke-width="1.5" opacity="0.6"/>
+    <path d="M-16,160 L0,169 L0,187 L-16,196 L-32,187 L-32,169 Z" fill="url(#hexFormalGrad)" opacity="0.6"/>
+    <path d="M-16,240 L0,249 L0,267 L-16,276 L-32,267 L-32,249 Z" fill="none" stroke="#2C5282" stroke-width="1.5" opacity="0.6"/>
+    <path d="M-16,320 L0,329 L0,347 L-16,356 L-32,347 L-32,329 Z" fill="url(#hexFormalGrad)" opacity="0.6"/>
+    <path d="M-16,400 L0,409 L0,427 L-16,436 L-32,427 L-32,409 Z" fill="none" stroke="#2C5282" stroke-width="1.5" opacity="0.6"/>
+    <path d="M-16,480 L0,489 L0,507 L-16,516 L-32,507 L-32,489 Z" fill="url(#hexFormalGrad)" opacity="0.6"/>
+    <path d="M-16,560 L0,569 L0,587 L-16,596 L-32,587 L-32,569 Z" fill="none" stroke="#2C5282" stroke-width="1.5" opacity="0.6"/>
+    <path d="M-16,640 L0,649 L0,667 L-16,676 L-32,667 L-32,649 Z" fill="url(#hexFormalGrad)" opacity="0.6"/>
+  </g>
+
+  <!-- 頂部中央 報告徽章 -->
+  <g transform="translate(960, 110)">
+    <path d="M-100,0 L-30,0 L0,25 L-30,50 L-100,50 Z" fill="url(#hexFormalGrad)"/>
+    <path d="M100,0 L30,0 L0,25 L30,50 L100,50 Z" fill="url(#hexFormalGrad)"/>
+    <circle cx="0" cy="25" r="22" fill="url(#hexAccentGrad)"/>
+    <text x="0" y="32" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#1E3A5F" text-anchor="middle">報</text>
+  </g>
+
+  <!-- 中央留白（內容區） -->
+  <text x="960" y="540" font-family="Arial, sans-serif" font-size="42" fill="#94A3B8" text-anchor="middle" letter-spacing="8">工 作 報 告</text>
+  <text x="960" y="600" font-family="Arial, sans-serif" font-size="20" fill="#CBD5E1" text-anchor="middle" letter-spacing="4">WORK REPORT</text>
+</svg>

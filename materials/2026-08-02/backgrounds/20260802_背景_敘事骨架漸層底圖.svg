@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊三段漸層（敘事骨架：起→承→合） -->
+    <linearGradient id="narrativeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F5E6D3"/>
+      <stop offset="33%" stop-color="#E8D4B8"/>
+      <stop offset="66%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#B8845C"/>
+    </linearGradient>
+
+    <!-- 蜂巢 pattern（技巧 #120 大小對比） -->
+    <pattern id="hexPattern" x="0" y="0" width="200" height="173" patternUnits="userSpaceOnUse">
+      <!-- 大六邊形 -->
+      <path d="M100,15 L173,57 L173,140 L100,182 L27,140 L27,57 Z"
+            fill="none" stroke="#8B6F47" stroke-width="1.5" stroke-opacity="0.25"/>
+      <!-- 小六邊形（虛實對比 #6） -->
+      <path d="M50,100 L78,116 L78,148 L50,164 L22,148 L22,116 Z"
+            fill="#8B6F47" fill-opacity="0.12"/>
+      <path d="M150,100 L178,116 L178,148 L150,164 L122,148 L122,116 Z"
+            fill="#8B6F47" fill-opacity="0.12"/>
+    </pattern>
+
+    <!-- 敘事節點光暈 -->
+    <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 主漸層底 -->
+  <rect width="1920" height="1080" fill="url(#narrativeGrad)"/>
+
+  <!-- 蜂巢紋理疊加 -->
+  <rect width="1920" height="1080" fill="url(#hexPattern)" opacity="0.7"/>
+
+  <!-- 敘事節點光點（起承轉合 4 點） -->
+  <circle cx="240" cy="540" r="180" fill="url(#nodeGlow)"/>
+  <circle cx="720" cy="540" r="180" fill="url(#nodeGlow)"/>
+  <circle cx="1200" cy="540" r="180" fill="url(#nodeGlow)"/>
+  <circle cx="1680" cy="540" r="180" fill="url(#nodeGlow)"/>
+
+  <!-- 連接引導線（節點網絡） -->
+  <path d="M 240,540 Q 480,420 720,540 T 1200,540 T 1680,540"
+        fill="none" stroke="#8B6F47" stroke-width="1.5"
+        stroke-dasharray="6,4" opacity="0.35"/>
+
+  <!-- 起點標記 -->
+  <g transform="translate(240,540)">
+    <circle r="14" fill="#B8845C"/>
+    <circle r="6" fill="#FFF8E7"/>
+  </g>
+  <!-- 承點標記 -->
+  <g transform="translate(720,540)">
+    <circle r="14" fill="#B8845C"/>
+    <circle r="6" fill="#FFF8E7"/>
+  </g>
+  <!-- 轉點標記 -->
+  <g transform="translate(1200,540)">
+    <circle r="14" fill="#B8845C"/>
+    <circle r="6" fill="#FFF8E7"/>
+  </g>
+  <!-- 合點標記（實心強調） -->
+  <g transform="translate(1680,540)">
+    <circle r="20" fill="#8B6F47"/>
+    <circle r="12" fill="#D4A574"/>
+    <circle r="6" fill="#FFF8E7"/>
+  </g>
+</svg>

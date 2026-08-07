@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#F8FAFC"/><stop offset="1" stop-color="#EAF5F6"/></linearGradient>
+    <linearGradient id="navy" x2="1" y2="1"><stop stop-color="#163B5C"/><stop offset="1" stop-color="#286C8A"/></linearGradient>
+    <filter id="s"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#163B5C" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <g font-family="Noto Sans TC, Microsoft JhengHei, sans-serif">
+    <text x="120" y="145" font-size="32" fill="#286C8A" font-weight="700" letter-spacing="6">ANSWER FIRST</text>
+    <text x="120" y="915" font-size="70" fill="#163B5C" font-weight="800">關鍵洞察</text>
+    <text x="120" y="970" font-size="28" fill="#64748B">標題即答案，視覺即證據</text>
+  </g>
+  <!-- #121 hexagon + target, aligned centers -->
+  <g transform="translate(960 510)" filter="url(#s)">
+    <path d="M0-390 338-195 338 195 0 390-338 195-338-195z" fill="#FFFFFF" stroke="#163B5C" stroke-width="10"/>
+    <path d="M0-326 282-163 282 163 0 326-282 163-282-163z" fill="none" stroke="#27A9B8" stroke-width="5" stroke-dasharray="15 12"/>
+    <circle r="205" fill="#EEF8F8" stroke="#286C8A" stroke-width="6"/>
+    <circle r="132" fill="#FFFFFF" stroke="#27A9B8" stroke-width="6"/>
+    <circle r="62" fill="url(#navy)"/>
+    <circle r="22" fill="#F2B94B"/>
+    <!-- evidence chart -->
+    <g transform="translate(-205 165)">
+      <path d="M0 0h410" stroke="#CBD5E1" stroke-width="4"/>
+      <rect x="36" y="-74" width="52" height="74" rx="8" fill="#A9D9DB"/>
+      <rect x="116" y="-122" width="52" height="122" rx="8" fill="#62D2C7"/>
+      <rect x="196" y="-184" width="52" height="184" rx="8" fill="#27A9B8"/>
+      <rect x="276" y="-246" width="52" height="246" rx="8" fill="#286C8A"/>
+    </g>
+    <!-- insight star: #123 outlined/solid -->
+    <polygon points="0,-282 16,-239 62,-237 26,-209 38,-164 0,-190 -38,-164 -26,-209 -62,-237 -16,-239" fill="#F2B94B" stroke="#FFFFFF" stroke-width="7"/>
+  </g>
+  <g fill="none" stroke="#286C8A" stroke-width="4">
+    <path d="M270 290h300" stroke-dasharray="8 12"/><path d="M1350 790h300" stroke-dasharray="8 12"/>
+  </g>
+  <g fill="#F2B94B"><path d="M250 290l22-13v26z"/><path d="M1670 790l-22-13v26z"/></g>
+  <text x="1800" y="970" text-anchor="end" font-family="Arial" font-size="24" fill="#64748B">MODERN SIMPLE · 02</text>
+</svg>

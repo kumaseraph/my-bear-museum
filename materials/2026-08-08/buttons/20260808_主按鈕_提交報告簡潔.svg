@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200">
+  <defs>
+    <linearGradient id="btnGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <pattern id="btnStripes" patternUnits="userSpaceOnUse" width="14" height="14" patternTransform="rotate(-20)">
+      <line x1="0" y1="7" x2="14" y2="7" stroke="#FFFFFF" stroke-width="0.8" opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <!-- 主按鈕本體（平行四邊形 + skewX -15）-->
+  <g transform="translate(40,50)">
+    <polygon points="30,0 420,0 380,100 -10,100" fill="url(#btnGrad1)"/>
+    <polygon points="30,0 420,0 380,100 -10,100" fill="url(#btnStripes)"/>
+    <!-- 邊界引導線（左→右箭頭方向）-->
+    <line x1="50" y1="100" x2="380" y2="100" stroke="#22D3EE" stroke-width="2" opacity="0.7"/>
+    <line x1="50" y1="50" x2="380" y2="50" stroke="#FFFFFF" stroke-width="0.8" opacity="0.35"/>
+
+    <!-- 文字 -->
+    <text x="180" y="62" font-family="'PingFang TC','Microsoft JhengHei',sans-serif"
+          font-size="34" font-weight="700" fill="#FFFFFF" text-anchor="middle">提交報告</text>
+
+    <!-- 箭頭裝飾（呼應工作報告的「送出」動作）-->
+    <g transform="translate(330,50)">
+      <line x1="0" y1="0" x2="30" y2="0" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+      <polyline points="22,-7 30,0 22,7" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+
+  <!-- 簡潔焦點標記（左上六邊形小標）-->
+  <g transform="translate(20,30)">
+    <path d="M15,0 L28,8 L28,22 L15,30 L2,22 L2,8 Z"
+          fill="none" stroke="#3B82F6" stroke-width="1.5"/>
+    <circle cx="15" cy="15" r="3" fill="#3B82F6"/>
+  </g>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#F8FAFC"/><stop offset="1" stop-color="#EEF6FA"/></linearGradient>
+    <linearGradient id="blue" x2="1" y2="1"><stop stop-color="#163B5C"/><stop offset="1" stop-color="#286C8A"/></linearGradient>
+    <linearGradient id="cyan" x2="1"><stop stop-color="#27A9B8"/><stop offset="1" stop-color="#62D2C7"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#163B5C" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <g opacity=".35" fill="none" stroke="#27A9B8" stroke-width="2" stroke-dasharray="10 14">
+    <path d="M120 170H530M1390 900h410"/><path d="M1750 110l50 50-50 50-50-50z"/>
+  </g>
+  <g filter="url(#shadow)">
+    <polygon points="960,125 1325,540 960,955 595,540" fill="#FFFFFF" stroke="#163B5C" stroke-width="10"/>
+    <polygon points="960,190 1265,540 960,890 655,540" fill="url(#blue)"/>
+  </g>
+  <!-- AI spark: #123 diamond-star, solid/outline contrast -->
+  <g transform="translate(960 540)">
+    <polygon points="0,-205 180,0 0,205 -180,0" fill="none" stroke="#62D2C7" stroke-width="5" opacity=".65"/>
+    <circle r="118" fill="#F8FAFC"/>
+    <path d="M-72-8v-55c0-27 22-49 49-49h46c27 0 49 22 49 49v55c0 27-22 49-49 49h-12l-44 40 9-40h-25c-13 0-23-10-23-23z" fill="url(#cyan)"/>
+    <circle cx="-31" cy="-34" r="10" fill="#163B5C"/><circle cy="-34" r="10" fill="#163B5C"/><circle cx="31" cy="-34" r="10" fill="#163B5C"/>
+    <polygon points="0,-162 13,-127 50,-126 21,-103 30,-67 0,-88 -30,-67 -21,-103 -50,-126 -13,-127" fill="#F2B94B" stroke="#FFFFFF" stroke-width="5"/>
+  </g>
+  <!-- collaborative nodes -->
+  <g fill="#FFFFFF" stroke="#286C8A" stroke-width="5">
+    <circle cx="505" cy="310" r="58"/><circle cx="1415" cy="310" r="58"/><circle cx="505" cy="770" r="58"/><circle cx="1415" cy="770" r="58"/>
+  </g>
+  <g fill="#27A9B8">
+    <circle cx="505" cy="292" r="15"/><path d="M475 340c6-27 54-27 60 0z"/>
+    <circle cx="1415" cy="292" r="15"/><path d="M1385 340c6-27 54-27 60 0z"/>
+    <circle cx="505" cy="752" r="15"/><path d="M475 800c6-27 54-27 60 0z"/>
+    <circle cx="1415" cy="752" r="15"/><path d="M1385 800c6-27 54-27 60 0z"/>
+  </g>
+  <g stroke="#27A9B8" stroke-width="5" stroke-dasharray="12 13" fill="none"><path d="M557 337L750 445M1363 337l-193 108M557 743l193-108M1363 743l-193-108"/></g>
+  <g font-family="Noto Sans TC, Microsoft JhengHei, sans-serif">
+    <text x="120" y="145" font-size="32" fill="#286C8A" font-weight="700" letter-spacing="6">WORK REPORT SYSTEM</text>
+    <text x="120" y="930" font-size="70" fill="#163B5C" font-weight="800">AI 共編</text>
+    <text x="120" y="985" font-size="28" fill="#64748B">品牌變數 × 模板 × 團隊協作</text>
+    <text x="1800" y="985" text-anchor="end" font-size="24" fill="#64748B">MODERN SIMPLE · 01</text>
+  </g>
+</svg>

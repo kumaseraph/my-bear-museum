@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <!-- 條紋疊加 pattern（斜線 30°） -->
+    <pattern id="stripeBtn" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(-30)">
+      <rect width="8" height="8" fill="#1E40AF"/>
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#3B82F6" stroke-width="2" opacity="0.5"/>
+    </pattern>
+    <!-- 漸層（陰影） -->
+    <linearGradient id="btnShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 陰影底層（平行四邊形 skewX=-12） -->
+  <polygon points="40,38 340,38 320,82 20,82" fill="#1E3A8A" opacity="0.25" transform="translate(6,6)"/>
+
+  <!-- 主按鈕主體（應用 #124 skewX=-12 動感 + 條紋疊加） -->
+  <polygon points="40,38 340,38 320,82 20,82" fill="url(#btnShadow)" transform="skewX(-12) translate(0,0)" transform-origin="200 60"/>
+
+  <!-- 條紋疊加層（強化 #124 條紋疊加效果） -->
+  <polygon points="40,38 340,38 320,82 20,82" fill="url(#stripeBtn)" opacity="0.35" transform="skewX(-12)"/>
+
+  <!-- 邊界引導線（#124 變化 #2）-->
+  <line x1="40" y1="60" x2="340" y2="60" stroke="#F59E0B" stroke-width="2" opacity="0.6" transform="skewX(-12)"/>
+  <line x1="40" y1="68" x2="340" y2="68" stroke="#FBBF24" stroke-width="1" stroke-dasharray="4,3" opacity="0.5" transform="skewX(-12)"/>
+
+  <!-- 文字「提交報告」 -->
+  <text x="180" y="68" font-family="'PingFang TC', 'Noto Sans TC', sans-serif" font-size="26" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="4">提交報告</text>
+
+  <!-- 右側金色強調箭頭 -->
+  <polygon points="300,52 320,60 300,68" fill="#F59E0B"/>
+</svg>

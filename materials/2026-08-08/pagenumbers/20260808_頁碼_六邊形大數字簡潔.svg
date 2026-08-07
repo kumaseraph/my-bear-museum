@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <linearGradient id="pg1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 2.5D 效果：外粗空心六邊形 + 內實心六邊形（#120 技巧）-->
+  <g transform="translate(40,10)">
+    <!-- 外框（粗邊框）-->
+    <path d="M50,5 L93.3,30 L93.3,75 L50,100 L6.7,75 L6.7,30 Z"
+          fill="none" stroke="#1E40AF" stroke-width="4"/>
+    <!-- 內實心（半透明）-->
+    <path d="M50,12 L88,33 L88,72 L50,93 L12,72 L12,33 Z"
+          fill="url(#pg1Grad)" fill-opacity="0.85"/>
+  </g>
+
+  <!-- 大數字 12（簡潔風格）-->
+  <text x="50" y="78" font-family="'Helvetica Neue','PingFang TC',sans-serif"
+        font-size="46" font-weight="800" fill="#FFFFFF" text-anchor="middle"
+        letter-spacing="-1">12</text>
+
+  <!-- 斜向引導線（#124 邊界引導線）-->
+  <line x1="120" y1="30" x2="380" y2="90" stroke="#3B82F6" stroke-width="1.2" opacity="0.5"/>
+
+  <!-- 總頁數文字 -->
+  <text x="220" y="70" font-family="'PingFang TC','Microsoft JhengHei',sans-serif"
+        font-size="14" font-weight="500" fill="#94A3B8">PAGE</text>
+  <text x="220" y="55" font-family="'Helvetica Neue',sans-serif"
+        font-size="12" fill="#CBD5E1" letter-spacing="2">OF</text>
+  <text x="250" y="78" font-family="'Helvetica Neue',sans-serif"
+        font-size="22" font-weight="700" fill="#1E40AF">28</text>
+
+  <!-- 簡潔小標記：右側三個點 -->
+  <g fill="#3B82F6" opacity="0.6">
+    <circle cx="360" cy="35" r="2"/>
+    <circle cx="370" cy="35" r="2"/>
+    <circle cx="380" cy="35" r="2"/>
+  </g>
+</svg>

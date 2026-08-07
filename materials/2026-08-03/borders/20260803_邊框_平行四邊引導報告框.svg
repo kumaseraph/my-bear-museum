@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 邊框_平行四邊引導報告框 | 工作報告系列 | 正式專業風格 -->
+  <!-- 技巧: #124 平行四邊形線條組合 - 邊界引導線 + 階梯排列 + 透視線 -->
+  <defs>
+    <linearGradient id="paraDeep" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="paraGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#92750C"/>
+      <stop offset="100%" stop-color="#D4AF37"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#FFFFFF"/>
+
+  <!-- 主外框（雙線） -->
+  <rect x="80" y="80" width="1760" height="920" fill="none" stroke="url(#paraDeep)" stroke-width="3"/>
+  <rect x="100" y="100" width="1720" height="880" fill="none" stroke="#93C5FD" stroke-width="1" opacity="0.5"/>
+
+  <!-- 四角平行四邊形角飾（邊界引導線） -->
+  <!-- 左上 -->
+  <g transform="translate(80, 80)">
+    <polygon points="0,0 80,0 100,30 20,30" fill="url(#paraDeep)"/>
+    <polygon points="0,0 30,0 50,30 0,30" fill="url(#paraGold)"/>
+    <line x1="0" y1="30" x2="20" y2="30" stroke="url(#paraGold)" stroke-width="2"/>
+    <polygon points="0,30 20,30 20,100 0,80" fill="url(#paraDeep)" opacity="0.85"/>
+  </g>
+  <!-- 右上 -->
+  <g transform="translate(1840, 80)">
+    <polygon points="0,0 -80,0 -100,30 -20,30" fill="url(#paraDeep)"/>
+    <polygon points="0,0 -30,0 -50,30 0,30" fill="url(#paraGold)"/>
+    <line x1="0" y1="30" x2="-20" y2="30" stroke="url(#paraGold)" stroke-width="2"/>
+    <polygon points="0,30 -20,30 -20,100 0,80" fill="url(#paraDeep)" opacity="0.85"/>
+  </g>
+  <!-- 左下 -->
+  <g transform="translate(80, 1000)">
+    <polygon points="0,0 80,0 100,-30 20,-30" fill="url(#paraDeep)"/>
+    <polygon points="0,0 30,0 50,-30 0,-30" fill="url(#paraGold)"/>
+    <line x1="0" y1="-30" x2="20" y2="-30" stroke="url(#paraGold)" stroke-width="2"/>
+    <polygon points="0,-30 20,-30 20,-100 0,-80" fill="url(#paraDeep)" opacity="0.85"/>
+  </g>
+  <!-- 右下 -->
+  <g transform="translate(1840, 1000)">
+    <polygon points="0,0 -80,0 -100,-30 -20,-30" fill="url(#paraDeep)"/>
+    <polygon points="0,0 -30,0 -50,-30 0,-30" fill="url(#paraGold)"/>
+    <line x1="0" y1="-30" x2="-20" y2="-30" stroke="url(#paraGold)" stroke-width="2"/>
+    <polygon points="0,-30 -20,-30 -20,-100 0,-80" fill="url(#paraDeep)" opacity="0.85"/>
+  </g>
+
+  <!-- 頂部：階梯平行四邊形 5 段（流程暗示） -->
+  <g transform="translate(420, 60)">
+    <polygon points="0,30 100,30 120,0 20,0" fill="url(#paraDeep)" opacity="0.85"/>
+    <polygon points="120,30 220,30 240,0 140,0" fill="url(#paraDeep)" opacity="0.9"/>
+    <polygon points="240,30 340,30 360,0 260,0" fill="url(#paraDeep)" opacity="0.95"/>
+    <polygon points="360,30 460,30 480,0 380,0" fill="url(#paraDeep)"/>
+    <polygon points="480,30 580,30 600,0 500,0" fill="url(#paraGold)"/>
+    <!-- 節點圓 -->
+    <circle cx="60" cy="15" r="3" fill="#D4AF37"/>
+    <circle cx="180" cy="15" r="3" fill="#D4AF37"/>
+    <circle cx="300" cy="15" r="3" fill="#D4AF37"/>
+    <circle cx="420" cy="15" r="3" fill="#D4AF37"/>
+    <circle cx="540" cy="15" r="3" fill="#1E3A5F"/>
+  </g>
+
+  <!-- 底部：對稱階梯反向 -->
+  <g transform="translate(420, 1020)">
+    <polygon points="0,0 100,0 120,30 20,30" fill="url(#paraDeep)" opacity="0.85"/>
+    <polygon points="120,0 220,0 240,30 140,30" fill="url(#paraDeep)" opacity="0.9"/>
+    <polygon points="240,0 340,0 360,30 260,30" fill="url(#paraDeep)" opacity="0.95"/>
+    <polygon points="360,0 460,0 480,30 380,30" fill="url(#paraDeep)"/>
+    <polygon points="480,0 580,0 600,30 500,30" fill="url(#paraGold)"/>
+  </g>
+
+  <!-- 左側邊界引導線（虛線） -->
+  <line x1="160" y1="200" x2="160" y2="880" stroke="url(#paraDeep)" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.4"/>
+  <!-- 右側邊界引導線 -->
+  <line x1="1760" y1="200" x2="1760" y2="880" stroke="url(#paraDeep)" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.4"/>
+
+  <!-- 中央報告徽章 -->
+  <g transform="translate(960, 540)">
+    <polygon points="-150,0 -50,0 0,30 -50,60 -150,60" fill="url(#paraDeep)" opacity="0.9"/>
+    <polygon points="150,0 50,0 0,30 50,60 150,60" fill="url(#paraDeep)" opacity="0.9"/>
+    <text x="0" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1E3A5F" text-anchor="middle">報告</text>
+  </g>
+
+  <!-- 中央留白 -->
+  <text x="960" y="700" font-family="Arial, sans-serif" font-size="36" fill="#94A3B8" text-anchor="middle" letter-spacing="10">季 度 工 作 報 告</text>
+  <text x="960" y="740" font-family="Arial, sans-serif" font-size="18" fill="#CBD5E1" text-anchor="middle" letter-spacing="3">QUARTERLY REPORT</text>
+</svg>

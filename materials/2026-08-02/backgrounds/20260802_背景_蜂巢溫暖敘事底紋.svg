@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊溫暖漸層背景 -->
+    <linearGradient id="bearWarm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7"/>
+      <stop offset="50%" stop-color="#F5E6D3"/>
+      <stop offset="100%" stop-color="#E8D4B8"/>
+    </linearGradient>
+
+    <!-- 蜂巢 pattern：尺寸漸層（技巧 #120 #6 大小對比 + #122 變化6） -->
+    <pattern id="honeycombLayer" x="0" y="0" width="180" height="156" patternUnits="userSpaceOnUse">
+      <!-- 大六邊形 (s=50) -->
+      <path d="M90,13 L155,52 L155,130 L90,169 L25,130 L25,52 Z"
+            fill="#D4A574" fill-opacity="0.18" stroke="#B8845C" stroke-width="1.2"/>
+      <!-- 小六邊形 (s=25) 交錯 -->
+      <path d="M45,91 L72,106 L72,136 L45,151 L18,136 L18,106 Z"
+            fill="none" stroke="#C49B6F" stroke-width="0.8" stroke-opacity="0.5"/>
+      <path d="M135,91 L162,106 L162,136 L135,151 L108,136 L108,106 Z"
+            fill="none" stroke="#C49B6F" stroke-width="0.8" stroke-opacity="0.5"/>
+    </pattern>
+
+    <!-- 放射環形焦點裝飾 -->
+    <radialGradient id="warmGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFB347" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#FFB347" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 底層漸層 -->
+  <rect width="1920" height="1080" fill="url(#bearWarm)"/>
+
+  <!-- 蜂巢叢集底紋（覆蓋全幅，opacity 控制不干擾內容） -->
+  <rect width="1920" height="1080" fill="url(#honeycombLayer)" opacity="0.55"/>
+
+  <!-- 中心溫暖光暈（材質服從資訊） -->
+  <ellipse cx="960" cy="540" rx="600" ry="400" fill="url(#warmGlow)"/>
+
+  <!-- 角落裝飾：尺寸漸層蜂巢（技巧 #122 變化6） -->
+  <g transform="translate(120,120)" opacity="0.6">
+    <!-- 中心大六邊形 -->
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" fill="#B8845C"/>
+    <!-- 中環 6 個 -->
+    <g transform="rotate(0)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+    <g transform="rotate(60)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+    <g transform="rotate(120)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+    <g transform="rotate(180)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+    <g transform="rotate(240)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+    <g transform="rotate(300)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+  </g>
+
+  <!-- 右下角對稱裝飾 -->
+  <g transform="translate(1800,960)" opacity="0.6">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" fill="#B8845C"/>
+    <g transform="rotate(30)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+    <g transform="rotate(90)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+    <g transform="rotate(150)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+    <g transform="rotate(210)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+    <g transform="rotate(270)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+    <g transform="rotate(330)">
+      <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="#D4A574" transform="translate(0,-45)"/>
+    </g>
+  </g>
+</svg>

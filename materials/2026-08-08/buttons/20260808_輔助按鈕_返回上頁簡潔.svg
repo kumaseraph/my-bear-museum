@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" width="600" height="180">
+  <defs>
+    <linearGradient id="btnGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#374151"/>
+      <stop offset="100%" stop-color="#6B7280"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 輔助按鈕本體（圓角矩形，簡潔基調）-->
+  <g transform="translate(40,40)">
+    <rect x="0" y="0" width="280" height="90" rx="45"
+          fill="url(#btnGrad3)"/>
+
+    <!-- 雙重交叉線（背景裝飾：兩個平行四邊形交錯）-->
+    <g transform="translate(0,0)" opacity="0.35">
+      <polygon points="0,0 240,0 260,90 20,90" fill="none" stroke="#22D3EE" stroke-width="0.8"/>
+      <polygon points="20,0 260,0 240,90 0,90" fill="none" stroke="#FFFFFF" stroke-width="0.6"/>
+    </g>
+
+    <!-- 文字 -->
+    <text x="155" y="56" font-family="'PingFang TC','Microsoft JhengHei',sans-serif"
+          font-size="26" font-weight="500" fill="#FFFFFF" text-anchor="middle">返回上頁</text>
+
+    <!-- 左箭頭 -->
+    <g transform="translate(60,45)" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <line x1="0" y1="0" x2="28" y2="0"/>
+      <polyline points="6,-7 0,0 6,7"/>
+    </g>
+  </g>
+
+  <!-- 簡潔圓點裝飾 -->
+  <g fill="#374151" opacity="0.5">
+    <circle cx="360" cy="60" r="3"/>
+    <circle cx="378" cy="60" r="3"/>
+    <circle cx="396" cy="60" r="3"/>
+  </g>
+
+  <!-- 文字註記 -->
+  <text x="360" y="105" font-family="'PingFang TC',sans-serif"
+        font-size="12" fill="#94A3B8">上一步 · ESC</text>
+</svg>

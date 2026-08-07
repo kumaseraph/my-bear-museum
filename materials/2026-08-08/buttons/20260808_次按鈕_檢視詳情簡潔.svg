@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200">
+  <defs>
+    <linearGradient id="btnGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F1F5F9"/>
+    </linearGradient>
+    <pattern id="btnDotGrid" patternUnits="userSpaceOnUse" width="12" height="12">
+      <circle cx="6" cy="6" r="0.9" fill="#94A3B8" opacity="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- 次按鈕本體（空心 + 點陣底紋）-->
+  <g transform="translate(40,50)">
+    <polygon points="30,0 380,0 350,100 0,100"
+             fill="url(#btnGrad2)" stroke="#1E40AF" stroke-width="2"/>
+    <polygon points="30,0 380,0 350,100 0,100" fill="url(#btnDotGrid)"/>
+
+    <!-- 雙重交叉線（左下→右上，呼應「檢視詳情」的探索方向）-->
+    <line x1="50" y1="80" x2="170" y2="20" stroke="#3B82F6" stroke-width="1" opacity="0.45"/>
+    <line x1="60" y1="80" x2="180" y2="20" stroke="#22D3EE" stroke-width="1" opacity="0.35"/>
+
+    <!-- 文字 -->
+    <text x="155" y="62" font-family="'PingFang TC','Microsoft JhengHei',sans-serif"
+          font-size="30" font-weight="600" fill="#1E40AF" text-anchor="middle">檢視詳情</text>
+
+    <!-- 文件圖示 -->
+    <g transform="translate(255,38)" fill="none" stroke="#1E40AF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="0" y="0" width="28" height="34" rx="2"/>
+      <line x1="6" y1="10" x2="22" y2="10"/>
+      <line x1="6" y1="17" x2="22" y2="17"/>
+      <line x1="6" y1="24" x2="16" y2="24"/>
+    </g>
+  </g>
+
+  <!-- 簡潔小標記 -->
+  <g transform="translate(20,30)">
+    <path d="M15,0 L28,8 L28,22 L15,30 L2,22 L2,8 Z"
+          fill="none" stroke="#94A3B8" stroke-width="1.2" stroke-dasharray="3,2"/>
+  </g>
+</svg>

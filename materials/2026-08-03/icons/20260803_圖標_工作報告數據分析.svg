@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- 圖標_工作報告數據分析 | 工作報告系列 | 正式專業風格 -->
+  <!-- 技巧: #123 菱形五角星 - 旋轉角度 + 填充方式對比 + 虛實對比 -->
+  <defs>
+    <linearGradient id="repBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#2C5282"/>
+    </linearGradient>
+    <linearGradient id="repGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B8860B"/>
+      <stop offset="100%" stop-color="#E5B946"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 底色 -->
+  <rect width="400" height="400" fill="#F8FAFC"/>
+
+  <!-- 外框菱形（五角星外接圓） -->
+  <polygon points="200,40 360,200 200,360 40,200" fill="url(#repBlue)" opacity="0.08"/>
+  <polygon points="200,40 360,200 200,360 40,200" fill="none" stroke="url(#repBlue)" stroke-width="3"/>
+
+  <!-- 內框小菱形（45°旋轉，虛實對比） -->
+  <polygon points="200,90 310,200 200,310 90,200" fill="#FFFFFF" stroke="url(#repBlue)" stroke-width="2"/>
+
+  <!-- 報告主體（菱形+直條圖） -->
+  <!-- 報告底（深色菱形） -->
+  <polygon points="200,130 280,200 200,270 120,200" fill="url(#repBlue)"/>
+  <!-- 報告內直條圖（3 條代表數據） -->
+  <rect x="160" y="200" width="14" height="40" fill="url(#repGold)"/>
+  <rect x="185" y="190" width="14" height="50" fill="url(#repGold)"/>
+  <rect x="210" y="180" width="14" height="60" fill="url(#repGold)"/>
+  <rect x="235" y="195" width="14" height="45" fill="url(#repGold)"/>
+
+  <!-- 頂部焦點五角星（旋轉強調） -->
+  <g transform="translate(200, 130)">
+    <polygon points="0,-18 5,-6 18,-6 8,3 12,16 0,9 -12,16 -8,3 -18,-6 -5,-6"
+             fill="url(#repGold)" stroke="#B8860B" stroke-width="1.5"/>
+  </g>
+
+  <!-- 角落裝飾小菱形（旋轉30°） -->
+  <polygon points="200,40 210,50 200,60 190,50" fill="url(#repGold)"/>
+  <polygon points="200,340 210,350 200,360 190,350" fill="url(#repGold)"/>
+  <polygon points="40,200 50,210 40,220 30,210" fill="url(#repGold)"/>
+  <polygon points="360,200 370,210 360,220 350,210" fill="url(#repGold)"/>
+
+  <!-- 標籤 -->
+  <text x="200" y="380" font-family="Arial, sans-serif" font-size="14" fill="#64748B" text-anchor="middle" letter-spacing="2">數據分析報告</text>
+</svg>
