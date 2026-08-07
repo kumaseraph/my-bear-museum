@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>數位排毒的 7 日練習｜2026-08-07</title>
+<style>
+/* ============================================================
+   配色：colors/colors-C2.css 內嵌（C2 暖白紙藝）
+   結構：structures/V2-structure.css 內嵌（V2 簡約留白）
+   載入順序：C2 → V2
+   ============================================================ */
+
+:root {
+  --bg: #faf6ee;
+  --bg-secondary: #f1e9d8;
+  --bg-card: rgba(255, 252, 246, 0.85);
+  --text: #2a2520;
+  --text-secondary: #6a5e4d;
+  --text-soft: #9a8b78;
+  --accent: #b48a47;
+  --accent-warm: #d4ad7a;
+  --accent-deep: #8b6633;
+  --accent-glow: rgba(180, 138, 71, 0.18);
+  --ink: #2f261c;
+  --ink-soft: #6b5e4a;
+  --paper-edge: rgba(180, 160, 130, 0.32);
+  --nav-bg: rgba(250, 246, 238, 0.95);
+  --shadow-soft: 0 6px 22px rgba(120, 90, 40, 0.10);
+  --shadow-mid: 0 12px 32px rgba(120, 90, 40, 0.16);
+  --border-warm: rgba(180, 138, 71, 0.25);
+  --teal: #6c9886;
+  --terracotta: #c87a5e;
+  --moss: #889c5f;
+  --sky: #8aa9c4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 20px;
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 245, 225, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 100%, rgba(232, 210, 170, 0.25) 0%, transparent 60%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.presentation {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: var(--shadow-mid);
+  background: var(--bg);
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  padding: 40px 56px 76px;
+  color: var(--text);
+}
+.slide.active { display: flex; }
+
+/* V2 簡約留白結構：外框細線 */
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* SVG <text> 元素：統一強制 20px+（覆寫 attribute font-size） */
+.slide text { font-size: 20px; }
+
+/* 排版元件 */
+.page-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+.page-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-top: 6px;
+}
+.page-sub {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+}
+.title-bar {
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+  border-radius: 1px;
+  margin-top: 12px;
+}
+.section-num {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  background: rgba(180, 138, 71, 0.12);
+  padding: 4px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.2em;
+}
+
+/* 導航 */
+.nav {
+  position: absolute;
+  top: 24px; right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--nav-bg);
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: 1px solid var(--border-warm);
+  box-shadow: var(--shadow-soft);
+  z-index: 1000;
+}
+.nav button {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent-deep);
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.nav button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.nav .page-indicator {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* 卡片基礎 */
+.paper-card {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+/* ============================================================
+   P1 封面 — 特/單（手繪印章 + 大標）
+   ============================================================ */
+.s1-cover {
+  background:
+    radial-gradient(circle at 25% 30%, rgba(255, 240, 210, 0.5) 0%, transparent 55%),
+    radial-gradient(circle at 75% 80%, rgba(232, 210, 170, 0.35) 0%, transparent 55%),
+    var(--bg);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.s1-cover .cover-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 18px;
+  background: rgba(255, 252, 246, 0.65);
+  border: 1px solid var(--border-warm);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+  letter-spacing: 0.25em;
+  margin-bottom: 28px;
+}
+.s1-cover .cover-stamp::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.s1-cover h1 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.s1-cover .cover-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.2em;
+  margin-bottom: 32px;
+}
+.cover-seal {
+  width: 220px; height: 220px;
+  margin: 0 auto 28px;
+  position: relative;
+}
+.cover-meta {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.15em;
+}
+.cover-meta strong {
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+/* ============================================================
+   P2 目錄 — 六/水（七個練習日 × 八單元）
+   ============================================================ */
+.s2-toc {
+  background: linear-gradient(180deg, #faf6ee 0%, #f4ecd9 100%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+  overflow: hidden;
+}
+.toc-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+.toc-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+}
+.toc-cell .toc-num {
+  position: absolute;
+  top: 12px; right: 14px;
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent));
+  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+}
+.toc-cell .toc-tag {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+.toc-cell .toc-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-top: 2px;
+}
+.toc-cell .toc-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* ============================================================
+   P3 為何排毒 — 線/垂（三個數字 + 解釋）
+   ============================================================ */
+.s3-why {
+  background: radial-gradient(ellipse at 70% 50%, #f5efe5 0%, var(--bg) 65%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.why-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 28px;
+  margin-top: 18px;
+}
+.why-left {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.why-left .quote {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.why-left .quote::before {
+  content: '「';
+  font-size: 2.6rem;
+  color: var(--accent);
+  line-height: 0;
+  vertical-align: -0.3em;
+  margin-right: 4px;
+}
+.why-left .quote-source {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  text-align: right;
+  letter-spacing: 0.1em;
+}
+.why-stats {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--paper-edge);
+}
+.stat-block {
+  flex: 1;
+  text-align: center;
+}
+.stat-block .stat-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent-deep);
+  line-height: 1;
+}
+.stat-block .stat-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+.why-list {
+  position: relative;
+  padding-left: 26px;
+}
+.why-list::before {
+  content: '';
+  position: absolute;
+  left: 8px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-warm));
+}
+.wl-item {
+  display: flex;
+  gap: 14px;
+  padding: 8px 0;
+  align-items: flex-start;
+  position: relative;
+}
+.wl-item::before {
+  content: '';
+  position: absolute;
+  left: -22px; top: 14px;
+  width: 12px; height: 12px;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  z-index: 1;
+}
+.wl-item .wl-time {
+  flex: 0 0 90px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: 0.05em;
+}
+.wl-item .wl-body { flex: 1; }
+.wl-item .wl-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.wl-item .wl-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   P4 螢幕時間 — 方/網（四象限對照）
+   ============================================================ */
+.s4-screen {
+  background: linear-gradient(180deg, #f7f3eb 0%, #eee8dc 100%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.screen-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.screen-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.screen-cell .sc-icon {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.screen-cell .sc-icon svg { width: 22px; height: 22px; }
+.screen-cell .sc-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.screen-cell .sc-time {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.screen-cell .sc-tip {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 4px;
+}
+.screen-note {
+  margin-top: 14px;
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* ============================================================
+   P5 注意力漏斗 — 圓/散（三層同心圓 × 注意力遞減）
+   ============================================================ */
+.s5-attention {
+  background: radial-gradient(circle at 50% 50%, #f9efdc 0%, var(--bg) 70%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.attention-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+.a-circle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.a-circle.a1 { width: 88%; }
+.a-circle.a2 { width: 72%; }
+.a-circle.a3 { width: 56%; }
+.a-circle.a4 { width: 40%; }
+.a-circle .ac-mark {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+.a-circle.a1 .ac-mark { background: linear-gradient(135deg, #d4ad7a, #b48a47); }
+.a-circle.a2 .ac-mark { background: linear-gradient(135deg, #c8a772, #a07c3c); }
+.a-circle.a3 .ac-mark { background: linear-gradient(135deg, #b89e6a, #8b6a30); }
+.a-circle.a4 .ac-mark { background: linear-gradient(135deg, #a48c5a, #6e5223); }
+.a-circle .ac-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.a-circle .ac-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.a-circle .ac-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+.a-circle .ac-percent {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--accent-deep);
+  letter-spacing: 0.02em;
+}
+.attention-note {
+  margin-top: 14px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   P6 七日計畫 — 特/網（兩欄 7 天 × 每日練習）
+   ============================================================ */
+.s6-week {
+  background: linear-gradient(180deg, #f5efe5 0%, #f7f3eb 100%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.week-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+  align-items: stretch;
+}
+.wk-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 14px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.wk-cell .wk-day {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--accent-deep);
+  letter-spacing: 0.1em;
+}
+.wk-cell .wk-num {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+}
+.wk-cell .wk-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-top: 2px;
+}
+.wk-cell .wk-task {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+}
+.wk-cell .wk-pill {
+  margin-top: 4px;
+  padding: 2px 10px;
+  background: rgba(180, 138, 71, 0.14);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   P7 替代行動 — 線/水（橫向 5 個練習）
+   ============================================================ */
+.s7-actions {
+  background: linear-gradient(180deg, #f7f3eb 0%, #eee8dc 100%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.action-row {
+  flex: 1;
+  display: flex;
+  gap: 14px;
+  margin-top: 20px;
+  align-items: stretch;
+}
+.action-tile {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.action-tile .at-mark {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(180, 138, 71, 0.12);
+}
+.action-tile .at-mark svg { width: 24px; height: 24px; }
+.action-tile .at-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-top: 4px;
+}
+.action-tile .at-tip {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  flex: 1;
+}
+.action-tile .at-min {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   P8 環境設計 — 六/垂（垂直六邊形 × 環境策略）
+   ============================================================ */
+.s8-env {
+  background: radial-gradient(ellipse at 30% 50%, #f5efe5 0%, var(--bg) 60%);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.env-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 28px;
+  margin-top: 18px;
+}
+.env-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.env-hex {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 14px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.env-hex .eh-mark {
+  flex: 0 0 48px; height: 48px;
+  background: linear-gradient(135deg, var(--accent-warm), var(--accent));
+  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1rem;
+}
+.env-hex .eh-body { flex: 1; }
+.env-hex .eh-title {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.env-hex .eh-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.env-right {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.env-right .er-head {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: 0.05em;
+}
+.env-right .er-quote {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.env-right .er-rule {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 0;
+  border-top: 1px dashed var(--paper-edge);
+}
+.env-right .er-rule .err-num {
+  flex: 0 0 26px; height: 26px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 900;
+}
+.env-right .er-rule .err-text {
+  flex: 1;
+  font-size: 1.02rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.env-right .er-rule .err-text strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ============================================================
+   P9 復盤 — 方/散（四個回收指標）
+   ============================================================ */
+.s9-review {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 248, 235, 0.5) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(232, 201, 160, 0.35) 0%, transparent 55%),
+    var(--bg);
+  flex-direction: column;
+  padding: 36px 56px 88px;
+}
+.review-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+.review-card {
+  background: var(--bg-card);
+  border: 1px solid var(--paper-edge);
+  border-radius: 6px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.review-card .rc-tag {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.review-card .rc-num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+}
+.review-card .rc-unit {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.review-card .rc-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-top: 4px;
+}
+.review-card .rc-tip {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  flex: 1;
+}
+.review-note {
+  margin-top: 14px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   P10 結尾 — 無/單（純粹靜心大標）
+   ============================================================ */
+.s10-end {
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255, 248, 235, 0.6) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(232, 201, 160, 0.3) 0%, transparent 50%),
+    var(--bg);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.end-stamp {
+  width: 120px; height: 120px;
+  margin-bottom: 24px;
+  position: relative;
+}
+.end-stamp svg { width: 100%; height: 100%; }
+.s10-end h2 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+.s10-end .end-poem {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  letter-spacing: 0.1em;
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+.end-actions {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+.end-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+  letter-spacing: 0.1em;
+}
+.end-action svg { width: 16px; height: 16px; }
+.end-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(180, 138, 71, 0.1);
+  border: 1px solid var(--accent);
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: all 0.2s;
+}
+.end-back:hover { background: var(--accent); color: #fff; }
+.end-back svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+<div class="presentation">
+
+  <!-- ============================ P1 封面 ============================ -->
+  <section class="slide s1-cover active" id="slide-1">
+    <span class="cover-stamp">DIGITAL · DETOX · 2026</span>
+    <div class="cover-seal">
+      <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+        <!-- 印章外圈（虛線節奏） -->
+        <circle cx="110" cy="110" r="100" fill="none" stroke="#8b6633" stroke-width="3" stroke-dasharray="2 4"/>
+        <circle cx="110" cy="110" r="86" fill="rgba(180,138,71,0.08)" stroke="#b48a47" stroke-width="2"/>
+        <!-- 七日環形排列 -->
+        <g fill="none" stroke="#8b6633" stroke-width="2.5" stroke-linecap="round">
+          <circle cx="110" cy="50" r="6" fill="#b48a47"/>
+          <circle cx="170" cy="80" r="6" fill="#b48a47"/>
+          <circle cx="170" cy="140" r="6" fill="#b48a47"/>
+          <circle cx="110" cy="170" r="6" fill="#b48a47"/>
+          <circle cx="50" cy="140" r="6" fill="#b48a47"/>
+          <circle cx="50" cy="80" r="6" fill="#b48a47"/>
+        </g>
+        <!-- 中心：手繪眼睛 + 線條（注意力符號） -->
+        <g stroke="#8b6633" stroke-width="2.5" fill="none" stroke-linecap="round">
+          <path d="M75 110 Q110 80 145 110 Q110 140 75 110 Z"/>
+          <circle cx="110" cy="110" r="10" fill="#b48a47"/>
+          <circle cx="110" cy="110" r="3" fill="#fff"/>
+        </g>
+        <text x="110" y="200" text-anchor="middle" font-family="serif" font-size="20" font-weight="700" fill="#8b6633" letter-spacing="0.3em">七日練習</text>
+      </svg>
+    </div>
+    <h1>把注意力，還給生活</h1>
+    <div class="cover-subtitle">數位排毒的七日練習手冊</div>
+    <div class="cover-meta">
+      <span><strong>七天</strong> · 漸進式離線</span>
+      <span><strong>180 分鐘</strong> · 每日離線時光</span>
+      <span><strong>5 種感官</strong> · 重新打開</span>
+    </div>
+  </section>
+
+  <!-- ============================ P2 目錄 ============================ -->
+  <section class="slide s2-toc" id="slide-2">
+    <div>
+      <span class="section-num">CONTENTS · 八個單元</span>
+      <h2 class="page-title">從為何到如何：七天練習地圖</h2>
+      <div class="page-sub">DETOX MAP · 把注意力從手機拿回來的完整路徑</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="toc-grid">
+      <div class="toc-cell">
+        <div class="toc-num">01</div>
+        <div class="toc-tag">WHY</div>
+        <div class="toc-name">為何排毒</div>
+        <div class="toc-desc">三個關於螢幕時間的真相</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">02</div>
+        <div class="toc-tag">SCREEN</div>
+        <div class="toc-name">螢幕盤點</div>
+        <div class="toc-desc">四象限：找出最耗時的應用</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">03</div>
+        <div class="toc-tag">ATTENTION</div>
+        <div class="toc-name">注意力漏斗</div>
+        <div class="toc-desc">四層遞減：哪裡在流失？</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">04</div>
+        <div class="toc-tag">WEEK</div>
+        <div class="toc-name">七日計畫</div>
+        <div class="toc-desc">每天一個小任務，漸進式離線</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">05</div>
+        <div class="toc-tag">ACTIONS</div>
+        <div class="toc-name">替代行動</div>
+        <div class="toc-desc">五件不用手機也能做的事</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">06</div>
+        <div class="toc-tag">ENV</div>
+        <div class="toc-name">環境設計</div>
+        <div class="toc-desc">六條空間策略，幫你遠離誘惑</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">07</div>
+        <div class="toc-tag">REVIEW</div>
+        <div class="toc-name">七日復盤</div>
+        <div class="toc-desc">四個回收指標，看見改變</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">08</div>
+        <div class="toc-tag">KEEP</div>
+        <div class="toc-name">維持紀律</div>
+        <div class="toc-desc">七天後的長期主義</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P3 為何排毒 ============================ -->
+  <section class="slide s3-why" id="slide-3">
+    <div>
+      <span class="section-num">01 · 為何排毒</span>
+      <h2 class="page-title">我們的注意力，是怎麼被偷走的？</h2>
+      <div class="page-sub">THE ATTENTION ECONOMY · 三個關於螢幕時間的真相</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-left">
+        <div class="quote">當我們讓出注意力，我們其實讓出的，是時間、是思考、是與他人的真實連結</div>
+        <div class="quote-source">— adapted from Matthew Crawford</div>
+        <div class="why-stats">
+          <div class="stat-block">
+            <div class="stat-num">4.6</div>
+            <div class="stat-label">每日小時<br/>（2026 全球平均）</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">96</div>
+            <div class="stat-label">每日解鎖<br/>次數</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">3.2</div>
+            <div class="stat-label">無意識滑動<br/>分鐘/次</div>
+          </div>
+        </div>
+      </div>
+      <div class="why-list">
+        <div class="wl-item">
+          <div class="wl-time">06:30</div>
+          <div class="wl-body">
+            <div class="wl-title">睜眼第一件事</div>
+            <div class="wl-desc">83% 的人醒來 5 分鐘內就拿起手機，第一個念頭不是「今天過得好嗎」，而是「有什麼新通知」</div>
+          </div>
+        </div>
+        <div class="wl-item">
+          <div class="wl-time">12:30</div>
+          <div class="wl-body">
+            <div class="wl-title">午休的陷阱</div>
+            <div class="wl-desc">62% 的午餐時間被短影音切碎，午休結束反而比工作前更累</div>
+          </div>
+        </div>
+        <div class="wl-item">
+          <div class="wl-time">22:30</div>
+          <div class="wl-body">
+            <div class="wl-title">睡前的藍光</div>
+            <div class="wl-desc">睡前 90 分鐘的螢幕會推遲褪黑激素 50%，入睡時間平均延後 35 分鐘</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P4 螢幕盤點 ============================ -->
+  <section class="slide s4-screen" id="slide-4">
+    <div>
+      <span class="section-num">02 · 螢幕盤點</span>
+      <h2 class="page-title">找出那 4.6 小時，去了哪裡</h2>
+      <div class="page-sub">SCREEN AUDIT · 四象限 × 四種應用分類</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="screen-grid">
+      <div class="screen-cell">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 11.5 a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9 L3 21 l1.9-5.7 a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9 h.5 a8.5 8.5 0 0 1 8 8 z"/></svg>
+        </div>
+        <div class="sc-name">社群通訊</div>
+        <div class="sc-time">約 1.8 小時 / 日</div>
+        <div class="sc-tip">LINE、IG、Discord——回不完的訊息、看不完的限動。預設不是「我需要」，而是「我不能錯過」</div>
+      </div>
+      <div class="screen-cell">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 10 h18"/><path d="M10 4 v14"/></svg>
+        </div>
+        <div class="sc-name">短影音</div>
+        <div class="sc-time">約 1.4 小時 / 日</div>
+        <div class="sc-tip">TikTok、Reels、Shorts——演算法設計成「再滑一個就好」，無限捲軸是注意力最大的小偷</div>
+      </div>
+      <div class="screen-cell">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M10 9 l5 3 -5 3 z" fill="#fff"/></svg>
+        </div>
+        <div class="sc-name">影音串流</div>
+        <div class="sc-time">約 0.9 小時 / 日</div>
+        <div class="sc-tip">YouTube、Netflix——自動播放下一集是設計來消磨時間，不是「看一個節目」</div>
+      </div>
+      <div class="screen-cell">
+        <div class="sc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 19.5 A2.5 2.5 0 0 1 6.5 17 H20"/><path d="M6.5 2 H20 v20 H6.5 A2.5 2.5 0 0 1 4 19.5 v-15 A2.5 2.5 0 0 1 6.5 2 z"/></svg>
+        </div>
+        <div class="sc-name">新聞閱讀</div>
+        <div class="sc-time">約 0.5 小時 / 日</div>
+        <div class="sc-tip">新聞 APP、Threads——資訊焦慮的雙面刃：知道更多，卻也更累</div>
+      </div>
+    </div>
+    <div class="screen-note">盤點不是為了罪惡感，而是看清「我真的需要這個，還是只是習慣」</div>
+  </section>
+
+  <!-- ============================ P5 注意力漏斗 ============================ -->
+  <section class="slide s5-attention" id="slide-5">
+    <div>
+      <span class="section-num">03 · 注意力漏斗</span>
+      <h2 class="page-title">從清醒到入睡，注意力像沙漏流走</h2>
+      <div class="page-sub">ATTENTION FUNNEL · 四層遞減，看見你的認知預算</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="attention-stage">
+      <div class="a-circle a1">
+        <div class="ac-mark">100%</div>
+        <div class="ac-text">
+          <div class="ac-title">晨間起床</div>
+          <div class="ac-desc">腦袋最清醒的時段——適合做最需要思考的事</div>
+        </div>
+        <div class="ac-percent">08:00</div>
+      </div>
+      <div class="a-circle a2">
+        <div class="ac-mark">70%</div>
+        <div class="ac-text">
+          <div class="ac-title">上午工作</div>
+          <div class="ac-desc">專注高峰——但常被通知打斷成 9 分鐘碎片</div>
+        </div>
+        <div class="ac-percent">11:00</div>
+      </div>
+      <div class="a-circle a3">
+        <div class="ac-mark">40%</div>
+        <div class="ac-text">
+          <div class="ac-title">午後低谷</div>
+          <div class="ac-desc">午休又被短影音切碎——醒來更累</div>
+        </div>
+        <div class="ac-percent">14:00</div>
+      </div>
+      <div class="a-circle a4">
+        <div class="ac-mark">15%</div>
+        <div class="ac-text">
+          <div class="ac-title">睡前殘餘</div>
+          <div class="ac-desc">藍光讓大腦以為還在白天——睡眠品質崩潰</div>
+        </div>
+        <div class="ac-percent">23:00</div>
+      </div>
+    </div>
+    <div class="attention-note">一天真正清醒的時間不到 4 小時——把它們花在值得的地方</div>
+  </section>
+
+  <!-- ============================ P6 七日計畫 ============================ -->
+  <section class="slide s6-week" id="slide-6">
+    <div>
+      <span class="section-num">04 · 七日計畫</span>
+      <h2 class="page-title">七天，一個小任務，漸進式離線</h2>
+      <div class="page-sub">7-DAY PLAN · 每天只做一件事，七天後你會不一樣</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="week-grid">
+      <div class="wk-cell">
+        <div class="wk-day">DAY 1</div>
+        <div class="wk-num">01</div>
+        <div class="wk-name">觀察</div>
+        <div class="wk-task">打開螢幕時間報告，記錄每個 APP 的真實時數</div>
+        <div class="wk-pill">5 分鐘</div>
+      </div>
+      <div class="wk-cell">
+        <div class="wk-day">DAY 2</div>
+        <div class="wk-num">02</div>
+        <div class="wk-name">關通知</div>
+        <div class="wk-task">關掉所有非必要 APP 的推播，只留真正緊急的</div>
+        <div class="wk-pill">10 分鐘</div>
+      </div>
+      <div class="wk-cell">
+        <div class="wk-day">DAY 3</div>
+        <div class="wk-num">03</div>
+        <div class="wk-name">晨間禁</div>
+        <div class="wk-task">起床後 30 分鐘不打開手機——用來喝水、伸展</div>
+        <div class="wk-pill">30 分鐘</div>
+      </div>
+      <div class="wk-cell">
+        <div class="wk-day">DAY 4</div>
+        <div class="wk-num">04</div>
+        <div class="wk-name">午間走</div>
+        <div class="wk-task">午餐後關閉螢幕，外走 20 分鐘</div>
+        <div class="wk-pill">20 分鐘</div>
+      </div>
+      <div class="wk-cell">
+        <div class="wk-day">DAY 5</div>
+        <div class="wk-num">05</div>
+        <div class="wk-name">睡前關</div>
+        <div class="wk-task">睡前 90 分鐘關所有螢幕——改看書或寫日記</div>
+        <div class="wk-pill">90 分鐘</div>
+      </div>
+      <div class="wk-cell">
+        <div class="wk-day">DAY 6</div>
+        <div class="wk-num">06</div>
+        <div class="wk-name">週末大</div>
+        <div class="wk-task">整天只用必要的通話與地圖，其餘全離線</div>
+        <div class="wk-pill">一整天</div>
+      </div>
+      <div class="wk-cell">
+        <div class="wk-day">DAY 7</div>
+        <div class="wk-num">07</div>
+        <div class="wk-name">復盤</div>
+        <div class="wk-task">寫下七天的觀察與感受，決定下週保留哪些規則</div>
+        <div class="wk-pill">15 分鐘</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P7 替代行動 ============================ -->
+  <section class="slide s7-actions" id="slide-7">
+    <div>
+      <span class="section-num">05 · 替代行動</span>
+      <h2 class="page-title">把空出來的時間，填進五件小事</h2>
+      <div class="page-sub">REPLACEMENT ACTIONS · 不用手機也能做的事</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="action-row">
+      <div class="action-tile">
+        <div class="at-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 19.5 A2.5 2.5 0 0 1 6.5 17 H20 V2 H6.5 A2.5 2.5 0 0 0 4 4.5 z"/></svg>
+        </div>
+        <div class="at-name">讀一本書</div>
+        <div class="at-tip">紙本書的儀式感——翻頁的觸感、墨水的氣味，是電子書永遠給不了的</div>
+        <div class="at-min">每日 20 分鐘</div>
+      </div>
+      <div class="action-tile">
+        <div class="at-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 12 c4-7 14-7 18 0 c-4 7-14 7-18 0 z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="at-name">窗邊發呆</div>
+        <div class="at-tip">不是無所事事——是讓大腦的「預設模式網絡」運作，這是創意與洞察的時刻</div>
+        <div class="at-min">每日 10 分鐘</div>
+      </div>
+      <div class="action-tile">
+        <div class="at-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 21 L12 4 L21 21 z"/><path d="M3 21 H21"/></svg>
+        </div>
+        <div class="at-name">走一段路</div>
+        <div class="at-tip">走路時的節奏感會活化海馬迴——記憶力、情緒、甚至血糖都會改善</div>
+        <div class="at-min">每日 20 分鐘</div>
+      </div>
+      <div class="action-tile">
+        <div class="at-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 4 h14 v16 H5 z"/><path d="M9 8 h6 M9 12 h6 M9 16 h4"/></svg>
+        </div>
+        <div class="at-name">寫三行字</div>
+        <div class="at-tip">不是長篇日記——三行就夠：「今天謝謝、今天發現、今天調整」</div>
+        <div class="at-min">每日 5 分鐘</div>
+      </div>
+      <div class="action-tile">
+        <div class="at-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 3 c4 5 6 8 6 11 a6 6 0 0 1-12 0 c0-3 2-6 6-11 z"/></svg>
+        </div>
+        <div class="at-name">做一道菜</div>
+        <div class="at-tip">切、煮、調味——把注意力從抽象的螢幕，拉回具體的雙手與食材</div>
+        <div class="at-min">每日 30 分鐘</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P8 環境設計 ============================ -->
+  <section class="slide s8-env" id="slide-8">
+    <div>
+      <span class="section-num">06 · 環境設計</span>
+      <h2 class="page-title">改變環境，比改變意志更有效</h2>
+      <div class="page-sub">ENVIRONMENTAL DESIGN · 六條空間策略，讓你自然遠離誘惑</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="env-grid">
+      <div class="env-left">
+        <div class="env-hex">
+          <div class="eh-mark">01</div>
+          <div class="eh-body">
+            <div class="eh-title">臥室淨空</div>
+            <div class="eh-desc">手機不進房——改用傳統鬧鐘</div>
+          </div>
+        </div>
+        <div class="env-hex">
+          <div class="eh-mark">02</div>
+          <div class="eh-body">
+            <div class="eh-title">餐桌禁手機</div>
+            <div class="eh-desc">吃飯專心吃——體會食物的味道</div>
+          </div>
+        </div>
+        <div class="env-hex">
+          <div class="eh-mark">03</div>
+          <div class="eh-body">
+            <div class="eh-title">灰階模式</div>
+            <div class="eh-desc">手機畫面轉灰——顏色變淡，誘惑變小</div>
+          </div>
+        </div>
+        <div class="env-hex">
+          <div class="eh-mark">04</div>
+          <div class="eh-body">
+            <div class="eh-title">單獨帳號</div>
+            <div class="eh-desc">短影音 APP 用分身帳號——降低黏著</div>
+          </div>
+        </div>
+        <div class="env-hex">
+          <div class="eh-mark">05</div>
+          <div class="eh-body">
+            <div class="eh-title">固定充電站</div>
+            <div class="eh-desc">手機放在客廳——不在床邊、書桌前</div>
+          </div>
+        </div>
+        <div class="env-hex">
+          <div class="eh-mark">06</div>
+          <div class="eh-body">
+            <div class="eh-title">週末離線時段</div>
+            <div class="eh-desc">每週選 4 小時全家離線——散步、煮飯、看書</div>
+          </div>
+        </div>
+      </div>
+      <div class="env-right">
+        <div class="er-head">為什麼環境有效？</div>
+        <div class="er-quote">「意志力像肌肉會疲勞，但環境設計是 24 小時自動運作的引擎」</div>
+        <div class="er-rule">
+          <div class="err-num">1</div>
+          <div class="err-text"><strong>摩擦力法則：</strong>讓壞習慣變難、好習慣變易——把糖果放高、把運動鞋放門口</div>
+        </div>
+        <div class="er-rule">
+          <div class="err-num">2</div>
+          <div class="err-text"><strong>提示設計：</strong>環境的視覺、聲音、氣味都在「提醒」你行動——設計它，讓它提醒好的事</div>
+        </div>
+        <div class="er-rule">
+          <div class="err-num">3</div>
+          <div class="err-text"><strong>預設選項：</strong>如果選 A 要打開 3 個 APP，選 B 只要按一個鈕——人會自然選 B</div>
+        </div>
+        <div class="er-rule">
+          <div class="err-num">4</div>
+          <div class="err-text"><strong>承諾機制：</strong>公開對朋友說「我週末離線」——社會壓力比意志力更可靠</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P9 復盤 ============================ -->
+  <section class="slide s9-review" id="slide-9">
+    <div>
+      <span class="section-num">07 · 七日復盤</span>
+      <h2 class="page-title">七天後，你會回收什麼？</h2>
+      <div class="page-sub">WEEK REVIEW · 四個可量化的回收指標</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="rc-tag">TIME</div>
+        <div class="rc-num">+18</div>
+        <div class="rc-unit">小時 / 週</div>
+        <div class="rc-name">回收時間</div>
+        <div class="rc-tip">把每日 4.6 → 2.0 小時，一週多出 18 小時——可以讀完一本書、走 30 公里</div>
+      </div>
+      <div class="review-card">
+        <div class="rc-tag">SLEEP</div>
+        <div class="rc-num">+45</div>
+        <div class="rc-unit">分鐘 / 晚</div>
+        <div class="rc-name">深度睡眠</div>
+        <div class="rc-tip">睡前 90 分鐘離線，入睡速度提升 35%、REM 比例增加——起床不再痛苦</div>
+      </div>
+      <div class="review-card">
+        <div class="rc-tag">FOCUS</div>
+        <div class="rc-num">2.5x</div>
+        <div class="rc-unit">專注時長</div>
+        <div class="rc-name">深度工作</div>
+        <div class="rc-tip">平均連續專注時間從 12 分鐘拉長到 30 分鐘——這是生產力的最大槓桿</div>
+      </div>
+      <div class="review-card">
+        <div class="rc-tag">JOY</div>
+        <div class="rc-num">7</div>
+        <div class="rc-unit">件小確幸</div>
+        <div class="rc-name">感官回溫</div>
+        <div class="rc-tip">吃飯更香、走路更穩、對話更深——被螢幕稀釋的感官，正在慢慢長回來</div>
+      </div>
+    </div>
+    <div class="review-note">數字不是重點——重要的是你開始「有意識地選擇」如何使用自己的時間</div>
+  </section>
+
+  <!-- ============================ P10 結尾 ============================ -->
+  <section class="slide s10-end" id="slide-10">
+    <div class="end-stamp">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="56" fill="none" stroke="#8b6633" stroke-width="2" stroke-dasharray="2 4"/>
+        <circle cx="60" cy="60" r="46" fill="rgba(180,138,71,0.08)" stroke="#b48a47" stroke-width="1.5"/>
+        <g fill="none" stroke="#8b6633" stroke-width="2">
+          <path d="M30 60 Q60 30 90 60 Q60 90 30 60 Z"/>
+          <circle cx="60" cy="60" r="6" fill="#b48a47"/>
+        </g>
+        <circle cx="60" cy="60" r="2" fill="#fff"/>
+      </svg>
+    </div>
+    <h2>離線，不是失去；是重新擁有</h2>
+    <div class="end-poem">
+      把滑動的拇指，換成翻書的手指；<br/>
+      把無限捲動，換成一場散步；<br/>
+      把通知聲，換成一棵樹下的風——<br/>
+      你會發現，被螢幕偷走的，<br/>
+      本來就是你的。
+    </div>
+    <div class="end-actions">
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8b6633" stroke-width="2"><path d="M4 12 l4 4 L20 6"/></svg>
+        今晚先關一個通知
+      </span>
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8b6633" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 2"/></svg>
+        七天養成新節奏
+      </span>
+    </div>
+    <a href="/slides.htm" class="end-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#8b6633" stroke-width="1.8"><path d="M15 18 l-6-6 6-6"/></svg>
+      返回簡報列表
+    </a>
+  </section>
+
+</div>
+
+<!-- 導航 -->
+<div class="nav">
+  <button onclick="prev()">上一頁</button>
+  <span class="page-indicator" id="pageInd">1 / 10</span>
+  <button onclick="next()">下一頁</button>
+</div>
+
+<script>
+  // 防禦性 show()：確認 slides[current] 存在再操作
+  var slides = document.querySelectorAll('.slide');
+  var current = 0;
+  var pageInd = document.getElementById('pageInd');
+  var total = slides.length;
+
+  function showIdx(i) {
+    if (!slides[i]) return;
+    if (slides[current]) slides[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('active');
+    if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function next() { showIdx((current + 1) % total); }
+  function prev() { showIdx((current - 1 + total) % total); }
+
+  // 初始化第一頁
+  (function init() {
+    if (slides.length > 0) {
+      var first = slides[0];
+      if (!first.classList.contains('active')) {
+        for (var i = 1; i < slides.length; i++) slides[i].classList.remove('active');
+        first.classList.add('active');
+      }
+      current = 0;
+      if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+    }
+  })();
+
+  // 鍵盤左右鍵換頁
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+
+</body>
+</html>
