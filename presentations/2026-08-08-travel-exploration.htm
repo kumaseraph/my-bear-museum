@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一張機票，換一場被放大的世界｜2026-08-08</title>
+<!--
+  配色：C6 暖橘夕陽（C6-warm-sunset）
+  結構：V10 暖色星河重新詮釋（aurora-gradient reinterpreted as warm starfield/terrain）
+  G 系統：特/單 → 方/網 → 圓/垂 → 線/水 → 六/散 → 特/網 → 線/垂 → 方/網 → 六/水 → 無/單
+  主題：旅遊探索（週六固定主題）
+-->
+<style>
+  :root {
+    --bg: #fff8f0;
+    --bg-secondary: #fff0e0;
+    --bg-card: rgba(255, 252, 246, 0.88);
+    --text: #3e2723;
+    --text-secondary: #6d4c41;
+    --text-soft: #a1887f;
+    --accent: #ff6f00;
+    --accent-alt: #ffa726;
+    --accent-deep: #c43e00;
+    --accent-warm: #ffb74d;
+    --accent-glow: rgba(255, 111, 0, 0.16);
+    --ink: #2c1810;
+    --ink-soft: #5d4037;
+    --paper-edge: rgba(255, 111, 0, 0.22);
+    --nav-bg: rgba(255, 248, 240, 0.95);
+    --shadow-soft: 0 6px 22px rgba(196, 62, 0, 0.10);
+    --shadow-mid: 0 12px 32px rgba(196, 62, 0, 0.18);
+    --border-warm: rgba(255, 111, 0, 0.28);
+    --teal: #00838f;
+    --terracotta: #c87a5e;
+    --moss: #889c5f;
+    --sky: #6a9fb5;
+    --aurora-1: rgba(255, 180, 0, 0.12);
+    --aurora-2: rgba(255, 111, 0, 0.10);
+    --aurora-3: rgba(200, 60, 20, 0.08);
+    --aurora-4: rgba(60, 40, 120, 0.06);
+    --star-warm: rgba(255, 220, 150, 0.8);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { font-size: 20px; }
+
+  body {
+    font-family: 'Noto Serif TC', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* V10 暖色星河：垂直流光 + 漂浮光點 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      linear-gradient(180deg,
+        transparent 0%,
+        rgba(255, 180, 0, 0.06) 25%,
+        rgba(255, 111, 0, 0.08) 45%,
+        rgba(200, 60, 20, 0.06) 65%,
+        rgba(60, 40, 120, 0.05) 80%,
+        transparent 100%);
+    animation: warm-aurora-wave 22s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes warm-aurora-wave {
+    0%, 100% { transform: translateY(0) skewX(0deg); opacity: 0.9; }
+    33% { transform: translateY(-3%) skewX(1.2deg); opacity: 1; }
+    66% { transform: translateY(2%) skewX(-0.4deg); opacity: 0.85; }
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: -10%;
+    width: 120%;
+    height: 65%;
+    background:
+      radial-gradient(ellipse at 22% 28%, rgba(255, 220, 150, 0.4) 0%, transparent 40%),
+      radial-gradient(ellipse at 68% 22%, rgba(255, 180, 80, 0.3) 0%, transparent 35%),
+      radial-gradient(ellipse at 50% 55%, rgba(255, 130, 60, 0.22) 0%, transparent 45%),
+      radial-gradient(ellipse at 85% 65%, rgba(255, 200, 100, 0.18) 0%, transparent 30%);
+    filter: blur(40px);
+    animation: warm-star-drift 30s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes warm-star-drift {
+    0% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(-4%) translateY(-2%); }
+    100% { transform: translateX(0) translateY(0); }
+  }
+
+  .presentation {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    margin: 24px auto 60px;
+    background: var(--bg);
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: var(--shadow-mid);
+    z-index: 1;
+  }
+
+  .slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    padding: 40px 56px 76px;
+    color: var(--text);
+  }
+  .slide.active { display: flex; }
+
+  /* SVG <text> 元素：統一強制 20px+ */
+  .slide text { font-size: 20px; }
+
+  /* 排版元件 */
+  .page-eyebrow {
+    font-size: 1rem;
+    letter-spacing: 0.4em;
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .page-title {
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    margin-top: 6px;
+  }
+  .page-sub {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+  }
+  .title-bar {
+    width: 56px; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+    border-radius: 1px;
+    margin-top: 12px;
+  }
+  .section-num {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent-deep);
+    background: rgba(255, 111, 0, 0.12);
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.2em;
+  }
+
+  /* 導航 */
+  .nav {
+    position: absolute;
+    top: 24px; right: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--nav-bg);
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: 1px solid var(--border-warm);
+    box-shadow: var(--shadow-soft);
+    z-index: 1000;
+  }
+  .nav button {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent-deep);
+    padding: 6px 14px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .nav button:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+  .nav .page-indicator {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  /* 卡片基礎 */
+  .paper-card {
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 20px 22px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+  }
+
+  /* ============================================================
+     P1 封面 — 特/單（印章 + 大標）
+     ============================================================ */
+  .s1-cover {
+    background:
+      radial-gradient(circle at 22% 30%, rgba(255, 240, 210, 0.5) 0%, transparent 55%),
+      radial-gradient(circle at 78% 80%, rgba(255, 200, 150, 0.32) 0%, transparent 55%),
+      var(--bg);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+  }
+  .s1-cover .cover-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 18px;
+    background: rgba(255, 252, 246, 0.65);
+    border: 1px solid var(--border-warm);
+    border-radius: 100px;
+    font-size: 1rem;
+    color: var(--accent-deep);
+    letter-spacing: 0.25em;
+    margin-bottom: 28px;
+  }
+  .s1-cover .cover-stamp::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .s1-cover h1 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .s1-cover .cover-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.2em;
+    margin-bottom: 32px;
+  }
+  .cover-seal {
+    width: 220px; height: 220px;
+    margin: 0 auto 28px;
+    position: relative;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.15em;
+  }
+  .cover-meta strong { color: var(--accent-deep); font-weight: 700; }
+
+  /* ============================================================
+     P2 目錄 — 方/網（8 城市 × 4 主題 = 8 格 + 主題卡 4 格）
+     ============================================================ */
+  .s2-toc {
+    background: linear-gradient(180deg, #fff8f0 0%, #fdeedb 100%);
+    flex-direction: column;
+    padding: 36px 56px 88px;
+    overflow: hidden;
+  }
+  .toc-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 22px;
+  }
+  .toc-cell {
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    box-shadow: var(--shadow-soft);
+  }
+  .toc-cell .toc-num {
+    position: absolute;
+    top: 12px; right: 14px;
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--accent-alt), var(--accent));
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+  }
+  .toc-cell .toc-tag {
+    font-size: 1rem;
+    color: var(--accent-deep);
+    letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+  .toc-cell .toc-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin-top: 2px;
+  }
+  .toc-cell .toc-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+  .toc-theme {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .toc-theme-pill {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    color: var(--accent-deep);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+
+  /* ============================================================
+     P3 為何現在出發 — 圓/垂（三層同心� × 三組數據）
+     ============================================================ */
+  .s3-why {
+    background: radial-gradient(ellipse at 70% 50%, #fdeedb 0%, var(--bg) 65%);
+    flex-direction: column;
+    padding: 36px 56px 88px;
+  }
+  .why-stats {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 22px;
+  }
+  .why-left {
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+  }
+  .why-left .quote {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .why-left .quote::before {
+    content: '「';
+    font-size: 2.6rem;
+    color: var(--accent);
+    line-height: 0;
+    vertical-align: -0.3em;
+    margin-right: 4px;
+  }
+  .why-left .quote-source {
+    font-size: 1rem;
+    color: var(--accent-deep);
+    text-align: right;
+    letter-spacing: 0.1em;
+  }
+  .why-rings {
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .wr-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .wr-circle {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+  }
+  .wr-circle.c1 { background: linear-gradient(135deg, var(--accent-alt), var(--accent)); }
+  .wr-circle.c2 { background: linear-gradient(135deg, var(--accent), var(--accent-deep)); }
+  .wr-circle.c3 { background: linear-gradient(135deg, var(--accent-deep), #8b2e00); }
+  .wr-text { flex: 1; }
+  .wr-text .wr-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .wr-text .wr-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    line-height: 1.45;
+  }
+
+  /* ============================================================
+     P4 8 城市速覽 — 線/水（地圖路徑 × 8 城市節點）
+     ============================================================ */
+  .s4-map {
+    background: linear-gradient(180deg, #fff8f0 0%, #fce0c2 100%);
+    flex-direction: column;
+    padding: 36px 56px 88px;
+  }
+  .map-wrap {
+    flex: 1;
+    margin-top: 18px;
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 22px 26px;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+  }
+  .map-svg {
+    width: 100%;
+    height: 320px;
+  }
+  .city-list {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .city-pill {
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .city-pill .city-country {
+    color: var(--accent-deep);
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* ============================================================
+     P5 城市 #1-2 深度 — 六/散（雙蜂巢主視覺）
+     ============================================================ */
+  .s5-deep {
+    background: radial-gradient(circle at 50% 50%, #fff0e0 0%, var(--bg) 70%);
+    flex-direction: column;
+    padding: 36px 56px 88px;
+  }
+  .deep-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 22px;
+  }
+  .deep-card {
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .deep-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .deep-hex {
+    width: 76px; height: 76px;
+    background: linear-gradient(135deg, var(--accent-alt), var(--accent));
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .deep-hex.alt {
+    background: linear-gradient(135deg, var(--terracotta), #a85030);
+  }
+  .deep-meta {
+    flex: 1;
+  }
+  .deep-meta .dm-city {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .deep-meta .dm-country {
+    font-size: 1rem;
+    color: var(--accent-deep);
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .deep-tagline {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent-deep);
+    line-height: 1.4;
+  }
+  .deep-tip {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .deep-stats {
+    display: flex;
+    gap: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--paper-edge);
+  }
+  .ds-stat {
+    flex: 1;
+    text-align: center;
+  }
+  .ds-stat .ds-num {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--accent-deep);
+    line-height: 1;
+  }
+  .ds-stat .ds-label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* ============================================================
+     P6 城市 #3-4 深度 — 特/網（雙欄城市卡，特殊形狀裝飾）
+     ============================================================ */
+  .s6-city {
+    background: linear-gradient(180deg, #fce8d0 0%, #fff8f0 100%);
+    flex-direction: column;
+    padding: 36px 56px 88px;
+  }
+  .city-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 22px;
+  }
+  .city-block {
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+  }
+  .city-block::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, transparent 50%, var(--accent-glow) 50%);
+    pointer-events: none;
+  }
+  .cb-num {
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+  .cb-city {
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .cb-country {
+    font-size: 1rem;
+    color: var(--accent-deep);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 14px;
+  }
+  .cb-desc {
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .cb-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cb-list li {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .cb-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ============================================================
+     P7 旅人清單 — 線/垂（5 條垂直清單）
+     ============================================================ */
+  .s7-list {
+    background: linear-gradient(180deg, #fff8f0 0%, #fce0c2 100%);
+    flex-direction: column;
+    padding: 36px 56px 88px;
+  }
+  .list-wrap {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 28px;
+    margin-top: 22px;
+  }
+  .list-left {
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow-soft);
+  }
+  .list-left .ll-head {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--accent-deep);
+    margin-bottom: 14px;
+    letter-spacing: 0.08em;
+  }
+  .ll-rule {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-top: 1px dashed var(--paper-edge);
+  }
+  .ll-rule:first-of-type { border-top: 0; }
+  .ll-rule .lr-num {
+    flex: 0 0 36px;
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent-alt), var(--accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1rem;
+  }
+  .ll-rule .lr-body { flex: 1; }
+  .ll-rule .lr-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .ll-rule .lr-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    line-height: 1.5;
+  }
+  .list-right {
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .lr-head {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--accent-deep);
+    letter-spacing: 0.08em;
+  }
+  .lr-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 0;
+  }
+  .lr-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 111, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .lr-icon svg { width: 18px; height: 18px; }
+  .lr-text {
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* ============================================================
+     P8 三類旅人預算 — 方/網（3×2 預算格）
+     ============================================================ */
+  .s8-budget {
+    background: linear-gradient(180deg, #fce8d0 0%, #fff8f0 100%);
+    flex-direction: column;
+    padding: 36px 56px 88px;
+  }
+  .budget-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 22px;
+  }
+  .budget-card {
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 20px 22px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .budget-card.featured {
+    border: 2px solid var(--accent);
+    background: linear-gradient(180deg, rgba(255, 167, 38, 0.10) 0%, var(--bg-card) 60%);
+  }
+  .bc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .bc-name {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--ink);
+  }
+  .bc-tag {
+    font-size: 1rem;
+    color: var(--accent-deep);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    background: rgba(255, 111, 0, 0.12);
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+  .bc-budget {
+    font-size: 2.1rem;
+    font-weight: 900;
+    color: var(--accent-deep);
+    line-height: 1;
+    margin-top: 4px;
+  }
+  .bc-budget-sub {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+    letter-spacing: 0.08em;
+  }
+  .bc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .bc-list li {
+    font-size: 1rem;
+    color: var(--text);
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .bc-list li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .bc-note {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px dashed var(--paper-edge);
+    font-size: 1rem;
+    color: var(--accent-deep);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============================================================
+     P9 行前 30 天倒數 — 六/水（蜂巢時間軸）
+     ============================================================ */
+  .s9-prep {
+    background: radial-gradient(circle at 50% 30%, #fff0e0 0%, var(--bg) 70%);
+    flex-direction: column;
+    padding: 36px 56px 88px;
+  }
+  .prep-summary {
+    display: flex;
+    gap: 28px;
+    margin-top: 22px;
+    flex: 0 0 auto;
+  }
+  .ps-card {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+  }
+  .ps-card .ps-num {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent-deep);
+    line-height: 1;
+  }
+  .ps-card .ps-label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    letter-spacing: 0.1em;
+  }
+  .prep-honeycomb {
+    flex: 1;
+    margin-top: 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--paper-edge);
+    border-radius: 6px;
+    padding: 18px 22px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ph-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--accent-deep);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .ph-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .ph-row .ph-label {
+    flex: 0 0 110px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .ph-row .ph-days {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+  }
+  .ph-hex {
+    flex: 1;
+    aspect-ratio: 1 / 1.1547;
+    background: linear-gradient(135deg, var(--accent-alt), var(--accent));
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 4px 2px;
+  }
+  .ph-hex.muted {
+    background: rgba(255, 111, 0, 0.18);
+    color: var(--accent-deep);
+  }
+
+  /* ============================================================
+     P10 結尾 — 無/單（無圖形 + 詩）
+     ============================================================ */
+  .s10-end {
+    background:
+      radial-gradient(circle at 30% 40%, rgba(255, 220, 150, 0.35) 0%, transparent 55%),
+      radial-gradient(circle at 70% 70%, rgba(255, 167, 38, 0.25) 0%, transparent 55%),
+      var(--bg);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 56px 80px;
+    position: relative;
+  }
+  .end-stamp {
+    width: 140px; height: 140px;
+    margin-bottom: 28px;
+    opacity: 0.85;
+  }
+  .s10-end h2 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    max-width: 720px;
+  }
+  .end-poem {
+    font-size: 1.15rem;
+    color: var(--text);
+    line-height: 1.9;
+    max-width: 640px;
+    margin: 0 auto 32px;
+    letter-spacing: 0.06em;
+  }
+  .end-actions {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+  .end-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: rgba(255, 252, 246, 0.7);
+    border: 1px solid var(--border-warm);
+    border-radius: 100px;
+    font-size: 1rem;
+    color: var(--accent-deep);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .end-action svg { width: 18px; height: 18px; }
+  .end-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.2s;
+  }
+  .end-back:hover { transform: translateX(-4px); }
+  .end-back svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<div class="presentation" id="presentation">
+
+  <!-- ============================ P1 封面 ============================ -->
+  <section class="slide s1-cover active" id="slide-1">
+    <div class="cover-stamp">旅遊探索 · 週六特刊</div>
+    <h1>一張機票，換一場被放大的世界</h1>
+    <div class="cover-subtitle">8 個 2026 最該出發的城市 × 一張不被 AI 取代的旅人清單</div>
+    <div class="cover-seal">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sealGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffa726"/>
+            <stop offset="100%" stop-color="#ff6f00"/>
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="56" fill="none" stroke="#c43e00" stroke-width="2" stroke-dasharray="2 4"/>
+        <circle cx="60" cy="60" r="46" fill="rgba(255,167,38,0.10)" stroke="#ff6f00" stroke-width="1.5"/>
+        <g fill="none" stroke="#c43e00" stroke-width="2">
+          <path d="M20 70 Q60 20 100 70 Q60 100 20 70 Z"/>
+          <circle cx="60" cy="55" r="20" fill="url(#sealGrad1)" stroke="none"/>
+          <path d="M55 55 L60 50 L65 55 L60 60 Z" fill="#fff"/>
+        </g>
+        <circle cx="60" cy="60" r="2" fill="#fff"/>
+      </svg>
+    </div>
+    <div class="cover-meta">
+      <span><strong>10</strong> 頁 · 簡報</span>
+      <span><strong>2026.08.08</strong> · 週六</span>
+      <span>熊熊觀察站</span>
+    </div>
+  </section>
+
+  <!-- ============================ P2 目錄 ============================ -->
+  <section class="slide s2-toc" id="slide-2">
+    <div>
+      <span class="section-num">01 · 議程</span>
+      <h2 class="page-title">10 頁拆解：一場被放大的旅行</h2>
+      <div class="page-sub">AGENDA · 8 城市速覽 + 4 主題深度 + 1 張旅人清單</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="toc-grid">
+      <div class="toc-cell">
+        <div class="toc-num">1</div>
+        <div class="toc-tag">P3 為何現在</div>
+        <div class="toc-name">現在出發的三個理由</div>
+        <div class="toc-desc">疫情後旅遊回溫、AI 行程規劃普及、機票回到甜蜜點</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">2</div>
+        <div class="toc-tag">P4 城市速覽</div>
+        <div class="toc-name">8 個 2026 必去城市</div>
+        <div class="toc-desc">從亞洲到南美，看一張地圖就能完成的夢想清單</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">3</div>
+        <div class="toc-tag">P5 京都 × 里斯本</div>
+        <div class="toc-name">深度 2：舊城的兩種呼吸</div>
+        <div class="toc-desc">一邊是禪意寺廟，一邊是大航海遺產——慢城市的極致</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">4</div>
+        <div class="toc-tag">P6 BA × CPH</div>
+        <div class="toc-name">深度 2：南美探戈 × 北歐極簡</div>
+        <div class="toc-desc">布宜諾斯艾利斯的熱情、哥本哈根的冷冽，兩種截然相反的幸福</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">5</div>
+        <div class="toc-tag">P7 旅人清單</div>
+        <div class="toc-name">AI 時代的 5 條守則</div>
+        <div class="toc-desc">讓你不被演算法取代、只屬於自己的旅遊方式</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">6</div>
+        <div class="toc-tag">P8 三類預算</div>
+        <div class="toc-name">¥5 萬 / ¥15 萬 / ¥40 萬</div>
+        <div class="toc-desc">小資、質感、頂級——三種預算的真實分配表</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">7</div>
+        <div class="toc-tag">P9 30 天倒數</div>
+        <div class="toc-name">行前 30 天倒數計畫</div>
+        <div class="toc-desc">從訂機票那一刻到出門那一刻，每一天該做什麼</div>
+      </div>
+      <div class="toc-cell">
+        <div class="toc-num">8</div>
+        <div class="toc-tag">P10 結尾</div>
+        <div class="toc-name">你的下一張機票</div>
+        <div class="toc-desc">旅行結束，是另一場被放大的世界的開始</div>
+      </div>
+    </div>
+    <div class="toc-theme">
+      <div class="toc-theme-pill">主題：深度文化</div>
+      <div class="toc-theme-pill">主題：自然風景</div>
+      <div class="toc-theme-pill">主題：城市設計</div>
+      <div class="toc-theme-pill">主題：美食地圖</div>
+    </div>
+  </section>
+
+  <!-- ============================ P3 為何現在出發 ============================ -->
+  <section class="slide s3-why" id="slide-3">
+    <div>
+      <span class="section-num">02 · 為何現在出發</span>
+      <h2 class="page-title">2026 是十年來最值得旅行的一年</h2>
+      <div class="page-sub">WHY NOW · 三個迴圈的共振：回溫、工具、甜蜜點</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="why-stats">
+      <div class="why-left">
+        <div class="quote">我們去旅行，不是為了逃離生活，而是為了不被生活逃離。</div>
+        <div class="quote-source">— 改編自《白日夢冒險王》</div>
+        <div class="quote">旅行讓你認識自己——你以為你是誰，其實只是你還沒離開過。</div>
+        <div class="quote-source">— 改編自三毛</div>
+      </div>
+      <div class="why-rings">
+        <div class="wr-row">
+          <div class="wr-circle c1">+38%</div>
+          <div class="wr-text">
+            <div class="wr-title">國際旅遊回溫</div>
+            <div class="wr-desc">聯合國旅遊組織 2026 上半年數據：跨境旅遊人次回到疫前 1.38 倍，但熱門景點人潮比疫前低 20%——「想去又還沒去」的窗口正打開</div>
+          </div>
+        </div>
+        <div class="wr-row">
+          <div class="wr-circle c2">AI 80%</div>
+          <div class="wr-text">
+            <div class="wr-title">AI 行程規劃普及</div>
+            <div class="wr-desc">超過 8 成旅客用 AI 工具生成行程，但真正在地的「第三杯咖啡店」仍只有人類能發現——這就是旅人清單存在的理由</div>
+          </div>
+        </div>
+        <div class="wr-row">
+          <div class="wr-circle c3">-15%</div>
+          <div class="wr-text">
+            <div class="wr-title">機票甜蜜點</div>
+            <div class="wr-desc">2026 年燃油回落，長程經濟艙票價比 2024 高峰便宜 15%；星宇、長榮、華航新航點加入，桃園出發選擇比五年前多三倍</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P4 8 城市速覽 ============================ -->
+  <section class="slide s4-map" id="slide-4">
+    <div>
+      <span class="section-num">03 · 城市速覽</span>
+      <h2 class="page-title">8 個 2026 最該出發的城市</h2>
+      <div class="page-sub">CITY MAP · 從亞洲到南美，看一張地圖就能完成的夢想清單</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="map-wrap">
+      <svg class="map-svg" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="mapLine" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ffa726"/>
+            <stop offset="50%" stop-color="#ff6f00"/>
+            <stop offset="100%" stop-color="#c43e00"/>
+          </linearGradient>
+        </defs>
+        <!-- 大圓代表地球曲面 -->
+        <ellipse cx="400" cy="160" rx="380" ry="140" fill="none" stroke="rgba(196,62,0,0.18)" stroke-width="1"/>
+        <!-- 8 條連線 + 8 城市節點 -->
+        <path d="M120 200 Q 200 60 280 140" fill="none" stroke="url(#mapLine)" stroke-width="2" stroke-dasharray="3 4"/>
+        <path d="M280 140 Q 380 80 480 130" fill="none" stroke="url(#mapLine)" stroke-width="2" stroke-dasharray="3 4"/>
+        <path d="M480 130 Q 580 90 680 200" fill="none" stroke="url(#mapLine)" stroke-width="2" stroke-dasharray="3 4"/>
+        <path d="M120 200 Q 200 240 280 140" fill="none" stroke="url(#mapLine)" stroke-width="2" stroke-dasharray="3 4"/>
+        <path d="M280 140 Q 360 240 480 130" fill="none" stroke="url(#mapLine)" stroke-width="2" stroke-dasharray="3 4"/>
+        <path d="M480 130 Q 580 240 680 200" fill="none" stroke="url(#mapLine)" stroke-width="2" stroke-dasharray="3 4"/>
+        <!-- 8 城市節點 -->
+        <g>
+          <circle cx="120" cy="200" r="10" fill="#ff6f00"/>
+          <text x="120" y="225" text-anchor="middle" fill="#3e2723" font-size="14" font-weight="700">京都</text>
+        </g>
+        <g>
+          <circle cx="280" cy="140" r="10" fill="#ffa726"/>
+          <text x="280" y="125" text-anchor="middle" fill="#3e2723" font-size="14" font-weight="700">里斯本</text>
+        </g>
+        <g>
+          <circle cx="380" cy="80" r="10" fill="#c43e00"/>
+          <text x="380" y="65" text-anchor="middle" fill="#3e2723" font-size="14" font-weight="700">哥本哈根</text>
+        </g>
+        <g>
+          <circle cx="480" cy="130" r="10" fill="#ff6f00"/>
+          <text x="480" y="115" text-anchor="middle" fill="#3e2723" font-size="14" font-weight="700">布宜諾斯艾利斯</text>
+        </g>
+        <g>
+          <circle cx="200" cy="240" r="10" fill="#ffa726"/>
+          <text x="200" y="265" text-anchor="middle" fill="#3e2723" font-size="14" font-weight="700">高雄</text>
+        </g>
+        <g>
+          <circle cx="360" cy="240" r="10" fill="#c43e00"/>
+          <text x="360" y="265" text-anchor="middle" fill="#3e2723" font-size="14" font-weight="700">馬德拉斯</text>
+        </g>
+        <g>
+          <circle cx="580" cy="240" r="10" fill="#ffa726"/>
+          <text x="580" y="265" text-anchor="middle" fill="#3e2723" font-size="14" font-weight="700">赫爾辛基</text>
+        </g>
+        <g>
+          <circle cx="680" cy="200" r="10" fill="#ff6f00"/>
+          <text x="680" y="225" text-anchor="middle" fill="#3e2723" font-size="14" font-weight="700">雷克雅維克</text>
+        </g>
+      </svg>
+      <div class="city-list">
+        <div class="city-pill">京都 <span class="city-country">日本</span></div>
+        <div class="city-pill">里斯本 <span class="city-country">葡萄牙</span></div>
+        <div class="city-pill">哥本哈根 <span class="city-country">丹麥</span></div>
+        <div class="city-pill">布宜諾斯艾利斯 <span class="city-country">阿根廷</span></div>
+        <div class="city-pill">高雄 <span class="city-country">台灣</span></div>
+        <div class="city-pill">清� <span class="city-country">泰國</span></div>
+        <div class="city-pill">赫爾辛基 <span class="city-country">芬蘭</span></div>
+        <div class="city-pill">雷克雅維克 <span class="city-country">冰島</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P5 城市 #1-2 深度 ============================ -->
+  <section class="slide s5-deep" id="slide-5">
+    <div>
+      <span class="section-num">04 · 城市深度 #1-2</span>
+      <h2 class="page-title">京都 × 里斯本：舊城的兩種呼吸</h2>
+      <div class="page-sub">KYOTO × LISBON · 一邊是禪意寺廟，一邊是大航海遺產</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="deep-grid">
+      <div class="deep-card">
+        <div class="deep-head">
+          <div class="deep-hex">京</div>
+          <div class="deep-meta">
+            <div class="dm-city">京都 Kyoto</div>
+            <div class="dm-country">JAPAN · 35°N</div>
+          </div>
+        </div>
+        <div class="deep-tagline">禪意 × 時光 × 四季</div>
+        <div class="deep-tip">千年古都的呼吸節奏——清晨 5 點的清水寺、午後嵐山的竹林、夏夜祇園的花火。京都教會你：最美的風景，是學會讓時間慢下來</div>
+        <div class="deep-stats">
+          <div class="ds-stat">
+            <div class="ds-num">1,600</div>
+            <div class="ds-label">寺廟（座）</div>
+          </div>
+          <div class="ds-stat">
+            <div class="ds-num">¥2.5萬</div>
+            <div class="ds-label">5 日均消</div>
+          </div>
+          <div class="ds-stat">
+            <div class="ds-num">17</div>
+            <div class="ds-label">UNESCO 遺產</div>
+          </div>
+        </div>
+      </div>
+      <div class="deep-card">
+        <div class="deep-head">
+          <div class="deep-hex alt">L</div>
+          <div class="deep-meta">
+            <div class="dm-city">里斯本 Lisbon</div>
+            <div class="dm-country">PORTUGAL · 38°N</div>
+          </div>
+        </div>
+        <div class="deep-tagline">懷舊 × 大航海 × 法朵</div>
+        <div class="deep-tip">大航海時代的起點，現在是歐洲最被低估的首都。28 路電車爬上山丘、貝倫塔的夕陽、法朵的悲歌——里斯本教會你：偉大的城市都不在第一眼</div>
+        <div class="deep-stats">
+          <div class="ds-stat">
+            <div class="ds-num">€15</div>
+            <div class="ds-label">雙人晚餐均消</div>
+          </div>
+          <div class="ds-stat">
+            <div class="ds-num">6</div>
+            <div class="ds-label">觀景台（座）</div>
+          </div>
+          <div class="ds-stat">
+            <div class="ds-num">7</div>
+            <div class="ds-label">UNESCO 遺產</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P6 城市 #3-4 深度 ============================ -->
+  <section class="slide s6-city" id="slide-6">
+    <div>
+      <span class="section-num">05 · 城市深度 #3-4</span>
+      <h2 class="page-title">布宜諾斯艾利斯 × 哥本哈根：相反的幸福</h2>
+      <div class="page-sub">BA × CPH · 探戈的熱情 vs 北歐的冷冽，兩種截然相反的幸福</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="city-grid">
+      <div class="city-block">
+        <div class="cb-num">03 / 08</div>
+        <div class="cb-city">布宜諾斯艾利斯</div>
+        <div class="cb-country">BUENOS AIRES · ARGENTINA</div>
+        <div class="cb-desc">南美巴黎——但骨子裡是熱情的拉丁靈魂。雷科萊塔的彩色墓園、博卡區的鐵皮屋、深夜的米隆加舞廳，每個角落都在跳探戈</div>
+        <ul class="cb-list">
+          <li>必訪：雷科萊塔墓園、博卡區、七月九日大道</li>
+          <li>必吃：Asado 炭火烤肉、Empanadas 餡餅</li>
+          <li>必聽：米隆加現場樂隊的探戈</li>
+          <li>小心：披索通膨高、現金為王</li>
+        </ul>
+      </div>
+      <div class="city-block">
+        <div class="cb-num">04 / 08</div>
+        <div class="cb-city">哥本哈根</div>
+        <div class="cb-country">COPENHAGEN · DENMARK</div>
+        <div class="cb-desc">北歐設計之都——Hygge 生活的發源地。新港的彩色房屋、Noma 的實驗廚房、腳踏車比人多的街道，幸福是一種被設計出來的日常</div>
+        <ul class="cb-list">
+          <li>必訪：Nyhavn 新港、�特烈堡、路易斯安那美術館</li>
+          <li>必吃：Smørrebrød 開放三明治、丹麥麵包</li>
+          <li>必體驗：腳踏車環市一圈</li>
+          <li>小心：物價全球前五、餐廳週二休</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P7 旅人清單 ============================ -->
+  <section class="slide s7-list" id="slide-7">
+    <div>
+      <span class="section-num">06 · 旅人清單</span>
+      <h2 class="page-title">AI 時代的 5 條旅人守則</h2>
+      <div class="page-sub">TRAVELER'S RULES · 讓你不被演算法取代的旅行方式</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="list-wrap">
+      <div class="list-left">
+        <div class="ll-head">五條不被取代的守則</div>
+        <div class="ll-rule">
+          <div class="lr-num">1</div>
+          <div class="lr-body">
+            <div class="lr-title">留一個沒有行程的下午</div>
+            <div class="lr-desc">AI 規劃再完美，也要留 4 小時空白——迷路、亂走、和當地人聊，才會發現真正驚喜的角落</div>
+          </div>
+        </div>
+        <div class="ll-rule">
+          <div class="lr-num">2</div>
+          <div class="lr-body">
+            <div class="lr-title">問三個當地人「你最愛哪間咖啡店」</div>
+            <div class="lr-desc">AI 給你前 10 名觀光景點，當地人給你的是「第三條巷子右轉那間」——後者才是這座城市的味道</div>
+          </div>
+        </div>
+        <div class="ll-rule">
+          <div class="lr-num">3</div>
+          <div class="lr-body">
+            <div class="lr-title">關掉手機地圖 30 分鐘</div>
+            <div class="lr-desc">你會走錯路、會問人、會看到 AI 沒標註的景色——迷路是旅行的隱藏版圖</div>
+          </div>
+        </div>
+        <div class="ll-rule">
+          <div class="lr-num">4</div>
+          <div class="lr-body">
+            <div class="lr-title">用筆寫下五件「沒在社群發的事」</div>
+            <div class="lr-desc">不是每個瞬間都要打卡——寫在筆記本的，比發在 IG 的更會留在記憶裡</div>
+          </div>
+        </div>
+        <div class="ll-rule">
+          <div class="lr-num">5</div>
+          <div class="lr-body">
+            <div class="lr-title">帶回一個「沒用」的紀念品</div>
+            <div class="lr-desc">不是磁鐵也不是鑰匙圈——一塊石頭、一張票根、一片葉子——它們會在十年後的某個下午，讓你回到那個當下</div>
+          </div>
+        </div>
+      </div>
+      <div class="list-right">
+        <div class="lr-head">旅人必備的 4 個小習慣</div>
+        <div class="lr-item">
+          <div class="lr-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff6f00" stroke-width="2"><path d="M4 4 h16 v16 H4 z"/><path d="M4 9 h16 M9 4 v16"/></svg>
+          </div>
+          <div class="lr-text">把護照、機票、訂房憑證拍一份放雲端</div>
+        </div>
+        <div class="lr-item">
+          <div class="lr-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff6f00" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 2"/></svg>
+          </div>
+          <div class="lr-text">重要航班起飛 3 小時前到機場</div>
+        </div>
+        <div class="lr-item">
+          <div class="lr-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff6f00" stroke-width="2"><path d="M4 4 h12 l4 4 v12 H4 z"/><path d="M14 4 v6 h6"/></svg>
+          </div>
+          <div class="lr-text">紙本備份：訂房單、地址、保險卡</div>
+        </div>
+        <div class="lr-item">
+          <div class="lr-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff6f00" stroke-width="2"><path d="M3 12 c4-7 14-7 18 0 c-4 7-14 7-18 0 z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div class="lr-text">每天睡前寫 3 行：看見 / 聽見 / 想起</div>
+        </div>
+        <div class="lr-item">
+          <div class="lr-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff6f00" stroke-width="2"><path d="M5 4 h14 v16 H5 z"/><path d="M9 8 h6 M9 12 h6 M9 16 h4"/></svg>
+          </div>
+          <div class="lr-text">把現金、信用卡分兩個地方放</div>
+        </div>
+        <div class="lr-item">
+          <div class="lr-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff6f00" stroke-width="2"><path d="M12 3 c4 5 6 8 6 11 a6 6 0 0 1-12 0 c0-3 2-6 6-11 z"/></svg>
+          </div>
+          <div class="lr-text">帶一個 600ml 保溫瓶，省錢又環保</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P8 三類預算 ============================ -->
+  <section class="slide s8-budget" id="slide-8">
+    <div>
+      <span class="section-num">07 · 三類預算</span>
+      <h2 class="page-title">小資、質感、頂級——三種旅行的真實</h2>
+      <div class="page-sub">BUDGET TIERS · 同樣 10 天 4 國，¥5 萬、¥15 萬、¥40 萬 的差別</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="budget-grid">
+      <div class="budget-card">
+        <div class="bc-head">
+          <div class="bc-name">小資背包客</div>
+          <div class="bc-tag">¥5 萬 / 10 天</div>
+        </div>
+        <div class="bc-budget">¥50K</div>
+        <div class="bc-budget-sub">NT$22,000 · 含機票</div>
+        <ul class="bc-list">
+          <li>機票：廉航紅眼 + 轉機 1 次</li>
+          <li>住宿：青年旅館 6 人間 / 沙發衝浪</li>
+          <li>餐飲：超市 + 街邊小吃，¥150 / 餐</li>
+          <li>交通：地鐵 + 步行 + 夜間巴士</li>
+          <li>景點：免費博物館 + 城市散步</li>
+        </ul>
+        <div class="bc-note">適合：學生、剛出社會、想挑戰自己</div>
+      </div>
+      <div class="budget-card featured">
+        <div class="bc-head">
+          <div class="bc-name">質感旅人</div>
+          <div class="bc-tag">¥15 萬 / 10 天</div>
+        </div>
+        <div class="bc-budget">¥150K</div>
+        <div class="bc-budget-sub">NT$66,000 · 含機票</div>
+        <ul class="bc-list">
+          <li>機票：傳統航空 + 直飛</li>
+          <li>住宿：設計旅店 / Airbnb 整套</li>
+          <li>餐飲：當地中價餐廳 + 一餐米其林</li>
+          <li>交通：地鐵日票 + 偶爾 Uber</li>
+          <li>景點：付費體驗（烹飪課 / 導覽）</li>
+        </ul>
+        <div class="bc-note">適合：上班族、情侶、最多數人的甜蜜點</div>
+      </div>
+      <div class="budget-card">
+        <div class="bc-head">
+          <div class="bc-name">頂級奢旅</div>
+          <div class="bc-tag">¥40 萬 / 10 天</div>
+        </div>
+        <div class="bc-budget">¥400K</div>
+        <div class="bc-budget-sub">NT$176,000 · 含商務艙</div>
+        <ul class="bc-list">
+          <li>機票：商務艙 / 頭等艙</li>
+          <li>住宿：五星酒店 / 頂級民宿</li>
+          <li>餐飲：每日米其林 + 私廚預約</li>
+          <li>交通：包車 + 商務艙高鐵</li>
+          <li>景點：私人導覽 + 限量體驗</li>
+        </ul>
+        <div class="bc-note">適合：紀念日、退休族、犒賞自己</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P9 行前 30 天倒數 ============================ -->
+  <section class="slide s9-prep" id="slide-9">
+    <div>
+      <span class="section-num">08 · 30 天倒數</span>
+      <h2 class="page-title">行前 30 天，從訂機票到出門</h2>
+      <div class="page-sub">PRE-TRIP COUNTDOWN · 蜂巢時間軸，把每一天過得有意義</div>
+      <div class="title-bar"></div>
+    </div>
+    <div class="prep-summary">
+      <div class="ps-card">
+        <div class="ps-num">30</div>
+        <div class="ps-label">天倒數起點</div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-num">12</div>
+        <div class="ps-label">關鍵任務</div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-num">3</div>
+        <div class="ps-label">個保險提醒</div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-num">0</div>
+        <div class="ps-label">天後悔率</div>
+      </div>
+    </div>
+    <div class="prep-honeycomb">
+      <div class="ph-title">蜂巢倒數時程</div>
+      <div class="ph-row">
+        <div class="ph-label">D-30～D-22</div>
+        <div class="ph-days">
+          <div class="ph-hex">訂機票</div>
+          <div class="ph-hex">訂住宿</div>
+          <div class="ph-hex">簽證</div>
+          <div class="ph-hex">保險</div>
+          <div class="ph-hex">換匯</div>
+          <div class="ph-hex">疫苗</div>
+        </div>
+      </div>
+      <div class="ph-row">
+        <div class="ph-label">D-21～D-14</div>
+        <div class="ph-days">
+          <div class="ph-hex">行程草稿</div>
+          <div class="ph-hex">餐廳預約</div>
+          <div class="ph-hex">門票搶票</div>
+          <div class="ph-hex">SIM 卡</div>
+          <div class="ph-hex">行李清單</div>
+          <div class="ph-hex muted">–</div>
+        </div>
+      </div>
+      <div class="ph-row">
+        <div class="ph-label">D-13～D-7</div>
+        <div class="ph-days">
+          <div class="ph-hex">衣物整理</div>
+          <div class="ph-hex">打包清單</div>
+          <div class="ph-hex">分裝瓶</div>
+          <div class="ph-hex">充電器</div>
+          <div class="ph-hex">轉接頭</div>
+          <div class="ph-hex">備用藥</div>
+        </div>
+      </div>
+      <div class="ph-row">
+        <div class="ph-label">D-6～D-1</div>
+        <div class="ph-days">
+          <div class="ph-hex">線上 Check-in</div>
+          <div class="ph-hex">行李過磅</div>
+          <div class="ph-hex">備份證件</div>
+          <div class="ph-hex">通知家人</div>
+          <div class="ph-hex">行李打包</div>
+          <div class="ph-hex">早睡</div>
+        </div>
+      </div>
+      <div class="ph-row">
+        <div class="ph-label">D-Day</div>
+        <div class="ph-days">
+          <div class="ph-hex">出發！</div>
+          <div class="ph-hex muted">–</div>
+          <div class="ph-hex muted">–</div>
+          <div class="ph-hex muted">–</div>
+          <div class="ph-hex muted">–</div>
+          <div class="ph-hex muted">–</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ P10 結尾 ============================ -->
+  <section class="slide s10-end" id="slide-10">
+    <div class="end-stamp">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="endGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffa726"/>
+            <stop offset="100%" stop-color="#ff6f00"/>
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="56" fill="none" stroke="#c43e00" stroke-width="2" stroke-dasharray="2 4"/>
+        <circle cx="60" cy="60" r="46" fill="rgba(255,167,38,0.10)" stroke="#ff6f00" stroke-width="1.5"/>
+        <g fill="none" stroke="#c43e00" stroke-width="2">
+          <path d="M30 60 Q60 30 90 60 Q60 90 30 60 Z"/>
+          <circle cx="60" cy="60" r="6" fill="url(#endGrad1)" stroke="none"/>
+        </g>
+        <circle cx="60" cy="60" r="2" fill="#fff"/>
+      </svg>
+    </div>
+    <h2>你的下一張機票，<br/>正在某個城市等你</h2>
+    <div class="end-poem">
+      把辦公室的日光燈，換成雅典衛城的；<br/>
+      把會議室的椅子，換成京都茶屋的；<br/>
+      把捷運的報站聲，換成里斯本的法朵——<br/>
+      你會發現，世界不是平面的，<br/>
+      你也是。
+    </div>
+    <div class="end-actions">
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c43e00" stroke-width="2"><path d="M4 12 l4 4 L20 6"/></svg>
+        今晚訂下一張機票
+      </span>
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c43e00" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7 v5 l3 2"/></svg>
+        30 天後出發
+      </span>
+      <span class="end-action">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c43e00" stroke-width="2"><path d="M5 4 h14 v16 H5 z"/><path d="M9 8 h6 M9 12 h6"/></svg>
+        寫下一份旅人清單
+      </span>
+    </div>
+    <a href="/slides.htm" class="end-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M15 18 l-6-6 6-6"/></svg>
+      返回簡報列表
+    </a>
+  </section>
+
+</div>
+
+<!-- 導航 -->
+<div class="nav">
+  <button onclick="prev()">上一頁</button>
+  <span class="page-indicator" id="pageInd">1 / 10</span>
+  <button onclick="next()">下一頁</button>
+</div>
+
+<script>
+  var slides = document.querySelectorAll('.slide');
+  var current = 0;
+  var pageInd = document.getElementById('pageInd');
+  var total = slides.length;
+
+  function showIdx(i) {
+    if (!slides[i]) return;
+    if (slides[current]) slides[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('active');
+    if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function next() { showIdx((current + 1) % total); }
+  function prev() { showIdx((current - 1 + total) % total); }
+
+  (function init() {
+    if (slides.length > 0) {
+      var first = slides[0];
+      if (!first.classList.contains('active')) {
+        for (var i = 1; i < slides.length; i++) slides[i].classList.remove('active');
+        first.classList.add('active');
+      }
+      current = 0;
+      if (pageInd) pageInd.textContent = (current + 1) + ' / ' + total;
+    }
+  })();
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+
+</body>
+</html>
