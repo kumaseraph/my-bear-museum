@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 邊框_工作報告雙重框 | 工作報告系列 | 🐻 熊熊風格 -->
+  <!-- 技巧: #124 平行四邊形線條組合 - 雙重交叉線 + 邊界引導線 + 階梯排列 + 條紋疊加 -->
+  <!-- 趨勢融合: 品牌色克制使用 + 刻意保留人類痕跡 + 重複形狀串敘事 -->
+  <defs>
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#92750C"/>
+      <stop offset="100%" stop-color="#D4AF37"/>
+    </linearGradient>
+    <linearGradient id="bearBrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5A2B"/>
+      <stop offset="100%" stop-color="#D4A574"/>
+    </linearGradient>
+    <pattern id="diagStripes" patternUnits="userSpaceOnUse" width="8" height="8">
+      <line x1="0" y1="8" x2="8" y2="0" stroke="#D4AF37" stroke-width="0.8"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="#FFFBF0"/>
+
+  <!-- 外框(粗 雙重) -->
+  <rect x="80" y="80" width="1760" height="920" fill="none" stroke="url(#bearGold)" stroke-width="3"/>
+  <rect x="95" y="95" width="1730" height="890" fill="none" stroke="#D4A574" stroke-width="1" opacity="0.4"/>
+
+  <!-- 內框(精準對齊) -->
+  <rect x="160" y="160" width="1600" height="760" fill="none" stroke="url(#bearBrown)" stroke-width="2.5"/>
+
+  <!-- 四角雙重交叉平行四邊形(技巧 #124 - 雙重交叉線) -->
+  <!-- 左上 -->
+  <g transform="translate(80, 80)">
+    <polygon points="0,0 120,0 140,30 20,30" fill="url(#bearGold)" opacity="0.95"/>
+    <polygon points="20,30 140,30 120,60 0,60" fill="url(#bearGold)" opacity="0.7"/>
+    <polygon points="0,0 30,0 50,30 20,30" fill="url(#bearBrown)"/>
+    <polygon points="0,30 20,30 20,120 0,100" fill="url(#bearBrown)" opacity="0.85"/>
+    <!-- 雙重交叉線 -->
+    <line x1="0" y1="60" x2="120" y2="0" stroke="url(#bearBrown)" stroke-width="1" opacity="0.5"/>
+    <line x1="0" y1="0" x2="120" y2="60" stroke="url(#bearBrown)" stroke-width="1" opacity="0.5"/>
+  </g>
+
+  <!-- 右上 -->
+  <g transform="translate(1840, 80)">
+    <polygon points="0,0 -120,0 -140,30 -20,30" fill="url(#bearGold)" opacity="0.95"/>
+    <polygon points="-20,30 -140,30 -120,60 0,60" fill="url(#bearGold)" opacity="0.7"/>
+    <polygon points="0,0 -30,0 -50,30 -20,30" fill="url(#bearBrown)"/>
+    <polygon points="0,30 -20,30 -20,120 0,100" fill="url(#bearBrown)" opacity="0.85"/>
+    <line x1="0" y1="60" x2="-120" y2="0" stroke="url(#bearBrown)" stroke-width="1" opacity="0.5"/>
+    <line x1="0" y1="0" x2="-120" y2="60" stroke="url(#bearBrown)" stroke-width="1" opacity="0.5"/>
+  </g>
+
+  <!-- 左下 -->
+  <g transform="translate(80, 1000)">
+    <polygon points="0,0 120,0 140,-30 20,-30" fill="url(#bearGold)" opacity="0.95"/>
+    <polygon points="20,-30 140,-30 120,-60 0,-60" fill="url(#bearGold)" opacity="0.7"/>
+    <polygon points="0,0 30,0 50,-30 20,-30" fill="url(#bearBrown)"/>
+    <polygon points="0,-30 20,-30 20,-120 0,-100" fill="url(#bearBrown)" opacity="0.85"/>
+    <line x1="0" y1="-60" x2="120" y2="0" stroke="url(#bearBrown)" stroke-width="1" opacity="0.5"/>
+    <line x1="0" y1="0" x2="120" y2="-60" stroke="url(#bearBrown)" stroke-width="1" opacity="0.5"/>
+  </g>
+
+  <!-- 右下 -->
+  <g transform="translate(1840, 1000)">
+    <polygon points="0,0 -120,0 -140,-30 -20,-30" fill="url(#bearGold)" opacity="0.95"/>
+    <polygon points="-20,-30 -140,-30 -120,-60 0,-60" fill="url(#bearGold)" opacity="0.7"/>
+    <polygon points="0,0 -30,0 -50,-30 -20,-30" fill="url(#bearBrown)"/>
+    <polygon points="0,-30 -20,-30 -20,-120 0,-100" fill="url(#bearBrown)" opacity="0.85"/>
+    <line x1="0" y1="-60" x2="-120" y2="0" stroke="url(#bearBrown)" stroke-width="1" opacity="0.5"/>
+    <line x1="0" y1="0" x2="-120" y2="-60" stroke="url(#bearBrown)" stroke-width="1" opacity="0.5"/>
+  </g>
+
+  <!-- 頂部階梯平行四邊形(技巧 #124 - 階梯排列 + 條紋疊加) -->
+  <g transform="translate(400, 60)">
+    <polygon points="0,30 80,30 100,0 20,0" fill="url(#bearGold)" opacity="0.7"/>
+    <polygon points="0,30 80,30 100,0 20,0" fill="url(#diagStripes)" opacity="0.5"/>
+    <polygon points="100,30 180,30 200,0 120,0" fill="url(#bearGold)" opacity="0.8"/>
+    <polygon points="100,30 180,30 200,0 120,0" fill="url(#diagStripes)" opacity="0.5"/>
+    <polygon points="200,30 280,30 300,0 220,0" fill="url(#bearGold)" opacity="0.9"/>
+    <polygon points="200,30 280,30 300,0 220,0" fill="url(#diagStripes)" opacity="0.5"/>
+    <!-- 焦點段(熊熊棕強調) -->
+    <polygon points="300,30 380,30 400,0 320,0" fill="url(#bearBrown)"/>
+    <polygon points="300,30 380,30 400,0 320,0" fill="url(#diagStripes)" opacity="0.3"/>
+    <!-- 節點圓 -->
+    <circle cx="50" cy="15" r="3" fill="#8B5A2B"/>
+    <circle cx="150" cy="15" r="3" fill="#8B5A2B"/>
+    <circle cx="250" cy="15" r="3" fill="#8B5A2B"/>
+    <circle cx="350" cy="15" r="5" fill="#D4AF37" stroke="#8B5A2B" stroke-width="1.5"/>
+  </g>
+
+  <!-- 底部對稱階梯反向 -->
+  <g transform="translate(400, 1020)">
+    <polygon points="0,0 80,0 100,30 20,30" fill="url(#bearGold)" opacity="0.7"/>
+    <polygon points="0,0 80,0 100,30 20,30" fill="url(#diagStripes)" opacity="0.5"/>
+    <polygon points="100,0 180,0 200,30 120,30" fill="url(#bearGold)" opacity="0.8"/>
+    <polygon points="100,0 180,0 200,30 120,30" fill="url(#diagStripes)" opacity="0.5"/>
+    <polygon points="200,0 280,0 300,30 220,30" fill="url(#bearGold)" opacity="0.9"/>
+    <polygon points="200,0 280,0 300,30 220,30" fill="url(#diagStripes)" opacity="0.5"/>
+    <polygon points="300,0 380,0 400,30 320,30" fill="url(#bearBrown)"/>
+    <polygon points="300,0 380,0 400,30 320,30" fill="url(#diagStripes)" opacity="0.3"/>
+  </g>
+
+  <!-- 左右虛線引導(對齊軸 - 精準對齊) -->
+  <line x1="220" y1="220" x2="220" y2="860" stroke="url(#bearGold)" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.4"/>
+  <line x1="1700" y1="220" x2="1700" y2="860" stroke="url(#bearGold)" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.4"/>
+
+  <!-- 中央圓點裝飾(品牌克制 - 單一小點) -->
+  <circle cx="960" cy="540" r="2" fill="#8B5A2B" opacity="0.3"/>
+</svg>

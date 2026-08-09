@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 邊框_棕金蜂巢引導框 | 工作報告系列 | 🐻 熊熊風格 -->
+  <!-- 技巧: #120 六邊形十式(連接方式 + 叢集與單一 + 邊框粗細對比) + #124 平行四邊形(邊界引導線) -->
+  <!-- 趨勢融合: 重複形狀串敘事 + 對齊比裝飾重要 + 品牌色克制使用 -->
+  <defs>
+    <linearGradient id="goldMain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#92750C"/>
+      <stop offset="100%" stop-color="#D4AF37"/>
+    </linearGradient>
+    <linearGradient id="brownSoft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5A2B"/>
+      <stop offset="100%" stop-color="#C8956D"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 暖白背景(克制留白) -->
+  <rect width="1920" height="1080" fill="#FAF5E8"/>
+
+  <!-- 主外框(粗) -->
+  <rect x="80" y="80" width="1760" height="920" fill="none" stroke="url(#goldMain)" stroke-width="4"/>
+  <!-- 中框(中粗) - 精準對齊 -->
+  <rect x="120" y="120" width="1680" height="840" fill="none" stroke="#D4AF37" stroke-width="1.5" opacity="0.5"/>
+  <!-- 內細框(細) -->
+  <rect x="160" y="160" width="1600" height="760" fill="none" stroke="#8B5A2B" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- 左側蜂巢叢集(連接方式: 邊對邊 + 叢集與單一焦點) -->
+  <g transform="translate(60, 380)">
+    <!-- 3 個連接的六邊形 -->
+    <g transform="translate(0, 0)">
+      <path d="M40,4 L74.6,22 L74.6,58 L40,76 L5.4,58 L5.4,22 Z"
+            fill="none" stroke="url(#goldMain)" stroke-width="3"/>
+    </g>
+    <g transform="translate(80, 38)">
+      <path d="M40,4 L74.6,22 L74.6,58 L40,76 L5.4,58 L5.4,22 Z"
+            fill="url(#goldMain)" fill-opacity="0.4" stroke="url(#goldMain)" stroke-width="1.5"/>
+    </g>
+    <g transform="translate(160, 0)">
+      <path d="M40,4 L74.6,22 L74.6,58 L40,76 L5.4,58 L5.4,22 Z"
+            fill="url(#brownSoft)" fill-opacity="0.85" stroke="#8B5A2B" stroke-width="2"/>
+      <!-- 焦點內實心小六邊形 -->
+      <path d="M20,2 L37.3,11 L37.3,29 L20,38 L2.7,29 L2.7,11 Z"
+            fill="#FFFBF0"/>
+    </g>
+    <!-- 連接虛線(邊界引導) -->
+    <line x1="80" y1="38" x2="160" y2="38" stroke="url(#goldMain)" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.6"/>
+  </g>
+
+  <!-- 右側蜂巢叢集(對稱 - 重複形狀串敘事) -->
+  <g transform="translate(1860, 380) scale(-1, 1)">
+    <g transform="translate(0, 0)">
+      <path d="M40,4 L74.6,22 L74.6,58 L40,76 L5.4,58 L5.4,22 Z"
+            fill="none" stroke="url(#goldMain)" stroke-width="3"/>
+    </g>
+    <g transform="translate(80, 38)">
+      <path d="M40,4 L74.6,22 L74.6,58 L40,76 L5.4,58 L5.4,22 Z"
+            fill="url(#goldMain)" fill-opacity="0.4" stroke="url(#goldMain)" stroke-width="1.5"/>
+    </g>
+    <g transform="translate(160, 0)">
+      <path d="M40,4 L74.6,22 L74.6,58 L40,76 L5.4,58 L5.4,22 Z"
+            fill="url(#brownSoft)" fill-opacity="0.85" stroke="#8B5A2B" stroke-width="2"/>
+      <path d="M20,2 L37.3,11 L37.3,29 L20,38 L2.7,29 L2.7,11 Z"
+            fill="#FFFBF0"/>
+    </g>
+    <line x1="80" y1="38" x2="160" y2="38" stroke="url(#goldMain)" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.6"/>
+  </g>
+
+  <!-- 頂部單一焦點六邊形(叢集與單一對比) -->
+  <g transform="translate(960, 80)">
+    <path d="M40,4 L74.6,22 L74.6,58 L40,76 L5.4,58 L5.4,22 Z"
+          fill="url(#goldMain)"/>
+    <path d="M20,2 L37.3,11 L37.3,29 L20,38 L2.7,29 L2.7,11 Z"
+          fill="#FAF5E8"/>
+  </g>
+
+  <!-- 底部對稱焦點六邊形 -->
+  <g transform="translate(960, 1000) scale(1, -1)">
+    <path d="M40,4 L74.6,22 L74.6,58 L40,76 L5.4,58 L5.4,22 Z"
+          fill="url(#brownSoft)"/>
+    <path d="M20,2 L37.3,11 L37.3,29 L20,38 L2.7,29 L2.7,11 Z"
+          fill="#FAF5E8"/>
+  </g>
+
+  <!-- 頂部虛線引導線(平行四邊形技巧 - 邊界引導) -->
+  <line x1="280" y1="140" x2="900" y2="140" stroke="url(#goldMain)" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.45"/>
+  <line x1="1020" y1="140" x2="1640" y2="140" stroke="url(#goldMain)" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.45"/>
+
+  <!-- 底部虛線引導線 -->
+  <line x1="280" y1="940" x2="900" y2="940" stroke="url(#goldMain)" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.45"/>
+  <line x1="1020" y1="940" x2="1640" y2="940" stroke="url(#goldMain)" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.45"/>
+
+  <!-- 四角小圓點(手繪痕跡) -->
+  <circle cx="180" cy="180" r="2" fill="#8B5A2B" opacity="0.5"/>
+  <circle cx="1740" cy="180" r="2" fill="#8B5A2B" opacity="0.5"/>
+  <circle cx="180" cy="900" r="2" fill="#8B5A2B" opacity="0.5"/>
+  <circle cx="1740" cy="900" r="2" fill="#8B5A2B" opacity="0.5"/>
+</svg>

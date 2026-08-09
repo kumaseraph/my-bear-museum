@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 邊框_單側寬邊框垂直報告 | 工作報告系列 | 🏛️ 正式專業 -->
+  <!-- 技巧: #120 六邊形十式 + #124 平行四邊形線條 - 旋轉角度對比 + 大小對比 + 叢集排列 + 邊界引導線 -->
+  <!-- 趨勢融合: Bento Blocks 模組化 + Editorial Story-Led + 對齊比裝飾重要 -->
+  <!-- 用途：左側窄邊邊框，適用章節分隔/頁碼側邊 -->
+  <defs>
+    <linearGradient id="formalNavyV" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#3B5998"/>
+    </linearGradient>
+    <linearGradient id="formalSteelV" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4A6FA5"/>
+      <stop offset="100%" stop-color="#6B89B8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景：乾淨米白 -->
+  <rect width="1920" height="1080" fill="#FAFBFC"/>
+
+  <!-- 左側寬邊框（120px） -->
+  <rect x="0" y="0" width="120" height="1080" fill="url(#formalNavyV)"/>
+
+  <!-- 左側裝飾 1：垂直六邊形叢集（旋轉角度對比） -->
+  <g transform="translate(60, 200)">
+    <!-- 0度 大六邊形 -->
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="#FFFFFF" fill-opacity="0.95"/>
+  </g>
+
+  <g transform="translate(60, 300) rotate(30, 30, 30)">
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="#FFFFFF" fill-opacity="0.7"/>
+  </g>
+
+  <g transform="translate(60, 400)">
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="#FFFFFF" fill-opacity="0.85"/>
+  </g>
+
+  <g transform="translate(60, 500) rotate(30, 30, 30)">
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="#FFFFFF" fill-opacity="0.5"/>
+  </g>
+
+  <!-- 中央焦點：大六邊形嵌套 -->
+  <g transform="translate(60, 600)">
+    <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z"
+          fill="none" stroke="#FFFFFF" stroke-width="3"/>
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="#FFFFFF"/>
+    <!-- 中心小點 -->
+    <circle cx="30" cy="30" r="4" fill="url(#formalNavyV)"/>
+  </g>
+
+  <g transform="translate(60, 740) rotate(30, 30, 30)">
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="#FFFFFF" fill-opacity="0.5"/>
+  </g>
+
+  <g transform="translate(60, 840)">
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="#FFFFFF" fill-opacity="0.85"/>
+  </g>
+
+  <g transform="translate(60, 940) rotate(30, 30, 30)">
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="#FFFFFF" fill-opacity="0.7"/>
+  </g>
+
+  <!-- 連接引導線（技巧 #124 邊界引導線） -->
+  <line x1="100" y1="180" x2="100" y2="1000" stroke="#FFFFFF" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.4"/>
+
+  <!-- 右側對齊軸引導線（內頁主視覺起點） -->
+  <line x1="200" y1="200" x2="200" y2="880" stroke="#3B5998" stroke-width="1" stroke-dasharray="6,4" opacity="0.3"/>
+
+  <!-- 右側中央分隔虛線 -->
+  <line x1="200" y1="540" x2="1820" y2="540" stroke="#34495E" stroke-width="0.5" stroke-dasharray="2,6" opacity="0.15"/>
+
+  <!-- 右上角：對齊點標記 -->
+  <circle cx="200" cy="200" r="3" fill="#3B5998" opacity="0.6"/>
+  <circle cx="1820" cy="880" r="3" fill="#3B5998" opacity="0.6"/>
+  <circle cx="1820" cy="200" r="3" fill="#3B5998" opacity="0.6"/>
+  <circle cx="200" cy="880" r="3" fill="#3B5998" opacity="0.6"/>
+</svg>

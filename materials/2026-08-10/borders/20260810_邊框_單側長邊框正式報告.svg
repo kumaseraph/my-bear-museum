@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 邊框_單側長邊框正式報告 | 工作報告系列 | 🏛️ 正式專業 -->
+  <!-- 技巧: #124 平行四邊形線條 - 邊界引導線 + 階梯排列 + 條紋疊加 -->
+  <!-- 趨勢融合: Type Minimalism（字級承擔訊息）+ Editorial Layout（編輯式排版）+ Calm Palette -->
+  <!-- 用途：單頁長邊邊框，適用標題頁/封面 -->
+  <defs>
+    <linearGradient id="formalSlate" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2C3E50"/>
+      <stop offset="100%" stop-color="#34495E"/>
+    </linearGradient>
+    <pattern id="diagLines" patternUnits="userSpaceOnUse" width="12" height="12">
+      <line x1="0" y1="12" x2="12" y2="0" stroke="#34495E" stroke-width="0.6"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景：乾淨米白 -->
+  <rect width="1920" height="1080" fill="#F7F9FB"/>
+
+  <!-- 頂部長邊框（主視覺承載） -->
+  <rect x="0" y="0" width="1920" height="120" fill="url(#formalSlate)"/>
+
+  <!-- 頂部裝飾：平行四邊形階梯（技巧 #124 階梯排列） -->
+  <g transform="translate(0, 0)">
+    <polygon points="0,0 200,0 180,30 0,30" fill="#5D7A9E" opacity="0.85"/>
+    <polygon points="180,30 380,30 360,60 160,60" fill="#4A6FA5" opacity="0.75"/>
+    <polygon points="360,60 560,60 540,90 340,90" fill="#3B5998" opacity="0.65"/>
+    <polygon points="540,90 740,90 720,120 520,120" fill="#2C3E50" opacity="0.55"/>
+  </g>
+
+  <!-- 頂部右側：焦點六邊形 -->
+  <g transform="translate(1700, 60)">
+    <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z"
+          fill="none" stroke="#FFFFFF" stroke-width="3"/>
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="#FFFFFF" fill-opacity="0.9"/>
+  </g>
+
+  <!-- 頂部中段：焦點標記（條紋疊加） -->
+  <g transform="translate(960, 60)">
+    <rect x="-100" y="-15" width="200" height="30" fill="url(#diagLines)" opacity="0.5"/>
+    <rect x="-100" y="-15" width="200" height="30" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+  </g>
+
+  <!-- 底部長邊框（次要引導） -->
+  <rect x="0" y="960" width="1920" height="120" fill="url(#formalSlate)" opacity="0.92"/>
+
+  <!-- 底部裝飾：對稱平行四邊形階梯（鏡像） -->
+  <g transform="translate(1920, 1080) scale(-1, -1)">
+    <polygon points="0,0 200,0 180,30 0,30" fill="#5D7A9E" opacity="0.85"/>
+    <polygon points="180,30 380,30 360,60 160,60" fill="#4A6FA5" opacity="0.75"/>
+    <polygon points="360,60 560,60 540,90 340,90" fill="#3B5998" opacity="0.65"/>
+    <polygon points="540,90 740,90 720,120 520,120" fill="#2C3E50" opacity="0.55"/>
+  </g>
+
+  <!-- 底部左側：焦點六邊形（鏡像） -->
+  <g transform="translate(220, 1020) scale(1, -1)">
+    <path d="M50,5 L93.3,27.5 L93.3,72.5 L50,95 L6.7,72.5 L6.7,27.5 Z"
+          fill="none" stroke="#FFFFFF" stroke-width="3"/>
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="#FFFFFF" fill-opacity="0.9"/>
+  </g>
+
+  <!-- 左右對齊軸引導線 -->
+  <line x1="120" y1="200" x2="120" y2="880" stroke="#34495E" stroke-width="1" stroke-dasharray="6,4" opacity="0.3"/>
+  <line x1="1800" y1="200" x2="1800" y2="880" stroke="#34495E" stroke-width="1" stroke-dasharray="6,4" opacity="0.3"/>
+
+  <!-- 中央分隔虛線 -->
+  <line x1="160" y1="540" x2="1760" y2="540" stroke="#34495E" stroke-width="0.5" stroke-dasharray="2,6" opacity="0.2"/>
+</svg>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 圖標_工作報告圖表分析 | 工作報告系列 | 🏛️ 正式專業 -->
+  <!-- 技巧: #123 菱形五角星 + #121 六邊形十形 - 旋轉角度 + 大小對比 + 填充方式對比 -->
+  <!-- 趨勢融合: Bento Blocks + Type Minimalism + Calm Palette + Data viz 互動 -->
+  <defs>
+    <linearGradient id="formalBlueI" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#3B5998"/>
+    </linearGradient>
+    <linearGradient id="formalTealI" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2C7A7B"/>
+      <stop offset="100%" stop-color="#38A89D"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 透明背景 -->
+  <rect width="1920" height="1080" fill="none"/>
+
+  <!-- 主圖標：菱形五角星外框（技巧 #123） -->
+  <g transform="translate(960, 540)">
+    <!-- 外菱形（45°旋轉正方形） -->
+    <polygon points="0,-180 180,0 0,180 -180,0"
+             fill="none" stroke="url(#formalBlueI)" stroke-width="4"/>
+    <!-- 內菱形（實心） -->
+    <polygon points="0,-110 110,0 0,110 -110,0"
+             fill="url(#formalBlueI)" fill-opacity="0.15"/>
+    <!-- 中央實心菱形 -->
+    <polygon points="0,-60 60,0 0,60 -60,0"
+             fill="url(#formalBlueI)"/>
+
+    <!-- 內部資料圖形（上升柱狀圖） -->
+    <!-- 柱1 -->
+    <rect x="-100" y="-20" width="22" height="60" fill="url(#formalTealI)" opacity="0.85"/>
+    <!-- 柱2 -->
+    <rect x="-65" y="-35" width="22" height="75" fill="url(#formalTealI)" opacity="0.9"/>
+    <!-- 柱3（中央高）-->
+    <rect x="-30" y="-55" width="22" height="95" fill="url(#formalTealI)"/>
+    <!-- 柱4 -->
+    <rect x="5" y="-30" width="22" height="70" fill="url(#formalTealI)" opacity="0.9"/>
+    <!-- 柱5 -->
+    <rect x="40" y="-15" width="22" height="55" fill="url(#formalTealI)" opacity="0.8"/>
+
+    <!-- 趨勢線（虛線）-->
+    <line x1="-90" y1="50" x2="55" y2="30" stroke="url(#formalBlueI)" stroke-width="2" stroke-dasharray="5,3" opacity="0.7"/>
+    <!-- 趨勢線端點 -->
+    <circle cx="-90" cy="50" r="5" fill="url(#formalBlueI)"/>
+    <circle cx="55" cy="30" r="5" fill="url(#formalTealI)"/>
+  </g>
+
+  <!-- 環繞六邊形小標記（技巧 #121 大小對比） -->
+  <g transform="translate(960, 200)">
+    <path d="M20,2 L37.3,11.5 L37.3,29.5 L20,38 L2.7,29.5 L2.7,11.5 Z"
+          fill="url(#formalBlueI)" opacity="0.7"/>
+  </g>
+
+  <g transform="translate(960, 880) scale(1, -1)">
+    <path d="M20,2 L37.3,11.5 L37.3,29.5 L20,38 L2.7,29.5 L2.7,11.5 Z"
+          fill="url(#formalBlueI)" opacity="0.7"/>
+  </g>
+
+  <g transform="translate(620, 540)">
+    <path d="M20,2 L37.3,11.5 L37.3,29.5 L20,38 L2.7,29.5 L2.7,11.5 Z"
+          fill="url(#formalBlueI)" opacity="0.7"/>
+  </g>
+
+  <g transform="translate(1300, 540) scale(-1, 1)">
+    <path d="M20,2 L37.3,11.5 L37.3,29.5 L20,38 L2.7,29.5 L2.7,11.5 Z"
+          fill="url(#formalBlueI)" opacity="0.7"/>
+  </g>
+
+  <!-- 連接引導線 -->
+  <line x1="960" y1="240" x2="960" y2="350" stroke="url(#formalBlueI)" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+  <line x1="960" y1="840" x2="960" y2="730" stroke="url(#formalBlueI)" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+  <line x1="660" y1="540" x2="780" y2="540" stroke="url(#formalBlueI)" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+  <line x1="1260" y1="540" x2="1140" y2="540" stroke="url(#formalBlueI)" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+</svg>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 圖標_工作報告目標達成 | 工作報告系列 | 🏛️ 正式專業 -->
+  <!-- 技巧: #121 六邊形十形 + #123 菱形五角星 - 旋轉角度 + 大小對比 + 虛實對比 + 填充方式 -->
+  <!-- 趨勢融合: Bento Blocks + Editorial Story-Led + Calm Palette + 一圖一洞察 -->
+  <defs>
+    <linearGradient id="formalNavyT" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A5F"/>
+      <stop offset="100%" stop-color="#3B5998"/>
+    </linearGradient>
+    <linearGradient id="formalGoldT" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B8860B"/>
+      <stop offset="100%" stop-color="#DAA520"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 透明背景 -->
+  <rect width="1920" height="1080" fill="none"/>
+
+  <!-- 主圖標：靶心組合（六邊形 + 菱形） -->
+  <g transform="translate(960, 540)">
+    <!-- 最外層：大六邊形（外粗空心） -->
+    <path d="M180,18 L335.9,99 L335.9,261 L180,342 L24.1,261 L24.1,99 Z"
+          fill="none" stroke="url(#formalNavyT)" stroke-width="4"/>
+
+    <!-- 第二層：菱形（中空） -->
+    <polygon points="0,-150 150,0 0,150 -150,0"
+             fill="none" stroke="url(#formalNavyT)" stroke-width="2.5" opacity="0.85"/>
+
+    <!-- 第三層：六邊形（半透明） -->
+    <path d="M110,11 L204.95,62.45 L204.95,164.55 L110,216 L15.05,164.55 L15.05,62.45 Z"
+          fill="url(#formalNavyT)" fill-opacity="0.2"/>
+
+    <!-- 第四層：菱形（實心深色） -->
+    <polygon points="0,-80 80,0 0,80 -80,0"
+             fill="url(#formalNavyT)"/>
+
+    <!-- 中心焦點：金色菱形 + 勾號 -->
+    <polygon points="0,-40 40,0 0,40 -40,0"
+             fill="url(#formalGoldT)"/>
+
+    <!-- 勾號（白色對比） -->
+    <path d="M-15,-2 L-5,10 L18,-12"
+          fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 周圍環繞小六邊形（叢集襯托 - 單一焦點 + 叢集） -->
+  <!-- 右上叢集 -->
+  <g transform="translate(1300, 280)">
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="none" stroke="url(#formalNavyT)" stroke-width="2"/>
+    <path d="M15,1.5 L28,7.5 L28,22.5 L15,28.5 L2,22.5 L2,7.5 Z"
+          fill="url(#formalNavyT)"/>
+  </g>
+
+  <!-- 左上叢集 -->
+  <g transform="translate(620, 280)">
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="url(#formalNavyT)" fill-opacity="0.7"/>
+  </g>
+
+  <!-- 右下叢集 -->
+  <g transform="translate(1300, 800)">
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="none" stroke="url(#formalNavyT)" stroke-width="2"/>
+    <path d="M15,1.5 L28,7.5 L28,22.5 L15,28.5 L2,22.5 L2,7.5 Z"
+          fill="url(#formalNavyT)"/>
+  </g>
+
+  <!-- 左下叢集 -->
+  <g transform="translate(620, 800)">
+    <path d="M30,3 L55.95,17.25 L55.95,43.25 L30,57 L4.05,43.25 L4.05,17.25 Z"
+          fill="url(#formalNavyT)" fill-opacity="0.7"/>
+  </g>
+
+  <!-- 連接引導虛線（叢集與焦點的關係） -->
+  <line x1="660" y1="320" x2="820" y2="430" stroke="url(#formalNavyT)" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="1260" y1="320" x2="1100" y2="430" stroke="url(#formalNavyT)" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="660" y1="760" x2="820" y2="650" stroke="url(#formalNavyT)" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="1260" y1="760" x2="1100" y2="650" stroke="url(#formalNavyT)" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+
+  <!-- 頂部焦點標記 -->
+  <g transform="translate(960, 200)">
+    <path d="M25,2.5 L46.65,13.75 L46.65,36.25 L25,47.5 L3.35,36.25 L3.35,13.75 Z"
+          fill="url(#formalGoldT)"/>
+  </g>
+</svg>
