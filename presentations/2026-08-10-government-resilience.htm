@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韌性城市 × 防災治理：極端氣候下的新北準備｜2026-08-10</title>
+<style>
+html { font-size: 20px; }
+body {
+  background: #0d1f22;
+  color: #e8f5e9;
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  margin: 0;
+  padding: 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0, 191, 165, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255, 61, 0, 0.10) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: #0d1f22;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 48px 56px 72px;
+  color: #e8f5e9;
+}
+.slide.active { display: flex; }
+
+.slide * { font-size: 1rem; line-height: 1.5; }
+
+/* === 模板變體：圓角玻璃卡片（取代 VH1 粗野偏移） === */
+.card {
+  background: rgba(13, 31, 34, 0.65);
+  border: 1px solid rgba(0, 191, 165, 0.45);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 24px rgba(0, 191, 165, 0.18);
+}
+.card-warm {
+  background: rgba(255, 61, 0, 0.10);
+  border: 1px solid rgba(255, 61, 0, 0.55);
+  border-radius: 16px;
+  padding: 20px;
+}
+.card-soft {
+  background: rgba(232, 245, 233, 0.05);
+  border: 1px solid rgba(232, 245, 233, 0.20);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 320px; height: 320px; background: rgba(0, 191, 165, 0.20); top: -100px; right: -100px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(255, 61, 0, 0.16); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 220px; height: 220px; background: rgba(77, 208, 225, 0.18); top: 50%; left: 60%; }
+
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; }
+
+.tag {
+  display: inline-block;
+  background: rgba(0, 191, 165, 0.18);
+  color: #00bfa5;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  align-self: flex-start;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 191, 165, 0.5);
+}
+.tag-warm {
+  display: inline-block;
+  background: rgba(255, 61, 0, 0.18);
+  color: #ff8a65;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  align-self: flex-start;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 61, 0, 0.55);
+}
+
+h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.18; margin: 8px 0 14px; color: #ffffff; }
+h2 { font-size: 1.6rem; font-weight: 700; margin: 4px 0 12px; color: #ffffff; line-height: 1.25; }
+h3 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 6px; color: #4dd0e1; }
+.lead { font-size: 1.15rem; color: #b2dfdb; line-height: 1.55; margin: 6px 0; }
+.kpi-num { font-size: 3.2rem; font-weight: 900; color: #00bfa5; line-height: 1; }
+.kpi-num-warm { font-size: 3.2rem; font-weight: 900; color: #ff8a65; line-height: 1; }
+.unit { font-size: 1.05rem; color: #b2dfdb; margin-left: 6px; }
+.note { font-size: 1rem; color: #9ccc9c; line-height: 1.5; }
+.section-num { font-size: 2.4rem; font-weight: 900; color: #00bfa5; line-height: 1; }
+
+/* Nav */
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 5;
+  background: rgba(13, 31, 34, 0.85);
+  padding: 6px 12px;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 191, 165, 0.4);
+}
+.nav button {
+  background: rgba(0, 191, 165, 0.15);
+  border: 1px solid rgba(0, 191, 165, 0.5);
+  color: #e8f5e9;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav button:hover { background: rgba(0, 191, 165, 0.35); }
+.nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+.nav span { font-size: 1rem; color: #b2dfdb; min-width: 56px; text-align: center; }
+
+.back-link {
+  position: absolute;
+  top: 18px;
+  left: 28px;
+  z-index: 5;
+  background: rgba(13, 31, 34, 0.7);
+  border: 1px solid rgba(0, 191, 165, 0.4);
+  color: #b2dfdb;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 1rem;
+}
+
+/* === 封面 === */
+.cover { align-items: center; justify-content: center; text-align: center; padding: 60px; }
+.cover-eyebrow { font-size: 1.1rem; color: #4dd0e1; letter-spacing: 0.4em; margin-bottom: 24px; }
+.cover-title { font-size: 3.2rem; font-weight: 900; line-height: 1.15; color: #ffffff; margin-bottom: 18px; }
+.cover-sub { font-size: 1.3rem; color: #b2dfdb; margin-bottom: 36px; }
+.cover-meta { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; justify-content: center; }
+.cover-meta-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.cover-meta-num { font-size: 2.2rem; font-weight: 800; color: #00bfa5; }
+.cover-meta-lbl { font-size: 1rem; color: #9ccc9c; }
+
+/* === TOC === */
+.toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 16px; }
+.toc-card { background: rgba(13, 31, 34, 0.6); border: 1px solid rgba(0, 191, 165, 0.35); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+.toc-card .num { font-size: 2rem; font-weight: 900; color: #00bfa5; line-height: 1; }
+.toc-card .lbl { font-size: 1.15rem; font-weight: 700; color: #ffffff; }
+.toc-card .desc { font-size: 1rem; color: #b2dfdb; }
+
+/* === 願景（圓/水） === */
+.vision-row { display: flex; align-items: center; gap: 36px; margin-top: 16px; }
+.vision-circle {
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #00bfa5 0%, #00695c 80%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 0 60px rgba(0, 191, 165, 0.45);
+}
+.vision-circle .yr { font-size: 2.4rem; font-weight: 900; color: #ffffff; }
+.vision-circle .goal { font-size: 1.05rem; color: #b2dfdb; margin-top: 4px; }
+.vision-stats { display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.vision-stat-row { display: flex; align-items: baseline; gap: 16px; padding: 12px 16px; border-left: 3px solid #00bfa5; background: rgba(0, 191, 165, 0.06); }
+.vision-stat-row .v { font-size: 2rem; font-weight: 800; color: #00bfa5; }
+.vision-stat-row .lbl { font-size: 1.05rem; color: #e8f5e9; }
+
+/* === 風險地圖（六/散） === */
+.risk-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 16px; }
+.hex-risk {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  padding: 24px 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  min-height: 130px;
+}
+.hex-risk .lv { font-size: 1rem; color: #e8f5e9; margin-top: 6px; font-weight: 700; letter-spacing: 0.06em; }
+.hex-risk .name { font-size: 1.2rem; font-weight: 800; color: #ffffff; }
+.hex-risk .sub { font-size: 1rem; color: rgba(255,255,255,0.85); }
+.hex-risk.r1 { background: #00bfa5; }
+.hex-risk.r2 { background: #4dd0e1; }
+.hex-risk.r3 { background: #ff8a65; }
+.hex-risk.r4 { background: #ff3d00; }
+.legend { display: flex; gap: 18px; margin-top: 18px; justify-content: center; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 1rem; color: #b2dfdb; }
+.legend-dot { width: 14px; height: 14px; border-radius: 3px; }
+
+/* === 時間軸（線/垂） === */
+.timeline { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 12px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(180deg, #00bfa5, #ff3d00); }
+.tl-item { position: relative; padding: 6px 14px; background: rgba(13, 31, 34, 0.6); border: 1px solid rgba(0, 191, 165, 0.30); border-radius: 10px; }
+.tl-item::before { content: ''; position: absolute; left: -22px; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; border-radius: 50%; background: #00bfa5; box-shadow: 0 0 10px rgba(0, 191, 165, 0.6); }
+.tl-item .yr { font-size: 1.15rem; font-weight: 800; color: #00bfa5; margin-right: 12px; }
+.tl-item .ev { font-size: 1rem; color: #e8f5e9; }
+.tl-item .desc { font-size: 1rem; color: #b2dfdb; margin-top: 2px; }
+
+/* === KPI（特/單） === */
+.kpi-row { display: flex; gap: 24px; margin-top: 24px; justify-content: space-around; align-items: stretch; }
+.kpi-card { flex: 1; background: rgba(13, 31, 34, 0.7); border: 1px solid rgba(0, 191, 165, 0.4); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.kpi-card .big { font-size: 3.6rem; font-weight: 900; line-height: 1; }
+.kpi-card .lbl { font-size: 1.1rem; color: #b2dfdb; text-align: center; }
+.kpi-card .delta { font-size: 1rem; color: #9ccc9c; }
+.kpi-card.c1 .big { color: #00bfa5; }
+.kpi-card.c2 .big { color: #4dd0e1; }
+.kpi-card.c3 .big { color: #ff8a65; }
+.kpi-card.c4 .big { color: #ffca28; }
+
+/* === 韌性策略（圓/垂） === */
+.pillar-stack { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.pillar { display: flex; align-items: stretch; gap: 14px; padding: 6px 16px; background: rgba(13, 31, 34, 0.6); border: 1px solid rgba(0, 191, 165, 0.30); border-radius: 12px; }
+.pillar-dot { width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #00bfa5, #00695c); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 900; color: #ffffff; flex-shrink: 0; box-shadow: 0 0 18px rgba(0, 191, 165, 0.4); }
+.pillar-body { flex: 1; }
+.pillar-body h3 { font-size: 1.05rem; color: #4dd0e1; margin: 0 0 2px; }
+.pillar-body p { font-size: 1rem; color: #b2dfdb; margin: 0; line-height: 1.35; }
+
+/* === 案例對比（方/水） === */
+.case-row { display: flex; gap: 24px; margin-top: 16px; align-items: stretch; }
+.case-card { flex: 1; background: rgba(13, 31, 34, 0.7); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px; border-top: 4px solid #00bfa5; }
+.case-card.b { border-top-color: #ff3d00; }
+.case-card .hd { font-size: 1.2rem; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 10px; }
+.case-card .body { font-size: 1rem; color: #b2dfdb; flex: 1; }
+.case-card .stat { display: flex; justify-content: space-between; padding-top: 8px; border-top: 1px dashed rgba(0, 191, 165, 0.25); }
+.case-card .stat .v { font-size: 1.3rem; font-weight: 800; color: #00bfa5; }
+.case-card.b .stat .v { color: #ff8a65; }
+.case-icon {
+  width: 32px; height: 32px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+/* === 行動清單（六/水） === */
+.action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+.action-card { padding: 18px; background: rgba(13, 31, 34, 0.65); border: 1px solid rgba(0, 191, 165, 0.35); border-radius: 14px; display: flex; flex-direction: column; gap: 8px; }
+.action-card .step { font-size: 1rem; color: #00bfa5; letter-spacing: 0.1em; font-weight: 700; }
+.action-card h3 { font-size: 1.15rem; color: #ffffff; margin: 0; }
+.action-card p { font-size: 1rem; color: #b2dfdb; margin: 0; }
+
+/* === 結尾 === */
+.end { align-items: center; justify-content: center; text-align: center; padding: 60px; }
+.end-title { font-size: 2.8rem; font-weight: 900; color: #ffffff; margin-bottom: 18px; }
+.end-sub { font-size: 1.3rem; color: #b2dfdb; margin-bottom: 32px; }
+.end-meta { display: flex; gap: 36px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+.end-meta-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.end-meta-lbl { font-size: 1rem; color: #9ccc9c; }
+.end-meta-v { font-size: 1.4rem; font-weight: 800; color: #00bfa5; }
+</style>
+</head>
+<body>
+<div class="presentation" id="pres">
+  <a class="back-link" href="/slides.htm">← 回列表</a>
+
+  <!-- P1 封面 -->
+  <div class="slide cover active" id="s1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content" style="align-items: center; justify-content: center;">
+      <div class="cover-eyebrow">MONDAY · 2026.08.10 · 政府公務</div>
+      <h1 class="cover-title">韌性城市 × 防災治理<br><span style="color:#00bfa5;">極端氣候下的新北準備</span></h1>
+      <p class="cover-sub">從 2050 淨零到 2026 防災：當城市基礎設施必須承受 1.5℃ 的世界</p>
+      <div class="cover-meta">
+        <div class="cover-meta-item"><div class="cover-meta-num">29</div><div class="cover-meta-lbl">行政區</div></div>
+        <div class="cover-meta-item"><div class="cover-meta-num">420+</div><div class="cover-meta-lbl">避難收容點</div></div>
+        <div class="cover-meta-item"><div class="cover-meta-num">6</div><div class="cover-meta-lbl">韌性支柱</div></div>
+        <div class="cover-meta-item"><div class="cover-meta-num">2030</div><div class="cover-meta-lbl">階段目標年</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2 目錄 -->
+  <div class="slide" id="s2">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <span class="tag">AGENDA</span>
+      <h2>六大議題面向：城市韌性的六個工區</h2>
+      <p class="lead">從氣候觀測、風險地圖到韌性建設，每一塊都是新北在極端天氣下的準備環節。</p>
+      <div class="toc-grid">
+        <div class="toc-card"><div class="num">01</div><div class="lbl">願景與目標</div><div class="desc">2030 韌性城市承諾</div></div>
+        <div class="toc-card"><div class="num">02</div><div class="lbl">風險熱點地圖</div><div class="desc">七類災害 × 七大風險</div></div>
+        <div class="toc-card"><div class="num">03</div><div class="lbl">2026–2030 政策時程</div><div class="desc">五年行動路線圖</div></div>
+        <div class="toc-card"><div class="num">04</div><div class="lbl">KPI 儀表板</div><div class="desc">四大量化指標</div></div>
+        <div class="toc-card"><div class="num">05</div><div class="lbl">六大韌性支柱</div><div class="desc">從硬體到社會韌性</div></div>
+        <div class="toc-card"><div class="num">06</div><div class="lbl">行動清單</div><div class="desc">六項可立即啟動的工作</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3 願景 -->
+  <div class="slide" id="s3">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <span class="tag">VISION</span>
+      <h2>願景：2030 韌性城市承諾</h2>
+      <p class="lead">以市民安全為核心，建立「事前預防、即時應變、事後復原」三階段的完整韌性體系。</p>
+      <div class="vision-row">
+        <div class="vision-circle">
+          <div class="yr">2030</div>
+          <div class="goal">韌性城市承諾</div>
+        </div>
+        <div class="vision-stats">
+          <div class="vision-stat-row"><span class="v">99.2%</span><span class="lbl">關鍵基礎設施可用率目標</span></div>
+          <div class="vision-stat-row"><span class="v">≤ 15 分鐘</span><span class="lbl">全市 15 分鐘到達避難點</span></div>
+          <div class="vision-stat-row"><span class="v">+ 30%</span><span class="lbl">極端降雨容受度提升</span></div>
+          <div class="vision-stat-row"><span class="v">100%</span><span class="lbl">29 區皆有韌性計畫</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P4 風險地圖 -->
+  <div class="slide" id="s4">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <span class="tag">RISK</span>
+      <h2>七類災害 × 四級風險：新北風險矩陣</h2>
+      <p class="lead">依歷史事件、人口密度與基礎設施脆弱度，將 29 行政區的風險依災害類型分級。</p>
+      <div class="risk-grid">
+        <div class="hex-risk r4"><div class="name">極端降雨</div><div class="lv">LV4 高</div><div class="sub">汐止／新店／三峽</div></div>
+        <div class="hex-risk r3"><div class="name">土石流</div><div class="lv">LV3 中高</div><div class="sub">烏來／坪林／平溪</div></div>
+        <div class="hex-risk r3"><div class="name">地震</div><div class="lv">LV3 中高</div><div class="sub">全市 29 區</div></div>
+        <div class="hex-risk r2"><div class="name">坡地崩塌</div><div class="lv">LV2 中</div><div class="sub">山區 9 區</div></div>
+        <div class="hex-risk r2"><div class="name">海岸災害</div><div class="lv">LV2 中</div><div class="sub">貢寮／金山／淡水</div></div>
+        <div class="hex-risk r1"><div class="name">旱災缺水</div><div class="lv">LV1 中低</div><div class="sub">板橋／三重</div></div>
+        <div class="hex-risk r4"><div class="name">都市熱島</div><div class="lv">LV4 高</div><div class="sub">板橋／新莊</div></div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#00bfa5"></span>LV1 中低</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#4dd0e1"></span>LV2 中</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#ff8a65"></span>LV3 中高</div>
+        <div class="legend-item"><span class="legend-dot" style="background:#ff3d00"></span>LV4 高</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P5 時間軸 -->
+  <div class="slide" id="s5">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <span class="tag">TIMELINE</span>
+      <h2>2026–2030 五年政策路線圖</h2>
+      <p class="lead">從災害觀測網到全社會韌性教育，分四階段推進，每階段皆有可量化交付物。</p>
+      <div class="timeline">
+        <div class="tl-item"><span class="yr">2026</span><span class="ev">建立全市 1,200 站監測網</span><div class="desc">IoT 淹水感測 + 地震 P 波預警整合於防災中心</div></div>
+        <div class="tl-item"><span class="yr">2027</span><span class="ev">29 區韌性計畫全數公告</span><div class="desc">區長級防災預算 + 區域撤離路線地圖</div></div>
+        <div class="tl-item"><span class="yr">2028</span><span class="ev">420 處避難點智慧化升級</span><div class="desc">備援電力、淨水設備、即時人數儀表板</div></div>
+        <div class="tl-item"><span class="yr">2029</span><span class="ev">啟動六大韌性支柱驗證</span><div class="desc">包含硬體、社會、經濟、數位、生態、制度</div></div>
+        <div class="tl-item"><span class="yr">2030</span><span class="ev">達成韌性城市承諾</span><div class="desc">全市關鍵基礎設施可用率 ≥ 99.2%</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P6 KPI -->
+  <div class="slide" id="s6">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <span class="tag">KPI</span>
+      <h2>四大關鍵指標：2030 量測基準</h2>
+      <p class="lead">所有指標皆以「災害發生後 72 小時」為量測起點，確保回應不是紙上談兵。</p>
+      <div class="kpi-row">
+        <div class="kpi-card c1">
+          <div class="big">15 <span style="font-size:1.2rem">分</span></div>
+          <div class="lbl">到達避難點<br>全市平均時間</div>
+          <div class="delta">目標：≤ 15 分鐘</div>
+        </div>
+        <div class="kpi-card c2">
+          <div class="big">99.2<span style="font-size:1.2rem">%</span></div>
+          <div class="lbl">關鍵基礎設施<br>災後可用率</div>
+          <div class="delta">基線 94.5% → 99.2%</div>
+        </div>
+        <div class="kpi-card c3">
+          <div class="big">+30<span style="font-size:1.2rem">%</span></div>
+          <div class="lbl">極端降雨<br>容受度提升</div>
+          <div class="delta">由 78mm/h 提升至 100mm/h</div>
+        </div>
+        <div class="kpi-card c4">
+          <div class="big">100<span style="font-size:1.2rem">%</span></div>
+          <div class="lbl">29 區韌性計畫<br>覆蓋率</div>
+          <div class="delta">含里長級演練</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P7 六大韌性支柱 -->
+  <div class="slide" id="s7">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <span class="tag">PILLARS</span>
+      <h2>六大韌性支柱：從硬體到社會的完整體系</h2>
+      <p class="lead">城市韌性不是單一基礎建設，而是 6 個面向同時強化的系統工程。</p>
+      <div class="pillar-stack">
+        <div class="pillar"><div class="pillar-dot">1</div><div class="pillar-body"><h3>硬體韌性</h3><p>橋樑耐震補強、抽水站備援電力、地下管線雙迴路化</p></div></div>
+        <div class="pillar"><div class="pillar-dot">2</div><div class="pillar-body"><h3>社會韌性</h3><p>里長級疏散演練、鄰里關懷網絡、避難點志工制度</p></div></div>
+        <div class="pillar"><div class="pillar-dot">3</div><div class="pillar-body"><h3>經濟韌性</h3><p>中小企業災後復原貸款、產業供應鏈備援節點</p></div></div>
+        <div class="pillar"><div class="pillar-dot">4</div><div class="pillar-body"><h3>數位韌性</h3><p>市政系統異地備援、通訊中斷時的 Mesh 網路</p></div></div>
+        <div class="pillar"><div class="pillar-dot">5</div><div class="pillar-body"><h3>生態韌性</h3><p>都市綠廊滯洪、濕地復育、河川生態多樣化</p></div></div>
+        <div class="pillar"><div class="pillar-dot">6</div><div class="pillar-body"><h3>制度韌性</h3><p>跨局處指揮鏈、區域合作協議、定期兵推機制</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P8 案例對比 -->
+  <div class="slide" id="s8">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <span class="tag">CASES</span>
+      <h2>城市案例對比：紐約 vs 鹿特丹</h2>
+      <p class="lead">兩個濱海城市在 Sandy 與 Katrina 後選擇了不同的韌性路徑，新北從中取得三項借鏡。</p>
+      <div class="case-row">
+        <div class="case-card a">
+          <div class="hd">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="#00bfa5" stroke-width="2.5"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21V12h6v9"/></svg>
+            紐約：硬體防護典範
+          </div>
+          <div class="body">Sandy 颶風後投入 1,500 億美元建設防洪牆、抽水站與地鐵防水閘門，以工程手段降低單次災害損失。</div>
+          <div class="stat"><div><div class="v">+ 60%</div><div style="font-size:1rem;color:#9ccc9c">抗洪能力</div></div><div><div class="v">$150B</div><div style="font-size:1rem;color:#9ccc9c">十年投資</div></div></div>
+        </div>
+        <div class="case-card b">
+          <div class="hd">
+            <svg class="case-icon" viewBox="0 0 24 24" fill="none" stroke="#ff8a65" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M3 12c0-3 4-6 9-6s9 3 9 6-4 6-9 6-9-3-9-6z"/><path d="M12 3v18"/></svg>
+            鹿特丹：水廣場共生
+          </div>
+          <div class="body">以「水廣場」概念把暴雨暫存在公共空間，平日為市民活動場地，災時自動蓄洪，是生態與工程結合的典範。</div>
+          <div class="stat"><div><div class="v">0</div><div style="font-size:1rem;color:#9ccc9c">十年洪災傷亡</div></div><div><div class="v">12 處</div><div style="font-size:1rem;color:#9ccc9c">水廣場節點</div></div></div>
+        </div>
+      </div>
+      <div class="card-soft" style="margin-top: 18px; padding: 14px 18px;">
+        <span style="color:#00bfa5;font-weight:700;">新北取徑</span>：硬體防洪（紐約）+ 水綠基盤（鹿特丹）+ 全社會韌性 = 2030 承諾
+      </div>
+    </div>
+  </div>
+
+  <!-- P9 行動清單 -->
+  <div class="slide" id="s9">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <span class="tag-warm">ACTION</span>
+      <h2>六項可立即啟動的行動</h2>
+      <p class="lead">每一項皆可在 90 天內啟動、12 個月內交付，是 2030 承諾的第一塊拼圖。</p>
+      <div class="action-grid">
+        <div class="action-card"><div class="step">STEP 01</div><h3>IoT 淹水監測</h3><p>於易淹水 47 處布建感測器，資料接入市府防災中心</p></div>
+        <div class="action-card"><div class="step">STEP 02</div><h3>里長防災包</h3><p>全市 1,032 里各配發 1 組行動發電 + 通訊設備</p></div>
+        <div class="action-card"><div class="step">STEP 03</div><h3>避難點 QR Code</h3><p>420 處避難點設施 QR，掃碼即顯示容納量與設備</p></div>
+        <div class="action-card"><div class="step">STEP 04</div><h3>跨局處兵推</h3><p>每季一次 4 小時情境演練，含 12 局處聯合指揮</p></div>
+        <div class="action-card"><div class="step">STEP 05</div><h3>市民教育</h3><p>防災知識納入 12 年國教 + 企業教育訓練補助</p></div>
+        <div class="action-card"><div class="step">STEP 06</div><h3>資料透明平台</h3><p>即時災害儀表板公開上線，供市民查詢與監督</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P10 結尾 -->
+  <div class="slide cover" id="s10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content" style="align-items: center; justify-content: center;">
+      <span class="tag-warm" style="margin-bottom: 24px;">FINAL</span>
+      <h2 class="end-title">讓新北在極端氣候中，<br>依然是一座可以回家的城市</h2>
+      <p class="end-sub">2026 是起點，2030 是承諾——韌性不是選項，是下一代城市的入場券</p>
+      <div class="end-meta">
+        <div class="end-meta-item"><div class="end-meta-v">6 大支柱</div><div class="end-meta-lbl">同步推進</div></div>
+        <div class="end-meta-item"><div class="end-meta-v">29 區</div><div class="end-meta-lbl">全數覆蓋</div></div>
+        <div class="end-meta-item"><div class="end-meta-v">420+ 點</div><div class="end-meta-lbl">智慧避難網</div></div>
+        <div class="end-meta-item"><div class="end-meta-v">2030</div><div class="end-meta-lbl">承諾目標年</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button onclick="prev()" id="btn-prev">◀</button>
+    <span id="page-info">1 / 10</span>
+    <button onclick="next()" id="btn-next">▶</button>
+  </div>
+</div>
+
+<script>
+var slides = document.querySelectorAll('.slide');
+var current = 0;
+
+function show() {
+  if (slides[current]) {
+    slides[current].classList.remove('active');
+  }
+  current = (current + slides.length) % slides.length;
+  if (slides[current]) {
+    slides[current].classList.add('active');
+  }
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+  document.getElementById('btn-prev').disabled = false;
+  document.getElementById('btn-next').disabled = false;
+}
+function next() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current + 1) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+function prev() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current - 1 + slides.length) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') next();
+  else if (e.key === 'ArrowLeft') prev();
+});
+
+// 初始化：確保 slide-1 有 active class
+if (slides[0] && !slides[0].classList.contains('active')) {
+  slides[0].classList.add('active');
+}
+</script>
+</body>
+</html>
