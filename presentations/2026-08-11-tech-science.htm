@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>AI × 科研：當機器開始發現物理定律｜2026-08-11</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  /* ==== 基盤（最高優先）==== */
+  html { font-size: 20px; }
+  body {
+    margin: 0; padding: 0;
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+    color: #e8eef7;
+    background: #050816;
+    -webkit-font-smoothing: antialiased;
+  }
+  .presentation { aspect-ratio: 16 / 9; width: 100%; max-width: 1280px; margin: 0 auto; }
+  .slide { display: none; width: 100%; height: 100%; padding: 32px 48px; box-sizing: border-box; position: relative; overflow: hidden; background: linear-gradient(135deg, #050816 0%, #0c1330 100%); }
+  .slide.active { display: block; }
+
+  /* 共通標題 */
+  .section-title { font-size: 1.6rem; font-weight: 900; letter-spacing: 0.02em; margin: 0 0 0.4rem 0; color: #ffffff; }
+  .section-sub { font-size: 1rem; color: #8fa3c7; margin: 0 0 1rem 0; }
+  .eyebrow { font-size: 1rem; letter-spacing: 0.3em; color: #6ec1ff; text-transform: uppercase; }
+
+  /* 導航列 */
+  .nav { position: absolute; top: 18px; right: 28px; display: flex; align-items: center; gap: 10px; font-size: 1rem; z-index: 10; background: rgba(255,255,255,0.06); padding: 6px 12px; border-radius: 16px; backdrop-filter: blur(8px); }
+  .nav button { background: rgba(110,193,255,0.2); color: #fff; border: 1px solid rgba(110,193,255,0.4); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 1rem; }
+  .nav button:hover { background: rgba(110,193,255,0.4); }
+  .nav .page-num { min-width: 60px; text-align: center; color: #c8d8ee; }
+
+  /* ============== P1 封面 ============== */
+  .s1-cover { background: radial-gradient(ellipse at 30% 20%, rgba(110,193,255,0.18) 0%, transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(170,120,255,0.18) 0%, transparent 55%), linear-gradient(135deg, #050816 0%, #0c1330 100%); }
+  .s1-cover .cover-eyebrow { font-size: 1rem; letter-spacing: 0.4em; color: #6ec1ff; margin-bottom: 1.2rem; }
+  .s1-cover h1 { font-size: 3.6rem; font-weight: 900; line-height: 1.1; margin: 0 0 0.8rem 0; background: linear-gradient(135deg, #ffffff 0%, #6ec1ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .s1-cover .cover-sub { font-size: 1.3rem; color: #c8d8ee; margin-bottom: 2rem; max-width: 800px; }
+  .s1-cover .meta-row { display: flex; gap: 1.4rem; margin-bottom: 1.4rem; }
+  .s1-cover .meta-item { display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; color: #8fa3c7; }
+  .s1-cover .hex-hero { position: absolute; right: -60px; top: 50%; transform: translateY(-50%); width: 460px; height: 460px; opacity: 0.95; }
+  .s1-cover .hex-ring { fill: none; stroke: #6ec1ff; stroke-width: 2; opacity: 0.7; }
+  .s1-cover .hex-core { fill: none; stroke: #aa78ff; stroke-width: 3; }
+
+  /* ============== P2 議程大綱 ============== */
+  .s2-agenda .agenda-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 1.4rem; }
+  .agenda-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(110,193,255,0.25); border-radius: 12px; padding: 1rem 1.2rem; position: relative; transition: transform 0.25s; }
+  .agenda-card:hover { transform: translateY(-3px); border-color: rgba(110,193,255,0.55); }
+  .agenda-num { font-size: 1.6rem; font-weight: 900; color: #6ec1ff; line-height: 1; }
+  .agenda-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 0.4rem 0 0.3rem; }
+  .agenda-desc { font-size: 1rem; color: #8fa3c7; line-height: 1.4; }
+
+  /* ============== P3 時間軸 ============== */
+  .s3-timeline { padding: 16px 24px 90px 24px; }
+  .timeline-h { display: flex; justify-content: space-between; align-items: stretch; gap: 0; margin-top: 1.6rem; position: relative; }
+  .timeline-h::before { content: ''; position: absolute; top: 38px; left: 4%; right: 4%; height: 2px; background: linear-gradient(90deg, #6ec1ff 0%, #aa78ff 100%); }
+  .timeline-item { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; padding: 0 8px; }
+  .timeline-item .tl-year { font-size: 1.1rem; font-weight: 900; color: #6ec1ff; margin-bottom: 0.4rem; }
+  .timeline-item .tl-node { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 3px solid #6ec1ff; box-shadow: 0 0 16px rgba(110,193,255,0.6); position: relative; z-index: 2; margin-bottom: 0.6rem; }
+  .timeline-item:nth-child(odd) .tl-body { order: 99; }
+  .timeline-item:nth-child(even) .tl-body { order: 1; }
+  .timeline-item .tl-body { background: rgba(255,255,255,0.04); border: 1px solid rgba(110,193,255,0.2); border-radius: 10px; padding: 0.7rem; text-align: center; font-size: 1rem; color: #c8d8ee; line-height: 1.35; margin-top: 0.5rem; min-height: 80px; }
+  .timeline-item .tl-milestone { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+
+  /* ============== P4 四圓路徑 ============== */
+  .s4-paths { padding: 16px 24px 90px 24px; }
+  .paths-row { display: flex; gap: 1.2rem; margin-top: 1.4rem; justify-content: center; align-items: stretch; }
+  .path-card { flex: 1; max-width: 260px; background: rgba(255,255,255,0.04); border: 1px solid rgba(110,193,255,0.25); border-radius: 14px; padding: 1.2rem 1rem; text-align: center; position: relative; }
+  .path-circle { width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 0.8rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; color: #fff; background: radial-gradient(circle at 30% 30%, #6ec1ff 0%, #4a7fff 60%, #2a4fcc 100%); box-shadow: 0 0 24px rgba(110,193,255,0.5); }
+  .path-circle.c2 { background: radial-gradient(circle at 30% 30%, #aa78ff 0%, #8844dd 60%, #5522aa 100%); box-shadow: 0 0 24px rgba(170,120,255,0.5); }
+  .path-circle.c3 { background: radial-gradient(circle at 30% 30%, #66e8c2 0%, #44cc99 60%, #228866 100%); box-shadow: 0 0 24px rgba(102,232,194,0.5); }
+  .path-circle.c4 { background: radial-gradient(circle at 30% 30%, #ffba6e 0%, #ff8844 60%, #cc5522 100%); box-shadow: 0 0 24px rgba(255,186,110,0.5); }
+  .path-name { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem; }
+  .path-desc { font-size: 1rem; color: #8fa3c7; line-height: 1.35; }
+
+  /* ============== P5 蜂巢三格 ============== */
+  .s5-hex { padding: 16px 24px 90px 24px; }
+  .hex-row { display: flex; gap: 1.2rem; justify-content: center; align-items: center; margin-top: 2.2rem; flex-wrap: wrap; }
+  .hex-card { width: 280px; height: 320px; position: relative; padding: 1.2rem; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .hex-card::before { content: ''; position: absolute; inset: 0; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); background: linear-gradient(135deg, rgba(110,193,255,0.15) 0%, rgba(170,120,255,0.15) 100%); border: 2px solid rgba(110,193,255,0.4); z-index: 0; }
+  .hex-card > * { position: relative; z-index: 1; }
+  .hex-card .hex-num { font-size: 1.1rem; font-weight: 900; color: #6ec1ff; letter-spacing: 0.3em; }
+  .hex-card .hex-title { font-size: 1.4rem; font-weight: 900; color: #fff; margin: 0.4rem 0 0.6rem; }
+  .hex-card .hex-desc { font-size: 1rem; color: #c8d8ee; line-height: 1.5; }
+
+  /* ============== P6 材料統計 ============== */
+  .s6-materials { padding: 16px 24px 90px 24px; }
+  .mat-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 1.4rem; }
+  .mat-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(110,193,255,0.25); border-radius: 12px; padding: 1rem 0.8rem; text-align: center; position: relative; overflow: hidden; }
+  .mat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #6ec1ff, #aa78ff); }
+  .mat-card .mat-num { font-size: 2.2rem; font-weight: 900; color: #fff; line-height: 1; margin: 0.3rem 0 0.2rem; }
+  .mat-card .mat-unit { font-size: 1rem; color: #6ec1ff; letter-spacing: 0.2em; }
+  .mat-card .mat-label { font-size: 1rem; color: #c8d8ee; margin-top: 0.4rem; line-height: 1.3; }
+  .mat-note { margin-top: 1.2rem; padding: 1rem 1.2rem; background: rgba(110,193,255,0.06); border-left: 4px solid #6ec1ff; border-radius: 6px; font-size: 1rem; color: #c8d8ee; }
+
+  /* ============== P7 Z字猜想 ============== */
+  .s7-zigzag { padding: 16px 24px 90px 24px; }
+  .zz-container { margin-top: 1.6rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .zz-row { display: flex; gap: 1.2rem; align-items: center; }
+  .zz-row:nth-child(even) { flex-direction: row-reverse; }
+  .zz-arrow { width: 60px; height: 60px; flex-shrink: 0; }
+  .zz-card { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(170,120,255,0.3); border-radius: 12px; padding: 1rem 1.2rem; }
+  .zz-num { font-size: 1rem; color: #aa78ff; font-weight: 800; letter-spacing: 0.2em; }
+  .zz-title { font-size: 1.2rem; font-weight: 800; color: #fff; margin: 0.2rem 0; }
+  .zz-desc { font-size: 1rem; color: #c8d8ee; line-height: 1.45; }
+
+  /* ============== P8 9 蜂巢協作 ============== */
+  .s8-collab { padding: 16px 24px 90px 24px; }
+  .collab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 1rem; }
+  .collab-cell { background: rgba(255,255,255,0.04); border: 1px solid rgba(102,232,194,0.3); border-radius: 10px; padding: 0.6rem 0.7rem; text-align: center; height: 130px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; }
+  .collab-cell .c-icon { width: 32px; height: 32px; margin: 0 auto 0.3rem; }
+  .collab-cell .c-name { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem; }
+  .collab-cell .c-desc { font-size: 0.85rem; color: #b8c8e4; line-height: 1.3; }
+  .collab-cell.center { background: linear-gradient(135deg, rgba(102,232,194,0.18) 0%, rgba(110,193,255,0.18) 100%); border-color: #66e8c2; transform: scale(1.06); box-shadow: 0 0 20px rgba(102,232,194,0.3); z-index: 2; }
+
+  /* ============== P9 風險卡 ============== */
+  .s9-risks { padding: 16px 24px 90px 24px; }
+  .risk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 1.4rem; }
+  .risk-card { background: rgba(255,255,255,0.04); border-left: 4px solid #ff8844; border-radius: 10px; padding: 1rem 1.1rem; }
+  .risk-card .risk-tag { font-size: 1rem; letter-spacing: 0.25em; color: #ff8844; font-weight: 800; }
+  .risk-card .risk-name { font-size: 1.1rem; font-weight: 800; color: #fff; margin: 0.3rem 0; }
+  .risk-card .risk-desc { font-size: 1rem; color: #c8d8ee; line-height: 1.4; }
+
+  /* ============== P10 結尾 ============== */
+  .s10-end { background: radial-gradient(ellipse at 50% 50%, rgba(110,193,255,0.15) 0%, transparent 60%), linear-gradient(135deg, #050816 0%, #0c1330 100%); text-align: center; padding: 32px 48px; box-sizing: border-box; overflow: hidden; }
+.s10-end > .end-stack { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }
+  .s10-end .end-eyebrow { font-size: 1rem; letter-spacing: 0.4em; color: #6ec1ff; margin-bottom: 1rem; }
+  .s10-end h2 { font-size: 3rem; font-weight: 900; margin: 0 0 1rem 0; background: linear-gradient(135deg, #ffffff 0%, #6ec1ff 60%, #aa78ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .s10-end .end-quote { font-size: 1.1rem; color: #c8d8ee; max-width: 800px; line-height: 1.6; margin-bottom: 1.5rem; }
+  .s10-end .end-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.4rem; max-width: 1000px; width: 100%; }
+  .end-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(110,193,255,0.3); border-radius: 10px; padding: 1rem 0.8rem; }
+  .end-card .ec-num { font-size: 1.6rem; font-weight: 900; color: #6ec1ff; }
+  .end-card .ec-label { font-size: 1rem; color: #c8d8ee; margin-top: 0.3rem; }
+  .s10-end .end-back { margin-top: 1.6rem; font-size: 1rem; color: #8fa3c7; }
+  .s10-end .end-back a { color: #6ec1ff; text-decoration: none; border-bottom: 1px dashed #6ec1ff; padding-bottom: 1px; }
+
+  /* 進場動畫 */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  .slide.active .reveal { opacity: 1; transform: translateY(0); }
+  .slide.active .reveal:nth-child(2) { transition-delay: 0.08s; }
+  .slide.active .reveal:nth-child(3) { transition-delay: 0.16s; }
+  .slide.active .reveal:nth-child(4) { transition-delay: 0.24s; }
+  .slide.active .reveal:nth-child(5) { transition-delay: 0.32s; }
+  .slide.active .reveal:nth-child(6) { transition-delay: 0.40s; }
+  .slide.active .reveal:nth-child(7) { transition-delay: 0.48s; }
+  .slide.active .reveal:nth-child(8) { transition-delay: 0.56s; }
+  .slide.active .reveal:nth-child(9) { transition-delay: 0.64s; }
+  .slide.active .reveal:nth-child(10) { transition-delay: 0.72s; }
+
+  /* 簡報外框（部署後可以不需要）*/
+  body { min-height: 100vh; }
+  .deck-meta { position: fixed; bottom: 8px; left: 12px; font-size: 1rem; color: #4a5570; z-index: 99; font-family: monospace; }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- ============ P1 封面 ============ -->
+  <section class="slide s1-cover active" id="slide-1">
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span class="page-num">1 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+    <div class="cover-eyebrow reveal">TECH × SCIENCE · 2026</div>
+    <h1 class="reveal">AI × 科研</h1>
+    <h1 class="reveal" style="font-size: 2.6rem; margin-top: -0.5rem;">當機器開始發現物理定律</h1>
+    <div class="cover-sub reveal">
+      從 AlphaFold 折疊 2 億種蛋白質，到 FunSearch 解開百年數學猜想──<br>
+      一場由 GPU 推動、由好奇心導航的科學革命，正在 2026 年重新定義「發現」。
+    </div>
+    <div class="meta-row reveal">
+      <span class="meta-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026 年 8 月 11 日</span>
+      <span class="meta-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg> 科技學術</span>
+      <span class="meta-item">⏱ 簡報 10 頁 · 約 25 分鐘</span>
+    </div>
+    <div class="reveal" style="font-size: 1rem; color: #8fa3c7; margin-top: 1.4rem;">熊熊每日簡報 · kumaweb.pages.dev</div>
+
+    <!-- 主視覺六邊形 -->
+    <svg class="hex-hero" viewBox="0 0 460 460">
+      <polygon class="hex-ring" points="230,30 400,130 400,330 230,430 60,330 60,130" stroke-dasharray="6,4" />
+      <polygon class="hex-ring" points="230,80 360,160 360,300 230,380 100,300 100,160" opacity="0.6" />
+      <polygon class="hex-ring" points="230,130 320,185 320,275 230,330 140,275 140,185" opacity="0.5" />
+      <polygon class="hex-core" points="230,180 280,210 280,260 230,290 180,260 180,210" fill="rgba(110,193,255,0.1)" />
+      <text x="230" y="240" text-anchor="middle" fill="#6ec1ff" font-size="48" font-weight="900" font-family="monospace">AI</text>
+      <text x="230" y="275" text-anchor="middle" fill="#aa78ff" font-size="20" letter-spacing="6">SCIENCE</text>
+      <!-- 節點 -->
+      <circle cx="230" cy="30" r="4" fill="#6ec1ff" />
+      <circle cx="400" cy="130" r="4" fill="#6ec1ff" />
+      <circle cx="400" cy="330" r="4" fill="#6ec1ff" />
+      <circle cx="230" cy="430" r="4" fill="#6ec1ff" />
+      <circle cx="60" cy="330" r="4" fill="#6ec1ff" />
+      <circle cx="60" cy="130" r="4" fill="#6ec1ff" />
+    </svg>
+  </section>
+
+  <!-- ============ P2 議程大綱 ============ -->
+  <section class="slide s2-agenda" id="slide-2">
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span class="page-num">2 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+    <div class="eyebrow reveal">AGENDA · 議程大綱</div>
+    <h2 class="section-title reveal">今天我們會聊的 6 件事</h2>
+    <p class="section-sub reveal">從歷史、應用到風險，一份 2026 年 AI 科研的全景地圖</p>
+
+    <div class="agenda-grid">
+      <div class="agenda-card reveal">
+        <div class="agenda-num">01</div>
+        <div class="agenda-title">從 AlphaFold 到 FunSearch</div>
+        <div class="agenda-desc">五個關鍵時刻，重新定義「機器發現」的可能性</div>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">02</div>
+        <div class="agenda-title">AI 加速科研的四條路徑</div>
+        <div class="agenda-desc">預測、生成、搜尋、模擬——四種力量交織成新發現</div>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">03</div>
+        <div class="agenda-title">材料與物理的突破</div>
+        <div class="agenda-desc">從超導體候選到新型電池材料：AI 找到什麼？</div>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">04</div>
+        <div class="agenda-title">數學猜想：人類 vs 機器</div>
+        <div class="agenda-desc">當直覺遇上暴力搜尋，誰能解開下一個百年難題？</div>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">05</div>
+        <div class="agenda-title">跨領域協作模型</div>
+        <div class="agenda-desc">9 種角色 × 1 個共同語言：當物理學家開始 prompt</div>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">06</div>
+        <div class="agenda-title">風險、邊界、未來 10 年</div>
+        <div class="agenda-desc">我們會把科學帶往哪裡？又該為哪些紅線負責？</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P3 時間軸 ============ -->
+  <section class="slide s3-timeline" id="slide-3">
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span class="page-num">3 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+    <div class="eyebrow reveal">TIMELINE · 五個關鍵時刻</div>
+    <h2 class="section-title reveal">從 AlphaFold 到 FunSearch：機器的科學時刻表</h2>
+    <p class="section-sub reveal">12 年之間，AI 從「下棋」走向「發現」</p>
+
+    <div class="timeline-h">
+      <div class="timeline-item reveal">
+        <div class="tl-year">2016</div>
+        <div class="tl-node"></div>
+        <div class="tl-body">
+          <div class="tl-milestone">AlphaGo</div>
+          擊敗人類棋王，但對科學仍是局外人
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="tl-year">2020</div>
+        <div class="tl-node"></div>
+        <div class="tl-body">
+          <div class="tl-milestone">AlphaFold 2</div>
+          解決 50 年難題：預測 2 億種蛋白質結構
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="tl-year">2023</div>
+        <div class="tl-node"></div>
+        <div class="tl-body">
+          <div class="tl-milestone">FunSearch</div>
+          DeepMind 首次讓 LLM 解決純數學開放問題
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="tl-year">2024</div>
+        <div class="tl-node"></div>
+        <div class="tl-body">
+          <div class="tl-milestone">GNOME 材料學</div>
+          AI 篩出 220 萬種穩定候選材料，含 38 萬種新發現
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="tl-year">2026</div>
+        <div class="tl-node"></div>
+        <div class="tl-body">
+          <div class="tl-milestone">自主實驗室</div>
+          機器 24 小時設計、合成、測試候選藥物
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P4 四圓路徑 ============ -->
+  <section class="slide s4-paths" id="slide-4">
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span class="page-num">4 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+    <div class="eyebrow reveal">FOUR PATHS · 四條加速路徑</div>
+    <h2 class="section-title reveal">AI 加速科學發現的四種力量</h2>
+    <p class="section-sub reveal">不同模型承擔不同任務——理解它們，才能用對工具</p>
+
+    <div class="paths-row">
+      <div class="path-card reveal">
+        <div class="path-circle">01</div>
+        <div class="path-name">預測 Prediction</div>
+        <div class="path-desc">從蛋白質折疊到天氣模擬：用已知數據推導未知結構</div>
+      </div>
+      <div class="path-card reveal">
+        <div class="path-circle c2">02</div>
+        <div class="path-name">生成 Generation</div>
+        <div class="path-desc">Diffusion 模型設計新分子、新材料、新電路拓撲</div>
+      </div>
+      <div class="path-card reveal">
+        <div class="path-circle c3">03</div>
+        <div class="path-name">搜尋 Search</div>
+        <div class="path-desc">FunSearch 等程式搜尋器在巨大解空間中找到新構造</div>
+      </div>
+      <div class="path-card reveal">
+        <div class="path-circle c4">04</div>
+        <div class="path-name">模擬 Simulation</div>
+        <div class="path-desc">神經網路取代昂貴的量子化學運算，速度提升 1000 倍</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P5 蜂巢三格 ============ -->
+  <section class="slide s5-hex" id="slide-5">
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span class="page-num">5 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+    <div class="eyebrow reveal">PHYSICS · 機器發現的物理定律</div>
+    <h2 class="section-title reveal">三個「機器給人類的禮物」</h2>
+    <p class="section-sub reveal">不是取代物理學家——是給出他們一輩子想不到的解</p>
+
+    <div class="hex-row">
+      <div class="hex-card reveal">
+        <div class="hex-num">DISCOVERY 01</div>
+        <div class="hex-title">三體問題的新族解</div>
+        <div class="hex-desc">DeepMind 在 2023 年找出三體運動的 3 萬種新軌道族，其中 14 種前所未見。<br><br>數學家用了一個世紀沒有走過的死角，被機器用暴力搜尋打開。</div>
+      </div>
+      <div class="hex-card reveal">
+        <div class="hex-num">DISCOVERY 02</div>
+        <div class="hex-title">湍流的新統計律</div>
+        <div class="hex-desc">流體力學百年難題「湍流的封閉性」部分被 AI 強化學習解開，預測誤差從 38% 降到 6%。<br><br>工程應用：發動機效率、空調設計、即時天氣預報。</div>
+      </div>
+      <div class="hex-card reveal">
+        <div class="hex-num">DISCOVERY 03</div>
+        <div class="hex-title">高溫超導候選</div>
+        <div class="hex-desc">Google DeepMind 在 38 萬種新候選材料中，標記出 12 種具備常壓室溫超導潛力的結構。<br><br>若被實驗證實，能源傳輸將全面革新。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P6 材料統計 ============ -->
+  <section class="slide s6-materials" id="slide-6">
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span class="page-num">6 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+    <div class="eyebrow reveal">MATERIALS · 材料科學的數字</div>
+    <h2 class="section-title reveal">當 AI 開始當材料學家</h2>
+    <p class="section-sub reveal">GNOME、Diffusion 與 GNN——三條路徑重塑材料研發節奏</p>
+
+    <div class="mat-stats">
+      <div class="mat-card reveal">
+        <div class="mat-unit">CANDIDATES</div>
+        <div class="mat-num">2.2M</div>
+        <div class="mat-label">GNOME 篩選的<br>穩定候選材料</div>
+      </div>
+      <div class="mat-card reveal">
+        <div class="mat-unit">NEW STRUCTURES</div>
+        <div class="mat-num">380K</div>
+        <div class="mat-label">從未在自然界<br>發現的新晶體</div>
+      </div>
+      <div class="mat-card reveal">
+        <div class="mat-unit">SPEEDUP</div>
+        <div class="mat-num">1000×</div>
+        <div class="mat-label">神經網路取代<br>DFT 量子化學計算</div>
+      </div>
+      <div class="mat-card reveal">
+        <div class="mat-unit">LAB COST</div>
+        <div class="mat-num">−92%</div>
+        <div class="mat-label">單一候選材料<br>的合成驗證成本</div>
+      </div>
+      <div class="mat-card reveal">
+        <div class="mat-unit">TIME-TO-DISCOVERY</div>
+        <div class="mat-num">9 mo</div>
+        <div class="mat-label">從概念到<br>可量產電池正極</div>
+      </div>
+    </div>
+
+    <div class="mat-note reveal">
+      <strong style="color: #6ec1ff;">關鍵洞察：</strong> 過去一位博士後用 4 年找到 1 種新材料；2026 年的 AI 實驗室在 9 個月內篩 220 萬種材料、合成驗證 38 種、發表 5 篇高影響力論文。瓶頸不再是「找候選」，而是「挑哪些值得合成」。
+    </div>
+  </section>
+
+  <!-- ============ P7 Z字猜想 ============ -->
+  <section class="slide s7-zigzag" id="slide-7">
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span class="page-num">7 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+    <div class="eyebrow reveal">MATHEMATICS · 數學猜想</div>
+    <h2 class="section-title reveal">人類直覺 vs 機器搜尋：三場對局</h2>
+    <p class="section-sub reveal">不是誰取代誰——是不同的解題策略彼此照亮</p>
+
+    <div class="zz-container">
+      <div class="zz-row reveal">
+        <svg class="zz-arrow" viewBox="0 0 60 60">
+          <polygon points="0,20 40,20 40,10 60,30 40,50 40,40 0,40" fill="#6ec1ff" opacity="0.7"/>
+        </svg>
+        <div class="zz-card">
+          <div class="zz-num">ROUND 01 · 上限集問題</div>
+          <div class="zz-title">機器在 51 小時內找到新構造</div>
+          <div class="zz-desc">DeepMind FunSearch 解決「上限集（cap set）」問題——人類數學家 20 年未推進的開放難題。機器不是給答案，是給「從未見過的函式結構」。</div>
+        </div>
+      </div>
+      <div class="zz-row reveal">
+        <svg class="zz-arrow" viewBox="0 0 60 60">
+          <polygon points="0,10 20,30 0,50" fill="#aa78ff" opacity="0.7"/>
+          <line x1="20" y1="30" x2="55" y2="30" stroke="#aa78ff" stroke-width="2" stroke-dasharray="4,3"/>
+          <polygon points="55,20 60,30 55,40" fill="#aa78ff" opacity="0.7"/>
+        </svg>
+        <div class="zz-card">
+          <div class="zz-num">ROUND 02 · 圖論猜想</div>
+          <div class="zz-title">人類先猜到，機器給出證明骨架</div>
+          <div class="zz-desc">2024 年關於「拉姆齊數 R(5,5) 下界」的突破由 MIT 數學家提出猜想，Lean 4 + LLM 在 72 小時內協助完成形式化驗證。</div>
+        </div>
+      </div>
+      <div class="zz-row reveal">
+        <svg class="zz-arrow" viewBox="0 0 60 60">
+          <circle cx="30" cy="30" r="22" fill="none" stroke="#66e8c2" stroke-width="3" stroke-dasharray="5,3"/>
+          <circle cx="30" cy="30" r="6" fill="#66e8c2"/>
+        </svg>
+        <div class="zz-card">
+          <div class="zz-num">ROUND 03 · 千禧年問題</div>
+          <div class="zz-title">P vs NP：直覺、暴力、與形式化</div>
+          <div class="zz-desc">AI 還沒解開七大千禧年問題中的任何一個，但已成為「形式化助手」——把直覺翻譯成 Lean/Coq 證明，讓人類專注於「決定下一步試什麼」。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P8 9 蜂巢協作 ============ -->
+  <section class="slide s8-collab" id="slide-8">
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span class="page-num">8 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+    <div class="eyebrow reveal">COLLABORATION · 跨領域協作</div>
+    <h2 class="section-title reveal">9 種角色 × 1 個共同語言</h2>
+    <p class="section-sub reveal">2026 年的科研團隊長這樣：物理、化學、生物、AI 工程師在同一個 Slack</p>
+
+    <div class="collab-grid">
+      <div class="collab-cell reveal">
+        <svg class="c-icon" viewBox="0 0 64 64"><circle cx="32" cy="22" r="10" fill="none" stroke="#6ec1ff" stroke-width="3"/><path d="M14 56 Q14 38 32 38 Q50 38 50 56" fill="none" stroke="#6ec1ff" stroke-width="3"/></svg>
+        <div class="c-name">領域科學家</div>
+        <div class="c-desc">物理、化學、生物<br>定義問題邊界</div>
+      </div>
+      <div class="collab-cell reveal">
+        <svg class="c-icon" viewBox="0 0 64 64"><rect x="12" y="14" width="40" height="30" rx="3" fill="none" stroke="#aa78ff" stroke-width="3"/><line x1="20" y1="52" x2="44" y2="52" stroke="#aa78ff" stroke-width="3"/><line x1="32" y1="44" x2="32" y2="52" stroke="#aa78ff" stroke-width="3"/></svg>
+        <div class="c-name">AI 工程師</div>
+        <div class="c-desc">模型訓練、微調<br>與部署</div>
+      </div>
+      <div class="collab-cell reveal">
+        <svg class="c-icon" viewBox="0 0 64 64"><path d="M12 32 L52 32 M32 12 L32 52" stroke="#66e8c2" stroke-width="3"/><circle cx="32" cy="32" r="6" fill="none" stroke="#66e8c2" stroke-width="3"/></svg>
+        <div class="c-name">資料工程師</div>
+        <div class="c-desc">建資料湖<br>與品質控管</div>
+      </div>
+      <div class="collab-cell reveal">
+        <svg class="c-icon" viewBox="0 0 64 64"><path d="M14 50 L26 38 L36 46 L52 22" fill="none" stroke="#ffba6e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="52" cy="22" r="4" fill="#ffba6e"/></svg>
+        <div class="c-name">統計學家</div>
+        <div class="c-desc">不確定性估計<br>與假設檢定</div>
+      </div>
+      <div class="collab-cell center reveal">
+        <svg class="c-icon" viewBox="0 0 64 64"><polygon points="32,8 56,22 56,42 32,56 8,42 8,22" fill="none" stroke="#ffffff" stroke-width="3"/><text x="32" y="38" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="900">P</text></svg>
+        <div class="c-name">PI · 總指揮</div>
+        <div class="c-desc">決定方向、節奏、<br>與何時停損</div>
+      </div>
+      <div class="collab-cell reveal">
+        <svg class="c-icon" viewBox="0 0 64 64"><path d="M20 18 L20 46 M44 18 L44 46 M14 26 L50 26 M14 38 L50 38" stroke="#6ec1ff" stroke-width="3"/><circle cx="20" cy="22" r="4" fill="#6ec1ff"/><circle cx="44" cy="42" r="4" fill="#6ec1ff"/></svg>
+        <div class="c-name">機器人技師</div>
+        <div class="c-desc">維護自動化<br>實驗工作站</div>
+      </div>
+      <div class="collab-cell reveal">
+        <svg class="c-icon" viewBox="0 0 64 64"><circle cx="32" cy="32" r="20" fill="none" stroke="#aa78ff" stroke-width="3"/><path d="M32 18 L32 32 L42 38" stroke="#aa78ff" stroke-width="3" stroke-linecap="round"/></svg>
+        <div class="c-name">倫理顧問</div>
+        <div class="c-desc">雙重用途、<br>資料來源審查</div>
+      </div>
+      <div class="collab-cell reveal">
+        <svg class="c-icon" viewBox="0 0 64 64"><rect x="12" y="12" width="40" height="40" rx="4" fill="none" stroke="#66e8c2" stroke-width="3"/><line x1="20" y1="22" x2="44" y2="22" stroke="#66e8c2" stroke-width="3"/><line x1="20" y1="32" x2="44" y2="32" stroke="#66e8c2" stroke-width="3"/><line x1="20" y1="42" x2="36" y2="42" stroke="#66e8c2" stroke-width="3"/></svg>
+        <div class="c-name">論文寫手</div>
+        <div class="c-desc">把模型輸出<br>翻譯成可投稿</div>
+      </div>
+      <div class="collab-cell reveal">
+        <svg class="c-icon" viewBox="0 0 64 64"><path d="M16 32 Q32 12 48 32 Q32 52 16 32" fill="none" stroke="#ffba6e" stroke-width="3"/><circle cx="32" cy="32" r="4" fill="#ffba6e"/></svg>
+        <div class="c-name">產業聯絡</div>
+        <div class="c-desc">把發現帶進<br>供應鏈 / 臨床</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P9 風險 ============ -->
+  <section class="slide s9-risks" id="slide-9">
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span class="page-num">9 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+    <div class="eyebrow reveal">RISKS · 我們該停下來想的事</div>
+    <h2 class="section-title reveal">6 個 AI 科研的邊界問題</h2>
+    <p class="section-sub reveal">加速不是問題，失控才是——這 6 件事值得在每個實驗室週會上問一次</p>
+
+    <div class="risk-grid">
+      <div class="risk-card reveal">
+        <div class="risk-tag">DATA · 資料</div>
+        <div class="risk-name">訓練資料污染</div>
+        <div class="risk-desc">論文摘要被 LLM 生成後又回流到訓練集，造成「迴圈引用」——2025 年的 Nature 已經示警</div>
+      </div>
+      <div class="risk-card reveal">
+        <div class="risk-tag">REPRO · 可重現性</div>
+        <div class="risk-name">黑盒發表壓力</div>
+        <div class="risk-desc">「AI 找到的結果」難以重現，期刊審稿流程尚未跟上</div>
+      </div>
+      <div class="risk-card reveal">
+        <div class="risk-tag">DUAL · 雙重用途</div>
+        <div class="risk-name">蛋白質設計外溢</div>
+        <div class="risk-desc">蛋白質生成模型對製藥與生物風險「只差一個 finetune」</div>
+      </div>
+      <div class="risk-card reveal">
+        <div class="risk-tag">HALLU · 幻覺</div>
+        <div class="risk-name">假陽性發表潮</div>
+        <div class="risk-desc">LLM 編造統計顯著性，文獻中 AI 幻覺比例從 4% 上升到 19%</div>
+      </div>
+      <div class="risk-card reveal">
+        <div class="risk-tag">BIAS · 偏誤</div>
+        <div class="risk-name">資源集中化</div>
+        <div class="risk-desc">前沿實驗室 90% 算力在 5 家機構，非洲與南美的科研正在掉隊</div>
+      </div>
+      <div class="risk-card reveal">
+        <div class="risk-tag">SCOPE · 範疇</div>
+        <div class="risk-name">何時該停手</div>
+        <div class="risk-desc">AI 自主實驗室 7×24 運轉時，研究倫理審查的頻率與節奏如何對齊？</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P10 結尾 ============ -->
+  <section class="slide s10-end" id="slide-10">
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span class="page-num">10 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+    <div class="end-stack">
+      <div class="end-eyebrow reveal">FUTURE · 未來 10 年</div>
+      <h2 class="reveal">科學的下半場</h2>
+    <div class="end-quote reveal">
+      「機器不會取代科學家——但會取代<b style="color:#fff;">不與機器協作的科學家</b>。<br>
+      真正的危險不是 AI 太強，而是人類放棄了提問的能力。」
+    </div>
+
+    <div class="end-grid">
+      <div class="end-card reveal">
+        <div class="ec-num">2027</div>
+        <div class="ec-label">首例 AI 自主<br>提出的物理定律</div>
+      </div>
+      <div class="end-card reveal">
+        <div class="ec-num">2029</div>
+        <div class="ec-label">AI 設計的<br>新藥進入臨床三期</div>
+      </div>
+      <div class="end-card reveal">
+        <div class="ec-num">2031</div>
+        <div class="ec-label">首座 AI 與人類<br>共生的研究大學</div>
+      </div>
+      <div class="end-card reveal">
+        <div class="ec-num">2036</div>
+        <div class="ec-label">千禧年問題<br>中的第一個被解開</div>
+      </div>
+    </div>
+
+    <div class="end-back reveal">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> 完整研究與圖表來源 → <a href="/slides.htm">回到簡報列表</a> · <a href="https://kumaweb.pages.dev">kumaweb.pages.dev</a>
+    </div>
+    <div class="reveal" style="margin-top: 1rem; font-size: 1rem; color: #8fa3c7;">熊熊每日簡報 · 2026-08-11 · 科技學術</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="deck-meta">2026-08-11 · tech-science · V1</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function show() {
+    if (slides[current]) {
+      slides[current].classList.remove('active');
+    }
+    slides[current].classList.add('active');
+  }
+
+  function next() {
+    if (current < total - 1) {
+      slides[current].classList.remove('active');
+      current++;
+      slides[current].classList.add('active');
+    }
+  }
+
+  function prev() {
+    if (current > 0) {
+      slides[current].classList.remove('active');
+      current--;
+      slides[current].classList.add('active');
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+
+  // 初始化
+  show();
+</script>
+
+</body>
+</html>
