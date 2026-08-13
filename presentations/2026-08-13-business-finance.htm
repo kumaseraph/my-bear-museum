@@ -228,7 +228,7 @@
       <polygon class="hex-ring" points="230,130 320,185 320,275 230,330 140,275 140,185" opacity="0.5" />
       <polygon class="hex-core" points="230,180 280,210 280,260 230,290 180,260 180,210" />
       <text x="230" y="235" text-anchor="middle" fill="#6ec1ff" font-size="40" font-weight="900" font-family="monospace">$</text>
-      <text x="230" y="268" text-anchor="middle" fill="#aa78ff" font-size="16" letter-spacing="6">CAPITAL</text>
+      <text x="230" y="268" text-anchor="middle" fill="#aa78ff" font-size="20" letter-spacing="6">CAPITAL</text>
       <!-- 六向節點 -->
       <circle cx="230" cy="30" r="4" fill="#6ec1ff" />
       <circle cx="400" cy="130" r="4" fill="#6ec1ff" />
@@ -625,11 +625,17 @@
   const slides = document.querySelectorAll('.slide');
   const total = slides.length;
 
+  function updatePageNum() {
+    document.querySelectorAll('.page-num').forEach(function(el) {
+      el.textContent = (current + 1) + ' / ' + total;
+    });
+  }
+
   function show() {
     if (slides[current]) {
-      slides[current].classList.remove('active');
+      slides[current].classList.add('active');
     }
-    slides[current].classList.add('active');
+    updatePageNum();
   }
 
   function next() {
@@ -637,6 +643,7 @@
       slides[current].classList.remove('active');
       current++;
       slides[current].classList.add('active');
+      updatePageNum();
     }
   }
 
@@ -645,6 +652,7 @@
       slides[current].classList.remove('active');
       current--;
       slides[current].classList.add('active');
+      updatePageNum();
     }
   }
 
