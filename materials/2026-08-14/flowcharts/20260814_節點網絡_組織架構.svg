@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet">
+  <!-- 節點網絡組織架構圖 - 工作報告用組織決策關係 -->
+  <!-- 技巧 #124 變化#9 節點網絡 + 變化#7 曲線組合 -->
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#F1F5F9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad2)"/>
+
+  <!-- 標題 -->
+  <text x="960" y="90" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="48" font-weight="bold" fill="#1E3A8A">部門協作組織圖</text>
+  <text x="960" y="135" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" fill="#64748B">跨部門協作節點網絡 · 報告匯報關係</text>
+
+  <!-- 中心節點（執行長） - 半透明平行四邊形 + 透視感 -->
+  <g transform="translate(810,500)">
+    <polygon points="60,0 360,0 320,90 20,90" fill="#F59E0B" stroke="#B45309" stroke-width="2" opacity="0.95"/>
+    <polygon points="60,0 360,0 320,90 20,90" fill="none" stroke="white" stroke-width="1" opacity="0.4"/>
+    <text x="190" y="42" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="28" font-weight="bold" fill="white">執行委員會</text>
+    <text x="190" y="68" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="18" fill="#FEF3C7">決策中心</text>
+  </g>
+
+  <!-- 上方節點：策略規劃部 -->
+  <g transform="translate(810,200)">
+    <polygon points="50,0 230,0 210,70 30,70" fill="#1E40AF" opacity="0.9"/>
+    <circle cx="140" cy="35" r="6" fill="#F59E0B"/>
+    <text x="140" y="42" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="bold" fill="white">策略規劃</text>
+  </g>
+
+  <!-- 左側節點：業務部 -->
+  <g transform="translate(380,330)">
+    <polygon points="50,0 230,0 210,70 30,70" fill="#2563EB" opacity="0.9"/>
+    <circle cx="140" cy="35" r="6" fill="#F59E0B"/>
+    <text x="140" y="42" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="bold" fill="white">業務部</text>
+  </g>
+
+  <!-- 左下節點：客服部 -->
+  <g transform="translate(180,750)">
+    <polygon points="50,0 230,0 210,70 30,70" fill="#3B82F6" opacity="0.9"/>
+    <circle cx="140" cy="35" r="6" fill="#F59E0B"/>
+    <text x="140" y="42" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="bold" fill="white">客服部</text>
+  </g>
+
+  <!-- 右側節點：技術部 -->
+  <g transform="translate(1290,330)">
+    <polygon points="50,0 230,0 210,70 30,70" fill="#2563EB" opacity="0.9"/>
+    <circle cx="140" cy="35" r="6" fill="#F59E0B"/>
+    <text x="140" y="42" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="bold" fill="white">技術部</text>
+  </g>
+
+  <!-- 右下節點：財務部 -->
+  <g transform="translate(1490,750)">
+    <polygon points="50,0 230,0 210,70 30,70" fill="#3B82F6" opacity="0.9"/>
+    <circle cx="140" cy="35" r="6" fill="#F59E0B"/>
+    <text x="140" y="42" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="bold" fill="white">財務部</text>
+  </g>
+
+  <!-- 中下方節點：人資部 -->
+  <g transform="translate(810,880)">
+    <polygon points="50,0 230,0 210,70 30,70" fill="#3B82F6" opacity="0.9"/>
+    <circle cx="140" cy="35" r="6" fill="#F59E0B"/>
+    <text x="140" y="42" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="bold" fill="white">人資部</text>
+  </g>
+
+  <!-- 連接線 - 從中心放射到各節點（雙線條強調關係） -->
+  <line x1="950" y1="270" x2="950" y2="500" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6,4"/>
+  <line x1="610" y1="400" x2="830" y2="510" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6,4"/>
+  <line x1="1520" y1="400" x2="1110" y2="510" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6,4"/>
+  <line x1="410" y1="800" x2="850" y2="590" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6,4"/>
+  <line x1="1720" y1="800" x2="1090" y2="590" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6,4"/>
+  <line x1="950" y1="880" x2="950" y2="590" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6,4"/>
+
+  <!-- 節點圓點（強調節點） -->
+  <circle cx="950" cy="270" r="8" fill="#F59E0B"/>
+  <circle cx="610" cy="400" r="8" fill="#F59E0B"/>
+  <circle cx="1520" cy="400" r="8" fill="#F59E0B"/>
+  <circle cx="410" cy="800" r="8" fill="#F59E0B"/>
+  <circle cx="1720" cy="800" r="8" fill="#F59E0B"/>
+  <circle cx="950" cy="880" r="8" fill="#F59E0B"/>
+
+  <!-- 底部說明 -->
+  <text x="960" y="1030" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="18" fill="#475569">🏛️ 正式專業 · 節點網絡組織圖 · 平行四邊形節點+連接線（技巧 #124 變化#9）</text>
+</svg>

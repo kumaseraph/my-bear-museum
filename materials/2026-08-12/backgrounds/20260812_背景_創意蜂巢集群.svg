@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <!-- 風格：創意活潑｜技巧 #122 蜂巢叢集變化4（分組叢集）+ #120 變化3（漸層）+ 變化5（顏色深淺） -->
+  <defs>
+    <linearGradient id="creativeBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8E7"/>
+      <stop offset="50%" stop-color="#FFE4B5"/>
+      <stop offset="100%" stop-color="#FFCBA4"/>
+    </linearGradient>
+    <linearGradient id="hexGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B6B"/>
+      <stop offset="100%" stop-color="#FF8E53"/>
+    </linearGradient>
+    <linearGradient id="hexGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ECDC4"/>
+      <stop offset="100%" stop-color="#44A3AA"/>
+    </linearGradient>
+    <linearGradient id="hexGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD93D"/>
+      <stop offset="100%" stop-color="#FFB347"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景漸層 -->
+  <rect width="1920" height="1080" fill="url(#creativeBg)"/>
+
+  <!-- 左上分組叢集（大六邊形 + 小環繞） -->
+  <g transform="translate(280, 240)" opacity="0.85">
+    <!-- 中心大六邊形 -->
+    <path d="M0,-72 L62.35,-36 L62.35,36 L0,72 L-62.35,36 L-62.35,-36 Z"
+          fill="url(#hexGrad1)"/>
+    <!-- 6個環繞小六邊形 -->
+    <path d="M0,-36 L31.18,-18 L31.18,18 L0,36 L-31.18,18 L-31.18,-18 Z"
+          fill="url(#hexGrad2)" transform="rotate(0) translate(0,-108)"/>
+    <path d="M0,-36 L31.18,-18 L31.18,18 L0,36 L-31.18,18 L-31.18,-18 Z"
+          fill="url(#hexGrad2)" transform="rotate(60) translate(0,-108)"/>
+    <path d="M0,-36 L31.18,-18 L31.18,18 L0,36 L-31.18,18 L-31.18,-18 Z"
+          fill="url(#hexGrad2)" transform="rotate(120) translate(0,-108)"/>
+    <path d="M0,-36 L31.18,-18 L31.18,18 L0,36 L-31.18,18 L-31.18,-18 Z"
+          fill="url(#hexGrad2)" transform="rotate(180) translate(0,-108)"/>
+    <path d="M0,-36 L31.18,-18 L31.18,18 L0,36 L-31.18,18 L-31.18,-18 Z"
+          fill="url(#hexGrad2)" transform="rotate(240) translate(0,-108)"/>
+    <path d="M0,-36 L31.18,-18 L31.18,18 L0,36 L-31.18,18 L-31.18,-18 Z"
+          fill="url(#hexGrad2)" transform="rotate(300) translate(0,-108)"/>
+  </g>
+
+  <!-- 右下分組叢集（不同色組） -->
+  <g transform="translate(1500, 780)" opacity="0.85">
+    <path d="M0,-90 L77.94,-45 L77.94,45 L0,90 L-77.94,45 L-77.94,-45 Z"
+          fill="url(#hexGrad3)"/>
+    <path d="M0,-45 L38.97,-22.5 L38.97,22.5 L0,45 L-38.97,22.5 L-38.97,-22.5 Z"
+          fill="#FF6B6B" fill-opacity="0.7" transform="rotate(0) translate(0,-135)"/>
+    <path d="M0,-45 L38.97,-22.5 L38.97,22.5 L0,45 L-38.97,22.5 L-38.97,-22.5 Z"
+          fill="#FF6B6B" fill-opacity="0.7" transform="rotate(60) translate(0,-135)"/>
+    <path d="M0,-45 L38.97,-22.5 L38.97,22.5 L0,45 L-38.97,22.5 L-38.97,-22.5 Z"
+          fill="#FF6B6B" fill-opacity="0.7" transform="rotate(120) translate(0,-135)"/>
+    <path d="M0,-45 L38.97,-22.5 L38.97,22.5 L0,45 L-38.97,22.5 L-38.97,-22.5 Z"
+          fill="#FF6B6B" fill-opacity="0.7" transform="rotate(180) translate(0,-135)"/>
+    <path d="M0,-45 L38.97,-22.5 L38.97,22.5 L0,45 L-38.97,22.5 L-38.97,-22.5 Z"
+          fill="#FF6B6B" fill-opacity="0.7" transform="rotate(240) translate(0,-135)"/>
+    <path d="M0,-45 L38.97,-22.5 L38.97,22.5 L0,45 L-38.97,22.5 L-38.97,-22.5 Z"
+          fill="#FF6B6B" fill-opacity="0.7" transform="rotate(300) translate(0,-135)"/>
+  </g>
+
+  <!-- 中間散落蜂巢（半透明裝飾） -->
+  <g opacity="0.18">
+    <path d="M0,-40 L34.64,-20 L34.64,20 L0,40 L-34.64,20 L-34.64,-20 Z"
+          fill="none" stroke="#FF6B6B" stroke-width="2"
+          transform="translate(700, 400)"/>
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="none" stroke="#4ECDC4" stroke-width="2"
+          transform="translate(950, 600)"/>
+    <path d="M0,-35 L30.31,-17.5 L30.31,17.5 L0,35 L-30.31,17.5 L-30.31,-17.5 Z"
+          fill="none" stroke="#FFD93D" stroke-width="2"
+          transform="translate(1200, 300)"/>
+    <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z"
+          fill="#4ECDC4" fill-opacity="0.15"
+          transform="translate(500, 700)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="#FF6B6B" fill-opacity="0.2"
+          transform="translate(1300, 850)"/>
+  </g>
+
+  <!-- 觸覺最大主義：左下角巨大半透明六邊形 -->
+  <g opacity="0.12">
+    <path d="M0,-280 L242.49,-140 L242.49,140 L0,280 L-242.49,140 L-242.49,-140 Z"
+          fill="none" stroke="#FF6B6B" stroke-width="4"
+          transform="translate(150, 900)"/>
+    <path d="M0,-220 L190.53,-110 L190.53,110 L0,220 L-190.53,110 L-190.53,-110 Z"
+          fill="none" stroke="#FFD93D" stroke-width="3"
+          transform="translate(150, 900)"/>
+    <path d="M0,-160 L138.56,-80 L138.56,80 L0,160 L-138.56,80 L-138.56,-80 Z"
+          fill="#4ECDC4" fill-opacity="0.3"
+          transform="translate(150, 900)"/>
+  </g>
+
+  <!-- 右上角微型裝飾蜂巢 -->
+  <g transform="translate(1700, 200)" opacity="0.6">
+    <path d="M0,-20 L17.32,-10 L17.32,10 L0,20 L-17.32,10 L-17.32,-10 Z" fill="#FF6B6B"/>
+    <path d="M0,-15 L12.99,-7.5 L12.99,7.5 L0,15 L-12.99,7.5 L-12.99,-7.5 Z"
+          fill="#FFD93D" transform="rotate(60) translate(0,-28)"/>
+    <path d="M0,-15 L12.99,-7.5 L12.99,7.5 L0,15 L-12.99,7.5 L-12.99,-7.5 Z"
+          fill="#FFD93D" transform="rotate(120) translate(0,-28)"/>
+    <path d="M0,-15 L12.99,-7.5 L12.99,7.5 L0,15 L-12.99,7.5 L-12.99,-7.5 Z"
+          fill="#FFD93D" transform="rotate(180) translate(0,-28)"/>
+    <path d="M0,-15 L12.99,-7.5 L12.99,7.5 L0,15 L-12.99,7.5 L-12.99,-7.5 Z"
+          fill="#FFD93D" transform="rotate(240) translate(0,-28)"/>
+    <path d="M0,-15 L12.99,-7.5 L12.99,7.5 L0,15 L-12.99,7.5 L-12.99,-7.5 Z"
+          fill="#FFD93D" transform="rotate(300) translate(0,-28)"/>
+  </g>
+
+  <!-- 中央保留留白焦點區（供文字覆蓋） -->
+  <rect x="600" y="380" width="720" height="320" fill="#FFFFFF" fill-opacity="0.35" rx="20"/>
+</svg>

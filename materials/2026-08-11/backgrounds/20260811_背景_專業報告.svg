@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="bgReport" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="50%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="hexGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#4ECDC4" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景底色 -->
+  <rect width="1920" height="1080" fill="url(#bgReport)"/>
+
+  <!-- 套用技巧#122：蜂巢叢集七變化 (叢集排列、漸層統一、大小對比) -->
+  <!-- 主蜂巢群組 - 左上 -->
+  <g transform="translate(300, 250)" opacity="0.5">
+    <!-- 大六邊形 -->
+    <polygon points="0,-80 70,-40 70,40 0,80 -70,40 -70,-40"
+             fill="url(#hexGrad5)" opacity="0.4"/>
+    <!-- 中六邊形 -->
+    <polygon points="120,-40 175,-10 175,30 120,60 65,30 65,-10"
+             fill="#6B5CE7" opacity="0.3"/>
+    <!-- 小六邊形 -->
+    <polygon points="-130,20 -85,45 -85,95 -130,120 -175,95 -175,45"
+             fill="#4ECDC4" opacity="0.35"/>
+    <!-- 小六邊形2 -->
+    <polygon points="60,-110 105,-85 105,-35 60,-10 15,-35 15,-85"
+             fill="#A78BFA" opacity="0.4"/>
+  </g>
+
+  <!-- 蜂巢群組 - 右下 -->
+  <g transform="translate(1500, 750)" opacity="0.5">
+    <polygon points="0,-90 78,-45 78,45 0,90 -78,45 -78,-45"
+             fill="#4ECDC4" opacity="0.3"/>
+    <polygon points="-140,-30 -85,0 -85,60 -140,90 -195,60 -195,0"
+             fill="#6B5CE7" opacity="0.35"/>
+    <polygon points="120,30 165,55 165,105 120,130 75,105 75,55"
+             fill="#FBBF24" opacity="0.3"/>
+    <polygon points="-30,-130 25,-100 25,-40 -30,-10 -85,-40 -85,-100"
+             fill="#A78BFA" opacity="0.35"/>
+  </g>
+
+  <!-- 蜂巢群組 - 右上方 -->
+  <g transform="translate(1620, 200)" opacity="0.4">
+    <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"
+             fill="#22D3EE" opacity="0.5"/>
+    <polygon points="-70,30 -35,50 -35,90 -70,110 -105,90 -105,50"
+             fill="#6B5CE7" opacity="0.4"/>
+  </g>
+
+  <!-- 蜂巢群組 - 左下方 -->
+  <g transform="translate(280, 850)" opacity="0.4">
+    <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"
+             fill="#A78BFA" opacity="0.45"/>
+    <polygon points="70,-30 113,-5 113,45 70,70 27,45 27,-5"
+             fill="#4ECDC4" opacity="0.4"/>
+  </g>
+
+  <!-- 散落小六邊形裝飾 -->
+  <g opacity="0.3">
+    <polygon points="500,500 525,488 550,500 550,525 525,538 500,525" fill="#6B5CE7"/>
+    <polygon points="1400,500 1425,488 1450,500 1450,525 1425,538 1400,525" fill="#4ECDC4"/>
+    <polygon points="900,150 925,138 950,150 950,175 925,188 900,175" fill="#A78BFA"/>
+    <polygon points="900,920 925,908 950,920 950,945 925,958 900,945" fill="#FBBF24"/>
+  </g>
+
+  <!-- 上升趨勢線 (背景質感) -->
+  <g opacity="0.15">
+    <path d="M 200,900 Q 500,800 800,750 T 1500,500 L 1800,400"
+          stroke="#6B5CE7" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+  </g>
+
+  <!-- 中心裝飾：放射光芒 (質感) -->
+  <g transform="translate(960, 540)" opacity="0.08">
+    <polygon points="0,-300 20,-50 -20,-50" fill="#6B5CE7"/>
+    <polygon points="300,0 50,20 50,-20" fill="#6B5CE7" transform="rotate(90)"/>
+    <polygon points="0,300 -20,50 20,50" fill="#6B5CE7"/>
+    <polygon points="-300,0 -50,-20 -50,20" fill="#6B5CE7" transform="rotate(90)"/>
+  </g>
+
+  <!-- 角落裝飾條紋 (質感) -->
+  <g opacity="0.4">
+    <line x1="0" y1="0" x2="120" y2="0" stroke="#6B5CE7" stroke-width="4"/>
+    <line x1="0" y1="0" x2="0" y2="120" stroke="#6B5CE7" stroke-width="4"/>
+    <line x1="1920" y1="0" x2="1800" y2="0" stroke="#4ECDC4" stroke-width="4"/>
+    <line x1="1920" y1="0" x2="1920" y2="120" stroke="#4ECDC4" stroke-width="4"/>
+    <line x1="0" y1="1080" x2="120" y2="1080" stroke="#4ECDC4" stroke-width="4"/>
+    <line x1="0" y1="1080" x2="0" y2="960" stroke="#4ECDC4" stroke-width="4"/>
+    <line x1="1920" y1="1080" x2="1800" y2="1080" stroke="#6B5CE7" stroke-width="4"/>
+    <line x1="1920" y1="1080" x2="1920" y2="960" stroke="#6B5CE7" stroke-width="4"/>
+  </g>
+</svg>

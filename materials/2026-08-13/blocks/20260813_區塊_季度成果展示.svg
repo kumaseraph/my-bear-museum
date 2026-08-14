@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- 熊熊風格 - 季度成果展示區塊，尺寸漸層蜂巢 (優先順序) -->
+  <defs>
+    <linearGradient id="warmCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBF0"/>
+      <stop offset="100%" stop-color="#F5E6C8"/>
+    </linearGradient>
+    <linearGradient id="goldFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E6B47A"/>
+      <stop offset="100%" stop-color="#B8895A"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="800" height="450" fill="#FAF3E0"/>
+
+  <!-- 卡片容器 -->
+  <rect x="30" y="30" width="740" height="390" fill="url(#warmCard)" stroke="#B8895A" stroke-width="2" rx="16"/>
+
+  <!-- 頂部裝飾條 -->
+  <rect x="30" y="30" width="740" height="8" fill="url(#goldFill)" rx="4"/>
+  <rect x="30" y="42" width="200" height="4" fill="#D4A574" rx="2" opacity="0.7"/>
+
+  <!-- 標題 -->
+  <text x="60" y="95" font-family="Georgia, serif" font-size="32" font-weight="bold" fill="#5C3A1E">
+    季度成果展示
+  </text>
+  <text x="60" y="120" font-family="Georgia, serif" font-size="14" font-style="italic" fill="#8B6239">
+    Quarterly Achievements · Q2 2026
+  </text>
+
+  <!-- 4 個成果蜂巢卡片 - 尺寸漸層表示優先順序 -->
+  <!-- 卡片 1 (最高優先 - 大) -->
+  <g transform="translate(80, 170)">
+    <rect x="0" y="0" width="160" height="180" fill="#FFFBF0" stroke="#8B6239" stroke-width="2" rx="10"/>
+    <!-- 2.5D 蜂巢焦點 -->
+    <g transform="translate(80, 50)">
+      <path d="M30,3 L55,17 L55,47 L30,61 L5,47 L5,17 Z" fill="none" stroke="#8B6239" stroke-width="3.5"/>
+      <path d="M30,3 L55,17 L55,47 L30,61 L5,47 L5,17 Z" fill="url(#goldFill)"/>
+      <text x="30" y="38" font-family="Georgia, serif" font-size="20" fill="#FFFBF0" text-anchor="middle" font-weight="bold">1</text>
+    </g>
+    <text x="80" y="135" font-family="Georgia, serif" font-size="16" font-weight="bold" fill="#5C3A1E" text-anchor="middle">
+      營收成長
+    </text>
+    <text x="80" y="155" font-family="Georgia, serif" font-size="20" font-weight="bold" fill="#8B6239" text-anchor="middle">
+      +32%
+    </text>
+    <rect x="20" y="165" width="120" height="2" fill="#D4A574" rx="1"/>
+  </g>
+
+  <!-- 卡片 2 (中優先 - 中) -->
+  <g transform="translate(260, 190)">
+    <rect x="0" y="0" width="140" height="160" fill="#FFFBF0" stroke="#B8895A" stroke-width="2" rx="10"/>
+    <g transform="translate(70, 45)">
+      <path d="M22,2 L40,12 L40,32 L22,42 L4,32 L4,12 Z" fill="none" stroke="#B8895A" stroke-width="3"/>
+      <path d="M22,2 L40,12 L40,32 L22,42 L4,32 L4,12 Z" fill="#D4A574"/>
+      <text x="22" y="28" font-family="Georgia, serif" font-size="16" fill="#FFFBF0" text-anchor="middle" font-weight="bold">2</text>
+    </g>
+    <text x="70" y="115" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#5C3A1E" text-anchor="middle">
+      使用者
+    </text>
+    <text x="70" y="135" font-family="Georgia, serif" font-size="17" font-weight="bold" fill="#8B6239" text-anchor="middle">
+      +18%
+    </text>
+    <rect x="20" y="143" width="100" height="2" fill="#D4A574" rx="1"/>
+  </g>
+
+  <!-- 卡片 3 (中優先 - 中) -->
+  <g transform="translate(420, 190)">
+    <rect x="0" y="0" width="140" height="160" fill="#FFFBF0" stroke="#B8895A" stroke-width="2" rx="10"/>
+    <g transform="translate(70, 45)">
+      <path d="M22,2 L40,12 L40,32 L22,42 L4,32 L4,12 Z" fill="none" stroke="#B8895A" stroke-width="3"/>
+      <path d="M22,2 L40,12 L40,32 L22,42 L4,32 L4,12 Z" fill="#D4A574"/>
+      <text x="22" y="28" font-family="Georgia, serif" font-size="16" fill="#FFFBF0" text-anchor="middle" font-weight="bold">3</text>
+    </g>
+    <text x="70" y="115" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#5C3A1E" text-anchor="middle">
+      滿意度
+    </text>
+    <text x="70" y="135" font-family="Georgia, serif" font-size="17" font-weight="bold" fill="#8B6239" text-anchor="middle">
+      94分
+    </text>
+    <rect x="20" y="143" width="100" height="2" fill="#D4A574" rx="1"/>
+  </g>
+
+  <!-- 卡片 4 (低優先 - 小) -->
+  <g transform="translate(580, 210)">
+    <rect x="0" y="0" width="120" height="140" fill="#FFFBF0" stroke="#D4A574" stroke-width="1.5" rx="10"/>
+    <g transform="translate(60, 40)">
+      <path d="M16,2 L30,10 L30,28 L16,38 L2,28 L2,10 Z" fill="none" stroke="#D4A574" stroke-width="2.5"/>
+      <path d="M16,2 L30,10 L30,28 L16,38 L2,28 L2,10 Z" fill="#E6B47A" opacity="0.8"/>
+      <text x="16" y="24" font-family="Georgia, serif" font-size="13" fill="#FFFBF0" text-anchor="middle" font-weight="bold">4</text>
+    </g>
+    <text x="60" y="100" font-family="Georgia, serif" font-size="13" font-weight="bold" fill="#5C3A1E" text-anchor="middle">
+      新專案
+    </text>
+    <text x="60" y="118" font-family="Georgia, serif" font-size="15" font-weight="bold" fill="#8B6239" text-anchor="middle">
+      12個
+    </text>
+    <rect x="15" y="125" width="90" height="2" fill="#D4A574" rx="1"/>
+  </g>
+
+  <!-- 底部標籤 -->
+  <g transform="translate(60, 380)">
+    <circle cx="6" cy="6" r="4" fill="#8B6239"/>
+    <text x="18" y="11" font-family="Georgia, serif" font-size="11" fill="#8B6239" font-style="italic">
+      尺寸漸層 = 優先順序  ·  蜂巢叢集 = 認知負荷管控
+    </text>
+  </g>
+
+  <!-- 右上印章 -->
+  <g transform="translate(640, 70)">
+    <rect x="0" y="0" width="100" height="24" fill="#8B6239" rx="12"/>
+    <text x="50" y="16" font-family="Georgia, serif" font-size="10" fill="#FFFBF0" text-anchor="middle" font-weight="bold">
+      🐻 BEAR DATA
+    </text>
+  </g>
+</svg>

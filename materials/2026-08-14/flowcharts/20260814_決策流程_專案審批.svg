@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet">
+  <!-- 決策流程圖 - 工作報告專案審批 -->
+  <!-- 技巧 #124 變化#4 叢集連接線 + 變化#5 條紋疊加 + 變化#10 脈衝動感 -->
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EFF6FF"/>
+    </linearGradient>
+    <pattern id="stripes2" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(-30)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="white" stroke-width="1.5" opacity="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad3)"/>
+
+  <!-- 標題 -->
+  <text x="960" y="90" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="48" font-weight="bold" fill="#1E3A8A">專案審批決策流程</text>
+  <text x="960" y="135" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" fill="#64748B">提案 → 初審 → 委員會 → 執行 → 結案</text>
+
+  <!-- Step 1：提案提交 -->
+  <g transform="translate(180,450)">
+    <polygon points="20,0 220,0 200,100 0,100" fill="#374151" opacity="0.9"/>
+    <polygon points="20,0 220,0 200,100 0,100" fill="url(#stripes2)"/>
+    <text x="110" y="40" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="bold" fill="white">Step 1</text>
+    <text x="110" y="68" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="bold" fill="white">提案提交</text>
+    <text x="110" y="88" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#D1D5DB">需求評估</text>
+  </g>
+
+  <!-- Step 2：初步審核（帶決策節點 - 菱形） -->
+  <g transform="translate(530,400)">
+    <!-- 決策菱形 -->
+    <polygon points="110,0 220,70 110,140 0,70" fill="#F59E0B" stroke="#B45309" stroke-width="2"/>
+    <polygon points="110,0 220,70 110,140 0,70" fill="url(#stripes2)" opacity="0.6"/>
+    <text x="110" y="60" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="18" font-weight="bold" fill="white">Step 2</text>
+    <text x="110" y="82" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="bold" fill="white">初審通過？</text>
+    <text x="110" y="105" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="13" fill="white">是 / 否</text>
+  </g>
+
+  <!-- 否決分支（向上回退） -->
+  <g transform="translate(530,180)">
+    <polygon points="20,0 220,0 200,90 0,90" fill="#DC2626" opacity="0.85"/>
+    <text x="110" y="35" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="18" font-weight="bold" fill="white">退回修正</text>
+    <text x="110" y="58" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#FEE2E2">資料補件</text>
+    <text x="110" y="78" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#FEE2E2">重新提案</text>
+  </g>
+
+  <!-- Step 3：委員會審核 -->
+  <g transform="translate(880,450)">
+    <polygon points="20,0 220,0 200,100 0,100" fill="#1E40AF" opacity="0.9"/>
+    <polygon points="20,0 220,0 200,100 0,100" fill="url(#stripes2)"/>
+    <text x="110" y="40" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="bold" fill="white">Step 3</text>
+    <text x="110" y="68" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="bold" fill="white">委員會</text>
+    <text x="110" y="88" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#DBEAFE">預算配置</text>
+  </g>
+
+  <!-- Step 4：執行推進 -->
+  <g transform="translate(1230,450)">
+    <polygon points="20,0 220,0 200,100 0,100" fill="#2563EB" opacity="0.9"/>
+    <polygon points="20,0 220,0 200,100 0,100" fill="url(#stripes2)"/>
+    <text x="110" y="40" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="bold" fill="white">Step 4</text>
+    <text x="110" y="68" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="bold" fill="white">執行推進</text>
+    <text x="110" y="88" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#DBEAFE">進度追蹤</text>
+  </g>
+
+  <!-- Step 5：成果結案 -->
+  <g transform="translate(1580,450)">
+    <polygon points="20,0 220,0 200,100 0,100" fill="#3B82F6" opacity="0.9"/>
+    <polygon points="20,0 220,0 200,100 0,100" fill="url(#stripes2)"/>
+    <text x="110" y="40" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="bold" fill="white">Step 5</text>
+    <text x="110" y="68" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="bold" fill="white">成果結案</text>
+    <text x="110" y="88" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#DBEAFE">效益評估</text>
+  </g>
+
+  <!-- 主流程連接線（從左到右） -->
+  <line x1="400" y1="500" x2="530" y2="470" stroke="#1E40AF" stroke-width="3" marker-end="url(#arrow2)"/>
+  <line x1="750" y1="470" x2="880" y2="500" stroke="#1E40AF" stroke-width="3" marker-end="url(#arrow2)"/>
+  <line x1="1100" y1="500" x2="1230" y2="500" stroke="#1E40AF" stroke-width="3" marker-end="url(#arrow2)"/>
+  <line x1="1450" y1="500" x2="1580" y2="500" stroke="#1E40AF" stroke-width="3" marker-end="url(#arrow2)"/>
+
+  <!-- 否決分支線（從決策菱形向上） -->
+  <line x1="640" y1="400" x2="640" y2="270" stroke="#DC2626" stroke-width="3" marker-end="url(#arrow2)" stroke-dasharray="6,4"/>
+  <!-- 否決文字 -->
+  <text x="660" y="340" font-family="Microsoft JhengHei, sans-serif" font-size="16" font-weight="bold" fill="#DC2626">否決 ↓</text>
+  <!-- 通過文字 -->
+  <text x="780" y="475" font-family="Microsoft JhengHei, sans-serif" font-size="16" font-weight="bold" fill="#1E40AF">通過 →</text>
+
+  <!-- 退回再提交的循環線（虛線） -->
+  <path d="M 530 225 Q 350 225 350 450" stroke="#DC2626" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arrow2)"/>
+
+  <defs>
+    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1E40AF"/>
+    </marker>
+  </defs>
+
+  <!-- 進度條（底部） -->
+  <rect x="400" y="850" width="1320" height="20" fill="#E2E8F0" rx="10"/>
+  <rect x="400" y="850" width="1056" height="20" fill="#3B82F6" rx="10"/>
+  <text x="1060" y="890" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#475569">執行進度：80%（Step 4 完成）</text>
+
+  <!-- 底部說明 -->
+  <text x="960" y="1030" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="18" fill="#475569">🏛️ 正式專業 · 決策流程圖 · 平行四邊形+條紋疊加+決策菱形（技巧 #124 變化#4）</text>
+</svg>

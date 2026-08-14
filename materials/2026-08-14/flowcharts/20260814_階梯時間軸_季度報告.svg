@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet">
+  <!-- 階梯時間軸流程圖 - 工作報告季度規劃 -->
+  <!-- 技巧 #124 變化#3 階梯排列 + 變化#2 邊界引導線 -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EFF6FF"/>
+    </linearGradient>
+    <pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#3B82F6" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+
+  <!-- 標題 -->
+  <text x="960" y="100" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="48" font-weight="bold" fill="#1E3A8A">季度工作報告 · 時間軸</text>
+  <text x="960" y="150" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="22" fill="#64748B">2026 Q1 → Q2 → Q3 → Q4 階段性進展</text>
+
+  <!-- 邊界引導線（橫向基準） -->
+  <line x1="200" y1="600" x2="1720" y2="600" stroke="#3B82F6" stroke-width="3" stroke-dasharray="12,6" opacity="0.6"/>
+
+  <!-- 階梯平行四邊形 - 4 個季度節點（從下到上階梯上升） -->
+  <!-- Q1 階段（最底層） -->
+  <g transform="translate(250,750)">
+    <polygon points="20,0 200,0 180,80 0,80" fill="#1E40AF" opacity="0.85"/>
+    <polygon points="20,0 200,0 180,80 0,80" fill="url(#stripes)"/>
+    <text x="100" y="48" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="36" font-weight="bold" fill="white">Q1</text>
+    <text x="100" y="100" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#1E3A8A">計劃制定</text>
+    <text x="100" y="125" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">目標分解 · 資源配置</text>
+  </g>
+
+  <!-- Q2 階段 -->
+  <g transform="translate(580,620)">
+    <polygon points="20,0 200,0 180,80 0,80" fill="#2563EB" opacity="0.85"/>
+    <polygon points="20,0 200,0 180,80 0,80" fill="url(#stripes)"/>
+    <text x="100" y="48" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="36" font-weight="bold" fill="white">Q2</text>
+    <text x="100" y="100" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#1E3A8A">執行推進</text>
+    <text x="100" y="125" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">進度追蹤 · 問題排除</text>
+  </g>
+
+  <!-- Q3 階段 -->
+  <g transform="translate(910,490)">
+    <polygon points="20,0 200,0 180,80 0,80" fill="#3B82F6" opacity="0.85"/>
+    <polygon points="20,0 200,0 180,80 0,80" fill="url(#stripes)"/>
+    <text x="100" y="48" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="36" font-weight="bold" fill="white">Q3</text>
+    <text x="100" y="100" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#1E3A8A">中期檢視</text>
+    <text x="100" y="125" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">KPI 達成 · 策略調整</text>
+  </g>
+
+  <!-- Q4 階段（最高點） -->
+  <g transform="translate(1240,360)">
+    <polygon points="20,0 200,0 180,80 0,80" fill="#F59E0B" opacity="0.95"/>
+    <polygon points="20,0 200,0 180,80 0,80" fill="url(#stripes)"/>
+    <text x="100" y="48" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="36" font-weight="bold" fill="white">Q4</text>
+    <text x="100" y="100" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#1E3A8A">成果驗收</text>
+    <text x="100" y="125" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" fill="#475569">績效評估 · 年度總結</text>
+  </g>
+
+  <!-- 階梯之間的連接線（從 Q1 頂部 → Q2 底部） -->
+  <line x1="440" y1="800" x2="610" y2="700" stroke="#1E40AF" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="770" y1="670" x2="940" y2="560" stroke="#2563EB" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1100" y1="540" x2="1270" y2="430" stroke="#3B82F6" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- 箭頭定義 -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1E40AF"/>
+    </marker>
+  </defs>
+
+  <!-- 底部說明 -->
+  <text x="960" y="1000" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="18" fill="#475569">🏛️ 正式專業 · 階梯時間軸流程圖 · 平行四邊形條紋疊加（技巧 #124）</text>
+</svg>

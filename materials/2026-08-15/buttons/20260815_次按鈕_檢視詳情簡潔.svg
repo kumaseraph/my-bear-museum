@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="400" height="100">
+  <!-- 次按鈕：檢視詳情 - 雙重交叉線技巧 #124 #6 -->
+  <!-- 設計原則：決策導向、資訊可量化、簡潔系統化 -->
+  <defs>
+    <linearGradient id="secGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F3F4F6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 主按鈕本體（白底，極簡） -->
+  <polygon points="28,18 372,18 350,82 6,82" fill="url(#secGrad)" stroke="#374151" stroke-width="2"/>
+
+  <!-- 雙重交叉線（技巧 #124 #6：兩個平行四邊形+交叉線） -->
+  <g opacity="0.15">
+    <line x1="28" y1="82" x2="372" y2="18" stroke="#4F46E5" stroke-width="1"/>
+    <line x1="28" y1="18" x2="372" y2="82" stroke="#6B5CE7" stroke-width="1"/>
+  </g>
+
+  <!-- 左側裝飾（深灰） -->
+  <rect x="22" y="18" width="6" height="64" fill="#374151"/>
+
+  <!-- 文字（深灰） -->
+  <text x="200" y="58" font-family="Microsoft JhengHei, PingFang TC, sans-serif" font-size="26" font-weight="600" fill="#374151" text-anchor="middle" letter-spacing="2">檢視詳情</text>
+
+  <!-- 右側放大鏡圖示（量化決策） -->
+  <g transform="translate(330,50)">
+    <circle cx="0" cy="-2" r="11" fill="none" stroke="#374151" stroke-width="2.5"/>
+    <line x1="8" y1="6" x2="14" y2="12" stroke="#374151" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- 內邊框細線（簡潔系統化） -->
+  <polygon points="32,22 368,22 348,78 10,78" fill="none" stroke="#9CA3AF" stroke-width="0.5" opacity="0.5"/>
+</svg>

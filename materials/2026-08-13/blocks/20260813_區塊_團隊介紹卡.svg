@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- 熊熊風格 - 團隊介紹區塊，分組叢集蜂巢 -->
+  <defs>
+    <linearGradient id="creamCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBF0"/>
+      <stop offset="100%" stop-color="#F5E6C8"/>
+    </linearGradient>
+    <linearGradient id="avatarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E6B47A"/>
+      <stop offset="100%" stop-color="#8B6239"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="800" height="450" fill="#FAF3E0"/>
+
+  <!-- 主標題 -->
+  <text x="400" y="65" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="#5C3A1E" text-anchor="middle">
+    團隊介紹
+  </text>
+  <text x="400" y="90" font-family="Georgia, serif" font-size="14" font-style="italic" fill="#8B6239" text-anchor="middle">
+    Our Team · Bear Creative Studio
+  </text>
+  <rect x="320" y="100" width="160" height="2" fill="#B8895A" rx="1"/>
+
+  <!-- 團隊成員 1 - 大卡片 (組長) -->
+  <g transform="translate(60, 140)">
+    <rect x="0" y="0" width="220" height="240" fill="url(#creamCard)" stroke="#8B6239" stroke-width="2.5" rx="12"/>
+    <!-- 2.5D 蜂巢頭像 -->
+    <g transform="translate(110, 70)">
+      <path d="M40,3 L74,22 L74,60 L40,79 L6,60 L6,22 Z" fill="none" stroke="#8B6239" stroke-width="4"/>
+      <path d="M40,3 L74,22 L74,60 L40,79 L6,60 L6,22 Z" fill="url(#avatarGrad)"/>
+      <text x="40" y="48" font-family="Georgia, serif" font-size="22" fill="#FFFBF0" text-anchor="middle" font-weight="bold">組</text>
+    </g>
+    <text x="110" y="170" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#5C3A1E" text-anchor="middle">
+      陳熊熊
+    </text>
+    <text x="110" y="190" font-family="Georgia, serif" font-size="12" fill="#8B6239" text-anchor="middle">
+      專案組長
+    </text>
+    <!-- 描述條 -->
+    <rect x="30" y="205" width="160" height="2" fill="#D4A574" rx="1" opacity="0.6"/>
+    <text x="110" y="225" font-family="Georgia, serif" font-size="10" fill="#8B6239" text-anchor="middle" font-style="italic">
+      "帶領團隊創造溫暖價值"
+    </text>
+  </g>
+
+  <!-- 團隊成員 2 -->
+  <g transform="translate(295, 140)">
+    <rect x="0" y="0" width="220" height="240" fill="url(#creamCard)" stroke="#B8895A" stroke-width="2" rx="12"/>
+    <g transform="translate(110, 70)">
+      <path d="M40,3 L74,22 L74,60 L40,79 L6,60 L6,22 Z" fill="none" stroke="#B8895A" stroke-width="4"/>
+      <path d="M40,3 L74,22 L74,60 L40,79 L6,60 L6,22 Z" fill="#D4A574"/>
+      <text x="40" y="48" font-family="Georgia, serif" font-size="22" fill="#FFFBF0" text-anchor="middle" font-weight="bold">設</text>
+    </g>
+    <text x="110" y="170" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#5C3A1E" text-anchor="middle">
+      林小熊
+    </text>
+    <text x="110" y="190" font-family="Georgia, serif" font-size="12" fill="#8B6239" text-anchor="middle">
+      設計師
+    </text>
+    <rect x="30" y="205" width="160" height="2" fill="#D4A574" rx="1" opacity="0.6"/>
+    <text x="110" y="225" font-family="Georgia, serif" font-size="10" fill="#8B6239" text-anchor="middle" font-style="italic">
+      "用設計說故事"
+    </text>
+  </g>
+
+  <!-- 團隊成員 3 -->
+  <g transform="translate(530, 140)">
+    <rect x="0" y="0" width="220" height="240" fill="url(#creamCard)" stroke="#B8895A" stroke-width="2" rx="12"/>
+    <g transform="translate(110, 70)">
+      <path d="M40,3 L74,22 L74,60 L40,79 L6,60 L6,22 Z" fill="none" stroke="#B8895A" stroke-width="4"/>
+      <path d="M40,3 L74,22 L74,60 L40,79 L6,60 L6,22 Z" fill="#D4A574"/>
+      <text x="40" y="48" font-family="Georgia, serif" font-size="22" fill="#FFFBF0" text-anchor="middle" font-weight="bold">程</text>
+    </g>
+    <text x="110" y="170" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="#5C3A1E" text-anchor="middle">
+      王棕熊
+    </text>
+    <text x="110" y="190" font-family="Georgia, serif" font-size="12" fill="#8B6239" text-anchor="middle">
+      工程師
+    </text>
+    <rect x="30" y="205" width="160" height="2" fill="#D4A574" rx="1" opacity="0.6"/>
+    <text x="110" y="225" font-family="Georgia, serif" font-size="10" fill="#8B6239" text-anchor="middle" font-style="italic">
+      "把想法變成現實"
+    </text>
+  </g>
+
+  <!-- 底部裝飾 - 蜂巢叢集 -->
+  <g transform="translate(370, 400)">
+    <path d="M16,2 L30,10 L30,28 L16,38 L2,28 L2,10 Z" fill="#D4A574" opacity="0.7"/>
+    <path d="M16,2 L30,10 L30,28 L16,38 L2,28 L2,10 Z" fill="none" stroke="#8B6239" stroke-width="1.5" transform="translate(36,-4)"/>
+    <path d="M16,2 L30,10 L30,28 L16,38 L2,28 L2,10 Z" fill="none" stroke="#8B6239" stroke-width="1.5" transform="translate(-36,-4)"/>
+  </g>
+</svg>

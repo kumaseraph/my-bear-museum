@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="400" height="100">
+  <!-- 輔助按鈕組：上一頁 / 下一頁 - 叢集連接線技巧 #124 #4 -->
+  <!-- 設計原則：決策導向導航、人手痕跡（一對按鈕）、頁碼量化切換 -->
+  <defs>
+    <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#374151"/>
+      <stop offset="100%" stop-color="#4B5563"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 左按鈕（上一頁） -->
+  <g>
+    <polygon points="20,30 180,30 200,70 40,70" fill="url(#navGrad)"/>
+    <polygon points="20,30 180,30 200,70 40,70" fill="none" stroke="#9CA3AF" stroke-width="1" opacity="0.5"/>
+    <!-- 箭頭 -->
+    <g transform="translate(55,50)">
+      <path d="M6,0 L-6,0 M-2,-4 L-7,0 L-2,4" stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <!-- 文字 -->
+    <text x="115" y="58" font-family="Microsoft JhengHei, PingFang TC, sans-serif" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">上一頁</text>
+  </g>
+
+  <!-- 中間連接線（技巧 #124 #4：叢集連接線） -->
+  <g>
+    <line x1="200" y1="50" x2="200" y2="50" stroke="#6B5CE7" stroke-width="2"/>
+    <circle cx="200" cy="50" r="6" fill="#6B5CE7"/>
+    <circle cx="200" cy="50" r="2.5" fill="#FFFFFF"/>
+    <!-- 兩側虛線延伸 -->
+    <line x1="180" y1="50" x2="194" y2="50" stroke="#6B5CE7" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <line x1="206" y1="50" x2="220" y2="50" stroke="#6B5CE7" stroke-width="1.5" stroke-dasharray="3,2"/>
+  </g>
+
+  <!-- 右按鈕（下一頁） -->
+  <g>
+    <polygon points="220,30 380,30 360,70 200,70" fill="url(#navGrad)"/>
+    <polygon points="220,30 380,30 360,70 200,70" fill="none" stroke="#9CA3AF" stroke-width="1" opacity="0.5"/>
+    <!-- 文字 -->
+    <text x="285" y="58" font-family="Microsoft JhengHei, PingFang TC, sans-serif" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">下一頁</text>
+    <!-- 箭頭 -->
+    <g transform="translate(345,50)">
+      <path d="M-6,0 L6,0 M2,-4 L7,0 L2,4" stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

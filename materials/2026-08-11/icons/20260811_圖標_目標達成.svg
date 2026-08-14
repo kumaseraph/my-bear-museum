@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="diamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4C1D95"/>
+    </linearGradient>
+    <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="400" height="400" fill="url(#bgGrad)"/>
+
+  <!-- 套用技巧#123：菱形包圍五角星 (旋轉角度、虛實對比) -->
+  <!-- 外層菱形 (空心線條) -->
+  <polygon points="200,40 360,200 200,360 40,200"
+           fill="none" stroke="url(#diamondGrad)" stroke-width="3"
+           opacity="0.5"/>
+
+  <!-- 中層菱形 (實心) -->
+  <polygon points="200,80 320,200 200,320 80,200"
+           fill="url(#diamondGrad)" opacity="0.15"/>
+
+  <!-- 五角星核心 (實心+放射光芒) -->
+  <polygon points="200,110 218,170 282,170 230,210 250,272 200,232 150,272 170,210 118,170 182,170"
+           fill="url(#starGrad)" stroke="#C2410C" stroke-width="2"/>
+
+  <!-- 中心圓點 (靶心效果) -->
+  <circle cx="200" cy="200" r="12" fill="#FFFFFF"/>
+  <circle cx="200" cy="200" r="6" fill="#C2410C"/>
+
+  <!-- 四角放射小菱形 (虛實對比) -->
+  <polygon points="200,20 215,40 200,60 185,40" fill="#6B5CE7" opacity="0.6"/>
+  <polygon points="200,340 215,360 200,380 185,360" fill="#6B5CE7" opacity="0.6"/>
+  <polygon points="20,200 40,185 60,200 40,215" fill="#6B5CE7" opacity="0.6"/>
+  <polygon points="340,200 360,185 380,200 360,215" fill="#6B5CE7" opacity="0.6"/>
+
+  <!-- 底色裝飾點 -->
+  <circle cx="100" cy="100" r="3" fill="#6B5CE7" opacity="0.3"/>
+  <circle cx="300" cy="100" r="3" fill="#6B5CE7" opacity="0.3"/>
+  <circle cx="100" cy="300" r="3" fill="#6B5CE7" opacity="0.3"/>
+  <circle cx="300" cy="300" r="3" fill="#6B5CE7" opacity="0.3"/>
+
+  <!-- 標題 -->
+  <text x="200" y="395" text-anchor="middle" font-family="'Microsoft JhengHei', sans-serif"
+        font-size="14" fill="#475569" font-weight="600">目標達成</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet">
+  <!-- 工作報告圖標 - 目標達成（菱形五角星+靶心） -->
+  <!-- 技巧 #123 菱形五角星 + 變化#1 旋轉角度 + 變化#5 虛實對比 -->
+  <defs>
+    <linearGradient id="iconBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFF6FF"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <pattern id="iconStripes" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="white" stroke-width="0.8" opacity="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景圓角矩形 -->
+  <rect width="600" height="600" fill="url(#iconBg)" rx="40"/>
+
+  <!-- 中心靶心 - 同心圓（虛實對比） -->
+  <circle cx="300" cy="300" r="180" fill="#F59E0B" opacity="0.15"/>
+  <circle cx="300" cy="300" r="180" fill="none" stroke="#1E40AF" stroke-width="6"/>
+  <circle cx="300" cy="300" r="130" fill="#F59E0B" opacity="0.3"/>
+  <circle cx="300" cy="300" r="130" fill="none" stroke="#3B82F6" stroke-width="4" stroke-dasharray="6,3"/>
+  <circle cx="300" cy="300" r="80" fill="#F59E0B" opacity="0.5"/>
+  <circle cx="300" cy="300" r="80" fill="none" stroke="#1E40AF" stroke-width="3"/>
+  <circle cx="300" cy="300" r="35" fill="#DC2626"/>
+  <circle cx="300" cy="300" r="35" fill="url(#iconStripes)"/>
+
+  <!-- 箭頭（命中靶心） - 平行四邊形箭桿 -->
+  <g transform="translate(380,180) rotate(35)">
+    <polygon points="0,0 200,0 180,30 20,30" fill="#1E3A8A"/>
+    <polygon points="200,15 240,15 240,40 200,40" fill="#1E3A8A"/>
+    <polygon points="0,0 200,0 180,30 20,30" fill="url(#iconStripes)"/>
+  </g>
+
+  <!-- 頂部裝飾菱形（五角星變化） -->
+  <g transform="translate(300,80)">
+    <polygon points="0,-25 22,-8 18,22 -18,22 -22,-8" fill="#F59E0B" opacity="0.9"/>
+    <polygon points="0,-25 22,-8 18,22 -18,22 -22,-8" fill="url(#iconStripes)"/>
+    <text x="0" y="6" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="16" font-weight="bold" fill="white">★</text>
+  </g>
+
+  <!-- 底部文字 -->
+  <text x="300" y="500" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="32" font-weight="bold" fill="#1E3A8A">目標達成</text>
+  <text x="300" y="535" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="16" fill="#64748B">Target Achieved</text>
+
+  <!-- 底部說明 -->
+  <text x="300" y="580" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="12" fill="#94A3B8">🏛️ 正式專業 · 菱形五角星圖標 · 旋轉+虛實對比</text>
+</svg>

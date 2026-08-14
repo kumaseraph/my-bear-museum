@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="borderBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="borderLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="50%" stop-color="#4ECDC4"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#borderBg)"/>
+
+  <!-- 套用技巧#120 + #124：六邊形+平行四邊形線條 (2.5D效果、大小對比) -->
+  <!-- 四角裝飾大六邊形 -->
+  <g transform="translate(100, 100)">
+    <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"
+             fill="none" stroke="#6B5CE7" stroke-width="3" opacity="0.6"/>
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15"
+             fill="#6B5CE7" opacity="0.4"/>
+    <polygon points="0,-15 13,-7 13,7 0,15 -13,7 -13,-7"
+             fill="#6B5CE7"/>
+  </g>
+
+  <g transform="translate(1820, 100)">
+    <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"
+             fill="none" stroke="#6B5CE7" stroke-width="3" opacity="0.6"/>
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15"
+             fill="#6B5CE7" opacity="0.4"/>
+    <polygon points="0,-15 13,-7 13,7 0,15 -13,7 -13,-7"
+             fill="#6B5CE7"/>
+  </g>
+
+  <g transform="translate(100, 980)">
+    <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"
+             fill="none" stroke="#6B5CE7" stroke-width="3" opacity="0.6"/>
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15"
+             fill="#6B5CE7" opacity="0.4"/>
+    <polygon points="0,-15 13,-7 13,7 0,15 -13,7 -13,-7"
+             fill="#6B5CE7"/>
+  </g>
+
+  <g transform="translate(1820, 980)">
+    <polygon points="0,-50 43,-25 43,25 0,50 -43,25 -43,-25"
+             fill="none" stroke="#6B5CE7" stroke-width="3" opacity="0.6"/>
+    <polygon points="0,-30 26,-15 26,15 0,30 -26,15 -26,-15"
+             fill="#6B5CE7" opacity="0.4"/>
+    <polygon points="0,-15 13,-7 13,7 0,15 -13,7 -13,-7"
+             fill="#6B5CE7"/>
+  </g>
+
+  <!-- 邊框主線 (頂部) -->
+  <line x1="180" y1="80" x2="1740" y2="80" stroke="url(#borderLine)" stroke-width="2"/>
+  <line x1="180" y1="1000" x2="1740" y2="1000" stroke="url(#borderLine)" stroke-width="2"/>
+  <line x1="80" y1="180" x2="80" y2="900" stroke="url(#borderLine)" stroke-width="2"/>
+  <line x1="1840" y1="180" x2="1840" y2="900" stroke="url(#borderLine)" stroke-width="2"/>
+
+  <!-- 平行四邊形裝飾線 (條紋疊加) -->
+  <g fill="#4ECDC4" opacity="0.4">
+    <polygon points="180,75 220,75 215,85 175,85"/>
+    <polygon points="1700,75 1740,75 1745,85 1705,85"/>
+    <polygon points="180,995 220,995 215,1005 175,1005"/>
+    <polygon points="1700,995 1740,995 1745,1005 1705,1005"/>
+  </g>
+
+  <!-- 中央標題區 (留白) -->
+  <rect x="400" y="430" width="1120" height="220" fill="#FFFFFF" opacity="0.5" rx="8"/>
+
+  <!-- 中央裝飾：六角星 (核心價值) -->
+  <g transform="translate(960, 540)">
+    <polygon points="0,-60 14,-19 60,-19 23,7 38,55 0,28 -38,55 -23,7 -60,-19 -14,-19"
+             fill="#FBBF24" stroke="#C2410C" stroke-width="2" opacity="0.9"/>
+    <circle cx="0" cy="5" r="8" fill="#FFFFFF"/>
+  </g>
+
+  <!-- 底部中央小裝飾 -->
+  <g fill="#6B5CE7" opacity="0.5">
+    <circle cx="940" cy="540" r="3"/>
+    <circle cx="960" cy="540" r="3"/>
+    <circle cx="980" cy="540" r="3"/>
+  </g>
+</svg>

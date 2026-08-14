@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="hexTeam" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B5CE7"/>
+      <stop offset="100%" stop-color="#4C1D95"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="400" height="400" fill="url(#bgGrad3)"/>
+
+  <!-- 套用技巧#122 蜂巢叢集概念 + #121 六邊形+圓形 (柔和對比) -->
+  <!-- 中央大六邊形 -->
+  <polygon points="200,150 270,190 270,270 200,310 130,270 130,190"
+           fill="url(#hexTeam)" opacity="0.95"/>
+
+  <!-- 中心人物圓形頭 -->
+  <circle cx="200" cy="200" r="22" fill="#FBBF24"/>
+  <circle cx="200" cy="200" r="22" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  <!-- 身體 -->
+  <path d="M 170,250 Q 200,230 230,250 L 230,275 Q 200,265 170,275 Z" fill="#FBBF24"/>
+
+  <!-- 周圍六個小六邊形 (蜂巢叢集) -->
+  <!-- 上 -->
+  <g transform="translate(200, 80)">
+    <polygon points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12"
+             fill="#4ECDC4" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="0" cy="0" r="10" fill="#FFFFFF"/>
+    <circle cx="0" cy="-3" r="4" fill="#0F766E"/>
+    <path d="M -8,5 Q 0,0 8,5 L 8,10 L -8,10 Z" fill="#0F766E"/>
+  </g>
+
+  <!-- 右上 -->
+  <g transform="translate(310, 130)">
+    <polygon points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12"
+             fill="#22D3EE" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="0" cy="0" r="10" fill="#FFFFFF"/>
+    <circle cx="0" cy="-3" r="4" fill="#0E7490"/>
+    <path d="M -8,5 Q 0,0 8,5 L 8,10 L -8,10 Z" fill="#0E7490"/>
+  </g>
+
+  <!-- 右下 -->
+  <g transform="translate(310, 270)">
+    <polygon points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12"
+             fill="#A78BFA" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="0" cy="0" r="10" fill="#FFFFFF"/>
+    <circle cx="0" cy="-3" r="4" fill="#5B21B6"/>
+    <path d="M -8,5 Q 0,0 8,5 L 8,10 L -8,10 Z" fill="#5B21B6"/>
+  </g>
+
+  <!-- 下 -->
+  <g transform="translate(200, 320)">
+    <polygon points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12"
+             fill="#FB923C" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="0" cy="0" r="10" fill="#FFFFFF"/>
+    <circle cx="0" cy="-3" r="4" fill="#9A3412"/>
+    <path d="M -8,5 Q 0,0 8,5 L 8,10 L -8,10 Z" fill="#9A3412"/>
+  </g>
+
+  <!-- 左下 -->
+  <g transform="translate(90, 270)">
+    <polygon points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12"
+             fill="#F472B6" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="0" cy="0" r="10" fill="#FFFFFF"/>
+    <circle cx="0" cy="-3" r="4" fill="#9D174D"/>
+    <path d="M -8,5 Q 0,0 8,5 L 8,10 L -8,10 Z" fill="#9D174D"/>
+  </g>
+
+  <!-- 左上 -->
+  <g transform="translate(90, 130)">
+    <polygon points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12"
+             fill="#34D399" stroke="#FFFFFF" stroke-width="2"/>
+    <circle cx="0" cy="0" r="10" fill="#FFFFFF"/>
+    <circle cx="0" cy="-3" r="4" fill="#065F46"/>
+    <path d="M -8,5 Q 0,0 8,5 L 8,10 L -8,10 Z" fill="#065F46"/>
+  </g>
+
+  <!-- 連接線 (虛實對比) -->
+  <g stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6" fill="none">
+    <line x1="200" y1="110" x2="200" y2="170"/>
+    <line x1="285" y1="148" x2="232" y2="190"/>
+    <line x1="285" y1="270" x2="232" y2="245"/>
+    <line x1="200" y1="290" x2="200" y2="250"/>
+    <line x1="115" y1="270" x2="168" y2="245"/>
+    <line x1="115" y1="148" x2="168" y2="190"/>
+  </g>
+
+  <!-- 標題 -->
+  <text x="200" y="385" text-anchor="middle" font-family="'Microsoft JhengHei', sans-serif"
+        font-size="14" fill="#475569" font-weight="600">團隊協作</text>
+</svg>

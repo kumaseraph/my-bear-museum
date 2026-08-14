@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0F9FF"/>
+      <stop offset="100%" stop-color="#E0F2FE"/>
+    </linearGradient>
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="400" height="400" fill="url(#bgGrad2)"/>
+
+  <!-- 套用技巧#121：六邊形+星形 (聚焦/神聖感) -->
+  <!-- 大六邊形外框 -->
+  <polygon points="200,40 340,120 340,280 200,360 60,280 60,120"
+           fill="none" stroke="url(#hexGrad)" stroke-width="3" opacity="0.4"/>
+
+  <!-- 中六邊形 (半透明) -->
+  <polygon points="200,80 300,135 300,265 200,320 100,265 100,135"
+           fill="#FFFFFF" opacity="0.6"/>
+
+  <!-- 條形圖 (5-9 metrics 概念：5條) -->
+  <g transform="translate(120, 160)">
+    <!-- 條形1 -->
+    <rect x="0" y="80" width="30" height="60" fill="url(#barGrad)" rx="3"/>
+    <!-- 條形2 -->
+    <rect x="40" y="50" width="30" height="90" fill="url(#barGrad)" rx="3"/>
+    <!-- 條形3 (最高) -->
+    <rect x="80" y="20" width="30" height="120" fill="url(#barGrad)" rx="3"/>
+    <!-- 條形4 -->
+    <rect x="120" y="40" width="30" height="100" fill="url(#barGrad)" rx="3"/>
+    <!-- 條形5 -->
+    <rect x="160" y="70" width="30" height="70" fill="url(#barGrad)" rx="3"/>
+  </g>
+
+  <!-- 上升箭頭 (六邊形頂點裝飾) -->
+  <g transform="translate(200, 200)">
+    <polygon points="0,-50 12,-25 -12,-25" fill="#10B981"/>
+    <polygon points="0,-25 8,10 -8,10" fill="#10B981" opacity="0.6"/>
+  </g>
+
+  <!-- 六邊形頂點裝飾小三角 -->
+  <polygon points="200,40 205,50 195,50" fill="#0EA5E9"/>
+  <polygon points="340,120 350,125 340,135" fill="#0EA5E9"/>
+  <polygon points="340,280 350,275 340,265" fill="#0EA5E9"/>
+  <polygon points="200,360 205,350 195,350" fill="#0EA5E9"/>
+  <polygon points="60,280 50,275 60,265" fill="#0EA5E9"/>
+  <polygon points="60,120 50,125 60,135" fill="#0EA5E9"/>
+
+  <!-- 底部底線 -->
+  <line x1="120" y1="320" x2="280" y2="320" stroke="#0EA5E9" stroke-width="2" opacity="0.4"/>
+
+  <!-- 標題 -->
+  <text x="200" y="395" text-anchor="middle" font-family="'Microsoft JhengHei', sans-serif"
+        font-size="14" fill="#475569" font-weight="600">數據分析</text>
+</svg>

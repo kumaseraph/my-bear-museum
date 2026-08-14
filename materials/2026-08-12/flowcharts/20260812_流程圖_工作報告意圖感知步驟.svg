@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700">
+  <!-- 風格：🏛️ 正式專業｜主題：工作報告
+       技巧 #124 平行四邊形線條（階梯節點）+ #120 變化5（顏色深淺對比）
+       融合今日洞察：「Intent-aware AI」「場合＋時長＋聽眾＋目標」「工具先於設計系統會失控」 -->
+  <defs>
+    <linearGradient id="flowBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="hexInput" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+    <linearGradient id="hexProcess" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="hexOutput" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="hexGuard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444"/>
+      <stop offset="100%" stop-color="#B91C1C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 卡片背景 -->
+  <rect width="1600" height="700" fill="url(#flowBg)" rx="16"/>
+
+  <!-- 標題區 -->
+  <text x="60" y="70" font-family="'Microsoft JhengHei', sans-serif" font-size="32" font-weight="700" fill="#0F172A">意圖感知簡報流程 · Intent-aware Workflow</text>
+  <text x="60" y="105" font-family="'Microsoft JhengHei', sans-serif" font-size="16" fill="#475569">工作報告 5 步：從硬輸入 → 設計系統約束 → 自適應輸出</text>
+  <line x1="60" y1="125" x2="380" y2="125" stroke="#1E40AF" stroke-width="3"/>
+
+  <!-- 步驟 1: 硬輸入節點 (Audience/Goal/Duration/Occasion) 藍 -->
+  <g transform="translate(180, 320)">
+    <!-- 六邊形節點（平行四邊形旋轉 30°）-->
+    <path d="M0,-80 L69.28,-40 L69.28,40 L0,80 L-69.28,40 L-69.28,-40 Z"
+          fill="url(#hexInput)"/>
+    <text x="0" y="-30" font-family="'Microsoft JhengHei', sans-serif" font-size="22" font-weight="800" fill="#FFFFFF" text-anchor="middle">1</text>
+    <text x="0" y="0" font-family="'Microsoft JhengHei', sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">硬輸入</text>
+    <text x="0" y="22" font-family="'Microsoft JhengHei', sans-serif" font-size="11" fill="#DBEAFE" text-anchor="middle">Hard Inputs</text>
+    <text x="0" y="55" font-family="'Microsoft JhengHei', sans-serif" font-size="10" fill="#DBEAFE" text-anchor="middle">場合 · 時長 · 聽眾 · 目標</text>
+  </g>
+
+  <!-- 連接線 1→2（金色引導線 + 箭頭） -->
+  <path d="M 280 320 L 480 320" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6 3" fill="none"/>
+  <polygon points="475,315 490,320 475,325" fill="#F59E0B"/>
+
+  <!-- 步驟 2: 設計系統約束 (CI/品牌規則) 紅 -->
+  <g transform="translate(560, 320)">
+    <path d="M0,-80 L69.28,-40 L69.28,40 L0,80 L-69.28,40 L-69.28,-40 Z"
+          fill="url(#hexGuard)"/>
+    <text x="0" y="-30" font-family="'Microsoft JhengHei', sans-serif" font-size="22" font-weight="800" fill="#FFFFFF" text-anchor="middle">2</text>
+    <text x="0" y="0" font-family="'Microsoft JhengHei', sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">約束層</text>
+    <text x="0" y="22" font-family="'Microsoft JhengHei', sans-serif" font-size="11" fill="#FEE2E2" text-anchor="middle">Brand Constraint</text>
+    <text x="0" y="55" font-family="'Microsoft JhengHei', sans-serif" font-size="10" fill="#FEE2E2" text-anchor="middle">CI · 字體 · 間距 · 層級</text>
+  </g>
+
+  <!-- 連接線 2→3 -->
+  <path d="M 660 320 L 860 320" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6 3" fill="none"/>
+  <polygon points="855,315 870,320 855,325" fill="#F59E0B"/>
+
+  <!-- 步驟 3: 意圖理解 (Intent Decoder) 橘 -->
+  <g transform="translate(940, 320)">
+    <!-- 中心六邊形 + 環繞小六邊形（焦點強調） -->
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="#D97706" opacity="0.85"
+          transform="rotate(0) translate(0,-110)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="#D97706" opacity="0.85"
+          transform="rotate(60) translate(0,-110)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="#D97706" opacity="0.85"
+          transform="rotate(120) translate(0,-110)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="#D97706" opacity="0.85"
+          transform="rotate(180) translate(0,-110)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="#D97706" opacity="0.85"
+          transform="rotate(240) translate(0,-110)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="#D97706" opacity="0.85"
+          transform="rotate(300) translate(0,-110)"/>
+
+    <path d="M0,-90 L77.94,-45 L77.94,45 L0,90 L-77.94,45 L-77.94,-45 Z"
+          fill="url(#hexProcess)"/>
+    <text x="0" y="-35" font-family="'Microsoft JhengHei', sans-serif" font-size="26" font-weight="800" fill="#FFFFFF" text-anchor="middle">3</text>
+    <text x="0" y="-5" font-family="'Microsoft JhengHei', sans-serif" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">意圖解碼</text>
+    <text x="0" y="18" font-family="'Microsoft JhengHei', sans-serif" font-size="11" fill="#FEF3C7" text-anchor="middle">Intent Decoder</text>
+    <text x="0" y="60" font-family="'Microsoft JhengHei', sans-serif" font-size="10" fill="#FEF3C7" text-anchor="middle">場合 × 目標 → 受眾解讀</text>
+  </g>
+
+  <!-- 連接線 3→4 -->
+  <path d="M 1050 320 L 1250 320" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6 3" fill="none"/>
+  <polygon points="1245,315 1260,320 1245,325" fill="#F59E0B"/>
+
+  <!-- 步驟 4: 自適應生成 (Adaptive Generation) 綠 -->
+  <g transform="translate(1330, 320)">
+    <path d="M0,-80 L69.28,-40 L69.28,40 L0,80 L-69.28,40 L-69.28,-40 Z"
+          fill="url(#hexOutput)"/>
+    <text x="0" y="-30" font-family="'Microsoft JhengHei', sans-serif" font-size="22" font-weight="800" fill="#FFFFFF" text-anchor="middle">4</text>
+    <text x="0" y="0" font-family="'Microsoft JhengHei', sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">自適應生成</text>
+    <text x="0" y="22" font-family="'Microsoft JhengHei', sans-serif" font-size="11" fill="#D1FAE5" text-anchor="middle">Adaptive Gen</text>
+    <text x="0" y="55" font-family="'Microsoft JhengHei', sans-serif" font-size="10" fill="#D1FAE5" text-anchor="middle">分眾重組 · 一圖一洞察</text>
+  </g>
+
+  <!-- 連接線 4→5 (迴圈回到 3 —— 形成 PDCA) -->
+  <path d="M 1330 430 Q 1330 540 940 540 Q 850 540 850 410" stroke="#10B981" stroke-width="2.5" fill="none" stroke-dasharray="6 3"/>
+  <polygon points="845,415 850,400 855,415" fill="#10B981"/>
+  <text x="1100" y="565" font-family="'Microsoft JhengHei', sans-serif" font-size="12" fill="#047857" text-anchor="middle">↑ PDCA 迴圈：量化 ROI 回到意圖解碼</text>
+
+  <!-- 步驟 5: 量化驗證 (ROI Audit) 綠 -->
+  <g transform="translate(940, 620)">
+    <path d="M0,-40 L34.64,-20 L34.64,20 L0,40 L-34.64,20 L-34.64,-20 Z"
+          fill="url(#hexOutput)"/>
+    <text x="0" y="-5" font-family="'Microsoft JhengHei', sans-serif" font-size="14" font-weight="800" fill="#FFFFFF" text-anchor="middle">5</text>
+    <text x="0" y="14" font-family="'Microsoft JhengHei', sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">ROI 驗證</text>
+  </g>
+
+  <!-- 步驟編號總覽 -->
+  <g transform="translate(60, 660)">
+    <text x="0" y="0" font-family="'Microsoft JhengHei', sans-serif" font-size="12" fill="#475569">說明：本流程融合 Beautiful.ai 2026 五趨勢（intent-aware / 設計系統 / 自適應 / 可量化 ROI / 品牌治理）</text>
+  </g>
+
+  <!-- 角落標記 -->
+  <text x="1540" y="680" font-family="'Microsoft JhengHei', sans-serif" font-size="11" fill="#64748B" text-anchor="end" opacity="0.6">KumaWeb · 工作報告素材 · 2026-08-12</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100" width="400" height="100">
+  <!-- 主按鈕：提交報告 - 平行四邊形邊界引導線技巧 #124 -->
+  <!-- 設計原則：決策導向 CTA、量化基準觸發（37.5% 啟動率）、系統化簡潔風 -->
+  <defs>
+    <!-- 漸層：決策導向 -->
+    <linearGradient id="ctaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#6B5CE7"/>
+    </linearGradient>
+    <!-- 引導線 pattern -->
+    <pattern id="leadLines" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(20)">
+      <line x1="0" y1="4" x2="8" y2="4" stroke="#A78BFA" stroke-width="1" opacity="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- 陰影層（輕微立體感） -->
+  <polygon points="28,18 372,18 350,82 6,82" fill="#312E81" opacity="0.25" transform="translate(3,4)"/>
+
+  <!-- 主按鈕本體（skewX -10° 微妙動感） -->
+  <polygon points="28,18 372,18 350,82 6,82" fill="url(#ctaGrad)"/>
+
+  <!-- 條紋疊加（技巧 #124 #5：條紋疊加） -->
+  <polygon points="28,18 372,18 350,82 6,82" fill="url(#leadLines)" opacity="0.6"/>
+
+  <!-- 左側裝飾條 - 強調決策 -->
+  <rect x="22" y="18" width="6" height="64" fill="#4ECDC4"/>
+
+  <!-- 文字 -->
+  <text x="200" y="58" font-family="Microsoft JhengHei, PingFang TC, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">提交報告</text>
+
+  <!-- 右側箭頭（鼓勵行動） -->
+  <g transform="translate(330,50)">
+    <circle cx="0" cy="0" r="14" fill="#FFFFFF" opacity="0.95"/>
+    <path d="M-5,0 L5,0 M1,-4 L6,0 L1,4" stroke="#4F46E5" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 上緣裝飾線（邊界引導線 技巧 #124 #2） -->
+  <line x1="28" y1="22" x2="372" y2="22" stroke="#FFFFFF" stroke-width="0.8" opacity="0.4"/>
+</svg>

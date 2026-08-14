@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet">
+  <!-- 正式專業六邊形邊框 - 工作報告封面用 -->
+  <!-- 技巧 #120 六邊形十式 + 變化#3 大小對比 + 變化#7 2.5D 效果 -->
+  <defs>
+    <linearGradient id="bgGradBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F1F5F9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGradBorder)"/>
+
+  <!-- 邊框四角六邊形（大） - 2.5D 效果：外粗空心+內實心 -->
+  <!-- 左上 -->
+  <g transform="translate(80,80)">
+    <polygon points="80,0 160,46 160,140 80,186 0,140 0,46" fill="none" stroke="#1E40AF" stroke-width="4"/>
+    <polygon points="80,30 130,60 130,120 80,150 30,120 30,60" fill="#1E40AF" opacity="0.9"/>
+    <text x="80" y="100" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="28" font-weight="bold" fill="white">壹</text>
+  </g>
+
+  <!-- 右上 -->
+  <g transform="translate(1680,80)">
+    <polygon points="80,0 160,46 160,140 80,186 0,140 0,46" fill="none" stroke="#1E40AF" stroke-width="4"/>
+    <polygon points="80,30 130,60 130,120 80,150 30,120 30,60" fill="#1E40AF" opacity="0.9"/>
+    <text x="80" y="100" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="28" font-weight="bold" fill="white">貳</text>
+  </g>
+
+  <!-- 左下 -->
+  <g transform="translate(80,800)">
+    <polygon points="80,0 160,46 160,140 80,186 0,140 0,46" fill="none" stroke="#1E40AF" stroke-width="4"/>
+    <polygon points="80,30 130,60 130,120 80,150 30,120 30,60" fill="#1E40AF" opacity="0.9"/>
+    <text x="80" y="100" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="28" font-weight="bold" fill="white">參</text>
+  </g>
+
+  <!-- 右下 -->
+  <g transform="translate(1680,800)">
+    <polygon points="80,0 160,46 160,140 80,186 0,140 0,46" fill="none" stroke="#1E40AF" stroke-width="4"/>
+    <polygon points="80,30 130,60 130,120 80,150 30,120 30,60" fill="#1E40AF" opacity="0.9"/>
+    <text x="80" y="100" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="28" font-weight="bold" fill="white">肆</text>
+  </g>
+
+  <!-- 中間小六邊形裝飾（大小對比） -->
+  <g transform="translate(960,540)">
+    <polygon points="40,0 80,23 80,70 40,93 0,70 0,23" fill="none" stroke="#F59E0B" stroke-width="2.5" opacity="0.7"/>
+    <polygon points="40,15 60,28 60,55 40,68 20,55 20,28" fill="#F59E0B" opacity="0.5"/>
+  </g>
+
+  <!-- 邊界引導線（內框線） -->
+  <rect x="320" y="320" width="1280" height="440" fill="none" stroke="#3B82F6" stroke-width="2" stroke-dasharray="8,4" opacity="0.5"/>
+
+  <!-- 中央標題區 -->
+  <text x="960" y="450" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="72" font-weight="bold" fill="#1E3A8A">工作報告</text>
+  <text x="960" y="510" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="32" fill="#475569">Quarterly Work Report</text>
+  <line x1="760" y1="540" x2="1160" y2="540" stroke="#F59E0B" stroke-width="3"/>
+  <text x="960" y="600" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="24" fill="#64748B">2026 年度 · 第 3 季度</text>
+  <text x="960" y="640" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" fill="#94A3B8">報告人：________________</text>
+
+  <!-- 底部說明 -->
+  <text x="960" y="1030" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="18" fill="#475569">🏛️ 正式專業 · 六邊形 2.5D 邊框 · 大小對比 + 虛實對比（技巧 #120 變化#7）</text>
+</svg>
