@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFAEC"/>
+      <stop offset="100%" stop-color="#F8E4C0"/>
+    </linearGradient>
+    <linearGradient id="hexHoney" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F4B860"/>
+      <stop offset="100%" stop-color="#E8A33D"/>
+    </linearGradient>
+    <linearGradient id="hexDeep" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C77B22"/>
+      <stop offset="100%" stop-color="#8B5A2B"/>
+    </linearGradient>
+    <pattern id="cardBgPattern" x="0" y="0" width="78" height="86.6" patternUnits="userSpaceOnUse">
+      <path d="M39,0 L78,21.65 L78,64.95 L39,86.6 L0,64.95 L0,21.65 Z"
+            fill="none" stroke="#D9B870" stroke-width="0.6" opacity="0.3"/>
+    </pattern>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="6"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.25"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#cardBg)"/>
+  <rect width="1920" height="1080" fill="url(#cardBgPattern)"/>
+
+  <!-- Bento Grid 主卡片 -->
+  <g transform="translate(180, 140)" filter="url(#cardShadow)">
+    <!-- 大卡片 (左側 700×440) -->
+    <rect x="0" y="0" width="700" height="440" rx="20" fill="#FFFAEC" stroke="#8B5A2B" stroke-width="3"/>
+    <!-- 卡片內部蜂巢裝飾 -->
+    <g transform="translate(140, 220)">
+      <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z"
+            fill="url(#hexHoney)" stroke="#5C3A1E" stroke-width="3"/>
+      <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+            fill="none" stroke="#FFE4A8" stroke-width="3"/>
+      <!-- 熊熊愛心 -->
+      <path d="M0,-5 C-6,-13 -14,-13 -14,-5 C-14,3 0,12 0,12 C0,12 14,3 14,-5 C14,-13 6,-13 0,-5 Z"
+            fill="#C77B22" stroke="#5C3A1E" stroke-width="1.5"/>
+    </g>
+    <!-- 標題 -->
+    <text x="300" y="180" font-family="Arial, sans-serif" font-size="36" font-weight="bold"
+          fill="#5C3A1E">報告章節</text>
+    <text x="300" y="230" font-family="Arial, sans-serif" font-size="22"
+          fill="#8B5A2B">Section Title</text>
+    <text x="300" y="320" font-family="Arial, sans-serif" font-size="18"
+          fill="#8B5A2B" opacity="0.8">章節描述文字位置</text>
+  </g>
+
+  <!-- Bento Grid 小卡 1 (右上) -->
+  <g transform="translate(920, 140)" filter="url(#cardShadow)">
+    <rect x="0" y="0" width="380" height="200" rx="16" fill="#FFFAEC" stroke="#E8A33D" stroke-width="3"/>
+    <g transform="translate(80, 100)">
+      <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+            fill="url(#hexDeep)" stroke="#5C3A1E" stroke-width="2"/>
+    </g>
+    <text x="170" y="85" font-family="Arial, sans-serif" font-size="22" font-weight="bold"
+          fill="#5C3A1E">重點 01</text>
+    <text x="170" y="115" font-family="Arial, sans-serif" font-size="16"
+          fill="#8B5A2B">Key Point</text>
+    <text x="170" y="160" font-family="Arial, sans-serif" font-size="14"
+          fill="#8B5A2B" opacity="0.75">說明文字</text>
+  </g>
+
+  <!-- Bento Grid 小卡 2 (右上 寬) -->
+  <g transform="translate(1320, 140)" filter="url(#cardShadow)">
+    <rect x="0" y="0" width="420" height="200" rx="16" fill="#FFFAEC" stroke="#C77B22" stroke-width="3"/>
+    <g transform="translate(70, 100)">
+      <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+            fill="none" stroke="#5C3A1E" stroke-width="3"/>
+      <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+            fill="url(#hexHoney)" stroke="#5C3A1E" stroke-width="2"/>
+    </g>
+    <text x="170" y="85" font-family="Arial, sans-serif" font-size="22" font-weight="bold"
+          fill="#5C3A1E">重點 02</text>
+    <text x="170" y="115" font-family="Arial, sans-serif" font-size="16"
+          fill="#8B5A2B">Key Point</text>
+    <text x="170" y="160" font-family="Arial, sans-serif" font-size="14"
+          fill="#8B5A2B" opacity="0.75">說明文字</text>
+  </g>
+
+  <!-- Bento Grid 中卡 (右中) -->
+  <g transform="translate(920, 360)" filter="url(#cardShadow)">
+    <rect x="0" y="0" width="820" height="220" rx="18" fill="#FFFAEC" stroke="#E8A33D" stroke-width="3"/>
+    <!-- 三個六邊形表示三段式層級 -->
+    <g transform="translate(140, 110)">
+      <path d="M0,-45 L39,-22.5 L39,22.5 L0,45 L-39,22.5 L-39,-22.5 Z"
+            fill="url(#hexHoney)" stroke="#5C3A1E" stroke-width="2"/>
+    </g>
+    <g transform="translate(280, 110)">
+      <path d="M0,-45 L39,-22.5 L39,22.5 L0,45 L-39,22.5 L-39,-22.5 Z"
+            fill="url(#hexDeep)" stroke="#5C3A1E" stroke-width="2"/>
+    </g>
+    <g transform="translate(420, 110)">
+      <path d="M0,-45 L39,-22.5 L39,22.5 L0,45 L-39,22.5 L-39,-22.5 Z"
+            fill="none" stroke="#5C3A1E" stroke-width="3"/>
+    </g>
+    <text x="540" y="90" font-family="Arial, sans-serif" font-size="22" font-weight="bold"
+          fill="#5C3A1E">三段式層級</text>
+    <text x="540" y="125" font-family="Arial, sans-serif" font-size="16"
+          fill="#8B5A2B">KPI → 趨勢 → 細節</text>
+  </g>
+
+  <!-- 底部條形卡 -->
+  <g transform="translate(180, 620)" filter="url(#cardShadow)">
+    <rect x="0" y="0" width="1560" height="280" rx="20" fill="#FFFAEC" stroke="#C77B22" stroke-width="3"/>
+    <text x="780" y="80" font-family="Arial, sans-serif" font-size="32" font-weight="bold"
+          fill="#5C3A1E" text-anchor="middle">章節內容區</text>
+    <!-- 4個小六邊形裝飾 -->
+    <g transform="translate(390, 200)">
+      <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+            fill="url(#hexHoney)" stroke="#5C3A1E" stroke-width="2"/>
+    </g>
+    <g transform="translate(630, 200)">
+      <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+            fill="none" stroke="#5C3A1E" stroke-width="3"/>
+    </g>
+    <g transform="translate(870, 200)">
+      <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+            fill="url(#hexDeep)" stroke="#5C3A1E" stroke-width="2"/>
+    </g>
+    <g transform="translate(1110, 200)">
+      <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+            fill="url(#hexHoney)" stroke="#5C3A1E" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- 標題 -->
+  <g transform="translate(960, 50)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="36" font-weight="bold"
+          fill="#5C3A1E" text-anchor="middle">工作報告 · 蜂蜜卡片</text>
+    <text x="0" y="34" font-family="Arial, sans-serif" font-size="18"
+          fill="#8B5A2B" text-anchor="middle" opacity="0.85">Bento Grid Chapter Card</text>
+  </g>
+
+  <!-- 底部標註 -->
+  <g transform="translate(960, 1000)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="20"
+          fill="#8B5A2B" text-anchor="middle" opacity="0.7">熊熊風格 · Bento Grid · 2.5D 蜂巢</text>
+  </g>
+</svg>

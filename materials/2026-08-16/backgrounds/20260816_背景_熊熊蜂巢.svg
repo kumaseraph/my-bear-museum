@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 熊熊溫暖底色 -->
+    <radialGradient id="warmGlow" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#FFF4DC"/>
+      <stop offset="50%" stop-color="#F8E4C0"/>
+      <stop offset="100%" stop-color="#E8C895"/>
+    </radialGradient>
+    <!-- 熊熊色 (暖棕到金) -->
+    <linearGradient id="bearHoney" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F4B860"/>
+      <stop offset="100%" stop-color="#C77B22"/>
+    </linearGradient>
+    <linearGradient id="bearDeep" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8B5A2B"/>
+      <stop offset="100%" stop-color="#5C3A1E"/>
+    </linearGradient>
+    <!-- 蜂巢底紋 -->
+    <pattern id="honeycombBg3" x="0" y="0" width="78" height="86.6" patternUnits="userSpaceOnUse">
+      <path d="M39,0 L78,21.65 L78,64.95 L39,86.6 L0,64.95 L0,21.65 Z"
+            fill="none" stroke="#C9A876" stroke-width="0.7" opacity="0.4"/>
+    </pattern>
+    <filter id="rough3">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="11"/>
+      <feDisplacementMap in="SourceGraphic" scale="1.8"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1920" height="1080" fill="url(#warmGlow)"/>
+  <rect width="1920" height="1080" fill="url(#honeycombBg3)" opacity="0.6"/>
+
+  <!-- 分組叢集A (左上 2-3叢為一組 - 團隊A) -->
+  <g transform="translate(380, 300)" filter="url(#rough3)">
+    <!-- 主蜂巢 + 2衛星 -->
+    <path d="M0,-70 L60.6,-35 L60.6,35 L0,70 L-60.6,35 L-60.6,-35 Z"
+          fill="url(#bearHoney)" stroke="#5C3A1E" stroke-width="3"/>
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="none" stroke="#FFE4A8" stroke-width="3"/>
+    <!-- 衛星蜂巢 1 -->
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="url(#bearDeep)" stroke="#5C3A1E" stroke-width="2"
+          transform="translate(110, 0)"/>
+    <!-- 衛星蜂巢 2 -->
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="none" stroke="#5C3A1E" stroke-width="2"
+          transform="translate(-110, 0)"/>
+    <!-- 連接虛線 (連接方式變化) -->
+    <line x1="60" y1="0" x2="78" y2="0" stroke="#8B5A2B" stroke-width="2" stroke-dasharray="4,4"/>
+    <line x1="-60" y1="0" x2="-78" y2="0" stroke="#8B5A2B" stroke-width="2" stroke-dasharray="4,4"/>
+  </g>
+
+  <!-- 分組�集B (右上 - 團隊B) -->
+  <g transform="translate(1100, 240)">
+    <path d="M0,-55 L47.6,-27.5 L47.6,27.5 L0,55 L-47.6,27.5 L-47.6,-27.5 Z"
+          fill="none" stroke="#5C3A1E" stroke-width="3"/>
+    <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z"
+          fill="url(#bearHoney)" stroke="#5C3A1E" stroke-width="2"/>
+    <path d="M0,-30 L25.98,-15 L25.98,15 L0,30 L-25.98,15 L-25.98,-15 Z"
+          fill="none" stroke="#5C3A1E" stroke-width="2"
+          transform="translate(85, 30)"/>
+  </g>
+
+  <!-- 分組叢集C (左下 - 團隊C) -->
+  <g transform="translate(450, 760)">
+    <path d="M0,-65 L56.3,-32.5 L56.3,32.5 L0,65 L-56.3,32.5 L-56.3,-32.5 Z"
+          fill="url(#bearDeep)" stroke="#5C3A1E" stroke-width="2"/>
+    <path d="M0,-65 L56.3,-32.5 L56.3,32.5 L0,65 L-56.3,32.5 L-56.3,-32.5 Z"
+          fill="none" stroke="#5C3A1E" stroke-width="2"
+          transform="translate(120, 50)"/>
+    <path d="M0,-65 L56.3,-32.5 L56.3,32.5 L0,65 L-56.3,32.5 L-56.3,-32.5 Z"
+          fill="url(#bearHoney)" stroke="#5C3A1E" stroke-width="2"
+          transform="translate(-115, -45)"/>
+  </g>
+
+  <!-- 分組叢集D (右下 - 團隊D 中心焦點) -->
+  <g transform="translate(1380, 820)">
+    <!-- 中心焦點 -->
+    <path d="M0,-80 L69.3,-40 L69.3,40 L0,80 L-69.3,40 L-69.3,-40 Z"
+          fill="url(#bearHoney)" stroke="#5C3A1E" stroke-width="3"/>
+    <path d="M0,-45 L39,-22.5 L39,22.5 L0,45 L-39,22.5 L-39,-22.5 Z"
+          fill="none" stroke="#FFE4A8" stroke-width="3"/>
+    <!-- 外圍3叢 -->
+    <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+          fill="url(#bearDeep)" stroke="#5C3A1E" stroke-width="1.5"
+          transform="translate(0, -135)"/>
+    <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+          fill="none" stroke="#5C3A1E" stroke-width="1.5"
+          transform="rotate(120) translate(0, -135)"/>
+    <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+          fill="url(#bearDeep)" stroke="#5C3A1E" stroke-width="1.5"
+          transform="rotate(240) translate(0, -135)"/>
+  </g>
+
+  <!-- 中心焦點 (Bento Grid 主視覺) -->
+  <g transform="translate(960, 540)">
+    <!-- 2.5D 雙層 -->
+    <path d="M0,-100 L86.6,-50 L86.6,50 L0,100 L-86.6,50 L-86.6,-50 Z"
+          fill="none" stroke="#5C3A1E" stroke-width="6"/>
+    <path d="M0,-75 L64.95,-37.5 L64.95,37.5 L0,75 L-64.95,37.5 L-64.95,-37.5 Z"
+          fill="url(#bearHoney)" stroke="#5C3A1E" stroke-width="3"/>
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="none" stroke="#FFE4A8" stroke-width="3"/>
+    <!-- 熊熊愛心 -->
+    <path d="M0,-15 C-8,-25 -20,-25 -20,-12 C-20,0 0,15 0,15 C0,15 20,0 20,-12 C20,-25 8,-25 0,-15 Z"
+          fill="#C77B22" stroke="#5C3A1E" stroke-width="2"/>
+  </g>
+
+  <!-- 標題 -->
+  <g transform="translate(960, 100)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="48" font-weight="bold"
+          fill="#5C3A1E" text-anchor="middle">工作報告 · 熊熊蜂巢</text>
+    <text x="0" y="42" font-family="Arial, sans-serif" font-size="20"
+          fill="#8B5A2B" text-anchor="middle" opacity="0.85">Work Report · Bear Honeycomb</text>
+  </g>
+</svg>

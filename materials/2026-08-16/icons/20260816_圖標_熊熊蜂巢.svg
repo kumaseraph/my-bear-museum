@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="iconHoney" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F4B860"/>
+      <stop offset="100%" stop-color="#E8A33D"/>
+    </linearGradient>
+    <linearGradient id="iconDeep" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C77B22"/>
+      <stop offset="100%" stop-color="#8B5A2B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景圓 (虛實對比) -->
+  <circle cx="200" cy="200" r="190" fill="#FFFAEC" stroke="#8B5A2B" stroke-width="4" opacity="0.5"/>
+  <circle cx="200" cy="200" r="170" fill="none" stroke="#E8A33D" stroke-width="2" opacity="0.4"/>
+
+  <!-- 中心大六邊形 (外粗空心) - 2.5D 效果 -->
+  <g transform="translate(200, 200)">
+    <path d="M0,-130 L112.6,-65 L112.6,65 L0,130 L-112.6,65 L-112.6,-65 Z"
+          fill="none" stroke="#8B5A2B" stroke-width="6"/>
+    <path d="M0,-100 L86.6,-50 L86.6,50 L0,100 L-86.6,50 L-86.6,-50 Z"
+          fill="url(#iconHoney)" stroke="#5C3A1E" stroke-width="3"/>
+
+    <!-- 熊熊耳朵 (圓形+填充方式對比) -->
+    <circle cx="-50" cy="-65" r="22" fill="url(#iconDeep)" stroke="#5C3A1E" stroke-width="2.5"/>
+    <circle cx="-50" cy="-65" r="11" fill="#F4B860"/>
+    <circle cx="50" cy="-65" r="22" fill="url(#iconDeep)" stroke="#5C3A1E" stroke-width="2.5"/>
+    <circle cx="50" cy="-65" r="11" fill="#F4B860"/>
+
+    <!-- 熊熊臉部 -->
+    <ellipse cx="0" cy="0" rx="48" ry="40" fill="#F4B860" stroke="#5C3A1E" stroke-width="2.5"/>
+
+    <!-- 熊熊眼睛 -->
+    <circle cx="-18" cy="-5" r="6" fill="#3D2614"/>
+    <circle cx="18" cy="-5" r="6" fill="#3D2614"/>
+    <circle cx="-16" cy="-7" r="2" fill="#FFFAEC"/>
+    <circle cx="20" cy="-7" r="2" fill="#FFFAEC"/>
+
+    <!-- 熊熊鼻子 -->
+    <ellipse cx="0" cy="14" rx="8" ry="6" fill="#5C3A1E"/>
+    <!-- 熊熊嘴巴 -->
+    <path d="M0,20 Q-8,30 -12,28 M0,20 Q8,30 12,28"
+          stroke="#5C3A1E" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- 熊熊腮紅 -->
+    <circle cx="-32" cy="10" r="5" fill="#E89A6A" opacity="0.6"/>
+    <circle cx="32" cy="10" r="5" fill="#E89A6A" opacity="0.6"/>
+  </g>
+
+  <!-- 周圍小六邊形裝飾 (�集與單一對比) -->
+  <g transform="translate(60, 60)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="url(#iconDeep)" stroke="#5C3A1E" stroke-width="2" transform="rotate(30)"/>
+  </g>
+  <g transform="translate(340, 60)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#5C3A1E" stroke-width="2.5" transform="rotate(30)"/>
+  </g>
+  <g transform="translate(60, 340)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#5C3A1E" stroke-width="2.5" transform="rotate(30)"/>
+  </g>
+  <g transform="translate(340, 340)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="url(#iconHoney)" stroke="#5C3A1E" stroke-width="2" transform="rotate(30)"/>
+  </g>
+
+  <!-- 蜂蜜點綴 -->
+  <circle cx="120" cy="200" r="6" fill="#E8A33D" opacity="0.7"/>
+  <circle cx="280" cy="200" r="6" fill="#C77B22" opacity="0.7"/>
+  <circle cx="200" cy="380" r="5" fill="#E8A33D" opacity="0.6"/>
+  <circle cx="200" cy="20" r="5" fill="#C77B22" opacity="0.6"/>
+</svg>
