@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>長照 3.0 啟航：超高齡社會的醫療轉型｜2026-08-17 政府公務</title>
+<style>
+/* ============================================================
+   配色：C3 極光森林（Aurora Forest）
+   結構：V11 玻璃儀表板 + 醫療藍綠 + 暖橘強調
+   主題：Monday 政府公務 — 長照 3.0 啟航：超高齡社會的醫療轉型
+   ============================================================ */
+:root {
+  --bg-deep:        #0a1f24;
+  --bg-mid:         #0d2e34;
+  --bg-card:        rgba(13, 46, 52, 0.55);
+  --primary:        #14b8a6;   /* 極光綠 */
+  --primary-soft:   #5eead4;
+  --primary-deep:   #0f766e;
+  --accent:         #fb923c;   /* 暖橘強調 */
+  --accent-soft:    #fdba74;
+  --accent-deep:    #c2410c;
+  --teal:           #4dd0e1;   /* 醫療青 */
+  --rose:           #f472b6;   /* 照護粉 */
+  --gold:           #fbbf24;
+  --ink:            #ecfeff;
+  --ink-soft:       #cffafe;
+  --ink-mute:       #99f6e4;
+  --ink-dim:        #67e8f9;
+  --border-cool:    rgba(20, 184, 166, 0.40);
+  --border-warm:    rgba(251, 146, 60, 0.50);
+  --glow-cool:      0 0 28px rgba(20, 184, 166, 0.35);
+  --glow-warm:      0 0 24px rgba(251, 146, 60, 0.30);
+}
+
+html { font-size: 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a1f24;
+  color: var(--ink-soft);
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 80% 15%, rgba(20, 184, 166, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(251, 146, 60, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(77, 208, 225, 0.10) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+  border-radius: 12px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 48px 56px 80px;
+  color: var(--ink-soft);
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+.slide * { line-height: 1.5; }
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 320px; height: 320px; background: rgba(20, 184, 166, 0.22); top: -100px; right: -100px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(251, 146, 60, 0.16); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 220px; height: 220px; background: rgba(77, 208, 225, 0.18); top: 50%; left: 60%; }
+
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.tag {
+  display: inline-block;
+  background: rgba(20, 184, 166, 0.18);
+  color: var(--primary-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-cool);
+}
+.tag-warm {
+  display: inline-block;
+  background: rgba(251, 146, 60, 0.18);
+  color: var(--accent-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-warm);
+}
+
+h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.18; margin: 8px 0 14px; color: #ffffff; }
+h2 { font-size: 1.6rem; font-weight: 700; margin: 4px 0 12px; color: #ffffff; line-height: 1.25; }
+h3 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 6px; color: var(--primary-soft); }
+.lead { font-size: 1.1rem; color: var(--ink-mute); line-height: 1.55; margin: 6px 0 14px; }
+
+/* === 卡片 === */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--glow-cool);
+}
+.card-warm {
+  background: rgba(251, 146, 60, 0.08);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 18px;
+}
+.card-soft {
+  background: rgba(236, 254, 255, 0.04);
+  border: 1px solid rgba(94, 234, 212, 0.20);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+/* === Nav === */
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+  background: rgba(10, 31, 36, 0.85);
+  padding: 6px 12px;
+  border-radius: 24px;
+  border: 1px solid var(--border-cool);
+}
+.nav button {
+  background: rgba(20, 184, 166, 0.15);
+  border: 1px solid var(--border-cool);
+  color: var(--ink);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav button:hover { background: rgba(20, 184, 166, 0.35); }
+.nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+.nav span { font-size: 1rem; color: var(--ink-mute); min-width: 56px; text-align: center; }
+
+.back-link {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  z-index: 50;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  text-decoration: none;
+  background: rgba(10, 31, 36, 0.7);
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border-cool);
+}
+.back-link:hover { color: var(--primary-soft); }
+
+/* ============================================================
+   P1 封面（特/單） — 大圓環 + 中心數字
+   ============================================================ */
+.s1-cover {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .cover-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.s1-cover h1 {
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.18;
+  margin: 0;
+  z-index: 2;
+}
+.s1-cover h1 .accent { color: var(--primary-soft); }
+.s1-cover .sub {
+  font-size: 1.2rem;
+  color: var(--ink-mute);
+  margin-top: 18px;
+  max-width: 640px;
+  z-index: 2;
+}
+.s1-cover .big-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+.s1-cover .ring-stat {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.s1-cover .ring-stat .num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.s1-cover .ring-stat .lbl {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.08em;
+}
+.s1-cover .ring-stat.top-l { top: 50px; left: 80px; }
+.s1-cover .ring-stat.top-r { top: 50px; right: 80px; }
+.s1-cover .ring-stat.bot-l { bottom: 70px; left: 80px; }
+.s1-cover .ring-stat.bot-r { bottom: 70px; right: 80px; }
+
+/* ============================================================
+   P2 議程（方/網）— 6 格議程卡
+   ============================================================ */
+.s2-toc { }
+.s2-toc .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.s2-toc h2 {
+  font-size: 2.2rem;
+  margin: 0;
+}
+.s2-toc .header .pill {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.s2-toc .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+  align-content: center;
+}
+.s2-toc .toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--glow-cool);
+}
+.s2-toc .toc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+}
+.s2-toc .toc-card .num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.s2-toc .toc-card .lbl {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 6px;
+}
+.s2-toc .toc-card .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   P3 願景（圓/垂）— 同心圓 + 量化目標
+   ============================================================ */
+.s3-vision { }
+.s3-vision .center-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  padding: 12px 0;
+}
+.s3-vision .donut-wrap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  flex-shrink: 0;
+}
+.s3-vision .donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+}
+.s3-vision .donut-center .yr {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.s3-vision .donut-center .goal {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  margin-top: 6px;
+  letter-spacing: 0.1em;
+}
+.s3-vision .vision-stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.s3-vision .vision-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+}
+.s3-vision .vision-row .v {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  min-width: 130px;
+  line-height: 1;
+}
+.s3-vision .vision-row .v.warm { color: var(--accent-soft); }
+.s3-vision .vision-row .lbl {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P4 政策時間線（線/垂）— 5 個時點
+   ============================================================ */
+.s4-timeline { }
+.s4-timeline .timeline {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  padding: 8px 0 8px 56px;
+  margin-top: 6px;
+}
+.s4-timeline .timeline::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: 2px;
+}
+.s4-timeline .tl-item {
+  position: relative;
+  padding: 10px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+}
+.s4-timeline .tl-item::before {
+  content: '';
+  position: absolute;
+  left: -42px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 12px rgba(20, 184, 166, 0.6);
+  border: 3px solid var(--bg-deep);
+}
+.s4-timeline .tl-item.peak::before {
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(251, 146, 60, 0.6);
+}
+.s4-timeline .tl-item .yr {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--primary-soft);
+  letter-spacing: 0.08em;
+  margin-right: 10px;
+}
+.s4-timeline .tl-item.peak .yr { color: var(--accent-soft); }
+.s4-timeline .tl-item .ev {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+.s4-timeline .tl-item .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  margin-top: 4px;
+  line-height: 1.45;
+}
+
+/* ============================================================
+   P5 服務對象（六/散）— 7 個族群六邊形
+   ============================================================ */
+.s5-coverage { }
+.s5-coverage .header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.s5-coverage .header h2 {
+  font-size: 2.0rem;
+  margin: 0;
+}
+.s5-coverage .header .sub {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  margin-top: 6px;
+}
+.s5-coverage .hex-scatter {
+  flex: 1;
+  position: relative;
+}
+.s5-coverage .hex {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--bg-card);
+  border: 2px solid var(--border-cool);
+  box-shadow: var(--glow-cool);
+}
+.s5-coverage .hex.warm {
+  border-color: var(--border-warm);
+  box-shadow: var(--glow-warm);
+  background: rgba(251, 146, 60, 0.10);
+}
+.s5-coverage .hex .name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+}
+.s5-coverage .hex .num {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  margin-top: 2px;
+}
+.s5-coverage .hex.warm .num { color: var(--accent-soft); }
+.s5-coverage .hex .sub {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  margin-top: 1px;
+}
+.s5-coverage .hex-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px; height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle, var(--primary) 0%, var(--primary-deep) 100%);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  z-index: 2;
+  box-shadow: 0 0 32px rgba(20, 184, 166, 0.5);
+}
+.s5-coverage .hex-center .big {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+}
+.s5-coverage .hex-center .lbl {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-top: 6px;
+  letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   P6 三大支柱（特/垂）— 大型輻射
+   ============================================================ */
+.s6-pillars { }
+.s6-pillars .pillar-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+  flex: 1;
+}
+.s6-pillars .pillar {
+  display: flex;
+  align-items: stretch;
+  gap: 18px;
+  padding: 14px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  box-shadow: var(--glow-cool);
+}
+.s6-pillars .pillar.warm {
+  border-color: var(--border-warm);
+  background: rgba(251, 146, 60, 0.08);
+  box-shadow: var(--glow-warm);
+}
+.s6-pillars .pillar .dot {
+  width: 60px; height: 60px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #ffffff;
+  background: radial-gradient(circle at 30% 30%, var(--primary), var(--primary-deep));
+  box-shadow: 0 0 18px rgba(20, 184, 166, 0.5);
+}
+.s6-pillars .pillar.warm .dot {
+  background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-deep));
+  box-shadow: 0 0 18px rgba(251, 146, 60, 0.5);
+}
+.s6-pillars .pillar .body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.s6-pillars .pillar h3 {
+  font-size: 1.25rem;
+  color: #ffffff;
+  margin: 0 0 4px;
+}
+.s6-pillars .pillar.warm h3 { color: var(--accent-soft); }
+.s6-pillars .pillar p {
+  font-size: 1.0rem;
+  color: var(--ink-mute);
+  margin: 0;
+  line-height: 1.45;
+}
+.s6-pillars .pillar .metric {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+.s6-pillars .pillar .metric .m-num {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+}
+.s6-pillars .pillar.warm .metric .m-num { color: var(--accent-soft); }
+.s6-pillars .pillar .metric .m-lbl {
+  font-size: 1rem;
+  color: var(--ink-dim);
+}
+
+/* ============================================================
+   P7 預算與量能（方/水）— 4 格儀表板
+   ============================================================ */
+.s7-budget { }
+.s7-budget .header { margin-bottom: 18px; }
+.s7-budget .kpi-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 14px;
+  flex: 1;
+  align-items: stretch;
+}
+.s7-budget .kpi-card {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  box-shadow: var(--glow-cool);
+  position: relative;
+  overflow: hidden;
+}
+.s7-budget .kpi-card.warm {
+  border-color: var(--border-warm);
+  background: rgba(251, 146, 60, 0.08);
+  box-shadow: var(--glow-warm);
+}
+.s7-budget .kpi-card .big {
+  font-size: 2.6rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--primary-soft);
+}
+.s7-budget .kpi-card.warm .big { color: var(--accent-soft); }
+.s7-budget .kpi-card .lbl {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+  min-height: 44px;
+}
+.s7-budget .kpi-card .delta {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  margin-top: 4px;
+}
+.s7-budget .kpi-card .icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  opacity: 0.5;
+}
+
+/* ============================================================
+   P8 國際比較（圓/網）— 2x2 國家對照
+   ============================================================ */
+.s8-compare { }
+.s8-compare .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  flex: 1;
+  margin-top: 12px;
+}
+.s8-compare .country {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 20px;
+  position: relative;
+  box-shadow: var(--glow-cool);
+}
+.s8-compare .country.local {
+  border-color: var(--primary-soft);
+  background: rgba(20, 184, 166, 0.10);
+}
+.s8-compare .country .flag {
+  font-size: 1.0rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+.s8-compare .country .name {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-top: 4px;
+}
+.s8-compare .country .body {
+  font-size: 1.0rem;
+  color: var(--ink-mute);
+  line-height: 1.5;
+  margin-top: 8px;
+}
+.s8-compare .country .stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(20, 184, 166, 0.25);
+}
+.s8-compare .country .stat-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.s8-compare .country .stat-cell .v {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.s8-compare .country.local .stat-cell .v { color: var(--accent-soft); }
+.s8-compare .country .stat-cell .l {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  margin-top: 2px;
+}
+.s8-compare .takeaway {
+  margin-top: 14px;
+  padding: 12px 18px;
+  background: rgba(251, 146, 60, 0.10);
+  border: 1px solid var(--border-warm);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.s8-compare .takeaway .lbl {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-soft);
+  letter-spacing: 0.1em;
+}
+.s8-compare .takeaway .txt {
+  font-size: 1.0rem;
+  color: var(--ink-mute);
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* ============================================================
+   P9 行動清單（線/水）— 6 步驟橫排
+   ============================================================ */
+.s9-action { }
+.s9-action .action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+  flex: 1;
+  align-content: center;
+}
+.s9-action .action-card {
+  padding: 16px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  box-shadow: var(--glow-cool);
+}
+.s9-action .action-card.warm {
+  border-color: var(--border-warm);
+  background: rgba(251, 146, 60, 0.08);
+  box-shadow: var(--glow-warm);
+}
+.s9-action .action-card .step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  color: var(--primary-soft);
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+.s9-action .action-card.warm .step { color: var(--accent-soft); }
+.s9-action .action-card .step .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 900;
+}
+.s9-action .action-card.warm .step .num { background: var(--accent); }
+.s9-action .action-card h3 {
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin: 4px 0 0;
+  line-height: 1.3;
+}
+.s9-action .action-card p {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* ============================================================
+   P10 結尾（無/單）— 大字 + 儀表板回顧
+   ============================================================ */
+.s10-end {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  color: var(--primary-soft);
+  letter-spacing: 0.3em;
+  margin-bottom: 16px;
+}
+.s10-end .end-title {
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 18px;
+  max-width: 900px;
+}
+.s10-end .end-title .accent { color: var(--primary-soft); }
+.s10-end .end-sub {
+  font-size: 1.15rem;
+  color: var(--ink-mute);
+  margin-bottom: 32px;
+  max-width: 720px;
+}
+.s10-end .end-meta {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.s10-end .end-meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  min-width: 130px;
+}
+.s10-end .end-meta-item .v {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.s10-end .end-meta-item .v.warm { color: var(--accent-soft); }
+.s10-end .end-meta-item .l {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.05em;
+}
+.s10-end .end-footer {
+  margin-top: 32px;
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.08em;
+}
+</style>
+</head>
+<body>
+<div class="presentation" id="pres">
+  <a class="back-link" href="/slides.htm">← 回列表</a>
+
+  <!-- ============================ P1 封面 ============================ -->
+  <div class="slide cover s1-cover active" id="s1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <svg class="big-circle" width="500" height="500" viewBox="0 0 500 500">
+      <circle cx="250" cy="250" r="240" fill="none" stroke="rgba(20,184,166,0.15)" stroke-width="1.5"/>
+      <circle cx="250" cy="250" r="200" fill="none" stroke="rgba(20,184,166,0.22)" stroke-width="1.5" stroke-dasharray="4 6"/>
+      <circle cx="250" cy="250" r="160" fill="none" stroke="rgba(77,208,225,0.25)" stroke-width="1.5"/>
+      <circle cx="250" cy="250" r="120" fill="none" stroke="rgba(251,146,60,0.20)" stroke-width="1.5" stroke-dasharray="2 4"/>
+      <circle cx="250" cy="250" r="80" fill="none" stroke="rgba(20,184,166,0.30)" stroke-width="1.5"/>
+    </svg>
+    <div class="ring-stat top-l">
+      <div class="num">3.0</div>
+      <div class="lbl">長照新紀元</div>
+    </div>
+    <div class="ring-stat top-r">
+      <div class="num">2026</div>
+      <div class="lbl">啟航年</div>
+    </div>
+    <div class="ring-stat bot-l">
+      <div class="num">90 萬</div>
+      <div class="lbl">服務對象</div>
+    </div>
+    <div class="ring-stat bot-r">
+      <div class="num">3 億</div>
+      <div class="lbl">復健病房投入</div>
+    </div>
+    <div class="cover-eyebrow">MONDAY · 2026.08.17 · 政府公務</div>
+    <h1>長照 3.0 啟航<br><span class="accent">超高齡社會的醫療轉型</span></h1>
+    <p class="sub">當 2025 年底 65 歲人口突破 20%——台灣正式邁入超高齡社會。長照 3.0 要回答的，是 400 萬長者未來十年的醫療尊嚴。</p>
+  </div>
+
+  <!-- ============================ P2 議程 ============================ -->
+  <div class="slide s2-toc" id="s2">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <div class="header">
+        <h2>六大議題：長照 3.0 的施工藍圖</h2>
+        <span class="pill">AGENDA · 6 議題</span>
+      </div>
+      <p class="lead">從人口結構、政策演進、服務對象，到預算、國際比較與行動方案——這是一份以十年為尺度的醫療轉型提案。</p>
+      <div class="grid">
+        <div class="toc-card">
+          <div class="num">01</div>
+          <div class="lbl">人口結構</div>
+          <div class="desc">超高齡社會的臨界點與三階段圖譜</div>
+        </div>
+        <div class="toc-card">
+          <div class="num">02</div>
+          <div class="lbl">政策時間線</div>
+          <div class="desc">長照 1.0 → 2.0 → 3.0 的十年演進</div>
+        </div>
+        <div class="toc-card">
+          <div class="num">03</div>
+          <div class="lbl">服務對象</div>
+          <div class="desc">七類族群 × 各自需求的照護光譜</div>
+        </div>
+        <div class="toc-card">
+          <div class="num">04</div>
+          <div class="lbl">三大支柱</div>
+          <div class="desc">醫療、復健、居家照護的整合體系</div>
+        </div>
+        <div class="toc-card">
+          <div class="num">05</div>
+          <div class="lbl">預算與量能</div>
+          <div class="desc">815 億年度預算的配置儀表板</div>
+        </div>
+        <div class="toc-card">
+          <div class="num">06</div>
+          <div class="lbl">國際比較</div>
+          <div class="desc">日、韓、星、台四國政策鏡像</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P3 願景 ============================ -->
+  <div class="slide s3-vision" id="s3">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <span class="tag">VISION</span>
+      <h2>2030 願景：把照護，從醫院搬回家</h2>
+      <p class="lead">長照 3.0 的核心承諾：讓長者在地老化、在家尊嚴，醫療與生活不再被一張轉診單切開。</p>
+      <div class="center-stage">
+        <div class="donut-wrap">
+          <svg viewBox="0 0 300 300" width="300" height="300">
+            <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(20,184,166,0.15)" stroke-width="22"/>
+            <circle cx="150" cy="150" r="120" fill="none" stroke="url(#g1)" stroke-width="22" stroke-dasharray="628 754" transform="rotate(-90 150 150)" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#14b8a6"/>
+                <stop offset="100%" stop-color="#fb923c"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="donut-center">
+            <div class="yr">83%</div>
+            <div class="goal">在地老化目標<br>2030 承諾</div>
+          </div>
+        </div>
+        <div class="vision-stats">
+          <div class="vision-row">
+            <div class="v">+ 200</div>
+            <div class="lbl">復健病房床位新增<br>（首波鎖定腦中風患者）</div>
+          </div>
+          <div class="vision-row">
+            <div class="v warm">4.2 萬</div>
+            <div class="lbl">居家醫療照護團隊擴編<br>醫師 + 護理師 + 照服員</div>
+          </div>
+          <div class="vision-row">
+            <div class="v">90 萬</div>
+            <div class="lbl">長照 3.0 服務對象<br>（含 4–7 級失能者）</div>
+          </div>
+          <div class="vision-row">
+            <div class="v warm">≤ 30 分</div>
+            <div class="lbl">都會區到宅復健<br>平均等待時間</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P4 政策時間線 ============================ -->
+  <div class="slide s4-timeline" id="s4">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <span class="tag">TIMELINE</span>
+      <h2>長照政策十年演進：1.0 → 2.0 → 3.0</h2>
+      <p class="lead">從 2008 的機構式照顧，到 2017 的社區據點，再到 2026 的居家整合——三個版本的長照，演進的是國家對老後的想像。</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <span class="yr">2008</span><span class="ev">長照 1.0 起步</span>
+          <div class="desc">十年長照計畫啟動，以機構式照護為主，服務對象約 5 萬人。</div>
+        </div>
+        <div class="tl-item">
+          <span class="yr">2017</span><span class="ev">長照 2.0 啟動</span>
+          <div class="desc">擴大為「ABC 三級社區據點」，加入失智照護、預防延緩失能，服務對象倍增至 50 萬人。</div>
+        </div>
+        <div class="tl-item">
+          <span class="yr">2024</span><span class="ev">長照 3.0 立法整備</span>
+          <div class="desc">《長照服務法》修法，將居家醫療與復健納入法定服務。</div>
+        </div>
+        <div class="tl-item peak">
+          <span class="yr">2026.08</span><span class="ev">長照 3.0 正式啟航</span>
+          <div class="desc">復健病房 200 床啟用，首波鎖定腦中風患者；815 億年度預算到位。</div>
+        </div>
+        <div class="tl-item">
+          <span class="yr">2030</span><span class="ev">在地老化 83% 達標</span>
+          <div class="desc">九成長者留在熟悉的社區終老，全國 368 個「長照生活圈」完成建置。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P5 服務對象（七族六邊形） ============================ -->
+  <div class="slide s5-coverage" id="s5">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <div class="header">
+        <span class="tag-warm" style="margin: 0 auto 14px; display: block; width: fit-content;">COVERAGE</span>
+        <h2>七類服務對象 × 各自需求的照護光譜</h2>
+        <div class="sub">長照 3.0 不再以「年齡」分類，而以「需求強度」分級——從健康促進到重度失能，七族各有專屬光譜。</div>
+      </div>
+      <div class="hex-scatter">
+        <!-- 中心圓 -->
+        <div class="hex-center">
+          <div class="big">7 族</div>
+          <div class="lbl">光譜分類</div>
+        </div>
+        <!-- 七個六邊形圍繞 -->
+        <div class="hex" style="top: 10px; left: 100px; width: 180px; height: 160px;">
+          <div class="name">健康長者</div>
+          <div class="num">+ 200 萬</div>
+          <div class="sub">預防延緩</div>
+        </div>
+        <div class="hex" style="top: 10px; right: 100px; width: 180px; height: 160px;">
+          <div class="name">亞健康族</div>
+          <div class="num">+ 110 萬</div>
+          <div class="sub">肌力強化</div>
+        </div>
+        <div class="hex" style="top: 38%; left: 30px; width: 180px; height: 160px;">
+          <div class="name">輕度失能</div>
+          <div class="num">52 萬</div>
+          <div class="sub">生活協助</div>
+        </div>
+        <div class="hex" style="top: 38%; right: 30px; width: 180px; height: 160px;">
+          <div class="name">中度失能</div>
+          <div class="num">28 萬</div>
+          <div class="sub">居家服務</div>
+        </div>
+        <div class="hex warm" style="bottom: 10px; left: 100px; width: 180px; height: 160px;">
+          <div class="name">重度失能</div>
+          <div class="num">7 萬</div>
+          <div class="sub">24h 居家</div>
+        </div>
+        <div class="hex warm" style="bottom: 10px; right: 100px; width: 180px; height: 160px;">
+          <div class="name">失智症者</div>
+          <div class="num">+ 36 萬</div>
+          <div class="sub">記憶門診</div>
+        </div>
+        <div class="hex" style="bottom: 26%; left: 50%; transform: translateX(-50%); width: 180px; height: 80px;">
+          <div class="name">特殊疾病</div>
+          <div class="num" style="font-size: 1rem;">腦中風／巴金森</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P6 三大支柱 ============================ -->
+  <div class="slide s6-pillars" id="s6">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <span class="tag">PILLARS</span>
+      <h2>三大支柱：醫療、復健、居家照護的整合體系</h2>
+      <p class="lead">長照 3.0 的硬核不是機構，而是「讓醫院、復健團隊、居家服務在同一個案上同步協作」。</p>
+      <div class="pillar-stack">
+        <div class="pillar">
+          <div class="dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+              <path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3>支柱一・在宅醫療</h3>
+            <p>由 4,200 位居家醫療醫師、2,800 位居家護理師組成跨專業團隊，到宅提供診療與用藥指導。</p>
+            <div class="metric">
+              <div class="m-num">4.2 萬</div>
+              <div class="m-lbl">服務人次/月</div>
+            </div>
+          </div>
+        </div>
+        <div class="pillar warm">
+          <div class="dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3>支柱二・到宅復健</h3>
+            <p>物理治療師、職能治療師組成機動小隊，提供腦中風後復健與肌力訓練，串接醫院出院計畫。</p>
+            <div class="metric">
+              <div class="m-num">200 床</div>
+              <div class="m-lbl">復健病房新增</div>
+            </div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+              <path d="M3 12l9-9 9 9M5 10v10h14V10"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3>支柱三・居家照護</h3>
+            <p>照顧服務員 196 小時訓練、196 種照護模組，涵蓋身體清潔、餐食準備、家務協助、夜間陪伴。</p>
+            <div class="metric">
+              <div class="m-num">12 萬</div>
+              <div class="m-lbl">照服員人力</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P7 預算與量能 ============================ -->
+  <div class="slide s7-budget" id="s7">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <span class="tag">BUDGET</span>
+      <h2>815 億年度預算：四大塊配置儀表板</h2>
+      <p class="lead">長照 3.0 年度總預算 815 億元，較 2.0 時代成長 18%——配置重點從「機構補貼」轉向「居家整合」與「復健量能」。</p>
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" width="20" height="20">
+            <path d="M3 21V8l9-5 9 5v13M9 21V12h6v9"/>
+          </svg>
+          <div class="big">338 <span style="font-size:1.1rem">億</span></div>
+          <div class="lbl">居家與社區照護<br>佔 41% 為最大塊</div>
+          <div class="delta">↑ 較 2.0 +24%</div>
+        </div>
+        <div class="kpi-card warm">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2" width="20" height="20">
+            <path d="M12 2v20M2 12h20"/>
+          </svg>
+          <div class="big">196 <span style="font-size:1.1rem">億</span></div>
+          <div class="lbl">醫療與復健量能<br>含 3 億復健病房</div>
+          <div class="delta">↑ 較 2.0 +32%</div>
+        </div>
+        <div class="kpi-card">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" width="20" height="20">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M3 12h18"/>
+          </svg>
+          <div class="big">172 <span style="font-size:1.1rem">億</span></div>
+          <div class="lbl">機構式照顧<br>含住宿型機構</div>
+          <div class="delta">↓ 較 2.0 -8%</div>
+        </div>
+        <div class="kpi-card warm">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2" width="20" height="20">
+            <path d="M3 12c3-7 15-7 18 0M3 12c3 7 15 7 18 0"/>
+          </svg>
+          <div class="big">109 <span style="font-size:1.1rem">億</span></div>
+          <div class="lbl">人力培訓與科技<br>照服員 196h 訓練</div>
+          <div class="delta">↑ 較 2.0 +45%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P8 國際比較 ============================ -->
+  <div class="slide s8-compare" id="s8">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <span class="tag">COMPARE</span>
+      <h2>四國政策鏡像：日、韓、星、台</h2>
+      <p class="lead">同樣步入超高齡社會的鄰近國家，各選擇了不同的長照路徑。台灣從中取得三項關鍵啟示。</p>
+      <div class="grid">
+        <div class="country">
+          <div class="flag">🇯🇵 JAPAN</div>
+          <div class="name">日本：介護保險 25 年</div>
+          <div class="body">2000 年開辦介護保險，採社會保險制、實物給付為主。29% 長者使用長照，年支出約 11 兆日圓。</div>
+          <div class="stat-row">
+            <div class="stat-cell"><div class="v">29%</div><div class="l">使用率</div></div>
+            <div class="stat-cell"><div class="v">11 兆</div><div class="l">日圓/年</div></div>
+            <div class="stat-cell"><div class="v">介護保險</div><div class="l">制度</div></div>
+          </div>
+        </div>
+        <div class="country">
+          <div class="flag">🇰🇷 KOREA</div>
+          <div class="name">韓國：老人長期療養保險</div>
+          <div class="body">2008 年開辦，採現金與實物混合給付。問題是「家庭照顧現金給付」造成女性離職，2019 年改革縮減。</div>
+          <div class="stat-row">
+            <div class="stat-cell"><div class="v">11%</div><div class="l">使用率</div></div>
+            <div class="stat-cell"><div class="v">15 兆</div><div class="l">韓元/年</div></div>
+            <div class="stat-cell"><div class="v">混合給付</div><div class="l">制度</div></div>
+          </div>
+        </div>
+        <div class="country">
+          <div class="flag">🇸🇬 SINGAPORE</div>
+ <div class="name">新加坡：樂齡 SG 計畫</div>
+          <div class="body">以「健康老化」為核心，社區式日間照顧為主，強調預防延緩。公私協作模式（NGO 為執行主力）。</div>
+          <div class="stat-row">
+            <div class="stat-cell"><div class="v">6%</div><div class="l">使用率</div></div>
+            <div class="stat-cell"><div class="v">30 億</div><div class="l">新幣/年</div></div>
+            <div class="stat-cell"><div class="v">NGO 主導</div><div class="l">制度</div></div>
+          </div>
+        </div>
+        <div class="country local">
+          <div class="flag">🇹🇼 TAIWAN · 長照 3.0</div>
+          <div class="name">台灣：長照 3.0 啟航</div>
+          <div class="body">結合日、韓、星三國長處：以稅收制撐起普及性、以醫療端串接復健、以社區據點延伸居家服務。</div>
+          <div class="stat-row">
+            <div class="stat-cell"><div class="v">9.5%</div><div class="l">使用率</div></div>
+            <div class="stat-cell"><div class="v">815 億</div><div class="l">台幣/年</div></div>
+            <div class="stat-cell"><div class="v">稅收制</div><div class="l">制度</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="takeaway">
+        <div class="lbl">KEY</div>
+        <div class="txt">台灣的差異化策略：醫療端的復健病房（200 床）+ 居家端的到宅復健，是日韓星三國都尚未整合的環節——這是長照 3.0 真正的護城河。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P9 行動清單 ============================ -->
+  <div class="slide s9-action" id="s9">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <span class="tag-warm">ACTION</span>
+      <h2>六項可立即啟動的行動</h2>
+      <p class="lead">每一項都可在 90 天內啟動、12 個月內交付——是 2030 承諾的第一塊拼圖，也是中央與地方協作的起點。</p>
+      <div class="action-grid">
+        <div class="action-card">
+          <div class="step"><span class="num">01</span> STEP</div>
+          <h3>復健病房啟用</h3>
+          <p>200 床全國布建，首波鎖定腦中風出院患者</p>
+        </div>
+        <div class="action-card warm">
+          <div class="step"><span class="num">02</span> STEP</div>
+          <h3>到宅復健試辦</h3>
+          <p>六都各 1 隊 PT/OT 機動小隊，30 分鐘內到府</p>
+        </div>
+        <div class="action-card">
+          <div class="step"><span class="num">03</span> STEP</div>
+          <h3>照服員 196h 訓練</h3>
+          <p>全國 12 萬在職照服員回流受訓，提升專業度</p>
+        </div>
+        <div class="action-card warm">
+          <div class="step"><span class="num">04</span> STEP</div>
+          <h3>長照生活圈 368 處</h3>
+          <p>全國 368 個「30 分鐘生活圈」資源盤點公告</p>
+        </div>
+        <div class="action-card">
+          <div class="step"><span class="num">05</span> STEP</div>
+          <h3>長者就醫綠通道</h3>
+          <p>基層診所掛號保留號、醫院高齡友善櫃台</p>
+        </div>
+        <div class="action-card warm">
+          <div class="step"><span class="num">06</span> STEP</div>
+          <h3>資料透明平台</h3>
+          <p>長照 3.0 儀表板公開上線，服務量能即時可見</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P10 結尾 ============================ -->
+  <div class="slide cover s10-end" id="s10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <svg style="position:absolute; top:50%; left:50%; transform: translate(-50%,-50%); z-index:0; pointer-events:none;" width="600" height="600" viewBox="0 0 600 600">
+      <circle cx="300" cy="300" r="290" fill="none" stroke="rgba(20,184,166,0.10)" stroke-width="1.2"/>
+      <circle cx="300" cy="300" r="230" fill="none" stroke="rgba(20,184,166,0.14)" stroke-width="1.2" stroke-dasharray="3 5"/>
+      <circle cx="300" cy="300" r="170" fill="none" stroke="rgba(77,208,225,0.18)" stroke-width="1.2"/>
+      <circle cx="300" cy="300" r="110" fill="none" stroke="rgba(251,146,60,0.18)" stroke-width="1.2" stroke-dasharray="2 4"/>
+    </svg>
+    <div class="end-eyebrow">FINAL · 2026.08.17</div>
+    <h2 class="end-title">讓每一位長者，<br>都能在<span class="accent">熟悉的家</span>裡，<br>走完最後一程路</h2>
+    <p class="end-sub">長照 3.0 不是政策口號——它是台灣對 400 萬長者未來十年的承諾：醫療到家、復健到宅、尊嚴到老。</p>
+    <div class="end-meta">
+      <div class="end-meta-item"><div class="v">3 大支柱</div><div class="l">同步推進</div></div>
+      <div class="end-meta-item"><div class="v warm">815 億</div><div class="l">年度預算</div></div>
+      <div class="end-meta-item"><div class="v">90 萬</div><div class="l">服務對象</div></div>
+      <div class="end-meta-item"><div class="v warm">368 處</div><div class="l">生活圈</div></div>
+      <div class="end-meta-item"><div class="v">2030</div><div class="l">承諾年</div></div>
+    </div>
+    <div class="end-footer">長照 3.0 啟航 · 2026 年 8 月 17 日 · 政府公務週報</div>
+  </div>
+
+  <!-- Nav -->
+  <div class="nav">
+    <button onclick="prev()" id="btn-prev">◀</button>
+    <span id="page-info">1 / 10</span>
+    <button onclick="next()" id="btn-next">▶</button>
+  </div>
+</div>
+
+<script>
+var slides = document.querySelectorAll('.slide');
+var current = 0;
+
+function show() {
+  if (slides[current]) {
+    slides[current].classList.remove('active');
+  }
+  current = (current + slides.length) % slides.length;
+  if (slides[current]) {
+    slides[current].classList.add('active');
+  }
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+  document.getElementById('btn-prev').disabled = false;
+  document.getElementById('btn-next').disabled = false;
+}
+function next() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current + 1) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+function prev() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current - 1 + slides.length) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') next();
+  else if (e.key === 'ArrowLeft') prev();
+});
+
+// 初始化：確保 slide-1 有 active class
+if (slides[0] && !slides[0].classList.contains('active')) {
+  slides[0].classList.add('active');
+}
+</script>
+</body>
+</html>
