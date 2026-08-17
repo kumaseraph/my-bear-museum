@@ -70,7 +70,7 @@ body {
   inset: 0;
   display: none;
   flex-direction: column;
-  padding: 48px 56px 80px;
+  padding: 64px 56px 80px;
   color: var(--ink-soft);
   overflow: hidden;
 }
@@ -1055,45 +1055,46 @@ h3 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 6px; color: var(--primar
         <div class="sub">長照 3.0 不再以「年齡」分類，而以「需求強度」分級——從健康促進到重度失能，七族各有專屬光譜。</div>
       </div>
       <div class="hex-scatter">
+        <!-- 左側 3 個六邊形（垂直堆疊） -->
+        <div class="hex" style="top: 8px; left: 30px; width: 250px; height: 110px;">
+          <div class="name">健康長者</div>
+          <div class="num">+ 200 萬</div>
+          <div class="sub">預防延緩 · 社區據點</div>
+        </div>
+        <div class="hex" style="top: calc(50% - 55px); left: 30px; width: 250px; height: 110px;">
+          <div class="name">輕度失能</div>
+          <div class="num">52 萬</div>
+          <div class="sub">生活協助 · 居家服務</div>
+        </div>
+        <div class="hex warm" style="bottom: 8px; left: 30px; width: 250px; height: 110px;">
+          <div class="name">重度失能</div>
+          <div class="num">7 萬</div>
+          <div class="sub">24h 居家 · 機構進駐</div>
+        </div>
         <!-- 中心圓 -->
         <div class="hex-center">
           <div class="big">7 族</div>
           <div class="lbl">光譜分類</div>
         </div>
-        <!-- 七個六邊形圍繞 -->
-        <div class="hex" style="top: 10px; left: 100px; width: 180px; height: 160px;">
-          <div class="name">健康長者</div>
-          <div class="num">+ 200 萬</div>
-          <div class="sub">預防延緩</div>
-        </div>
-        <div class="hex" style="top: 10px; right: 100px; width: 180px; height: 160px;">
+        <!-- 右側 3 個六邊形 -->
+        <div class="hex" style="top: 8px; right: 30px; width: 250px; height: 110px;">
           <div class="name">亞健康族</div>
           <div class="num">+ 110 萬</div>
-          <div class="sub">肌力強化</div>
+          <div class="sub">肌力強化 · 運動處方</div>
         </div>
-        <div class="hex" style="top: 38%; left: 30px; width: 180px; height: 160px;">
-          <div class="name">輕度失能</div>
-          <div class="num">52 萬</div>
-          <div class="sub">生活協助</div>
-        </div>
-        <div class="hex" style="top: 38%; right: 30px; width: 180px; height: 160px;">
+        <div class="hex" style="top: calc(50% - 55px); right: 30px; width: 250px; height: 110px;">
           <div class="name">中度失能</div>
           <div class="num">28 萬</div>
-          <div class="sub">居家服務</div>
+          <div class="sub">日間照顧 · 復健服務</div>
         </div>
-        <div class="hex warm" style="bottom: 10px; left: 100px; width: 180px; height: 160px;">
-          <div class="name">重度失能</div>
-          <div class="num">7 萬</div>
-          <div class="sub">24h 居家</div>
-        </div>
-        <div class="hex warm" style="bottom: 10px; right: 100px; width: 180px; height: 160px;">
+        <div class="hex warm" style="bottom: 8px; right: 30px; width: 250px; height: 110px;">
           <div class="name">失智症者</div>
           <div class="num">+ 36 萬</div>
-          <div class="sub">記憶門診</div>
+          <div class="sub">記憶門診 · 照顧者支持</div>
         </div>
-        <div class="hex" style="bottom: 26%; left: 50%; transform: translateX(-50%); width: 180px; height: 80px;">
-          <div class="name">特殊疾病</div>
-          <div class="num" style="font-size: 1rem;">腦中風／巴金森</div>
+        <!-- 底部：特殊疾病（中間位置，不與左右重疊） -->
+        <div class="hex" style="bottom: 18%; left: 50%; transform: translateX(-50%); width: 220px; height: 60px;">
+          <div class="name">特殊疾病 · 腦中風／巴金森</div>
         </div>
       </div>
     </div>
