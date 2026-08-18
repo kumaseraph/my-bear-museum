@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 技巧#123 菱形五角星 + 技巧#120 六邊形 大小對比
+       工作報告 - 數據分析儀表板 icon -->
+
+  <!-- 背景大六邊形（外粗空心 = 2.5D 效果） -->
+  <path d="M200,30 L338,108 L338,292 L200,370 L62,292 L62,108 Z"
+        fill="none" stroke="url(#iconGrad)" stroke-width="5"/>
+  <!-- 內實心半透明層 -->
+  <path d="M200,30 L338,108 L338,292 L200,370 L62,292 L62,108 Z"
+        fill="url(#iconGrad)" fill-opacity="0.08"/>
+
+  <!-- 中央儀表板圓角矩形 -->
+  <rect x="115" y="135" width="170" height="120" rx="10" ry="10"
+        fill="#FFFFFF" stroke="url(#iconGrad)" stroke-width="4"/>
+
+  <!-- 儀表板內部三條上升折線（圖表） -->
+  <polyline points="135,235 155,215 175,225 195,195 215,205 235,175 255,185 270,160"
+            fill="none" stroke="url(#iconGrad)" stroke-width="3.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 終點圓點 -->
+  <circle cx="270" cy="160" r="6" fill="#F59E0B"/>
+  <!-- 起點圓點 -->
+  <circle cx="135" cy="235" r="4" fill="#3B82F6"/>
+
+  <!-- 頂部柱狀圖（三條） -->
+  <rect x="135" y="148" width="14" height="20" fill="#1E40AF"/>
+  <rect x="155" y="155" width="14" height="13" fill="#3B82F6"/>
+  <rect x="175" y="142" width="14" height="26" fill="#1E40AF" opacity="0.7"/>
+
+  <!-- 底部刻度線 -->
+  <line x1="135" y1="252" x2="270" y2="252" stroke="#1E40AF" stroke-width="1" stroke-opacity="0.4"/>
+  <line x1="135" y1="252" x2="135" y2="246" stroke="#1E40AF" stroke-width="1"/>
+  <line x1="270" y1="252" x2="270" y2="246" stroke="#1E40AF" stroke-width="1"/>
+
+  <!-- 右上角小型六邊形裝飾 (技巧#120 大小對比) -->
+  <path d="M310,55 L325,63 L325,77 L310,85 L295,77 L295,63 Z"
+        fill="#F59E0B"/>
+</svg>

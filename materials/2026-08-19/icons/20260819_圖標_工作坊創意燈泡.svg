@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="bulbGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="bulbShine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF3C7"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+    <linearGradient id="baseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6B7280"/>
+      <stop offset="100%" stop-color="#374151"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景六邊形容器（旋轉 30° - 旋轉角度對比） -->
+  <g transform="translate(200, 200) rotate(30)">
+    <!-- 外粗空心（2.5D 效果） -->
+    <path d="M0,-150 L130,-75 L130,75 L0,150 L-130,75 L-130,-75 Z"
+          fill="none" stroke="#FBBF24" stroke-width="5" opacity="0.5"/>
+    <!-- 內實心（虛實對比） -->
+    <path d="M0,-130 L112.6,-65 L112.6,65 L0,130 L-112.6,65 L-112.6,-65 Z"
+          fill="#FEF3C7" opacity="0.4"/>
+  </g>
+
+  <!-- 燈泡主體（中心焦點 - 少而深刻） -->
+  <g transform="translate(200, 180)">
+    <!-- 燈泡玻璃球 -->
+    <ellipse cx="0" cy="0" rx="65" ry="75" fill="url(#bulbGrad)"/>
+    <!-- 玻璃高光（旋轉角度 - 30° 斜光） -->
+    <ellipse cx="-25" cy="-30" rx="20" ry="30" fill="url(#bulbShine)" opacity="0.8" transform="rotate(-30)"/>
+    <!-- 燈絲（焦點主指標 - 簡潔線條） -->
+    <path d="M-20,-10 Q-10,15 0,-5 Q10,15 20,-10" stroke="#F59E0B" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <line x1="-20" y1="-10" x2="20" y2="-10" stroke="#92400E" stroke-width="2"/>
+
+    <!-- 燈泡底部（金屬座） -->
+    <rect x="-30" y="65" width="60" height="20" fill="url(#baseGrad)" rx="2"/>
+    <rect x="-30" y="85" width="60" height="8" fill="#1F2937" rx="2"/>
+    <rect x="-25" y="93" width="50" height="6" fill="#1F2937" rx="2"/>
+
+    <!-- 光芒線條（旋轉角度對比：放射狀） -->
+    <g stroke="#FBBF24" stroke-width="3" stroke-linecap="round">
+      <line x1="0" y1="-90" x2="0" y2="-110"/>
+      <line x1="60" y1="-60" x2="75" y2="-75" transform="rotate(30, 60, -60)"/>
+      <line x1="-60" y1="-60" x2="-75" y2="-75" transform="rotate(-30, -60, -60)"/>
+      <line x1="80" y1="-15" x2="100" y2="-15"/>
+      <line x1="-80" y1="-15" x2="-100" y2="-15"/>
+    </g>
+  </g>
+
+  <!-- 環繞小六邊形（叢集襯托 - 大小對比） -->
+  <g transform="translate(80, 80) rotate(15)">
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z"
+          fill="#FBBF24" opacity="0.7"/>
+  </g>
+  <g transform="translate(320, 80) rotate(45)">
+    <path d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z"
+          fill="none" stroke="#FBBF24" stroke-width="2" opacity="0.7"/>
+  </g>
+  <g transform="translate(80, 320) rotate(60)">
+    <path d="M0,-18 L15.6,-9 L15.6,9 L0,18 L-15.6,9 L-15.6,-9 Z"
+          fill="none" stroke="#F59E0B" stroke-width="2" opacity="0.7"/>
+  </g>
+  <g transform="translate(320, 320) rotate(75)">
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z"
+          fill="#F59E0B" opacity="0.7"/>
+  </g>
+
+  <!-- 底部裝飾點（叢集焦點） -->
+  <circle cx="200" cy="320" r="6" fill="#FBBF24"/>
+  <circle cx="200" cy="320" r="3" fill="#FFFFFF"/>
+</svg>

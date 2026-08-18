@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 工作報告：商務深藍配色 (技巧#124 商務風) -->
+    <linearGradient id="topBandGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="50%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1E40AF"/>
+    </linearGradient>
+    <!-- 平行四邊形內部斜線 pattern -->
+    <pattern id="diagonalLines" patternUnits="userSpaceOnUse" width="14" height="14" patternTransform="rotate(-20)">
+      <line x1="0" y1="14" x2="14" y2="0" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <!-- 純白底 -->
+  <rect width="1920" height="1080" fill="#FFFFFF"/>
+
+  <!-- =============================================
+       技巧#124 平行四邊形×線條組合
+       單側長邊框（頂部橫帶），融合階梯排列 + 邊界引導線
+       對應「Imperfect by Design」: 刻意保留斜角，強調人類手作感
+       ============================================= -->
+
+  <!-- 頂部主橫帶（平行四邊形，skewX=-10，輕微左斜） -->
+  <g transform="translate(0,120)">
+    <polygon points="120,0 1800,0 1820,140 100,140"
+             fill="url(#topBandGrad)"/>
+    <!-- 內部斜線疊加（條紋疊加） -->
+    <polygon points="120,0 1800,0 1820,140 100,140"
+             fill="url(#diagonalLines)"/>
+    <!-- 頂部裝飾線（金色細線，強調色） -->
+    <line x1="120" y1="6" x2="1800" y2="6" stroke="#F59E0B" stroke-width="2.5"/>
+    <line x1="100" y1="134" x2="1820" y2="134" stroke="#F59E0B" stroke-width="1" stroke-opacity="0.6"/>
+  </g>
+
+  <!-- 左下階梯裝飾（階梯排列 = 階段感） -->
+  <g transform="translate(80,780)">
+    <polygon points="0,0 80,0 75,30 -5,30" fill="#1E40AF" opacity="0.9"/>
+    <polygon points="40,45 140,45 135,75 35,75" fill="#3B82F6" opacity="0.75"/>
+    <polygon points="90,90 200,90 195,120 85,120" fill="#60A5FA" opacity="0.6"/>
+  </g>
+
+  <!-- 右下節點裝飾（節點網絡 - 流程感） -->
+  <g transform="translate(1640,790)">
+    <!-- 3個平行四邊形節點 -->
+    <polygon points="0,0 90,0 80,35 -10,35" fill="#1E40AF"/>
+    <circle cx="35" cy="17" r="5" fill="#F59E0B"/>
+    <polygon points="100,40 200,40 190,75 90,75" fill="#3B82F6"/>
+    <circle cx="145" cy="57" r="5" fill="#F59E0B"/>
+    <polygon points="0,80 90,80 80,115 -10,115" fill="#60A5FA" opacity="0.85"/>
+    <circle cx="35" cy="97" r="5" fill="#F59E0B"/>
+    <!-- 連接線 -->
+    <line x1="80" y1="17" x2="100" y2="57" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="80" y1="97" x2="100" y2="57" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="4,3"/>
+  </g>
+
+  <!-- 中央頂部文字區 -->
+  <text x="960" y="190" text-anchor="middle"
+        font-family="'PingFang TC','Microsoft JhengHei',sans-serif"
+        font-size="52" font-weight="700" fill="#FFFFFF">
+    工 作 報 告
+  </text>
+  <text x="960" y="232" text-anchor="middle"
+        font-family="'PingFang TC','Microsoft JhengHei',sans-serif"
+        font-size="20" fill="#FFFFFF" fill-opacity="0.85" letter-spacing="6">
+    WORK REPORT
+  </text>
+
+  <!-- 內容預留區指示文字（極淡） -->
+  <text x="960" y="540" text-anchor="middle"
+        font-family="'PingFang TC','Microsoft JhengHei',sans-serif"
+        font-size="22" fill="#1E40AF" fill-opacity="0.18">
+    內容區
+  </text>
+</svg>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 工作報告：商務藍配色 (技巧#120 商務風) -->
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 純白底 -->
+  <rect width="1920" height="1080" fill="#FFFFFF"/>
+
+  <!-- =============================================
+       技巧#120 六邊蜂巢全框 + 2.5D 效果（外粗空心+內實心）
+       融合 2026 趨勢：Imperfect by Design（保留不對稱痕跡）
+       ============================================= -->
+
+  <!-- 四角六邊形叢集（每角：大+小+虛實對比）-->
+  <!-- 左上角 -->
+  <g transform="translate(60,60)">
+    <!-- 大六邊形外框（粗空心 = 2.5D 效果） -->
+    <path d="M60,5 L112,33 L112,87 L60,115 L8,87 L8,33 Z"
+          fill="none" stroke="url(#borderGrad)" stroke-width="6"/>
+    <!-- 中六邊形實心 -->
+    <path d="M60,25 L97,46 L97,74 L60,95 L23,74 L23,46 Z"
+          fill="url(#borderGrad)" fill-opacity="0.85"/>
+    <!-- 小六邊形描邊（虛實對比） -->
+    <path d="M60,42 L82,55 L82,65 L60,78 L38,65 L38,55 Z"
+          fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  </g>
+
+  <!-- 右上角 -->
+  <g transform="translate(1800,60) scale(-1,1) translate(-60,0)">
+    <path d="M60,5 L112,33 L112,87 L60,115 L8,87 L8,33 Z"
+          fill="none" stroke="url(#borderGrad)" stroke-width="6"/>
+    <path d="M60,25 L97,46 L97,74 L60,95 L23,74 L23,46 Z"
+          fill="url(#borderGrad)" fill-opacity="0.85"/>
+    <path d="M60,42 L82,55 L82,65 L60,78 L38,65 L38,55 Z"
+          fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  </g>
+
+  <!-- 左下角 -->
+  <g transform="translate(60,905) scale(1,-1) translate(0,-115)">
+    <path d="M60,5 L112,33 L112,87 L60,115 L8,87 L8,33 Z"
+          fill="none" stroke="url(#borderGrad)" stroke-width="6"/>
+    <path d="M60,25 L97,46 L97,74 L60,95 L23,74 L23,46 Z"
+          fill="url(#borderGrad)" fill-opacity="0.85"/>
+    <path d="M60,42 L82,55 L82,65 L60,78 L38,65 L38,55 Z"
+          fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  </g>
+
+  <!-- 右下角 -->
+  <g transform="translate(1800,905) scale(-1,-1) translate(-60,-115)">
+    <path d="M60,5 L112,33 L112,87 L60,115 L8,87 L8,33 Z"
+          fill="none" stroke="url(#borderGrad)" stroke-width="6"/>
+    <path d="M60,25 L97,46 L97,74 L60,95 L23,74 L23,46 Z"
+          fill="url(#borderGrad)" fill-opacity="0.85"/>
+    <path d="M60,42 L82,55 L82,65 L60,78 L38,65 L38,55 Z"
+          fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  </g>
+
+  <!-- 四邊中點裝飾：小六邊形 (叢集與單一 變化) -->
+  <!-- 頂邊中 -->
+  <g transform="translate(930,30)">
+    <path d="M30,3 L56,17 L56,43 L30,57 L4,43 L4,17 Z"
+          fill="url(#borderGrad)"/>
+  </g>
+  <!-- 底邊中 -->
+  <g transform="translate(930,1020)">
+    <path d="M30,3 L56,17 L56,43 L30,57 L4,43 L4,17 Z"
+          fill="url(#borderGrad)"/>
+  </g>
+  <!-- 左邊中 -->
+  <g transform="translate(30,510) rotate(90,30,30)">
+    <path d="M30,3 L56,17 L56,43 L30,57 L4,43 L4,17 Z"
+          fill="url(#borderGrad)"/>
+  </g>
+  <!-- 右邊中 -->
+  <g transform="translate(1860,510) rotate(90,30,30)">
+    <path d="M30,3 L56,17 L56,43 L30,57 L4,43 L4,17 Z"
+          fill="url(#borderGrad)"/>
+  </g>
+
+  <!-- 四邊連接線：細描邊引導線 -->
+  <line x1="180" y1="115" x2="900" y2="58" stroke="#1E40AF" stroke-width="1.5" stroke-opacity="0.3"/>
+  <line x1="1020" y1="58" x2="1740" y2="115" stroke="#1E40AF" stroke-width="1.5" stroke-opacity="0.3"/>
+  <line x1="180" y1="965" x2="900" y2="1022" stroke="#1E40AF" stroke-width="1.5" stroke-opacity="0.3"/>
+  <line x1="1020" y1="1022" x2="1740" y2="965" stroke="#1E40AF" stroke-width="1.5" stroke-opacity="0.3"/>
+
+  <!-- 中央預留工作報告標題區（極簡留白） -->
+  <text x="960" y="510" text-anchor="middle"
+        font-family="'PingFang TC','Microsoft JhengHei',sans-serif"
+        font-size="44" font-weight="600" fill="#1E40AF" fill-opacity="0.15">
+    工 作 報 告
+  </text>
+  <text x="960" y="555" text-anchor="middle"
+        font-family="'PingFang TC','Microsoft JhengHei',sans-serif"
+        font-size="20" fill="#3B82F6" fill-opacity="0.25">
+    Work Report · Formal Style
+  </text>
+</svg>

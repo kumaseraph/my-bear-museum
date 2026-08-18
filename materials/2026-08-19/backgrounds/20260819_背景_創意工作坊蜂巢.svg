@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 創意活潑漸層：紫粉橘 -->
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E879F9"/>
+      <stop offset="50%" stop-color="#F472B6"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </linearGradient>
+
+    <linearGradient id="hexA" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C026D3"/>
+      <stop offset="100%" stop-color="#A21CAF"/>
+    </linearGradient>
+
+    <linearGradient id="hexB" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F472B6"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+
+    <linearGradient id="hexC" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FB923C"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+
+    <linearGradient id="hexD" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+
+    <!-- 動態流動線 -->
+    <linearGradient id="flowLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C026D3" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FB923C" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#F472B6" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 主背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad2)" opacity="0.25"/>
+  <rect width="1920" height="1080" fill="#FDF4FF"/>
+
+  <!-- 動態流動線 -->
+  <path d="M0,300 Q480,200 960,350 T1920,300" stroke="url(#flowLine)" stroke-width="3" fill="none" opacity="0.5"/>
+  <path d="M0,800 Q480,900 960,750 T1920,800" stroke="url(#flowLine)" stroke-width="3" fill="none" opacity="0.5"/>
+
+  <!-- 交錯排列蜂巢（大六邊形 + 小六邊形 - 大小對比） -->
+  <!-- 左上區叢集 -->
+  <g transform="translate(280, 250)">
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+          fill="url(#hexA)" opacity="0.9"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#A21CAF" stroke-width="2" transform="translate(80, 50)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#A21CAF" stroke-width="2" transform="translate(-80, 50)"/>
+  </g>
+
+  <!-- 右上區叢集 -->
+  <g transform="translate(1640, 250)">
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+          fill="url(#hexB)" opacity="0.9"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#EC4899" stroke-width="2" transform="translate(80, 50)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#EC4899" stroke-width="2" transform="translate(-80, 50)"/>
+  </g>
+
+  <!-- 左下區�集（旋轉 30°） -->
+  <g transform="translate(280, 830) rotate(30)">
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+          fill="url(#hexC)" opacity="0.9"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#F97316" stroke-width="2" transform="translate(80, 50)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#F97316" stroke-width="2" transform="translate(-80, 50)"/>
+  </g>
+
+  <!-- 右下區叢集（旋轉 60°） -->
+  <g transform="translate(1640, 830) rotate(60)">
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+          fill="url(#hexD)" opacity="0.9"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#7C3AED" stroke-width="2" transform="translate(80, 50)"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#7C3AED" stroke-width="2" transform="translate(-80, 50)"/>
+  </g>
+
+  <!-- 中央交錯排列（標準蜂巢 + 大小對比） -->
+  <g transform="translate(700, 540)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="url(#hexA)" opacity="0.85"/>
+  </g>
+  <g transform="translate(810, 540)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="url(#hexB)" opacity="0.85"/>
+  </g>
+  <g transform="translate(920, 540)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="url(#hexC)" opacity="0.85"/>
+  </g>
+  <g transform="translate(1030, 540)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="url(#hexD)" opacity="0.85"/>
+  </g>
+  <g transform="translate(1140, 540)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="url(#hexA)" opacity="0.85"/>
+  </g>
+  <g transform="translate(1250, 540)">
+    <path d="M0,-40 L34.6,-20 L34.6,20 L0,40 L-34.6,20 L-34.6,-20 Z"
+          fill="url(#hexB)" opacity="0.85"/>
+  </g>
+
+  <!-- 第二行交錯（小六邊形） -->
+  <g transform="translate(755, 600)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#C026D3" stroke-width="2.5" opacity="0.7"/>
+  </g>
+  <g transform="translate(865, 600)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#F472B6" stroke-width="2.5" opacity="0.7"/>
+  </g>
+  <g transform="translate(975, 600)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#FB923C" stroke-width="2.5" opacity="0.7"/>
+  </g>
+  <g transform="translate(1085, 600)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#8B5CF6" stroke-width="2.5" opacity="0.7"/>
+  </g>
+  <g transform="translate(1195, 600)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#C026D3" stroke-width="2.5" opacity="0.7"/>
+  </g>
+
+  <!-- 第二行交錯（小六邊形）上排 -->
+  <g transform="translate(755, 480)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#A21CAF" stroke-width="2.5" opacity="0.7"/>
+  </g>
+  <g transform="translate(865, 480)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#EC4899" stroke-width="2.5" opacity="0.7"/>
+  </g>
+  <g transform="translate(975, 480)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#F97316" stroke-width="2.5" opacity="0.7"/>
+  </g>
+  <g transform="translate(1085, 480)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#7C3AED" stroke-width="2.5" opacity="0.7"/>
+  </g>
+  <g transform="translate(1195, 480)">
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="none" stroke="#A21CAF" stroke-width="2.5" opacity="0.7"/>
+  </g>
+
+  <!-- 2.5D 浮動六邊形（外粗空心 + 內實心） -->
+  <g transform="translate(500, 200)">
+    <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+          fill="none" stroke="#C026D3" stroke-width="4"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="#C026D3" fill-opacity="0.3"/>
+  </g>
+  <g transform="translate(1420, 880)">
+    <path d="M0,-35 L30.3,-17.5 L30.3,17.5 L0,35 L-30.3,17.5 L-30.3,-17.5 Z"
+          fill="none" stroke="#FB923C" stroke-width="4"/>
+    <path d="M0,-25 L21.65,-12.5 L21.65,12.5 L0,25 L-21.65,12.5 L-21.65,-12.5 Z"
+          fill="#FB923C" fill-opacity="0.3"/>
+  </g>
+
+  <!-- 散落小點裝飾（焦點主指標） -->
+  <circle cx="200" cy="540" r="8" fill="#C026D3" opacity="0.6"/>
+  <circle cx="1720" cy="540" r="8" fill="#FB923C" opacity="0.6"/>
+  <circle cx="960" cy="200" r="10" fill="#F472B6" opacity="0.7"/>
+  <circle cx="960" cy="880" r="10" fill="#8B5CF6" opacity="0.7"/>
+</svg>

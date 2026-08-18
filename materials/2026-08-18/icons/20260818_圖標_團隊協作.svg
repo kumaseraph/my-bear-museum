@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- 現代簡潔：團隊協作 - 三圓交會 + 六邊形節點 (融合技巧#121) -->
+  <rect width="400" height="400" fill="#F8FAFC"/>
+  <!-- 連接線 (技巧#121 連接傳遞) -->
+  <line x1="200" y1="200" x2="110" y2="130" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="4 5"/>
+  <line x1="200" y1="200" x2="290" y2="130" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="4 5"/>
+  <line x1="200" y1="200" x2="200" y2="305" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="4 5"/>
+  <!-- 三個角色節點 (六邊形) -->
+  <g transform="translate(110,130)">
+    <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="#0EA5E9" fill-opacity="0.12" stroke="#0EA5E9" stroke-width="2.5"/>
+    <circle cx="0" cy="-6" r="7" fill="#0EA5E9"/>
+    <rect x="-10" y="3" width="20" height="14" rx="3" fill="#0EA5E9"/>
+  </g>
+  <g transform="translate(290,130)">
+    <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="#6366F1" fill-opacity="0.12" stroke="#6366F1" stroke-width="2.5"/>
+    <circle cx="0" cy="-6" r="7" fill="#6366F1"/>
+    <rect x="-10" y="3" width="20" height="14" rx="3" fill="#6366F1"/>
+  </g>
+  <!-- 中心協作節點 (六芒星 + 六邊形 技巧#123 #2 + #121) -->
+  <g transform="translate(200,200)">
+    <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20" fill="#FF8C00"/>
+    <!-- 五角星嵌入菱形 -->
+    <polygon points="0,-4 5,8 18,8 8,16 12,28 0,21 -12,28 -8,16 -18,8 -5,8" fill="#FFFFFF"/>
+  </g>
+  <g transform="translate(200,305)">
+    <polygon points="0,-32 28,-16 28,16 0,32 -28,16 -28,-16" fill="#22C55E" fill-opacity="0.12" stroke="#22C55E" stroke-width="2.5"/>
+    <circle cx="0" cy="-6" r="7" fill="#22C55E"/>
+    <rect x="-10" y="3" width="20" height="14" rx="3" fill="#22C55E"/>
+  </g>
+  <!-- 標題 -->
+  <text x="200" y="375" font-family="-apple-system, system-ui, sans-serif" font-size="16" font-weight="600" fill="#0F172A" text-anchor="middle">團隊協作</text>
+</svg>

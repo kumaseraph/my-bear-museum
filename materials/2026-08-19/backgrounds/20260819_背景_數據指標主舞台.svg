@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <!-- 深海科技藍漸層 -->
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="50%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+
+    <radialGradient id="spotlight" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="cyanHex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+
+    <linearGradient id="blueHex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+
+    <linearGradient id="purpleHex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+
+    <linearGradient id="pinkHex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EC4899"/>
+      <stop offset="100%" stop-color="#BE185D"/>
+    </linearGradient>
+
+    <linearGradient id="emeraldHex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+
+    <linearGradient id="amberHex" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <!-- 背景蜂巢 pattern（極淡） -->
+    <pattern id="darkHoneycomb" x="0" y="0" width="78" height="86.6" patternUnits="userSpaceOnUse">
+      <path d="M39,0 L78,21.65 L78,64.95 L39,86.6 L0,64.95 L0,21.65 Z"
+            fill="none" stroke="#1E40AF" stroke-width="0.5" opacity="0.25"/>
+    </pattern>
+  </defs>
+
+  <!-- 主背景 -->
+  <rect width="1920" height="1080" fill="url(#bgGrad3)"/>
+  <rect width="1920" height="1080" fill="url(#darkHoneycomb)"/>
+
+  <!-- 中央聚光燈（單一主指標焦點） -->
+  <rect width="1920" height="1080" fill="url(#spotlight)"/>
+
+  <!-- 叢集與單一：中央 Hero 主指標（單一主指標 - 少而深刻） -->
+  <g transform="translate(960, 540)">
+    <!-- 主指標外圈（2.5D 效果） -->
+    <path d="M0,-180 L155.9,-90 L155.9,90 L0,180 L-155.9,90 L-155.9,-90 Z"
+          fill="none" stroke="#22D3EE" stroke-width="6" opacity="0.8"/>
+    <path d="M0,-160 L138.6,-80 L138.6,80 L0,160 L-138.6,80 L-138.6,-80 Z"
+          fill="url(#cyanHex)" opacity="0.95"/>
+    <!-- 內圈裝飾 -->
+    <path d="M0,-120 L103.9,-60 L103.9,60 L0,120 L-103.9,60 L-103.9,-60 Z"
+          fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+    <!-- 中心 Hero 數字框 -->
+    <circle cx="0" cy="0" r="50" fill="#FFFFFF" opacity="0.95"/>
+    <circle cx="0" cy="0" r="40" fill="none" stroke="#22D3EE" stroke-width="3"/>
+  </g>
+
+  <!-- 6 個衛星指標圍繞主指標 -->
+  <g transform="translate(560, 350)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="url(#blueHex)" opacity="0.9"/>
+  </g>
+  <g transform="translate(1360, 350)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="url(#purpleHex)" opacity="0.9"/>
+  </g>
+  <g transform="translate(360, 730)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="url(#pinkHex)" opacity="0.9"/>
+  </g>
+  <g transform="translate(1560, 730)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="url(#emeraldHex)" opacity="0.9"/>
+  </g>
+  <g transform="translate(960, 200)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="url(#amberHex)" opacity="0.9"/>
+  </g>
+  <g transform="translate(960, 880)">
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="url(#cyanHex)" opacity="0.9"/>
+  </g>
+
+  <!-- 連接線（網絡結構） -->
+  <line x1="560" y1="350" x2="960" y2="540" stroke="#22D3EE" stroke-width="1.5" opacity="0.4" stroke-dasharray="4,4"/>
+  <line x1="1360" y1="350" x2="960" y2="540" stroke="#8B5CF6" stroke-width="1.5" opacity="0.4" stroke-dasharray="4,4"/>
+  <line x1="360" y1="730" x2="960" y2="540" stroke="#EC4899" stroke-width="1.5" opacity="0.4" stroke-dasharray="4,4"/>
+  <line x1="1560" y1="730" x2="960" y2="540" stroke="#10B981" stroke-width="1.5" opacity="0.4" stroke-dasharray="4,4"/>
+  <line x1="960" y1="200" x2="960" y2="540" stroke="#FBBF24" stroke-width="1.5" opacity="0.4" stroke-dasharray="4,4"/>
+  <line x1="960" y1="880" x2="960" y2="540" stroke="#22D3EE" stroke-width="1.5" opacity="0.4" stroke-dasharray="4,4"/>
+
+  <!-- 角落小型叢集（�集襯托） -->
+  <g transform="translate(150, 150)">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="none" stroke="#3B82F6" stroke-width="2" opacity="0.5"/>
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="#3B82F6" fill-opacity="0.6" transform="translate(45, 0)"/>
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z"
+          fill="none" stroke="#3B82F6" stroke-width="1.5" opacity="0.5" transform="translate(85, 30)"/>
+  </g>
+
+  <g transform="translate(1770, 150)">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="none" stroke="#8B5CF6" stroke-width="2" opacity="0.5"/>
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="#8B5CF6" fill-opacity="0.6" transform="translate(-45, 0)"/>
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z"
+          fill="none" stroke="#8B5CF6" stroke-width="1.5" opacity="0.5" transform="translate(-85, 30)"/>
+  </g>
+
+  <g transform="translate(150, 930)">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="none" stroke="#EC4899" stroke-width="2" opacity="0.5"/>
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="#EC4899" fill-opacity="0.6" transform="translate(45, 0)"/>
+  </g>
+
+  <g transform="translate(1770, 930)">
+    <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+          fill="none" stroke="#10B981" stroke-width="2" opacity="0.5"/>
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="#10B981" fill-opacity="0.6" transform="translate(-45, 0)"/>
+  </g>
+
+  <!-- 散落裝飾點（動態對比） -->
+  <circle cx="400" cy="500" r="3" fill="#22D3EE" opacity="0.7"/>
+  <circle cx="1520" cy="500" r="3" fill="#EC4899" opacity="0.7"/>
+  <circle cx="200" cy="540" r="4" fill="#FBBF24" opacity="0.7"/>
+  <circle cx="1720" cy="540" r="4" fill="#10B981" opacity="0.7"/>
+  <circle cx="960" cy="100" r="3" fill="#FFFFFF" opacity="0.6"/>
+  <circle cx="960" cy="980" r="3" fill="#FFFFFF" opacity="0.6"/>
+</svg>

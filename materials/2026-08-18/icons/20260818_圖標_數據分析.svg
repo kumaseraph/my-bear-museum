@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- 現代簡潔：數據分析圖標 - 條形圖 + 上升箭頭 + 六芒星核心 -->
+  <defs>
+    <linearGradient id="gradBar1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="gradBar2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="gradBar3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+  </defs>
+  <!-- 背景留白 -->
+  <rect width="400" height="400" fill="#F8FAFC"/>
+  <!-- 三根條形圖 -->
+  <rect x="100" y="240" width="40" height="100" rx="6" fill="url(#gradBar1)"/>
+  <rect x="180" y="180" width="40" height="160" rx="6" fill="url(#gradBar2)"/>
+  <rect x="260" y="130" width="40" height="210" rx="6" fill="url(#gradBar3)"/>
+  <!-- 上升趨勢線 + 箭頭 -->
+  <polyline points="120,240 200,180 280,130" fill="none" stroke="#0F172A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="280,130 268,128 274,142" fill="#0F172A"/>
+  <!-- 六芒星頂點裝飾 (技巧#121 #10) -->
+  <circle cx="200" cy="100" r="14" fill="#FF8C00"/>
+  <circle cx="200" cy="100" r="22" fill="none" stroke="#FF8C00" stroke-width="2" opacity="0.4"/>
+  <!-- 底部軸線 (虛線) -->
+  <line x1="80" y1="340" x2="320" y2="340" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="4 6"/>
+  <!-- 標題 -->
+  <text x="200" y="385" font-family="-apple-system, system-ui, sans-serif" font-size="16" font-weight="600" fill="#0F172A" text-anchor="middle">數據分析</text>
+</svg>
