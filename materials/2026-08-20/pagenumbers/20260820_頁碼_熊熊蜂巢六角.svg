@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="200" height="100">
+  <!-- 熊熊風格頁碼設計 - 應用 #120 六邊形 + 大小對比 + 虛實對比 -->
+  <defs>
+    <linearGradient id="pnGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#8B6239"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景透明 -->
+
+  <!-- 大六邊形：當前頁碼主視覺（虛實對比 - 實心） -->
+  <g transform="translate(100, 50)">
+    <path d="M0,-32 L27.7,-16 L27.7,16 L0,32 L-27.7,16 L-27.7,-16 Z"
+          fill="url(#pnGold)" stroke="#4C2D12" stroke-width="2"/>
+    <text x="0" y="11" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#FDF6E3">06</text>
+  </g>
+
+  <!-- 上一頁：左側小六邊形（虛實對比 - 空心描邊） -->
+  <g transform="translate(40, 50)">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#B8895A" stroke-width="1.5"/>
+    <text x="0" y="6" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#8B6239">05</text>
+  </g>
+
+  <!-- 下一頁：右側小六邊形（虛實對比 - 空心描邊） -->
+  <g transform="translate(160, 50)">
+    <path d="M0,-20 L17.3,-10 L17.3,10 L0,20 L-17.3,10 L-17.3,-10 Z"
+          fill="none" stroke="#B8895A" stroke-width="1.5"/>
+    <text x="0" y="6" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#8B6239">07</text>
+  </g>
+
+  <!-- 連接線（#124 線條引導） -->
+  <g stroke="#8B6239" stroke-width="1" opacity="0.4" stroke-dasharray="2,2">
+    <line x1="62" y1="50" x2="68" y2="50"/>
+    <line x1="132" y1="50" x2="138" y2="50"/>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <!-- 熊熊風格 CTA 按鈕 - 應用 #124 線條引導 + 熊熊暖金漸層 -->
+  <defs>
+    <linearGradient id="btnGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="50%" stop-color="#B8895A"/>
+      <stop offset="100%" stop-color="#8B6239"/>
+    </linearGradient>
+    <linearGradient id="btnGoldLight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F5E6C8"/>
+      <stop offset="100%" stop-color="#FDF6E3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 主按鈕（CTA）：六邊形邊界 + 暖金漸層 + 2.5D 陰影 -->
+  <g transform="translate(200, 60)">
+    <!-- 2.5D 陰影底層 -->
+    <path d="M-150,-22 L-130,-32 L130,-32 L150,-22 L150,22 L130,32 L-130,32 L-150,22 Z"
+          fill="#4C2D12" opacity="0.25" transform="translate(3, 3)"/>
+    <!-- 主按鈕本體（六邊形引導線，#124 線條引導） -->
+    <path d="M-150,-22 L-130,-32 L130,-32 L150,-22 L150,22 L130,32 L-130,32 L-150,22 Z"
+          fill="url(#btnGold)" stroke="#4C2D12" stroke-width="2"/>
+    <!-- 內部裝飾線（#124 條紋疊加） -->
+    <line x1="-120" y1="-22" x2="120" y2="-22" stroke="#FDF6E3" stroke-width="1" opacity="0.5"/>
+    <line x1="-120" y1="22" x2="120" y2="22" stroke="#FDF6E3" stroke-width="1" opacity="0.5"/>
+    <!-- 按鈕文字 -->
+    <text x="0" y="6" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="20" font-weight="800" fill="#FDF6E3" letter-spacing="3">立 即 查 看</text>
+  </g>
+
+  <!-- 角落小六邊形裝飾 -->
+  <g transform="translate(30, 30)">
+    <path d="M0,-12 L10.4,-6 L10.4,6 L0,12 L-10.4,6 L-10.4,-6 Z" fill="none" stroke="#8B6239" stroke-width="1.5"/>
+    <path d="M0,-6 L5.2,-3 L5.2,3 L0,6 L-5.2,3 L-5.2,-3 Z" fill="#D4A574"/>
+  </g>
+  <g transform="translate(370, 90)">
+    <path d="M0,-10 L8.7,-5 L8.7,5 L0,10 L-8.7,5 L-8.7,-5 Z" fill="#B8895A"/>
+  </g>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- 熊熊風格工作報告封面 - 融合 case-study structure + 蜂巢叢集 + 大數字 hero -->
+  <defs>
+    <linearGradient id="warmBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDF6E3"/>
+      <stop offset="100%" stop-color="#F5E6C8"/>
+    </linearGradient>
+    <linearGradient id="bearGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="50%" stop-color="#B8895A"/>
+      <stop offset="100%" stop-color="#8B6239"/>
+    </linearGradient>
+    <radialGradient id="hexCenter" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8B6239"/>
+      <stop offset="100%" stop-color="#4C2D12"/>
+    </radialGradient>
+    <pattern id="honeycombPattern" x="0" y="0" width="78" height="86.6" patternUnits="userSpaceOnUse">
+      <path d="M39,0 L78,21.65 L78,64.95 L39,86.6 L0,64.95 L0,21.65 Z"
+            fill="none" stroke="#B8895A" stroke-width="0.8" opacity="0.18"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景層：溫暖底色 + 蜂巢襯底 -->
+  <rect width="800" height="450" fill="url(#warmBg)"/>
+  <rect width="800" height="450" fill="url(#honeycombPattern)"/>
+
+  <!-- 蜂巢放射叢集（中心大六邊形 + 6個環繞）應用 #122 放射環形 -->
+  <g transform="translate(180, 225)">
+    <!-- 中心大六邊形 (s=50) - 主視覺焦點 -->
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="url(#hexCenter)" stroke="#4C2D12" stroke-width="2"/>
+    <!-- 2環：6個環繞六邊形 (s=30) - 應用 #120 顏色深淺對比 -->
+    <g transform="rotate(0)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+            fill="#D4A574" stroke="#B8895A" stroke-width="1.5" transform="translate(0,-86.6)"/>
+    </g>
+    <g transform="rotate(60)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+            fill="#B8895A" transform="translate(0,-86.6)"/>
+    </g>
+    <g transform="rotate(120)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+            fill="#A07845" transform="translate(0,-86.6)"/>
+    </g>
+    <g transform="rotate(180)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+            fill="#B8895A" transform="translate(0,-86.6)"/>
+    </g>
+    <g transform="rotate(240)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+            fill="#D4A574" transform="translate(0,-86.6)"/>
+    </g>
+    <g transform="rotate(300)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z"
+            fill="#8B6239" transform="translate(0,-86.6)"/>
+    </g>
+  </g>
+
+  <!-- 主標題文字（大數字 hero - 結果導向） -->
+  <g transform="translate(380, 110)">
+    <text x="0" y="0" font-family="Microsoft JhengHei, sans-serif" font-size="48" font-weight="900" fill="#4C2D12" letter-spacing="2">2026</text>
+    <text x="0" y="50" font-family="Microsoft JhengHei, sans-serif" font-size="22" font-weight="600" fill="#8B6239" letter-spacing="3">工 作 報 告</text>
+    <line x1="0" y1="65" x2="280" y2="65" stroke="#B8895A" stroke-width="2"/>
+  </g>
+
+  <!-- 副標題 -->
+  <text x="380" y="200" font-family="Microsoft JhengHei, sans-serif" font-size="16" font-weight="500" fill="#6B5230">QUARTERLY REPORT</text>
+
+  <!-- 三個重點指標小卡 (case-study 多視角) -->
+  <g transform="translate(380, 230)">
+    <!-- 卡片 1 -->
+    <g transform="translate(0, 0)">
+      <path d="M0,0 L120,0 L130,15 L120,30 L0,30 Z" fill="#FDF6E3" stroke="#B8895A" stroke-width="1.5"/>
+      <text x="15" y="20" font-family="Microsoft JhengHei, sans-serif" font-size="18" font-weight="800" fill="#4C2D12">成果</text>
+      <text x="70" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#8B6239">85%</text>
+    </g>
+    <!-- 卡片 2 -->
+    <g transform="translate(0, 45)">
+      <path d="M0,0 L120,0 L130,15 L120,30 L0,30 Z" fill="#FDF6E3" stroke="#B8895A" stroke-width="1.5"/>
+      <text x="15" y="20" font-family="Microsoft JhengHei, sans-serif" font-size="18" font-weight="800" fill="#4C2D12">效率</text>
+      <text x="70" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#8B6239">+42%</text>
+    </g>
+    <!-- 卡片 3 -->
+    <g transform="translate(0, 90)">
+      <path d="M0,0 L120,0 L130,15 L120,30 L0,30 Z" fill="#FDF6E3" stroke="#B8895A" stroke-width="1.5"/>
+      <text x="15" y="20" font-family="Microsoft JhengHei, sans-serif" font-size="18" font-weight="800" fill="#4C2D12">團隊</text>
+      <text x="70" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#8B6239">12 人</text>
+    </g>
+  </g>
+
+  <!-- 底部裝飾：六邊形引導線（結構透明）-->
+  <g transform="translate(380, 360)">
+    <text x="0" y="0" font-family="Microsoft JhengHei, sans-serif" font-size="11" font-weight="500" fill="#8B6239" letter-spacing="2">AUGUST 2026  ·  BEAR CREATIVE STUDIO</text>
+  </g>
+
+  <!-- 角落小六邊形裝飾（#120 大小對比 + 2.5D 效果） -->
+  <g transform="translate(720, 60)">
+    <path d="M0,-15 L13,-7.5 L13,7.5 L0,15 L-13,7.5 L-13,-7.5 Z" fill="none" stroke="#8B6239" stroke-width="2"/>
+    <path d="M0,-8 L7,-4 L7,4 L0,8 L-7,4 L-7,-4 Z" fill="#D4A574"/>
+  </g>
+</svg>

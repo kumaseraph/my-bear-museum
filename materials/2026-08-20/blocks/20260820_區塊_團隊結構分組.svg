@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- 熊熊風格團隊結構區塊 - 分組叢集 + 多視角 + 結構透明 -->
+  <defs>
+    <linearGradient id="warmBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDF6E3"/>
+      <stop offset="100%" stop-color="#F0DEB8"/>
+    </linearGradient>
+    <linearGradient id="hexBig" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#B8895A"/>
+    </linearGradient>
+    <linearGradient id="hexMed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B8895A"/>
+      <stop offset="100%" stop-color="#8B6239"/>
+    </linearGradient>
+    <pattern id="honeycombPattern" x="0" y="0" width="78" height="86.6" patternUnits="userSpaceOnUse">
+      <path d="M39,0 L78,21.65 L78,64.95 L39,86.6 L0,64.95 L0,21.65 Z"
+            fill="none" stroke="#B8895A" stroke-width="0.6" opacity="0.12"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="800" height="450" fill="url(#warmBg)"/>
+  <rect width="800" height="450" fill="url(#honeycombPattern)"/>
+
+  <!-- 標題列 -->
+  <g transform="translate(50, 50)">
+    <text x="0" y="0" font-family="Microsoft JhengHei, sans-serif" font-size="28" font-weight="800" fill="#4C2D12">團隊結構</text>
+    <text x="0" y="22" font-family="Microsoft JhengHei, sans-serif" font-size="13" font-weight="500" fill="#8B6239" letter-spacing="2">TEAM STRUCTURE  ·  多視角分組</text>
+  </g>
+
+  <!-- 中央大六邊形：管理層 (應用 #120 2.5D 效果 + 大小對比) -->
+  <g transform="translate(400, 230)">
+    <path d="M0,-60 L52,-30 L52,30 L0,60 L-52,30 L-52,-30 Z"
+          fill="none" stroke="#8B6239" stroke-width="4"/>
+    <path d="M0,-50 L43.3,-25 L43.3,25 L0,50 L-43.3,25 L-43.3,-25 Z"
+          fill="url(#hexBig)"/>
+    <text x="0" y="-8" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="14" font-weight="700" fill="#4C2D12">管理層</text>
+    <text x="0" y="12" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#4C2D12">3 LEADS</text>
+    <text x="0" y="28" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="9" fill="#4C2D12">決策中心</text>
+  </g>
+
+  <!-- 三個分組叢集（#122 分組叢集 + #120 顏色深淺對比） -->
+  <!-- 叢集 1：設計組（左上） -->
+  <g transform="translate(160, 150)">
+    <text x="0" y="-50" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="12" font-weight="700" fill="#8B6239">設計組</text>
+    <!-- 中心 -->
+    <g transform="translate(0, 0)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" fill="#D4A574" stroke="#8B6239" stroke-width="1.5"/>
+      <text x="0" y="-3" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#4C2D12">4</text>
+    </g>
+    <!-- 環繞 -->
+    <g transform="rotate(60) translate(0, -52)">
+      <path d="M0,-13 L11.3,-6.5 L11.3,6.5 L0,13 L-11.3,6.5 L-11.3,-6.5 Z" fill="#B8895A"/>
+    </g>
+    <g transform="rotate(180) translate(0, -52)">
+      <path d="M0,-13 L11.3,-6.5 L11.3,6.5 L0,13 L-11.3,6.5 L-11.3,-6.5 Z" fill="#B8895A"/>
+    </g>
+    <g transform="rotate(300) translate(0, -52)">
+      <path d="M0,-13 L11.3,-6.5 L11.3,6.5 L0,13 L-11.3,6.5 L-11.3,-6.5 Z" fill="#A07845"/>
+    </g>
+  </g>
+
+  <!-- 叢集 2：工程組（右上） -->
+  <g transform="translate(640, 150)">
+    <text x="0" y="-50" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="12" font-weight="700" fill="#8B6239">工程組</text>
+    <g transform="translate(0, 0)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" fill="#B8895A" stroke="#8B6239" stroke-width="1.5"/>
+      <text x="0" y="-3" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#FDF6E3">5</text>
+    </g>
+    <g transform="rotate(60) translate(0, -52)">
+      <path d="M0,-13 L11.3,-6.5 L11.3,6.5 L0,13 L-11.3,6.5 L-11.3,-6.5 Z" fill="#8B6239"/>
+    </g>
+    <g transform="rotate(180) translate(0, -52)">
+      <path d="M0,-13 L11.3,-6.5 L11.3,6.5 L0,13 L-11.3,6.5 L-11.3,-6.5 Z" fill="#A07845"/>
+    </g>
+    <g transform="rotate(300) translate(0, -52)">
+      <path d="M0,-13 L11.3,-6.5 L11.3,6.5 L0,13 L-11.3,6.5 L-11.3,-6.5 Z" fill="#8B6239"/>
+    </g>
+  </g>
+
+  <!-- 叢集 3：行銷組（下方） -->
+  <g transform="translate(400, 370)">
+    <text x="0" y="-45" text-anchor="middle" font-family="Microsoft JhengHei, sans-serif" font-size="12" font-weight="700" fill="#8B6239">行銷組</text>
+    <g transform="translate(0, 0)">
+      <path d="M0,-30 L26,-15 L26,15 L0,30 L-26,15 L-26,-15 Z" fill="#A07845" stroke="#8B6239" stroke-width="1.5"/>
+      <text x="0" y="-3" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#FDF6E3">3</text>
+    </g>
+    <g transform="rotate(60) translate(0, -52)">
+      <path d="M0,-13 L11.3,-6.5 L11.3,6.5 L0,13 L-11.3,6.5 L-11.3,-6.5 Z" fill="#8B6239"/>
+    </g>
+    <g transform="rotate(180) translate(0, -52)">
+      <path d="M0,-13 L11.3,-6.5 L11.3,6.5 L0,13 L-11.3,6.5 L-11.3,-6.5 Z" fill="#A07845"/>
+    </g>
+  </g>
+
+  <!-- 連接線（結構透明：顯示階層關係） -->
+  <g stroke="#8B6239" stroke-width="1.5" fill="none" opacity="0.5" stroke-dasharray="3,3">
+    <line x1="190" y1="180" x2="350" y2="220"/>
+    <line x1="610" y1="180" x2="450" y2="220"/>
+    <line x1="400" y1="290" x2="400" y2="335"/>
+  </g>
+
+  <!-- 底部說明 -->
+  <text x="50" y="430" font-family="Microsoft JhengHei, sans-serif" font-size="11" font-weight="500" fill="#8B6239">— 結構化分組，呈現團隊多視角協作</text>
+  <text x="750" y="430" text-anchor="end" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#6B5230" letter-spacing="1">👥 12</text>
+</svg>
