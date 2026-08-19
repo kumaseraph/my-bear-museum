@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 設計新典範：當 AI 進入工作室——創意工作流的重構｜2026-08-19 創意設計</title>
+<style>
+/* ============================================================
+   配色：C4 暮光紫羅蘭（Twilight Violet）— 創意設計專屬
+   主題：2026 設計新典範 — 當 AI 進入工作室
+   ============================================================ */
+:root {
+  --bg-deep:        #15082e;
+  --bg-mid:         #2a1248;
+  --bg-card:        rgba(58, 28, 113, 0.45);
+  --primary:        #a855f7;
+  --primary-soft:   #d8b4fe;
+  --primary-deep:   #6b21a8;
+  --accent:         #f59e0b;
+  --accent-soft:    #fcd34d;
+  --accent-deep:    #b45309;
+  --rose:           #fb7185;
+  --mint:           #6ee7b7;
+  --ink:            #faf5ff;
+  --ink-soft:       #f3e8ff;
+  --ink-mute:       #d8b4fe;
+  --ink-dim:        #c084fc;
+  --border-cool:    rgba(168, 85, 247, 0.40);
+  --border-warm:    rgba(245, 158, 11, 0.45);
+  --glow-cool:      0 0 28px rgba(168, 85, 247, 0.35);
+  --glow-warm:      0 0 24px rgba(245, 158, 11, 0.30);
+}
+
+html { font-size: 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #15082e;
+  color: var(--ink-soft);
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 80% 15%, rgba(168, 85, 247, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(245, 158, 11, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(251, 113, 133, 0.10) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+  border-radius: 12px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 64px 56px 80px;
+  color: var(--ink-soft);
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+.slide * { line-height: 1.5; }
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 320px; height: 320px; background: rgba(168, 85, 247, 0.25); top: -100px; right: -100px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(245, 158, 11, 0.18); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 220px; height: 220px; background: rgba(251, 113, 133, 0.18); top: 50%; left: 60%; }
+
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.tag {
+  display: inline-block;
+  background: rgba(168, 85, 247, 0.18);
+  color: var(--primary-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-cool);
+}
+.tag-warm {
+  display: inline-block;
+  background: rgba(245, 158, 11, 0.18);
+  color: var(--accent-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-warm);
+}
+
+h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.18; margin: 8px 0 14px; color: #ffffff; }
+h2 { font-size: 1.6rem; font-weight: 700; margin: 4px 0 12px; color: #ffffff; line-height: 1.25; }
+h3 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 6px; color: var(--primary-soft); }
+.lead { font-size: 1.1rem; color: var(--ink-mute); line-height: 1.55; margin: 6px 0 14px; }
+
+/* === 卡片 === */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--glow-cool);
+}
+.card-warm {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 18px;
+}
+.card-soft {
+  background: rgba(250, 245, 255, 0.04);
+  border: 1px solid rgba(216, 180, 254, 0.20);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+/* === Nav === */
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+  background: rgba(21, 8, 46, 0.85);
+  padding: 6px 12px;
+  border-radius: 24px;
+  border: 1px solid var(--border-cool);
+}
+.nav button {
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid var(--border-cool);
+  color: var(--ink);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav button:hover { background: rgba(168, 85, 247, 0.35); }
+.nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+.nav span { font-size: 1rem; color: var(--ink-mute); min-width: 56px; text-align: center; }
+
+.back-link {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  z-index: 50;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  text-decoration: none;
+  background: rgba(21, 8, 46, 0.7);
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border-cool);
+}
+.back-link:hover { color: var(--primary-soft); }
+
+/* ============================================================
+   P1 封面（圓/單）— 中心大圓 + 標題
+   ============================================================ */
+.s1-cover {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .cover-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.s1-cover h1 {
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.18;
+  margin: 0;
+  z-index: 2;
+}
+.s1-cover h1 .accent { color: var(--accent-soft); }
+.s1-cover h1 .accent2 { color: var(--rose); }
+.s1-cover .sub {
+  font-size: 1.2rem;
+  color: var(--ink-mute);
+  margin-top: 18px;
+  max-width: 760px;
+  z-index: 2;
+}
+.s1-cover .big-circle {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+.s1-cover .ring-stat {
+  position: absolute;
+  z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.s1-cover .ring-stat .num {
+  font-size: 1.4rem; font-weight: 900; color: var(--accent-soft); line-height: 1;
+}
+.s1-cover .ring-stat .lbl {
+  font-size: 1rem; color: var(--ink-dim); letter-spacing: 0.06em;
+  background: rgba(21, 8, 46, 0.85);
+  padding: 3px 8px; border-radius: 4px;
+  border: 1px solid var(--border-cool);
+}
+.s1-cover .ring-stat.top-l { top: 290px; left: 24px; }
+.s1-cover .ring-stat.top-r { top: 290px; right: 24px; }
+.s1-cover .ring-stat.bot-l { top: 430px; left: 100px; }
+.s1-cover .ring-stat.bot-r { top: 430px; right: 100px; }
+
+/* ============================================================
+   P2 議程（方/網）— 6 格議程卡
+   ============================================================ */
+.s2-toc .header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+.s2-toc h2 { font-size: 2.2rem; margin: 0; }
+.s2-toc .header .pill {
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 1rem; font-weight: 700; letter-spacing: 0.1em;
+}
+.s2-toc .grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  flex: 1; align-content: center;
+}
+.s2-toc .toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 20px;
+  position: relative; overflow: hidden;
+  box-shadow: var(--glow-cool);
+}
+.s2-toc .toc-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+}
+.s2-toc .toc-card .num {
+  font-size: 1.8rem; font-weight: 900; color: var(--accent-soft); line-height: 1;
+}
+.s2-toc .toc-card .lbl {
+  font-size: 1.2rem; font-weight: 800; color: #ffffff; margin-top: 6px;
+}
+.s2-toc .toc-card .desc {
+  font-size: 1rem; color: var(--ink-mute); line-height: 1.45; margin-top: 4px;
+}
+
+/* ============================================================
+   P3 設計工具演進（線/水）— 5 個時代節點
+   ============================================================ */
+.s3-eras .header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 20px; }
+.s3-eras h2 { font-size: 2.0rem; margin: 0; }
+.s3-eras .header .pill {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--accent-soft);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 1rem; font-weight: 700;
+}
+.s3-eras .timeline-h {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
+  align-items: stretch; padding: 8px 0; position: relative;
+}
+.s3-eras .timeline-h::before {
+  content: ''; position: absolute; top: 32px; left: 5%; right: 5%; height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+  opacity: 0.5;
+}
+.s3-eras .era {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.s3-eras .era .dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--primary); border: 3px solid var(--bg-deep);
+  position: relative; z-index: 1;
+}
+.s3-eras .era.warm .dot { background: var(--accent); }
+.s3-eras .era .yr {
+  font-size: 1.6rem; font-weight: 900; color: #ffffff; margin-top: 4px;
+}
+.s3-eras .era .name {
+  font-size: 1.1rem; font-weight: 700; color: var(--primary-soft);
+}
+.s3-eras .era .desc {
+  font-size: 1rem; color: var(--ink-mute); text-align: center; line-height: 1.4;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   P4 設計師六大職能（六/垂）— 六邊形叢集
+   ============================================================ */
+.s6-role .header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 20px; }
+.s6-role h2 { font-size: 2.0rem; margin: 0; }
+.s6-role .header .pill {
+  background: rgba(168, 85, 247, 0.15); color: var(--primary-soft);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 1rem; font-weight: 700;
+}
+.s6-role .role-stage {
+  flex: 1; display: grid; grid-template-columns: 1.55fr 1fr; gap: 24px; align-items: stretch;
+}
+.s6-role .hex-col {
+  display: flex; flex-direction: column; gap: 12px; justify-content: center;
+}
+.s6-role .hex-row {
+  display: grid; grid-template-columns: 80px 1fr; gap: 16px; align-items: center;
+}
+.s6-role .hex-mini {
+  width: 80px; height: 92px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; font-weight: 900; color: #fff;
+}
+.s6-role .hex-row.warm .hex-mini { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%); }
+.s6-role .hex-row.rose .hex-mini { background: linear-gradient(135deg, var(--rose) 0%, #be185d 100%); }
+.s6-role .hex-row.mint .hex-mini { background: linear-gradient(135deg, var(--mint) 0%, #047857 100%); }
+.s6-role .hex-row .role-info .name {
+  font-size: 1.2rem; font-weight: 800; color: #ffffff;
+}
+.s6-role .hex-row .role-info .desc {
+  font-size: 1rem; color: var(--ink-mute); margin-top: 2px;
+}
+.s6-role .hex-row .role-info .impact {
+  font-size: 1rem; color: var(--accent-soft); margin-top: 4px; font-weight: 700;
+}
+
+/* === P4 右側統計面板 === */
+.s6-role .role-side {
+  display: flex; flex-direction: column; gap: 12px;
+  background: linear-gradient(160deg, rgba(168, 85, 247, 0.10) 0%, rgba(245, 158, 11, 0.08) 100%);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px;
+}
+.s6-role .role-side .side-title {
+  font-size: 1.15rem; font-weight: 800; color: #ffffff;
+  border-bottom: 1px solid rgba(168,85,247,0.3);
+  padding-bottom: 10px; margin-bottom: 4px;
+}
+.s6-role .role-side .side-stat {
+  display: grid; grid-template-columns: 64px 1fr; gap: 10px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(168,85,247,0.12);
+}
+.s6-role .role-side .side-stat:last-child { border-bottom: none; }
+.s6-role .role-side .side-stat .v {
+  font-size: 1.5rem; font-weight: 900; color: var(--accent-soft); line-height: 1;
+  text-align: right;
+}
+.s6-role .role-side .side-stat .l {
+  font-size: 1rem; color: var(--ink-mute); line-height: 1.35;
+}
+.s6-role .role-side .side-stat .l .hi {
+  color: var(--primary-soft); font-weight: 700;
+}
+.s6-role .role-side .side-quote {
+  margin-top: auto;
+  padding: 12px 14px;
+  background: rgba(168, 85, 247, 0.15);
+  border-left: 3px solid var(--primary);
+  border-radius: 4px;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+.s6-role .role-side .side-quote .who {
+  display: block;
+  margin-top: 6px;
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   P5 工具全景（特/散）— 不規則卡片雲
+   ============================================================ */
+.s5-tools .header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 16px; }
+.s5-tools h2 { font-size: 2.0rem; margin: 0; }
+.s5-tools .header .pill {
+  background: rgba(251, 113, 133, 0.15); color: var(--rose);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 1rem; font-weight: 700;
+}
+.s5-tools .tool-cloud {
+  flex: 1; position: relative;
+}
+.s5-tools .tool-tile {
+  position: absolute;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 14px 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--glow-cool);
+}
+.s5-tools .tool-tile.warm {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: var(--border-warm);
+}
+.s5-tools .tool-tile .cat {
+  font-size: 1rem; color: var(--accent-soft); font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.s5-tools .tool-tile .name {
+  font-size: 1.3rem; font-weight: 800; color: #ffffff; margin-top: 2px;
+}
+.s5-tools .tool-tile .desc {
+  font-size: 1rem; color: var(--ink-mute); margin-top: 4px; line-height: 1.4;
+}
+
+/* ============================================================
+   P6 AI 創作流程（圓/垂）— 同心圓環 + 流程
+   ============================================================ */
+.s4-flow .header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 16px; }
+.s4-flow h2 { font-size: 2.0rem; margin: 0; }
+.s4-flow .header .pill {
+  background: rgba(168, 85, 247, 0.15); color: var(--primary-soft);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 1rem; font-weight: 700;
+}
+.s4-flow .center-stage {
+  flex: 1; display: grid; grid-template-columns: 320px 1fr; gap: 32px; align-items: center;
+}
+.s4-flow .donut-wrap {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.s4-flow .donut-center {
+  position: absolute; text-align: center;
+}
+.s4-flow .donut-center .yr {
+  font-size: 2.2rem; font-weight: 900; color: #fff;
+}
+.s4-flow .donut-center .goal {
+  font-size: 1rem; color: var(--ink-mute); margin-top: 4px; letter-spacing: 0.1em;
+}
+.s4-flow .flow-list {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.s4-flow .flow-step {
+  display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.s4-flow .flow-step.warm { border-color: var(--border-warm); }
+.s4-flow .flow-step .step-num {
+  font-size: 1.5rem; font-weight: 900; color: var(--accent-soft); line-height: 1;
+}
+.s4-flow .flow-step .step-name {
+  font-size: 1.2rem; font-weight: 800; color: #ffffff;
+}
+.s4-flow .flow-step .step-desc {
+  font-size: 1rem; color: var(--ink-mute); margin-top: 2px;
+}
+
+/* ============================================================
+   P7 五大工作流典範（方/水）— 4 卡片水平
+   ============================================================ */
+.s7-pattern .header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+.s7-pattern h2 { font-size: 2.0rem; margin: 0; }
+.s7-pattern .header .pill {
+  background: rgba(168, 85, 247, 0.15); color: var(--primary-soft);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 1rem; font-weight: 700;
+}
+.s7-pattern .pattern-row {
+  flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.s7-pattern .p-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex; flex-direction: column; gap: 8px;
+  box-shadow: var(--glow-cool);
+}
+.s7-pattern .p-card.warm { border-color: var(--border-warm); }
+.s7-pattern .p-card .ico {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; font-weight: 900; color: #fff;
+}
+.s7-pattern .p-card.warm .ico {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+}
+.s7-pattern .p-card .title {
+  font-size: 1.25rem; font-weight: 800; color: #ffffff;
+}
+.s7-pattern .p-card .sub {
+  font-size: 1rem; color: var(--ink-mute); line-height: 1.4;
+}
+.s7-pattern .p-card .stat {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid rgba(168,85,247,0.2);
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.s7-pattern .p-card .stat .v { font-size: 1.6rem; font-weight: 900; color: var(--accent-soft); }
+.s7-pattern .p-card .stat .l { font-size: 1rem; color: var(--ink-dim); }
+
+/* ============================================================
+   P8 作品案例（特/垂）— 不對稱佈局
+   ============================================================ */
+.s8-case .header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 16px; }
+.s8-case h2 { font-size: 2.0rem; margin: 0; }
+.s8-case .header .pill {
+  background: rgba(110, 231, 183, 0.18); color: var(--mint);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 1rem; font-weight: 700;
+}
+.s8-case .case-stage {
+  flex: 1; display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px;
+}
+.s8-case .case-feature {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex; flex-direction: column; gap: 14px;
+  box-shadow: var(--glow-cool);
+}
+.s8-case .case-feature .tag-row {
+  display: flex; gap: 8px;
+}
+.s8-case .case-feature .tag-row span {
+  font-size: 1rem;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: rgba(168, 85, 247, 0.18);
+  color: var(--primary-soft);
+}
+.s8-case .case-feature .head {
+  font-size: 1.6rem; font-weight: 900; color: #ffffff; line-height: 1.2;
+}
+.s8-case .case-feature .body {
+  font-size: 1.1rem; color: var(--ink-mute); line-height: 1.55;
+}
+.s8-case .case-feature .meta {
+  margin-top: auto;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  padding-top: 12px; border-top: 1px solid rgba(168,85,247,0.2);
+}
+.s8-case .case-feature .meta .item .v {
+  font-size: 1.3rem; font-weight: 900; color: var(--accent-soft);
+}
+.s8-case .case-feature .meta .item .l {
+  font-size: 1rem; color: var(--ink-dim);
+}
+.s8-case .case-side {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.s8-case .case-mini {
+  background: rgba(110, 231, 183, 0.08);
+  border: 1px solid rgba(110, 231, 183, 0.30);
+  border-radius: 12px;
+  padding: 14px 18px;
+  flex: 1;
+}
+.s8-case .case-mini.warm {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: var(--border-warm);
+}
+.s8-case .case-mini.rose {
+  background: rgba(251, 113, 133, 0.08);
+  border-color: rgba(251, 113, 133, 0.30);
+}
+.s8-case .case-mini .name {
+  font-size: 1.1rem; font-weight: 800; color: #ffffff;
+}
+.s8-case .case-mini .desc {
+  font-size: 1rem; color: var(--ink-mute); margin-top: 4px;
+}
+.s8-case .case-mini .stat {
+  font-size: 1.4rem; font-weight: 900; color: var(--mint); margin-top: 6px;
+}
+.s8-case .case-mini.warm .stat { color: var(--accent-soft); }
+.s8-case .case-mini.rose .stat { color: var(--rose); }
+
+/* ============================================================
+   P9 設計師轉型指南（線/網）— 3×2 矩陣
+   ============================================================ */
+.s9-skill .header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 20px; }
+.s9-skill h2 { font-size: 2.0rem; margin: 0; }
+.s9-skill .header .pill {
+  background: rgba(168, 85, 247, 0.15); color: var(--primary-soft);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 1rem; font-weight: 700;
+}
+.s9-skill .skill-grid {
+  flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 14px;
+}
+.s9-skill .skill-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.s9-skill .skill-card.peak {
+  border-color: var(--border-warm);
+  background: rgba(245, 158, 11, 0.08);
+}
+.s9-skill .skill-card .ico {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 8px;
+}
+.s9-skill .skill-card .ico .dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--primary);
+}
+.s9-skill .skill-card.peak .ico .dot { background: var(--accent); }
+.s9-skill .skill-card .ico .num {
+  font-size: 1rem; color: var(--ink-dim); letter-spacing: 0.1em; font-weight: 700;
+}
+.s9-skill .skill-card .name {
+  font-size: 1.2rem; font-weight: 800; color: #ffffff;
+}
+.s9-skill .skill-card .body {
+  font-size: 1rem; color: var(--ink-mute); margin-top: 6px; line-height: 1.45;
+}
+.s9-skill .skill-card .level {
+  position: absolute; bottom: 10px; right: 14px;
+  font-size: 1rem; color: var(--accent-soft); font-weight: 700;
+}
+
+/* ============================================================
+   P10 結尾（無/單）— 中心大字
+   ============================================================ */
+.s10-end {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.s10-end h2 {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.2;
+  margin: 0;
+  z-index: 2;
+}
+.s10-end h2 .accent { color: var(--accent-soft); }
+.s10-end h2 .accent2 { color: var(--rose); }
+.s10-end .end-body {
+  font-size: 1.15rem;
+  color: var(--ink-mute);
+  line-height: 1.6;
+  margin-top: 18px;
+  max-width: 780px;
+  z-index: 2;
+}
+.s10-end .ring-bg {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0.45;
+}
+.s10-end .end-stat {
+  position: absolute;
+  z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.s10-end .end-stat .num {
+  font-size: 1.4rem; font-weight: 900; color: var(--accent-soft);
+  background: rgba(21, 8, 46, 0.85);
+  padding: 6px 14px; border-radius: 8px;
+  border: 1px solid var(--border-cool);
+}
+.s10-end .end-stat .lbl {
+  font-size: 1rem; color: var(--ink-dim); letter-spacing: 0.06em;
+}
+.s10-end .end-stat.top-l { top: 80px; left: 60px; }
+.s10-end .end-stat.top-r { top: 80px; right: 60px; }
+.s10-end .end-stat.bot-l { bottom: 100px; left: 60px; }
+.s10-end .end-stat.bot-r { bottom: 100px; right: 60px; }
+.s10-end .cta {
+  margin-top: 28px;
+  display: flex; gap: 12px;
+  z-index: 2;
+}
+.s10-end .cta-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  border: none; color: #fff;
+  font-size: 1.1rem; font-weight: 700;
+  padding: 12px 24px; border-radius: 10px;
+  cursor: pointer;
+  box-shadow: var(--glow-cool);
+}
+.s10-end .cta-btn.alt {
+  background: transparent;
+  border: 1px solid var(--border-cool);
+  color: var(--ink-soft);
+}
+</style>
+</head>
+<body>
+<div class="presentation">
+
+<a class="back-link" href="/slides.htm">← 回列表</a>
+
+<!-- ============== P1 封面（圓/單） ============== -->
+<section id="slide-1" class="slide s1-cover active">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+
+  <svg class="big-circle" width="700" height="700" viewBox="0 0 700 700">
+    <circle cx="350" cy="350" r="320" fill="none" stroke="#a855f7" stroke-width="2" opacity="0.30"/>
+    <circle cx="350" cy="350" r="270" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.25" stroke-dasharray="10,6"/>
+    <circle cx="350" cy="350" r="220" fill="none" stroke="#fb7185" stroke-width="2" opacity="0.25"/>
+    <circle cx="350" cy="350" r="170" fill="none" stroke="#a855f7" stroke-width="2" opacity="0.40" stroke-dasharray="4,4"/>
+    <circle cx="350" cy="350" r="120" fill="none" stroke="#f59e0b" stroke-width="3" opacity="0.50"/>
+  </svg>
+
+  <div class="cover-eyebrow">2026 · 創意設計新典範</div>
+  <h1>當 <span class="accent">AI</span> 走進工作室——<br>設計師的<span class="accent2">創意新舞臺</span></h1>
+  <p class="sub">從工具到夥伴、從協作到共創——2026 設計師正在重新定義自己的工作流</p>
+
+  <div class="ring-stat top-l">
+    <span class="num">73%</span>
+    <span class="lbl">設計師每日用 AI</span>
+  </div>
+  <div class="ring-stat top-r">
+    <span class="num">×4.2</span>
+    <span class="lbl">產出效率倍數</span>
+  </div>
+  <div class="ring-stat bot-l">
+    <span class="num">$48B</span>
+    <span class="lbl">AI 設計市場規模</span>
+  </div>
+  <div class="ring-stat bot-r">
+    <span class="num">12 種</span>
+    <span class="lbl">新協作模式</span>
+  </div>
+</section>
+
+<!-- ============== P2 議程（方/網） ============== -->
+<section id="slide-2" class="slide s2-toc">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>今天的設計旅程</h2>
+      <span class="pill">6 大章節 · 一頁一觀點</span>
+    </div>
+    <div class="grid">
+      <div class="toc-card">
+        <div class="num">01</div>
+        <div class="lbl">設計工具五千年</div>
+        <div class="desc">從洞窟壁畫到生成式 AI——工具演化的關鍵節點</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">02</div>
+        <div class="lbl">設計師六大職能</div>
+        <div class="desc">提示詞工程、品牌策略、創意總監——新能力圖譜</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">03</div>
+        <div class="lbl">工具全景圖</div>
+        <div class="desc">Figma AI / Midjourney / Runway——12 款主力工具比較</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">04</div>
+        <div class="lbl">四大工作流典範</div>
+        <div class="desc">提示先行、人機接力、共創迭代、品牌守門員</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">05</div>
+        <div class="lbl">真實作品案例</div>
+        <div class="desc">Coca-Cola × AI、Cosmos 視覺、SaaS 介面重塑</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">06</div>
+        <div class="lbl">設計師轉型指南</div>
+        <div class="desc">6 大核心技能 × 3 階段學習路徑</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P3 工具五時代（線/水） ============== -->
+<section id="slide-3" class="slide s3-eras">
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>設計工具的 5 個時代</h2>
+      <span class="pill">從手繪到生成式 AI</span>
+    </div>
+    <div class="timeline-h">
+      <div class="era">
+        <span class="dot"></span>
+        <span class="yr">1980s</span>
+        <span class="name">桌上排版</span>
+        <span class="desc">PageMaker、QuarkXPress——紙本排版的數位化</span>
+      </div>
+      <div class="era">
+        <span class="dot"></span>
+        <span class="yr">1995</span>
+        <span class="name">向量繪圖</span>
+        <span class="desc">Illustrator、CorelDRAW——曲線與色彩的工業革命</span>
+      </div>
+      <div class="era warm">
+        <span class="dot"></span>
+        <span class="yr">2007</span>
+        <span class="name">雲端協作</span>
+        <span class="desc">Figma 開啟瀏覽器即工作——多人即時共編成形</span>
+      </div>
+      <div class="era">
+        <span class="dot"></span>
+        <span class="yr">2020</span>
+        <span class="name">組件系統</span>
+        <span class="desc">Design Token、Tailwind UI——模組化成為標準</span>
+      </div>
+      <div class="era warm">
+        <span class="dot"></span>
+        <span class="yr">2026</span>
+        <span class="name">生成式 AI</span>
+        <span class="desc">Midjourney v7、GPT-image——從工具到創意夥伴</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P4 設計師六大職能（六/垂） ============== -->
+<section id="slide-4" class="slide s6-role">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>AI 時代設計師的 6 大新職能</h2>
+      <span class="pill">能力圖譜重構</span>
+    </div>
+    <div class="role-stage">
+      <div class="hex-col">
+        <div class="hex-row">
+          <div class="hex-mini">1</div>
+          <div class="role-info">
+            <div class="name">提示詞工程師 Prompt Engineer</div>
+            <div class="desc">把模糊需求翻譯成 AI 可理解的精準指令</div>
+            <div class="impact">▸ 2026 必備技能 · 招聘量 ×5.8</div>
+          </div>
+        </div>
+        <div class="hex-row warm">
+          <div class="hex-mini">2</div>
+          <div class="role-info">
+            <div class="name">AI 創意總監 Creative Director</div>
+            <div class="desc">用人類審美判斷 AI 產出，留下最好的 3%</div>
+            <div class="impact">▸ 從「做」轉向「選」與「改」</div>
+          </div>
+        </div>
+        <div class="hex-row rose">
+          <div class="hex-mini">3</div>
+          <div class="role-info">
+            <div class="name">品牌策略師 Brand Strategist</div>
+            <div class="desc">確保 AI 產出符合品牌語彙與情緒一致</div>
+            <div class="impact">▸ AI 越強 · 品牌越珍貴</div>
+          </div>
+        </div>
+        <div class="hex-row mint">
+          <div class="hex-mini">4</div>
+          <div class="role-info">
+            <div class="name">資料敘事師 Data Storyteller</div>
+            <div class="desc">把統計數字轉化為可閱讀的視覺故事</div>
+            <div class="impact">▸ 數據 × 美學的新交集</div>
+          </div>
+        </div>
+        <div class="hex-row">
+          <div class="hex-mini">5</div>
+          <div class="role-info">
+            <div class="name">倫理守門員 Ethics Gatekeeper</div>
+            <div class="desc">審核 AI 偏見、版權、文化敏感性</div>
+            <div class="impact">▸ 法律 + 道德雙重把關</div>
+          </div>
+        </div>
+        <div class="hex-row warm">
+          <div class="hex-mini">6</div>
+          <div class="role-info">
+            <div class="name">流程編舞家 Workflow Choreographer</div>
+            <div class="desc">設計人機協作的節奏、節點、決策權分配</div>
+            <div class="impact">▸ 把 6 步流程壓縮到 3 步</div>
+          </div>
+        </div>
+      </div>
+      <div class="role-side">
+        <div class="side-title">市場數據速覽</div>
+        <div class="side-stat">
+          <div class="v">$48B</div>
+          <div class="l">2026 <span class="hi">AI 設計工具市場</span>規模</div>
+        </div>
+        <div class="side-stat">
+          <div class="v">73%</div>
+          <div class="l">設計師 <span class="hi">每日使用 AI</span> 工作</div>
+        </div>
+        <div class="side-stat">
+          <div class="v">×4.2</div>
+          <div class="l"><span class="hi">產出效率</span>平均倍增</div>
+        </div>
+        <div class="side-stat">
+          <div class="v">5.8×</div>
+          <div class="l"><span class="hi">Prompt 工程師</span>招聘成長</div>
+        </div>
+        <div class="side-stat">
+          <div class="v">42%</div>
+          <div class="l"><span class="hi">傳統設計師</span>技能重構比例</div>
+        </div>
+        <div class="side-quote">
+          「未來的設計師不會被 AI 取代，但會用 AI 的設計師會取代不用 AI 的設計師。」
+          <span class="who">— Adobe 創意長 2026 報告</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P5 工具全景（特/散） ============== -->
+<section id="slide-5" class="slide s5-tools">
+  <span class="glow-orb glow-orb-3"></span>
+  <span class="glow-orb glow-orb-1"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>2026 設計師必備 12 工具</h2>
+      <span class="pill">散落式全景圖</span>
+    </div>
+    <div class="tool-cloud">
+      <div class="tool-tile" style="top: 0px; left: 30px; width: 200px;">
+        <div class="cat">圖像生成</div>
+        <div class="name">Midjourney v7</div>
+        <div class="desc">電影級品質 · 主觀敘事最強</div>
+      </div>
+      <div class="tool-tile warm" style="top: 10px; left: 270px; width: 180px;">
+        <div class="cat">圖像生成</div>
+        <div class="name">GPT-image-2</div>
+        <div class="desc">文字渲染精準 · UI mockup 利器</div>
+      </div>
+      <div class="tool-tile" style="top: 0px; left: 490px; width: 200px;">
+        <div class="cat">向量 / UI</div>
+        <div class="name">Figma AI</div>
+        <div class="desc">原生整合 · 一鍵生成組件庫</div>
+      </div>
+      <div class="tool-tile warm" style="top: 0px; right: 30px; width: 180px;">
+        <div class="cat">影片生成</div>
+        <div class="name">Runway Gen-4</div>
+        <div class="desc">分鏡 → 動態影像 · 30 秒出片</div>
+      </div>
+      <div class="tool-tile" style="top: 180px; left: 90px; width: 220px;">
+        <div class="cat">原型互動</div>
+        <div class="name">Galileo AI</div>
+        <div class="desc">文字描述 → 高保真互動原型</div>
+      </div>
+      <div class="tool-tile warm" style="top: 195px; left: 350px; width: 200px;">
+        <div class="cat">3D / 空間</div>
+        <div class="name">Tripo Studio</div>
+        <div class="desc">單張圖 → 3D 模型 · 60 秒成型</div>
+      </div>
+      <div class="tool-tile" style="top: 175px; right: 80px; width: 200px;">
+        <div class="cat">品牌識別</div>
+        <div class="name">Brandmark AI</div>
+        <div class="desc">5 分鐘 · 完整 VI 系統</div>
+      </div>
+      <div class="tool-tile warm" style="top: 350px; left: 30px; width: 190px;">
+        <div class="cat">資料視覺化</div>
+        <div class="name">ChartGPT</div>
+        <div class="desc">資料 → 敘事圖表 · 自動配視覺</div>
+      </div>
+      <div class="tool-tile" style="top: 360px; left: 250px; width: 200px;">
+        <div class="cat">簡報生成</div>
+        <div class="name">Gamma / Beautiful.ai</div>
+        <div class="desc">一句話大綱 → 25 頁簡報</div>
+      </div>
+      <div class="tool-tile warm" style="top: 355px; right: 30px; width: 190px;">
+        <div class="cat">配色 / 字型</div>
+        <div class="name">Khroma / Fontjoy</div>
+        <div class="desc">個人化配色 + 字型配對引擎</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P6 AI 創作流程（圓/垂） ============== -->
+<section id="slide-6" class="slide s4-flow">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>2026 標準 AI 創作流程</h2>
+      <span class="pill">6 步驟 · 從靈感到交付</span>
+    </div>
+    <div class="center-stage">
+      <div class="donut-wrap">
+        <svg width="280" height="280" viewBox="0 0 280 280">
+          <circle cx="140" cy="140" r="125" fill="none" stroke="#2a1248" stroke-width="22"/>
+          <circle cx="140" cy="140" r="125" fill="none" stroke="#a855f7" stroke-width="22"
+                  stroke-dasharray="785" stroke-dashoffset="120"
+                  transform="rotate(-90 140 140)" stroke-linecap="round"/>
+          <circle cx="140" cy="140" r="100" fill="none" stroke="#2a1248" stroke-width="18"/>
+          <circle cx="140" cy="140" r="100" fill="none" stroke="#f59e0b" stroke-width="18"
+                  stroke-dasharray="628" stroke-dashoffset="200"
+                  transform="rotate(-90 140 140)" stroke-linecap="round"/>
+          <circle cx="140" cy="140" r="75" fill="none" stroke="#2a1248" stroke-width="14"/>
+          <circle cx="140" cy="140" r="75" fill="none" stroke="#fb7185" stroke-width="14"
+                  stroke-dasharray="471" stroke-dashoffset="240"
+                  transform="rotate(-90 140 140)" stroke-linecap="round"/>
+        </svg>
+        <div class="donut-center">
+          <div class="yr">6 步</div>
+          <div class="goal">完整流程</div>
+        </div>
+      </div>
+      <div class="flow-list">
+        <div class="flow-step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-name">意圖拆解 Intent</div>
+            <div class="step-desc">把客戶需求拆成情緒、對象、情境三軸</div>
+          </div>
+        </div>
+        <div class="flow-step warm">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-name">提示詞設計 Prompt</div>
+            <div class="step-desc">寫出 200-500 字精準指令 · 含負面提示</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-name">批量生成 Generate</div>
+            <div class="step-desc">一次跑 30-50 個變體 · 留下前 10%</div>
+          </div>
+        </div>
+        <div class="flow-step warm">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-name">人工策展 Curate</div>
+            <div class="step-desc">設計師的價值 = 選擇最好的那 3%</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">5</div>
+          <div>
+            <div class="step-name">品牌校準 Align</div>
+            <div class="step-desc">對齊色票、字型、語氣 · 確保一致性</div>
+          </div>
+        </div>
+        <div class="flow-step warm">
+          <div class="step-num">6</div>
+          <div>
+            <div class="step-name">交付 + 迭代 Deliver</div>
+            <div class="step-desc">產出檔案包 + 客戶反饋 → 下一輪 prompt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P7 四大工作流典範（方/水） ============== -->
+<section id="slide-7" class="slide s7-pattern">
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>2026 四大工作流典範</h2>
+      <span class="pill">人機協作的 4 種成熟模式</span>
+    </div>
+    <div class="pattern-row">
+      <div class="p-card">
+        <div class="ico">01</div>
+        <div class="title">提示先行</div>
+        <div class="sub">設計師寫 prompt，AI 跑 50 個變體，人類選 3 個再精修</div>
+        <div class="stat">
+          <span class="v">×6</span>
+          <span class="l">初稿速度</span>
+        </div>
+      </div>
+      <div class="p-card warm">
+        <div class="ico">02</div>
+        <div class="title">人機接力</div>
+        <div class="sub">設計師做骨架 → AI 補色與紋理 → 設計師最後微調</div>
+        <div class="stat">
+          <span class="v">42%</span>
+          <span class="l">時間節省</span>
+        </div>
+      </div>
+      <div class="p-card">
+        <div class="ico">03</div>
+        <div class="title">共創迭代</div>
+        <div class="sub">設計師與 AI 對話 5-8 輪，每輪收斂 20%，直到滿意</div>
+        <div class="stat">
+          <span class="v">8 輪</span>
+          <span class="l">平均對話數</span>
+        </div>
+      </div>
+      <div class="p-card warm">
+        <div class="ico">04</div>
+        <div class="title">品牌守門員</div>
+        <div class="sub">設計師守最後一關：品牌一致性 + 倫理 + 文化敏感度</div>
+        <div class="stat">
+          <span class="v">100%</span>
+          <span class="l">人類把關率</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P8 真實作品案例（特/垂） ============== -->
+<section id="slide-8" class="slide s8-case">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>2026 真實作品案例</h2>
+      <span class="pill">當 AI 進入品牌現場</span>
+    </div>
+    <div class="case-stage">
+      <div class="case-feature">
+        <div class="tag-row">
+          <span>品牌視覺</span>
+          <span>2026 Q1</span>
+          <span>全球上線</span>
+        </div>
+        <div class="head">Coca-Cola × AI<br>「Real Magic」2.0 全球活動</div>
+        <div class="body">可口可樂用 Midjourney v7 + 內部設計師策展，推出 30 國在地化 AI 海報。設計師角色從「製作」轉為「策展 + 文化顧問」，產出量提升 4 倍，同時保留 100% 品牌一致性。</div>
+        <div class="meta">
+          <div class="item">
+            <div class="v">4×</div>
+            <div class="l">產出量</div>
+          </div>
+          <div class="item">
+            <div class="v">30</div>
+            <div class="l">國家版本</div>
+          </div>
+          <div class="item">
+            <div class="v">$2M</div>
+            <div class="l">預算節省</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-side">
+        <div class="case-mini">
+          <div class="name">Netflix × AI 海報</div>
+          <div class="desc">每部劇自動生成 200+ 風格變體測試觀眾偏好</div>
+          <div class="stat">CTR +38%</div>
+        </div>
+        <div class="case-mini warm">
+          <div class="name">IKEA 空間 AI</div>
+          <div class="desc">顧客拍照 → AI 重新佈置 12 種風格方案</div>
+          <div class="stat">×5.2 轉換率</div>
+        </div>
+        <div class="case-mini rose">
+          <div class="name">Adobe Firefly 企業版</div>
+          <div class="desc">內部設計師全員配備 · 商用版權無憂</div>
+          <div class="stat">12 萬用戶</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P9 設計師轉型指南（線/網） ============== -->
+<section id="slide-9" class="slide s9-skill">
+  <span class="glow-orb glow-orb-3"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>設計師轉型 6 大核心技能</h2>
+      <span class="pill">3 階段 · 90 天可啟動</span>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-card">
+        <div class="ico">
+          <span class="dot"></span>
+          <span class="num">PHASE 1 · 30 天</span>
+        </div>
+        <div class="name">提示詞工程</div>
+        <div class="body">學會寫 200 字結構化 prompt · 含意圖/語氣/風格/負面提示</div>
+        <div class="level">基礎必修</div>
+      </div>
+      <div class="skill-card">
+        <div class="ico">
+          <span class="dot"></span>
+          <span class="num">PHASE 1 · 30 天</span>
+        </div>
+        <div class="name">工具選型</div>
+        <div class="body">熟悉 5 款主力 AI 工具 · 建立個人工作棧</div>
+        <div class="level">基礎必修</div>
+      </div>
+      <div class="skill-card peak">
+        <div class="ico">
+          <span class="dot"></span>
+          <span class="num">PHASE 2 · 60 天</span>
+        </div>
+        <div class="name">批判性策展</div>
+        <div class="body">能在 30 個 AI 變體中精準選 3 個 · 說明理由</div>
+        <div class="level">進階關鍵</div>
+      </div>
+      <div class="skill-card peak">
+        <div class="ico">
+          <span class="dot"></span>
+          <span class="num">PHASE 2 · 60 天</span>
+        </div>
+        <div class="name">品牌一致性</div>
+        <div class="body">將品牌指南翻譯成可執行的 prompt 模板與約束集</div>
+        <div class="level">進階關鍵</div>
+      </div>
+      <div class="skill-card peak">
+        <div class="ico">
+          <span class="dot"></span>
+          <span class="num">PHASE 3 · 90 天</span>
+        </div>
+        <div class="name">流程編舞</div>
+        <div class="body">設計 6 步標準流程 · 把人機協作變成可複製 SOP</div>
+        <div class="level">高手標配</div>
+      </div>
+      <div class="skill-card peak">
+        <div class="ico">
+          <span class="dot"></span>
+          <span class="num">PHASE 3 · 90 天</span>
+        </div>
+        <div class="name">倫理判斷</div>
+        <div class="body">辨識 AI 偏見、版權、文化冒犯 · 成為守門員</div>
+        <div class="level">高手標配</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P10 結尾（無/單） ============== -->
+<section id="slide-10" class="slide s10-end">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+
+  <svg class="ring-bg" width="600" height="600" viewBox="0 0 600 600">
+    <circle cx="300" cy="300" r="280" fill="none" stroke="#a855f7" stroke-width="2" opacity="0.35"/>
+    <circle cx="300" cy="300" r="240" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.30" stroke-dasharray="10,6"/>
+    <circle cx="300" cy="300" r="200" fill="none" stroke="#fb7185" stroke-width="2" opacity="0.30"/>
+    <circle cx="300" cy="300" r="160" fill="none" stroke="#a855f7" stroke-width="2" opacity="0.40" stroke-dasharray="4,4"/>
+  </svg>
+
+  <div class="end-eyebrow">2026 → 2030 · 設計師的新舞臺</div>
+  <h2>AI 不會取代設計師——<br>但會用 AI 的設計師，<br>會取代<span class="accent">不用 AI 的設計師</span></h2>
+  <p class="end-body">當工具變成夥伴、產出變成策展、流程變成編舞——設計師的角色從「執行者」進化為「定義美學標準的人」。這是創意工作者的黃金時代。</p>
+
+  <div class="end-stat top-l">
+    <span class="num">73%</span>
+    <span class="lbl">2026 設計師已採用 AI</span>
+  </div>
+  <div class="end-stat top-r">
+    <span class="num">×4.2</span>
+    <span class="lbl">產出效率倍數</span>
+  </div>
+  <div class="end-stat bot-l">
+    <span class="num">6 大</span>
+    <span class="lbl">新核心職能</span>
+  </div>
+  <div class="end-stat bot-r">
+    <span class="num">90 天</span>
+    <span class="lbl">轉型啟動期</span>
+  </div>
+
+  <div class="cta">
+    <button class="cta-btn">閱讀完整研究</button>
+    <button class="cta-btn alt" onclick="window.location.href='/slides.htm'">回到列表</button>
+  </div>
+</section>
+
+<!-- ============== Nav ============== -->
+<div class="nav">
+  <button id="prev-btn" onclick="prev()" aria-label="上一頁">◀</button>
+  <span id="nav-text">1 / 10</span>
+  <button id="next-btn" onclick="next()" aria-label="下一頁">▶</button>
+</div>
+
+</div>
+
+<script>
+let current = 0;
+const total = 10;
+const slides = document.querySelectorAll('.slide');
+
+function show() {
+  if (slides[current]) {
+    slides[current].classList.remove('active');
+  }
+  current = Math.max(0, Math.min(total - 1, current));
+  slides[current].classList.add('active');
+  document.getElementById('nav-text').textContent = (current + 1) + ' / ' + total;
+  document.getElementById('prev-btn').disabled = current === 0;
+  document.getElementById('next-btn').disabled = current === total - 1;
+}
+
+function next() {
+  if (current < total - 1) {
+    if (slides[current]) slides[current].classList.remove('active');
+    current++;
+    slides[current].classList.add('active');
+    document.getElementById('nav-text').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prev-btn').disabled = current === 0;
+    document.getElementById('next-btn').disabled = current === total - 1;
+  }
+}
+
+function prev() {
+  if (current > 0) {
+    if (slides[current]) slides[current].classList.remove('active');
+    current--;
+    slides[current].classList.add('active');
+    document.getElementById('nav-text').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prev-btn').disabled = current === 0;
+    document.getElementById('next-btn').disabled = current === total - 1;
+  }
+}
+
+// 鍵盤導航
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+show();
+</script>
+
+</body>
+</html>
