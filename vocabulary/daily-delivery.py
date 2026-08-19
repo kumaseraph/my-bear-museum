@@ -41,6 +41,7 @@ WORLD_BUILDING = VOCAB_DIR / "world-building.json"
 VOCABULARY = VOCAB_DIR / "vocabulary.json"
 BEAR_FRIENDS = VOCAB_DIR / "bear-friends.json"
 BEAR_CONDITIONS = VOCAB_DIR / "bear-conditions.json"
+BEAR_TEXTURES = VOCAB_DIR / "bear-textures.json"
 
 COMFYUI_URL = "http://fjjhomei9.fjj.home:8188"
 COMFY_WORKFLOW = Path("/home/fjj04/comfyui/Flux.2-Klein-文生图_API.json")
@@ -69,6 +70,9 @@ Rules:
 - Do NOT include Chinese characters or the raw Chinese bear name
 - Do NOT include quality tags like "16:9", "kawaii style", or "detailed fur texture" (added separately)
 - Output ONLY the prompt text, no quotes, no explanation, no markdown, no thinking
+- 50% of the time, add a texture layer (glass, metal, wood, stone, plush, cotton, silk, wool, clay, gold leaf, etc.) provided in the metadata
+- Texture should be combined with style naturally: e.g. "oil painting style with gold leaf texture", "watercolor painting with rough stone surface", "3D rendered style with glass-like translucent quality"
+- Texture describes material/tactile quality (how it FEELS), style describes atmosphere/mood (how it LOOKS) — both should layer harmoniously
 - 60% of the time, add 1-3 friends to the scene based on the bear's personality and quote
 - Friends can be: human child, small dog, cat, rabbit, hamster, duckling, teddy bear toy, or small doll
 - Scenarios for friends: adventure (forest, beach, mountain camping, cave, stargazing), play (bubbles, kite, swings, soccer, snowman), outing (picnic, market, train, boat, blossoms, skiing)
@@ -181,19 +185,44 @@ def get_next_bear_names(n=8):
 
 
 def peek_styles(n=8):
+    """預覽即將配送的風格（隨機抽選，不重複）。"""
     rotation = load_json(STYLE_ROTATION)
     styles = rotation.get("styles", [])
-    current_index = rotation.get("current_index", 0)
-    return [styles[(current_index + i) % len(styles)] for i in range(n)], current_index
+    if not styles:
+        return [], None
+    n = min(n, len(styles))
+    selected = random.sample(styles, n)
+    return selected, None
 
 
 def get_next_styles(n=8):
-    selected, current_index = peek_styles(n)
+    """隨機選 n 個不重複的風格（不依序輪流）。"""
+    selected, _ = peek_styles(n)
     rotation = load_json(STYLE_ROTATION)
-    rotation["current_index"] = (current_index + n) % len(rotation["styles"])
     rotation["last_updated"] = get_today()
     save_json(STYLE_ROTATION, rotation)
     return selected
+
+
+def get_random_style():
+    """隨機選一個風格，回傳 {zh, en} dict。"""
+    rotation = load_json(STYLE_ROTATION)
+    styles = rotation.get("styles", [])
+    if not styles:
+        return {"zh": "3D", "en": "3D rendered style with volumetric depth"}
+    return random.choice(styles)
+
+
+def get_random_texture():
+    """根據 texture_probability 決定是否加質感，回傳 {zh, en} dict 或 None。"""
+    textures_data = load_json(BEAR_TEXTURES)
+    textures = textures_data.get("textures", [])
+    if not textures:
+        return None
+    probability = textures_data.get("texture_probability", 0.5)
+    if random.random() > probability:
+        return None
+    return random.choice(textures)
 
 
 def get_random_quote():
@@ -344,12 +373,24 @@ def select_conditions(conditions_data=None):
 
 
 def prepare_bear_metadata(name, style):
-    """生圖前先產生熊熊 metadata，供 prompt 與 bears.json 共用。"""
+    """生圖前先產生熊熊 metadata，供 prompt 與 bears.json 共用。
+
+    Args:
+        name: 熊熊中文名字
+        style: 風格 dict {"zh": ..., "en": ...} 或字串（向後相容）
+    """
+    # 向後相容：若 style 是字串，包成 dict
+    if isinstance(style, str):
+        style_obj = {"zh": style, "en": style}
+    else:
+        style_obj = style
+
     metadata = {
         "name": name,
-        "style": style,
+        "style": style_obj,
+        "style_zh": style_obj.get("zh", ""),
         "series": get_random_series(),
-        "personality": get_random_personality(style),
+        "personality": get_random_personality(style_obj.get("zh")),
         "quote": get_random_quote(),
         "title": derive_title(name),
     }
@@ -358,6 +399,11 @@ def prepare_bear_metadata(name, style):
     friend_info = get_friend_info()
     if friend_info:
         metadata["friend_info"] = friend_info
+
+    # 加入質感（50% 機率）
+    texture = get_random_texture()
+    if texture:
+        metadata["texture"] = texture
 
     # 加入 5 個獨立條件（天氣/時間/節日/道具/情緒）
     conditions = select_conditions()
@@ -375,7 +421,7 @@ def make_bear_record(metadata, today, collection_no, daily_index, config):
     filename_prefix = f"{collection_no}-{metadata['name']}"
     small_path = f"bears/{today}/thumbs/{filename_prefix}-s.png"
     medium_path = f"bears/{today}/thumbs/{filename_prefix}-m.png"
-    return {
+    record = {
         "name": metadata["name"],
         "date": today,
         "checkIn": today.replace("-", "") + f"-{daily_index:02d}",
@@ -389,6 +435,20 @@ def make_bear_record(metadata, today, collection_no, daily_index, config):
         "imgS": small_path,
         "imgM": medium_path,
     }
+    # 風格（向後相容：同時存 zh 字串與 dict）
+    if "style_zh" in metadata:
+        record["style"] = metadata["style_zh"]
+    if "style" in metadata and isinstance(metadata["style"], dict):
+        record["style_en"] = metadata["style"].get("en", "")
+    # 質感（如有）
+    if metadata.get("texture"):
+        tex = metadata["texture"]
+        if isinstance(tex, dict):
+            record["texture"] = tex.get("zh", "")
+            record["texture_en"] = tex.get("en", "")
+        else:
+            record["texture"] = str(tex)
+    return record
 
 
 def clean_minimax_text(content):
@@ -411,13 +471,33 @@ def clean_minimax_text(content):
     return content.strip().strip("\"'")
 
 
-def build_prompt_fallback(name, style, series, personality, title, friend_info=None, conditions=None):
+def build_prompt_fallback(name, style, series, personality, title, friend_info=None, conditions=None, texture=None):
     """MiniMax 失敗時的本地 fallback prompt。"""
+    # 支援 style 為 dict 或字串
+    if isinstance(style, dict):
+        style_en = style.get("en", style.get("zh", ""))
+    else:
+        style_en = style
+
+    # 若 style_en 已經包含 "style" 字樣，不再重複
+    # 否則只在短名（<20 字元且無空格）時補 " art style"，避免冗長
+    style_lower = style_en.lower()
+    if "style" in style_lower or len(style_en) > 20 or " " in style_en.strip():
+        style_clause = style_en
+    else:
+        style_clause = f"{style_en} art style"
+
     prompt = (
         f"A cute adorable bear character, {title}, "
         f"inspired by {series}, {personality}, "
-        f"{style} art style, dreamy atmosphere"
+        f"{style_clause}, dreamy atmosphere"
     )
+
+    # 若有質感，加入質感描述（與風格組合）
+    if texture:
+        texture_en = texture.get("en", "") if isinstance(texture, dict) else texture
+        if texture_en:
+            prompt += f", {texture_en}"
 
     # 若有朋友資訊，加入朋友描述
     if friend_info:
@@ -507,15 +587,27 @@ def _call_minimax_prompt(user_content, max_tokens=1024):
     return content, choice.get("finish_reason", "")
 
 
-def generate_prompt_via_minimax(name, style, series, personality, title, friend_info=None, conditions=None):
+def generate_prompt_via_minimax(name, style, series, personality, title, friend_info=None, conditions=None, texture=None):
     """用 MiniMax Chat API 依 metadata 產生英文生圖 prompt。"""
+    # 支援 style 為 dict 或字串
+    if isinstance(style, dict):
+        style_zh = style.get("zh", "")
+        style_en = style.get("en", "")
+    else:
+        style_zh = style
+        style_en = style
+
     user_content = (
         f"Bear name: {name}\n"
-        f"Art style: {style}\n"
+        f"Art style: {style_zh} ({style_en})\n"
         f"Series: {series}\n"
         f"Title: {title}\n"
         f"Personality: {personality}"
     )
+    if texture:
+        texture_zh = texture.get("zh", "") if isinstance(texture, dict) else texture
+        texture_en = texture.get("en", "") if isinstance(texture, dict) else texture
+        user_content += f"\nTexture: {texture_zh} ({texture_en})"
     if friend_info:
         friend_list = [f"{f['zh']} ({f['en']})" for f in friend_info["friends"]]
         friends_str = ", ".join(friend_list)
@@ -554,7 +646,7 @@ def generate_prompt_via_minimax(name, style, series, personality, title, friend_
         return content
     except Exception as e:
         log(f"  MiniMax prompt 生成失敗: {e}，使用 fallback")
-        fallback = build_prompt_fallback(name, style, series, personality, title, friend_info, conditions)
+        fallback = build_prompt_fallback(name, style, series, personality, title, friend_info, conditions, texture)
         log(f"  prompt (fallback): {fallback}")
         return fallback
 
@@ -570,7 +662,8 @@ def save_minimax_image(data, output_path):
 
 
 def generate_minimax_image(prompt, bear_name, style, output_path, idx, config):
-    log(f"MiniMax #{idx+1}: {bear_name} ({style}) [{config.minimax_size}]")
+    style_zh = style.get("zh", str(style)) if isinstance(style, dict) else style
+    log(f"MiniMax #{idx+1}: {bear_name} ({style_zh}) [{config.minimax_size}]")
 
     try:
         response = requests.post(
@@ -620,7 +713,8 @@ def _load_comfy_helpers():
 
 
 def generate_comfyui_image(prompt, bear_name, style, output_path, idx, config):
-    log(f"ComfyUI #{idx+1}: {bear_name} ({style}) [{config.comfy_width}x{config.comfy_height}]")
+    style_zh = style.get("zh", str(style)) if isinstance(style, dict) else style
+    log(f"ComfyUI #{idx+1}: {bear_name} ({style_zh}) [{config.comfy_width}x{config.comfy_height}]")
 
     if not COMFY_WORKFLOW.exists():
         log("  ComfyUI workflow 不存在，跳過")
@@ -734,7 +828,8 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
         filename = bear_filename(collection_no, name)
         log(
             f"  No.{collection_no} metadata: title={metadata['title']}, series={metadata['series']}, "
-            f"personality={metadata['personality']}, conditions={metadata.get('conditions')}"
+            f"personality={metadata['personality']}, texture={metadata.get('texture')}, "
+            f"conditions={metadata.get('conditions')}"
         )
         prompt = generate_prompt_via_minimax(
             metadata["name"],
@@ -744,6 +839,7 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             metadata["title"],
             metadata.get("friend_info"),
             metadata.get("conditions"),
+            metadata.get("texture"),
         )
         output = today_dir / filename
 
@@ -775,7 +871,8 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
         filename = bear_filename(collection_no, name)
         log(
             f"  No.{collection_no} metadata: title={metadata['title']}, series={metadata['series']}, "
-            f"personality={metadata['personality']}, conditions={metadata.get('conditions')}"
+            f"personality={metadata['personality']}, texture={metadata.get('texture')}, "
+            f"conditions={metadata.get('conditions')}"
         )
         prompt = generate_prompt_via_minimax(
             metadata["name"],
@@ -785,6 +882,7 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             metadata["title"],
             metadata.get("friend_info"),
             metadata.get("conditions"),
+            metadata.get("texture"),
         )
         output = today_dir / filename
         if generate_minimax_image(prompt, name, style, output, slot, config):
@@ -867,20 +965,22 @@ def main(config):
     bear_names = get_next_bear_names(num_bears)
 
     if config.mode == "step2":
-        styles, current_index = peek_styles(num_bears)
-        log(f"風格輪流 index: {current_index}")
+        styles, _ = peek_styles(num_bears)
+        log(f"風格隨機抽選（不輪流）")
         log(f"配送隻數: ComfyUI {config.comfy_count} + MiniMax {config.minimax_count} = {num_bears}")
         log(f"熊熊 ({len(bear_names)}): {bear_names}")
-        log(f"風格 ({len(styles)}): {styles}")
+        log(f"風格 ({len(styles)}): {[s.get('zh', s) if isinstance(s, dict) else s for s in styles]}")
         for i, (name, style) in enumerate(zip(bear_names, styles), start=1):
             kind = "ComfyUI" if i <= config.comfy_count else "MiniMax"
-            log(f"  #{i} [{kind}]: {name} / {style}")
+            style_zh = style.get("zh", str(style)) if isinstance(style, dict) else style
+            log(f"  #{i} [{kind}]: {name} / {style_zh}")
         log("\n[step2] 預覽完成，未生圖、未更新詞彙輪流")
         return
 
     styles = get_next_styles(num_bears)
+    style_zhs = [s.get("zh", str(s)) if isinstance(s, dict) else s for s in styles]
     log(f"熊熊: {bear_names}")
-    log(f"風格: {styles}")
+    log(f"風格: {style_zhs}")
 
     log("\n--- 步驟 3: 準備目錄 ---")
     (config.temp_dir / today).mkdir(parents=True, exist_ok=True)
@@ -905,7 +1005,7 @@ def main(config):
         return
 
     log("\n--- 步驟 6: Git Commit ---")
-    run_cmd(f"cd {PROJECT_DIR} && git add bears.json bears/ vocabulary/style-rotation.json vocabulary/daily-delivery.py vocabulary/bear-conditions.json")
+    run_cmd(f"cd {PROJECT_DIR} && git add bears.json bears/ vocabulary/style-rotation.json vocabulary/daily-delivery.py vocabulary/bear-conditions.json vocabulary/bear-textures.json")
     run_cmd(f'cd {PROJECT_DIR} && git commit -m "新增 {today} 熊熊"')
     run_cmd(f"cd {PROJECT_DIR} && git push")
     log("Git push 完成")
