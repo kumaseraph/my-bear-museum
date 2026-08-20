@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 後 AI 熱潮的隱形贏家：七大不被看好的老二接管獲利｜熊熊博物館</title>
+<style>
+  /* ==== 基盤（最高優先）==== */
+  html { font-size: 20px; }
+  body {
+    margin: 0; padding: 0;
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+    color: #e8eef7;
+    background: #050816;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  .presentation { aspect-ratio: 16 / 9; width: 100%; max-width: 1280px; margin: 0 auto; }
+  .slide { display: none; width: 100%; height: 100%; padding: 32px 48px; box-sizing: border-box; position: relative; overflow: hidden; background: linear-gradient(135deg, #050816 0%, #0c1330 100%); }
+  .slide.active { display: block; }
+
+  /* 共通標題 */
+  .section-title { font-size: 1.7rem; font-weight: 900; letter-spacing: 0.02em; margin: 0 0 0.4rem 0; color: #ffffff; }
+  .section-sub { font-size: 1.05rem; color: #8fa3c7; margin: 0 0 1rem 0; }
+  .eyebrow { font-size: 1rem; letter-spacing: 0.3em; color: #6ec1ff; text-transform: uppercase; }
+
+  /* 導航列 */
+  .nav { position: absolute; top: 18px; right: 28px; display: flex; align-items: center; gap: 10px; font-size: 1rem; z-index: 10; background: rgba(255,255,255,0.06); padding: 6px 12px; border-radius: 16px; backdrop-filter: blur(8px); }
+  .nav button { background: rgba(110,193,255,0.2); color: #fff; border: 1px solid rgba(110,193,255,0.4); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 1rem; }
+  .nav button:hover { background: rgba(110,193,255,0.4); }
+  .nav .page-num { min-width: 60px; text-align: center; color: #c8d8ee; font-size: 1rem; }
+
+  /* ============== P1 封面（無/單）============== */
+  .s1-cover { background: radial-gradient(ellipse at 25% 25%, rgba(110,193,255,0.20) 0%, transparent 55%), radial-gradient(ellipse at 80% 80%, rgba(170,120,255,0.18) 0%, transparent 55%), linear-gradient(135deg, #050816 0%, #0c1330 100%); }
+  .s1-cover .cover-eyebrow { font-size: 1rem; letter-spacing: 0.4em; color: #6ec1ff; margin-bottom: 1.2rem; }
+  .s1-cover h1 { font-size: 3.0rem; font-weight: 900; line-height: 1.15; margin: 0 0 0.8rem 0; background: linear-gradient(135deg, #ffffff 0%, #6ec1ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; max-width: 800px; }
+  .s1-cover .cover-sub { font-size: 1.2rem; color: #c8d8ee; margin-bottom: 1.6rem; max-width: 720px; line-height: 1.5; }
+  .s1-cover .meta-row { display: flex; gap: 1.4rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .s1-cover .meta-item { display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; color: #8fa3c7; }
+  .s1-cover .quadrant-hero { position: absolute; right: -60px; top: 50%; transform: translateY(-50%); width: 480px; height: 480px; opacity: 0.95; }
+
+  /* ============== P2 議程大綱（方/網 3x2）============== */
+  .s2-agenda .agenda-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 1.2rem; }
+  .agenda-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(110,193,255,0.25); border-radius: 12px; padding: 1rem 1.2rem; position: relative; transition: transform 0.25s; }
+  .agenda-card:hover { transform: translateY(-3px); border-color: rgba(110,193,255,0.55); }
+  .agenda-num { font-size: 1.6rem; font-weight: 900; color: #6ec1ff; line-height: 1; letter-spacing: 0.05em; }
+  .agenda-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 0.4rem 0 0.3rem; }
+  .agenda-desc { font-size: 1rem; color: #8fa3c7; line-height: 1.4; }
+
+  /* ============== P3 時間軸（線/水 5 節點）============== */
+  .s3-timeline { padding: 16px 24px 90px 24px; }
+  .timeline-h { display: flex; justify-content: space-between; align-items: stretch; gap: 0; margin-top: 1.4rem; position: relative; }
+  .timeline-h::before { content: ''; position: absolute; top: 38px; left: 4%; right: 4%; height: 2px; background: linear-gradient(90deg, #6ec1ff 0%, #aa78ff 100%); }
+  .timeline-item { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; padding: 0 6px; }
+  .timeline-item .tl-year { font-size: 1.05rem; font-weight: 900; color: #6ec1ff; margin-bottom: 0.4rem; letter-spacing: 0.05em; }
+  .timeline-item .tl-node { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 3px solid #6ec1ff; box-shadow: 0 0 16px rgba(110,193,255,0.6); position: relative; z-index: 2; margin-bottom: 0.6rem; }
+  .timeline-item .tl-body { background: rgba(255,255,255,0.04); border: 1px solid rgba(110,193,255,0.25); border-radius: 10px; padding: 0.7rem 0.6rem; text-align: center; font-size: 1rem; color: #c8d8ee; line-height: 1.35; margin-top: 0.5rem; min-height: 100px; }
+  .timeline-item .tl-milestone { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+
+  /* ============== P4 資金流向圓餅（圓/垂）============== */
+  .s4-flow { padding: 16px 24px 90px 24px; }
+  .flow-stack { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 1.4rem; max-width: 980px; margin-left: auto; margin-right: auto; }
+  .flow-row { display: flex; align-items: center; gap: 1rem; padding: 0.7rem 1rem; background: rgba(255,255,255,0.04); border-radius: 10px; border: 1px solid rgba(110,193,255,0.2); }
+  .flow-row .fr-circle { width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .flow-row .fr-share { font-size: 1.05rem; font-weight: 900; color: #fff; min-width: 80px; }
+  .flow-row .fr-name { font-size: 1.1rem; font-weight: 700; color: #fff; flex: 1; }
+  .flow-row .fr-note { font-size: 1rem; color: #8fa3c7; }
+  .flow-row .fr-bar { height: 6px; border-radius: 3px; flex: 1; min-width: 100px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; }
+  .flow-row .fr-bar::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; background: var(--bar-color, #6ec1ff); border-radius: 3px; width: var(--bar-width, 50%); }
+
+  /* ============== P5 七大隱形贏家蜂巢（六/散）============== */
+  .s7-winners { padding: 16px 24px 90px 24px; }
+  .hex-scatter { position: relative; margin: 1.2rem auto 0; width: 100%; max-width: 1180px; height: 460px; }
+  .win-hex { position: absolute; background: rgba(110,193,255,0.18); border: 2px solid rgba(110,193,255,0.45); clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); padding: 0.8rem 0.6rem; box-sizing: border-box; text-align: center; box-shadow: 0 0 20px rgba(110,193,255,0.16); display: flex; flex-direction: column; justify-content: center; align-items: center; }
+  .win-hex::before { content: ''; position: absolute; inset: 3px; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); background: rgba(5,8,22,0.88); z-index: 0; }
+  .win-hex > * { position: relative; z-index: 1; }
+  .win-hex .wh-num { font-size: 1rem; color: #aa78ff; font-weight: 900; letter-spacing: 0.15em; }
+  .win-hex .wh-name { font-size: 1.05rem; color: #fff; font-weight: 900; margin-top: 0.2rem; }
+  .win-hex .wh-ticker { font-size: 1rem; color: #6ec1ff; margin-top: 0.15rem; font-family: monospace; letter-spacing: 0.05em; }
+  .win-hex .wh-return { font-size: 1.05rem; color: #4ade80; font-weight: 900; margin-top: 0.25rem; }
+  .win-hex.w1 { top: 1%;   left: 2%;   width: 200px; height: 220px; }
+  .win-hex.w2 { top: 0%;   left: 30%;  width: 220px; height: 240px; transform: scale(1.08); border-color: #aa78ff; }
+  .win-hex.w2::before { background: rgba(5,8,22,0.85); }
+  .win-hex.w2 .wh-num { color: #aa78ff; }
+  .win-hex.w3 { top: 4%;   right: 4%;  width: 200px; height: 220px; }
+  .win-hex.w4 { bottom: 6%; left: 14%; width: 210px; height: 230px; }
+  .win-hex.w5 { bottom: 0%; left: 38%; width: 200px; height: 220px; border-color: #4ade80; }
+  .win-hex.w5 .wh-num { color: #4ade80; }
+  .win-hex.w5 .wh-return { color: #4ade80; }
+  .win-hex.w6 { bottom: 4%; right: 16%; width: 210px; height: 230px; }
+  .win-hex.w7 { bottom: 8%; right: 2%;  width: 200px; height: 220px; border-color: #fbbf24; }
+  .win-hex.w7 .wh-num { color: #fbbf24; }
+  .win-hex.w7 .wh-return { color: #fbbf24; }
+
+  /* ============== P6 護城河四象限（方/垂 2x2）============== */
+  .s6-moat { padding: 16px 24px 90px 24px; }
+  .moat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 1.4rem; max-width: 980px; margin-left: auto; margin-right: auto; }
+  .moat-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(110,193,255,0.3); border-radius: 14px; padding: 1rem 1.2rem; }
+  .moat-card .mc-num { font-size: 1rem; letter-spacing: 0.25em; font-weight: 900; color: #6ec1ff; margin-bottom: 0.3rem; }
+  .moat-card .mc-title { font-size: 1.25rem; font-weight: 900; color: #fff; margin-bottom: 0.4rem; }
+  .moat-card .mc-example { font-size: 1rem; color: #aa78ff; font-weight: 700; margin-bottom: 0.3rem; }
+  .moat-card .mc-desc { font-size: 1rem; color: #c8d8ee; line-height: 1.4; }
+
+  /* ============== P7 策略節點圖（特/網 2x2 鑽石）============== */
+  .s7-strategy { padding: 16px 24px 90px 24px; }
+  .strat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 1.4rem; max-width: 980px; margin-left: auto; margin-right: auto; }
+  .strat-card { position: relative; background: rgba(255,255,255,0.04); border: 1px solid rgba(110,193,255,0.3); border-radius: 14px; padding: 1rem 1.2rem 1rem 4rem; }
+  .strat-card::before { content: ''; position: absolute; left: 14px; top: 50%; transform: translateY(-50%) rotate(45deg); width: 24px; height: 24px; background: linear-gradient(135deg, #6ec1ff 0%, #aa78ff 100%); border-radius: 4px; }
+  .strat-card .sc-num { font-size: 1rem; color: #6ec1ff; font-weight: 800; letter-spacing: 0.2em; margin-bottom: 0.2rem; }
+  .strat-card .sc-title { font-size: 1.2rem; font-weight: 900; color: #fff; margin-bottom: 0.3rem; }
+  .strat-card .sc-desc { font-size: 1rem; color: #c8d8ee; line-height: 1.4; }
+
+  /* ============== P8 進出場時間軸（線/水 雙軌）============== */
+  .s8-playbook { padding: 16px 24px 90px 24px; }
+  .play-row { display: flex; align-items: center; gap: 1.2rem; margin-top: 1.4rem; max-width: 1100px; margin-left: auto; margin-right: auto; }
+  .play-stage { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(110,193,255,0.3); border-radius: 12px; padding: 1rem 1.2rem; position: relative; }
+  .play-stage .ps-tag { font-size: 1rem; letter-spacing: 0.2em; color: #aa78ff; font-weight: 800; margin-bottom: 0.3rem; }
+  .play-stage .ps-title { font-size: 1.2rem; font-weight: 900; color: #fff; margin-bottom: 0.4rem; }
+  .play-stage .ps-action { font-size: 1rem; color: #c8d8ee; line-height: 1.4; }
+  .play-stage .ps-detail { font-size: 1rem; color: #4ade80; font-weight: 700; margin-top: 0.3rem; }
+  .play-arrow { font-size: 1.6rem; color: #6ec1ff; font-weight: 900; }
+
+  /* ============== P9 三大警示（圓/散）============== */
+  .s9-risks { padding: 16px 24px 90px 90px; }
+  .risk-scatter { position: relative; margin-top: 1.4rem; width: 100%; height: 420px; }
+  .risk-circle { position: absolute; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.2rem; box-sizing: border-box; box-shadow: 0 0 30px rgba(248,113,113,0.25); }
+  .risk-circle.r1 { top: 4%;  left: 4%;  width: 260px; height: 260px; background: radial-gradient(circle at 30% 30%, rgba(248,113,113,0.30) 0%, rgba(5,8,22,0.9) 70%); border: 2px solid rgba(248,113,113,0.5); }
+  .risk-circle.r2 { top: 10%; right: 6%; width: 280px; height: 280px; background: radial-gradient(circle at 30% 30%, rgba(251,191,36,0.30) 0%, rgba(5,8,22,0.9) 70%); border: 2px solid rgba(251,191,36,0.5); }
+  .risk-circle.r3 { bottom: 0%; left: 28%; width: 300px; height: 300px; background: radial-gradient(circle at 30% 30%, rgba(170,120,255,0.30) 0%, rgba(5,8,22,0.9) 70%); border: 2px solid rgba(170,120,255,0.5); }
+  .risk-circle .rc-icon { width: 42px; height: 42px; margin-bottom: 0.4rem; }
+  .risk-circle .rc-tag { font-size: 1rem; letter-spacing: 0.2em; font-weight: 800; margin-bottom: 0.3rem; }
+  .risk-circle.r1 .rc-tag { color: #f87171; }
+  .risk-circle.r2 .rc-tag { color: #fbbf24; }
+  .risk-circle.r3 .rc-tag { color: #aa78ff; }
+  .risk-circle .rc-name { font-size: 1.25rem; font-weight: 900; color: #fff; margin-bottom: 0.3rem; }
+  .risk-circle .rc-desc { font-size: 1rem; color: #c8d8ee; line-height: 1.4; }
+
+  /* ============== P10 結尾（無/單）============== */
+  .s10-end { background: radial-gradient(ellipse at 50% 50%, rgba(110,193,255,0.18) 0%, transparent 60%), linear-gradient(135deg, #050816 0%, #0c1330 100%); text-align: center; padding: 32px 48px; box-sizing: border-box; overflow: hidden; }
+  .s10-end > .end-stack { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }
+  .s10-end .end-eyebrow { font-size: 1rem; letter-spacing: 0.4em; color: #6ec1ff; margin-bottom: 1rem; }
+  .s10-end h2 { font-size: 3rem; font-weight: 900; margin: 0 0 1rem 0; background: linear-gradient(135deg, #ffffff 0%, #6ec1ff 60%, #aa78ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .s10-end .end-quote { font-size: 1.2rem; color: #c8d8ee; max-width: 800px; line-height: 1.6; margin-bottom: 1.6rem; }
+  .s10-end .end-credit { font-size: 1rem; color: #8fa3c7; margin-bottom: 1rem; letter-spacing: 0.1em; }
+  .s10-end .end-back { margin-top: 1.2rem; font-size: 1rem; color: #8fa3c7; }
+  .s10-end .end-back a { color: #6ec1ff; text-decoration: none; border-bottom: 1px dashed #6ec1ff; padding-bottom: 1px; }
+
+  /* 進場動畫 */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  .slide.active .reveal { opacity: 1; transform: translateY(0); }
+  .slide.active .reveal:nth-child(2) { transition-delay: 0.08s; }
+  .slide.active .reveal:nth-child(3) { transition-delay: 0.16s; }
+  .slide.active .reveal:nth-child(4) { transition-delay: 0.24s; }
+  .slide.active .reveal:nth-child(5) { transition-delay: 0.32s; }
+  .slide.active .reveal:nth-child(6) { transition-delay: 0.40s; }
+  .slide.active .reveal:nth-child(7) { transition-delay: 0.48s; }
+  .slide.active .reveal:nth-child(8) { transition-delay: 0.56s; }
+  .slide.active .reveal:nth-child(9) { transition-delay: 0.64s; }
+  .slide.active .reveal:nth-child(10) { transition-delay: 0.72s; }
+
+  /* 簡報外框 */
+  .deck-meta { position: fixed; bottom: 8px; left: 12px; font-size: 1rem; color: #4a5570; z-index: 99; font-family: monospace; }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- ============ P1 封面 ============ -->
+  <section class="slide s1-cover active" id="slide-1">
+    <div class="nav">
+      <button onclick="prev()">◀ 上一頁</button>
+      <span class="page-num">1 / 10</span>
+      <button onclick="next()">下一頁 ▶</button>
+    </div>
+    <div class="cover-eyebrow reveal">商業財經 · 2026 Q3</div>
+    <h1 class="reveal">2026 後 AI 熱潮的<br>隱形贏家</h1>
+    <div class="cover-sub reveal">
+      當超大型科技股不再獨享資本盛宴，<br>
+      七大「不被看好的老二」正在悄悄接管企業獲利版圖。
+    </div>
+    <div class="meta-row reveal">
+      <span class="meta-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        2026-08-20
+      </span>
+      <span class="meta-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg>
+        熊熊博物館
+      </span>
+      <span class="meta-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        10 頁完整報告
+      </span>
+    </div>
+    <div class="reveal" style="font-size: 1rem; color: #8fa3c7; margin-top: 1.4rem;">熊熊每日簡報 · kumaweb.pages.dev</div>
+
+    <!-- 主視覺：2x2 象限 + 中央亮點 -->
+    <svg class="quadrant-hero" viewBox="0 0 480 480">
+      <!-- 四象限底色 -->
+      <rect x="40" y="40" width="180" height="180" fill="rgba(110,193,255,0.06)" stroke="#6ec1ff" stroke-width="1.5" stroke-dasharray="4,3" />
+      <rect x="260" y="40" width="180" height="180" fill="rgba(170,120,255,0.06)" stroke="#aa78ff" stroke-width="1.5" stroke-dasharray="4,3" />
+      <rect x="40" y="260" width="180" height="180" fill="rgba(74,222,128,0.06)" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4,3" />
+      <rect x="260" y="260" width="180" height="180" fill="rgba(251,191,36,0.06)" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,3" />
+      <!-- 中央交集圓 -->
+      <circle cx="240" cy="240" r="80" fill="rgba(255,255,255,0.08)" stroke="#fff" stroke-width="2" />
+      <circle cx="240" cy="240" r="56" fill="rgba(110,193,255,0.15)" stroke="#6ec1ff" stroke-width="1.5" />
+      <text x="240" y="235" text-anchor="middle" fill="#fff" font-size="28" font-weight="900" font-family="monospace">?</text>
+      <text x="240" y="262" text-anchor="middle" fill="#6ec1ff" font-size="14" letter-spacing="2">WINNERS</text>
+      <!-- 箭頭指向中央 -->
+      <line x1="130" y1="130" x2="195" y2="200" stroke="#6ec1ff" stroke-width="1.5" opacity="0.7" />
+      <line x1="350" y1="130" x2="285" y2="200" stroke="#aa78ff" stroke-width="1.5" opacity="0.7" />
+      <line x1="130" y1="350" x2="195" y2="280" stroke="#4ade80" stroke-width="1.5" opacity="0.7" />
+      <line x1="350" y1="350" x2="285" y2="280" stroke="#fbbf24" stroke-width="1.5" opacity="0.7" />
+      <!-- 四角標籤 -->
+      <text x="130" y="135" text-anchor="middle" fill="#6ec1ff" font-size="16" font-weight="700">CHIPS</text>
+      <text x="350" y="135" text-anchor="middle" fill="#aa78ff" font-size="16" font-weight="700">SOFTWARE</text>
+      <text x="130" y="355" text-anchor="middle" fill="#4ade80" font-size="16" font-weight="700">UTILITY</text>
+      <text x="350" y="355" text-anchor="middle" fill="#fbbf24" font-size="16" font-weight="700">FINANCE</text>
+    </svg>
+  </section>
+
+  <!-- ============ P2 議程大綱 ============ -->
+  <section class="slide s2-agenda" id="slide-2">
+    <div class="nav">
+      <button onclick="prev()">◀ 上一頁</button>
+      <span class="page-num">2 / 10</span>
+      <button onclick="next()">下一頁 ▶</button>
+    </div>
+    <div class="eyebrow reveal">AGENDA · 議程大綱</div>
+    <h2 class="section-title reveal">今天我們會聊的 6 件事</h2>
+    <p class="section-sub reveal">從資金轉向到操作心法——一份 2026 下半年的老二接管指南</p>
+
+    <div class="agenda-grid">
+      <div class="agenda-card reveal">
+        <div class="agenda-num">01</div>
+        <div class="agenda-title">資金版圖遷徙</div>
+        <div class="agenda-desc">從 Magnificent 7 到等權重 S&P</div>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">02</div>
+        <div class="agenda-title">五大時程節點</div>
+        <div class="agenda-desc">財報季的關鍵驗證時刻</div>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">03</div>
+        <div class="agenda-title">板塊流向解碼</div>
+        <div class="agenda-desc">資金從科技流向哪裡？</div>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">04</div>
+        <div class="agenda-title">七大隱形贏家</div>
+        <div class="agenda-desc">不被看好的老二候選名單</div>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">05</div>
+        <div class="agenda-title">護城河四象限</div>
+        <div class="agenda-desc">贏家的共通基因是什麼？</div>
+      </div>
+      <div class="agenda-card reveal">
+        <div class="agenda-num">06</div>
+        <div class="agenda-title">進出場策略</div>
+        <div class="agenda-desc">Quality at Reasonable Price 的紀律</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P3 時間軸 ============ -->
+  <section class="slide s3-timeline" id="slide-3">
+    <div class="nav">
+      <button onclick="prev()">◀ 上一頁</button>
+      <span class="page-num">3 / 10</span>
+      <button onclick="next()">下一頁 ▶</button>
+    </div>
+    <div class="eyebrow reveal">TIMELINE · 五大時程節點</div>
+    <h2 class="section-title reveal">2026 下半年：老二接管的五個驗證時刻</h2>
+    <p class="section-sub reveal">從 Q2 財報到總統大選——下一波板塊輪動的關鍵催化劑</p>
+
+    <div class="timeline-h">
+      <div class="timeline-item reveal">
+        <div class="tl-year">08/27</div>
+        <div class="tl-node"></div>
+        <div class="tl-body">
+          <div class="tl-milestone">NVIDIA Q2 財報</div>
+          AI 需求驗證<br>老二受惠程度是關鍵
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="tl-year">09/16</div>
+        <div class="tl-node"></div>
+        <div class="tl-body">
+          <div class="tl-milestone">FOMC 利率決議</div>
+          25bp 降息循環<br>小型股受惠？
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="tl-year">10/15</div>
+        <div class="tl-node"></div>
+        <div class="tl-body">
+          <div class="tl-milestone">Q3 季報開跑</div>
+          金融股打頭陣<br>淨利差擴張是訊號
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="tl-year">11/05</div>
+        <div class="tl-node"></div>
+        <div class="tl-body">
+          <div class="tl-milestone">美國總統大選</div>
+          政策路徑分歧<br>稅制影響類股輪動
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="tl-year">12/17</div>
+        <div class="tl-node"></div>
+        <div class="tl-body">
+          <div class="tl-milestone">FOMC 年終決議</div>
+          2027 路徑圖<br>點陣圖是觀察重點
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P4 板塊流向（圓/垂）============ -->
+  <section class="slide s4-flow" id="slide-4">
+    <div class="nav">
+      <button onclick="prev()">◀ 上一頁</button>
+      <span class="page-num">4 / 10</span>
+      <button onclick="next()">下一頁 ▶</button>
+    </div>
+    <div class="eyebrow reveal">FLOW · 板塊流向解碼</div>
+    <h2 class="section-title reveal">2026 H2 資金從科技流向哪裡？</h2>
+    <p class="section-sub reveal">機構法人 Q2 配置的關鍵變化——從「超大型科技」轉向「被低估的價值型老二」</p>
+
+    <div class="flow-stack">
+      <div class="flow-row reveal" style="--bar-color:#6ec1ff; --bar-width:42%;">
+        <div class="fr-circle" style="background:rgba(110,193,255,0.25);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6ec1ff" stroke-width="2"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/></svg>
+        </div>
+        <div class="fr-share">+42%</div>
+        <div class="fr-name">金融次大股</div>
+        <div class="fr-bar"></div>
+        <div class="fr-note">地區銀行、保險次大</div>
+      </div>
+      <div class="flow-row reveal" style="--bar-color:#4ade80; --bar-width:38%;">
+        <div class="fr-circle" style="background:rgba(74,222,128,0.25);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="fr-share">+38%</div>
+        <div class="fr-name">公用事業二線</div>
+        <div class="fr-bar"></div>
+        <div class="fr-note">受惠 AI 電力需求</div>
+      </div>
+      <div class="flow-row reveal" style="--bar-color:#aa78ff; --bar-width:34%;">
+        <div class="fr-circle" style="background:rgba(170,120,255,0.25);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#aa78ff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>
+        </div>
+        <div class="fr-share">+34%</div>
+        <div class="fr-name">工業次大股</div>
+        <div class="fr-bar"></div>
+        <div class="fr-note">電氣設備、機械老二</div>
+      </div>
+      <div class="flow-row reveal" style="--bar-color:#fbbf24; --bar-width:28%;">
+        <div class="fr-circle" style="background:rgba(251,191,36,0.25);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="fr-share">+28%</div>
+        <div class="fr-name">醫療器材二線</div>
+        <div class="fr-bar"></div>
+        <div class="fr-note">醫材、健保服務次大</div>
+      </div>
+      <div class="flow-row reveal" style="--bar-color:#f87171; --bar-width:-15%;">
+        <div class="fr-circle" style="background:rgba(248,113,113,0.25);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="fr-share">-15%</div>
+        <div class="fr-name">超大型科技股</div>
+        <div class="fr-bar"></div>
+        <div class="fr-note">Magnificent 7 遭減持</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P5 七大隱形贏家（六/散）============ -->
+  <section class="slide s7-winners" id="slide-5">
+    <div class="nav">
+      <button onclick="prev()">◀ 上一頁</button>
+      <span class="page-num">5 / 10</span>
+      <button onclick="next()">下一頁 ▶</button>
+    </div>
+    <div class="eyebrow reveal">WINNERS · 七大隱形贏家</div>
+    <h2 class="section-title reveal">YTD 表現被低估的七大老二</h2>
+    <p class="section-sub reveal">從半導體設備到區域銀行——這些個股的 2026 漲幅讓分析師頻頻上修目標價</p>
+
+    <div class="hex-scatter">
+      <div class="win-hex w1 reveal">
+        <div class="wh-num">01 · CHIPS</div>
+        <div class="wh-name">ASML 二手設備商</div>
+        <div class="wh-ticker">KLAC · TER</div>
+        <div class="wh-return">+38%</div>
+      </div>
+      <div class="win-hex w2 reveal">
+        <div class="wh-num">02 · SOFTWARE</div>
+        <div class="wh-name">中型資安股</div>
+        <div class="wh-ticker">CRWD · FTNT</div>
+        <div class="wh-return">+42%</div>
+      </div>
+      <div class="win-hex w3 reveal">
+        <div class="wh-num">03 · UTILITY</div>
+        <div class="wh-name">電網設備股</div>
+        <div class="wh-ticker">ETN · POWL</div>
+        <div class="wh-return">+34%</div>
+      </div>
+      <div class="win-hex w4 reveal">
+        <div class="wh-num">04 · FINANCE</div>
+        <div class="wh-name">中型區域銀行</div>
+        <div class="wh-ticker">EWBC · WAL</div>
+        <div class="wh-return">+29%</div>
+      </div>
+      <div class="win-hex w5 reveal">
+        <div class="wh-num">05 · INDUSTRIAL</div>
+        <div class="wh-name">自動化設備股</div>
+        <div class="wh-ticker">ROK · FTV</div>
+        <div class="wh-return">+31%</div>
+      </div>
+      <div class="win-hex w6 reveal">
+        <div class="wh-num">06 · HEALTHCARE</div>
+        <div class="wh-name">醫材與服務股</div>
+        <div class="wh-ticker">SYK · TFX</div>
+        <div class="wh-return">+26%</div>
+      </div>
+      <div class="win-hex w7 reveal">
+        <div class="wh-num">07 · ENERGY</div>
+        <div class="wh-name">再生能源營運商</div>
+        <div class="wh-ticker">NEE · BEP</div>
+        <div class="wh-return">+22%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P6 護城河四象限（方/垂）============ -->
+  <section class="slide s6-moat" id="slide-6">
+    <div class="nav">
+      <button onclick="prev()">◀ 上一頁</button>
+      <span class="page-num">6 / 10</span>
+      <button onclick="next()">下一頁 ▶</button>
+    </div>
+    <div class="eyebrow reveal">MOAT · 護城河基因</div>
+    <h2 class="section-title reveal">隱形贏家的共通基因是什麼？</h2>
+    <p class="section-sub reveal">四個護城河特徵——把「老二」重新分類，避開那些只是「便宜」的價值陷阱</p>
+
+    <div class="moat-grid">
+      <div class="moat-card reveal">
+        <div class="mc-num">01 · COST</div>
+        <div class="mc-title">成本結構護城河</div>
+        <div class="mc-example">中型區域銀行 (WAL)</div>
+        <div class="mc-desc">存款基礎穩定、Ci/Co 比 < 55%，即使升息見頂仍能維持 NIM 擴張。</div>
+      </div>
+      <div class="moat-card reveal">
+        <div class="mc-num">02 · SCALE</div>
+        <div class="mc-title">規模效應護城河</div>
+        <div class="mc-example">資安雲端 (CRWD)</div>
+        <div class="mc-desc">客戶數破萬、單客戶年費穩定成長，毛利率達 78% 而非追求營收爆發。</div>
+      </div>
+      <div class="moat-card reveal">
+        <div class="mc-num">03 · SWITCH</div>
+        <div class="mc-title">轉換成本護城河</div>
+        <div class="mc-example">醫材耗材 (SYK)</div>
+        <div class="mc-desc">醫院一旦導入手術耗材系統，更換成本高、續約率 95% 以上。</div>
+      </div>
+      <div class="moat-card reveal">
+        <div class="mc-num">04 · REGULATION</div>
+        <div class="mc-title">監管壁壘護城河</div>
+        <div class="mc-example">電網設備 (ETN)</div>
+        <div class="mc-desc">受惠 AI 電力需求爆發，但新進入者須通過 5-8 年監管審批，壁壘天然。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P7 進出場策略（特/網 鑽石 2x2）============ -->
+  <section class="slide s7-strategy" id="slide-7">
+    <div class="nav">
+      <button onclick="prev()">◀ 上一頁</button>
+      <span class="page-num">7 / 10</span>
+      <button onclick="next()">下一頁 ▶</button>
+    </div>
+    <div class="eyebrow reveal">STRATEGY · 進出場心法</div>
+    <h2 class="section-title reveal">QARP 紀律——Quality at Reasonable Price</h2>
+    <p class="section-sub reveal">不是買便宜，而是用合理的價格買進優質的老二——四個進出場紀律</p>
+
+    <div class="strat-grid">
+      <div class="strat-card reveal">
+        <div class="sc-num">01 · ENTRY</div>
+        <div class="sc-title">等待估值回歸合理</div>
+        <div class="sc-desc">P/E 低於自身 5 年平均 1.5 個標準差，且 ROE > 15%，才是「合理價的優質股」。</div>
+      </div>
+      <div class="strat-card reveal">
+        <div class="sc-num">02 · POSITION</div>
+        <div class="sc-title">單一老二 ≤ 3% 倉位</div>
+        <div class="sc-desc">七檔各佔 3%，共 21% 倉位——避免任何單一老二暴雷擊穿組合。</div>
+      </div>
+      <div class="strat-card reveal">
+        <div class="sc-num">03 · REVIEW</div>
+        <div class="sc-title">每季檢視護城河</div>
+        <div class="sc-desc">ROIC、客戶留存率、毛利率三指標若連兩季下滑，就啟動退場機制。</div>
+      </div>
+      <div class="strat-card reveal">
+        <div class="sc-num">04 · EXIT</div>
+        <div class="sc-title">本益比達 25x 即減碼</div>
+        <div class="sc-desc">優質老二的合理估值天花板是 25x，超出即分批出場，換到下一檔被低估的標的。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P8 進出場時間軸（線/水 雙軌）============ -->
+  <section class="slide s8-playbook" id="slide-8">
+    <div class="nav">
+      <button onclick="prev()">◀ 上一頁</button>
+      <span class="page-num">8 / 10</span>
+      <button onclick="next()">下一頁 ▶</button>
+    </div>
+    <div class="eyebrow reveal">PLAYBOOK · 操作時程</div>
+    <h2 class="section-title reveal">2026 H2 的進出場時程表</h2>
+    <p class="section-sub reveal">四個階段——從現在的「現金水位」、到年底的「獲利了結」</p>
+
+    <div class="play-row reveal">
+      <div class="play-stage">
+        <div class="ps-tag">PHASE 01 · NOW</div>
+        <div class="ps-title">建倉階段</div>
+        <div class="ps-action">8-9 月｜先用 30% 倉位佈局金融、資安二線</div>
+        <div class="ps-detail">目標成本區：歷史 P/E 5 年平均 × 0.85</div>
+      </div>
+      <span class="play-arrow">→</span>
+      <div class="play-stage">
+        <div class="ps-tag">PHASE 02 · Q3</div>
+        <div class="ps-title">加碼階段</div>
+        <div class="ps-action">10 月｜Q3 財報季驗證護城河，加碼至 60%</div>
+        <div class="ps-detail">鎖定 ROIC 連兩季 > 15% 的老二</div>
+      </div>
+      <span class="play-arrow">→</span>
+      <div class="play-stage">
+        <div class="ps-tag">PHASE 03 · Q4</div>
+        <div class="ps-title">滿倉階段</div>
+        <div class="ps-action">11-12 月｜大選不確定性消退，倉位升至 80%</div>
+        <div class="ps-detail">7 檔老二平均配置</div>
+      </div>
+      <span class="play-arrow">→</span>
+      <div class="play-stage">
+        <div class="ps-tag">PHASE 04 · 2027 H1</div>
+        <div class="ps-title">獲利了結</div>
+        <div class="ps-action">本益比達 25x 分批出場</div>
+        <div class="ps-detail">回收資金輪向下一輪低估標的</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P9 三大警示（圓/散）============ -->
+  <section class="slide s9-risks" id="slide-9">
+    <div class="nav">
+      <button onclick="prev()">◀ 上一頁</button>
+      <span class="page-num">9 / 10</span>
+      <button onclick="next()">下一頁 ▶</button>
+    </div>
+    <div class="eyebrow reveal">RISKS · 三大警示</div>
+    <h2 class="section-title reveal">老二策略的三個致命陷阱</h2>
+    <p class="section-sub reveal">不是所有「便宜的老二」都會變贏家——三個最常見的價值陷阱</p>
+
+    <div class="risk-scatter">
+      <div class="risk-circle r1 reveal">
+        <svg class="rc-icon" viewBox="0 0 48 48" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="M24 14 L24 28"/><circle cx="24" cy="34" r="1.5" fill="#f87171"/></svg>
+        <div class="rc-tag">VALUE TRAP</div>
+        <div class="rc-name">便宜沒好貨</div>
+        <div class="rc-desc">P/E 6 倍但營收連 4 季下滑<br>產業正在結構性萎縮</div>
+      </div>
+      <div class="risk-circle r2 reveal">
+        <svg class="rc-icon" viewBox="0 0 48 48" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="14" width="36" height="22" rx="2"/><line x1="6" y1="22" x2="42" y2="22"/><circle cx="14" cy="18" r="1.5" fill="#fbbf24"/><circle cx="20" cy="18" r="1.5" fill="#fbbf24"/><line x1="14" y1="30" x2="34" y2="30"/><line x1="20" y1="34" x2="28" y2="34"/></svg>
+        <div class="rc-tag">CONCENTRATION</div>
+        <div class="rc-name">過度集中</div>
+        <div class="rc-desc">7 檔全押同一產業<br>單一風暴擊穿全部倉位</div>
+      </div>
+      <div class="risk-circle r3 reveal">
+        <svg class="rc-icon" viewBox="0 0 48 48" fill="none" stroke="#aa78ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18"/><path d="M6 24 L42 24"/><path d="M24 6 Q30 24 24 42 Q18 24 24 6"/><circle cx="24" cy="24" r="2" fill="#aa78ff"/></svg>
+        <div class="rc-tag">MOAT EROSION</div>
+        <div class="rc-name">護城河侵蝕</div>
+        <div class="rc-desc">科技巨頭親自下場<br>老二的核心業務被顛覆</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P10 結尾 ============ -->
+  <section class="slide s10-end" id="slide-10">
+    <div class="nav">
+      <button onclick="prev()">◀ 上一頁</button>
+      <span class="page-num">10 / 10</span>
+      <button onclick="next()">下一頁 ▶</button>
+    </div>
+    <div class="end-stack">
+      <div class="end-eyebrow reveal">CLOSING · 結尾</div>
+      <h2 class="reveal">感謝閱讀</h2>
+      <div class="end-quote reveal">
+        「在超大型科技股的光環之外，<b style="color:#fff;">護城河更深的老二</b>正在接管企業獲利。」<br>
+        Magnificent 7 不會消失——但下一波板塊輪動的真正贏家，<br>
+        是那些你沒注意到的「老二」。
+      </div>
+      <div class="end-credit reveal">— 熊熊博物館 · 2026-08-20 · 商業財經 —</div>
+      <div class="end-back reveal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        完整研究與圖表來源 → <a href="/slides.htm">回到簡報列表</a> · kumaweb.pages.dev
+      </div>
+      <div class="reveal" style="margin-top: 1rem; font-size: 1rem; color: #8fa3c7;">熊熊每日簡報 · 2026-08-20 · 商業財經</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="deck-meta">2026-08-20 · business-finance · V1</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function updatePageNum() {
+    document.querySelectorAll('.page-num').forEach(function(el) {
+      el.textContent = (current + 1) + ' / ' + total;
+    });
+  }
+
+  function show() {
+    if (slides[current]) {
+      slides[current].classList.add('active');
+    }
+    updatePageNum();
+  }
+
+  function next() {
+    if (current < total - 1) {
+      slides[current].classList.remove('active');
+      current++;
+      slides[current].classList.add('active');
+      updatePageNum();
+    }
+  }
+
+  function prev() {
+    if (current > 0) {
+      slides[current].classList.remove('active');
+      current--;
+      slides[current].classList.add('active');
+      updatePageNum();
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+
+  // 初始化
+  show();
+</script>
+
+</body>
+</html>
