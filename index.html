@@ -751,20 +751,24 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 1.5rem;
-            color: #d4a574;
+            font-size: 1.8rem;
+            color: #b8895a;
             cursor: pointer;
-            padding: 10px;
-            background: rgba(255,255,255,0.8);
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.95);
             border-radius: 50%;
             z-index: 10;
             transition: all 0.3s;
-            border: none;
+            border: 2px solid #d4a574;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             line-height: 1;
+            font-weight: bold;
         }
         .new-bears-scroll-nav:hover {
             background: #d4a574;
             color: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
         }
         .new-bears-scroll-nav.prev { left: -15px; }
         .new-bears-scroll-nav.next { right: -15px; }
