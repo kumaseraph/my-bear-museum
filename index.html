@@ -743,6 +743,32 @@
         .new-bears-scroll .category-badge {
             font-size: 14px !important;
         }
+        /* 新入住熊熊 - 左右滑動箭頭 */
+        .new-bears-scroll-wrapper {
+            position: relative;
+        }
+        .new-bears-scroll-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #d4a574;
+            cursor: pointer;
+            padding: 10px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            z-index: 10;
+            transition: all 0.3s;
+            border: none;
+            line-height: 1;
+        }
+        .new-bears-scroll-nav:hover {
+            background: #d4a574;
+            color: white;
+        }
+        .new-bears-scroll-nav.prev { left: 5px; }
+        .new-bears-scroll-nav.next { right: 5px; }
+        .new-bears-scroll-nav.hidden { display: none; }
 
         /* 星星成就系統 */
         .achievement-star {
@@ -2915,7 +2941,11 @@
             <img src="images/icon-bear-heart.jpg" alt="" style="width:32px;height:32px;border-radius:50%;vertical-align:middle;margin-right:5px;">
             新入住熊熊
         </div>
-        <div class="new-bears-scroll" id="todayBears"></div>
+        <div class="new-bears-scroll-wrapper">
+            <button class="new-bears-scroll-nav prev" id="newBearsPrev" aria-label="上一隻">❮</button>
+            <div class="new-bears-scroll" id="todayBears"></div>
+            <button class="new-bears-scroll-nav next" id="newBearsNext" aria-label="下一隻">❯</button>
+        </div>
     </div>
 
     <!-- Bear Yearbook -->
@@ -4033,6 +4063,24 @@
                 `;
                 grid.appendChild(thumb);
             });
+
+            // 附加左右滑動箭頭功能
+            const scrollContainer = grid;
+            const prevBtn = document.getElementById('newBearsPrev');
+            const nextBtn = document.getElementById('newBearsNext');
+            const updateArrows = () => {
+                if (!prevBtn || !nextBtn) return;
+                const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+                prevBtn.classList.toggle('hidden', scrollContainer.scrollLeft <= 0);
+                nextBtn.classList.toggle('hidden', scrollContainer.scrollLeft >= maxScroll - 1);
+            };
+            if (prevBtn && nextBtn) {
+                prevBtn.onclick = () => scrollContainer.scrollBy({ left: -180, behavior: 'smooth' });
+                nextBtn.onclick = () => scrollContainer.scrollBy({ left: 180, behavior: 'smooth' });
+                scrollContainer.addEventListener('scroll', updateArrows);
+                setTimeout(updateArrows, 100);
+                window.addEventListener('resize', updateArrows);
+            }
 
             // Update achievement star
             updateAchievementStar();
