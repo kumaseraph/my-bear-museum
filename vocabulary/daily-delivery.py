@@ -70,6 +70,8 @@ Rules:
 - Do NOT include Chinese characters or the raw Chinese bear name
 - Do NOT include quality tags like "16:9", "kawaii style", or "detailed fur texture" (added separately)
 - Output ONLY the prompt text, no quotes, no explanation, no markdown, no thinking
+- The bear MUST have exactly FOUR legs (two front paws + two hind legs) — never five legs, never three legs
+- The bear must look like a bear: round bear ears, round teddy bear face, fluffy bear paws — not a rabbit, cat, fox, or other animal
 - 50% of the time, add a texture layer (glass, metal, wood, stone, plush, cotton, silk, wool, clay, gold leaf, etc.) provided in the metadata
 - Texture should be combined with style naturally: e.g. "oil painting style with gold leaf texture", "watercolor painting with rough stone surface", "3D rendered style with glass-like translucent quality"
 - Texture describes material/tactile quality (how it FEELS), style describes atmosphere/mood (how it LOOKS) — both should layer harmoniously
