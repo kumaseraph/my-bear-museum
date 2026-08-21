@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>週末山行：6 條適合獨處的淺山路線｜2026-08-21 · 熊熊博物館</title>
+<style>
+/* ============================================================
+   配色：C2 暖白紙藝（淺色底）
+   結構：V8 簡約留白（內邊框 + 角落裝飾）
+   場合：週五 生活休閒
+   ============================================================ */
+
+:root {
+  --bg: #faf6ee;
+  --bg-secondary: #f1e9d8;
+  --bg-card: rgba(255, 252, 246, 0.85);
+  --text: #2a2520;
+  --text-secondary: #6a5e4d;
+  --text-soft: #9a8b78;
+  --accent: #b48a47;
+  --accent-warm: #d4ad7a;
+  --accent-deep: #8b6633;
+  --accent-glow: rgba(180, 138, 71, 0.18);
+  --ink: #2f261c;
+  --ink-soft: #6b5e4a;
+  --paper-edge: rgba(180, 160, 130, 0.32);
+  --nav-bg: rgba(250, 246, 238, 0.95);
+  --shadow-soft: 0 6px 22px rgba(120, 90, 40, 0.10);
+  --shadow-mid: 0 12px 32px rgba(120, 90, 40, 0.16);
+  --border-warm: rgba(180, 138, 71, 0.25);
+  --teal: #6c9886;
+  --terracotta: #c87a5e;
+  --moss: #889c5f;
+  --sky: #8aa9c4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 20px;
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 245, 225, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 100%, rgba(232, 210, 170, 0.25) 0%, transparent 60%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.presentation {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: var(--shadow-mid);
+  background: var(--bg);
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  padding: 40px 56px 76px;
+  color: var(--text);
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* V8 簡約留白結構：內邊框線 */
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px solid var(--paper-edge);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* SVG <text> 統一 20px+ 強制 */
+.slide text { font-size: 20px; }
+
+/* 排版元件 */
+.page-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+.page-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-top: 6px;
+}
+.page-sub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+}
+.title-bar {
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+  border-radius: 1px;
+  margin-top: 12px;
+}
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+.back-link {
+  position: absolute;
+  bottom: 18px; left: 28px;
+  font-size: 1rem;
+  color: var(--text-soft);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  z-index: 5;
+}
+.back-link:hover { color: var(--accent-deep); }
+
+/* ============== P1 封面：圓/單（印章裝飾）============== */
+.s1-cover {
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 60px 56px 100px;
+  position: relative;
+}
+.s1-cover .cover-stamp {
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  color: var(--accent-deep);
+  font-weight: 600;
+  margin-bottom: 22px;
+  margin-top: 18px;
+}
+.s1-cover .cover-seal {
+  width: 140px; height: 140px;
+  margin-bottom: 22px;
+  filter: drop-shadow(0 4px 16px rgba(120, 90, 40, 0.18));
+}
+.s1-cover h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.s1-cover .cover-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.15em;
+  margin-bottom: 22px;
+}
+.s1-cover .cover-meta {
+  position: absolute;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 36px;
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.1em;
+  z-index: 5;
+}
+.s1-cover .cover-meta strong {
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* ============== P2 目錄：方/網 4x2 ============== */
+.s2-toc { padding: 30px 56px 76px; }
+.s2-toc .header { margin-bottom: 14px; }
+.s2-toc .page-title { font-size: 2rem; }
+.s2-toc .toc-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+}
+.s2-toc .toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 4px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.s2-toc .toc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--accent);
+}
+.s2-toc .toc-num {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  letter-spacing: 0.2em;
+}
+.s2-toc .toc-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+.s2-toc .toc-tag {
+  font-size: 1rem;
+  color: var(--text-soft);
+  margin-top: 2px;
+  letter-spacing: 0.05em;
+}
+
+/* ============== P3 時間軸：線/垂 早晨四步 ============== */
+.s3-morning .content {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  margin-top: 12px;
+}
+.s3-morning .timeline {
+  flex: 1;
+  position: relative;
+  padding-left: 36px;
+}
+.s3-morning .timeline::before {
+  content: '';
+  position: absolute;
+  left: 14px; top: 6px; bottom: 6px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-warm));
+}
+.s3-morning .tl-item {
+  position: relative;
+  padding: 7px 0;
+}
+.s3-morning .tl-item::before {
+  content: '';
+  position: absolute;
+  left: -28px; top: 16px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+  z-index: 1;
+}
+.s3-morning .tl-time {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  letter-spacing: 0.1em;
+}
+.s3-morning .tl-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 2px;
+}
+.s3-morning .tl-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+.s3-morning .side-panel {
+  width: 280px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 4px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.s3-morning .side-panel h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: 0.1em;
+}
+.s3-morning .side-panel p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.s3-morning .side-quote {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-warm);
+  font-size: 1rem;
+  color: var(--text-soft);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* ============== P4 圓形靶心：圓/水 4 路線難度雷達 ============== */
+.s4-radar .content {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+  margin-top: 16px;
+}
+.s4-radar .radar-area {
+  flex: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s4-radar .radar-area svg {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+}
+.s4-radar .list-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+}
+.s4-radar .list-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 4px;
+}
+.s4-radar .dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.s4-radar .list-label {
+  flex: 1;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.s4-radar .list-val {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: 0.05em;
+}
+
+/* ============== P5 蜂巢地圖：六/散 5×2 感官評分 ============== */
+.s5-six { padding: 32px 56px 76px; }
+.s5-six .header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+.s5-six .legend-mini {
+  display: flex;
+  gap: 14px;
+  font-size: 1rem;
+  color: var(--text-soft);
+}
+.s5-six .legend-mini span::before {
+  content: '';
+  display: inline-block;
+  width: 10px; height: 10px;
+  margin-right: 6px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.s5-six .legend-mini .l1::before { background: var(--accent); }
+.s5-six .legend-mini .l2::before { background: var(--teal); }
+.s5-six .legend-mini .l3::before { background: var(--terracotta); }
+.s5-six .hex-scatter {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+  padding-bottom: 12px;
+}
+.s5-six .hex {
+  width: 100%;
+  max-width: 140px;
+  aspect-ratio: 1 / 1.1547;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--bg-card);
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 6px;
+  position: relative;
+}
+.s5-six .hex.teal { border-color: var(--teal); }
+.s5-six .hex.terracotta { border-color: var(--terracotta); }
+.s5-six .hex .hx-score {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--accent-deep);
+  letter-spacing: 0.05em;
+}
+.s5-six .hex .hx-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+.s5-six .hex .hx-tag {
+  font-size: 1rem;
+  color: var(--text-soft);
+  margin-top: 2px;
+}
+.s5-six .hex.offset-down { transform: translateY(20px); }
+.s5-six .hex.offset-up { transform: translateY(-10px); }
+
+/* ============== P6 方形堆疊：方/垂 4 裝備清單 ============== */
+.s6-stack .content {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 28px;
+  margin-top: 14px;
+}
+.s6-stack .left-col {
+  flex: 0 0 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 22px;
+  border-right: 1px dashed var(--border-warm);
+}
+.s6-stack .left-col h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+  margin-bottom: 8px;
+  letter-spacing: 0.1em;
+}
+.s6-stack .left-col p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+}
+.s6-stack .right-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.s6-stack .gear-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 4px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.s6-stack .gear-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.s6-stack .gear-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.s6-stack .gear-reason {
+  font-size: 1rem;
+  color: var(--text-soft);
+  margin-left: auto;
+  letter-spacing: 0.03em;
+}
+
+/* ============== P7 菱形網格：特/網 2x2 行前準備 ============== */
+.s7-diamond .content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+.s7-diamond .dia-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 6px;
+  padding: 18px 20px 18px 56px;
+  overflow: hidden;
+}
+.s7-diamond .dia-card::before {
+  content: '';
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
+  border-radius: 4px;
+}
+.s7-diamond .dc-num {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+.s7-diamond .dc-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-top: 4px;
+}
+.s7-diamond .dc-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* ============== P8 雙軌時間軸：線/水 5 季節路線 ============== */
+.s8-season .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  gap: 14px;
+}
+.s8-season .season-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 6px;
+  padding: 12px 18px;
+}
+.s8-season .season-icon {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--accent-glow);
+}
+.s8-season .season-name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text);
+  min-width: 110px;
+  letter-spacing: 0.05em;
+}
+.s8-season .season-trail {
+  flex: 1;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.s8-season .season-tag {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+/* ============== P9 風險散落：圓/散 3 大注意事項 ============== */
+.s9-risks { padding: 32px 56px 90px 56px; }
+.s9-risks .risk-scatter {
+  position: relative;
+  margin-top: 1.4rem;
+  width: 100%;
+  height: 380px;
+}
+.s9-risks .risk-circle {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.2rem;
+  box-sizing: border-box;
+  background: var(--bg-card);
+  border: 2px solid var(--terracotta);
+}
+.s9-risks .risk-circle.r1 {
+  top: 4%;  left: 4%;
+  width: 240px; height: 240px;
+  border-color: var(--terracotta);
+}
+.s9-risks .risk-circle.r2 {
+  top: 10%; right: 6%;
+  width: 260px; height: 260px;
+  border-color: var(--accent);
+}
+.s9-risks .risk-circle.r3 {
+  bottom: 0%; left: 32%;
+  width: 280px; height: 280px;
+  border-color: var(--teal);
+}
+.s9-risks .risk-circle svg { width: 44px; height: 44px; margin-bottom: 0.4rem; }
+.s9-risks .risk-circle .rc-tag {
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+  color: var(--accent-deep);
+}
+.s9-risks .risk-circle.r1 .rc-tag { color: var(--terracotta); }
+.s9-risks .risk-circle.r2 .rc-tag { color: var(--accent-deep); }
+.s9-risks .risk-circle.r3 .rc-tag { color: var(--teal); }
+.s9-risks .risk-circle .rc-name {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+.s9-risks .risk-circle .rc-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ============== P10 結尾：無/單 ============== */
+.s10-end {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px 56px 100px;
+  position: relative;
+}
+.s10-end .end-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  color: var(--accent-deep);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.s10-end h2 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+.s10-end .end-quote {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 760px;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+}
+.s10-end .end-quote b {
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+.s10-end .end-credit {
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.1em;
+  margin-top: 12px;
+}
+.s10-end .end-back {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.1em;
+}
+.s10-end .end-back a {
+  color: var(--accent-deep);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--accent);
+  padding-bottom: 1px;
+}
+
+/* 進場動畫 */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.slide.active .reveal { opacity: 1; transform: translateY(0); }
+.slide.active .reveal:nth-child(2) { transition-delay: 0.08s; }
+.slide.active .reveal:nth-child(3) { transition-delay: 0.16s; }
+.slide.active .reveal:nth-child(4) { transition-delay: 0.24s; }
+.slide.active .reveal:nth-child(5) { transition-delay: 0.32s; }
+.slide.active .reveal:nth-child(6) { transition-delay: 0.40s; }
+.slide.active .reveal:nth-child(7) { transition-delay: 0.48s; }
+.slide.active .reveal:nth-child(8) { transition-delay: 0.56s; }
+.slide.active .reveal:nth-child(9) { transition-delay: 0.64s; }
+.slide.active .reveal:nth-child(10) { transition-delay: 0.72s; }
+
+/* 簡報外框資訊 */
+.deck-meta {
+  position: fixed;
+  bottom: 8px; left: 12px;
+  font-size: 1rem;
+  color: var(--text-soft);
+  z-index: 99;
+  font-family: monospace;
+  letter-spacing: 0.05em;
+}
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- ============ P1 封面 ============ -->
+  <section class="slide s1-cover active" id="slide-1">
+    <div class="cover-stamp reveal">LIFE · WEEKEND HIKE</div>
+
+    <!-- 印章裝飾：登山主題圓章 -->
+    <svg class="cover-seal reveal" viewBox="0 0 140 140">
+      <circle cx="70" cy="70" r="64" fill="none" stroke="#8b6633" stroke-width="2"/>
+      <circle cx="70" cy="70" r="56" fill="none" stroke="#8b6633" stroke-width="1" stroke-dasharray="2,3"/>
+      <!-- 山形 -->
+      <path d="M30 92 L52 60 L66 76 L82 50 L110 92 Z" fill="none" stroke="#8b6633" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="82" cy="50" r="3" fill="#8b6633"/>
+      <text x="70" y="118" text-anchor="middle" fill="#8b6633" font-size="11" letter-spacing="3" font-weight="700">MOUNTAIN</text>
+    </svg>
+
+    <h1 class="reveal">週末山行</h1>
+    <div class="cover-subtitle reveal">6 條適合獨處的淺山路線</div>
+    <div class="reveal" style="font-size:1rem;color: var(--text-soft); letter-spacing:0.1em; margin-top:14px;">
+      不用人擠人、不必追逐攻頂——<br>把週六早晨留給一座山、一杯茶、與一段自己的對話。
+    </div>
+
+    <div class="cover-meta reveal">
+      <span><strong>2026-08-21</strong> · 週五</span>
+      <span><strong>生活休閒</strong> · 週末特刊</span>
+      <span><strong>10</strong> 頁完整指南</span>
+    </div>
+  </section>
+
+  <!-- ============ P2 議程大綱 ============ -->
+  <section class="slide s2-toc" id="slide-2">
+    <div class="header reveal">
+      <div class="page-eyebrow">AGENDA · 議程大綱</div>
+      <div class="page-title">今天會聊的 8 件事</div>
+      <div class="page-sub">從選山哲學到裝備清單——一份給獨處者的週末山行指南</div>
+      <div class="title-bar"></div>
+    </div>
+
+    <div class="toc-grid">
+      <div class="toc-card reveal">
+        <div class="toc-num">01 · PHILOSOPHY</div>
+        <div class="toc-title">獨處的選山哲學</div>
+        <div class="toc-tag">為什麼是淺山，不是百岳？</div>
+      </div>
+      <div class="toc-card reveal">
+        <div class="toc-num">02 · MORNING</div>
+        <div class="toc-title">出發前的四步</div>
+        <div class="toc-tag">05:30-09:00 的節奏</div>
+      </div>
+      <div class="toc-card reveal">
+        <div class="toc-num">03 · RADAR</div>
+        <div class="toc-title">路線難度雷達</div>
+        <div class="toc-tag">距離 × 高度 × 訊號</div>
+      </div>
+      <div class="toc-card reveal">
+        <div class="toc-num">04 · SENSES</div>
+        <div class="toc-title">感官地圖</div>
+        <div class="toc-tag">聽覺 × 嗅覺 × 視覺</div>
+      </div>
+      <div class="toc-card reveal">
+        <div class="toc-num">05 · GEAR</div>
+        <div class="toc-title">輕裝備清單</div>
+        <div class="toc-tag">5kg 內搞定</div>
+      </div>
+      <div class="toc-card reveal">
+        <div class="toc-num">06 · PREP</div>
+        <div class="toc-title">行前四準備</div>
+        <div class="toc-tag">路線、氣象、人員、保險</div>
+      </div>
+      <div class="toc-card reveal">
+        <div class="toc-num">07 · SEASON</div>
+        <div class="toc-title">四季推薦路線</div>
+        <div class="toc-tag">春櫻 × 夏綠 × 秋芒 × 冬霧</div>
+      </div>
+      <div class="toc-card reveal">
+        <div class="toc-num">08 · CAUTION</div>
+        <div class="toc-title">三大注意事項</div>
+        <div class="toc-tag">獨行最重要的紀律</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P3 早晨四步：線/垂 時間軸 ============ -->
+  <section class="slide s3-morning" id="slide-3">
+    <div class="reveal">
+      <div class="page-eyebrow">MORNING · 05:30-09:00</div>
+      <div class="page-title">出發前的四步節奏</div>
+      <div class="page-sub">獨處山行的清晨——用 3.5 小時換一整天不被打擾的心流</div>
+      <div class="title-bar"></div>
+    </div>
+
+    <div class="content">
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-time">05:30 · 起床</div>
+          <div class="tl-name">不開燈、不滑手機</div>
+          <div class="tl-desc">拉開窗簾讓天光進來，喝一杯常溫水，讓腎上腺素自己啟動。</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-time">06:00 · 早餐</div>
+          <div class="tl-name">飯糰 × 黑咖啡</div>
+          <div class="tl-desc">碳水為主、蛋白質為輔。出發前 90 分鐘吃完，避免爬山胃下垂。</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-time">06:45 · 裝備檢查</div>
+          <div class="tl-name">5 項關鍵確認</div>
+          <div class="tl-desc">水、頭燈、補給、路線圖、急救包——對照清單逐一打勾。</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="tl-time">07:30 · 出發</div>
+          <div class="tl-name">抵達登山口</div>
+          <div class="tl-desc">先在停車場做 5 分鐘伸展，告知家人預計下山時間。</div>
+        </div>
+      </div>
+
+      <div class="side-panel reveal">
+        <h3>獨處者專屬提醒</h3>
+        <p>不要戴耳機。山的聲音是這趟行程的另一半風景——風穿過竹林、溪澗撞擊石頭、遠方的人聲，這些是只有放下音樂才聽得到的東西。</p>
+        <div class="side-quote">
+          「獨處不是孤獨，是把自己交給一座山，<br>讓它幫你說出平時說不出口的話。」
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P4 路線難度雷達：圓/水 ============ -->
+  <section class="slide s4-radar" id="slide-4">
+    <div class="reveal">
+      <div class="page-eyebrow">RADAR · 路線難度</div>
+      <div class="page-title">6 條淺山路線的綜合雷達</div>
+      <div class="page-sub">用四個維度衡量每條路線——距離、爬升、人潮、訊號</div>
+      <div class="title-bar"></div>
+    </div>
+
+    <div class="content">
+      <div class="radar-area reveal">
+        <svg viewBox="0 0 360 320">
+          <!-- 同心雷達底圖 -->
+          <polygon points="180,30 312,110 312,270 180,290 48,270 48,110"
+                   fill="rgba(180,138,71,0.04)" stroke="#b48a47" stroke-width="1" opacity="0.6"/>
+          <polygon points="180,80 262,135 262,245 180,265 98,245 98,135"
+                   fill="rgba(180,138,71,0.08)" stroke="#b48a47" stroke-width="1" opacity="0.5"/>
+          <polygon points="180,130 222,160 222,220 180,240 138,220 138,160"
+                   fill="rgba(180,138,71,0.12)" stroke="#b48a47" stroke-width="1" opacity="0.4"/>
+
+          <!-- 軸線 -->
+          <line x1="180" y1="30" x2="180" y2="290" stroke="#b48a47" stroke-width="0.8" opacity="0.5"/>
+          <line x1="48" y1="110" x2="312" y2="110" stroke="#b48a47" stroke-width="0.8" opacity="0.5"/>
+          <line x1="48" y1="270" x2="312" y2="270" stroke="#b48a47" stroke-width="0.8" opacity="0.5"/>
+
+          <!-- 標籤 -->
+          <text x="180" y="20" text-anchor="middle" fill="#2a2520" font-size="14" font-weight="700">距離</text>
+          <text x="320" y="115" fill="#2a2520" font-size="14" font-weight="700">爬升</text>
+          <text x="180" y="310" text-anchor="middle" fill="#2a2520" font-size="14" font-weight="700">人潮</text>
+          <text x="42" y="115" text-anchor="end" fill="#2a2520" font-size="14" font-weight="700">訊號</text>
+
+          <!-- 6 條路線資料點 -->
+          <!-- 大屯山系 -->
+          <circle cx="220" cy="180" r="9" fill="#b48a47" stroke="#fff" stroke-width="2"/>
+          <text x="220" y="170" text-anchor="middle" fill="#2a2520" font-size="13" font-weight="700">大屯</text>
+
+          <!-- 觀音山 -->
+          <circle cx="240" cy="200" r="9" fill="#6c9886" stroke="#fff" stroke-width="2"/>
+          <text x="250" y="200" fill="#2a2520" font-size="13" font-weight="700">觀音</text>
+
+          <!-- 五指山 -->
+          <circle cx="200" cy="220" r="9" fill="#c87a5e" stroke="#fff" stroke-width="2"/>
+          <text x="195" y="245" text-anchor="end" fill="#2a2520" font-size="13" font-weight="700">五指</text>
+
+          <!-- 柴山 -->
+          <circle cx="260" cy="240" r="9" fill="#889c5f" stroke="#fff" stroke-width="2"/>
+          <text x="270" y="245" fill="#2a2520" font-size="13" font-weight="700">柴山</text>
+
+          <!-- 二格山 -->
+          <circle cx="170" cy="240" r="9" fill="#8aa9c4" stroke="#fff" stroke-width="2"/>
+          <text x="160" y="260" text-anchor="end" fill="#2a2520" font-size="13" font-weight="700">二格</text>
+
+          <!-- 桃源谷 -->
+          <circle cx="220" cy="155" r="9" fill="#b48a47" stroke="#fff" stroke-width="2"/>
+          <text x="230" y="155" fill="#2a2520" font-size="13" font-weight="700">桃源谷</text>
+        </svg>
+      </div>
+
+      <div class="list-area">
+        <div class="list-row reveal">
+          <div class="dot" style="background:#b48a47;"></div>
+          <div class="list-label">大屯山系 · 陽明山</div>
+          <div class="list-val">8km / +600m</div>
+        </div>
+        <div class="list-row reveal">
+          <div class="dot" style="background:#6c9886;"></div>
+          <div class="list-label">觀音山 · 八里</div>
+          <div class="list-val">6km / +500m</div>
+        </div>
+        <div class="list-row reveal">
+          <div class="dot" style="background:#c87a5e;"></div>
+          <div class="list-label">五指山 · 新竹</div>
+          <div class="list-val">9km / +700m</div>
+        </div>
+        <div class="list-row reveal">
+          <div class="dot" style="background:#889c5f;"></div>
+          <div class="list-label">柴山 · 高雄</div>
+          <div class="list-val">5km / +300m</div>
+        </div>
+        <div class="list-row reveal">
+          <div class="dot" style="background:#8aa9c4;"></div>
+          <div class="list-label">二格山 · 石碇</div>
+          <div class="list-val">7km / +450m</div>
+        </div>
+        <div class="list-row reveal">
+          <div class="dot" style="background:#b48a47;"></div>
+          <div class="list-label">桃源谷 · 貢寮</div>
+          <div class="list-val">10km / +550m</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P5 感官地圖：六/散 ============ -->
+  <section class="slide s5-six" id="slide-5">
+    <div class="header-area">
+      <div class="reveal">
+        <div class="page-eyebrow">SENSES · 感官評分</div>
+        <div class="page-title">每條路線的感官強度</div>
+        <div class="page-sub">把「好不好走」換成「值不值得走」——聽覺、嗅覺、視覺三維評分（10 分制）</div>
+        <div class="title-bar"></div>
+      </div>
+      <div class="legend-mini reveal">
+        <span class="l1">聽覺</span>
+        <span class="l2">嗅覺</span>
+        <span class="l3">視覺</span>
+      </div>
+    </div>
+
+    <div class="hex-scatter">
+      <div class="hex reveal">
+        <svg class="hx-icon" viewBox="0 0 32 32" fill="none" stroke="#b48a47" stroke-width="2" stroke-linecap="round"><path d="M9 18 L9 12 a3 3 0 0 1 6 0 v6 a3 3 0 0 0 6 0 v-4"/></svg>
+        <div class="hx-score">9.2</div>
+        <div class="hx-name">大屯山</div>
+        <div class="hx-tag">聽覺 · 風切</div>
+      </div>
+      <div class="hex teal offset-down reveal">
+        <svg class="hx-icon" viewBox="0 0 32 32" fill="none" stroke="#6c9886" stroke-width="2" stroke-linecap="round"><circle cx="16" cy="16" r="4"/><path d="M16 6 a10 10 0 0 1 10 10"/><path d="M16 2 a14 14 0 0 1 14 14"/></svg>
+        <div class="hx-score" style="color:#6c9886;">8.7</div>
+        <div class="hx-name">觀音山</div>
+        <div class="hx-tag">嗅覺 · 海風</div>
+      </div>
+      <div class="hex terracotta reveal">
+        <svg class="hx-icon" viewBox="0 0 32 32" fill="none" stroke="#c87a5e" stroke-width="2" stroke-linecap="round"><path d="M3 24 L10 8 L18 22 L22 14 L29 24"/></svg>
+        <div class="hx-score" style="color:#c87a5e;">9.5</div>
+        <div class="hx-name">五指山</div>
+        <div class="hx-tag">視覺 · 稜線</div>
+      </div>
+      <div class="hex offset-up reveal">
+        <svg class="hx-icon" viewBox="0 0 32 32" fill="none" stroke="#b48a47" stroke-width="2" stroke-linecap="round"><path d="M3 24 L10 12 L16 20 L22 8 L29 24"/></svg>
+        <div class="hx-score">8.5</div>
+        <div class="hx-name">柴山</div>
+        <div class="hx-tag">聽覺 · 獼猴</div>
+      </div>
+      <div class="hex teal reveal">
+        <svg class="hx-icon" viewBox="0 0 32 32" fill="none" stroke="#6c9886" stroke-width="2" stroke-linecap="round"><circle cx="16" cy="14" r="6"/><path d="M10 28 q6 -10 12 0"/></svg>
+        <div class="hx-score" style="color:#6c9886;">8.9</div>
+        <div class="hx-name">二格山</div>
+        <div class="hx-tag">嗅覺 · 樟樹</div>
+      </div>
+
+      <div class="hex terracotta offset-down reveal">
+        <svg class="hx-icon" viewBox="0 0 32 32" fill="none" stroke="#c87a5e" stroke-width="2" stroke-linecap="round"><path d="M2 22 q4 -8 8 0 q4 -10 8 0 q4 -8 8 0 q4 -6 4 0"/></svg>
+        <div class="hx-score" style="color:#c87a5e;">9.8</div>
+        <div class="hx-name">桃源谷</div>
+        <div class="hx-tag">視覺 · 草原</div>
+      </div>
+      <div class="hex reveal">
+        <svg class="hx-icon" viewBox="0 0 32 32" fill="none" stroke="#b48a47" stroke-width="2" stroke-linecap="round"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="4" fill="#b48a47"/></svg>
+        <div class="hx-score">7.8</div>
+        <div class="hx-name">七星山</div>
+        <div class="hx-tag">綜合 · 火山</div>
+      </div>
+      <div class="hex teal offset-up reveal">
+        <svg class="hx-icon" viewBox="0 0 32 32" fill="none" stroke="#6c9886" stroke-width="2" stroke-linecap="round"><path d="M4 26 q4 -14 12 -14 q8 0 12 14"/><circle cx="12" cy="14" r="2" fill="#6c9886"/></svg>
+        <div class="hx-score" style="color:#6c9886;">8.3</div>
+        <div class="hx-name">面天山</div>
+        <div class="hx-tag">嗅覺 · 芒草</div>
+      </div>
+      <div class="hex terracotta reveal">
+        <svg class="hx-icon" viewBox="0 0 32 32" fill="none" stroke="#c87a5e" stroke-width="2" stroke-linecap="round"><path d="M6 26 L6 14 L16 6 L26 14 L26 26 Z"/></svg>
+        <div class="hx-score" style="color:#c87a5e;">8.6</div>
+        <div class="hx-name">大崙頭</div>
+        <div class="hx-tag">視覺 · 茶園</div>
+      </div>
+      <div class="hex reveal">
+        <svg class="hx-icon" viewBox="0 0 32 32" fill="none" stroke="#b48a47" stroke-width="2" stroke-linecap="round"><circle cx="16" cy="16" r="12"/><path d="M16 4 v24 M4 16 h24"/></svg>
+        <div class="hx-score">7.9</div>
+        <div class="hx-name">劍潭山</div>
+        <div class="hx-tag">綜合 · 都市</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P6 輕裝備：方/垂 ============ -->
+  <section class="slide s6-stack" id="slide-6">
+    <div class="reveal">
+      <div class="page-eyebrow">GEAR · 輕裝備</div>
+      <div class="page-title">5kg 以內的獨處山行裝備</div>
+      <div class="page-sub">比一日郊山多一點、比百岳少很多——只帶會用到的東西</div>
+      <div class="title-bar"></div>
+    </div>
+
+    <div class="content">
+      <div class="left-col reveal">
+        <h3>輕裝哲學</h3>
+        <p>獨處山行的裝備核心是<b style="color:var(--accent-deep);">「最少的重量、最大的回應」</b>。每一項都必須回答：「如果壞掉，我能在 30 分鐘內處理嗎？」</p>
+        <p>不要帶「以防萬一」的東西——多帶 1kg = 多花 30 分鐘 = 提早下山 1 小時。</p>
+      </div>
+
+      <div class="right-col">
+        <div class="gear-card reveal">
+          <div class="gear-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8b6633" stroke-width="2" stroke-linecap="round"><path d="M12 2 L8 7 L8 14 a4 4 0 0 0 8 0 L16 7 Z"/></svg>
+          </div>
+          <div>
+            <div class="gear-name">水袋 1.5L + 電解質粉 2 包</div>
+          </div>
+          <div class="gear-reason">比水壺好</div>
+        </div>
+        <div class="gear-card reveal">
+          <div class="gear-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8b6633" stroke-width="2" stroke-linecap="round"><path d="M6 8 a6 6 0 0 1 12 0 v10 a2 2 0 0 1 -2 2 H8 a2 2 0 0 1 -2 -2 Z"/><circle cx="12" cy="6" r="1.5"/></svg>
+          </div>
+          <div>
+            <div class="gear-name">能量棒 ×2 + 鹽糖 1 包</div>
+          </div>
+          <div class="gear-reason">每 1hr 補給</div>
+        </div>
+        <div class="gear-card reveal">
+          <div class="gear-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8b6633" stroke-width="2" stroke-linecap="round"><path d="M3 21 L9 21 L11 9 L9 4 L7 4 L9 9 L4 6 L3 8 L8 12 L3 14"/></svg>
+          </div>
+          <div>
+            <div class="gear-name">登山杖（單杖即可）</div>
+          </div>
+          <div class="gear-reason">省 25% 體力</div>
+        </div>
+        <div class="gear-card reveal">
+          <div class="gear-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8b6633" stroke-width="2" stroke-linecap="round"><path d="M6 6 L18 6 L18 18 L6 18 Z"/><line x1="12" y1="6" x2="12" y2="18"/></svg>
+          </div>
+          <div>
+            <div class="gear-name">輕量風雨衣（不帶傘）</div>
+          </div>
+          <div class="gear-reason">≤150g</div>
+        </div>
+        <div class="gear-card reveal">
+          <div class="gear-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8b6633" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+          </div>
+          <div>
+            <div class="gear-name">頭燈 + 備用電池</div>
+          </div>
+          <div class="gear-reason">必須的保險</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P7 行前四準備：特/網 菱形 2x2 ============ -->
+  <section class="slide s7-diamond" id="slide-7">
+    <div class="reveal">
+      <div class="page-eyebrow">PREP · 行前準備</div>
+      <div class="page-title">獨處山行最重要的四個行前紀律</div>
+      <div class="page-sub">裝備可以少，紀律不能少——這四項沒做到，再好的路線也不該出發</div>
+      <div class="title-bar"></div>
+    </div>
+
+    <div class="content">
+      <div class="dia-card reveal">
+        <div class="dc-num">01 · ROUTE</div>
+        <div class="dc-title">下載離線地圖</div>
+        <div class="dc-desc">用 Maps.me 或台灣登山 APP 預載等高線圖。即使手機沒訊號，也能定位自己的位置。</div>
+      </div>
+      <div class="dia-card reveal">
+        <div class="dc-num">02 · WEATHER</div>
+        <div class="dc-title">查 24 小時氣象</div>
+        <div class="dc-desc">不只看降雨機率，更要看風速、體感溫度、雷雨機率。午後雷陣雨是淺山最大的變數。</div>
+      </div>
+      <div class="dia-card reveal">
+        <div class="dc-num">03 · CONTACT</div>
+        <div class="dc-title">告知行程給 2 人</div>
+        <div class="dc-desc">出發前把路線、預計下山時間、車牌號碼傳給至少 2 個家人或朋友，並約定「未回報就報案」的時間。</div>
+      </div>
+      <div class="dia-card reveal">
+        <div class="dc-num">04 · INSURANCE</div>
+        <div class="dc-title">申請登山險</div>
+        <div class="dc-desc">100 元 / 月的微型保險，覆蓋搜救與醫療費用。獨處者最需要把風險外包給保險公司。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P8 四季推薦路線：線/水 ============ -->
+  <section class="slide s8-season" id="slide-8">
+    <div class="reveal">
+      <div class="page-eyebrow">SEASON · 四季路線</div>
+      <div class="page-title">依季節選對的山——春櫻、夏綠、秋芒、冬霧</div>
+      <div class="page-sub">每個季節都有「那座最值得去的山」——把 12 個月都排好</div>
+      <div class="title-bar"></div>
+    </div>
+
+    <div class="content">
+      <div class="season-row reveal">
+        <div class="season-icon">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#c87a5e" stroke-width="2" stroke-linecap="round"><circle cx="16" cy="14" r="6"/><path d="M16 8 q-2 -4 0 -6 q2 2 0 6"/><path d="M8 14 q-4 -2 -6 0 q2 2 6 0"/><path d="M24 14 q4 -2 6 0 q-2 2 -6 0"/><path d="M16 22 v8"/></svg>
+        </div>
+        <div class="season-name">春 · 3-5 月</div>
+        <div class="season-trail">陽明山 · 二子坪步道<br>平緩 + 海拔 800m，全線櫻花與杜鵑接力綻放</div>
+        <div class="season-tag">櫻花季</div>
+      </div>
+
+      <div class="season-row reveal">
+        <div class="season-icon">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#889c5f" stroke-width="2" stroke-linecap="round"><path d="M16 28 L16 14"/><path d="M16 14 q-6 -2 -8 -10"/><path d="M16 14 q6 -2 8 -10"/><path d="M16 18 q-7 -1 -10 -6"/><path d="M16 18 q7 -1 10 -6"/></svg>
+        </div>
+        <div class="season-name">夏 · 6-8 月</div>
+        <div class="season-trail">宜蘭 · 太平山翠峰湖環山步道<br>海拔 1900m 避暑，山毛櫸林蔭 95% 覆蓋</div>
+        <div class="season-tag">避暑</div>
+      </div>
+
+      <div class="season-row reveal">
+        <div class="season-icon">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#b48a47" stroke-width="2" stroke-linecap="round"><path d="M3 28 q4 -10 8 0 q4 -10 8 0 q4 -10 8 0"/><path d="M16 8 L18 4 M14 6 L18 4 L16 8"/></svg>
+        </div>
+        <div class="season-name">秋 · 9-11 月</div>
+        <div class="season-trail">貢寮 · 桃源谷步道<br>芒草海 + 東北角海景，10 月底最盛</div>
+        <div class="season-tag">芒草季</div>
+      </div>
+
+      <div class="season-row reveal">
+        <div class="season-icon">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#8aa9c4" stroke-width="2" stroke-linecap="round"><path d="M8 14 a8 8 0 0 1 16 0 a4 4 0 0 1 -8 0 a4 4 0 0 0 -8 0 Z"/><line x1="16" y1="22" x2="16" y2="28"/></svg>
+        </div>
+        <div class="season-name">冬 · 12-2 月</div>
+        <div class="season-trail">苗栗 · 加里山<br>海拔 2200m，冬季雲海機率高 80%，需自備頭燈早出</div>
+        <div class="season-tag">雲海季</div>
+      </div>
+
+      <div class="season-row reveal">
+        <div class="season-icon">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#6c9886" stroke-width="2" stroke-linecap="round"><circle cx="16" cy="16" r="10"/><path d="M16 6 a10 10 0 0 1 10 10"/></svg>
+        </div>
+        <div class="season-name">一年四季</div>
+        <div class="season-trail">台北 · 劍潭山親山步道<br>起點近市區，全線遮蔭，平日人少，是「想走走」的首選</div>
+        <div class="season-tag">日常首選</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P9 三大注意事項：圓/散 ============ -->
+  <section class="slide s9-risks" id="slide-9">
+    <div class="reveal">
+      <div class="page-eyebrow">CAUTION · 注意事項</div>
+      <div class="page-title">獨處山行的三大紀律</div>
+      <div class="page-sub">不是不要冒險，是把冒險留給可控的範圍</div>
+      <div class="title-bar"></div>
+    </div>
+
+    <div class="risk-scatter">
+      <div class="risk-circle r1 reveal">
+        <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="#c87a5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.4rem;">
+          <circle cx="24" cy="24" r="18"/>
+          <path d="M24 14 L24 28"/>
+          <circle cx="24" cy="34" r="1.5" fill="#c87a5e"/>
+        </svg>
+        <div class="rc-tag">WEATHER</div>
+        <div class="rc-name">午後雷陣雨</div>
+        <div class="rc-desc">台灣淺山 6-9 月午後雷雨機率 > 60%<br>13:00 後請轉往稜線下撤<br>避免在開闊地停留</div>
+      </div>
+      <div class="risk-circle r2 reveal">
+        <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="#8b6633" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.4rem;">
+          <rect x="6" y="14" width="36" height="22" rx="2"/>
+          <line x1="6" y1="22" x2="42" y2="22"/>
+          <circle cx="14" cy="18" r="1.5" fill="#8b6633"/>
+          <circle cx="20" cy="18" r="1.5" fill="#8b6633"/>
+          <line x1="14" y1="30" x2="34" y2="30"/>
+        </svg>
+        <div class="rc-tag">CONTACT</div>
+        <div class="rc-name">通訊中斷</div>
+        <div class="rc-desc">山上 70% 區域無行動訊號<br>出發前下載離線地圖<br>帶一只哨子作為求救工具</div>
+      </div>
+      <div class="risk-circle r3 reveal">
+        <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="#6c9886" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.4rem;">
+          <circle cx="24" cy="24" r="18"/>
+          <path d="M6 24 L42 24"/>
+          <path d="M24 6 Q30 24 24 42 Q18 24 24 6"/>
+          <circle cx="24" cy="24" r="2" fill="#6c9886"/>
+        </svg>
+        <div class="rc-tag">SELF-RESCUE</div>
+        <div class="rc-name">獨行自我救難</div>
+        <div class="rc-desc">獨處者最大的風險是受傷無人協助<br>帶 GPS 衛星定位器（如 Garmin inReach）<br>設定自動回報路線</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ P10 結尾：無/單 ============ -->
+  <section class="slide s10-end" id="slide-10">
+    <div class="end-stack">
+      <div class="end-eyebrow reveal">CLOSING · 結尾</div>
+      <h2 class="reveal">把週六早晨留給一座山</h2>
+      <div class="end-quote reveal">
+        「獨處不是孤獨，是把自己交給一座山，<br>
+        讓它幫你說出平時說不出口的話。」<br><br>
+        不用攻頂、不必打卡、不用跟任何人比較——<br>
+        <b>走完一座淺山，回來的會是一個更安靜的自己。</b>
+      </div>
+      <div class="end-credit reveal">— 熊熊博物館 · 2026-08-21 · 生活休閒 · 週末特刊 —</div>
+    </div>
+    <div class="end-back reveal">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px;">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+      完整山行指南與路線來源 → <a href="/slides.htm">回到簡報列表</a> · kumaweb.pages.dev
+    </div>
+  </section>
+
+</div>
+
+<div class="deck-meta">2026-08-21 · life-lifestyle · V8 · C2</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function updatePageNum() {
+    document.querySelectorAll('.page-num').forEach(function(el) {
+      el.textContent = (current + 1) + ' / ' + total;
+    });
+  }
+
+  function show() {
+    if (slides[current]) {
+      slides[current].classList.add('active');
+    }
+    updatePageNum();
+  }
+
+  function next() {
+    if (current < total - 1) {
+      slides[current].classList.remove('active');
+      current++;
+      slides[current].classList.add('active');
+      updatePageNum();
+    }
+  }
+
+  function prev() {
+    if (current > 0) {
+      slides[current].classList.remove('active');
+      current--;
+      slides[current].classList.add('active');
+      updatePageNum();
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+
+  // 初始化
+  show();
+</script>
+
+</body>
+</html>
