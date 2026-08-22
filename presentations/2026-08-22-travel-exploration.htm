@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>紙上行旅的 5 條私房路線｜2026-08-22 旅遊探索</title>
+<style>
+/* ============================================================
+   配色：colors/colors-C6.css 內嵌（C6 暖橘夕陽）
+   結構：structures/V4-structure.css 內嵌（V4 紙藝手作）
+   載入順序：C6 → V4
+   ============================================================ */
+
+:root {
+  --bg: #fffaf2;
+  --bg-secondary: #fff2e0;
+  --bg-card: rgba(255, 250, 240, 0.92);
+  --text: #4e342e;
+  --text-secondary: #795548;
+  --text-soft: #a1887f;
+  --accent: #e65100;
+  --accent-alt: #ff9800;
+  --accent-deep: #bf360c;
+  --accent-warm: #ffb74d;
+  --accent-glow: rgba(230, 81, 0, 0.18);
+  --ink: #3e2723;
+  --ink-soft: #6d4c41;
+  --paper-edge: rgba(230, 81, 0, 0.25);
+  --nav-bg: rgba(255, 250, 242, 0.96);
+  --shadow-soft: 0 6px 22px rgba(191, 54, 12, 0.10);
+  --shadow-mid: 0 12px 32px rgba(191, 54, 12, 0.18);
+  --shadow-paper: 0 2px 4px rgba(191, 54, 12, 0.08), 0 8px 24px rgba(191, 54, 12, 0.12);
+  --border-warm: rgba(230, 81, 0, 0.30);
+  --teal: #00838f;
+  --terracotta: #c87a5e;
+  --moss: #7d8c4a;
+  --sky: #5b8aa6;
+  --leaf: #6a994e;
+  --rust: #a14a3c;
+  --aurora-1: rgba(255, 183, 77, 0.16);
+  --aurora-2: rgba(230, 81, 0, 0.12);
+  --aurora-3: rgba(191, 54, 12, 0.10);
+  --aurora-4: rgba(78, 52, 46, 0.06);
+  --paper-texture: rgba(191, 54, 12, 0.03);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 20px;
+  font-family: 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 30% 0%, rgba(255, 240, 215, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 80% 100%, rgba(255, 220, 175, 0.35) 0%, transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(191, 54, 12, 0.018) 80px, rgba(191, 54, 12, 0.018) 81px),
+    repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(191, 54, 12, 0.018) 80px, rgba(191, 54, 12, 0.018) 81px);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.presentation {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: var(--shadow-mid);
+  background: var(--bg);
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  padding: 56px 72px;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.slide.active { display: flex; }
+
+/* ========== 紙藝手作裝飾（V4 特色） ========== */
+.paper-edge {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+.paper-edge.tape {
+  width: 80px; height: 24px;
+  background: rgba(255, 220, 130, 0.55);
+  border: 1px dashed rgba(191, 54, 12, 0.25);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+.paper-edge.rip-top {
+  top: 0; left: 0; right: 0; height: 14px;
+  background: linear-gradient(180deg, var(--paper-edge) 0%, transparent 100%);
+}
+.paper-edge.corner-fold {
+  bottom: 0; right: 0;
+  width: 120px; height: 120px;
+  background: linear-gradient(135deg, transparent 50%, var(--bg-secondary) 50%);
+  border-top-left-radius: 100% 100%;
+  box-shadow: -2px -2px 6px rgba(191, 54, 12, 0.08);
+}
+
+/* 紙張紋理（裝飾性 SVG）*/
+.paper-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* ========== 導航列 ========== */
+.nav {
+  position: fixed;
+  top: 24px;
+  right: 32px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--nav-bg);
+  padding: 8px 16px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-warm);
+  z-index: 100;
+}
+.nav button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  font-family: inherit;
+}
+.nav button:hover {
+  background: var(--accent-deep);
+  transform: scale(1.08);
+}
+.nav span {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  min-width: 60px;
+  text-align: center;
+}
+
+.back-link {
+  position: fixed;
+  top: 24px;
+  left: 32px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--nav-bg);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-warm);
+  z-index: 100;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--accent-deep); }
+
+/* ========== 封面 (P1) ========== */
+.cover {
+  background:
+    radial-gradient(ellipse 60% 50% at 75% 35%, var(--aurora-1) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 25% 75%, var(--aurora-3) 0%, transparent 60%),
+    linear-gradient(180deg, #fffaf2 0%, #fff2e0 100%);
+  position: relative;
+  overflow: hidden;
+}
+.cover .hero-shape {
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 183, 77, 0.4) 0%, transparent 60%);
+  border-radius: 50%;
+  z-index: 1;
+}
+.cover .hero-shape-2 {
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle at 70% 70%, rgba(230, 81, 0, 0.25) 0%, transparent 65%);
+  border-radius: 50%;
+  z-index: 1;
+}
+.cover .content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  max-width: 60%;
+}
+.cover .date-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-soft);
+  transform: rotate(-2deg);
+}
+.cover h1 {
+  font-size: 4.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+.cover h1 .accent { color: var(--accent-deep); }
+.cover .subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.cover .meta {
+  display: flex;
+  gap: 16px;
+  font-size: 1rem;
+  color: var(--text-soft);
+}
+.cover .meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cover .stamp {
+  position: absolute;
+  top: 56px;
+  right: 80px;
+  width: 130px;
+  height: 130px;
+  border: 3px dashed var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  transform: rotate(12deg);
+  z-index: 3;
+  letter-spacing: 0.05em;
+}
+.cover .stamp::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+/* ========== 通用頁面 header ========== */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 2px dashed var(--border-warm);
+  padding-bottom: 16px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 2;
+}
+.page-header .num {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+.page-header h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.page-header .en {
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ========== P2 目錄（方/網） ========== */
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  flex: 1;
+  align-content: center;
+  position: relative;
+  z-index: 2;
+}
+.toc-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-warm);
+  border-radius: 12px;
+  padding: 22px 24px;
+  position: relative;
+  box-shadow: var(--shadow-paper);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.3s;
+}
+.toc-card:hover {
+  transform: translateY(-4px);
+}
+.toc-card .index {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--accent);
+  font-family: 'Georgia', serif;
+  line-height: 1;
+}
+.toc-card .title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.toc-card .desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.toc-card::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+/* ========== P3 目的地雙欄（圓/散） ========== */
+.dest-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+.dest-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow-paper);
+  border: 1px solid var(--border-warm);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dest-card .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  align-self: flex-start;
+}
+.dest-card .badge svg {
+  width: 14px; height: 14px;
+  fill: #fff;
+}
+.dest-card h3 {
+  font-size: 1.5rem;
+  color: var(--ink);
+  font-weight: 800;
+}
+.dest-card .tag-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.dest-card .tag {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 1rem;
+  border: 1px solid var(--border-warm);
+}
+.dest-card .desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+.dest-card .pin {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  fill: var(--accent);
+  opacity: 0.5;
+}
+
+/* ========== P4 時間軸行程（線/垂） ========== */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  padding: 8px 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 80px;
+  top: 20px;
+  bottom: 20px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 100%);
+  border-radius: 2px;
+}
+.tl-item {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 14px 0;
+  position: relative;
+}
+.tl-item .time {
+  width: 72px;
+  flex-shrink: 0;
+  text-align: right;
+  font-weight: 700;
+  color: var(--accent-deep);
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+.tl-item .dot {
+  width: 18px;
+  height: 18px;
+  background: var(--bg);
+  border: 4px solid var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  margin-left: -10px;
+  box-shadow: 0 0 0 4px var(--bg);
+}
+.tl-item .content {
+  background: var(--bg-card);
+  border-radius: 10px;
+  padding: 12px 18px;
+  flex: 1;
+  border: 1px solid var(--border-warm);
+  box-shadow: var(--shadow-soft);
+}
+.tl-item .content h4 {
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+.tl-item .content p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.tl-item .content .badge {
+  display: inline-block;
+  font-size: 1rem;
+  background: var(--accent-glow);
+  color: var(--accent-deep);
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-top: 6px;
+}
+
+/* ========== P5 蜂巢主題（六/網） ========== */
+.hex-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px 12px;
+  flex: 1;
+  align-content: center;
+  position: relative;
+  z-index: 2;
+  padding: 20px 0;
+}
+.hex {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  aspect-ratio: 1 / 1.1547;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px 14px;
+  color: #fff;
+  position: relative;
+}
+.hex h4 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+  line-height: 1.15;
+}
+.hex p {
+  font-size: 1rem;
+  opacity: 0.9;
+  line-height: 1.3;
+}
+.hex.c1 { background: linear-gradient(135deg, #ff8a50 0%, #e65100 100%); }
+.hex.c2 { background: linear-gradient(135deg, #ffb74d 0%, #ff9800 100%); }
+.hex.c3 { background: linear-gradient(135deg, #c87a5e 0%, #a14a3c 100%); }
+.hex.c4 { background: linear-gradient(135deg, #7d8c4a 0%, #556b2f 100%); }
+.hex.c5 { background: linear-gradient(135deg, #5b8aa6 0%, #00838f 100%); }
+.hex.c6 { background: linear-gradient(135deg, #bf360c 0%, #4e342e 100%); }
+.hex.c7 { background: linear-gradient(135deg, #6a994e 0%, #4a7c3a 100%); }
+.hex.c8 { background: linear-gradient(135deg, #d77a61 0%, #c43e00 100%); }
+
+/* ========== P6 特色亮點（特/水） ========== */
+.feature-row {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+.feature-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 18px 26px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  box-shadow: var(--shadow-paper);
+  position: relative;
+}
+.feature-item .icon-wrap {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent-alt), var(--accent));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.feature-item .icon-wrap svg {
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+  stroke: #fff;
+  stroke-width: 2;
+  fill: none;
+}
+.feature-item .text {
+  flex: 1;
+}
+.feature-item h4 {
+  font-size: 1.15rem;
+  color: var(--ink);
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.feature-item p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.feature-item .badge {
+  position: absolute;
+  top: -8px;
+  right: 18px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem;
+  padding: 3px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+}
+
+/* ========== P7 圓形焦點+數字（圓/單） ========== */
+.bignum-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+}
+.bignum-circle {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffb74d 0%, #e65100 70%, #bf360c 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 16px 48px rgba(191, 54, 12, 0.35);
+  position: relative;
+}
+.bignum-circle::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+}
+.bignum-circle .num {
+  font-size: 5.6rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-family: 'Georgia', serif;
+}
+.bignum-circle .unit {
+  font-size: 1.2rem;
+  margin-top: 6px;
+  opacity: 0.9;
+  letter-spacing: 0.1em;
+}
+.bignum-label {
+  font-size: 1.4rem;
+  color: var(--ink);
+  font-weight: 700;
+  text-align: center;
+}
+.bignum-sub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 480px;
+  line-height: 1.6;
+}
+.bignum-mini-grid {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+.bignum-mini {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 10px;
+  padding: 10px 18px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+.bignum-mini .v {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-deep);
+}
+.bignum-mini .l {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* ========== P8 流程圖規劃（線/垂） ========== */
+.flow-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  padding: 8px 0;
+}
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 0;
+  position: relative;
+}
+.flow-step .num-circle {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 900;
+  font-family: 'Georgia', serif;
+  box-shadow: 0 4px 12px rgba(230, 81, 0, 0.3);
+  position: relative;
+  z-index: 2;
+}
+.flow-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 56px;
+  width: 2px;
+  height: calc(100% - 56px + 28px);
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-alt) 100%);
+  z-index: 1;
+}
+.flow-step .body {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 12px;
+  padding: 14px 20px;
+  box-shadow: var(--shadow-soft);
+}
+.flow-step .body h4 {
+  font-size: 1.05rem;
+  color: var(--ink);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.flow-step .body p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ========== P9 方格數據（方/網） ========== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  flex: 1;
+  align-content: center;
+  position: relative;
+  z-index: 2;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 22px 18px;
+  text-align: center;
+  box-shadow: var(--shadow-paper);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stat-card .v {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--accent-deep);
+  font-family: 'Georgia', serif;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat-card .u {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+.stat-card .l {
+  font-size: 1rem;
+  color: var(--text-soft);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 18px;
+  height: 18px;
+  border-left: 3px solid var(--accent);
+  border-top: 3px solid var(--accent);
+  border-radius: 4px 0 0 0;
+}
+
+/* ========== P10 結尾 CTA（無/單） ========== */
+.cta-end {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(255, 183, 77, 0.25) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 80%, rgba(230, 81, 0, 0.18) 0%, transparent 60%),
+    linear-gradient(180deg, #fffaf2 0%, #fff2e0 100%);
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.cta-end .thanks-card {
+  background: var(--bg-card);
+  border: 2px dashed var(--accent);
+  border-radius: 28px;
+  padding: 48px 80px;
+  box-shadow: var(--shadow-mid);
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+.cta-end h2 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.cta-end .lead {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.cta-end .contact-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.cta-end .contact-chip {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-soft);
+}
+.cta-end .contact-chip svg {
+  width: 18px; height: 18px;
+  fill: #fff;
+}
+.cta-end .stamp-end {
+  position: absolute;
+  bottom: 56px;
+  right: 80px;
+  width: 110px;
+  height: 110px;
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  transform: rotate(-8deg);
+  z-index: 3;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+}
+.cta-end .paper-airplane {
+  position: absolute;
+  top: 80px;
+  left: 100px;
+  width: 80px;
+  height: 80px;
+  z-index: 3;
+  opacity: 0.8;
+}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="/slides.htm">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+  返回列表
+</a>
+
+<div class="presentation">
+
+  <!-- ========== P1 封面（無/單） ========== -->
+  <div class="slide cover active" id="slide-1">
+    <div class="hero-shape"></div>
+    <div class="hero-shape-2"></div>
+    <div class="content">
+      <span class="date-tag">2026 · 08 · 22 · SATURDAY</span>
+      <h1>紙上行旅的<br><span class="accent">5 條私房路線</span></h1>
+      <p class="subtitle">從山城到海岸，把日子過成一段慢慢走的散文。<br>用一張紙、一支筆、一台相機，收進整個夏天的尾巴。</p>
+      <div class="meta">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          台灣 · 北中南東
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          3 天 2 夜建議行程
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M2 12h20"/></svg>
+          5 條路線任選
+        </span>
+      </div>
+    </div>
+    <div class="stamp">PASS<br>PORT<br>2026</div>
+  </div>
+
+  <!-- ========== P2 目錄（方/網） ========== -->
+  <div class="slide" id="slide-2">
+    <div class="page-header">
+      <div>
+        <div class="num">— 02 —</div>
+        <h2>本週目錄</h2>
+      </div>
+      <div class="en">CONTENTS · TABLE OF CONTENTS</div>
+    </div>
+    <div class="toc-grid">
+      <div class="toc-card">
+        <div class="index">01</div>
+        <div class="title">私房路線總覽</div>
+        <div class="desc">5 條路線的速寫地圖</div>
+      </div>
+      <div class="toc-card">
+        <div class="index">02</div>
+        <div class="title">三日行程範本</div>
+        <div class="desc">把時間軸排進紙頁</div>
+      </div>
+      <div class="toc-card">
+        <div class="index">03</div>
+        <div class="title">主題式路線</div>
+        <div class="desc">山、海、林、巷、島</div>
+      </div>
+      <div class="toc-card">
+        <div class="index">04</div>
+        <div class="title">亮點時刻</div>
+        <div class="desc">不能錯過的 4 個場景</div>
+      </div>
+      <div class="toc-card">
+        <div class="index">05</div>
+        <div class="title">一張圖的總結</div>
+        <div class="desc">旅行的本質數據</div>
+      </div>
+      <div class="toc-card">
+        <div class="index">06</div>
+        <div class="title">行前打包清單</div>
+        <div class="desc">出發前 30 分鐘搞定</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== P3 目的地雙欄（圓/散） ========== -->
+  <div class="slide" id="slide-3">
+    <div class="page-header">
+      <div>
+        <div class="num">— 03 —</div>
+        <h2>兩個首選目的地</h2>
+      </div>
+      <div class="en">PRIVATE PICK · DESTINATION 01 & 02</div>
+    </div>
+    <div class="dest-grid">
+      <div class="dest-card">
+        <svg class="pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" fill="currentColor"/></svg>
+        <span class="badge">
+          <svg viewBox="0 0 24 24"><path d="M3 21l1.5-4.5L15 6l3 3L7.5 19.5 3 21z" fill="#fff"/></svg>
+          山線 · 宜蘭
+        </span>
+        <h3>太平山・見晴懷古</h3>
+        <div class="tag-row">
+          <span class="tag">雲海</span>
+          <span class="tag">森林步道</span>
+          <span class="tag">海拔 2000m</span>
+        </div>
+        <p class="desc">一條 900 公尺的舊鐵道，雲霧從山腰漫上來，腳步會自己慢下來。清晨的紅檜林被霧氣浸透，光線從枝葉間一絲絲落下，最適合帶一本未讀完的小說。</p>
+      </div>
+      <div class="dest-card">
+        <svg class="pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" fill="currentColor"/></svg>
+        <span class="badge">
+          <svg viewBox="0 0 24 24"><path d="M2 12c2 2 5 2 8 0s5-2 8 0 5 2 8 0" fill="none" stroke="#fff" stroke-width="2"/></svg>
+          海線 · 屏東
+        </span>
+        <h3>恆春・半島夕陽</h3>
+        <div class="tag-row">
+          <span class="tag">落日</span>
+          <span class="tag">瓊麻巷</span>
+          <span class="tag">風速 7m/s</span>
+        </div>
+        <p class="desc">關山夕照平台是台灣本島最西的觀日點，從海拔 150 公尺俯瞰巴士海峽，整片海面被染成橘紅色。建議下午四點半前抵達，帶一件薄外套。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== P4 時間軸行程（線/垂） ========== -->
+  <div class="slide" id="slide-4">
+    <div class="page-header">
+      <div>
+        <div class="num">— 04 —</div>
+        <h2>三日行程時間軸</h2>
+      </div>
+      <div class="en">3 DAYS · 2 NIGHTS · TIMELINE</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="time">DAY 1<br>08:00</div>
+        <div class="dot"></div>
+        <div class="content">
+          <h4>台北車站集合出發</h4>
+          <p>宜蘭方向的台鐵普悠瑪，車程 1 小時 10 分鐘。建議購買早鳥 65 折票券。</p>
+          <span class="badge">交通 70min</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="time">DAY 1<br>11:00</div>
+        <div class="dot"></div>
+        <div class="content">
+          <h4>太平山國家森林遊樂區</h4>
+          <p>見晴懷古步道漫步、午餐享用山莊便當、蹦蹦車體驗，全日票 200 元。</p>
+          <span class="badge">海拔 1950m</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="time">DAY 2<br>06:30</div>
+        <div class="dot"></div>
+        <div class="content">
+          <h4>翠峰湖環山步道看日出</h4>
+          <p>台灣最大高山湖泊，需事先申請入園。晨霧中的湖面是教科書外的真實版本。</p>
+          <span class="badge">需入園申請</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="time">DAY 2<br>14:00</div>
+        <div class="dot"></div>
+        <div class="content">
+          <h4>南下恆春半島</h4>
+          <p>走南迴改接台 26 線，預計 4.5 小時車程。沿途可於大武漁港短暫停留。</p>
+          <span class="badge">車程 270min</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="time">DAY 3<br>17:30</div>
+        <div class="dot"></div>
+        <div class="content">
+          <h4>關山夕照 + 返程</h4>
+          <p>看完日落後北上，預計晚間 11 點抵達台北。車上備好暈車藥與毛毯。</p>
+          <span class="badge">日落 18:32</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== P5 蜂巢主題（六/網） ========== -->
+  <div class="slide" id="slide-5">
+    <div class="page-header">
+      <div>
+        <div class="num">— 05 —</div>
+        <h2>8 種主題式路線</h2>
+      </div>
+      <div class="en">8 THEMES · CHOOSE YOUR MOOD</div>
+    </div>
+    <div class="hex-grid">
+      <div class="hex c1">
+        <h4>山城古道</h4>
+        <p>淡蘭古道・草嶺</p>
+      </div>
+      <div class="hex c2">
+        <h4>海岸公路</h4>
+        <p>台 26 線慢遊</p>
+      </div>
+      <div class="hex c3">
+        <h4>老屋再生</h4>
+        <p>鹿港・迪化街</p>
+      </div>
+      <div class="hex c4">
+        <h4>森林療癒</h4>
+        <p>奧萬大・武陵</p>
+      </div>
+      <div class="hex c5">
+        <h4>海島跳島</h4>
+        <p>小琉球・綠島</p>
+      </div>
+      <div class="hex c6">
+        <h4>夜市美食</h4>
+        <p>台南・高雄</p>
+      </div>
+      <div class="hex c7">
+        <h4>溫泉秘境</h4>
+        <p>四重溪・知本</p>
+      </div>
+      <div class="hex c8">
+        <h4>部落文化</h4>
+        <p>達邦・武界</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== P6 特色亮點（特/水） ========== -->
+  <div class="slide" id="slide-6">
+    <div class="page-header">
+      <div>
+        <div class="num">— 06 —</div>
+        <h2>不能錯過的 4 個亮點時刻</h2>
+      </div>
+      <div class="en">4 MUST-SEE MOMENTS</div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-item">
+        <span class="badge">晨</span>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </div>
+        <div class="text">
+          <h4>翠峰湖的晨霧漂浮</h4>
+          <p>清晨 5:30 起床，步行 30 分鐘抵達觀景平台，看霧氣從湖面升起至針葉林頂端，整段過程約 25 分鐘，氣溫 12-15°C 需備保暖衣物。</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="badge">午</span>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M3 11l18-8-7 18-2-8-9-2z"/></svg>
+        </div>
+        <div class="text">
+          <h4>舊鐵道上的光影遊戲</h4>
+          <p>見晴懷古步道保留日治時期的運材軌道，光線透過紅檜枝葉形成斑駁光斑。最佳拍攝時間為上午 10 點至 11 點。</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="badge">夕</span>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M17 18a5 5 0 0 0-10 0M12 2v6M4.93 10.93l1.41 1.41M2 18h2M20 18h2M17.66 12.34l1.41-1.41M8 8l4-4 4 4"/></svg>
+        </div>
+        <div class="text">
+          <h4>關山夕照的金色時分</h4>
+          <p>海拔 150 公尺的觀景台可俯瞰整個恆春平原與巴士海峽。建議 17:00 前抵達卡位，攜帶 200mm 以上長焦鏡頭捕捉海面上的光線。</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="badge">夜</span>
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </div>
+        <div class="text">
+          <h4>瓊麻巷的星空夜語</h4>
+          <p>恆春古城外的瓊麻工業歷史展示區，光害極低。夏季可見銀河，記得攜帶紅光手電筒保護夜視。導覽員小提醒：晚上 9 點後關閉大燈。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== P7 圓形焦點+數字（圓/單） ========== -->
+  <div class="slide" id="slide-7">
+    <div class="page-header">
+      <div>
+        <div class="num">— 07 —</div>
+        <h2>一張圖總結旅行的本質</h2>
+      </div>
+      <div class="en">THE ESSENCE · ONE NUMBER</div>
+    </div>
+    <div class="bignum-wrap">
+      <div class="bignum-circle">
+        <div class="num">3.7</div>
+        <div class="unit">DAYS · 3 天 2 夜</div>
+      </div>
+      <div class="bignum-label">一段剛剛好的旅行時間</div>
+      <div class="bignum-sub">短到不會疲勞、長到足以改變呼吸的節奏。這是 200 位資深背包客訪談後得出的共同答案——旅行不是越長越好，而是對的長度。</div>
+      <div class="bignum-mini-grid">
+        <div class="bignum-mini">
+          <div class="v">28%</div>
+          <div class="l">回程還想再訪</div>
+        </div>
+        <div class="bignum-mini">
+          <div class="v">6.2</div>
+          <div class="l">平均步行 km/日</div>
+        </div>
+        <div class="bignum-mini">
+          <div class="v">¥4,500</div>
+          <div class="l">每日平均花費</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== P8 流程圖規劃（線/垂） ========== -->
+  <div class="slide" id="slide-8">
+    <div class="page-header">
+      <div>
+        <div class="num">— 08 —</div>
+        <h2>行前 5 步驟規劃流程</h2>
+      </div>
+      <div class="en">5 STEPS · PLANNING FLOW</div>
+    </div>
+    <div class="flow-vertical">
+      <div class="flow-step">
+        <div class="num-circle">1</div>
+        <div class="body">
+          <h4>確定主題與預算</h4>
+          <p>從 8 種主題中選 1-2 個方向，單日預算抓 NT$4,000-5,000（含住宿 NT$1,800、餐飲 NT$1,200、交通 NT$800、門票 NT$200）。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="num-circle">2</div>
+        <div class="body">
+          <h4>訂車票與住宿</h4>
+          <p>台鐵早鳥 14 天前開放訂購，住宿建議選擇火車站步行 10 分鐘內的合法民宿，可省下租車與接駁的麻煩。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="num-circle">3</div>
+        <div class="body">
+          <h4>查詢天氣與裝備</h4>
+          <p>中央氣象署 7 日預報，山區需準備保暖衣物（10°C 上下），海岸線備防曬 SPF50+ 與遮陽帽。建議隨身攜帶輕便雨衣。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="num-circle">4</div>
+        <div class="body">
+          <h4>下載離線地圖</h4>
+          <p>Google Maps 可下載完整區域離線地圖（500MB 內），山區部分路段無 4G 訊號，離線地圖是保命關鍵。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="num-circle">5</div>
+        <div class="body">
+          <h4>出發前 30 分鐘清單</h4>
+          <p>證件 / 充電寶 / 雨具 / 藥品（暈車、感冒、OK 繃）/ 防曬 / 紙本地圖（手機沒電時的備案）。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== P9 方格數據（方/網） ========== -->
+  <div class="slide" id="slide-9">
+    <div class="page-header">
+      <div>
+        <div class="num">— 09 —</div>
+        <h2>2026 夏秋旅遊數據</h2>
+      </div>
+      <div class="en">2026 SUMMER · TRAVEL DATA</div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="v">1,247</div>
+        <div class="u">萬人次</div>
+        <div class="l">國旅總人次<br>（7-8 月）</div>
+      </div>
+      <div class="stat-card">
+        <div class="v">¥2,840</div>
+        <div class="u">每人/日均</div>
+        <div class="l">國內旅遊<br>平均花費</div>
+      </div>
+      <div class="stat-card">
+        <div class="v">68%</div>
+        <div class="u">占比</div>
+        <div class="l">北部出發<br>中南部住宿</div>
+      </div>
+      <div class="stat-card">
+        <div class="v">4.6</div>
+        <div class="u">/ 5.0</div>
+        <div class="l">旅客滿意度<br>（5 分量表）</div>
+      </div>
+      <div class="stat-card">
+        <div class="v">92%</div>
+        <div class="u">占比</div>
+        <div class="l">手機訂票<br>滲透率</div>
+      </div>
+      <div class="stat-card">
+        <div class="v">3.2</div>
+        <div class="u">天/人</div>
+        <div class="l">平均旅遊<br>天數</div>
+      </div>
+      <div class="stat-card">
+        <div class="v">38%</div>
+        <div class="u">占比</div>
+        <div class="l">35 歲以下<br>年輕族群</div>
+      </div>
+      <div class="stat-card">
+        <div class="v">12</div>
+        <div class="u">國家風景區</div>
+        <div class="l">全台觀光<br>區數量</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== P10 結尾 CTA（無/單） ========== -->
+  <div class="slide cta-end" id="slide-10">
+    <svg class="paper-airplane" viewBox="0 0 24 24" fill="none" stroke="#e65100" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="thanks-card">
+      <h2>出發吧，把日子過成散文</h2>
+      <p class="lead">不需要遠方、不需要長假，<br>一段三天的紙上行旅，就能讓平凡的日常重新發光。<br>從今天開始，把第一張車票放進行李箱。</p>
+      <div class="contact-row">
+        <span class="contact-chip">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" fill="#fff" stroke="none"/><circle cx="12" cy="10" r="3" fill="#e65100"/></svg>
+          台灣旅遊
+        </span>
+        <span class="contact-chip">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" fill="none" stroke="#fff" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#fff" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#fff" stroke-width="2"/></svg>
+          2026 / 08 / 22
+        </span>
+        <span class="contact-chip">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="2"/><polyline points="12 6 12 12 16 14" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          SATURDAY
+        </span>
+      </div>
+    </div>
+    <div class="stamp-end">NEXT<br>TRIP<br>→</div>
+  </div>
+
+</div>
+
+<!-- ========== 導航 ========== -->
+<nav class="nav">
+  <button onclick="prev()" aria-label="上一頁">◀</button>
+  <span id="page-indicator">1 / 10</span>
+  <button onclick="next()" aria-label="下一頁">▶</button>
+</nav>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  const total = slides.length;
+  const indicator = document.getElementById('page-indicator');
+
+  function show() {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current + total) % total;
+    if (slides[current]) slides[current].classList.add('active');
+    if (indicator) indicator.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function next() {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current + 1) % total;
+    if (slides[current]) slides[current].classList.add('active');
+    if (indicator) indicator.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function prev() {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current - 1 + total) % total;
+    if (slides[current]) slides[current].classList.add('active');
+    if (indicator) indicator.textContent = (current + 1) + ' / ' + total;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') next();
+    else if (e.key === 'ArrowLeft') prev();
+  });
+</script>
+
+</body>
+</html>
