@@ -636,13 +636,14 @@ body {
   align-items: center;
   justify-content: center;
   flex: 1;
-  gap: 24px;
+  gap: 14px;
   position: relative;
   z-index: 2;
+  padding: 8px 0;
 }
 .bignum-circle {
-  width: 240px;
-  height: 240px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #ffb74d 0%, #e65100 70%, #bf360c 100%);
   display: flex;
@@ -650,31 +651,31 @@ body {
   align-items: center;
   justify-content: center;
   color: #fff;
-  box-shadow: 0 16px 48px rgba(191, 54, 12, 0.35);
+  box-shadow: 0 12px 36px rgba(191, 54, 12, 0.35);
   position: relative;
 }
 .bignum-circle::before {
   content: '';
   position: absolute;
-  inset: 12px;
+  inset: 10px;
   border: 2px dashed rgba(255, 255, 255, 0.4);
   border-radius: 50%;
 }
 .bignum-circle .num {
-  font-size: 5.6rem;
+  font-size: 4.6rem;
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.02em;
   font-family: 'Georgia', serif;
 }
 .bignum-circle .unit {
-  font-size: 1.2rem;
-  margin-top: 6px;
+  font-size: 1rem;
+  margin-top: 4px;
   opacity: 0.9;
   letter-spacing: 0.1em;
 }
 .bignum-label {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: var(--ink);
   font-weight: 700;
   text-align: center;
@@ -684,23 +685,23 @@ body {
   color: var(--text-secondary);
   text-align: center;
   max-width: 480px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 .bignum-mini-grid {
   display: flex;
-  gap: 20px;
-  margin-top: 8px;
+  gap: 14px;
+  margin-top: 4px;
 }
 .bignum-mini {
   background: var(--bg-card);
   border: 1px solid var(--border-warm);
   border-radius: 10px;
-  padding: 10px 18px;
+  padding: 8px 16px;
   text-align: center;
   box-shadow: var(--shadow-soft);
 }
 .bignum-mini .v {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--accent-deep);
 }
