@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夜市霓虹：流動攤車的味覺光譜｜2026-08-23 美食文化</title>
+<style>
+/* ============================================================
+   配色：C2 暖白紙藝（Washi Paper Warm）
+   模板：V10 極光漸層結構（柔和紙藝紋理）
+   主題：Sunday 美食文化 — 夜市霓虹：流動攤車的味覺光譜
+   ============================================================ */
+:root {
+  --primary:      #C9A37A;
+  --primary-dark: #8B6F47;
+  --primary-soft: #E8D5B7;
+  --primary-glow: rgba(201,163,122,0.22);
+  --accent:       #4D7C7E;
+  --accent-dark:  #2C4F52;
+  --accent-soft:  #A8C5C8;
+  --bg:           #FBF5EC;
+  --bg-secondary: #F0E5D2;
+  --bg-card:      #FFFCF6;
+  --text:         #3D2E1F;
+  --text-light:   #6B5A48;
+  --text-muted:   #9A8A75;
+  --warm-gray:    #D7CFC0;
+  --gold:         #C49A3A;
+  --teal:         #4D7C7E;
+  --olive:        #6B7A3E;
+  --ink:          #3A2018;
+  --paper-line:   rgba(139,111,71,0.08);
+  --shadow-soft:  0 6px 24px rgba(139,111,71,0.10);
+  --shadow-mid:   0 12px 36px rgba(61,46,31,0.18);
+  --shadow-paper: 0 2px 0 rgba(255,255,255,0.6) inset, 0 8px 24px rgba(139,111,71,0.10);
+  --border-warm:  1.5px solid var(--warm-gray);
+  --nav-bg:       rgba(251,245,236,0.96);
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 40px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 20px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Serif TC', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(232,213,183,0.45) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 90%, rgba(168,197,200,0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 5% 80%, rgba(196,154,58,0.10) 0%, transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-x: hidden;
+}
+
+/* 紙藝底紋 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, transparent 0 22px, var(--paper-line) 22px 23px),
+    repeating-linear-gradient(-45deg, transparent 0 22px, var(--paper-line) 22px 23px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.presentation {
+  width: min(96vw, 1280px);
+  aspect-ratio: 16 / 9;
+  position: relative;
+  z-index: 1;
+  background: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow-mid);
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  padding: 40px 56px 60px;
+  overflow: hidden;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* 通用導航 */
+.nav {
+  position: fixed;
+  top: 16px;
+  right: 24px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-warm);
+  border-radius: 999px;
+  padding: 6px 12px;
+  box-shadow: var(--shadow-soft);
+  font-size: 1rem;
+  color: var(--text);
+}
+.nav button {
+  background: var(--primary);
+  color: #fff;
+  border: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.nav button:hover { background: var(--primary-dark); transform: scale(1.08); }
+.nav button:disabled { background: var(--warm-gray); cursor: not-allowed; }
+.nav span { font-weight: 600; min-width: 56px; text-align: center; }
+
+/* 通用頁面 header */
+.header { margin-bottom: 16px; max-width: calc(100% - 180px); }
+.header h2 {
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.header .sub {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ================= P1 封面（無/單） ================= */
+.s1-cover {
+  background:
+    radial-gradient(circle 700px at 50% 50%, rgba(232,213,183,0.45) 0%, transparent 70%),
+    linear-gradient(180deg, #FBF5EC 0%, #F0E5D2 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .lanterns {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  z-index: 0;
+}
+.s1-cover .lanterns circle { fill: none; }
+.s1-cover .meta {
+  position: absolute;
+  top: 56px;
+  left: 56px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  z-index: 2;
+}
+.s1-cover .meta .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.s1-cover .kicker {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  font-size: 1rem;
+  color: var(--accent-dark);
+  letter-spacing: 0.35em;
+  font-weight: 700;
+  background: rgba(255, 252, 246, 0.95);
+  padding: 8px 22px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--border-warm);
+}
+.s1-cover h1 {
+  position: relative;
+  z-index: 3;
+  font-size: clamp(2.6rem, 5.5vw, 4.6rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin: 0;
+  text-shadow: 0 2px 0 rgba(255,255,255,0.4);
+}
+.s1-cover h1 .accent { color: var(--accent); }
+.s1-cover .sub-line {
+  position: relative;
+  z-index: 3;
+  margin-top: 16px;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  color: var(--text-light);
+  letter-spacing: 0.08em;
+  font-style: italic;
+}
+.s1-cover .sign {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.25em;
+}
+.s1-cover .seal {
+  position: absolute;
+  top: 56px;
+  right: 56px;
+  z-index: 2;
+  width: 80px;
+  height: 80px;
+}
+
+/* ================= P2 香料地圖（六/水） ================= */
+.s2-spice {
+  background: var(--bg-card);
+}
+.s2-spice .header { margin-bottom: 16px; max-width: calc(100% - 180px); }
+.spice-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 18px;
+  align-content: start;
+}
+.spice-card {
+  background: linear-gradient(160deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+  border: 1px solid var(--border-warm);
+  border-radius: 12px;
+  padding: 18px 12px 18px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease;
+  min-height: 200px;
+}
+.spice-card .hex { margin-bottom: 4px; }
+.spice-card .role { margin-bottom: 0; }
+.spice-card .note { margin-top: 0; }
+.spice-card:hover { transform: translateY(-4px); }
+.spice-card .hex {
+  width: 64px;
+  height: 64px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--primary-soft), var(--primary));
+}
+.spice-card .name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.spice-card .role {
+  font-size: 1rem;
+  color: var(--text-light);
+  font-style: italic;
+  margin-bottom: 0;
+}
+.spice-card .note {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 0;
+}
+
+.spice-footer {
+  position: absolute;
+  bottom: 56px;
+  left: 56px;
+  right: 56px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(168,197,200,0.18), rgba(232,213,183,0.18));
+  border: 1px dashed var(--primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.spice-footer .formula {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.spice-footer .lbl {
+  font-size: 1rem;
+  color: var(--accent-dark);
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+.spice-footer .formula-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.spice-footer .ing {
+  background: var(--bg-card);
+  border: 1px solid var(--primary);
+  color: var(--ink);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.spice-footer .op {
+  font-size: 1.25rem;
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+.spice-footer .out {
+  background: var(--primary);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+/* ================= P3 食材圖鑑（線/垂） ================= */
+.s3-ingredients {
+  background: var(--bg-card);
+}
+.ingre-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.ingre-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 2fr 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  position: relative;
+}
+.ingre-row .badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+.ingre-row .badge.b1 { background: var(--accent); }
+.ingre-row .badge.b2 { background: var(--olive); }
+.ingre-row .badge.b3 { background: var(--primary-dark); }
+.ingre-row .badge.b4 { background: var(--gold); }
+.ingre-row .badge.b5 { background: var(--accent-dark); }
+.ingre-row h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.ingre-row .desc {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+.ingre-row .meta {
+  font-size: 1rem;
+  color: var(--text-muted);
+  text-align: right;
+  font-style: italic;
+}
+
+/* ================= P4 五味雷達（圓/網） ================= */
+.s4-flavor {
+  background:
+    radial-gradient(circle 500px at 70% 50%, rgba(232,213,183,0.25) 0%, transparent 70%),
+    var(--bg-card);
+}
+.flavor-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  flex: 1;
+  align-items: center;
+}
+.flavor-radar {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+.flavor-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.flavor-item {
+  display: grid;
+  grid-template-columns: 100px 1fr 60px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 8px;
+}
+.flavor-item .flavor-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.flavor-item .bar-track {
+  height: 10px;
+  background: var(--bg-secondary);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.flavor-item .bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  border-radius: 999px;
+}
+.flavor-item .flavor-num {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  text-align: right;
+}
+
+/* ================= P5 菜系星圖（方/散） ================= */
+.s5-region {
+  background:
+    radial-gradient(circle 500px at 20% 30%, rgba(168,197,200,0.18) 0%, transparent 65%),
+    var(--bg-card);
+}
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  flex: 1;
+}
+.region-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 12px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.region-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 4px;
+  background: var(--primary);
+}
+.region-card .label {
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  margin-bottom: 4px;
+}
+.region-card h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.region-card .signature {
+  font-size: 1rem;
+  color: var(--accent-dark);
+  font-style: italic;
+  margin-bottom: 8px;
+}
+.region-card .dishes {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.region-card .dishes span {
+  background: var(--bg-secondary);
+  color: var(--text);
+  font-size: 1rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ================= P6 時間軸（特/單） ================= */
+.s6-history {
+  background: var(--bg-card);
+}
+.history-track {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 56px 0 32px;
+  min-height: 0;
+}
+.history-track::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--primary) 20%, var(--primary) 80%, transparent);
+}
+.hist-row {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 20px;
+  align-items: center;
+}
+.hist-row .dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 4px solid var(--bg-card);
+  box-shadow: 0 0 0 2px var(--primary);
+  margin: 0 auto;
+}
+.hist-row .card-l, .hist-row .card-r {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 10px;
+  padding: 8px 14px;
+  box-shadow: var(--shadow-soft);
+}
+.hist-row .card-l { text-align: right; }
+.hist-row .card-r { text-align: left; }
+.hist-row .era {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.hist-row .title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.hist-row .desc {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+/* ================= P7 餐桌器皿（六/網） ================= */
+.s7-tableware {
+  background: var(--bg-card);
+}
+.tableware-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+.tw-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.tw-card .hex-frame {
+  width: 90px;
+  height: 90px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(135deg, var(--bg-secondary), var(--primary-soft));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.tw-card .name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.tw-card .desc {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+.tw-card .count {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ================= P8 飲品搭配（線/垂） ================= */
+.s8-drinks {
+  background: var(--bg-card);
+}
+.drinks-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.drinks-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 1.6fr 80px;
+  gap: 20px;
+  align-items: center;
+  padding: 16px 18px;
+  border-bottom: 1px dashed var(--warm-gray);
+}
+.drinks-row:last-child { border-bottom: none; }
+.drinks-row .icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.drinks-row .name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.drinks-row .desc {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+.drinks-row .pair {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  text-align: right;
+}
+
+/* ================= P9 用餐儀式（圓/散） ================= */
+.s9-ritual {
+  background:
+    radial-gradient(circle 600px at 50% 50%, rgba(232,213,183,0.18) 0%, transparent 70%),
+    var(--bg-card);
+}
+.ritual-circle {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ritual-core {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(139,111,71,0.3);
+  z-index: 2;
+}
+.ritual-core .big {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+}
+.ritual-core .small {
+  font-size: 1rem;
+  margin-top: 4px;
+  letter-spacing: 0.2em;
+  opacity: 0.85;
+}
+.ritual-sat {
+  position: absolute;
+  width: 130px;
+  padding: 14px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--primary);
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+.ritual-sat .num {
+  font-size: 1rem;
+  color: var(--accent-dark);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.ritual-sat .step {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.ritual-sat .desc {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+.ritual-sat.r1 { top: 6%;  left: 10%; }
+.ritual-sat.r2 { top: 6%;  right: 10%; }
+.ritual-sat.r3 { top: 50%; left: 4%; transform: translateY(-50%); }
+.ritual-sat.r4 { top: 50%; right: 4%; transform: translateY(-50%); }
+.ritual-sat.r5 { bottom: 6%;  left: 20%; }
+.ritual-sat.r6 { bottom: 6%;  right: 20%; }
+
+/* ================= P10 結尾（無/單） ================= */
+.s10-end {
+  background:
+    radial-gradient(circle 500px at 50% 40%, rgba(168,197,200,0.30) 0%, transparent 70%),
+    linear-gradient(180deg, #FBF5EC 0%, #F0E5D2 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s10-end .seal {
+  width: 140px;
+  height: 140px;
+  margin-bottom: 28px;
+}
+.s10-end h2 {
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+.s10-end h2 .accent { color: var(--accent); }
+.s10-end .bless {
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  color: var(--text-light);
+  line-height: 1.8;
+  max-width: 720px;
+  margin-bottom: 32px;
+  font-style: italic;
+}
+.s10-end .credit {
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  line-height: 1.8;
+}
+.s10-end .credit a {
+  color: var(--accent-dark);
+  text-decoration: none;
+  font-weight: 700;
+}
+</style>
+</head>
+<body>
+
+<div class="presentation" id="presentation">
+
+  <!-- ========== P1 封面 ========== -->
+  <section class="slide s1-cover active" id="slide-1">
+    <div class="meta">
+      <span class="dot"></span>
+      <span>2026 · 08 · 23 · 週日</span>
+      <span style="opacity:0.5">/</span>
+      <span>SUNDAY · FOOD</span>
+    </div>
+    <svg class="seal" viewBox="0 0 80 80">
+      <circle cx="40" cy="40" r="36" fill="none" stroke="#C9A37A" stroke-width="2" stroke-dasharray="3,2" opacity="0.6"/>
+      <circle cx="40" cy="40" r="28" fill="rgba(201,163,122,0.2)" stroke="#8B6F47" stroke-width="1.5"/>
+      <text x="40" y="42" text-anchor="middle" font-family="Noto Serif TC, serif" font-size="20" font-weight="800" fill="#3D2E1F">食光</text>
+      <text x="40" y="58" text-anchor="middle" font-family="Noto Serif TC, serif" font-size="20" fill="#4D7C7E">FOOD</text>
+    </svg>
+    <svg class="lanterns" viewBox="0 0 600 600">
+      <circle cx="300" cy="300" r="280" fill="none" stroke="#C9A37A" stroke-width="1" stroke-dasharray="2,6" opacity="0.4"/>
+      <circle cx="300" cy="300" r="220" fill="none" stroke="#C9A37A" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.55"/>
+      <circle cx="300" cy="300" r="160" fill="none" stroke="#8B6F47" stroke-width="2" opacity="0.7"/>
+      <circle cx="300" cy="300" r="100" fill="rgba(232,213,183,0.3)" stroke="#C9A37A" stroke-width="2"/>
+    </svg>
+    <div class="kicker">SUNDAY · 美食文化</div>
+    <h1>夜市霓虹<span class="accent">：</span><br>流動攤車的味覺光譜</h1>
+    <p class="sub-line">從煙火氣中撈起一碗台灣的光</p>
+    <div class="sign">· 一份給週日的味覺散步 ·</div>
+  </section>
+
+  <!-- ========== P2 香料地圖 ========== -->
+  <section class="slide s2-spice" id="slide-2">
+    <div class="header">
+      <h2>香料的星圖</h2>
+      <p class="sub">夜市料理的六味地基——少一味，攤車的味道就垮了</p>
+    </div>
+    <div class="spice-grid">
+      <div class="spice-card">
+        <div class="hex"><svg viewBox="0 0 64 64" width="40" height="40">
+          <path d="M20 22 Q 32 14 44 22" stroke="#6B7A3E" stroke-width="3" fill="none"/>
+          <path d="M16 30 Q 32 22 48 30" stroke="#6B7A3E" stroke-width="2.5" fill="none" opacity="0.7"/>
+          <ellipse cx="32" cy="40" rx="14" ry="6" fill="#9CAF6F"/>
+          <circle cx="26" cy="40" r="2" fill="#fff"/>
+          <circle cx="38" cy="40" r="2" fill="#fff"/>
+        </svg></div>
+        <div class="name">蔥</div>
+        <div class="role">提香 · 結尾</div>
+        <div class="note">青蔥末 · 油蔥酥</div>
+      </div>
+      <div class="spice-card">
+        <div class="hex"><svg viewBox="0 0 64 64" width="40" height="40">
+          <ellipse cx="32" cy="42" rx="14" ry="8" fill="#E8B57F"/>
+          <path d="M22 36 Q 32 28 42 36" stroke="#C49A3A" stroke-width="2.5" fill="none"/>
+          <circle cx="32" cy="20" r="3" fill="#6B7A3E"/>
+          <path d="M32 22 L 32 30" stroke="#6B7A3E" stroke-width="2"/>
+        </svg></div>
+        <div class="name">薑</div>
+        <div class="role">去腥 · 暖底</div>
+        <div class="note">老薑 · 嫩薑</div>
+      </div>
+      <div class="spice-card">
+        <div class="hex"><svg viewBox="0 0 64 64" width="40" height="40">
+          <ellipse cx="32" cy="36" rx="10" ry="14" fill="#F5F0DC"/>
+          <path d="M28 22 L 28 50 M 36 22 L 36 50" stroke="#E8D5B7" stroke-width="0.8"/>
+          <path d="M22 30 L 42 30 M 22 40 L 42 40" stroke="#E8D5B7" stroke-width="0.8"/>
+          <path d="M32 18 L 32 14" stroke="#6B7A3E" stroke-width="2"/>
+        </svg></div>
+        <div class="name">蒜</div>
+        <div class="role">爆香 · 提味</div>
+        <div class="note">蒜末 · 蒜片</div>
+      </div>
+      <div class="spice-card">
+        <div class="hex"><svg viewBox="0 0 64 64" width="40" height="40">
+          <path d="M22 50 L 32 14 L 42 50 Z" fill="#C0392B"/>
+          <path d="M28 32 L 36 32" stroke="#7B1F1F" stroke-width="2"/>
+          <ellipse cx="32" cy="22" rx="2" ry="3" fill="#7B1F1F"/>
+        </svg></div>
+        <div class="name">辣椒</div>
+        <div class="role">辛 · 刺激</div>
+        <div class="note">朝天椒 · 燈籠椒</div>
+      </div>
+      <div class="spice-card">
+        <div class="hex"><svg viewBox="0 0 64 64" width="40" height="40">
+          <rect x="20" y="22" width="24" height="28" rx="3" fill="#5C3A28"/>
+          <rect x="22" y="26" width="20" height="20" rx="2" fill="#3D2314"/>
+          <circle cx="32" cy="36" r="4" fill="#8B6F47"/>
+          <text x="32" y="42" text-anchor="middle" font-family="Noto Serif TC" font-size="22" font-weight="800" fill="#FBF5EC">醬</text>
+        </svg></div>
+        <div class="name">醬油</div>
+        <div class="role">鹹 · 主味</div>
+        <div class="note">醬油膏 · 淡醬油</div>
+      </div>
+      <div class="spice-card">
+        <div class="hex"><svg viewBox="0 0 64 64" width="40" height="40">
+          <circle cx="32" cy="32" r="14" fill="#C49A3A"/>
+          <circle cx="32" cy="32" r="9" fill="#E8B85F"/>
+          <text x="32" y="40" text-anchor="middle" font-family="Noto Serif TC" font-size="24" font-weight="700" fill="#5C3A28">糖</text>
+        </svg></div>
+        <div class="name">糖</div>
+        <div class="role">甜 · 收斂</div>
+        <div class="note">冰糖 · 二砂糖</div>
+      </div>
+    </div>
+    <div class="spice-footer">
+      <div class="formula">
+        <span class="lbl">配方密碼 · 攤車的化學反應</span>
+        <div class="formula-row">
+          <span class="ing">醬油</span><span class="op">＋</span><span class="ing">糖</span><span class="op">＝</span><span class="out">鹹甜基</span>
+        </div>
+        <div class="formula-row">
+          <span class="ing">蔥</span><span class="op">＋</span><span class="ing">薑</span><span class="op">＋</span><span class="ing">蒜</span><span class="op">＝</span><span class="out">爆香三傑</span>
+        </div>
+        <div class="formula-row">
+          <span class="ing">辣椒</span><span class="op">＋</span><span class="ing">麻油</span><span class="op">＝</span><span class="out">辛溫底</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P3 食材圖鑑 ========== -->
+  <section class="slide s3-ingredients" id="slide-3">
+    <div class="header">
+      <h2>食材的履歷</h2>
+      <p class="sub">夜市攤車裡的常客——它們在霓虹燈下被一一翻面、刷油、撒粉</p>
+    </div>
+    <div class="ingre-list">
+      <div class="ingre-row">
+        <div class="badge b1">蛋白</div>
+        <h4>高湯的靈魂</h4>
+        <div class="desc">大骨熬 8 小時、雞骨架煮 4 小時、蔬果提甘味——湯底是攤車的根基</div>
+        <div class="meta">粉骨 / 帶筋 / 油花</div>
+      </div>
+      <div class="ingre-row">
+        <div class="badge b2">蔬菜</div>
+        <h4>顏色的層次</h4>
+        <div class="desc">高麗菜的甜、菠菜的嫩、A 菜的脆——一份小吃裡的三種綠</div>
+        <div class="meta">當季 / 早市 / 帶土</div>
+      </div>
+      <div class="ingre-row">
+        <div class="badge b3">肉類</div>
+        <h4>油脂的厚度</h4>
+        <div class="desc">肥瘦比 3:7 的肉燥、薄切 0.3cm 的牛肉片、帶皮的雞腿塊</div>
+        <div class="meta">溫體 / 現切 / 手工</div>
+      </div>
+      <div class="ingre-row">
+        <div class="badge b4">海鮮</div>
+        <h4>海味的鮮度</h4>
+        <div class="desc">早上 4 點到港的鮮魚、活蝦現剝、貝類吐沙後才上爐</div>
+        <div class="meta">現流 / 帶殼 / 冰鎮</div>
+      </div>
+      <div class="ingre-row">
+        <div class="badge b5">米麵</div>
+        <h4>飽足感的錨點</h4>
+        <div class="desc">當日現做的油麵、日曬過的米粉、在地蓬萊米——澱粉是碗的根</div>
+        <div class="meta">現做 / 日曬 / 厚薄</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P4 五味雷達 ========== -->
+  <section class="slide s4-flavor" id="slide-4">
+    <div class="header">
+      <h2>夜市的五味地圖</h2>
+      <p class="sub">鹹甜酸鮮辛——五條味覺軸，決定一道小吃能不能被記住</p>
+    </div>
+    <div class="flavor-wrap">
+      <div class="flavor-radar">
+        <svg viewBox="0 0 380 380" width="100%" height="100%">
+          <!-- 雷達底層 -->
+          <polygon points="190,40 327,135 281,290 99,290 53,135" fill="rgba(232,213,183,0.18)" stroke="#C9A37A" stroke-width="1"/>
+          <polygon points="190,90 277,150 250,260 130,260 103,150" fill="none" stroke="#C9A37A" stroke-width="0.8" opacity="0.6"/>
+          <polygon points="190,140 232,170 219,230 161,230 148,170" fill="none" stroke="#C9A37A" stroke-width="0.8" opacity="0.4"/>
+          <!-- 五味軸線 -->
+          <line x1="190" y1="190" x2="190" y2="40" stroke="#8B6F47" stroke-width="0.8"/>
+          <line x1="190" y1="190" x2="327" y2="135" stroke="#8B6F47" stroke-width="0.8"/>
+          <line x1="190" y1="190" x2="281" y2="290" stroke="#8B6F47" stroke-width="0.8"/>
+          <line x1="190" y1="190" x2="99" y2="290" stroke="#8B6F47" stroke-width="0.8"/>
+          <line x1="190" y1="190" x2="53" y2="135" stroke="#8B6F47" stroke-width="0.8"/>
+          <!-- 數據多邊形：鹹 90 / 甜 75 / 鮮 85 / 香 70 / 辛 50 -->
+          <polygon points="190,58 287,148 256,265 121,272 100,148" fill="rgba(201,163,122,0.35)" stroke="#8B6F47" stroke-width="2"/>
+          <!-- 軸標籤 -->
+          <text x="190" y="32" text-anchor="middle" font-size="20" font-weight="800" fill="#3D2E1F">鹹</text>
+          <text x="335" y="138" text-anchor="middle" font-size="20" font-weight="800" fill="#3D2E1F">甜</text>
+          <text x="288" y="305" text-anchor="middle" font-size="20" font-weight="800" fill="#3D2E1F">鮮</text>
+          <text x="92" y="305" text-anchor="middle" font-size="20" font-weight="800" fill="#3D2E1F">香</text>
+          <text x="45" y="138" text-anchor="middle" font-size="20" font-weight="800" fill="#3D2E1F">辛</text>
+          <!-- 數據點 -->
+          <circle cx="190" cy="58" r="4" fill="#C9A37A"/>
+          <circle cx="287" cy="148" r="4" fill="#C9A37A"/>
+          <circle cx="256" cy="265" r="4" fill="#C9A37A"/>
+          <circle cx="121" cy="272" r="4" fill="#C9A37A"/>
+          <circle cx="100" cy="148" r="4" fill="#C9A37A"/>
+          <!-- 中心 -->
+          <circle cx="190" cy="190" r="3" fill="#4D7C7E"/>
+        </svg>
+      </div>
+      <div class="flavor-labels">
+        <div class="flavor-item">
+          <div class="flavor-name">鹹 Salty</div>
+          <div class="bar-track"><div class="bar-fill" style="width:90%"></div></div>
+          <div class="flavor-num">90</div>
+        </div>
+        <div class="flavor-item">
+          <div class="flavor-name">甜 Sweet</div>
+          <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+          <div class="flavor-num">75</div>
+        </div>
+        <div class="flavor-item">
+          <div class="flavor-name">鮮 Umami</div>
+          <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+          <div class="flavor-num">85</div>
+        </div>
+        <div class="flavor-item">
+          <div class="flavor-name">香 Aroma</div>
+          <div class="bar-track"><div class="bar-fill" style="width:70%"></div></div>
+          <div class="flavor-num">70</div>
+        </div>
+        <div class="flavor-item">
+          <div class="flavor-name">辛 Spicy</div>
+          <div class="bar-track"><div class="bar-fill" style="width:50%"></div></div>
+          <div class="flavor-num">50</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P5 菜系星圖 ========== -->
+  <section class="slide s5-region" id="slide-5">
+    <div class="header">
+      <h2>區域的味道</h2>
+      <p class="sub">南北六區的味覺個性——同一個夜市，吃法卻不一樣</p>
+    </div>
+    <div class="region-grid">
+      <div class="region-card">
+        <div class="label">北部</div>
+        <h4>基隆 · 雨都鮮味</h4>
+        <div class="signature">海港第一口，湯頭清而不薄</div>
+        <div class="dishes"><span>鼎邊銼</span><span>天婦羅</span><span>吉古拉</span></div>
+      </div>
+      <div class="region-card">
+        <div class="label">北部</div>
+        <h4>台北 · 巷弄濃郁</h4>
+        <div class="signature">醬色厚重、口味偏甜</div>
+        <div class="dishes"><span>滷肉飯</span><span>蚵仔煎</span><span>胡椒餅</span></div>
+      </div>
+      <div class="region-card">
+        <div class="label">中部</div>
+        <h4>台中 · 麻油溫補</h4>
+        <div class="signature">老薑麻油爆香，冬天的暖身派</div>
+        <div class="dishes"><span>薑母鴨</span><span>米糕</span><span>太陽餅</span></div>
+      </div>
+      <div class="region-card">
+        <div class="label">中部</div>
+        <h4>彰化 · 麵食功夫</h4>
+        <div class="signature">麵條現擀、湯底清甜</div>
+        <div class="dishes"><span>貓鼠麵</span><span>肉圓</span><span>北門口</span></div>
+      </div>
+      <div class="region-card">
+        <div class="label">南部</div>
+        <h4>台南 · 甘味細膩</h4>
+        <div class="signature">半糖哲學、香料溫柔</div>
+        <div class="dishes"><span>擔仔麵</span><span>碗粿</span><span>牛肉湯</span></div>
+      </div>
+      <div class="region-card">
+        <div class="label">東部</div>
+        <h4>花蓮 · 原民山味</h4>
+        <div class="signature">山產與海味的交界</div>
+        <div class="dishes"><span>竹筒飯</span><span>炸魚薯條</span><span>小米酒</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P6 時間軸 ========== -->
+  <section class="slide s6-history" id="slide-6">
+    <div class="header">
+      <h2>時間的足跡</h2>
+      <p class="sub">攤車走過的 150 年</p>
+    </div>
+    <div class="history-track">
+      <div class="hist-row">
+        <div class="card-l">
+          <div class="era">1880s · 清領末期</div>
+          <div class="title">流動攤販的起源</div>
+          <div class="desc">挑擔小販沿街叫賣糖蔥、米粉湯</div>
+        </div>
+        <div class="dot"></div>
+        <div></div>
+      </div>
+      <div class="hist-row">
+        <div></div>
+        <div class="dot"></div>
+        <div class="card-r">
+          <div class="era">1950s · 戰後復興</div>
+          <div class="title">公有市場與商圈成形</div>
+          <div class="desc">固定攤位出現，霓虹燈掛上攤車頂</div>
+        </div>
+      </div>
+      <div class="hist-row">
+        <div class="card-l">
+          <div class="era">1980s · 經濟起飛</div>
+          <div class="title">小吃文化的盛世</div>
+          <div class="desc">夜市成為庶民重心，30 年以上老主顧</div>
+        </div>
+        <div class="dot"></div>
+        <div></div>
+      </div>
+      <div class="hist-row">
+        <div></div>
+        <div class="dot"></div>
+        <div class="card-r">
+          <div class="era">2000s · 國際化</div>
+          <div class="title">米其林與觀光化</div>
+          <div class="desc">《米其林指南》將小吃列入評比</div>
+        </div>
+      </div>
+      <div class="hist-row">
+        <div class="card-l">
+          <div class="era">2020s · 數位轉型</div>
+          <div class="title">外送與品牌化</div>
+          <div class="desc">QR Code 點餐、新一代接班</div>
+        </div>
+        <div class="dot"></div>
+        <div></div>
+      </div>
+      <div class="hist-row">
+        <div></div>
+        <div class="dot"></div>
+        <div class="card-r">
+          <div class="era">2026 · AI 時代</div>
+          <div class="title">智慧排隊與永續餐具</div>
+          <div class="desc">人流預測、減塑餐具、資料庫化</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P7 餐桌器皿 ========== -->
+  <section class="slide s7-tableware" id="slide-7">
+    <div class="header">
+      <h2>器皿的語言</h2>
+      <p class="sub">碗盤筷匙各有脾氣——選對了，吃的節奏就對了</p>
+    </div>
+    <div class="tableware-grid">
+      <div class="tw-card">
+        <div class="count">01</div>
+        <div class="hex-frame"><svg viewBox="0 0 64 64" width="56" height="56">
+          <ellipse cx="32" cy="34" rx="22" ry="14" fill="none" stroke="#8B6F47" stroke-width="2.5"/>
+          <ellipse cx="32" cy="32" rx="18" ry="10" fill="#FBF5EC" stroke="#C9A37A" stroke-width="1.5"/>
+          <path d="M14 34 Q 32 28 50 34" stroke="#C9A37A" stroke-width="1" fill="none"/>
+        </svg></div>
+        <div class="name">陶碗</div>
+        <div class="desc">保溫性佳，適合湯品、米飯</div>
+      </div>
+      <div class="tw-card">
+        <div class="count">02</div>
+        <div class="hex-frame"><svg viewBox="0 0 64 64" width="56" height="56">
+          <ellipse cx="32" cy="32" rx="22" ry="8" fill="none" stroke="#8B6F47" stroke-width="2"/>
+          <ellipse cx="32" cy="30" rx="18" ry="6" fill="#F0E5D2" stroke="#C9A37A" stroke-width="1.2"/>
+          <ellipse cx="32" cy="30" rx="6" ry="2" fill="#8B6F47"/>
+        </svg></div>
+        <div class="name">瓷盤</div>
+        <div class="desc">平整寬敞，適合小吃拼盤</div>
+      </div>
+      <div class="tw-card">
+        <div class="count">03</div>
+        <div class="hex-frame"><svg viewBox="0 0 64 64" width="56" height="56">
+          <path d="M28 14 L 36 14 L 34 50 L 30 50 Z" fill="#5C3A28"/>
+          <path d="M28 14 L 30 50 M 36 14 L 34 50" stroke="#3D2314" stroke-width="0.5"/>
+          <ellipse cx="32" cy="14" rx="6" ry="2" fill="#8B6F47"/>
+        </svg></div>
+        <div class="name">竹筷</div>
+        <div class="desc">手感溫潤，環保可分解</div>
+      </div>
+      <div class="tw-card">
+        <div class="count">04</div>
+        <div class="hex-frame"><svg viewBox="0 0 64 64" width="56" height="56">
+          <ellipse cx="32" cy="20" rx="6" ry="3" fill="#C9A37A"/>
+          <path d="M28 22 L 30 50 L 34 50 L 36 22 Z" fill="#C9A37A"/>
+          <ellipse cx="32" cy="52" rx="5" ry="2" fill="#8B6F47"/>
+        </svg></div>
+        <div class="name">瓷匙</div>
+        <div class="desc">深底弧度，喝湯不溢</div>
+      </div>
+      <div class="tw-card">
+        <div class="count">05</div>
+        <div class="hex-frame"><svg viewBox="0 0 64 64" width="56" height="56">
+          <path d="M16 20 L 48 20 L 44 52 L 20 52 Z" fill="none" stroke="#5C3A28" stroke-width="2.5"/>
+          <ellipse cx="32" cy="22" rx="14" ry="3" fill="none" stroke="#8B6F47" stroke-width="1.5"/>
+          <path d="M28 22 L 28 50 M 36 22 L 36 50" stroke="#8B6F47" stroke-width="0.8" opacity="0.6"/>
+        </svg></div>
+        <div class="name">外帶盒</div>
+        <div class="desc">紙製或甘蔗渣，可分解</div>
+      </div>
+      <div class="tw-card">
+        <div class="count">06</div>
+        <div class="hex-frame"><svg viewBox="0 0 64 64" width="56" height="56">
+          <path d="M24 16 L 24 50 L 40 50 L 40 16 Z" fill="none" stroke="#5C3A28" stroke-width="2"/>
+          <path d="M24 18 L 40 18" stroke="#C9A37A" stroke-width="1.2"/>
+          <path d="M40 24 L 50 30 L 40 36 Z" fill="#5C3A28"/>
+          <path d="M28 22 L 28 46" stroke="#8B6F47" stroke-width="1.5"/>
+        </svg></div>
+        <div class="name">塑膠袋</div>
+        <div class="desc">傳統外帶，但逐漸淘汰</div>
+      </div>
+      <div class="tw-card">
+        <div class="count">07</div>
+        <div class="hex-frame"><svg viewBox="0 0 64 64" width="56" height="56">
+          <rect x="22" y="16" width="20" height="36" rx="2" fill="none" stroke="#5C3A28" stroke-width="2"/>
+          <path d="M22 18 L 42 18" stroke="#C9A37A" stroke-width="1.2"/>
+          <path d="M30 16 L 30 14 L 34 14 L 34 16" fill="#8B6F47"/>
+        </svg></div>
+        <div class="name">不鏽鋼杯</div>
+        <div class="desc">耐用好清洗，外帶首選</div>
+      </div>
+      <div class="tw-card">
+        <div class="count">08</div>
+        <div class="hex-frame"><svg viewBox="0 0 64 64" width="56" height="56">
+          <path d="M20 20 Q 32 12 44 20 L 42 24 L 22 24 Z" fill="none" stroke="#5C3A28" stroke-width="2"/>
+          <ellipse cx="32" cy="48" rx="12" ry="4" fill="#8B6F47"/>
+          <path d="M22 24 L 22 46 Q 32 52 42 46 L 42 24" fill="none" stroke="#8B6F47" stroke-width="1.5"/>
+        </svg></div>
+        <div class="name">蒸籠</div>
+        <div class="desc">竹製傳統，點心必備</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P8 飲品搭配 ========== -->
+  <section class="slide s8-drinks" id="slide-8">
+    <div class="header">
+      <h2>飲品的陪襯</h2>
+      <p class="sub">夜市小吃的好搭檔——從解膩到提味，每一口都有最佳配角</p>
+    </div>
+    <div class="drinks-flow">
+      <div class="drinks-row">
+        <div class="icon"><svg viewBox="0 0 64 64" width="44" height="44">
+          <rect x="20" y="22" width="24" height="32" rx="2" fill="#A8C5C8"/>
+          <path d="M20 22 L 44 22" stroke="#4D7C7E" stroke-width="1.5"/>
+          <rect x="22" y="26" width="20" height="26" rx="1" fill="rgba(255,255,255,0.3)"/>
+        </svg></div>
+        <div>
+          <div class="name">青草茶</div>
+        </div>
+        <div class="desc">仙草、薄荷、雞蛋花混合熬煮——退火解膩，炸物最佳拍檔</div>
+        <div class="pair">× 鹽酥雞</div>
+      </div>
+      <div class="drinks-row">
+        <div class="icon"><svg viewBox="0 0 64 64" width="44" height="44">
+          <path d="M22 18 L 42 18 L 38 54 L 26 54 Z" fill="#E8B85F"/>
+          <path d="M22 18 L 42 18" stroke="#8B6F47" stroke-width="1.5"/>
+          <circle cx="32" cy="32" r="4" fill="#FBF5EC"/>
+        </svg></div>
+        <div>
+          <div class="name">冬瓜茶</div>
+        </div>
+        <div class="desc">冬瓜熬糖、清甜不膩——老台北的味道，配滷味最對味</div>
+        <div class="pair">× 滷味</div>
+      </div>
+      <div class="drinks-row">
+        <div class="icon"><svg viewBox="0 0 64 64" width="44" height="44">
+          <ellipse cx="32" cy="32" rx="14" ry="18" fill="#C0392B"/>
+          <ellipse cx="32" cy="32" rx="14" ry="4" fill="#A8C5C8"/>
+          <path d="M32 14 Q 36 18 32 22" stroke="#8B6F47" stroke-width="1.2"/>
+        </svg></div>
+        <div>
+          <div class="name">烏梅湯</div>
+        </div>
+        <div class="desc">烏梅、山楂、甘草熬成——酸甜開胃，吃麻辣鍋的好搭檔</div>
+        <div class="pair">× 麻辣燙</div>
+      </div>
+      <div class="drinks-row">
+        <div class="icon"><svg viewBox="0 0 64 64" width="44" height="44">
+          <ellipse cx="32" cy="36" rx="18" ry="6" fill="#3D2314"/>
+          <ellipse cx="32" cy="32" rx="18" ry="8" fill="#5C3A28"/>
+          <ellipse cx="32" cy="32" rx="14" ry="5" fill="#8B6F47"/>
+        </svg></div>
+        <div>
+          <div class="name">黑豆茶</div>
+        </div>
+        <div class="desc">炒黑豆沖泡、暖胃暖身——海鮮類的好朋友，去腥又補氣</div>
+        <div class="pair">× 蚵仔煎</div>
+      </div>
+      <div class="drinks-row">
+        <div class="icon"><svg viewBox="0 0 64 64" width="44" height="44">
+          <rect x="22" y="14" width="20" height="40" rx="3" fill="rgba(232,213,183,0.5)" stroke="#8B6F47" stroke-width="2"/>
+          <ellipse cx="32" cy="18" rx="8" ry="3" fill="#E8B85F"/>
+          <path d="M26 30 L 38 30 M 26 36 L 38 36 M 26 42 L 38 42" stroke="#8B6F47" stroke-width="0.8" opacity="0.6"/>
+        </svg></div>
+        <div>
+          <div class="name">啤酒</div>
+        </div>
+        <div class="desc">台啤經典款，配熱炒最對味——夜市的成人儀式感</div>
+        <div class="pair">× 熱炒</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P9 用餐儀式 ========== -->
+  <section class="slide s9-ritual" id="slide-9">
+    <div class="header">
+      <h2>夜市的用餐儀式</h2>
+      <p class="sub">六步流程——從走進攤車到離開，每一步都讓味道更完整</p>
+    </div>
+    <div class="ritual-circle">
+      <div class="ritual-core">
+        <div>
+          <div class="big">儀式</div>
+          <div class="small">RITUAL</div>
+        </div>
+      </div>
+      <div class="ritual-sat r1">
+        <div class="num">壹</div>
+        <div class="step">嗅聞</div>
+        <div class="desc">遠處的香氣決定走向</div>
+      </div>
+      <div class="ritual-sat r2">
+        <div class="num">貳</div>
+        <div class="step">觀望</div>
+        <div class="desc">看排隊長度、看鍋氣</div>
+      </div>
+      <div class="ritual-sat r3">
+        <div class="num">參</div>
+        <div class="step">點餐</div>
+        <div class="desc">一句「一份」開始</div>
+      </div>
+      <div class="ritual-sat r4">
+        <div class="num">肆</div>
+        <div class="step">等待</div>
+        <div class="desc">3-5 分鐘的期待</div>
+      </div>
+      <div class="ritual-sat r5">
+        <div class="num">伍</div>
+        <div class="step">入口</div>
+        <div class="desc">第一口的溫度與層次</div>
+      </div>
+      <div class="ritual-sat r6">
+        <div class="num">陸</div>
+        <div class="step">回味</div>
+        <div class="desc">再買一份的衝動</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P10 結尾 ========== -->
+  <section class="slide s10-end" id="slide-10">
+    <svg class="seal" viewBox="0 0 140 140">
+      <circle cx="70" cy="70" r="64" fill="none" stroke="#C9A37A" stroke-width="2" stroke-dasharray="4,3" opacity="0.5"/>
+      <circle cx="70" cy="70" r="52" fill="none" stroke="#4D7C7E" stroke-width="2.5" opacity="0.7"/>
+      <circle cx="70" cy="70" r="40" fill="rgba(232,213,183,0.4)" stroke="#C9A37A" stroke-width="3"/>
+      <text x="70" y="68" text-anchor="middle" font-family="Noto Serif TC, serif" font-size="26" font-weight="900" fill="#3D2E1F">攤車</text>
+      <text x="70" y="96" text-anchor="middle" font-family="Noto Serif TC, serif" font-size="22" font-weight="700" fill="#4D7C7E">有光</text>
+    </svg>
+    <h2>感謝<span class="accent">共食</span></h2>
+    <p class="bless">每一個攤車都是一座小型廚房，<br>每一碗小吃都裝著一段台灣的故事。<br>願你今晚的夜市裡，也有一盞燈為你亮著。</p>
+    <div class="credit">
+      2026 · 08 · 23 · 週日<br>
+      <a href="/slides.htm" class="back">🐾 回簡報列表</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- ========== Nav ========== -->
+<div class="nav" aria-label="簡報導航">
+  <button id="prev-btn" aria-label="上一頁">◀</button>
+  <span id="page-info">1 / 10</span>
+  <button id="next-btn" aria-label="下一頁">▶</button>
+</div>
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  function show() {
+    if (slides[current]) {
+      slides[current].classList.remove('active');
+    }
+    current = (current + total) % total;
+    if (slides[current]) {
+      slides[current].classList.add('active');
+    }
+    document.getElementById('page-info').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prev-btn').disabled = false;
+    document.getElementById('next-btn').disabled = false;
+  }
+
+  function next() {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current + 1) % total;
+    if (slides[current]) slides[current].classList.add('active');
+    document.getElementById('page-info').textContent = (current + 1) + ' / ' + total;
+  }
+
+  function prev() {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current - 1 + total) % total;
+    if (slides[current]) slides[current].classList.add('active');
+    document.getElementById('page-info').textContent = (current + 1) + ' / ' + total;
+  }
+
+  document.getElementById('next-btn').addEventListener('click', next);
+  document.getElementById('prev-btn').addEventListener('click', prev);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { next(); }
+    if (e.key === 'ArrowLeft') { prev(); }
+  });
+
+  // 初始化：確保第一頁 active
+  if (slides[0]) slides[0].classList.add('active');
+  document.getElementById('page-info').textContent = '1 / ' + total;
+})();
+</script>
+</body>
+</html>
