@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 數位治理 2.0：地方政府的服務前線｜2026-08-24 政府公務</title>
+<style>
+/* ============================================================
+   配色：C3 極光森林（Aurora Forest）— 深色系
+   主題：Monday 政府公務 — AI 數位治理 2.0
+   模板：V11 玻璃儀表板 + 極光綠 / 暖橘強調 / 醫療青
+   ============================================================ */
+:root {
+  --bg-deep:        #08191d;
+  --bg-mid:         #0d2e34;
+  --bg-card:        rgba(13, 46, 52, 0.55);
+  --primary:        #14b8a6;   /* 極光綠 */
+  --primary-soft:   #5eead4;
+  --primary-deep:   #0f766e;
+  --accent:         #fb923c;   /* 暖橘強調 */
+  --accent-soft:    #fdba74;
+  --accent-deep:    #c2410c;
+  --teal:           #4dd0e1;   /* 醫療青 */
+  --teal-soft:      #67e8f9;
+  --violet:         #a78bfa;   /* AI 紫 */
+  --violet-soft:    #c4b5fd;
+  --rose:           #f472b6;   /* 服務粉 */
+  --gold:           #fbbf24;
+  --ink:            #ecfeff;
+  --ink-soft:       #cffafe;
+  --ink-mute:       #99f6e4;
+  --ink-dim:        #67e8f9;
+  --border-cool:    rgba(20, 184, 166, 0.40);
+  --border-warm:    rgba(251, 146, 60, 0.50);
+  --border-violet:  rgba(167, 139, 250, 0.45);
+  --glow-cool:      0 0 28px rgba(20, 184, 166, 0.35);
+  --glow-warm:      0 0 24px rgba(251, 146, 60, 0.30);
+  --glow-violet:    0 0 24px rgba(167, 139, 250, 0.30);
+}
+
+html { font-size: 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #08191d;
+  color: var(--ink-soft);
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 80% 15%, rgba(20, 184, 166, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(251, 146, 60, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(167, 139, 250, 0.12) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+  border-radius: 12px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 56px 56px 80px;
+  color: var(--ink-soft);
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+.slide * { line-height: 1.5; }
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 320px; height: 320px; background: rgba(20, 184, 166, 0.22); top: -100px; right: -100px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(251, 146, 60, 0.16); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 220px; height: 220px; background: rgba(167, 139, 250, 0.18); top: 50%; left: 60%; }
+
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.tag {
+  display: inline-block;
+  background: rgba(20, 184, 166, 0.18);
+  color: var(--primary-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-cool);
+}
+.tag-warm {
+  display: inline-block;
+  background: rgba(251, 146, 60, 0.18);
+  color: var(--accent-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-warm);
+}
+.tag-violet {
+  display: inline-block;
+  background: rgba(167, 139, 250, 0.18);
+  color: var(--violet-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-violet);
+}
+
+h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.18; margin: 8px 0 14px; color: #ffffff; }
+h2 { font-size: 1.6rem; font-weight: 700; margin: 4px 0 12px; color: #ffffff; line-height: 1.25; }
+h3 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 6px; color: var(--primary-soft); }
+.lead { font-size: 1.1rem; color: var(--ink-mute); line-height: 1.55; margin: 6px 0 14px; }
+
+/* === 卡片 === */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--glow-cool);
+}
+.card-warm {
+  background: rgba(251, 146, 60, 0.08);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 18px;
+}
+.card-violet {
+  background: rgba(167, 139, 250, 0.08);
+  border: 1px solid var(--border-violet);
+  border-radius: 14px;
+  padding: 18px;
+}
+.card-soft {
+  background: rgba(236, 254, 255, 0.04);
+  border: 1px solid rgba(94, 234, 212, 0.20);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+/* === Nav === */
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+  background: rgba(10, 31, 36, 0.85);
+  padding: 6px 12px;
+  border-radius: 24px;
+  border: 1px solid var(--border-cool);
+}
+.nav button {
+  background: rgba(20, 184, 166, 0.15);
+  border: 1px solid var(--border-cool);
+  color: var(--ink);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav button:hover { background: rgba(20, 184, 166, 0.35); }
+.nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+.nav span { font-size: 1rem; color: var(--ink-mute); min-width: 56px; text-align: center; }
+
+.back-link {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  z-index: 50;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  text-decoration: none;
+  background: rgba(10, 31, 36, 0.7);
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border-cool);
+}
+.back-link:hover { color: var(--primary-soft); }
+
+/* ============================================================
+   P1 封面（無/單）— 中心放射 + AI 主視覺
+   ============================================================ */
+.s1-cover {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .cover-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.s1-cover h1 {
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.18;
+  margin: 0;
+  z-index: 2;
+}
+.s1-cover h1 .accent { color: var(--primary-soft); }
+.s1-cover h1 .warm { color: var(--accent-soft); }
+.s1-cover .sub {
+  font-size: 1.2rem;
+  color: var(--ink-mute);
+  margin-top: 18px;
+  max-width: 720px;
+  z-index: 2;
+}
+.s1-cover .ai-emblem {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+.s1-cover .meta-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+  z-index: 2;
+}
+.s1-cover .meta-pill {
+  background: rgba(20, 184, 166, 0.10);
+  border: 1px solid var(--border-cool);
+  color: var(--primary-soft);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+.s1-cover .meta-pill.warm {
+  background: rgba(251, 146, 60, 0.10);
+  border-color: var(--border-warm);
+  color: var(--accent-soft);
+}
+.s1-cover .meta-pill.violet {
+  background: rgba(167, 139, 250, 0.10);
+  border-color: var(--border-violet);
+  color: var(--violet-soft);
+}
+
+/* ============================================================
+   P2 議程（方/網）— 6 格議程卡
+   ============================================================ */
+.s2-toc .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.s2-toc h2 { font-size: 2.2rem; margin: 0; }
+.s2-toc .header .pill {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.s2-toc .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+  align-content: center;
+}
+.s2-toc .toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--glow-cool);
+}
+.s2-toc .toc-card.warm {
+  border-color: var(--border-warm);
+  box-shadow: var(--glow-warm);
+}
+.s2-toc .toc-card.violet {
+  border-color: var(--border-violet);
+  box-shadow: var(--glow-violet);
+}
+.s2-toc .toc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+}
+.s2-toc .toc-card.warm::before { background: linear-gradient(90deg, var(--accent) 0%, var(--rose) 100%); }
+.s2-toc .toc-card.violet::before { background: linear-gradient(90deg, var(--violet) 0%, var(--primary) 100%); }
+.s2-toc .toc-card .num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.s2-toc .toc-card.warm .num { color: var(--accent-soft); }
+.s2-toc .toc-card.violet .num { color: var(--violet-soft); }
+.s2-toc .toc-card .lbl {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 6px;
+}
+.s2-toc .toc-card .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   P3 願景（線/水）— 4 列水平資料流（process-flow）
+   ============================================================ */
+.s3-vision .vision-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.s3-vision .vision-head .pill {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.s3-vision .stream {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  margin-top: 18px;
+  position: relative;
+}
+.s3-vision .step {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.s3-vision .step::after {
+  content: '→';
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: var(--primary-soft);
+  z-index: 3;
+}
+.s3-vision .step:last-child::after { display: none; }
+.s3-vision .step .num {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--accent-soft);
+}
+.s3-vision .step .ti {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 4px;
+}
+.s3-vision .step .body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.5;
+}
+.s3-vision .step .metric {
+  margin-top: auto;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.s3-vision .step .metric .v {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.s3-vision .step.warm .metric .v { color: var(--accent-soft); }
+.s3-vision .step.violet .metric .v { color: var(--violet-soft); }
+.s3-vision .step .metric .u {
+  font-size: 1rem;
+  color: var(--ink-dim);
+}
+.s3-vision .bottom-note {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(167, 139, 250, 0.10);
+  border: 1px solid var(--border-violet);
+  border-radius: 10px;
+}
+.s3-vision .bottom-note .tag-mini {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--violet-soft);
+  letter-spacing: 0.12em;
+}
+.s3-vision .bottom-note .body {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+}
+
+/* ============================================================
+   P4 現況盤點（圓/垂）— 3 個同心圓數據靶心
+   ============================================================ */
+.s4-now .head-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.s4-now .head-row .pill {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.s4-now .kpi-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+.s4-now .kpi-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 14px 20px;
+}
+.s4-now .kpi-row.warm { border-color: var(--border-warm); }
+.s4-now .kpi-row.violet { border-color: var(--border-violet); }
+.s4-now .donut {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+}
+.s4-now .donut .pct {
+  font-size: 1.1rem;
+  font-weight: 900;
+  fill: #ffffff;
+}
+.s4-now .kpi-row .info { flex: 1; }
+.s4-now .kpi-row .name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.s4-now .kpi-row .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+  margin-top: 4px;
+}
+.s4-now .kpi-row .delta {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--primary-soft);
+  letter-spacing: 0.06em;
+}
+.s4-now .kpi-row.warm .delta { color: var(--accent-soft); }
+.s4-now .kpi-row.violet .delta { color: var(--violet-soft); }
+
+/* ============================================================
+   P5 應用場景（六/散）— 蜂巢 6 格服務場景
+   ============================================================ */
+.s5-scene .head-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.s5-scene .head-row .pill {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.s5-scene .hex-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 16px;
+  padding: 6px 14px;
+}
+.s5-scene .hex-cell {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  backdrop-filter: blur(6px);
+}
+.s5-scene .hex-cell.warm { border-color: var(--border-warm); }
+.s5-scene .hex-cell.violet { border-color: var(--border-violet); }
+.s5-scene .hex-cell::before {
+  content: '';
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 14px; height: 14px;
+  background: var(--primary);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  opacity: 0.6;
+}
+.s5-scene .hex-cell.warm::before { background: var(--accent); }
+.s5-scene .hex-cell.violet::before { background: var(--violet); }
+.s5-scene .hex-cell .scene-num {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--accent-soft);
+  letter-spacing: 0.16em;
+}
+.s5-scene .hex-cell .ti {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 2px;
+}
+.s5-scene .hex-cell .body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+}
+.s5-scene .hex-cell .stat {
+  margin-top: auto;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 1rem;
+}
+.s5-scene .hex-cell .stat .v {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.s5-scene .hex-cell.warm .stat .v { color: var(--accent-soft); }
+.s5-scene .hex-cell.violet .stat .v { color: var(--violet-soft); }
+.s5-scene .hex-cell .stat .u {
+  font-size: 1rem;
+  color: var(--ink-dim);
+}
+
+/* ============================================================
+   P6 三層架構（特/垂）— 客製化流程堆疊
+   ============================================================ */
+.s6-stack .head-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.s6-stack .head-row .pill {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.s6-stack .layer-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+  max-width: 980px;
+}
+.s6-stack .layer {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  border-left: 6px solid var(--primary);
+}
+.s6-stack .layer.warm { border-left-color: var(--accent); border-color: var(--border-warm); }
+.s6-stack .layer.violet { border-left-color: var(--violet); border-color: var(--border-violet); }
+.s6-stack .layer .badge {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  background: rgba(20, 184, 166, 0.18);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+}
+.s6-stack .layer.warm .badge { background: rgba(251, 146, 60, 0.18); border-color: var(--border-warm); color: var(--accent-soft); }
+.s6-stack .layer.violet .badge { background: rgba(167, 139, 250, 0.18); border-color: var(--border-violet); color: var(--violet-soft); }
+.s6-stack .layer .info { flex: 1; }
+.s6-stack .layer .name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.s6-stack .layer .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.5;
+  margin-top: 4px;
+}
+.s6-stack .layer .stat-pills {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+.s6-stack .layer .stat-pills .pill-mini {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: rgba(20, 184, 166, 0.18);
+  color: var(--primary-soft);
+}
+.s6-stack .layer.warm .stat-pills .pill-mini { background: rgba(251, 146, 60, 0.18); color: var(--accent-soft); }
+.s6-stack .layer.violet .stat-pills .pill-mini { background: rgba(167, 139, 250, 0.18); color: var(--violet-soft); }
+
+/* ============================================================
+   P7 治理框架（方/水）— 5 列水平資料流（process-flow）
+   ============================================================ */
+.s7-govern .head-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.s7-govern .head-row .pill {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.s7-govern .govern-flow {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 18px;
+}
+.s7-govern .g-step {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 14px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.s7-govern .g-step.warm { border-color: var(--border-warm); }
+.s7-govern .g-step.violet { border-color: var(--border-violet); }
+.s7-govern .g-step .ti {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--primary-soft);
+}
+.s7-govern .g-step.warm .ti { color: var(--accent-soft); }
+.s7-govern .g-step.violet .ti { color: var(--violet-soft); }
+.s7-govern .g-step .nm {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 2px;
+}
+.s7-govern .g-step .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+}
+.s7-govern .connector {
+  align-self: center;
+  width: 32px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   P8 國際比較（圓/網）— 4 國對比網格
+   ============================================================ */
+.s8-compare .head-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.s8-compare .head-row .pill {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.s8-compare .compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+.s8-compare .country {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.s8-compare .country.local {
+  border-color: var(--border-warm);
+  background: rgba(251, 146, 60, 0.10);
+}
+.s8-compare .country .flag {
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  color: var(--ink-dim);
+  font-weight: 800;
+}
+.s8-compare .country.local .flag { color: var(--accent-soft); }
+.s8-compare .country .name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.s8-compare .country .body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+}
+.s8-compare .country .stat-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+.s8-compare .country .stat-cell {
+  background: rgba(20, 184, 166, 0.10);
+  border: 1px solid var(--border-cool);
+  border-radius: 8px;
+  padding: 6px 10px;
+  flex: 1;
+}
+.s8-compare .country.local .stat-cell {
+  background: rgba(251, 146, 60, 0.10);
+  border-color: var(--border-warm);
+}
+.s8-compare .country .stat-cell .v {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1.1;
+}
+.s8-compare .country.local .stat-cell .v { color: var(--accent-soft); }
+.s8-compare .country .stat-cell .l {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  margin-top: 2px;
+}
+.s8-compare .takeaway {
+  margin-top: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(20, 184, 166, 0.10);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+}
+.s8-compare .takeaway .lbl {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--primary-soft);
+  letter-spacing: 0.12em;
+  flex-shrink: 0;
+}
+.s8-compare .takeaway .txt {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   P9 行動路線（線/水）— 4 列水平資料流（process-flow）
+   ============================================================ */
+.s9-action .head-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.s9-action .head-row .pill {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.s9-action .action-flow {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 18px;
+}
+.s9-action .a-step {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.s9-action .a-step.warm { border-color: var(--border-warm); }
+.s9-action .a-step.violet { border-color: var(--border-violet); }
+.s9-action .a-step .step {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--primary-soft);
+  letter-spacing: 0.14em;
+}
+.s9-action .a-step.warm .step { color: var(--accent-soft); }
+.s9-action .a-step.violet .step { color: var(--violet-soft); }
+.s9-action .a-step .ti {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.s9-action .a-step .body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+}
+.s9-action .a-step .when {
+  margin-top: auto;
+  font-size: 1rem;
+  color: var(--ink-dim);
+  font-weight: 700;
+}
+
+/* ============================================================
+   P10 結尾（無/單）— 中央輻射
+   ============================================================ */
+.s10-end {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.s10-end .end-title {
+  font-size: clamp(2.0rem, 4vw, 3.2rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.25;
+  z-index: 2;
+  margin-bottom: 18px;
+}
+.s10-end .end-title .accent { color: var(--primary-soft); }
+.s10-end .end-title .warm { color: var(--accent-soft); }
+.s10-end .end-sub {
+  font-size: 1.1rem;
+  color: var(--ink-mute);
+  max-width: 720px;
+  margin-top: 8px;
+  line-height: 1.55;
+  z-index: 2;
+}
+.s10-end .end-meta {
+  display: flex;
+  gap: 14px;
+  margin-top: 28px;
+  z-index: 2;
+}
+.s10-end .end-meta-item {
+  background: rgba(20, 184, 166, 0.10);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 10px 18px;
+  text-align: center;
+}
+.s10-end .end-meta-item.warm {
+  background: rgba(251, 146, 60, 0.10);
+  border-color: var(--border-warm);
+}
+.s10-end .end-meta-item .v {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1.1;
+}
+.s10-end .end-meta-item.warm .v { color: var(--accent-soft); }
+.s10-end .end-meta-item .l {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  margin-top: 4px;
+  letter-spacing: 0.06em;
+}
+.s10-end .end-footer {
+  margin-top: 36px;
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.12em;
+  z-index: 2;
+}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="/slides.htm">← 回簡列表</a>
+
+<div class="presentation" id="presentation">
+
+  <!-- ============================ P1 封面（無/單）=========================== -->
+  <div class="slide s1-cover active" id="s1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <svg class="ai-emblem" width="540" height="540" viewBox="0 0 540 540" aria-hidden="true">
+      <defs>
+        <radialGradient id="aiGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(20,184,166,0.32)"/>
+          <stop offset="60%" stop-color="rgba(20,184,166,0.10)"/>
+          <stop offset="100%" stop-color="rgba(20,184,166,0)"/>
+        </radialGradient>
+      </defs>
+      <circle cx="270" cy="270" r="240" fill="url(#aiGlow)"/>
+      <!-- 神經網絡六角節點 -->
+      <polygon points="270,80 343,123 343,210 270,253 197,210 197,123" fill="none" stroke="rgba(20,184,166,0.55)" stroke-width="1.2"/>
+      <polygon points="270,287 343,330 343,417 270,460 197,417 197,330" fill="none" stroke="rgba(167,139,250,0.45)" stroke-width="1.2"/>
+      <line x1="270" y1="80" x2="270" y2="287" stroke="rgba(20,184,166,0.30)" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="343" y1="123" x2="343" y2="330" stroke="rgba(20,184,166,0.20)" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="197" y1="123" x2="197" y2="330" stroke="rgba(20,184,166,0.20)" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="343" y1="210" x2="343" y2="417" stroke="rgba(167,139,250,0.20)" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="197" y1="210" x2="197" y2="417" stroke="rgba(167,139,250,0.20)" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="270" y1="253" x2="270" y2="460" stroke="rgba(167,139,250,0.30)" stroke-width="1" stroke-dasharray="3 4"/>
+      <!-- 中心節點 -->
+      <circle cx="270" cy="270" r="14" fill="rgba(20,184,166,0.30)"/>
+      <circle cx="270" cy="270" r="6" fill="#5eead4"/>
+      <!-- 衛星節點 -->
+      <circle cx="270" cy="80" r="5" fill="#5eead4"/>
+      <circle cx="343" cy="123" r="4" fill="#fb923c"/>
+      <circle cx="343" cy="210" r="4" fill="#5eead4"/>
+      <circle cx="270" cy="253" r="4" fill="#5eead4"/>
+      <circle cx="197" cy="210" r="4" fill="#a78bfa"/>
+      <circle cx="197" cy="123" r="4" fill="#5eead4"/>
+      <circle cx="270" cy="287" r="4" fill="#a78bfa"/>
+      <circle cx="343" cy="330" r="4" fill="#a78bfa"/>
+      <circle cx="343" cy="417" r="4" fill="#a78bfa"/>
+      <circle cx="270" cy="460" r="5" fill="#c4b5fd"/>
+      <circle cx="197" cy="417" r="4" fill="#a78bfa"/>
+      <circle cx="197" cy="330" r="4" fill="#a78bfa"/>
+    </svg>
+    <div class="slide-content" style="align-items:center; justify-content:center;">
+      <span class="cover-eyebrow">GOVERNMENT · 2026.08.24 · MONDAY</span>
+      <h1>AI 數位治理 <span class="accent">2.0</span><br>走進地方政府的<span class="warm">服務前線</span></h1>
+      <p class="sub">當大型語言模型走進第一線櫃台，199 萬件陳情、43 項跨機關流程、22 個工作天壓縮到 4 天——這是 2026 年地方治理最值得記下的一場安靜革命。</p>
+      <div class="meta-row">
+        <div class="meta-pill">政府公務週報</div>
+        <div class="meta-pill warm">AI 數位治理</div>
+        <div class="meta-pill violet">服務前線</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P2 議程（方/網）=========================== -->
+  <div class="slide s2-toc" id="s2">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <div class="header">
+        <h2>本週議程</h2>
+        <span class="pill">AGENDA · 6 SECTIONS</span>
+      </div>
+      <p class="lead">從 199 萬件陳情案出發，回到基層櫃台的 8 小時班表，看 AI 如何把流程變薄、把決策變準、把公務員變得有時間做對的事。</p>
+      <div class="grid">
+        <div class="toc-card">
+          <div class="num">01</div>
+          <div class="lbl">願景與政策軸線</div>
+          <div class="desc">數位治理 2.0 的四大目標與 2026-2030 路徑圖</div>
+        </div>
+        <div class="toc-card warm">
+          <div class="num">02</div>
+          <div class="lbl">基層現況盤點</div>
+          <div class="desc">199 萬陳情、43 跨機關流程、22 工作天的真實數字</div>
+        </div>
+        <div class="toc-card violet">
+          <div class="num">03</div>
+          <div class="lbl">六大服務場景</div>
+          <div class="desc">戶政、社福、稅務、勞工、環保、緊急通報落地實例</div>
+        </div>
+        <div class="toc-card">
+          <div class="num">04</div>
+          <div class="lbl">三層技術堆疊</div>
+          <div class="desc">基層便民、地端 AI、安全治理三層協作架構</div>
+        </div>
+        <div class="toc-card warm">
+          <div class="num">05</div>
+          <div class="lbl">國際鏡像與治理</div>
+          <div class="desc">愛沙尼亞、新加坡、丹麥、台灣四國政策對照</div>
+        </div>
+        <div class="toc-card violet">
+          <div class="num">06</div>
+          <div class="lbl">90 天行動路線</div>
+          <div class="desc">四個階段落地與中央地方協作的起點</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P3 願景（線/水）=========================== -->
+  <div class="slide s3-vision" id="s3">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <div class="vision-head">
+        <span class="tag">VISION</span>
+        <h2>四大目標 × 一條 2030 路徑</h2>
+      </div>
+      <p class="lead">AI 數位治理 2.0 不是把流程數位化而已，而是讓公務員的時間回到服務本身——把重複交給機器，把判斷留給人。</p>
+      <div class="stream">
+        <div class="step">
+          <div class="num">STEP 01</div>
+          <div class="ti">便民提速</div>
+          <div class="body">戶政、社福、稅務平均等候時間砍半，預約到領件不超過 30 分鐘。</div>
+          <div class="metric"><span class="v">−52%</span><span class="u">等候時間</span></div>
+        </div>
+        <div class="step warm">
+          <div class="num">STEP 02</div>
+          <div class="ti">決策提準</div>
+          <div class="body">跨機關資料共享即時比對，福利誤核率降至 0.4% 以下，政策更貼近事實。</div>
+          <div class="metric"><span class="v">98.6%</span><span class="u">核發準確率</span></div>
+        </div>
+        <div class="step violet">
+          <div class="num">STEP 03</div>
+          <div class="ti">基層提效</div>
+          <div class="body">公文草稿、案件分流、民眾諮詢由 AI 協作，公務員每日騰出 90 分鐘做深度服務。</div>
+          <div class="metric"><span class="v">+90 min</span><span class="u">/ 人 / 日</span></div>
+        </div>
+        <div class="step">
+          <div class="num">STEP 04</div>
+          <div class="ti">治理提穩</div>
+          <div class="body">隱私、資安、可解釋性三層把關，讓 AI 決策有紀錄、有救濟、有問責。</div>
+          <div class="metric"><span class="v">100%</span><span class="u">可追溯決策</span></div>
+        </div>
+      </div>
+      <div class="bottom-note">
+        <div class="tag-mini">KEY</div>
+        <div class="body">這四個目標不是平行口號，而是一條 2030 路徑的階段錨點：2026 試點、2028 推廣、2030 普及。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P4 現況盤點（圓/垂）=========================== -->
+  <div class="slide s4-now" id="s4">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <div class="head-row">
+        <span class="tag-warm">NOW · 2026 BASELINE</span>
+        <h2>基層第一線的 4 個現實數字</h2>
+      </div>
+      <p class="lead">在擁抱 AI 之前，我們必須誠實面對基層真實的工作場景：199 萬件陳情、43 個跨機關流程、22 工作天、12,400 位滿載的公務員。</p>
+      <div class="kpi-stack">
+        <div class="kpi-row">
+          <svg class="donut" viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(20,184,166,0.18)" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#5eead4" stroke-width="3" stroke-dasharray="92 100" stroke-dashoffset="25" transform="rotate(-90 18 18)"/>
+            <text x="18" y="20" text-anchor="middle" class="pct">92%</text>
+          </svg>
+          <div class="info">
+            <div class="name">年度陳情案件總量</div>
+            <div class="desc">六都合計 199 萬件陳情，其中 71% 為重複或可自動分流案件。</div>
+          </div>
+          <div class="delta">↑ 較 2023 +38%</div>
+        </div>
+        <div class="kpi-row warm">
+          <svg class="donut" viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(251,146,60,0.18)" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#fdba74" stroke-width="3" stroke-dasharray="84 100" stroke-dashoffset="25" transform="rotate(-90 18 18)"/>
+            <text x="18" y="20" text-anchor="middle" class="pct">43</text>
+          </svg>
+          <div class="info">
+            <div class="name">跨機關流程數量</div>
+            <div class="desc">平均一張社福案件需串接戶政、稅務、勞保、衛福 4 個機關共 43 個流程節點。</div>
+          </div>
+          <div class="delta">↓ AI 簡化至 12 流程</div>
+        </div>
+        <div class="kpi-row violet">
+          <svg class="donut" viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(167,139,250,0.18)" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#c4b5fd" stroke-width="3" stroke-dasharray="76 100" stroke-dashoffset="25" transform="rotate(-90 18 18)"/>
+            <text x="18" y="20" text-anchor="middle" class="pct">22</text>
+          </svg>
+          <div class="info">
+            <div class="name">平均案件處理天數</div>
+            <div class="desc">從收件到結案現行 22 工作天，民眾滿意度僅 58%——是 AI 優先解決的痛點。</div>
+          </div>
+          <div class="delta">→ 目標 4 工作天</div>
+        </div>
+        <div class="kpi-row">
+          <svg class="donut" viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(20,184,166,0.18)" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#5eead4" stroke-width="3" stroke-dasharray="68 100" stroke-dashoffset="25" transform="rotate(-90 18 18)"/>
+            <text x="18" y="20" text-anchor="middle" class="pct">68%</text>
+          </svg>
+          <div class="info">
+            <div class="name">基層公務員滿載率</div>
+            <div class="desc">六都基層櫃台 12,400 位公務員自陳滿載率達 68%，加班常態化。</div>
+          </div>
+          <div class="delta">↓ AI 接管至 42%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P5 應用場景（六/散）=========================== -->
+  <div class="slide s5-scene" id="s5">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <div class="head-row">
+        <span class="tag">SCENES · 6 USE CASES</span>
+        <h2>六大落地場景：AI 在第一線做什麼</h2>
+      </div>
+      <p class="lead">這六個場景已於 2026 上半年完成 PoC，全部在六都基層實際運作至少 90 天，並通過 12 項可用性檢核。</p>
+      <div class="hex-grid">
+        <div class="hex-cell">
+          <div class="scene-num">SCENE 01</div>
+          <div class="ti">戶政智慧櫃台</div>
+          <div class="body">AI 預審文件、即時補件提醒，戶籍謄本申辦 8 分鐘內領件。</div>
+          <div class="stat"><span class="v">8 min</span><span class="u">平均領件時間</span></div>
+        </div>
+        <div class="hex-cell warm">
+          <div class="scene-num">SCENE 02</div>
+          <div class="ti">社福資格初判</div>
+          <div class="body">跨機關資料比對 + 風險分級，社會救助申請初判 24 小時內回覆。</div>
+          <div class="stat"><span class="v">24h</span><span class="u">初判回覆時間</span></div>
+        </div>
+        <div class="hex-cell violet">
+          <div class="scene-num">SCENE 03</div>
+          <div class="ti">稅務智慧客服</div>
+          <div class="body">所得、繳費、補單 12 類諮詢由 AI 全年無休，準確率 96.4%。</div>
+          <div class="stat"><span class="v">96.4%</span><span class="u">回覆準確率</span></div>
+        </div>
+        <div class="hex-cell">
+          <div class="scene-num">SCENE 04</div>
+          <div class="ti">勞工權益快篩</div>
+          <div class="body">勞資爭議、加班費計算、資遣通報 AI 一鍵試算，30 秒出建議。</div>
+          <div class="stat"><span class="v">30s</span><span class="u">試算時間</span></div>
+        </div>
+        <div class="hex-cell warm">
+          <div class="scene-num">SCENE 05</div>
+          <div class="ti">環保陳情分流</div>
+          <div class="body">空污、噪音、廢棄物陳情照片 AI 分流至對應稽查分隊。</div>
+          <div class="stat"><span class="v">−63%</span><span class="u">誤派率</span></div>
+        </div>
+        <div class="hex-cell violet">
+          <div class="scene-num">SCENE 06</div>
+          <div class="ti">緊急通報預警</div>
+          <div class="body">長者獨居、火警訊號、社區異常事件 AI 即時分級通報 119/110/社工。</div>
+          <div class="stat"><span class="v">8s</span><span class="u">分級時間</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P6 三層架構（特/垂）=========================== -->
+  <div class="slide s6-stack" id="s6">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <div class="head-row">
+        <span class="tag-violet">ARCHITECTURE</span>
+        <h2>三層堆疊：基層便民 × 地端 AI × 安全治理</h2>
+      </div>
+      <p class="lead">AI 不是單點工具，而是三層協作架構：基層便民層接收、地端 AI 層運算、治理層把關——任何決策都有紀錄、有問責。</p>
+      <div class="layer-stack">
+        <div class="layer">
+          <div class="badge">L1</div>
+          <div class="info">
+            <div class="name">基層便民層 · Citizen Frontline</div>
+            <div class="desc">智慧櫃台、自助機、LINE 公務帳號、1999 升級版——讓民眾從家裡到櫃台都能與 AI 對話，並保留真人升級選項。</div>
+            <div class="stat-pills">
+              <span class="pill-mini">78 處智慧櫃台</span>
+              <span class="pill-mini">1999 升級 2.0</span>
+              <span class="pill-mini">多模態互動</span>
+            </div>
+          </div>
+        </div>
+        <div class="layer warm">
+          <div class="badge">L2</div>
+          <div class="info">
+            <div class="name">地端 AI 層 · On-Premise Intelligence</div>
+            <div class="desc">公文生成、案件分流、文件預審、語音轉文字——所有資料不離開機關，符合個資法與資安等級 B 規範。</div>
+            <div class="stat-pills">
+              <span class="pill-mini">地端部署</span>
+              <span class="pill-mini">個資不出機關</span>
+              <span class="pill-mini">3 模型並行</span>
+            </div>
+          </div>
+        </div>
+        <div class="layer violet">
+          <div class="badge">L3</div>
+          <div class="info">
+            <div class="name">治理把關層 · Trust & Audit</div>
+            <div class="desc">可解釋性日誌、偏誤檢測、申訴救濟通道、人為複核抽樣 8%——AI 決策全程可追溯、可救濟、可問責。</div>
+            <div class="stat-pills">
+              <span class="pill-mini">100% 可追溯</span>
+              <span class="pill-mini">8% 人為抽核</span>
+              <span class="pill-mini">申訴 14 日回覆</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P7 治理框架（方/水）=========================== -->
+  <div class="slide s7-govern" id="s7">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <div class="head-row">
+        <span class="tag">GOVERNANCE</span>
+        <h2>五階段治理框架：讓 AI 決策有程序</h2>
+      </div>
+      <p class="lead">從受理到救濟，每一個 AI 決策都經過五階段治理框架——這不是流程圖，是法律保障的可追溯鏈。</p>
+      <div class="govern-flow">
+        <div class="g-step">
+          <div class="ti">STEP 1</div>
+          <div class="nm">受理分流</div>
+          <div class="desc">民眾陳情或案件進入系統，由 AI 分類為自動處理 / 人工處理 / 跨機關協作三類。</div>
+        </div>
+        <div class="connector"></div>
+        <div class="g-step warm">
+          <div class="ti">STEP 2</div>
+          <div class="nm">地端推理</div>
+          <div class="desc">模型於機關地端運算，輸出決策建議 + 信心分數 + 引用的法條與先例。</div>
+        </div>
+        <div class="connector"></div>
+        <div class="g-step violet">
+          <div class="ti">STEP 3</div>
+          <div class="nm">可解釋性</div>
+          <div class="desc">每個決策附上可解釋性報告，列出主要變數、權重、影響方向，公開給當事人。</div>
+        </div>
+        <div class="connector"></div>
+        <div class="g-step">
+          <div class="ti">STEP 4</div>
+          <div class="nm">抽核複審</div>
+          <div class="desc">系統抽核 8% 案件由資深公務員複審，並比對 AI 與人類決策的一致率（目標 96%）。</div>
+        </div>
+        <div class="connector"></div>
+        <div class="g-step warm">
+          <div class="ti">STEP 5</div>
+          <div class="nm">申訴救濟</div>
+          <div class="desc">當事人對 AI 決策不服可在 14 日內提起申訴，由獨立審議小組 21 日內作成決議。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P8 國際比較（圓/網）=========================== -->
+  <div class="slide s8-compare" id="s8">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <div class="head-row">
+        <span class="tag-warm">COMPARE · 4 COUNTRIES</span>
+        <h2>四國鏡像：愛沙尼亞 × 新加坡 × 丹麥 × 台灣</h2>
+      </div>
+      <p class="lead">同樣以小型政府導入 AI 數位治理為目標，四個國家走出四條不同的路徑——台灣的「地端 + 治理」組合是相對獨特的混合路徑。</p>
+      <div class="compare-grid">
+        <div class="country">
+          <div class="flag">ESTONIA · X-ROAD</div>
+          <div class="name">愛沙尼亞：X-Road 跨機關骨幹</div>
+          <div class="body">1990 年代起建 X-Road 跨機關資料骨幹，所有公務以數位原生為前提，99% 服務可在線完成。</div>
+          <div class="stat-row">
+            <div class="stat-cell"><div class="v">99%</div><div class="l">服務線上化</div></div>
+            <div class="stat-cell"><div class="v">2001</div><div class="l">資料骨幹年</div></div>
+            <div class="stat-cell"><div class="v">X-Road</div><div class="l">底層架構</div></div>
+          </div>
+        </div>
+        <div class="country">
+          <div class="flag">SINGAPORE · SMART NATION</div>
+          <div class="name">新加坡：智慧國 2.0 全面雲端</div>
+          <div class="body">以雲端優先為核心，AI 客服「Ask Jamie」處理 70% 民眾諮詢，並導入預測性政策模擬。</div>
+          <div class="stat-row">
+            <div class="stat-cell"><div class="v">70%</div><div class="l">AI 客服承載</div></div>
+            <div class="stat-cell"><div class="v">2014</div><div class="l">智慧國啟動</div></div>
+            <div class="stat-cell"><div class="v">雲端優先</div><div class="l">架構策略</div></div>
+          </div>
+        </div>
+        <div class="country">
+          <div class="flag">DENMARK · BORGER.DK</div>
+          <div class="name">丹麥：公民入口 + 透明優先</div>
+          <div class="body">Borger.dk 統一入口整合所有公務服務，重視透明與可救濟機制，AI 採漸進式導入。</div>
+          <div class="stat-row">
+            <div class="stat-cell"><div class="v">2003</div><div class="l">入口啟用年</div></div>
+            <div class="stat-cell"><div class="v">82%</div><div class="l">使用率</div></div>
+            <div class="stat-cell"><div class="v">透明優先</div><div class="l">治理策略</div></div>
+          </div>
+        </div>
+        <div class="country local">
+          <div class="flag">TAIWAN · AI GOV 2.0</div>
+          <div class="name">台灣：地端 AI + 治理並重</div>
+          <div class="body">選擇地端 AI + 治理把關的混合路徑，兼顧個資保護、民眾信任與第一線效率。</div>
+          <div class="stat-row">
+            <div class="stat-cell"><div class="v">2026</div><div class="l">2.0 啟動年</div></div>
+            <div class="stat-cell"><div class="v">地端</div><div class="l">部署策略</div></div>
+            <div class="stat-cell"><div class="v">治理並重</div><div class="l">核心定位</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="takeaway">
+        <div class="lbl">KEY</div>
+        <div class="txt">台灣的差異化策略：地端 AI 部署（個資不出機關）+ 治理層強制抽核（8% 人為複審）——這是愛沙尼亞、新加坡、丹麥都尚未同時落地的雙保險，是 AI Gov 2.0 真正的護城河。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P9 行動路線（線/水）=========================== -->
+  <div class="slide s9-action" id="s9">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <div class="head-row">
+        <span class="tag-violet">ROADMAP · 90 DAYS</span>
+        <h2>四階段 × 90 天落地行動路線</h2>
+      </div>
+      <p class="lead">從現在起到 2026 年底，每 90 天一個里程碑——這不是承諾而是時程表，每一個交付都有可量測的指標。</p>
+      <div class="action-flow">
+        <div class="a-step">
+          <div class="step">PHASE 1</div>
+          <div class="ti">基層試點</div>
+          <div class="body">六都各選 2 區試點，戶政與社福優先導入 PoC。</div>
+          <div class="when">Q3 2026 · 90 天</div>
+        </div>
+        <div class="a-step warm">
+          <div class="step">PHASE 2</div>
+          <div class="ti">治理框架</div>
+          <div class="body">三層架構落地，可解釋性日誌與抽核小組同步建置。</div>
+          <div class="when">Q4 2026 · 90 天</div>
+        </div>
+        <div class="a-step violet">
+          <div class="step">PHASE 3</div>
+          <div class="ti">規模推廣</div>
+          <div class="body">六都全區導入，並擴展至 8 個縣市，覆蓋率達 70%。</div>
+          <div class="when">Q1 2027 · 90 天</div>
+        </div>
+        <div class="a-step">
+          <div class="step">PHASE 4</div>
+          <div class="ti">中央地方協作</div>
+          <div class="body">中央部會 API 串接完成，地端治理框架成為全國標準。</div>
+          <div class="when">Q2 2027 · 90 天</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ P10 結尾（無/單）=========================== -->
+  <div class="slide cover s10-end" id="s10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <svg style="position:absolute; top:50%; left:50%; transform: translate(-50%,-50%); z-index:0; pointer-events:none;" width="600" height="600" viewBox="0 0 600 600">
+      <circle cx="300" cy="300" r="290" fill="none" stroke="rgba(20,184,166,0.10)" stroke-width="1.2"/>
+      <circle cx="300" cy="300" r="230" fill="none" stroke="rgba(20,184,166,0.14)" stroke-width="1.2" stroke-dasharray="3 5"/>
+      <circle cx="300" cy="300" r="170" fill="none" stroke="rgba(167,139,250,0.18)" stroke-width="1.2"/>
+      <circle cx="300" cy="300" r="110" fill="none" stroke="rgba(251,146,60,0.18)" stroke-width="1.2" stroke-dasharray="2 4"/>
+    </svg>
+    <div class="end-eyebrow">FINAL · 2026.08.24 · MONDAY</div>
+    <h2 class="end-title">把<span class="accent">重複的事</span>交給機器，<br>讓公務員的時間，<br>回到<span class="warm">人</span>身上</h2>
+    <p class="end-sub">AI 數位治理 2.0 不是把公務員換成 AI，而是讓 AI 成為公務員最有耐心的同事——把 199 萬件陳情、43 個流程、22 工作天，壓回 4 天、12 流程、199 萬件背後真正值得被看見的那個人。</p>
+    <div class="end-meta">
+      <div class="end-meta-item"><div class="v">4 大</div><div class="l">願景目標</div></div>
+      <div class="end-meta-item warm"><div class="v">6 場景</div><div class="l">已落地</div></div>
+      <div class="end-meta-item"><div class="v">3 層</div><div class="l">技術堆疊</div></div>
+      <div class="end-meta-item warm"><div class="v">5 階段</div><div class="l">治理框架</div></div>
+      <div class="end-meta-item"><div class="v">90 天</div><div class="l">行動路線</div></div>
+    </div>
+    <div class="end-footer">AI 數位治理 2.0 · 2026 年 8 月 24 日 · 政府公務週報</div>
+  </div>
+
+  <!-- Nav -->
+  <div class="nav">
+    <button onclick="prev()" id="btn-prev">◀</button>
+    <span id="page-info">1 / 10</span>
+    <button onclick="next()" id="btn-next">▶</button>
+  </div>
+</div>
+
+<script>
+var slides = document.querySelectorAll('.slide');
+var current = 0;
+
+function show() {
+  if (slides[current]) {
+    slides[current].classList.remove('active');
+  }
+  current = (current + slides.length) % slides.length;
+  if (slides[current]) {
+    slides[current].classList.add('active');
+  }
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+  document.getElementById('btn-prev').disabled = false;
+  document.getElementById('btn-next').disabled = false;
+}
+function next() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current + 1) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+function prev() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current - 1 + slides.length) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') next();
+  else if (e.key === 'ArrowLeft') prev();
+});
+
+// 初始化：確保 slide-1 有 active class
+if (slides[0] && !slides[0].classList.contains('active')) {
+  slides[0].classList.add('active');
+}
+</script>
+</body>
+</html>
