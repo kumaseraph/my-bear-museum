@@ -1353,27 +1353,35 @@ h3 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 6px; color: var(--primar
 <script>
 let current = 0;
 const total = 10;
-const slides = document.querySelectorAll('.slide');
+let slides = [];
 
 function show() {
   if (slides[current]) {
     slides[current].classList.remove('active');
   }
   current = Math.max(0, Math.min(total - 1, current));
-  slides[current].classList.add('active');
-  document.getElementById('nav-text').textContent = (current + 1) + ' / ' + total;
-  document.getElementById('prev-btn').disabled = current === 0;
-  document.getElementById('next-btn').disabled = current === total - 1;
+  if (slides[current]) {
+    slides[current].classList.add('active');
+  }
+  var navText = document.getElementById('nav-text');
+  if (navText) navText.textContent = (current + 1) + ' / ' + total;
+  var prevBtn = document.getElementById('prev-btn');
+  var nextBtn = document.getElementById('next-btn');
+  if (prevBtn) prevBtn.disabled = current === 0;
+  if (nextBtn) nextBtn.disabled = current === total - 1;
 }
 
 function next() {
   if (current < total - 1) {
     if (slides[current]) slides[current].classList.remove('active');
     current++;
-    slides[current].classList.add('active');
-    document.getElementById('nav-text').textContent = (current + 1) + ' / ' + total;
-    document.getElementById('prev-btn').disabled = current === 0;
-    document.getElementById('next-btn').disabled = current === total - 1;
+    if (slides[current]) slides[current].classList.add('active');
+    var navText = document.getElementById('nav-text');
+    if (navText) navText.textContent = (current + 1) + ' / ' + total;
+    var prevBtn = document.getElementById('prev-btn');
+    var nextBtn = document.getElementById('next-btn');
+    if (prevBtn) prevBtn.disabled = current === 0;
+    if (nextBtn) nextBtn.disabled = current === total - 1;
   }
 }
 
@@ -1381,10 +1389,13 @@ function prev() {
   if (current > 0) {
     if (slides[current]) slides[current].classList.remove('active');
     current--;
-    slides[current].classList.add('active');
-    document.getElementById('nav-text').textContent = (current + 1) + ' / ' + total;
-    document.getElementById('prev-btn').disabled = current === 0;
-    document.getElementById('next-btn').disabled = current === total - 1;
+    if (slides[current]) slides[current].classList.add('active');
+    var navText = document.getElementById('nav-text');
+    if (navText) navText.textContent = (current + 1) + ' / ' + total;
+    var prevBtn = document.getElementById('prev-btn');
+    var nextBtn = document.getElementById('next-btn');
+    if (prevBtn) prevBtn.disabled = current === 0;
+    if (nextBtn) nextBtn.disabled = current === total - 1;
   }
 }
 
@@ -1394,7 +1405,16 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') prev();
 });
 
-show();
+function init() {
+  slides = document.querySelectorAll('.slide');
+  show();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 
 </body>
