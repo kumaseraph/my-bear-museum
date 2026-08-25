@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 量子奇點年：當 NISQ 退場、實用量子優勢登場｜2026-08-25 科技學術</title>
+<style>
+/* ============================================================
+   配色：C1 深紫夜幕（Deep Purple Cosmos）— 科技學術專屬
+   主題：2026 量子奇點年 — NISQ 退場與實用量子優勢的關鍵十年
+   ============================================================ */
+:root {
+  --bg-deep:        #0d0820;
+  --bg-mid:         #1a0f3a;
+  --bg-card:        rgba(40, 24, 80, 0.55);
+  --primary:        #8b5cf6;
+  --primary-soft:   #c4b5fd;
+  --primary-deep:   #5b21b6;
+  --accent:         #06d6f9;
+  --accent-soft:    #67e8f9;
+  --accent-deep:    #0e7490;
+  --magenta:        #f472b6;
+  --gold:           #fbbf24;
+  --ink:            #f5f3ff;
+  --ink-soft:       #e9e4ff;
+  --ink-mute:       #c4b5fd;
+  --ink-dim:        #a78bfa;
+  --border-cool:    rgba(139, 92, 246, 0.40);
+  --border-warm:    rgba(6, 214, 249, 0.45);
+  --glow-cool:      0 0 28px rgba(139, 92, 246, 0.35);
+  --glow-warm:      0 0 24px rgba(6, 214, 249, 0.30);
+}
+
+html { font-size: 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0d0820;
+  color: var(--ink-soft);
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 80% 15%, rgba(139, 92, 246, 0.20) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(6, 214, 249, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(244, 114, 182, 0.10) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+  border-radius: 12px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 64px 56px 80px;
+  color: var(--ink-soft);
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+.slide * { line-height: 1.5; }
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 320px; height: 320px; background: rgba(139, 92, 246, 0.25); top: -100px; right: -100px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(6, 214, 249, 0.18); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 220px; height: 220px; background: rgba(244, 114, 182, 0.18); top: 50%; left: 60%; }
+
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.tag {
+  display: inline-block;
+  background: rgba(139, 92, 246, 0.18);
+  color: var(--primary-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-cool);
+}
+.tag-cool {
+  display: inline-block;
+  background: rgba(6, 214, 249, 0.18);
+  color: var(--accent-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-warm);
+}
+
+h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.18; margin: 8px 0 14px; color: #ffffff; }
+h2 { font-size: 1.6rem; font-weight: 700; margin: 4px 0 12px; color: #ffffff; line-height: 1.25; }
+h3 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 6px; color: var(--primary-soft); }
+.lead { font-size: 1.1rem; color: var(--ink-mute); line-height: 1.55; margin: 6px 0 14px; }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--glow-cool);
+}
+.card-cool {
+  background: rgba(6, 214, 249, 0.08);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+/* === Nav === */
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+  background: rgba(13, 8, 32, 0.85);
+  padding: 6px 12px;
+  border-radius: 24px;
+  border: 1px solid var(--border-cool);
+}
+.nav button {
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid var(--border-cool);
+  color: var(--ink);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav button:hover { background: rgba(139, 92, 246, 0.35); }
+.nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+.nav span { font-size: 1rem; color: var(--ink-mute); min-width: 56px; text-align: center; }
+
+.back-link {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  z-index: 50;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  text-decoration: none;
+  background: rgba(13, 8, 32, 0.7);
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border-cool);
+}
+.back-link:hover { color: var(--primary-soft); }
+
+/* ============================================================
+   P1 封面（圓/單）— 大圓環 + 中心標題
+   ============================================================ */
+.s1-cover {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .cover-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.s1-cover h1 {
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.18;
+  margin: 0;
+  z-index: 2;
+}
+.s1-cover h1 .accent { color: var(--accent-soft); }
+.s1-cover h1 .accent2 { color: var(--magenta); }
+.s1-cover .sub {
+  font-size: 1.2rem;
+  color: var(--ink-mute);
+  margin-top: 18px;
+  max-width: 760px;
+  z-index: 2;
+}
+.s1-cover .big-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+.s1-cover .ring-stat {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.s1-cover .ring-stat .num {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  line-height: 1;
+}
+.s1-cover .ring-stat .lbl {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.06em;
+  background: rgba(13, 8, 32, 0.85);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-cool);
+}
+.s1-cover .ring-stat.top-l { top: 290px; left: 24px; }
+.s1-cover .ring-stat.top-r { top: 290px; right: 24px; }
+.s1-cover .ring-stat.bot-l { top: 430px; left: 100px; }
+.s1-cover .ring-stat.bot-r { top: 430px; right: 100px; }
+
+/* ============================================================
+   P2 議程（方/網）— 6 格議程卡
+   ============================================================ */
+.s2-toc .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.s2-toc h2 {
+  font-size: 2.2rem;
+  margin: 0;
+}
+.s2-toc .header .pill {
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.s2-toc .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+  align-content: center;
+}
+.s2-toc .toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--glow-cool);
+}
+.s2-toc .toc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+}
+.s2-toc .toc-card .num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  line-height: 1;
+}
+.s2-toc .toc-card .lbl {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 6px;
+}
+.s2-toc .toc-card .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   P3 量子硬體時間軸（線/水）— 6 個關鍵時點
+   ============================================================ */
+.s3-timeline .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.s3-timeline h2 { font-size: 2.0rem; margin: 0; }
+.s3-timeline .header .pill {
+  background: rgba(6, 214, 249, 0.15);
+  color: var(--accent-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.s3-timeline .timeline-h {
+  flex: 0.7;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  padding: 8px 0;
+  position: relative;
+}
+.s3-timeline .timeline-desc {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  padding: 12px 0;
+  align-content: start;
+}
+.s3-timeline .timeline-desc .desc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.s3-timeline .timeline-desc .desc-card.peak {
+  border-color: var(--border-warm);
+  background: rgba(6, 214, 249, 0.08);
+}
+.s3-timeline .timeline-desc .lbl {
+  font-size: 1rem;
+  color: var(--accent-soft);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+.s3-timeline .timeline-desc .txt {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+.s3-timeline .tl-step {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.s3-timeline .tl-step .yr {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  letter-spacing: 0.05em;
+}
+.s3-timeline .tl-step .ev {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+}
+.s3-timeline .tl-step .stat {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+  margin-top: 4px;
+}
+.s3-timeline .tl-step.peak {
+  background: rgba(6, 214, 249, 0.12);
+  border-color: var(--border-warm);
+  box-shadow: var(--glow-warm);
+}
+.s3-timeline .tl-step.peak .yr { color: var(--magenta); }
+.s3-timeline .tl-dot {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.7);
+  border: 3px solid var(--bg-deep);
+}
+.s3-timeline .tl-step.peak .tl-dot { background: var(--accent); box-shadow: 0 0 12px rgba(6, 214, 249, 0.7); }
+
+/* ============================================================
+   P4 量子位元蜂巢（六/散）— 7 個硬體平台
+   ============================================================ */
+.s4-platforms .header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.s4-platforms .header h2 { font-size: 2.0rem; margin: 0; }
+.s4-platforms .header .sub { font-size: 1.05rem; color: var(--ink-mute); margin-top: 6px; }
+.s4-platforms .hex-scatter {
+  flex: 1;
+  position: relative;
+}
+.s4-platforms .hex {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--bg-card);
+  border: 2px solid var(--border-cool);
+  box-shadow: var(--glow-cool);
+}
+.s4-platforms .hex.cool {
+  border-color: var(--border-warm);
+  box-shadow: var(--glow-warm);
+  background: rgba(6, 214, 249, 0.10);
+}
+.s4-platforms .hex.warm {
+  border-color: var(--magenta);
+  background: rgba(244, 114, 182, 0.10);
+  box-shadow: 0 0 24px rgba(244, 114, 182, 0.30);
+}
+.s4-platforms .hex .name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+}
+.s4-platforms .hex .num {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  margin-top: 4px;
+}
+.s4-platforms .hex.cool .num { color: var(--magenta); }
+.s4-platforms .hex.warm .num { color: var(--gold); }
+
+/* ============================================================
+   P5 量子糾纏視覺（特/垂）— 中心原子 + 三股糾纏線
+   ============================================================ */
+.s5-entangle .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.s5-entangle h2 { font-size: 2.0rem; margin: 0; }
+.s5-entangle .entangle-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 8px 0;
+}
+.s5-entangle .atom-wrap {
+  width: 280px;
+  height: 280px;
+  flex-shrink: 0;
+  position: relative;
+}
+.s5-entangle .atom-core {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 64px; height: 64px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0%, var(--primary) 60%, var(--bg-deep) 100%);
+  box-shadow: 0 0 32px rgba(6, 214, 249, 0.6), 0 0 60px rgba(139, 92, 246, 0.4);
+}
+.s5-entangle .atom-orbit {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(196, 181, 253, 0.40);
+}
+.s5-entangle .atom-orbit::before {
+  content: '';
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--magenta);
+  box-shadow: 0 0 12px var(--magenta);
+  top: -7px; left: 50%;
+  transform: translateX(-50%);
+}
+.s5-entangle .entangle-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.s5-entangle .info-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+}
+.s5-entangle .info-row .v {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  min-width: 130px;
+  line-height: 1;
+}
+.s5-entangle .info-row .lbl {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P6 量子糾錯同心圓（圓/網）— 容錯目標
+   ============================================================ */
+.s6-error .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.s6-error h2 { font-size: 2.0rem; margin: 0; }
+.s6-error .header .sub { font-size: 1.05rem; color: var(--ink-mute); margin-top: 4px; }
+.s6-error .center-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 8px 0;
+}
+.s6-error .donut-wrap {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  flex-shrink: 0;
+}
+.s6-error .donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+}
+.s6-error .donut-center .yr {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  line-height: 1;
+}
+.s6-error .donut-center .goal {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  margin-top: 6px;
+  letter-spacing: 0.1em;
+}
+.s6-error .vision-stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.s6-error .vision-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+}
+.s6-error .vision-row .v {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  min-width: 130px;
+  line-height: 1;
+}
+.s6-error .vision-row .v.cool { color: var(--magenta); }
+.s6-error .vision-row .lbl {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P7 五大演算法（方/水）— 4 橫排卡片
+   ============================================================ */
+.s7-algo .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.s7-algo h2 { font-size: 2.0rem; margin: 0; }
+.s7-algo .header .sub { font-size: 1.05rem; color: var(--ink-mute); }
+.s7-algo .algo-row {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  align-content: stretch;
+  padding: 20px 0;
+}
+.s7-algo .algo-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.s7-algo .algo-card .name {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+.s7-algo .algo-card .role {
+  font-size: 1rem;
+  color: var(--accent-soft);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.s7-algo .algo-card .big {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--magenta);
+  line-height: 1;
+  margin-top: 4px;
+}
+.s7-algo .algo-card .big .unit {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink-dim);
+  margin-left: 4px;
+}
+.s7-algo .algo-card .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+  margin-top: 4px;
+}
+.s7-algo .algo-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+/* ============================================================
+   P8 量子雲端廠商（線/垂）— 5 大平台
+   ============================================================ */
+.s8-cloud .header { margin-bottom: 18px; }
+.s8-cloud h2 { font-size: 2.0rem; margin: 0; }
+.s8-cloud .header .sub { font-size: 1.05rem; color: var(--ink-mute); margin-top: 4px; }
+.s8-cloud .process-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  padding: 4px 0 4px 56px;
+  margin-top: 4px;
+}
+.s8-cloud .process-stage::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 6px; bottom: 6px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: 2px;
+}
+.s8-cloud .p-item {
+  position: relative;
+  padding: 8px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.s8-cloud .p-item::before {
+  content: '';
+  position: absolute;
+  left: -42px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+  border: 3px solid var(--bg-deep);
+}
+.s8-cloud .p-item.peak::before {
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(6, 214, 249, 0.6);
+}
+.s8-cloud .p-item .step {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  letter-spacing: 0.08em;
+  min-width: 70px;
+}
+.s8-cloud .p-item.peak .step { color: var(--magenta); }
+.s8-cloud .p-item .name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  flex: 1;
+}
+.s8-cloud .p-item .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+  flex: 1.4;
+}
+
+/* ============================================================
+   P9 應用領域（六/散）— 7 個六邊形產業
+   ============================================================ */
+.s9-app .header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.s9-app .header h2 { font-size: 2.0rem; margin: 0; }
+.s9-app .header .sub { font-size: 1.05rem; color: var(--ink-mute); margin-top: 6px; }
+.s9-app .hex-scatter {
+  flex: 1;
+  position: relative;
+}
+.s9-app .hex {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--bg-card);
+  border: 2px solid var(--border-cool);
+  box-shadow: var(--glow-cool);
+}
+.s9-app .hex.cool {
+  border-color: var(--border-warm);
+  box-shadow: var(--glow-warm);
+  background: rgba(6, 214, 249, 0.10);
+}
+.s9-app .hex.warm {
+  border-color: var(--magenta);
+  background: rgba(244, 114, 182, 0.10);
+  box-shadow: 0 0 24px rgba(244, 114, 182, 0.30);
+}
+.s9-app .hex .name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+}
+.s9-app .hex .num {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  margin-top: 4px;
+}
+.s9-app .hex.cool .num { color: var(--magenta); }
+.s9-app .hex.warm .num { color: var(--gold); }
+
+/* ============================================================
+   P10 結尾（圓/單）— 量子未來展望
+   ============================================================ */
+.s10-end {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.s10-end h2 {
+  font-size: clamp(2.0rem, 4vw, 3.0rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.25;
+  z-index: 2;
+}
+.s10-end h2 .accent { color: var(--accent-soft); }
+.s10-end .end-body {
+  font-size: 1.2rem;
+  color: var(--ink-mute);
+  margin-top: 18px;
+  max-width: 720px;
+  z-index: 2;
+}
+.s10-end .cta {
+  margin-top: 24px;
+  display: flex;
+  gap: 14px;
+  z-index: 2;
+}
+.s10-end .cta-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+  box-shadow: var(--glow-cool);
+  cursor: pointer;
+}
+.s10-end .cta-btn.alt {
+  background: transparent;
+  border: 2px solid var(--border-cool);
+  box-shadow: none;
+}
+.s10-end .ring-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+.s10-end .end-stat {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.s10-end .end-stat .num {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--magenta);
+  line-height: 1;
+}
+.s10-end .end-stat .lbl {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.05em;
+  background: rgba(13, 8, 32, 0.85);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-cool);
+}
+.s10-end .end-stat.top-l { bottom: 90px; left: 30px; }
+.s10-end .end-stat.top-r { bottom: 90px; right: 30px; }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+<a class="back-link" href="/slides.htm">← 回到列表</a>
+
+<!-- ============== P1 封面（圓/單） ============== -->
+<section id="slide-1" class="slide s1-cover active">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="cover-eyebrow">2026 · 量子奇點年 · 科技學術專題</div>
+    <h1>當 <span class="accent">NISQ</span> 退場——<br>實用<span class="accent2">量子優勢</span>正式登場</h1>
+    <p class="sub">從 IBM Heron R3 1,121 qubit 到 Google Willow v3——2026 三大硬體突破、容錯閾值達標、商業雲端開放，量子運算正式跨越「實驗室神話」門檻</p>
+
+    <svg class="big-ring" width="520" height="520" viewBox="0 0 520 520">
+      <circle cx="260" cy="260" r="240" fill="none" stroke="#8b5cf6" stroke-width="1.5" opacity="0.35"/>
+      <circle cx="260" cy="260" r="200" fill="none" stroke="#06d6f9" stroke-width="1.5" opacity="0.30" stroke-dasharray="8,6"/>
+      <circle cx="260" cy="260" r="160" fill="none" stroke="#f472b6" stroke-width="1.5" opacity="0.25"/>
+      <circle cx="260" cy="260" r="120" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.5"/>
+    </svg>
+
+    <div class="ring-stat top-l">
+      <span class="num">1,121</span>
+      <span class="lbl">IBM Heron R3 qubit</span>
+    </div>
+    <div class="ring-stat top-r">
+      <span class="num">99.7%</span>
+      <span class="lbl">雙量子位元閘保真度</span>
+    </div>
+    <div class="ring-stat bot-l">
+      <span class="num">$12.6B</span>
+      <span class="lbl">2026 量子產業投資</span>
+    </div>
+    <div class="ring-stat bot-r">
+      <span class="num">2030</span>
+      <span class="lbl">容錯實用化時程</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P2 議程（方/網） ============== -->
+<section id="slide-2" class="slide s2-toc">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>議程大綱</h2>
+      <span class="pill">6 大主題 · 從硬體到產業</span>
+    </div>
+    <div class="grid">
+      <div class="toc-card">
+        <div class="num">01</div>
+        <div class="lbl">NISQ 時代落幕</div>
+        <div class="desc">從 50 qubit 玩具到 1,000+ qubit 工程系統的十年</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">02</div>
+        <div class="lbl">七大硬體平台</div>
+        <div class="desc">超導、離子阱、光量子、中性原子、半導體⋯⋯</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">03</div>
+        <div class="lbl">量子糾纏</div>
+        <div class="desc">從 EPR 詭論到 1,200 公里量子互聯網</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">04</div>
+        <div class="lbl">容錯量子計算</div>
+        <div class="desc">表面碼、表面碼、表面碼——糾錯閾值首次達標</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">05</div>
+        <div class="lbl">五大量子演算法</div>
+        <div class="desc">Shor、Grover、HHL、VQE、QAOA 的工程落地</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">06</div>
+        <div class="lbl">七大應用領域</div>
+        <div class="desc">藥物、金融、材料、密碼、能源、交通、氣象</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P3 NISQ 時間軸（線/水） ============== -->
+<section id="slide-3" class="slide s3-timeline">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>量子硬體的關鍵十年</h2>
+      <span class="pill">qubit 數 × 保真度 × 退相干</span>
+    </div>
+    <div class="timeline-h">
+      <div class="tl-step">
+        <span class="tl-dot"></span>
+        <div class="yr">2016</div>
+        <div class="ev">IBM 雲端開放</div>
+        <div class="stat">5 qubit</div>
+      </div>
+      <div class="tl-step">
+        <span class="tl-dot"></span>
+        <div class="yr">2019</div>
+        <div class="ev">量子霸權</div>
+        <div class="stat">53 qubit Sycamore</div>
+      </div>
+      <div class="tl-step">
+        <span class="tl-dot"></span>
+        <div class="yr">2021</div>
+        <div class="ev">NISQ 高峰</div>
+        <div class="stat">127 qubit Eagle</div>
+      </div>
+      <div class="tl-step">
+        <span class="tl-dot"></span>
+        <div class="yr">2024</div>
+        <div class="ev">Willow 突破</div>
+        <div class="stat">105 qubit + 糾錯閾值</div>
+      </div>
+      <div class="tl-step peak">
+        <span class="tl-dot"></span>
+        <div class="yr">2026</div>
+        <div class="ev">Heron R3 量產</div>
+        <div class="stat">1,121 qubit</div>
+      </div>
+      <div class="tl-step">
+        <span class="tl-dot"></span>
+        <div class="yr">2030E</div>
+        <div class="ev">容錯實用</div>
+        <div class="stat">10,000+ 邏輯 qubit</div>
+      </div>
+    </div>
+    <div class="timeline-desc">
+      <div class="desc-card">
+        <div class="lbl">代表事件</div>
+        <div class="txt">IBM Q Experience 線上</div>
+      </div>
+      <div class="desc-card">
+        <div class="lbl">代表事件</div>
+        <div class="txt">Google 量子霸權論文</div>
+      </div>
+      <div class="desc-card">
+        <div class="lbl">代表事件</div>
+        <div class="txt">IBM Eagle 首批 100+ qubit</div>
+      </div>
+      <div class="desc-card">
+        <div class="lbl">代表事件</div>
+        <div class="txt">Willow 首達糾錯閾值</div>
+      </div>
+      <div class="desc-card peak">
+        <div class="lbl">代表事件</div>
+        <div class="txt">Heron R3 量產 + 雲端商業化</div>
+      </div>
+      <div class="desc-card">
+        <div class="lbl">代表事件</div>
+        <div class="txt">10⁶ 物理 qubit 容錯架構</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P4 七大硬體平台（六/散） ============== -->
+<section id="slide-4" class="slide s4-platforms">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>七大量子硬體平台 2026 戰況</h2>
+      <div class="sub">每一條路線都在角逐「萬 qubit 量產」的聖杯</div>
+    </div>
+    <div class="hex-scatter">
+      <div class="hex" style="width:130px;height:150px;top:20px;left:60px;">
+        <div class="name">超導</div>
+        <div class="num">1,121</div>
+      </div>
+      <div class="hex cool" style="width:130px;height:150px;top:20px;left:230px;">
+        <div class="name">離子阱</div>
+        <div class="num">300</div>
+      </div>
+      <div class="hex warm" style="width:130px;height:150px;top:20px;left:400px;">
+        <div class="name">光量子</div>
+        <div class="num">1,200</div>
+      </div>
+      <div class="hex" style="width:130px;height:150px;top:20px;left:570px;">
+        <div class="name">中性原子</div>
+        <div class="num">6,100</div>
+      </div>
+      <div class="hex cool" style="width:130px;height:150px;top:200px;left:145px;">
+        <div class="name">半導體</div>
+        <div class="num">6</div>
+      </div>
+      <div class="hex warm" style="width:130px;height:150px;top:200px;left:315px;">
+        <div class="name">拓撲</div>
+        <div class="num">2028</div>
+      </div>
+      <div class="hex" style="width:130px;height:150px;top:200px;left:485px;">
+        <div class="name">鑽石 NV</div>
+        <div class="num">50</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P5 量子糾纏視覺（特/垂） ============== -->
+<section id="slide-5" class="slide s5-entangle">
+  <span class="glow-orb glow-orb-3"></span>
+  <span class="glow-orb glow-orb-1"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>量子糾纏：量子優勢的物理基石</h2>
+    </div>
+    <div class="entangle-stage">
+      <div class="atom-wrap">
+        <div class="atom-orbit" style="width:260px;height:140px;"></div>
+        <div class="atom-orbit" style="width:260px;height:140px;transform:translate(-50%,-50%) rotate(60deg);"></div>
+        <div class="atom-orbit" style="width:260px;height:140px;transform:translate(-50%,-50%) rotate(-60deg);"></div>
+        <div class="atom-core"></div>
+      </div>
+      <div class="entangle-info">
+        <div class="info-row">
+          <div class="v">1,200 km</div>
+          <div class="lbl">2026 量子互聯網最長糾纏距離（墨子號衛星）</div>
+        </div>
+        <div class="info-row">
+          <div class="v">99.7%</div>
+          <div class="lbl">雙量子位元閘（2-qubit gate）保真度</div>
+        </div>
+        <div class="info-row">
+          <div class="v">300 µs</div>
+          <div class="lbl">超導 qubit 平均退相干時間 T1</div>
+        </div>
+        <div class="info-row">
+          <div class="v">10⁻⁶</div>
+          <div class="lbl">達到表面碼糾錯閾值的錯誤率</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P6 容錯同心圓（圓/網） ============== -->
+<section id="slide-6" class="slide s6-error">
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>2030 容錯量子計算目標</h2>
+      <div class="sub">從 1,000 物理 qubit 到 10,000 邏輯 qubit 的工程化路徑</div>
+    </div>
+    <div class="center-stage">
+      <div class="donut-wrap">
+        <svg width="280" height="280" viewBox="0 0 280 280">
+          <circle cx="140" cy="140" r="125" fill="none" stroke="#1a0f3a" stroke-width="22"/>
+          <circle cx="140" cy="140" r="125" fill="none" stroke="#06d6f9" stroke-width="22"
+                  stroke-dasharray="785" stroke-dashoffset="120"
+                  transform="rotate(-90 140 140)" stroke-linecap="round"/>
+          <circle cx="140" cy="140" r="100" fill="none" stroke="#1a0f3a" stroke-width="18"/>
+          <circle cx="140" cy="140" r="100" fill="none" stroke="#8b5cf6" stroke-width="18"
+                  stroke-dasharray="628" stroke-dashoffset="200"
+                  transform="rotate(-90 140 140)" stroke-linecap="round"/>
+          <circle cx="140" cy="140" r="75" fill="none" stroke="#1a0f3a" stroke-width="14"/>
+          <circle cx="140" cy="140" r="75" fill="none" stroke="#f472b6" stroke-width="14"
+                  stroke-dasharray="471" stroke-dashoffset="240"
+                  transform="rotate(-90 140 140)" stroke-linecap="round"/>
+        </svg>
+        <div class="donut-center">
+          <div class="yr">2030</div>
+          <div class="goal">容錯目標</div>
+        </div>
+      </div>
+      <div class="vision-stats">
+        <div class="vision-row">
+          <div class="v">×10,000</div>
+          <div class="lbl">邏輯 qubit 規模目標（從今日 10⁰ 起步）</div>
+        </div>
+        <div class="vision-row">
+          <div class="v cool">10⁻¹⁵</div>
+          <div class="lbl">錯誤率目標（從今日 10⁻³ 改善 12 個數量級）</div>
+        </div>
+        <div class="vision-row">
+          <div class="v">1 EFLOPS</div>
+          <div class="lbl">等效量子算力峰值</div>
+        </div>
+        <div class="vision-row">
+          <div class="v cool">100 MW</div>
+          <div class="lbl">單一量子資料中心能耗（與超級電腦相當）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P7 五大量子演算法（方/水） ============== -->
+<section id="slide-7" class="slide s7-algo">
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>2026 五大量子演算法落地</h2>
+      <span class="pill">從理論到工程化</span>
+    </div>
+    <div class="algo-row">
+      <div class="algo-card">
+        <div class="role">密碼學</div>
+        <div class="name">Shor 演算法</div>
+        <div class="big">2ⁿ<span class="unit">加速</span></div>
+        <div class="desc">整數分解指數加速 · 2024 NIST 後量子標準發布 · 4,096 位元 RSA 預計 2030 破解</div>
+      </div>
+      <div class="algo-card">
+        <div class="role">搜索</div>
+        <div class="name">Grover 演算法</div>
+        <div class="big">√N<span class="unit">加速</span></div>
+        <div class="desc">無序資料庫平方根加速 · 藥物分子篩選 · 組合最佳化問題加速器</div>
+      </div>
+      <div class="algo-card">
+        <div class="role">線性代數</div>
+        <div class="name">HHL 演算法</div>
+        <div class="big">log N<span class="unit">加速</span></div>
+        <div class="desc">線性系統指數加速 · 金融蒙地卡羅 · 機器學習核心運算</div>
+      </div>
+      <div class="algo-card">
+        <div class="role">化學模擬</div>
+        <div class="name">VQE 演算法</div>
+        <div class="big">10⁻⁶<span class="unit">Hartree</span></div>
+        <div class="desc">變分量子特徵求解 · 分子基態能量 · 材料模擬藥物研發核心</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P8 量子雲端廠商（線/垂） ============== -->
+<section id="slide-8" class="slide s8-cloud">
+  <span class="glow-orb glow-orb-3"></span>
+  <span class="glow-orb glow-orb-1"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>五大量子雲端服務：2026 商業版圖</h2>
+      <div class="sub">從實驗室走進企業機房的雲端量子運算</div>
+    </div>
+    <div class="process-stage">
+      <div class="p-item">
+        <span class="step">CLOUD 01</span>
+        <span class="name">IBM Quantum Platform</span>
+        <span class="desc">Heron R3 1,121 qubit · 250+ 企業客戶 · Qiskit 開源 SDK 全球最大生態系</span>
+      </div>
+      <div class="p-item">
+        <span class="step">CLOUD 02</span>
+        <span class="name">Google Quantum AI</span>
+        <span class="desc">Willow v3 105 qubit · 雙量子位元閘保真度 99.7% · Cirq SDK + TensorFlow Quantum</span>
+      </div>
+      <div class="p-item peak">
+        <span class="step">CLOUD 03</span>
+        <span class="name">AWS Braket</span>
+        <span class="desc">IonQ / Rigetti / QuEra 多硬體聚合 · 按小時計費 · 企業級 SLA 99.95%</span>
+      </div>
+      <div class="p-item">
+        <span class="step">CLOUD 04</span>
+        <span class="name">Azure Quantum</span>
+        <span class="desc">Quantinuum H3 離子阱 · 與 Microsoft 365 整合 · 企業 IAM / 稽核原生支援</span>
+      </div>
+      <div class="p-item peak">
+        <span class="step">CLOUD 05</span>
+        <span class="name">中國本源量子</span>
+        <span class="desc">悟空 1,200 qubit · 墨子號衛星互聯 · 國產 7nm 量子晶片自主可控</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P9 七大應用領域（六/散） ============== -->
+<section id="slide-9" class="slide s9-app">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>2026 量子七大應用領域</h2>
+      <div class="sub">從實驗室走進千億美元產業的真實落地</div>
+    </div>
+    <div class="hex-scatter">
+      <div class="hex" style="width:130px;height:150px;top:20px;left:60px;">
+        <div class="name">藥物研發</div>
+        <div class="num">$80B</div>
+      </div>
+      <div class="hex cool" style="width:130px;height:150px;top:20px;left:230px;">
+        <div class="name">金融工程</div>
+        <div class="num">$45B</div>
+      </div>
+      <div class="hex warm" style="width:130px;height:150px;top:20px;left:400px;">
+        <div class="name">材料模擬</div>
+        <div class="num">$30B</div>
+      </div>
+      <div class="hex" style="width:130px;height:150px;top:20px;left:570px;">
+        <div class="name">密碼學</div>
+        <div class="num">$25B</div>
+      </div>
+      <div class="hex cool" style="width:130px;height:150px;top:200px;left:145px;">
+        <div class="name">能源最佳化</div>
+        <div class="num">$20B</div>
+      </div>
+      <div class="hex warm" style="width:130px;height:150px;top:200px;left:315px;">
+        <div class="name">氣象預報</div>
+        <div class="num">$15B</div>
+      </div>
+      <div class="hex" style="width:130px;height:150px;top:200px;left:485px;">
+        <div class="name">交通物流</div>
+        <div class="num">$12B</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P10 結尾（圓/單） ============== -->
+<section id="slide-10" class="slide s10-end">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="end-eyebrow">2026 → 2030 · 量子計算從工程到科學的關鍵十年</div>
+    <h2>當 NISQ 落幕，<br>人類的<span class="accent">量子雄心</span>才正要展開</h2>
+    <p class="end-body">從 1,000 物理 qubit 到 10,000 邏輯 qubit——量子奇點不是結束，而是新一輪科學革命的起點</p>
+
+    <svg class="ring-bg" width="600" height="600" viewBox="0 0 600 600">
+      <circle cx="300" cy="300" r="280" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.35"/>
+      <circle cx="300" cy="300" r="240" fill="none" stroke="#06d6f9" stroke-width="2" opacity="0.30" stroke-dasharray="10,6"/>
+      <circle cx="300" cy="300" r="200" fill="none" stroke="#f472b6" stroke-width="2" opacity="0.30"/>
+      <circle cx="300" cy="300" r="160" fill="none" stroke="#06d6f9" stroke-width="2" opacity="0.40" stroke-dasharray="4,4"/>
+    </svg>
+
+    <div class="end-stat top-l">
+      <span class="num">1,121</span>
+      <span class="lbl">2026 最大 qubit 數</span>
+    </div>
+    <div class="end-stat top-r">
+      <span class="num">$227B</span>
+      <span class="lbl">2030 量子市場規模</span>
+    </div>
+
+    <div class="cta">
+      <button class="cta-btn">閱讀完整研究</button>
+      <button class="cta-btn alt">回到列表</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============== Nav ============== -->
+<div class="nav">
+  <button id="prev-btn" onclick="prev()" aria-label="上一頁">◀</button>
+  <span id="nav-text">1 / 10</span>
+  <button id="next-btn" onclick="next()" aria-label="下一頁">▶</button>
+</div>
+
+</div>
+
+<script>
+let current = 0;
+const total = 10;
+const slides = document.querySelectorAll('.slide');
+
+function show() {
+  if (slides[current]) {
+    slides[current].classList.remove('active');
+  }
+  current = Math.max(0, Math.min(total - 1, current));
+  slides[current].classList.add('active');
+  document.getElementById('nav-text').textContent = (current + 1) + ' / ' + total;
+  document.getElementById('prev-btn').disabled = current === 0;
+  document.getElementById('next-btn').disabled = current === total - 1;
+}
+
+function next() {
+  if (current < total - 1) {
+    if (slides[current]) slides[current].classList.remove('active');
+    current++;
+    slides[current].classList.add('active');
+    document.getElementById('nav-text').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prev-btn').disabled = current === 0;
+    document.getElementById('next-btn').disabled = current === total - 1;
+  }
+}
+
+function prev() {
+  if (current > 0) {
+    if (slides[current]) slides[current].classList.remove('active');
+    current--;
+    slides[current].classList.add('active');
+    document.getElementById('nav-text').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prev-btn').disabled = current === 0;
+    document.getElementById('next-btn').disabled = current === total - 1;
+  }
+}
+
+// 鍵盤導航
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+show();
+</script>
+
+</body>
+</html>
