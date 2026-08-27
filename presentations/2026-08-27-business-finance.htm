@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 亞洲 ESG 永續金融：企業財報新敘事｜2026-08-27 商業財經</title>
+<style>
+/* ============================================================
+   配色：C5 企業深藍（Enterprise Deep Blue）
+   主題：2026 亞洲 ESG 永續金融 — 企業財報新敘事
+   模板：V11 深色結構
+   ============================================================ */
+:root {
+  --bg-deep:        #0a1f3d;
+  --bg-mid:         #102b52;
+  --bg-card:        rgba(30, 64, 124, 0.45);
+  --primary:        #3b82f6;
+  --primary-soft:   #93c5fd;
+  --primary-deep:   #1e40af;
+  --accent:         #22d3ee;
+  --accent-soft:    #67e8f9;
+  --accent-deep:    #0e7490;
+  --gold:           #f59e0b;
+  --gold-soft:      #fbbf24;
+  --emerald:        #10b981;
+  --emerald-soft:   #6ee7b7;
+  --ink:            #f8fafc;
+  --ink-soft:       #e2e8f0;
+  --ink-mute:       #93c5fd;
+  --ink-dim:        #94a3b8;
+  --border-cool:    rgba(59, 130, 246, 0.45);
+  --border-warm:    rgba(34, 211, 238, 0.45);
+  --glow-cool:      0 0 32px rgba(59, 130, 246, 0.40);
+  --glow-warm:      0 0 28px rgba(34, 211, 238, 0.35);
+  --glow-gold:      0 0 24px rgba(245, 158, 11, 0.35);
+}
+
+html { font-size: 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a1f3d;
+  color: var(--ink-soft);
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 80% 15%, rgba(59, 130, 246, 0.28) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(34, 211, 238, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(245, 158, 11, 0.10) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+  border-radius: 14px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 48px 56px 110px;
+  color: var(--ink-soft);
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+.slide * { line-height: 1.5; }
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 360px; height: 360px; background: rgba(59, 130, 246, 0.30); top: -120px; right: -120px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(34, 211, 238, 0.22); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 240px; height: 240px; background: rgba(245, 158, 11, 0.18); top: 50%; left: 55%; }
+
+.slide-content { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.cover-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 36px;
+  align-items: center;
+}
+.cover-left { display: flex; flex-direction: column; min-width: 0; }
+.cover-right { display: flex; align-items: center; justify-content: center; height: 100%; }
+.cover-right svg { max-height: 460px; max-width: 460px; }
+
+.tag {
+  display: inline-block;
+  background: rgba(59, 130, 246, 0.20);
+  color: var(--primary-soft);
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  align-self: flex-start;
+}
+
+.cover-eyebrow {
+  font-size: 1.1rem;
+  color: var(--accent-soft);
+  letter-spacing: 0.3em;
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+.cover-title {
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.18;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, var(--ink) 0%, var(--primary-soft) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cover-subtitle {
+  font-size: 1.3rem;
+  color: var(--ink-mute);
+  margin-bottom: 36px;
+  max-width: 760px;
+  line-height: 1.6;
+}
+.cover-meta {
+  display: flex;
+  gap: 28px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+}
+.cover-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.meta-label {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.1em;
+}
+.meta-value {
+  font-size: 1.2rem;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.section-eyebrow {
+  font-size: 1rem;
+  color: var(--accent-soft);
+  letter-spacing: 0.2em;
+  margin-bottom: 10px;
+}
+.section-desc {
+  font-size: 1.1rem;
+  color: var(--ink-mute);
+  margin-bottom: 24px;
+  max-width: 880px;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 16px;
+}
+.toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 20px 22px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: transform 0.3s ease;
+}
+.toc-card:hover { transform: translateY(-4px); }
+.toc-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  line-height: 1;
+  min-width: 50px;
+}
+.toc-text h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.toc-text p {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+}
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 28px;
+}
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 28px 26px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+.kpi-label {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+.kpi-number {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--gold-soft);
+  line-height: 1;
+  margin-bottom: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.kpi-unit {
+  font-size: 1.1rem;
+  color: var(--ink-dim);
+  margin-left: 4px;
+  font-weight: 500;
+}
+.kpi-note {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  margin-top: 8px;
+}
+
+.timeline {
+  margin-top: 24px;
+  position: relative;
+  padding-left: 28px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 18px;
+  padding-left: 16px;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg-deep);
+  box-shadow: 0 0 12px var(--accent);
+}
+.timeline-year {
+  font-size: 1rem;
+  color: var(--accent-soft);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.timeline-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.timeline-desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+}
+
+.hex-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+.hex-card {
+  background: linear-gradient(135deg, var(--primary-deep), var(--bg-mid));
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  padding: 36px 38px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 150px;
+  justify-content: center;
+  border: 1px solid var(--border-cool);
+}
+.hex-card-num {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: var(--gold-soft);
+  margin-bottom: 4px;
+  line-height: 1.05;
+}
+.hex-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.hex-card-desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.35;
+}
+
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 28px;
+}
+.feature-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 26px 24px;
+}
+.feature-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--accent-soft);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.feature-title svg { width: 28px; height: 28px; }
+.feature-list { list-style: none; }
+.feature-list li {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  padding: 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.feature-list li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.data-table {
+  margin-top: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.data-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th {
+  background: rgba(59, 130, 246, 0.25);
+  color: var(--ink);
+  padding: 14px 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: left;
+  letter-spacing: 0.05em;
+}
+.data-table td {
+  padding: 12px 18px;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  border-top: 1px solid rgba(59, 130, 246, 0.15);
+  font-variant-numeric: tabular-nums;
+}
+.data-table tr:hover td {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.bar-label {
+  width: 100px;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.bar-track {
+  flex: 1;
+  height: 26px;
+  background: rgba(59, 130, 246, 0.12);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.quote-block {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.20), rgba(34, 211, 238, 0.15));
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-top: 24px;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.7;
+}
+.quote-source {
+  display: block;
+  margin-top: 12px;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  font-style: normal;
+}
+
+.thanks-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  gap: 18px;
+}
+.thanks-title {
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--ink) 0%, var(--accent-soft) 50%, var(--gold-soft) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+.thanks-sub { font-size: 1.3rem; color: var(--ink-mute); margin-top: 8px; }
+.thanks-meta { font-size: 1rem; color: var(--ink-dim); margin-top: 24px; }
+
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 32px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: rgba(10, 31, 61, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-cool);
+  border-radius: 100px;
+  padding: 8px 16px;
+  z-index: 50;
+}
+.nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.18);
+  border: 1px solid var(--border-cool);
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+}
+.nav-btn:hover {
+  background: var(--primary);
+  transform: scale(1.08);
+}
+.nav-info {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+  min-width: 64px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.back-link {
+  position: absolute;
+  bottom: 18px;
+  left: 32px;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  text-decoration: none;
+  padding: 6px 14px;
+  background: rgba(10, 31, 61, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-cool);
+  border-radius: 100px;
+  z-index: 50;
+  transition: all 0.25s ease;
+}
+.back-link:hover {
+  background: var(--primary);
+  color: var(--ink);
+}
+</style>
+</head>
+<body>
+<div class="presentation">
+  <a href="/slides.htm" class="back-link">← 回列表</a>
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+  <div class="glow-orb glow-orb-3"></div>
+
+  <!-- Slide 1: 封面 -->
+  <section class="slide active" id="slide-1" style="padding-bottom: 48px;">
+    <div class="slide-content cover-layout" style="height: 100%;">
+      <div class="cover-left">
+        <div class="cover-eyebrow">2026 ASIAN ESG WEEK</div>
+        <div class="tag">商業財經</div>
+        <h1 class="cover-title" style="margin-top: 22px;">2026 亞洲 ESG 永續金融<br/>企業財報新敘事</h1>
+        <p class="cover-subtitle">當碳排放從成本中心變成資產負債表的新欄目,亞洲企業正面臨一場會計語言的根本革命。從台北到東京,從新加坡到首爾,IFRS S2 與 TNFD 框架同步落地,財報敘事的對象已不再只是股東。</p>
+        <div class="cover-meta">
+          <div class="cover-meta-item">
+            <span class="meta-label">發布日期</span>
+            <span class="meta-value">2026.08.27</span>
+          </div>
+          <div class="cover-meta-item">
+            <span class="meta-label">資料覆蓋</span>
+            <span class="meta-value">亞洲 12 國</span>
+          </div>
+          <div class="cover-meta-item">
+            <span class="meta-label">主題編號</span>
+            <span class="meta-value">BF-2026-08</span>
+          </div>
+        </div>
+      </div>
+      <div class="cover-right">
+        <svg viewBox="0 0 360 360" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ring1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3b82f6"/>
+              <stop offset="100%" stop-color="#22d3ee"/>
+            </linearGradient>
+            <linearGradient id="ring2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f59e0b"/>
+              <stop offset="100%" stop-color="#fbbf24"/>
+            </linearGradient>
+          </defs>
+          <!-- Outer ring -->
+          <circle cx="180" cy="180" r="160" fill="none" stroke="url(#ring1)" stroke-width="2" opacity="0.35"/>
+          <circle cx="180" cy="180" r="135" fill="none" stroke="url(#ring1)" stroke-width="2" opacity="0.55" stroke-dasharray="6 4"/>
+          <circle cx="180" cy="180" r="105" fill="none" stroke="url(#ring1)" stroke-width="3" opacity="0.75"/>
+          <!-- Inner gold accent -->
+          <circle cx="180" cy="180" r="70" fill="none" stroke="url(#ring2)" stroke-width="4" opacity="0.85"/>
+          <circle cx="180" cy="180" r="38" fill="url(#ring2)" opacity="0.9"/>
+          <!-- Inner label -->
+          <text x="180" y="186" text-anchor="middle" font-size="22" font-weight="900" fill="#0a1f3d" font-family="Noto Sans TC">ESG</text>
+          <!-- Nodes around the ring -->
+          <g fill="#22d3ee" opacity="0.95">
+            <circle cx="180" cy="20" r="6"/>
+            <circle cx="309" cy="120" r="6"/>
+            <circle cx="280" cy="280" r="6"/>
+            <circle cx="80" cy="280" r="6"/>
+            <circle cx="51" cy="120" r="6"/>
+          </g>
+          <!-- Connecting lines -->
+          <g stroke="#3b82f6" stroke-width="1" opacity="0.5" fill="none" stroke-dasharray="4 4">
+            <path d="M 180 20 L 309 120 L 280 280 L 180 340 L 80 280 L 51 120 Z"/>
+          </g>
+          <!-- Floating mini badges -->
+          <g font-size="18" font-weight="700" fill="#93c5fd" font-family="Noto Sans TC">
+            <rect x="130" y="290" width="100" height="32" rx="16" fill="rgba(59,130,246,0.25)" stroke="#3b82f6" stroke-width="1"/>
+            <text x="180" y="312" text-anchor="middle">1.42T USD</text>
+          </g>
+          <g font-size="18" font-weight="700" fill="#fbbf24" font-family="Noto Sans TC">
+            <rect x="235" y="56" width="110" height="32" rx="16" fill="rgba(245,158,11,0.20)" stroke="#f59e0b" stroke-width="1"/>
+            <text x="290" y="78" text-anchor="middle">+18 bp</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="prev()">‹</button>
+      <span class="nav-info">1 / 10</span>
+      <button class="nav-btn" onclick="next()">›</button>
+    </div>
+  </section>
+
+  <!-- Slide 2: 議程 -->
+  <section class="slide" id="slide-2">
+    <div class="slide-content">
+      <div class="section-eyebrow">AGENDA</div>
+      <h2 class="section-title">今日議程</h2>
+      <p class="section-desc">從法規驅動到資本流向，我們用四個視角解構 2026 亞洲永續金融的轉折點。</p>
+      <div class="toc-grid">
+        <div class="toc-card">
+          <div class="toc-num">01</div>
+          <div class="toc-text">
+            <h4>市場規模與動能</h4>
+            <p>亞洲永續債券發行量、ESG 基金規模與跨境資本流的三項關鍵數字。</p>
+          </div>
+        </div>
+        <div class="toc-card">
+          <div class="toc-num">02</div>
+          <div class="toc-text">
+            <h4>法規時程全景</h4>
+            <p>IFRS S2 在亞太 12 國的落地進度、TNFD 採用率與碳稅時間表。</p>
+          </div>
+        </div>
+        <div class="toc-card">
+          <div class="toc-num">03</div>
+          <div class="toc-text">
+            <h4>六大產業暴露</h4>
+            <p>半導體、石化、航運、金融、紡織與食品業的實體與轉型風險暴露。</p>
+          </div>
+        </div>
+        <div class="toc-card">
+          <div class="toc-num">04</div>
+          <div class="toc-text">
+            <h4>敘事重塑策略</h4>
+            <p>投資人關係、財報揭露、治理升級與綠色溢價的四步驟實踐。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="prev()">‹</button>
+      <span class="nav-info">2 / 10</span>
+      <button class="nav-btn" onclick="next()">›</button>
+    </div>
+  </section>
+
+  <!-- Slide 3: 三項關鍵數字 -->
+  <section class="slide" id="slide-3">
+    <div class="slide-content">
+      <div class="section-eyebrow">KEY METRICS</div>
+      <h2 class="section-title">三個必須記住的數字</h2>
+      <p class="section-desc">2026 年亞洲永續金融的規模、流速與溢價,正同步逼近歷史臨界點。</p>
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-label">亞洲永續債券累計發行</div>
+          <div class="kpi-number">1.42<span class="kpi-unit">兆美元</span></div>
+          <div class="kpi-note">較 2024 年成長 38%,占全球綠色債券市場 41%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">ESG 主題基金管理資產</div>
+          <div class="kpi-number">6,800<span class="kpi-unit">億美元</span></div>
+          <div class="kpi-note">年增 24%,日本、新加坡、台灣合計占 62%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">綠色溢價平均幅度</div>
+          <div class="kpi-number">+18<span class="kpi-unit">基點</span></div>
+          <div class="kpi-note">低碳企業發債成本節省幅度,連續四季擴大</div>
+        </div>
+      </div>
+      <div class="quote-block">
+        「永續不再是道德選擇,它是資金成本方程式中的新變數。」
+        <span class="quote-source">— 亞洲開發銀行研究院,2026 年永續金融展望報告</span>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="prev()">‹</button>
+      <span class="nav-info">3 / 10</span>
+      <button class="nav-btn" onclick="next()">›</button>
+    </div>
+  </section>
+
+  <!-- Slide 4: 法規時程 -->
+  <section class="slide" id="slide-4">
+    <div class="slide-content">
+      <div class="section-eyebrow">REGULATORY TIMELINE</div>
+      <h2 class="section-title">亞太法規時程:從揭露到責任</h2>
+      <p class="section-desc">五年內,亞太主要市場將完成從「自願揭露」到「強制確信」的法制化轉換。</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">2024 — 過渡期</div>
+          <div class="timeline-title">IFRS S2 雙重揭露啟動</div>
+          <div class="timeline-desc">日本、台灣率先要求上市公司同步採用 IFRS S2 與 SASB,1400 家企業完成首次編製。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2025 — 加速期</div>
+          <div class="timeline-title">新加坡與韓國強制碳盤查</div>
+          <div class="timeline-desc">新加坡強制 Scope 1+2 確信,韓國擴大至供應鏈 Scope 3,違者處以營收 5% 罰鍰。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2026 — 責任期</div>
+          <div class="timeline-title">TNFD 自然相關財務揭露</div>
+          <div class="timeline-desc">馬來西亞、印尼、泰國同步導入 TNFD,要求企業揭露對生態系的依賴與衝擊。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2027 — 治理期</div>
+          <div class="timeline-title">董事盡職調查法案</div>
+          <div class="timeline-desc">歐盟 CSDDD 鏡像法案在亞洲生效,董事會對供應鏈人權與環境議題承擔個人責任。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2028 — 整合期</div>
+          <div class="timeline-title">永續審計與確信制度化</div>
+          <div class="timeline-desc">亞洲主要會計師事務所啟動 ISAE 3000 永續確信,非確信財報將無法進入主流指數。</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="prev()">‹</button>
+      <span class="nav-info">4 / 10</span>
+      <button class="nav-btn" onclick="next()">›</button>
+    </div>
+  </section>
+
+  <!-- Slide 5: 六大產業 -->
+  <section class="slide" id="slide-5">
+    <div class="slide-content">
+      <div class="section-eyebrow">SECTOR EXPOSURE</div>
+      <h2 class="section-title">六大產業的永續風險暴露</h2>
+      <p class="section-desc">從碳排強度到水資源壓力,六個亞洲關鍵產業正承受不同節奏的轉型壓力。</p>
+      <div class="hex-grid">
+        <div class="hex-card">
+          <div class="hex-card-num">68%</div>
+          <div class="hex-card-title">半導體</div>
+          <div class="hex-card-desc">Scope 2 用電占比,綠電採購成關鍵指標</div>
+        </div>
+        <div class="hex-card">
+          <div class="hex-card-num">4.2°C</div>
+          <div class="hex-card-title">石化</div>
+          <div class="hex-card-desc">隱含升溫路徑,需提早 12 年轉型</div>
+        </div>
+        <div class="hex-card">
+          <div class="hex-card-num">12.5x</div>
+          <div class="hex-card-title">航運</div>
+          <div class="hex-card-desc">IMO 2050 目標脫鉤倍數,替代燃料投資</div>
+        </div>
+        <div class="hex-card">
+          <div class="hex-card-num">¥38T</div>
+          <div class="hex-card-title">金融</div>
+          <div class="hex-card-desc">日本三大行綠色融資目標,2025 已達標率 71%</div>
+        </div>
+        <div class="hex-card">
+          <div class="hex-card-num">2,800L</div>
+          <div class="hex-card-title">紡織</div>
+          <div class="hex-card-desc">一件牛仔褲耗水量,水足跡揭露成新標竿</div>
+        </div>
+        <div class="hex-card">
+          <div class="hex-card-num">31%</div>
+          <div class="hex-card-title">食品</div>
+          <div class="hex-card-desc">亞洲食品業 Scope 3 占比,森林砍伐連結</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="prev()">‹</button>
+      <span class="nav-info">5 / 10</span>
+      <button class="nav-btn" onclick="next()">›</button>
+    </div>
+  </section>
+
+  <!-- Slide 6: 兩個面向的轉型 -->
+  <section class="slide" id="slide-6">
+    <div class="slide-content">
+      <div class="section-eyebrow">TRANSITION FRAMEWORK</div>
+      <h2 class="section-title">雙軸轉型:實體風險 × 轉型機會</h2>
+      <p class="section-desc">企業必須同時管理「現在發生」的氣候衝擊,以及「未實現」的轉型不確定性。</p>
+      <div class="feature-row">
+        <div class="feature-block">
+          <div class="feature-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            實體風險（Physical Risk）
+          </div>
+          <ul class="feature-list">
+            <li>極端高溫導致半導體廠房停工時數增加 22%</li>
+            <li>東南亞水稻產區面臨 2030 年減產 15% 風險</li>
+            <li>海平面上升衝擊 8 個亞洲主要港口營運</li>
+            <li>水資源壓力推高越南、孟加拉紡織業成本</li>
+          </ul>
+        </div>
+        <div class="feature-block">
+          <div class="feature-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg>
+            轉型機會（Transition Opportunity）
+          </div>
+          <ul class="feature-list">
+            <li>綠色溢價為低碳發行人節省 18 個基點</li>
+            <li>再生能源憑證交易市場年增 47%</li>
+            <li>永續供應鏈融資規模突破 2,800 億美元</li>
+            <li>永續基金 ESG 評級 A+ 企業估值溢價 12%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="prev()">‹</button>
+      <span class="nav-info">6 / 10</span>
+      <button class="nav-btn" onclick="next()">›</button>
+    </div>
+  </section>
+
+  <!-- Slide 7: 投資人觀察表 -->
+  <section class="slide" id="slide-7">
+    <div class="slide-content">
+      <div class="section-eyebrow">INVESTOR VIEW</div>
+      <h2 class="section-title">亞洲機構投資人關注的關鍵指標</h2>
+      <p class="section-desc">從 240 家亞洲資產管理人的問卷,我們整理出六項最常見的評估項目。</p>
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>評估項目</th>
+              <th>採用率</th>
+              <th>權重變化(年)</th>
+              <th>資料來源</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Scope 1+2 碳排放盤查</td>
+              <td>96%</td>
+              <td><span style="color: var(--emerald-soft);">▲ +12%</span></td>
+              <td>年報 + ISAE 3000</td>
+            </tr>
+            <tr>
+              <td>Scope 3 供應鏈碳足跡</td>
+              <td>78%</td>
+              <td><span style="color: var(--emerald-soft);">▲ +34%</span></td>
+              <td>TCFD 補充報告</td>
+            </tr>
+            <tr>
+              <td>董事會多元化與獨立性</td>
+              <td>71%</td>
+              <td><span style="color: var(--gold-soft);">▲ +6%</span></td>
+              <td>公司治理評鑑</td>
+            </tr>
+            <tr>
+              <td>氣候情境分析 (1.5°C / 2°C)</td>
+              <td>64%</td>
+              <td><span style="color: var(--emerald-soft);">▲ +28%</span></td>
+              <td>IFRS S2 情境揭露</td>
+            </tr>
+            <tr>
+              <td>自然與生物多樣性 (TNFD)</td>
+              <td>42%</td>
+              <td><span style="color: var(--emerald-soft);">▲ +41%</span></td>
+              <td>TNFD 試點報告</td>
+            </tr>
+            <tr>
+              <td>人權盡職調查 (CSDDD)</td>
+              <td>38%</td>
+              <td><span style="color: var(--gold-soft);">▲ +22%</span></td>
+              <td>供應商稽核報告</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="prev()">‹</button>
+      <span class="nav-info">7 / 10</span>
+      <button class="nav-btn" onclick="next()">›</button>
+    </div>
+  </section>
+
+  <!-- Slide 8: 綠色溢價分佈 -->
+  <section class="slide" id="slide-8">
+    <div class="slide-content">
+      <div class="section-eyebrow">GREEN PREMIUM</div>
+      <h2 class="section-title">綠色溢價的產業分佈</h2>
+      <p class="section-desc">並非所有產業都能享有相同溢價,碳強度與治理成熟度是兩大決定因素。</p>
+      <div style="margin-top: 30px;">
+        <div class="bar-row">
+          <div class="bar-label">再生能源</div>
+          <div class="bar-track"><div class="bar-fill" style="width: 88%;">+38 bp</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">半導體</div>
+          <div class="bar-track"><div class="bar-fill" style="width: 68%;">+29 bp</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">金融業</div>
+          <div class="bar-track"><div class="bar-fill" style="width: 55%;">+22 bp</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">電信服務</div>
+          <div class="bar-track"><div class="bar-fill" style="width: 44%;">+18 bp</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">食品飲料</div>
+          <div class="bar-track"><div class="bar-fill" style="width: 32%;">+12 bp</div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label">石化塑膠</div>
+          <div class="bar-track"><div class="bar-fill" style="width: 18%;">+6 bp</div></div>
+        </div>
+      </div>
+      <div class="quote-block" style="margin-top: 26px;">
+        低碳治理成熟度每提升一個級距,發債成本平均降低 4.2 個基點。
+        <span class="quote-source">— Morgan Stanley Capital Markets, 2025 亞洲綠色債券調查</span>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="prev()">‹</button>
+      <span class="nav-info">8 / 10</span>
+      <button class="nav-btn" onclick="next()">›</button>
+    </div>
+  </section>
+
+  <!-- Slide 9: 四步驟實踐 -->
+  <section class="slide" id="slide-9">
+    <div class="slide-content">
+      <div class="section-eyebrow">NARRATIVE PRACTICE</div>
+      <h2 class="section-title">敘事重塑四步驟</h2>
+      <p class="section-desc">從財報語言到資本市場對話,企業需要在四個層面同步升級敘事結構。</p>
+      <div class="feature-row" style="grid-template-columns: 1fr 1fr;">
+        <div class="feature-block">
+          <div class="feature-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            01 財報揭露
+          </div>
+          <ul class="feature-list">
+            <li>將氣候指標併入主要財務報表附註</li>
+            <li>採用 IFRS S2 結構化揭露框架</li>
+            <li>委託 ISAE 3000 提供有限確信</li>
+          </ul>
+        </div>
+        <div class="feature-block">
+          <div class="feature-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            02 投資人關係
+          </div>
+          <ul class="feature-list">
+            <li>季度 ESG 簡報取代單次年報亮點</li>
+            <li>建立 double materiality 議題矩陣</li>
+            <li>主動回應 ISSB / SBTi 問卷調查</li>
+          </ul>
+        </div>
+        <div class="feature-block">
+          <div class="feature-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            03 治理升級
+          </div>
+          <ul class="feature-list">
+            <li>董事會下設永續委員會,獨立董事占比 ≥ 40%</li>
+            <li>將氣候 KPI 連結高階經理人薪酬</li>
+            <li>導入內部碳定價機制(平均 USD 75/噸)</li>
+          </ul>
+        </div>
+        <div class="feature-block">
+          <div class="feature-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            04 跨境溝通
+          </div>
+          <ul class="feature-list">
+            <li>中英雙語並列的永續報告</li>
+            <li>TCFD/SASB 指標交叉索引表</li>
+            <li>建立利害關係人議題地圖與回應機制</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="prev()">‹</button>
+      <span class="nav-info">9 / 10</span>
+      <button class="nav-btn" onclick="next()">›</button>
+    </div>
+  </section>
+
+  <!-- Slide 10: 結尾 -->
+  <section class="slide" id="slide-10">
+    <div class="slide-content">
+      <div class="thanks-card">
+        <div class="tag" style="align-self: center;">END OF PRESENTATION</div>
+        <h2 class="thanks-title">財報的新語言<br/>正在被亞洲書寫</h2>
+        <p class="thanks-sub">從揭露到確信、從成本到價值、從合規到策略 —— 永續已是財報的核心欄目。</p>
+        <p class="thanks-meta">2026.08.27 · 熊熊每日簡報 · 商業財經主題 · 資料來源：ADB / MSCI / IFRS Foundation</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="prev()">‹</button>
+      <span class="nav-info">10 / 10</span>
+      <button class="nav-btn" onclick="next()">›</button>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var slides = document.querySelectorAll('.slide');
+  var current = 0;
+  function show(){
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    if (slides[current]) slides[current].classList.add('active');
+  }
+  function showPrev(){
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current - 1 + slides.length) % slides.length;
+    if (slides[current]) slides[current].classList.add('active');
+  }
+  function showIdx(i){
+    if (slides[current]) slides[current].classList.remove('active');
+    current = i;
+    if (slides[current]) slides[current].classList.add('active');
+  }
+  window.next = show;
+  window.prev = showPrev;
+  window.goTo = showIdx;
+  // Keyboard nav
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); showPrev(); }
+  });
+})();
+</script>
+</body>
+</html>
