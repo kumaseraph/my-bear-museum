@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>城市綠洲：5 個鬧中取靜的都市秘境｜2026-08-28 · 熊熊博物館</title>
+<style>
+/* ============================================================
+   配色：C6 暖橘夕陽（淺色底）
+   結構：V2 簡約紙藝
+   場合：週五 生活休閒
+   主題：城市綠洲 · 5 個鬧中取靜的都市秘境
+   ============================================================ */
+
+:root {
+  --bg: #fdf5ed;
+  --bg-secondary: #f6e8d4;
+  --bg-card: rgba(255, 248, 235, 0.92);
+  --text: #3a2a1c;
+  --text-secondary: #7a5a3a;
+  --text-soft: #a98562;
+  --accent: #d97e3c;
+  --accent-warm: #f0a55c;
+  --accent-deep: #a85a25;
+  --accent-glow: rgba(217, 126, 60, 0.18);
+  --ink: #2a1d12;
+  --ink-soft: #6b4a2a;
+  --paper-edge: rgba(180, 130, 80, 0.30);
+  --nav-bg: rgba(253, 245, 237, 0.95);
+  --shadow-soft: 0 6px 22px rgba(180, 110, 50, 0.10);
+  --shadow-mid: 0 12px 32px rgba(180, 110, 50, 0.16);
+  --border-warm: rgba(217, 126, 60, 0.25);
+  --teal: #5e8a82;
+  --terracotta: #c25a3a;
+  --moss: #8a9a5f;
+  --sky: #9ab4c4;
+  --rose: #c97a72;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 20px;
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1rem;  /* 1rem = 20px */
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 230, 200, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 100%, rgba(240, 165, 92, 0.18) 0%, transparent 60%);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.presentation {
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: var(--shadow-mid);
+  background: var(--bg);
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  padding: 40px 56px 76px;
+  color: var(--text);
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* SVG text 統一最小 20px */
+.slide text { font-size: 20px; }
+
+/* === V2 簡約紙藝：紙張裝飾線 === */
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 28px; left: 28px;
+  right: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--paper-edge) 30%, var(--paper-edge) 70%, transparent 100%);
+  pointer-events: none;
+}
+.slide::after {
+  content: '';
+  position: absolute;
+  bottom: 28px; left: 28px;
+  right: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--paper-edge) 30%, var(--paper-edge) 70%, transparent 100%);
+  pointer-events: none;
+}
+
+/* 排版元件 - 為返回列表按鈕預留上方空間 */
+.page-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: var(--accent-deep);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  display: inline-block;
+  clear: both;
+}
+
+.page-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin-top: 10px;
+  letter-spacing: 0.05em;
+}
+
+/* 導航列 */
+.nav {
+  position: absolute;
+  bottom: 20px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 99;
+  background: var(--nav-bg);
+  padding: 8px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--border-warm);
+  box-shadow: var(--shadow-soft);
+}
+
+.nav button {
+  background: none;
+  border: none;
+  color: var(--accent-deep);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 100px;
+  transition: background 0.2s;
+}
+.nav button:hover { background: var(--accent-glow); }
+.nav button:disabled { color: var(--text-soft); cursor: not-allowed; }
+.nav span { font-size: 1rem; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+.back-link {
+  position: absolute;
+  top: 14px;
+  left: 28px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  z-index: 99;
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: var(--nav-bg);
+  border: 1px solid var(--border-warm);
+  transition: all 0.2s;
+}
+.back-link:hover { background: var(--accent-glow); }
+
+/* ============================================================
+   P1 封面（特/單）— 夕陽漸層 + 大字 + 城市剪影
+   ============================================================ */
+.s1-cover {
+  background: linear-gradient(180deg,
+    #fbe4c2 0%,
+    #f5cd96 35%,
+    #f0a55c 70%,
+    #d97e3c 100%);
+  color: #fff;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.s1-cover::before, .s1-cover::after {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 30%, rgba(255,255,255,0.3) 70%, transparent 100%);
+}
+.s1-cover .page-eyebrow {
+  color: #fff8e8;
+  letter-spacing: 0.6em;
+  margin-top: 0;
+}
+.s1-cover .cover-mark {
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  color: #fff8e8;
+  margin-bottom: 20px;
+}
+.s1-cover .cover-title {
+  font-size: 5.4rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-shadow: 0 4px 16px rgba(168, 90, 37, 0.45);
+}
+.s1-cover .cover-en {
+  font-size: 1.6rem;
+  color: #fff8e8;
+  letter-spacing: 0.3em;
+  font-weight: 300;
+  margin-top: 18px;
+}
+.s1-cover .cover-divider {
+  width: 80px;
+  height: 3px;
+  background: #fff8e8;
+  margin: 30px auto;
+  border-radius: 2px;
+}
+.s1-cover .cover-meta {
+  font-size: 1rem;
+  color: #fff8e8;
+  letter-spacing: 0.2em;
+}
+.s1-cover .city-silhouette {
+  position: absolute;
+  bottom: 76px;
+  left: 0; right: 0;
+  height: 120px;
+  pointer-events: none;
+}
+.s1-cover .sun-circle {
+  position: absolute;
+  top: 22%;
+  right: 12%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff5d0 0%, #ffd486 60%, transparent 100%);
+  box-shadow: 0 0 60px rgba(255, 220, 150, 0.6);
+}
+
+/* ============================================================
+   P2 目錄（六/水）— 5 個六邊形導航
+   ============================================================ */
+.s2-toc {
+  align-items: center;
+  justify-content: center;
+  padding: 40px 56px 100px;
+}
+.s2-toc .toc-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.s2-toc .toc-hex-row {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.toc-hex {
+  width: 140px;
+  height: 162px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  position: relative;
+  transition: transform 0.3s;
+}
+.toc-hex:hover { transform: translateY(-4px); }
+.toc-hex .toc-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+  font-family: 'Inter', sans-serif;
+}
+.toc-hex .toc-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.toc-hex .toc-en {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   P3 現況（圓/散）— 5 個統計泡泡散落
+   ============================================================ */
+.s3-stat {
+  padding: 40px 56px 100px;
+}
+.s3-stat .stat-stage {
+  flex: 1;
+  position: relative;
+  margin-top: 16px;
+}
+.stat-bubble {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  box-shadow: var(--shadow-soft);
+}
+.stat-bubble .stat-num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--accent-deep);
+  line-height: 1;
+  font-family: 'Inter', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.stat-bubble .stat-unit {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.stat-bubble .stat-cap {
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 600;
+  margin-top: 8px;
+}
+.stat-bubble .stat-source {
+  font-size: 1rem;
+  color: var(--text-soft);
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   P4 5秘境（線/網）— 2×3 網格 + 連接線
+   ============================================================ */
+.s4-grid {
+  padding: 40px 56px 100px;
+}
+.s4-grid .grid-header { margin-bottom: 18px; }
+.s4-grid .grid-3x2 {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 14px;
+  position: relative;
+}
+.grid-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.grid-card .gc-num {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  letter-spacing: 0.2em;
+  font-weight: 700;
+}
+.grid-card .gc-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.grid-card .gc-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex: 1;
+}
+.grid-card .gc-tag {
+  font-size: 1rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.grid-card .gc-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  opacity: 0.9;
+}
+.grid-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+}
+
+/* ============================================================
+   P5 秘境1（方/垂）— 屋頂植物園
+   ============================================================ */
+.s5-spot {
+  padding: 40px 56px 100px;
+}
+.s5-spot .spot-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.spot-visual {
+  height: 280px;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f7d49a 0%, #d97e3c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.spot-visual .skyline { position: absolute; bottom: 0; left: 0; right: 0; }
+.spot-visual .plants { position: absolute; bottom: 0; left: 0; right: 0; }
+.spot-visual .label-tag {
+  position: absolute;
+  top: 16px; left: 16px;
+  background: rgba(255, 248, 235, 0.92);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.spot-visual .label-distance {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: rgba(42, 29, 18, 0.78);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.spot-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.spot-meta-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.spot-meta-row .icon-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.spot-meta-row .row-text { flex: 1; }
+.spot-meta-row .row-label {
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.15em;
+  margin-bottom: 2px;
+}
+.spot-meta-row .row-value {
+  font-size: 1.05rem;
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P6 秘境2（特/水）— 老書店 + 時間沙漏
+   ============================================================ */
+.s6-book {
+  padding: 40px 56px 100px;
+}
+.s6-book .book-stage {
+  flex: 1;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+.book-visual {
+  flex: 1;
+  height: 360px;
+  position: relative;
+  background: var(--bg-secondary);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.book-text { flex: 1.2; }
+.book-text .quote-mark {
+  font-size: 5rem;
+  color: var(--accent-warm);
+  line-height: 0.6;
+  margin-bottom: 8px;
+  font-family: 'Georgia', serif;
+}
+.book-text .quote {
+  font-size: 1.4rem;
+  color: var(--ink);
+  line-height: 1.6;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.book-text .quote-source {
+  margin-top: 16px;
+  font-size: 1rem;
+  color: var(--text-soft);
+  letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   P7 秘境3（六/散）— 巷弄咖啡館
+   ============================================================ */
+.s7-cafe {
+  padding: 40px 56px 100px;
+}
+.s7-cafe .cafe-stage {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+.cafe-hex-stage {
+  position: relative;
+  min-height: 380px;
+}
+.hex-floating {
+  position: absolute;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+.hex-floating .hex-num {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+.hex-floating .hex-label {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.hex-floating .hex-en {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin-top: 3px;
+  opacity: 0.7;
+}
+.cafe-text-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cafe-text-card .cafe-tip {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  letter-spacing: 0.25em;
+  font-weight: 700;
+}
+.cafe-text-card h3 {
+  font-size: 1.6rem;
+  color: var(--ink);
+  font-weight: 800;
+  line-height: 1.3;
+}
+.cafe-text-card p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.cafe-text-card .cafe-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+.cafe-text-card .cafe-list li {
+  font-size: 1rem;
+  color: var(--text);
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.5;
+}
+.cafe-text-card .cafe-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.55rem;
+  width: 10px; height: 10px;
+  background: var(--accent);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+/* ============================================================
+   P8 實踐指南（圓/垂）— 時間軸垂直
+   ============================================================ */
+.s8-sop {
+  padding: 40px 56px 100px;
+}
+.s8-sop .sop-stage {
+  flex: 1;
+  display: flex;
+  gap: 32px;
+  margin-top: 14px;
+}
+.sop-track {
+  flex: 1;
+  position: relative;
+  padding-left: 60px;
+}
+.sop-track::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-warm) 50%, var(--accent-glow) 100%);
+}
+.sop-step {
+  position: relative;
+  padding: 12px 0;
+}
+.sop-step .step-circle {
+  position: absolute;
+  left: -52px;
+  top: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 12px rgba(217, 126, 60, 0.3);
+}
+.sop-step .step-time {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin-bottom: 4px;
+}
+.sop-step .step-title {
+  font-size: 1.3rem;
+  color: var(--ink);
+  font-weight: 800;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.sop-step .step-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.sop-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: center;
+}
+.sop-quote-card {
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 20px;
+}
+.sop-quote-card .q-label {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 6px;
+}
+.sop-quote-card .q-text {
+  font-size: 1.1rem;
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   P9 裝備（線/水）— 5 卡片水平排列
+   ============================================================ */
+.s9-kit {
+  padding: 40px 56px 100px;
+}
+.s9-kit .kit-stage {
+  flex: 1;
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+  margin-top: 14px;
+}
+.kit-card {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  gap: 8px;
+}
+.kit-card .kit-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+.kit-card .kit-num {
+  font-size: 1rem;
+  color: var(--accent-deep);
+  letter-spacing: 0.2em;
+  font-weight: 700;
+}
+.kit-card .kit-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.kit-card .kit-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex: 1;
+}
+.kit-card .kit-tag {
+  font-size: 1rem;
+  color: var(--accent);
+  background: var(--accent-glow);
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.kit-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-warm));
+}
+
+/* ============================================================
+   P10 結尾（無/單）— 夕陽漸層大字
+   ============================================================ */
+.s10-end {
+  background: linear-gradient(180deg,
+    #f5cd96 0%,
+    #f0a55c 50%,
+    #d97e3c 100%);
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s10-end::before, .s10-end::after {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 30%, rgba(255,255,255,0.3) 70%, transparent 100%);
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  color: #fff8e8;
+  letter-spacing: 0.5em;
+  margin-bottom: 22px;
+}
+.s10-end .end-title {
+  font-size: 4.4rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
+  text-shadow: 0 4px 18px rgba(168, 90, 37, 0.45);
+}
+.s10-end .end-divider {
+  width: 60px;
+  height: 3px;
+  background: #fff8e8;
+  margin: 26px auto;
+  border-radius: 2px;
+}
+.s10-end .end-sub {
+  font-size: 1.3rem;
+  color: #fff8e8;
+  letter-spacing: 0.3em;
+  font-weight: 300;
+}
+.s10-end .end-meta {
+  margin-top: 28px;
+  font-size: 1rem;
+  color: #fff8e8;
+  letter-spacing: 0.3em;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   Slide 專屬 class 不可寫 display（防止換頁失效）
+   ============================================================ */
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+<a href="/slides.htm" class="back-link">← 返回列表</a>
+
+<!-- ============================================================
+     P1 封面（特/單）— 夕陽漸層 + 大字
+     ============================================================ -->
+<section class="slide s1-cover active" id="slide-1">
+  <div class="sun-circle"></div>
+  <div class="cover-mark">BEAR MUSEUM · LIFE & LEISURE</div>
+  <h1 class="cover-title">城市綠洲</h1>
+  <div class="cover-en">Urban Oasis</div>
+  <div class="cover-divider"></div>
+  <div class="cover-meta">5 個鬧中取靜的都市秘境</div>
+  <div class="cover-meta" style="margin-top: 8px;">2026 · 08 · 28 · FRIDAY</div>
+
+  <svg class="city-silhouette" viewBox="0 0 1280 120" preserveAspectRatio="none">
+    <path d="M0,120 L0,80 L40,80 L40,60 L80,60 L80,90 L120,90 L120,40 L160,40 L160,70 L200,70 L200,50 L240,50 L240,80 L280,80 L280,30 L320,30 L320,75 L360,75 L360,55 L400,55 L400,85 L440,85 L440,45 L480,45 L480,70 L520,70 L520,25 L560,25 L560,80 L600,80 L600,60 L640,60 L640,85 L680,85 L680,50 L720,50 L720,75 L760,75 L760,35 L800,35 L800,80 L840,80 L840,65 L880,65 L880,90 L920,90 L920,55 L960,55 L960,75 L1000,75 L1000,40 L1040,40 L1040,80 L1080,80 L1080,60 L1120,60 L1120,85 L1160,85 L1160,45 L1200,45 L1200,80 L1240,80 L1240,70 L1280,70 L1280,120 Z"
+      fill="rgba(58, 26, 8, 0.35)" />
+    <circle cx="160" cy="55" r="2" fill="#fff8c8" opacity="0.7"/>
+    <circle cx="380" cy="40" r="1.5" fill="#fff8c8" opacity="0.6"/>
+    <circle cx="720" cy="35" r="2" fill="#fff8c8" opacity="0.7"/>
+    <circle cx="980" cy="45" r="1.5" fill="#fff8c8" opacity="0.5"/>
+  </svg>
+</section>
+
+<!-- ============================================================
+     P2 目錄（六/水）— 5 個六邊形導航
+     ============================================================ -->
+<section class="slide s2-toc" id="slide-2">
+  <div class="toc-header">
+    <div class="page-eyebrow">CONTENTS</div>
+    <h2 class="page-title">本期內容</h2>
+    <p class="page-subtitle">從屋頂到巷弄，5 個你從未留意的都市秘境</p>
+  </div>
+
+  <div class="toc-hex-row">
+    <div class="toc-hex" style="background: var(--accent); color: #fff;">
+      <div class="toc-num">01</div>
+      <div class="toc-name">屋頂<br>植物園</div>
+      <div class="toc-en">ROOFTOP</div>
+    </div>
+    <div class="toc-hex" style="background: var(--accent-warm); color: #fff;">
+      <div class="toc-num">02</div>
+      <div class="toc-name">城市<br>老書店</div>
+      <div class="toc-en">BOOKSHOP</div>
+    </div>
+    <div class="toc-hex" style="background: var(--terracotta); color: #fff;">
+      <div class="toc-num">03</div>
+      <div class="toc-name">巷弄<br>咖啡館</div>
+      <div class="toc-en">CAFÉ</div>
+    </div>
+    <div class="toc-hex" style="background: var(--moss); color: #fff;">
+      <div class="toc-num">04</div>
+      <div class="toc-name">週末<br>獨處 SOP</div>
+      <div class="toc-en">SOLO PLAN</div>
+    </div>
+    <div class="toc-hex" style="background: var(--teal); color: #fff;">
+      <div class="toc-num">05</div>
+      <div class="toc-name">獨處<br>必備小物</div>
+      <div class="toc-en">KIT LIST</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     P3 現況（圓/散）— 5 個統計泡泡散落
+     ============================================================ -->
+<section class="slide s3-stat" id="slide-3">
+  <div class="page-eyebrow">WHY · 現況</div>
+  <h2 class="page-title">為什麼需要都市綠洲？</h2>
+  <p class="page-subtitle">城市節奏下的心理需求，正在被低估</p>
+
+  <div class="stat-stage">
+    <!-- 大泡泡：核心數據 -->
+    <div class="stat-bubble" style="
+      top: 8%; left: 38%; width: 220px; height: 220px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
+      color: #fff;">
+      <div class="stat-num" style="color: #fff;">72%</div>
+      <div class="stat-unit" style="color: #fff8e8;">都市上班族</div>
+      <div class="stat-cap" style="color: #fff;">週間處於高壓狀態</div>
+    </div>
+
+    <!-- 中泡泡 -->
+    <div class="stat-bubble" style="
+      top: 0; left: 8%; width: 150px; height: 150px;
+      background: var(--bg-card); border: 1px solid var(--border-warm);">
+      <div class="stat-num">38</div>
+      <div class="stat-unit">分鐘</div>
+      <div class="stat-cap">平均通勤時光</div>
+    </div>
+
+    <div class="stat-bubble" style="
+      top: 0; right: 6%; width: 140px; height: 140px;
+      background: var(--bg-card); border: 1px solid var(--border-warm);">
+      <div class="stat-num">3.2</div>
+      <div class="stat-unit">公里</div>
+      <div class="stat-cap">都市秘境半徑</div>
+    </div>
+
+    <div class="stat-bubble" style="
+      bottom: 4%; left: 16%; width: 160px; height: 160px;
+      background: var(--bg-card); border: 1px solid var(--border-warm);">
+      <div class="stat-num">15</div>
+      <div class="stat-unit">分鐘</div>
+      <div class="stat-cap">深度獨處門檻</div>
+    </div>
+
+    <div class="stat-bubble" style="
+      bottom: 12%; right: 14%; width: 170px; height: 170px;
+      background: linear-gradient(135deg, var(--moss) 0%, var(--teal) 100%);
+      color: #fff;">
+      <div class="stat-num" style="color: #fff;">×2.4</div>
+      <div class="stat-unit" style="color: #fff8e8;">專注提升</div>
+      <div class="stat-cap" style="color: #fff;">自然環境加成</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     P4 5秘境（線/網）— 2×3 網格
+     ============================================================ -->
+<section class="slide s4-grid" id="slide-4">
+  <div class="grid-header">
+    <div class="page-eyebrow">OVERVIEW · 全景</div>
+    <h2 class="page-title">5 個鬧中取靜的秘境</h2>
+    <p class="page-subtitle">半徑 3 公里內，從書店到屋頂花園 · 步行 / 單車 / 一段捷運</p>
+  </div>
+
+  <div class="grid-3x2">
+    <div class="grid-card">
+      <div class="gc-num">01 · ROOFTOP</div>
+      <div class="gc-title">屋頂上的植物園</div>
+      <div class="gc-desc">商辦樓頂改造的綠洲，下午四點光線最溫柔</div>
+      <div class="gc-tag">▶ 步行 8 分鐘</div>
+      <svg class="gc-icon" viewBox="0 0 64 64" fill="none">
+        <path d="M10,54 L10,38 L32,18 L54,38 L54,54 Z" stroke="#d97e3c" stroke-width="3"/>
+        <circle cx="32" cy="22" r="4" fill="#f0a55c"/>
+      </svg>
+    </div>
+
+    <div class="grid-card">
+      <div class="gc-num">02 · BOOKSHOP</div>
+      <div class="gc-title">城市裡的老書店</div>
+      <div class="gc-desc">藏身二樓的時光膠囊，木頭書架與午後斜陽</div>
+      <div class="gc-tag">▶ 單車 12 分鐘</div>
+      <svg class="gc-icon" viewBox="0 0 64 64" fill="none">
+        <rect x="14" y="16" width="36" height="36" stroke="#d97e3c" stroke-width="3" rx="2"/>
+        <line x1="14" y1="26" x2="50" y2="26" stroke="#d97e3c" stroke-width="2"/>
+        <line x1="14" y1="40" x2="50" y2="40" stroke="#d97e3c" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <div class="grid-card">
+      <div class="gc-num">03 · CAFÉ</div>
+      <div class="gc-title">巷弄裡的咖啡小館</div>
+      <div class="gc-desc">自家烘豆 × 老闆手沖，一杯咖啡半個下午</div>
+      <div class="gc-tag">▶ 步行 5 分鐘</div>
+      <svg class="gc-icon" viewBox="0 0 64 64" fill="none">
+        <path d="M16,28 L42,28 L40,52 L18,52 Z" stroke="#d97e3c" stroke-width="3"/>
+        <path d="M42,32 L48,32 L48,40 L42,40" stroke="#d97e3c" stroke-width="3"/>
+        <path d="M28,16 C28,12 32,12 32,16 M30,12 L34,12" stroke="#d97e3c" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="grid-card">
+      <div class="gc-num">04 · SOLO PLAN</div>
+      <div class="gc-title">週末獨處 SOP</div>
+      <div class="gc-desc">週五下班 → 週日充電完成的 4 步驟流程</div>
+      <div class="gc-tag">▶ 4 steps</div>
+      <svg class="gc-icon" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="22" stroke="#d97e3c" stroke-width="3"/>
+        <path d="M32,16 L32,32 L42,38" stroke="#d97e3c" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="grid-card">
+      <div class="gc-num">05 · KIT LIST</div>
+      <div class="gc-title">獨處必備小物</div>
+      <div class="gc-desc">5 件讓時光變慢的法寶，減噪耳機到紙本筆記</div>
+      <div class="gc-tag">▶ 5 items</div>
+      <svg class="gc-icon" viewBox="0 0 64 64" fill="none">
+        <path d="M18,22 L18,46 L42,46 L42,22 Z" stroke="#d97e3c" stroke-width="3"/>
+        <circle cx="30" cy="34" r="3" fill="#d97e3c"/>
+        <path d="M22,22 L22,16 L40,16 L40,22" stroke="#d97e3c" stroke-width="3"/>
+      </svg>
+    </div>
+
+    <div class="grid-card" style="background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%); color: #fff; border: none;">
+      <div class="gc-num" style="color: #fff8e8;">BONUS</div>
+      <div class="gc-title" style="color: #fff;">隱藏版秘境</div>
+      <div class="gc-desc" style="color: #fff8e8;">當地人才知道的圖書館閣樓，下期揭曉</div>
+      <div class="gc-tag" style="color: #fff8e8;">▶ Coming Soon</div>
+      <svg class="gc-icon" viewBox="0 0 64 64" fill="none" style="opacity: 0.8;">
+        <path d="M32,12 L40,28 L56,32 L44,44 L46,60 L32,52 L18,60 L20,44 L8,32 L24,28 Z"
+          stroke="#fff" stroke-width="2.5" fill="none"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     P5 秘境1（方/垂）— 屋頂植物園
+     ============================================================ -->
+<section class="slide s5-spot" id="slide-5">
+  <div class="page-eyebrow">SPOT 01 · ROOFTOP</div>
+  <h2 class="page-title">秘境 01｜屋頂上的植物園</h2>
+  <p class="page-subtitle">在水泥叢林裡，學會深呼吸</p>
+
+  <div class="spot-hero">
+    <div class="spot-visual">
+      <span class="label-tag">SPOT 01</span>
+      <span class="label-distance">★ 步行 8 分鐘</span>
+
+      <!-- 屋頂植物園 SVG 場景 -->
+      <svg width="80%" height="80%" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid meet">
+        <!-- 天空漸層已由容器 CSS 提供 -->
+        <circle cx="450" cy="60" r="28" fill="#fff8e8" opacity="0.85"/>
+        <!-- 遠景城市剪影 -->
+        <g opacity="0.4">
+          <rect x="40" y="130" width="40" height="60" fill="#5e3a25"/>
+          <rect x="90" y="110" width="30" height="80" fill="#5e3a25"/>
+          <rect x="130" y="145" width="35" height="45" fill="#5e3a25"/>
+          <rect x="175" y="100" width="45" height="90" fill="#5e3a25"/>
+          <rect x="230" y="125" width="30" height="65" fill="#5e3a25"/>
+        </g>
+        <!-- 屋頂平台 -->
+        <rect x="0" y="180" width="600" height="60" fill="#6b4a2a"/>
+        <rect x="0" y="180" width="600" height="6" fill="#3a2a1c"/>
+        <!-- 植物盆栽 -->
+        <g transform="translate(80, 140)">
+          <rect x="0" y="20" width="32" height="22" fill="#a85a25" rx="2"/>
+          <path d="M16,20 C10,8 22,4 16,-4 C12,-2 18,-12 14,-14 C22,-6 24,8 16,20" fill="#8a9a5f"/>
+          <path d="M16,20 C22,10 30,12 28,4 C32,8 32,16 24,20" fill="#6b8a4f"/>
+        </g>
+        <g transform="translate(160, 130)">
+          <rect x="0" y="30" width="40" height="28" fill="#a85a25" rx="2"/>
+          <path d="M20,30 C12,18 28,14 20,4 C16,8 22,-6 16,-10 C28,0 32,18 20,30" fill="#8a9a5f"/>
+          <path d="M20,30 C28,20 36,22 34,12 C40,18 38,28 28,30" fill="#6b8a4f"/>
+        </g>
+        <g transform="translate(250, 145)">
+          <ellipse cx="20" cy="32" rx="22" ry="6" fill="#a85a25"/>
+          <path d="M8,28 C4,16 18,12 14,2 C24,8 26,18 16,28" fill="#8a9a5f"/>
+          <path d="M28,28 C36,20 42,22 38,12 C44,16 42,26 34,28" fill="#6b8a4f"/>
+          <path d="M20,28 C18,18 24,8 22,2 C28,8 30,20 24,28" fill="#7a8a4f"/>
+        </g>
+        <g transform="translate(350, 138)">
+          <rect x="0" y="22" width="34" height="22" fill="#a85a25" rx="2"/>
+          <path d="M17,22 C10,8 24,4 17,-6 C12,-2 18,-14 13,-16 C22,-8 26,10 17,22" fill="#8a9a5f"/>
+          <path d="M17,22 C24,12 30,14 28,4 C34,8 34,18 26,22" fill="#6b8a4f"/>
+        </g>
+        <g transform="translate(440, 145)">
+          <rect x="0" y="20" width="30" height="20" fill="#a85a25" rx="2"/>
+          <path d="M15,20 C8,8 22,4 15,-4 C11,-2 17,-10 13,-12 C20,-4 24,12 15,20" fill="#8a9a5f"/>
+        </g>
+        <!-- 小熊剪影 -->
+        <g transform="translate(520, 150)">
+          <ellipse cx="20" cy="22" rx="22" ry="6" fill="#3a2a1c" opacity="0.4"/>
+          <circle cx="20" cy="14" r="10" fill="#3a2a1c"/>
+          <circle cx="16" cy="5" r="4" fill="#3a2a1c"/>
+          <circle cx="24" cy="5" r="4" fill="#3a2a1c"/>
+          <rect x="13" y="22" width="14" height="14" fill="#3a2a1c"/>
+          <circle cx="17" cy="13" r="1.5" fill="#fff"/>
+          <circle cx="23" cy="13" r="1.5" fill="#fff"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="spot-meta">
+      <div class="spot-meta-row">
+        <div class="icon-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="10" r="3" stroke="#d97e3c" stroke-width="2"/>
+            <path d="M12,2 C7,2 4,6 4,10 C4,16 12,22 12,22 C12,22 20,16 20,10 C20,6 17,2 12,2 Z"
+              stroke="#d97e3c" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">LOCATION</div>
+          <div class="row-value">信義區 · A 商辦 12 樓屋頂</div>
+        </div>
+      </div>
+      <div class="spot-meta-row">
+        <div class="icon-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="#d97e3c" stroke-width="2"/>
+            <path d="M12,7 L12,12 L16,14" stroke="#d97e3c" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">BEST TIME</div>
+          <div class="row-value">週六 16:00 - 18:00（夕陽 + 微風 + 人最少）</div>
+        </div>
+      </div>
+      <div class="spot-meta-row">
+        <div class="icon-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12,2 L12,8 M12,16 L12,22 M2,12 L8,12 M16,12 L22,12"
+              stroke="#d97e3c" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="3" stroke="#d97e3c" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="row-text">
+          <div class="row-label">WHAT TO DO</div>
+          <div class="row-value">帶一本讀不完的書、坐在長凳看雲、什麼都不做</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     P6 秘境2（特/水）— 老書店 + 時間沙漏
+     ============================================================ -->
+<section class="slide s6-book" id="slide-6">
+  <div class="page-eyebrow">SPOT 02 · BOOKSHOP</div>
+  <h2 class="page-title">秘境 02｜城市裡的老書店</h2>
+  <p class="page-subtitle">時間變慢的角落</p>
+
+  <div class="book-stage">
+    <div class="book-visual">
+      <!-- 老書店內部 + 時間沙漏 -->
+      <svg width="100%" height="100%" viewBox="0 0 480 360" preserveAspectRatio="xMidYMid meet">
+        <!-- 地板 -->
+        <rect x="0" y="280" width="480" height="80" fill="#a85a25"/>
+        <line x1="40" y1="320" x2="40" y2="360" stroke="#6b4a2a" stroke-width="1.5"/>
+        <line x1="120" y1="320" x2="120" y2="360" stroke="#6b4a2a" stroke-width="1.5"/>
+        <line x1="200" y1="320" x2="200" y2="360" stroke="#6b4a2a" stroke-width="1.5"/>
+        <line x1="280" y1="320" x2="280" y2="360" stroke="#6b4a2a" stroke-width="1.5"/>
+        <line x1="360" y1="320" x2="360" y2="360" stroke="#6b4a2a" stroke-width="1.5"/>
+        <line x1="440" y1="320" x2="440" y2="360" stroke="#6b4a2a" stroke-width="1.5"/>
+
+        <!-- 後方書架（深色木）-->
+        <rect x="20" y="80" width="180" height="200" fill="#5e3a25"/>
+        <line x1="20" y1="130" x2="200" y2="130" stroke="#3a2a1c" stroke-width="2"/>
+        <line x1="20" y1="180" x2="200" y2="180" stroke="#3a2a1c" stroke-width="2"/>
+        <line x1="20" y1="230" x2="200" y2="230" stroke="#3a2a1c" stroke-width="2"/>
+
+        <!-- 書本（彩色）-->
+        <g>
+          <rect x="30" y="92" width="14" height="34" fill="#c97a72"/>
+          <rect x="46" y="92" width="12" height="34" fill="#8a9a5f"/>
+          <rect x="60" y="92" width="16" height="34" fill="#d97e3c"/>
+          <rect x="78" y="92" width="13" height="34" fill="#5e8a82"/>
+          <rect x="93" y="92" width="14" height="34" fill="#c25a3a"/>
+          <rect x="109" y="92" width="15" height="34" fill="#8a9a5f"/>
+          <rect x="126" y="92" width="12" height="34" fill="#c97a72"/>
+          <rect x="140" y="92" width="14" height="34" fill="#d97e3c"/>
+          <rect x="156" y="92" width="13" height="34" fill="#5e8a82"/>
+          <rect x="171" y="92" width="14" height="34" fill="#c25a3a"/>
+        </g>
+        <g transform="translate(0, 50)">
+          <rect x="30" y="92" width="14" height="34" fill="#5e8a82"/>
+          <rect x="46" y="92" width="12" height="34" fill="#c97a72"/>
+          <rect x="60" y="92" width="16" height="34" fill="#8a9a5f"/>
+          <rect x="78" y="92" width="13" height="34" fill="#d97e3c"/>
+          <rect x="93" y="92" width="14" height="34" fill="#5e8a82"/>
+          <rect x="109" y="92" width="15" height="34" fill="#c25a3a"/>
+          <rect x="126" y="92" width="12" height="34" fill="#8a9a5f"/>
+          <rect x="140" y="92" width="14" height="34" fill="#c97a72"/>
+          <rect x="156" y="92" width="13" height="34" fill="#d97e3c"/>
+          <rect x="171" y="92" width="14" height="34" fill="#5e8a82"/>
+        </g>
+        <g transform="translate(0, 100)">
+          <rect x="30" y="92" width="14" height="34" fill="#c25a3a"/>
+          <rect x="46" y="92" width="12" height="34" fill="#8a9a5f"/>
+          <rect x="60" y="92" width="16" height="34" fill="#c97a72"/>
+          <rect x="78" y="92" width="13" height="34" fill="#5e8a82"/>
+          <rect x="93" y="92" width="14" height="34" fill="#d97e3c"/>
+          <rect x="109" y="92" width="15" height="34" fill="#c25a3a"/>
+          <rect x="126" y="92" width="12" height="34" fill="#8a9a5f"/>
+          <rect x="140" y="92" width="14" height="34" fill="#c97a72"/>
+          <rect x="156" y="92" width="13" height="34" fill="#d97e3c"/>
+          <rect x="171" y="92" width="14" height="34" fill="#5e8a82"/>
+        </g>
+
+        <!-- 窗戶（午後斜陽）-->
+        <rect x="260" y="60" width="180" height="180" fill="#fff5d8" opacity="0.6" rx="2"/>
+        <line x1="350" y1="60" x2="350" y2="240" stroke="#a85a25" stroke-width="3"/>
+        <line x1="260" y1="150" x2="440" y2="150" stroke="#a85a25" stroke-width="3"/>
+        <!-- 斜陽光線 -->
+        <polygon points="350,240 440,240 440,60 350,150" fill="#fff5d8" opacity="0.45"/>
+
+        <!-- 時間沙漏（左下角）-->
+        <g transform="translate(290, 270)">
+          <ellipse cx="40" cy="0" rx="40" ry="6" fill="none" stroke="#6b4a2a" stroke-width="2"/>
+          <line x1="0" y1="0" x2="80" y2="0" stroke="#6b4a2a" stroke-width="3"/>
+          <line x1="0" y1="0" x2="0" y2="55" stroke="#6b4a2a" stroke-width="2"/>
+          <line x1="80" y1="0" x2="80" y2="55" stroke="#6b4a2a" stroke-width="2"/>
+          <path d="M0,0 L80,0 L40,55 Z" fill="#f0a55c" opacity="0.45"/>
+          <path d="M0,55 L80,55 L40,110 Z" fill="#d97e3c" opacity="0.7"/>
+          <ellipse cx="40" cy="55" rx="3" ry="2" fill="#a85a25"/>
+          <line x1="0" y1="55" x2="80" y2="55" stroke="#6b4a2a" stroke-width="3"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="book-text">
+      <div class="quote-mark">"</div>
+      <div class="quote">走進那家書店<br>時鐘突然不重要了<br>你只記得翻到第幾頁</div>
+      <div class="quote-source">— 城市觀察者 / 2026 春季</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     P7 秘境3（六/散）— 巷弄咖啡館
+     ============================================================ -->
+<section class="slide s7-cafe" id="slide-7">
+  <div class="page-eyebrow">SPOT 03 · CAFÉ</div>
+  <h2 class="page-title">秘境 03｜巷弄裡的咖啡小館</h2>
+  <p class="page-subtitle">一杯咖啡，半個下午</p>
+
+  <div class="cafe-stage">
+    <div class="cafe-hex-stage">
+      <!-- 散落的六邊形：咖啡五大感官 -->
+      <div class="hex-floating" style="
+        top: 4%; left: 10%; width: 130px; height: 150px;
+        background: var(--accent); color: #fff;">
+        <div class="hex-num">01</div>
+        <div class="hex-label">嗅覺<br>Aroma</div>
+        <div class="hex-en">烘豆香</div>
+      </div>
+
+      <div class="hex-floating" style="
+        top: 6%; right: 8%; width: 120px; height: 140px;
+        background: var(--bg-card); border: 1px solid var(--border-warm);">
+        <div class="hex-num">02</div>
+        <div class="hex-label">視覺<br>Visual</div>
+        <div class="hex-en">琥珀光</div>
+      </div>
+
+      <div class="hex-floating" style="
+        top: 38%; left: 30%; width: 160px; height: 185px;
+        background: linear-gradient(135deg, var(--accent-warm) 0%, var(--terracotta) 100%);
+        color: #fff;">
+        <div class="hex-num">03</div>
+        <div class="hex-label">味覺<br>Taste</div>
+        <div class="hex-en">前中後韻</div>
+      </div>
+
+      <div class="hex-floating" style="
+        bottom: 8%; left: 6%; width: 120px; height: 140px;
+        background: var(--bg-card); border: 1px solid var(--border-warm);">
+        <div class="hex-num">04</div>
+        <div class="hex-label">聽覺<br>Sound</div>
+        <div class="hex-en">磨豆聲</div>
+      </div>
+
+      <div class="hex-floating" style="
+        bottom: 4%; right: 4%; width: 130px; height: 150px;
+        background: var(--moss); color: #fff;">
+        <div class="hex-num">05</div>
+        <div class="hex-label">觸覺<br>Touch</div>
+        <div class="hex-en">陶杯溫度</div>
+      </div>
+    </div>
+
+    <div class="cafe-text-card">
+      <div class="cafe-tip">CAFE TIP</div>
+      <h3>獨處咖啡<br>5 件不被打擾的事</h3>
+      <p>不要滑手機。一杯手沖需要 4 分鐘，這 4 分鐘是你整週最安靜的 4 分鐘。</p>
+      <ul class="cafe-list">
+        <li>選靠窗的角落位，遠離門口</li>
+        <li>點手沖，不點拿鐵（拉花會分心）</li>
+        <li>帶紙本筆記，不用電腦</li>
+        <li>和老闆聊兩句，但不能聊工作</li>
+        <li>坐到杯子空才離開</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     P8 實踐指南（圓/垂）— 時間軸垂直
+     ============================================================ -->
+<section class="slide s8-sop" id="slide-8">
+  <div class="page-eyebrow">PRACTICE · 實踐</div>
+  <h2 class="page-title">你的獨處 SOP</h2>
+  <p class="page-subtitle">週五下班 → 週日充電完成</p>
+
+  <div class="sop-stage">
+    <div class="sop-track">
+      <div class="sop-step">
+        <div class="step-circle">1</div>
+        <div class="step-time">週五 · 19:00</div>
+        <div class="step-title">數位斷捨離</div>
+        <div class="step-desc">把手機通知全部關閉，只保留來電與行事曆</div>
+      </div>
+
+      <div class="sop-step">
+        <div class="step-circle">2</div>
+        <div class="step-time">週六 · 10:00</div>
+        <div class="step-title">步行探勘</div>
+        <div class="step-desc">半徑 3 公里內散步，撿一個你從未走進的角落</div>
+      </div>
+
+      <div class="sop-step">
+        <div class="step-circle">3</div>
+        <div class="step-time">週六 · 15:00</div>
+        <div class="step-title">深度獨處</div>
+        <div class="step-desc">找到秘境，待至少 90 分鐘，不滑手機</div>
+      </div>
+
+      <div class="sop-step">
+        <div class="step-circle">4</div>
+        <div class="step-time">週日 · 11:00</div>
+        <div class="step-title">紙本回顧</div>
+        <div class="step-desc">寫下週末的三件小事，比照片更長久</div>
+      </div>
+    </div>
+
+    <div class="sop-side">
+      <div class="sop-quote-card">
+        <div class="q-label">RULE 01</div>
+        <div class="q-text">不帶電腦出門。<br>帶紙本，是另一個時代的你。</div>
+      </div>
+      <div class="sop-quote-card">
+        <div class="q-label">RULE 02</div>
+        <div class="q-text">獨處不是社交失敗，<br>是和自己重新約會。</div>
+      </div>
+      <div class="sop-quote-card">
+        <div class="q-label">RULE 03</div>
+        <div class="q-text">記得帶走垃圾，<br>留給下一個造訪者好印象。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     P9 裝備（線/水）— 5 卡片水平排列
+     ============================================================ -->
+<section class="slide s9-kit" id="slide-9">
+  <div class="page-eyebrow">GEAR · 裝備</div>
+  <h2 class="page-title">獨處必備小物</h2>
+  <p class="page-subtitle">5 件讓時光變慢的法寶</p>
+
+  <div class="kit-stage">
+    <!-- 01 降噪耳機 -->
+    <div class="kit-card">
+      <div class="kit-num">01</div>
+      <svg class="kit-icon" viewBox="0 0 64 64" fill="none">
+        <path d="M14,32 C14,22 22,14 32,14 C42,14 50,22 50,32 L50,40 L42,40 L42,32 C42,26 38,22 32,22 C26,22 22,26 22,32 L22,40 L14,40 Z"
+          fill="#d97e3c"/>
+        <rect x="12" y="38" width="10" height="14" rx="2" fill="#d97e3c"/>
+        <rect x="42" y="38" width="10" height="14" rx="2" fill="#d97e3c"/>
+      </svg>
+      <div class="kit-title">降噪耳機</div>
+      <div class="kit-desc">一鍵切掉城市噪音，<br>聽得到自己的呼吸</div>
+      <div class="kit-tag">Bose QC</div>
+    </div>
+
+    <!-- 02 紙本筆記 -->
+    <div class="kit-card">
+      <div class="kit-num">02</div>
+      <svg class="kit-icon" viewBox="0 0 64 64" fill="none">
+        <rect x="14" y="10" width="36" height="44" rx="2" fill="#d97e3c"/>
+        <line x1="20" y1="22" x2="44" y2="22" stroke="#fdf5ed" stroke-width="2"/>
+        <line x1="20" y1="30" x2="44" y2="30" stroke="#fdf5ed" stroke-width="2"/>
+        <line x1="20" y1="38" x2="36" y2="38" stroke="#fdf5ed" stroke-width="2"/>
+      </svg>
+      <div class="kit-title">紙本筆記</div>
+      <div class="kit-desc">沒有藍光、沒有通知，<br>寫字的速度剛好等於思考</div>
+      <div class="kit-tag">A5 Grid</div>
+    </div>
+
+    <!-- 03 保溫瓶 -->
+    <div class="kit-card">
+      <div class="kit-num">03</div>
+      <svg class="kit-icon" viewBox="0 0 64 64" fill="none">
+        <rect x="20" y="14" width="24" height="6" rx="1" fill="#d97e3c"/>
+        <rect x="22" y="20" width="20" height="34" rx="3" fill="#d97e3c"/>
+        <line x1="22" y1="30" x2="42" y2="30" stroke="#fdf5ed" stroke-width="1.5"/>
+        <path d="M44,24 L48,24 L48,38 L44,38" stroke="#d97e3c" stroke-width="2.5" fill="none"/>
+      </svg>
+      <div class="kit-title">保溫瓶</div>
+      <div class="kit-desc">自帶熱茶或冷萃，<br>不依賴便利商店</div>
+      <div class="kit-tag">500ml</div>
+    </div>
+
+    <!-- 04 小書 -->
+    <div class="kit-card">
+      <div class="kit-num">04</div>
+      <svg class="kit-icon" viewBox="0 0 64 64" fill="none">
+        <rect x="12" y="18" width="40" height="32" rx="2" fill="#d97e3c"/>
+        <line x1="32" y1="18" x2="32" y2="50" stroke="#fdf5ed" stroke-width="2"/>
+        <line x1="20" y1="26" x2="28" y2="26" stroke="#fdf5ed" stroke-width="1.5"/>
+        <line x1="20" y1="32" x2="28" y2="32" stroke="#fdf5ed" stroke-width="1.5"/>
+        <line x1="36" y1="26" x2="44" y2="26" stroke="#fdf5ed" stroke-width="1.5"/>
+        <line x1="36" y1="32" x2="44" y2="32" stroke="#fdf5ed" stroke-width="1.5"/>
+      </svg>
+      <div class="kit-title">口袋小書</div>
+      <div class="kit-desc">詩集、散文、<br>或一頁寫滿的金句</div>
+      <div class="kit-tag">讀詩</div>
+    </div>
+
+    <!-- 05 散步鞋 -->
+    <div class="kit-card">
+      <div class="kit-num">05</div>
+      <svg class="kit-icon" viewBox="0 0 64 64" fill="none">
+        <path d="M8,42 C8,38 14,36 18,36 L42,36 C50,36 56,40 56,44 L56,46 C56,48 54,50 52,50 L12,50 C10,50 8,48 8,46 Z"
+          fill="#d97e3c"/>
+        <line x1="14" y1="44" x2="50" y2="44" stroke="#fdf5ed" stroke-width="1.5"/>
+        <circle cx="20" cy="42" r="1.5" fill="#fdf5ed"/>
+        <circle cx="32" cy="42" r="1.5" fill="#fdf5ed"/>
+        <circle cx="44" cy="42" r="1.5" fill="#fdf5ed"/>
+        <path d="M18,36 L20,28 L26,28 L28,36" stroke="#d97e3c" stroke-width="2" fill="none"/>
+      </svg>
+      <div class="kit-title">好走散步鞋</div>
+      <div class="kit-desc">半日 8 公里，<br>腳不痛才能繼續走</div>
+      <div class="kit-tag">EVA 底</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     P10 結尾（無/單）— 夕陽漸層大字
+     ============================================================ -->
+<section class="slide s10-end" id="slide-10">
+  <div class="end-eyebrow">FINAL · 結語</div>
+  <h1 class="end-title">走出去，<br>找回自己</h1>
+  <div class="end-divider"></div>
+  <div class="end-sub">WALK OUT · FIND YOURSELF</div>
+  <div class="end-meta">BEAR MUSEUM · 2026 · 08 · 28 · FRIDAY</div>
+</section>
+
+<!-- ============================================================
+     導航列
+     ============================================================ -->
+<div class="nav">
+  <button onclick="prev()">◀</button>
+  <span id="nav-status">1 / 10</span>
+  <button onclick="next()">▶</button>
+</div>
+
+</div>
+
+<script>
+(function () {
+  var slides = document.querySelectorAll('.slide');
+  var total = slides.length;
+  var current = 0;
+
+  function show() {
+    if (slides[current]) {
+      slides[current].classList.remove('active');
+    }
+    current = (current + total) % total;
+    if (slides[current]) {
+      slides[current].classList.add('active');
+    }
+    var status = document.getElementById('nav-status');
+    if (status) status.textContent = (current + 1) + ' / ' + total;
+  }
+
+  window.next = function () {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current + 1) % total;
+    if (slides[current]) slides[current].classList.add('active');
+    var status = document.getElementById('nav-status');
+    if (status) status.textContent = (current + 1) + ' / ' + total;
+  };
+
+  window.prev = function () {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current - 1 + total) % total;
+    if (slides[current]) slides[current].classList.add('active');
+    var status = document.getElementById('nav-status');
+    if (status) status.textContent = (current + 1) + ' / ' + total;
+  };
+
+  // 鍵盤支援
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') window.next();
+    if (e.key === 'ArrowLeft') window.prev();
+  });
+})();
+</script>
+
+</body>
+</html>
