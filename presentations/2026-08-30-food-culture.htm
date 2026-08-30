@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>早市學：5 個凌晨四點的城市廚房｜2026-08-30 美食文化</title>
+<style>
+/* ============================================================
+   配色：C7 晨霧森林（Morning Forest，淡綠＋霧白）
+   模板：V10 紙藝漸層 + 水平軸線
+   主題：Sunday 美食文化 — 早市學：5 個凌晨四點的城市廚房
+   ============================================================ */
+:root {
+  --primary:      #5C8A6F;
+  --primary-dark: #2F5A41;
+  --primary-soft: #B7D1BC;
+  --primary-glow: rgba(92,138,111,0.20);
+  --accent:       #C97E4A;
+  --accent-dark:  #8E4A23;
+  --accent-soft:  #E8B98A;
+  --bg:           #F4F7F1;
+  --bg-secondary: #E5EBDD;
+  --bg-card:      #FCFDF8;
+  --text:         #2A3A2E;
+  --text-light:   #4F6453;
+  --text-muted:   #8A9D8C;
+  --warm-gray:    #C8CFBE;
+  --gold:         #C49A3A;
+  --teal:         #5C8A8E;
+  --olive:        #6B7A3E;
+  --ink:          #1F2E22;
+  --paper-line:   rgba(92,138,111,0.08);
+  --shadow-soft:  0 6px 24px rgba(47,90,65,0.10);
+  --shadow-mid:   0 12px 36px rgba(42,58,46,0.18);
+  --shadow-paper: 0 2px 0 rgba(255,255,255,0.6) inset, 0 8px 24px rgba(92,138,111,0.10);
+  --border-warm:  1.5px solid var(--warm-gray);
+  --nav-bg:       rgba(244,247,241,0.96);
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 40px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: 20px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Serif TC', 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(183,209,188,0.45) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 90%, rgba(232,185,138,0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 5% 80%, rgba(196,154,58,0.10) 0%, transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-x: hidden;
+}
+
+/* 紙藝底紋 */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, transparent 0 22px, var(--paper-line) 22px 23px),
+    repeating-linear-gradient(-45deg, transparent 0 22px, var(--paper-line) 22px 23px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.presentation {
+  width: min(96vw, 1280px);
+  aspect-ratio: 16 / 9;
+  position: relative;
+  z-index: 1;
+  background: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow-mid);
+  overflow: hidden;
+}
+
+.slide {
+  position: relative;
+  inset: auto;
+  display: none;
+  padding: 40px 56px 60px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+/* 通用導航 */
+.nav {
+  position: fixed;
+  top: 16px;
+  right: 24px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-warm);
+  border-radius: 999px;
+  padding: 6px 12px;
+  box-shadow: var(--shadow-soft);
+  font-size: 1rem;
+  color: var(--text);
+}
+.nav button {
+  background: var(--primary);
+  color: #fff;
+  border: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.nav button:hover { background: var(--primary-dark); transform: scale(1.08); }
+.nav button:disabled { background: var(--warm-gray); cursor: not-allowed; }
+.nav span { font-weight: 600; min-width: 56px; text-align: center; }
+
+/* 通用頁面 header */
+.header { margin-bottom: 16px; max-width: calc(100% - 180px); }
+.header h2 {
+  font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.header .sub {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ================= P1 封面（無/單） ================= */
+.s1-cover {
+  background:
+    radial-gradient(circle 700px at 50% 50%, rgba(183,209,188,0.45) 0%, transparent 70%),
+    linear-gradient(180deg, #F4F7F1 0%, #E5EBDD 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .sunrise {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  z-index: 0;
+}
+.s1-cover .sunrise circle { fill: none; }
+.s1-cover .meta {
+  position: absolute;
+  top: 56px;
+  left: 56px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  z-index: 2;
+}
+.s1-cover .meta .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.s1-cover .kicker {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  font-size: 1rem;
+  color: var(--primary-dark);
+  letter-spacing: 0.35em;
+  font-weight: 700;
+  background: rgba(255, 253, 248, 0.95);
+  padding: 8px 22px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--border-warm);
+}
+.s1-cover h1 {
+  position: relative;
+  z-index: 3;
+  font-size: clamp(2.6rem, 5.5vw, 4.6rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin: 0;
+  text-shadow: 0 2px 0 rgba(255,255,255,0.4);
+}
+.s1-cover h1 .accent { color: var(--accent); }
+.s1-cover .sub-line {
+  position: relative;
+  z-index: 3;
+  margin-top: 16px;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  color: var(--text-light);
+  letter-spacing: 0.08em;
+  font-style: italic;
+}
+.s1-cover .sign {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.25em;
+}
+.s1-cover .seal {
+  position: absolute;
+  top: 56px;
+  right: 56px;
+  z-index: 2;
+  width: 80px;
+  height: 80px;
+}
+
+/* ================= P2 早市時序（線/垂） ================= */
+.s2-timeline {
+  background:
+    linear-gradient(180deg, #FCFDF8 0%, #F4F7F1 100%);
+}
+  .s2-timeline .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 4px 24px 30px 24px;
+    position: relative;
+  }
+  .s2-timeline .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 4%;
+    bottom: 12%;
+    width: 2px;
+    background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%);
+    opacity: 0.4;
+  }
+  .t-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+  }
+  .t-row.even { flex-direction: row-reverse; text-align: right; }
+  .t-dot {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 3px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(92,138,111,0.20);
+  }
+  .t-row.even .t-dot { border-color: var(--accent); color: var(--accent-dark); }
+  .t-content { flex: 1; max-width: 60%; }
+  .t-content .time {
+    font-size: 1rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 2px;
+  }
+  .t-content h4 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+  .t-content p {
+    font-size: 1rem;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+
+
+/* ================= P3 五區地圖（方/網） ================= */
+.s3-zones {
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(183,209,188,0.25) 0%, transparent 60%),
+    var(--bg-card);
+}
+.s3-zones .zone-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+  padding: 8px 0 24px 0;
+}
+.zone-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-warm);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  transition: transform 0.2s ease;
+  overflow: hidden;
+}
+.zone-card .z-num {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.zone-card .z-icon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 4px;
+}
+.zone-card h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.zone-card .z-tag {
+  font-size: 1rem;
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+.zone-card p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.4;
+  flex: 1;
+}
+.zone-card .z-meta {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  border-top: 1px dashed var(--warm-gray);
+  padding-top: 6px;
+  margin-top: auto;
+}
+
+/* ================= P4 攤販類型（六/散） ================= */
+.s4-stalls {
+  background:
+    radial-gradient(ellipse at 70% 30%, rgba(232,185,138,0.20) 0%, transparent 55%),
+    var(--bg-card);
+}
+.s4-stalls .hex-scatter {
+  flex: 1;
+  position: relative;
+  padding: 16px;
+}
+.hex-cell {
+  position: absolute;
+  width: 200px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 38px 14px 30px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(135deg, var(--primary-soft), var(--bg-card));
+  box-shadow: 0 4px 14px rgba(47,90,65,0.12);
+}
+.hex-cell.alt {
+  background: linear-gradient(135deg, var(--accent-soft), var(--bg-card));
+}
+.hex-cell .h-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 4px;
+}
+.hex-cell h5 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.hex-cell p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.3;
+}
+
+/* ================= P5 招牌食材（圓/水） ================= */
+.s5-produce {
+  background:
+    linear-gradient(180deg, #FCFDF8 0%, #F4F7F1 100%);
+}
+.s5-produce .produce-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+}
+.produce-bubble {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+.bubble-disc {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-soft) 0%, var(--bg-card) 100%);
+  border: 2.5px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(92,138,111,0.18);
+}
+.bubble-disc.accent {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--accent-soft) 0%, var(--bg-card) 100%);
+  box-shadow: 0 6px 18px rgba(201,126,74,0.18);
+}
+.bubble-disc .b-icon {
+  width: 64px;
+  height: 64px;
+}
+.bubble-disc .b-big {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--primary-dark);
+}
+.bubble-disc.accent .b-big { color: var(--accent-dark); }
+.produce-bubble h5 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.produce-bubble p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.35;
+  max-width: 160px;
+}
+
+/* ================= P6 一日溫度（特/網） ================= */
+.s6-temperature {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(183,209,188,0.18) 0%, transparent 70%),
+    var(--bg-card);
+}
+.s6-temperature .temp-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 16px 0;
+}
+.temp-tile {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-warm);
+  border-radius: 10px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.temp-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+.temp-tile.t1::before { background: #6E89B0; }
+.temp-tile.t2::before { background: #E8B85F; }
+.temp-tile.t3::before { background: #C97E4A; }
+.temp-tile.t4::before { background: #5C8A6F; }
+.temp-tile .t-icon {
+  width: 50px;
+  height: 50px;
+  margin: 6px 0;
+}
+.temp-tile .t-when {
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+.temp-tile h5 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.temp-tile .t-deg {
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: var(--primary-dark);
+  margin: 2px 0;
+}
+.temp-tile p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.35;
+  flex: 1;
+}
+
+/* ================= P7 採買路徑（線/水） ================= */
+.s7-route {
+  background:
+    linear-gradient(180deg, #FCFDF8 0%, #F4F7F1 100%);
+}
+.s7-route .route-track {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  position: relative;
+}
+.s7-route .route-track::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 6%;
+  right: 6%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: 2px;
+  opacity: 0.35;
+  z-index: 0;
+}
+.route-step {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+.route-step .r-num {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 900;
+  box-shadow: 0 4px 12px rgba(92,138,111,0.30);
+}
+.route-step:nth-child(2n) .r-num { background: var(--accent); box-shadow: 0 4px 12px rgba(201,126,74,0.30); }
+.route-step h5 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-top: 4px;
+}
+.route-step p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.35;
+  max-width: 160px;
+}
+
+/* ================= P8 料理手勢（方/垂） ================= */
+.s8-gesture {
+  background:
+    radial-gradient(ellipse at 30% 70%, rgba(232,185,138,0.16) 0%, transparent 60%),
+    var(--bg-card);
+}
+.s8-gesture .gesture-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 0 24px 0;
+}
+.gesture-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-warm);
+  border-radius: 10px;
+  padding: 8px 14px;
+}
+.gesture-row .g-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--primary-soft), var(--bg-card));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--primary);
+}
+.gesture-row.alt .g-icon {
+  background: linear-gradient(135deg, var(--accent-soft), var(--bg-card));
+  border-color: var(--accent);
+}
+.gesture-row .g-body { flex: 1; }
+.gesture-row h5 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.gesture-row p {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+.gesture-row .g-tag {
+  background: var(--primary);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.gesture-row.alt .g-tag { background: var(--accent); }
+
+/* ================= P9 早市記憶（圓/單） ================= */
+.s9-memory {
+  background:
+    radial-gradient(circle 500px at 50% 50%, rgba(183,209,188,0.30) 0%, transparent 70%),
+    var(--bg-card);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s9-memory .memory-core {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary-soft) 0%, var(--bg-card) 75%);
+  border: 3px dashed var(--primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: 0 0 0 8px rgba(92,138,111,0.06), 0 0 0 18px rgba(92,138,111,0.03);
+}
+.s9-memory .memory-core .big {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--primary-dark);
+  letter-spacing: 0.05em;
+}
+.s9-memory .memory-core .small {
+  font-size: 1rem;
+  color: var(--accent-dark);
+  letter-spacing: 0.25em;
+  margin-top: 4px;
+}
+.s9-memory .quote {
+  max-width: 70%;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.s9-memory .senses {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 70%;
+}
+.s9-memory .sense {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  color: var(--text-light);
+}
+.s9-memory .sense .s-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* ================= P10 結尾 ================= */
+.s10-end {
+  background:
+    radial-gradient(circle 600px at 50% 50%, rgba(183,209,188,0.30) 0%, transparent 70%),
+    linear-gradient(180deg, #F4F7F1 0%, #E5EBDD 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.s10-end .seal {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  width: 140px;
+  height: 140px;
+}
+.s10-end h2 {
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 900;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.s10-end h2 .accent { color: var(--primary); }
+.s10-end .bless {
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  color: var(--text-light);
+  max-width: 60%;
+  line-height: 1.8;
+  font-style: italic;
+  margin-bottom: 28px;
+}
+.s10-end .credit {
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  margin-top: 16px;
+}
+.s10-end .back {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 18px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.s10-end .back:hover {
+  background: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+/* 各區段內容保險：避免內容溢出 */
+.header, .s2-timeline .timeline, .s3-zones .zone-grid,
+.s4-stalls .hex-scatter, .s5-produce .produce-row,
+.s6-temperature .temp-grid, .s7-route .route-track,
+.s8-gesture .gesture-stack { min-height: 0; }
+
+/* 字體最小值 20px 保護 */
+.t-content p, .zone-card p, .hex-cell p, .produce-bubble p,
+.temp-tile p, .route-step p, .gesture-row p, .s9-memory .quote {
+  font-size: 1rem;
+}
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+  <!-- ========== P1 封面 ========== -->
+  <section class="slide s1-cover active" id="slide-1">
+    <svg class="sunrise" viewBox="0 0 600 600" aria-hidden="true">
+      <circle cx="300" cy="300" r="240" fill="none" stroke="#5C8A6F" stroke-width="1" stroke-dasharray="3,6" opacity="0.5"/>
+      <circle cx="300" cy="300" r="200" fill="none" stroke="#5C8A6F" stroke-width="1.5" opacity="0.4"/>
+      <circle cx="300" cy="300" r="160" fill="rgba(232,185,138,0.18)" stroke="#C97E4A" stroke-width="2" opacity="0.6"/>
+      <circle cx="300" cy="300" r="110" fill="none" stroke="#C97E4A" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.5"/>
+      <circle cx="300" cy="300" r="60" fill="rgba(232,185,138,0.5)"/>
+      <line x1="60" y1="300" x2="540" y2="300" stroke="#5C8A6F" stroke-width="1" opacity="0.3"/>
+      <line x1="300" y1="60" x2="300" y2="540" stroke="#5C8A6F" stroke-width="1" opacity="0.3"/>
+    </svg>
+    <div class="meta">
+      <div class="dot"></div>
+      <span>2026 · 08 · 30 · SUNDAY · FOOD</span>
+    </div>
+    <svg class="seal" viewBox="0 0 80 80">
+      <circle cx="40" cy="40" r="36" fill="none" stroke="#5C8A6F" stroke-width="2" stroke-dasharray="3,2"/>
+      <circle cx="40" cy="40" r="28" fill="rgba(183,209,188,0.4)" stroke="#5C8A6F" stroke-width="2"/>
+      <text x="40" y="48" text-anchor="middle" font-family="serif" font-size="22" font-weight="900" fill="#2F5A41">早</text>
+    </svg>
+    <div class="kicker">SUNDAY MORNING MARKET</div>
+    <h1>早市<span class="accent">學</span></h1>
+    <p class="sub-line">5 個凌晨四點的城市廚房</p>
+    <p class="sign">— 從濱江果菜到中央市場的味覺地景 —</p>
+  </section>
+
+  <!-- ========== P2 早市時序 ========== -->
+  <section class="slide s2-timeline" id="slide-2">
+    <div class="header">
+      <h2>早市時序：凌晨四點的光譜</h2>
+      <p class="sub">天未亮、第一批卡車到、攤販架燈、客人湧入——六個時段決定了今天的早市樣貌</p>
+    </div>
+    <div class="timeline">
+      <div class="t-row">
+        <div class="t-dot">04:00</div>
+        <div class="t-content">
+          <div class="time">PRE-DAWN · 備貨</div>
+          <h4>第一批卡車進場</h4>
+          <p>果菜公司、漁港直送車在 04:00 抵達，搬運工卸下當日現流蔬菜與冰鎮海鮮</p>
+        </div>
+      </div>
+      <div class="t-row even">
+        <div class="t-dot">05:00</div>
+        <div class="t-content">
+          <div class="time">FIRST LIGHT · 架燈</div>
+          <h4>攤販亮起節能燈</h4>
+          <p>攤主架好保麗龍箱、擺出當季蔬果，鹵素燈把菜葉照得發亮</p>
+        </div>
+      </div>
+      <div class="t-row">
+        <div class="t-dot">05:30</div>
+        <div class="t-content">
+          <div class="time">PRE-DRINK · 試味</div>
+          <h4>主廚與阿婆搶鮮</h4>
+          <p>餐廳採買、自煮阿婆挑揀——他們決定了當天的「品質上限」</p>
+        </div>
+      </div>
+      <div class="t-row even">
+        <div class="t-dot">06:30</div>
+        <div class="t-content">
+          <div class="time">PEAK · 主場</div>
+          <h4>家庭主婦入陣</h4>
+          <p>上學前的媽媽、晨運後的爺爺——「今天的菜就決定了今天的晚餐」</p>
+        </div>
+      </div>
+      <div class="t-row">
+        <div class="t-dot">08:30</div>
+        <div class="t-content">
+          <div class="time">MID · 收尾前</div>
+          <h4>打折時段開始</h4>
+          <p>剩餘的葉菜降價、自製豆腐切半賣——買菜的人開始撿便宜</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P3 五區地圖 ========== -->
+  <section class="slide s3-zones" id="slide-3">
+    <div class="header">
+      <h2>早市的五區地圖</h2>
+      <p class="sub">果菜、肉品、海鮮、加工品、熟食——五個分區撐起一座城市的早餐</p>
+    </div>
+    <div class="zone-grid">
+      <div class="zone-card">
+        <div class="z-num">01</div>
+        <div class="z-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <circle cx="32" cy="32" r="22" fill="rgba(183,209,188,0.3)" stroke="#5C8A6F" stroke-width="2"/>
+            <path d="M22 32 Q 32 22 42 32 Q 32 42 22 32 Z" fill="#5C8A6F" opacity="0.6"/>
+            <circle cx="26" cy="28" r="3" fill="#2F5A41"/>
+            <circle cx="38" cy="28" r="3" fill="#2F5A41"/>
+            <path d="M16 32 Q 14 22 20 18" fill="none" stroke="#5C8A6F" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <h4>果菜區</h4>
+        <div class="z-tag">VEGETABLES · 蔬果葉</div>
+        <p>當季葉菜、根莖、進口水果——顏色最豐富的一區，氣味清淡帶土香</p>
+        <div class="z-meta">濱江果菜 · 第一果菜批發市場</div>
+      </div>
+      <div class="zone-card">
+        <div class="z-num">02</div>
+        <div class="z-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <ellipse cx="32" cy="34" rx="20" ry="14" fill="#C97E4A"/>
+            <path d="M12 34 L 52 34" stroke="#8E4A23" stroke-width="1.5"/>
+            <ellipse cx="24" cy="30" rx="6" ry="3" fill="#fff" opacity="0.5"/>
+            <ellipse cx="40" cy="30" rx="6" ry="3" fill="#fff" opacity="0.5"/>
+          </svg>
+        </div>
+        <h4>肉品區</h4>
+        <div class="z-tag">MEAT · 溫體現切</div>
+        <p>豬、雞、牛、羊——溫體肉不冰鎮，攤主用報紙一包就交給客人</p>
+        <div class="z-meta">環南市場 · 家禽批發</div>
+      </div>
+      <div class="zone-card">
+        <div class="z-num">03</div>
+        <div class="z-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <ellipse cx="32" cy="32" rx="22" ry="14" fill="rgba(143,188,205,0.4)" stroke="#5C8A8E" stroke-width="2"/>
+            <path d="M10 32 Q 32 18 54 32" fill="none" stroke="#5C8A8E" stroke-width="1.5"/>
+            <circle cx="22" cy="36" r="3" fill="#5C8A8E"/>
+            <circle cx="38" cy="34" r="3" fill="#5C8A8E"/>
+            <circle cx="32" cy="38" r="3" fill="#5C8A8E"/>
+            <path d="M48 24 L 56 24" stroke="#5C8A8E" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h4>海鮮區</h4>
+        <div class="z-tag">SEAFOOD · 現流帶殼</div>
+        <p>活蝦、貝類、現撈魚——冰塊堆成小山，攤主灑水保持濕潤</p>
+        <div class="z-meta">中央市場 · 魚市直送</div>
+      </div>
+      <div class="zone-card">
+        <div class="z-num">04</div>
+        <div class="z-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <rect x="14" y="22" width="36" height="22" rx="3" fill="#E8B98A" stroke="#8E4A23" stroke-width="2"/>
+            <path d="M14 28 L 50 28" stroke="#8E4A23" stroke-width="1.2"/>
+            <circle cx="24" cy="36" r="2" fill="#8E4A23"/>
+            <circle cx="32" cy="36" r="2" fill="#8E4A23"/>
+            <circle cx="40" cy="36" r="2" fill="#8E4A23"/>
+          </svg>
+        </div>
+        <h4>加工品區</h4>
+        <div class="z-tag">PROCESSED · 豆腐米麵</div>
+        <p>現做豆腐、米麵、醃漬品——工廠凌晨趕製，6 點前上架</p>
+        <div class="z-meta">南門市場 · 中盤加工</div>
+      </div>
+      <div class="zone-card">
+        <div class="z-num">05</div>
+        <div class="z-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <path d="M20 20 L 20 38 Q 20 50 32 50 Q 44 50 44 38 L 44 20 Z" fill="rgba(232,184,95,0.5)" stroke="#C49A3A" stroke-width="2"/>
+            <path d="M18 20 L 46 20" stroke="#8B6F47" stroke-width="2" stroke-linecap="round"/>
+            <path d="M28 30 L 36 30 M 28 36 L 36 36" stroke="#8B6F47" stroke-width="1.2" opacity="0.6"/>
+          </svg>
+        </div>
+        <h4>熟食區</h4>
+        <div class="z-tag">COOKED · 現做熱食</div>
+        <p>早餐店、豆漿店、滷味攤——7 點起香氣最盛，是早市的高潮</p>
+        <div class="z-meta">寧夏夜市周邊 · 路邊攤</div>
+      </div>
+      <div class="zone-card">
+        <div class="z-num">★</div>
+        <div class="z-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <circle cx="32" cy="32" r="20" fill="none" stroke="#C49A3A" stroke-width="2" stroke-dasharray="3,2"/>
+            <text x="32" y="38" text-anchor="middle" font-family="serif" font-size="20" font-weight="900" fill="#8B6F47">生</text>
+          </svg>
+        </div>
+        <h4>走道中央</h4>
+        <div class="z-tag">CENTRAL · 流動採買</div>
+        <p>走道上穿梭的阿桑、手推車、買菜籃——這是早市真正的「主角」</p>
+        <div class="z-meta">交通動線 · 氣味交織</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P4 攤販類型 ========== -->
+  <section class="slide s4-stalls" id="slide-4">
+    <div class="header">
+      <h2>攤販的六種原型</h2>
+      <p class="sub">自耕農、批發中盤、現撈漁夫、家傳二代、流動餐車、外籍看護——六種人撐起早晨</p>
+    </div>
+    <div class="hex-scatter">
+      <div class="hex-cell" style="left: 4%; top: 4%;">
+        <div class="h-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <circle cx="32" cy="22" r="10" fill="#5C8A6F"/>
+            <path d="M22 22 Q 32 14 42 22" fill="#5C8A6F"/>
+            <path d="M16 50 Q 32 32 48 50 Z" fill="#5C8A6F"/>
+          </svg>
+        </div>
+        <h5>自耕農</h5>
+        <p>凌晨 2 點開車北上<br>帶來當日現摘</p>
+      </div>
+      <div class="hex-cell alt" style="left: 76%; top: 4%;">
+        <div class="h-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <rect x="14" y="20" width="36" height="24" rx="2" fill="#C97E4A"/>
+            <path d="M14 28 L 50 28" stroke="#8E4A23" stroke-width="1.2"/>
+            <circle cx="22" cy="34" r="2" fill="#fff"/>
+            <circle cx="32" cy="34" r="2" fill="#fff"/>
+            <circle cx="42" cy="34" r="2" fill="#fff"/>
+          </svg>
+        </div>
+        <h5>批發中盤</h5>
+        <p>批貨給餐廳、小吃店<br>量大議價型</p>
+      </div>
+      <div class="hex-cell" style="left: 40%; top: 18%;">
+        <div class="h-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <path d="M14 38 Q 14 22 32 22 Q 50 22 50 38 L 50 50 L 14 50 Z" fill="#5C8A8E" opacity="0.5" stroke="#5C8A8E" stroke-width="2"/>
+            <path d="M22 32 Q 32 26 42 32" fill="none" stroke="#5C8A8E" stroke-width="1.2"/>
+            <circle cx="32" cy="36" r="3" fill="#5C8A8E"/>
+          </svg>
+        </div>
+        <h5>現撈漁夫</h5>
+        <p>凌晨出海、6 點到貨<br>冰鎮直送不退冰</p>
+      </div>
+      <div class="hex-cell alt" style="left: 4%; top: 48%;">
+        <div class="h-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <circle cx="32" cy="28" r="14" fill="#E8B98A"/>
+            <path d="M20 36 Q 32 50 44 36" fill="#5C8A6F"/>
+            <circle cx="28" cy="28" r="2" fill="#3D2314"/>
+            <circle cx="36" cy="28" r="2" fill="#3D2314"/>
+            <path d="M28 32 Q 32 34 36 32" stroke="#3D2314" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <h5>家傳二代</h5>
+        <p>傳承 30-50 年的<br>家族技藝與人脈</p>
+      </div>
+      <div class="hex-cell" style="left: 40%; top: 48%;">
+        <div class="h-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <rect x="14" y="28" width="36" height="22" rx="3" fill="#C49A3A"/>
+            <circle cx="22" cy="52" r="4" fill="#3D2314"/>
+            <circle cx="42" cy="52" r="4" fill="#3D2314"/>
+            <rect x="20" y="14" width="24" height="14" fill="#E8B85F"/>
+            <path d="M30 14 Q 32 8 34 14" stroke="#C49A3A" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <h5>流動餐車</h5>
+        <p>豆漿、燒餅、飯糰<br>邊走邊賣</p>
+      </div>
+      <div class="hex-cell alt" style="left: 76%; top: 48%;">
+        <div class="h-icon">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <circle cx="32" cy="22" r="10" fill="#C97E4A"/>
+            <path d="M22 50 Q 32 32 42 50" fill="#C97E4A"/>
+            <path d="M44 22 L 52 22 L 48 28 Z" fill="#C49A3A"/>
+          </svg>
+        </div>
+        <h5>外籍看護</h5>
+        <p>陪長者來買菜<br>兼當翻譯、幫挑揀</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P5 招牌食材 ========== -->
+  <section class="slide s5-produce" id="slide-5">
+    <div class="header">
+      <h2>早市的招牌食材</h2>
+      <p class="sub">六款凌晨直送的食材——它們定義了「今天該吃什麼」</p>
+    </div>
+    <div class="produce-row">
+      <div class="produce-bubble">
+        <div class="bubble-disc">
+          <div class="b-big">04</div>
+        </div>
+        <h5>當日葉菜</h5>
+        <p>高麗、A 菜、菠菜——產地當天採收，含水量最高</p>
+      </div>
+      <div class="produce-bubble">
+        <div class="bubble-disc accent">
+          <svg class="b-icon" viewBox="0 0 64 64">
+            <ellipse cx="32" cy="32" rx="20" ry="14" fill="#C97E4A"/>
+            <path d="M14 32 Q 32 22 50 32" fill="none" stroke="#8E4A23" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <h5>溫體肉</h5>
+        <p>凌晨宰殺、報紙包好、不冰鎮——肉味比超市濃 30%</p>
+      </div>
+      <div class="produce-bubble">
+        <div class="bubble-disc">
+          <svg class="b-icon" viewBox="0 0 64 64">
+            <ellipse cx="32" cy="32" rx="22" ry="10" fill="rgba(143,188,205,0.4)" stroke="#5C8A8E" stroke-width="2"/>
+            <path d="M10 32 L 54 32" stroke="#5C8A8E" stroke-width="1"/>
+            <circle cx="22" cy="32" r="2" fill="#5C8A8E"/>
+            <circle cx="42" cy="32" r="2" fill="#5C8A8E"/>
+          </svg>
+        </div>
+        <h5>現流魚貨</h5>
+        <p>凌晨到港、活跳上車——眼睛清亮、魚鱗閃光</p>
+      </div>
+      <div class="produce-bubble">
+        <div class="bubble-disc accent">
+          <svg class="b-icon" viewBox="0 0 64 64">
+            <rect x="16" y="20" width="32" height="24" rx="2" fill="#FCFDF8" stroke="#C49A3A" stroke-width="2"/>
+            <path d="M22 26 L 42 26" stroke="#C49A3A" stroke-width="1.2"/>
+            <path d="M28 36 L 36 36" stroke="#C49A3A" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <h5>現做豆腐</h5>
+        <p>3 點磨豆、5 點壓模、6 點上攤——溫熱豆香</p>
+      </div>
+      <div class="produce-bubble">
+        <div class="bubble-disc">
+          <svg class="b-icon" viewBox="0 0 64 64">
+            <ellipse cx="32" cy="32" rx="20" ry="8" fill="#E8B85F"/>
+            <path d="M12 32 L 52 32" stroke="#8B6F47" stroke-width="1.2"/>
+            <circle cx="22" cy="32" r="2" fill="#8B6F47"/>
+            <circle cx="32" cy="32" r="2" fill="#8B6F47"/>
+            <circle cx="42" cy="32" r="2" fill="#8B6F47"/>
+          </svg>
+        </div>
+        <h5>古早雞蛋</h5>
+        <p>放牧蛋、紅殼蛋——蛋黃橘紅、蛋白 Q 彈</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P6 一日溫度 ========== -->
+  <section class="slide s6-temperature" id="slide-6">
+    <div class="header">
+      <h2>早市的一日溫度</h2>
+      <p class="sub">從 16°C 凌晨到 28°C 收攤——溫度決定了買菜的節奏、聊天的長度、收錢的速度</p>
+    </div>
+    <div class="temp-grid">
+      <div class="temp-tile t1">
+        <div class="t-icon">
+          <svg viewBox="0 0 64 64" width="50" height="50">
+            <path d="M28 14 L 28 38 Q 22 42 22 48 Q 22 54 32 54 Q 42 54 42 48 Q 42 42 36 38 L 36 14 Z" fill="#6E89B0"/>
+            <rect x="26" y="14" width="12" height="6" fill="#8B6F47"/>
+          </svg>
+        </div>
+        <div class="t-when">04:00 · 凌晨</div>
+        <h5>寒</h5>
+        <div class="t-deg">16°</div>
+        <p>卡車進場、批貨搬運、攤主架燈——快速、無閒聊</p>
+      </div>
+      <div class="temp-tile t2">
+        <div class="t-icon">
+          <svg viewBox="0 0 64 64" width="50" height="50">
+            <circle cx="32" cy="32" r="16" fill="#E8B85F"/>
+            <line x1="32" y1="6" x2="32" y2="14" stroke="#E8B85F" stroke-width="2"/>
+            <line x1="32" y1="50" x2="32" y2="58" stroke="#E8B85F" stroke-width="2"/>
+            <line x1="6" y1="32" x2="14" y2="32" stroke="#E8B85F" stroke-width="2"/>
+            <line x1="50" y1="32" x2="58" y2="32" stroke="#E8B85F" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="t-when">06:00 · 清晨</div>
+        <h5>涼</h5>
+        <div class="t-deg">20°</div>
+        <p>主廚採買、阿婆試菜——議價、問產地、聊家常</p>
+      </div>
+      <div class="temp-tile t3">
+        <div class="t-icon">
+          <svg viewBox="0 0 64 64" width="50" height="50">
+            <path d="M14 38 Q 32 14 50 38" fill="none" stroke="#C97E4A" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="32" cy="22" r="4" fill="#C97E4A"/>
+          </svg>
+        </div>
+        <div class="t-when">08:00 · 上午</div>
+        <h5>暖</h5>
+        <div class="t-deg">25°</div>
+        <p>家庭主婦入陣、熟食飄香——挑揀、湊熱鬧、嚐試吃</p>
+      </div>
+      <div class="temp-tile t4">
+        <div class="t-icon">
+          <svg viewBox="0 0 64 64" width="50" height="50">
+            <path d="M20 40 Q 32 24 44 40" fill="none" stroke="#5C8A6F" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="32" cy="32" r="3" fill="#5C8A6F"/>
+            <line x1="14" y1="50" x2="50" y2="50" stroke="#5C8A6F" stroke-width="2" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="t-when">10:00 · 收攤</div>
+        <h5>熱</h5>
+        <div class="t-deg">28°</div>
+        <p>打折、剩貨打包、攤主喝青草茶——結帳、互道再會</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P7 採買路徑 ========== -->
+  <section class="slide s7-route" id="slide-7">
+    <div class="header">
+      <h2>主廚的採買路徑</h2>
+      <p class="sub">六個步驟——從進場到收工，餐廳主廚的早市 SOP 比想像中更精準</p>
+    </div>
+    <div class="route-track">
+      <div class="route-step">
+        <div class="r-num">壹</div>
+        <h5>04:30 入場</h5>
+        <p>帶小推車、塑膠籃、手電筒——熟悉動線的人會先看電費單</p>
+      </div>
+      <div class="route-step">
+        <div class="r-num">貳</div>
+        <h5>04:45 果菜</h5>
+        <p>先繞一圈、不急買——看當天葉菜的鮮度與價格帶</p>
+      </div>
+      <div class="route-step">
+        <div class="r-num">參</div>
+        <h5>05:15 海鮮</h5>
+        <p>確認今天進了什麼魚——活體優先、退冰的降價</p>
+      </div>
+      <div class="route-step">
+        <div class="r-num">肆</div>
+        <h5>05:45 肉品</h5>
+        <p>溫體優先、油花分佈現切——報紙包好放籃底</p>
+      </div>
+      <div class="route-step">
+        <div class="r-num">伍</div>
+        <h5>06:15 加工品</h5>
+        <p>豆腐、米麵、醃漬品——最後一站，免得壓碎</p>
+      </div>
+      <div class="route-step">
+        <div class="r-num">陸</div>
+        <h5>06:30 早餐</h5>
+        <p>熟食區吃一頓——燒餅、油條、四神湯，為今天充電</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P8 料理手勢 ========== -->
+  <section class="slide s8-gesture" id="slide-8">
+    <div class="header">
+      <h2>早市的料理手勢</h2>
+      <p class="sub">六個在攤位上完成的小動作——它們是台灣早餐的「前置技藝」</p>
+    </div>
+    <div class="gesture-stack">
+      <div class="gesture-row">
+        <div class="g-icon">
+          <svg viewBox="0 0 64 64" width="36" height="36">
+            <path d="M20 16 L 20 44 Q 20 50 32 50 Q 44 50 44 44 L 44 16" fill="none" stroke="#5C8A6F" stroke-width="2.5"/>
+            <path d="M18 16 L 46 16" stroke="#5C8A6F" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="g-body">
+          <h5>稱重</h5>
+          <p>彈簧秤 + 塑膠袋——大聲報數「三斤兩」是基本功</p>
+        </div>
+        <div class="g-tag">WEIGH</div>
+      </div>
+      <div class="gesture-row alt">
+        <div class="g-icon">
+          <svg viewBox="0 0 64 64" width="36" height="36">
+            <path d="M16 40 L 48 40" stroke="#8E4A23" stroke-width="3" stroke-linecap="round"/>
+            <path d="M20 28 L 44 28" stroke="#8E4A23" stroke-width="2" opacity="0.6"/>
+            <circle cx="32" cy="34" r="3" fill="#8E4A23"/>
+          </svg>
+        </div>
+        <div class="g-body">
+          <h5>切片</h5>
+          <p>片魚機、厚薄切、肉絲三分鐘——節奏快且穩</p>
+        </div>
+        <div class="g-tag">SLICE</div>
+      </div>
+      <div class="gesture-row">
+        <div class="g-icon">
+          <svg viewBox="0 0 64 64" width="36" height="36">
+            <ellipse cx="32" cy="32" rx="18" ry="6" fill="none" stroke="#5C8A6F" stroke-width="2"/>
+            <path d="M14 32 L 50 32" stroke="#5C8A6F" stroke-width="1.2" opacity="0.6"/>
+            <path d="M20 32 L 44 32" stroke="#5C8A6F" stroke-width="1.2" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="g-body">
+          <h5>清洗</h5>
+          <p>水盆、活水、輕輕翻面——保留水珠是「鮮」的證據</p>
+        </div>
+        <div class="g-tag">RINSE</div>
+      </div>
+      <div class="gesture-row alt">
+        <div class="g-icon">
+          <svg viewBox="0 0 64 64" width="36" height="36">
+            <path d="M16 22 L 48 22 L 48 44 L 16 44 Z" fill="none" stroke="#8E4A23" stroke-width="2"/>
+            <path d="M22 28 L 42 28 M 22 34 L 42 34 M 22 40 L 42 40" stroke="#8E4A23" stroke-width="1" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="g-body">
+          <h5>分裝</h5>
+          <p>報紙、保麗龍箱、塑膠袋——三件式封裝，帶走不漏</p>
+        </div>
+        <div class="g-tag">PACK</div>
+      </div>
+      <div class="gesture-row">
+        <div class="g-icon">
+          <svg viewBox="0 0 64 64" width="36" height="36">
+            <path d="M20 20 L 20 36 Q 20 44 32 44 Q 44 44 44 36 L 44 20 Z" fill="none" stroke="#5C8A6F" stroke-width="2"/>
+            <path d="M18 20 L 46 20" stroke="#5C8A6F" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="g-body">
+          <h5>滷煮</h5>
+          <p>凌晨燉的高湯、醬色油亮——香氣是早市的香水</p>
+        </div>
+        <div class="g-tag">BRAISE</div>
+      </div>
+      <div class="gesture-row alt">
+        <div class="g-icon">
+          <svg viewBox="0 0 64 64" width="36" height="36">
+            <circle cx="32" cy="32" r="14" fill="none" stroke="#8E4A23" stroke-width="2"/>
+            <text x="32" y="40" text-anchor="middle" font-family="serif" font-size="22" font-weight="900" fill="#8E4A23">找</text>
+          </svg>
+        </div>
+        <div class="g-body">
+          <h5>議價</h5>
+          <p>「算我便宜一點」——熟客才有的溫度，也是早市的人情</p>
+        </div>
+        <div class="g-tag">BARGAIN</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P9 早市記憶 ========== -->
+  <section class="slide s9-memory" id="slide-9">
+    <div class="memory-core">
+      <div class="big">早市</div>
+      <div class="small">MORNING · MARKET</div>
+    </div>
+    <div class="quote">
+      「凌晨四點的城市還沒醒，但早市已經熱鬧得像一座村莊。<br>
+      攤主的笑聲、買菜的阿桑、現撈的魚——<br>
+      它們告訴我們：今天，又是新的一天。」
+    </div>
+    <div class="senses">
+      <div class="sense">
+        <svg class="s-icon" viewBox="0 0 32 32">
+          <circle cx="16" cy="16" r="10" fill="none" stroke="#5C8A6F" stroke-width="1.5"/>
+          <circle cx="16" cy="16" r="3" fill="#5C8A6F"/>
+        </svg>
+        視 · 顏色
+      </div>
+      <div class="sense">
+        <svg class="s-icon" viewBox="0 0 32 32">
+          <path d="M16 8 Q 8 14 8 20 Q 8 26 16 26 Q 24 26 24 20 Q 24 14 16 8 Z" fill="none" stroke="#5C8A6F" stroke-width="1.5"/>
+        </svg>
+        嗅 · 氣味
+      </div>
+      <div class="sense">
+        <svg class="s-icon" viewBox="0 0 32 32">
+          <path d="M8 16 Q 16 8 24 16 M 8 22 Q 16 14 24 22" fill="none" stroke="#5C8A6F" stroke-width="1.5"/>
+        </svg>
+        聽 · 喊價
+      </div>
+      <div class="sense">
+        <svg class="s-icon" viewBox="0 0 32 32">
+          <rect x="10" y="10" width="12" height="12" rx="2" fill="none" stroke="#5C8A6F" stroke-width="1.5"/>
+          <circle cx="16" cy="16" r="2" fill="#5C8A6F"/>
+        </svg>
+        觸 · 質感
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== P10 結尾 ========== -->
+  <section class="slide s10-end" id="slide-10">
+    <svg class="seal" viewBox="0 0 140 140">
+      <circle cx="70" cy="70" r="64" fill="none" stroke="#5C8A6F" stroke-width="2" stroke-dasharray="4,3" opacity="0.5"/>
+      <circle cx="70" cy="70" r="52" fill="none" stroke="#C97E4A" stroke-width="2.5" opacity="0.7"/>
+      <circle cx="70" cy="70" r="40" fill="rgba(183,209,188,0.4)" stroke="#5C8A6F" stroke-width="3"/>
+      <text x="70" y="68" text-anchor="middle" font-family="Noto Serif TC, serif" font-size="26" font-weight="900" fill="#2A3A2E">早市</text>
+      <text x="70" y="96" text-anchor="middle" font-family="Noto Serif TC, serif" font-size="22" font-weight="700" fill="#C97E4A">有光</text>
+    </svg>
+    <h2>感謝<span class="accent">早起</span></h2>
+    <p class="bless">每一個攤位都是一座小型劇院，<br>每一道早市的香氣都裝著一段故事。<br>願你下次經過，也能聽見凌晨四點的微光。</p>
+    <div class="credit">
+      2026 · 08 · 30 · 週日<br>
+      <a href="/slides.htm" class="back">🐾 回簡報列表</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- ========== Nav ========== -->
+<div class="nav" aria-label="簡報導航">
+  <button id="prev-btn" aria-label="上一頁">◀</button>
+  <span id="page-info">1 / 10</span>
+  <button id="next-btn" aria-label="下一頁">▶</button>
+</div>
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  function show() {
+    if (slides[current]) {
+      slides[current].classList.remove('active');
+    }
+    current = (current + total) % total;
+    if (slides[current]) {
+      slides[current].classList.add('active');
+    }
+    document.getElementById('page-info').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prev-btn').disabled = false;
+    document.getElementById('next-btn').disabled = false;
+  }
+
+  function next() {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current + 1) % total;
+    if (slides[current]) slides[current].classList.add('active');
+    document.getElementById('page-info').textContent = (current + 1) + ' / ' + total;
+  }
+
+  function prev() {
+    if (slides[current]) slides[current].classList.remove('active');
+    current = (current - 1 + total) % total;
+    if (slides[current]) slides[current].classList.add('active');
+    document.getElementById('page-info').textContent = (current + 1) + ' / ' + total;
+  }
+
+  document.getElementById('next-btn').addEventListener('click', next);
+  document.getElementById('prev-btn').addEventListener('click', prev);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ') { next(); }
+    if (e.key === 'ArrowLeft') { prev(); }
+  });
+
+  // 初始化：確保第一頁 active
+  if (slides[0]) slides[0].classList.add('active');
+  document.getElementById('page-info').textContent = '1 / ' + total;
+})();
+</script>
+</body>
+</html>
