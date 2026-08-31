@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>青銀共治 2.0：超高齡台灣的世代契約｜2026-08-31</title>
+<style>
+html { font-size: 20px; }
+body {
+  font-size: 1rem;
+  background: #08191d;
+  color: #ecfeff;
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  margin: 0;
+  padding: 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    radial-gradient(ellipse 55% 45% at 18% 22%, rgba(20,184,166,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 40% at 82% 78%, rgba(251,146,60,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 38% 35% at 50% 50%, rgba(167,139,250,0.10) 0%, transparent 60%);
+}
+
+:root {
+  --bg-deep: #08191d;
+  --bg-mid: #0d2e34;
+  --bg-card: rgba(13,46,52,0.55);
+  --primary: #14b8a6;
+  --primary-soft: #5eead4;
+  --primary-deep: #0f766e;
+  --accent: #fb923c;
+  --accent-soft: #fdba74;
+  --accent-deep: #c2410c;
+  --teal: #4dd0e1;
+  --violet: #a78bfa;
+  --rose: #f472b6;
+  --gold: #fbbf24;
+  --ink: #ecfeff;
+  --ink-soft: #cffafe;
+  --ink-mute: #99f6e4;
+  --ink-dim: #67e8f9;
+  --border-cool: rgba(20,184,166,0.40);
+  --border-warm: rgba(251,146,60,0.50);
+  --border-violet: rgba(167,139,250,0.45);
+  --glow-cool: 0 0 28px rgba(20,184,166,0.35);
+  --glow-warm: 0 0 24px rgba(251,146,60,0.30);
+  --glow-violet: 0 0 24px rgba(167,139,250,0.30);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #08191d 0%, #0d2e34 100%);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.55);
+  border: 1px solid rgba(20,184,166,0.20);
+  border-radius: 14px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 52px 60px 76px;
+  color: var(--ink);
+}
+.slide.active { display: flex; }
+
+.slide * { font-size: 1rem; line-height: 1.5; }
+
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; }
+
+/* === 極光發光球 === */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 360px; height: 360px; background: rgba(20,184,166,0.28); top: -120px; right: -120px; }
+.glow-orb-2 { width: 300px; height: 300px; background: rgba(251,146,60,0.22); bottom: -100px; left: -100px; }
+.glow-orb-3 { width: 260px; height: 260px; background: rgba(167,139,250,0.18); top: 45%; left: 55%; }
+.glow-orb-4 { width: 220px; height: 220px; background: rgba(77,208,225,0.20); top: 10%; left: 8%; }
+
+/* === 卡片 === */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 16px;
+  padding: 22px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--glow-cool);
+}
+.card-warm { background: rgba(251,146,60,0.10); border: 1px solid var(--border-warm); border-radius: 16px; padding: 22px; box-shadow: var(--glow-warm); }
+.card-violet { background: rgba(167,139,250,0.08); border: 1px solid var(--border-violet); border-radius: 16px; padding: 22px; box-shadow: var(--glow-violet); }
+
+/* === Tags === */
+.tag {
+  display: inline-block;
+  background: rgba(20,184,166,0.18);
+  color: var(--primary-soft);
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  align-self: flex-start;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-cool);
+}
+.tag-warm {
+  display: inline-block;
+  background: rgba(251,146,60,0.18);
+  color: var(--accent-soft);
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  align-self: flex-start;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-warm);
+}
+.tag-violet {
+  display: inline-block;
+  background: rgba(167,139,250,0.16);
+  color: var(--violet);
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  align-self: flex-start;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-violet);
+}
+
+h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.15; margin: 8px 0 14px; color: var(--ink); }
+h2 { font-size: 1.6rem; font-weight: 800; margin: 4px 0 12px; color: var(--ink); line-height: 1.25; }
+h3 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 6px; color: var(--primary-soft); }
+.lead { font-size: 1.15rem; color: var(--ink-mute); line-height: 1.55; margin: 6px 0; }
+.note { font-size: 1rem; color: var(--ink-dim); line-height: 1.5; }
+
+/* === Nav === */
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 6;
+  background: rgba(8,25,29,0.85);
+  padding: 6px 12px;
+  border-radius: 24px;
+  border: 1px solid var(--border-cool);
+}
+.nav button {
+  background: rgba(20,184,166,0.18);
+  border: 1px solid var(--border-cool);
+  color: var(--ink);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav button:hover { background: rgba(20,184,166,0.35); }
+.nav span { font-size: 1rem; color: var(--ink-mute); min-width: 56px; text-align: center; }
+
+.back-link {
+  position: absolute;
+  top: 18px;
+  left: 28px;
+  z-index: 6;
+  background: rgba(8,25,29,0.78);
+  border: 1px solid var(--border-cool);
+  color: var(--ink-mute);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 1rem;
+}
+.back-link:hover { background: rgba(20,184,166,0.20); color: var(--ink); }
+
+/* === P1 封面 === */
+.s1-cover { /* decorative only */ }
+.cover-eyebrow { font-size: 1.1rem; color: var(--teal); letter-spacing: 0.4em; margin-bottom: 24px; }
+.cover-title { font-size: 3.2rem; font-weight: 900; line-height: 1.15; color: var(--ink); margin-bottom: 18px; }
+.cover-title .accent { color: var(--accent); }
+.cover-title .warm { color: var(--primary-soft); }
+.cover-sub { font-size: 1.3rem; color: var(--ink-mute); margin-bottom: 36px; line-height: 1.55; }
+.cover-meta { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; justify-content: center; }
+.cover-meta-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.cover-meta-num { font-size: 2.2rem; font-weight: 800; color: var(--primary-soft); }
+.cover-meta-lbl { font-size: 1rem; color: var(--ink-dim); }
+.cover-layout { display: flex; align-items: center; justify-content: space-between; gap: 32px; width: 100%; }
+.cover-text { flex: 1.1; display: flex; flex-direction: column; }
+.cover-art { flex: 0.9; position: relative; height: 360px; display: flex; align-items: center; justify-content: center; }
+.cover-circle-svg { width: 360px; height: 360px; }
+
+/* === P2 TOC === */
+.s2-toc { /* decorative */ }
+.toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 14px; }
+.toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 8px;
+  backdrop-filter: blur(6px);
+}
+.toc-card .row { display: flex; align-items: center; gap: 10px; }
+.toc-card .num { font-size: 1.8rem; font-weight: 900; color: var(--primary-soft); line-height: 1; letter-spacing: 0.04em; }
+.toc-card .ico { width: 36px; height: 36px; color: var(--primary); display: flex; align-items: center; justify-content: center; }
+.toc-card .lbl { font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+.toc-card .desc { font-size: 1rem; color: var(--ink-mute); line-height: 1.4; }
+
+/* === P3 願景（圓/水） === */
+.s3-vision { /* decorative */ }
+.vision-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 16px; }
+.vision-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 18px;
+  padding: 22px 18px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  text-align: center;
+  box-shadow: var(--glow-cool);
+}
+.vision-card.warm { border-color: var(--border-warm); box-shadow: var(--glow-warm); }
+.vision-card.violet { border-color: var(--border-violet); box-shadow: var(--glow-violet); }
+.vision-badge {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; font-weight: 900; color: var(--ink);
+  background: radial-gradient(circle at 30% 30%, var(--primary) 0%, var(--primary-deep) 80%);
+  box-shadow: 0 0 24px rgba(20,184,166,0.45);
+}
+.vision-badge.warm { background: radial-gradient(circle at 30% 30%, var(--accent) 0%, var(--accent-deep) 80%); box-shadow: 0 0 24px rgba(251,146,60,0.45); }
+.vision-badge.violet { background: radial-gradient(circle at 30% 30%, var(--violet) 0%, #6d28d9 80%); box-shadow: 0 0 24px rgba(167,139,250,0.45); }
+.vision-badge.teal { background: radial-gradient(circle at 30% 30%, var(--teal) 0%, #0e7490 80%); box-shadow: 0 0 24px rgba(77,208,225,0.45); }
+.vision-card h3 { font-size: 1.2rem; color: var(--ink); margin: 0; }
+.vision-card .kpi { font-size: 1.8rem; font-weight: 900; color: var(--primary-soft); line-height: 1; }
+.vision-card.warm .kpi { color: var(--accent-soft); }
+.vision-card.violet .kpi { color: var(--violet); }
+.vision-card .kpi-lbl { font-size: 1rem; color: var(--ink-mute); }
+
+/* === P4 現實數字（方/垂） === */
+.s4-now { /* decorative */ }
+.now-stack { display: flex; flex-direction: column; gap: 14px; margin-top: 12px; }
+.now-row {
+  display: flex; align-items: center; gap: 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-left: 4px solid var(--primary);
+  border-radius: 14px;
+  padding: 16px 22px;
+}
+.now-row.warm { border-left-color: var(--accent); border-color: var(--border-warm); }
+.now-row.violet { border-left-color: var(--violet); border-color: var(--border-violet); }
+.now-row.teal { border-left-color: var(--teal); }
+.now-num { font-size: 3rem; font-weight: 900; line-height: 1; color: var(--primary-soft); min-width: 200px; text-align: right; }
+.now-row.warm .now-num { color: var(--accent-soft); }
+.now-row.violet .now-num { color: var(--violet); }
+.now-row.teal .now-num { color: var(--teal); }
+.now-body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.now-lbl { font-size: 1.2rem; font-weight: 800; color: var(--ink); }
+.now-desc { font-size: 1rem; color: var(--ink-mute); line-height: 1.45; }
+
+/* === P5 場景（六/網 — hexagon） === */
+.s5-scene { /* decorative */ }
+.scene-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 22px; margin-top: 18px; }
+.scene-card {
+  position: relative;
+  padding: 26px 22px;
+  display: flex; flex-direction: column; gap: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+  box-shadow: var(--glow-cool);
+}
+.scene-card .hex {
+  position: absolute; top: -10px; right: -10px;
+  width: 64px; height: 64px; color: var(--primary); opacity: 0.55;
+}
+.scene-card.warm { border-color: var(--border-warm); box-shadow: var(--glow-warm); }
+.scene-card.warm .hex { color: var(--accent); }
+.scene-card.violet { border-color: var(--border-violet); box-shadow: var(--glow-violet); }
+.scene-card.violet .hex { color: var(--violet); }
+.scene-card.teal { border-color: var(--teal); box-shadow: 0 0 24px rgba(77,208,225,0.30); }
+.scene-card.teal .hex { color: var(--teal); }
+.scene-card.rose { border-color: rgba(244,114,182,0.45); box-shadow: 0 0 24px rgba(244,114,182,0.30); }
+.scene-card.rose .hex { color: var(--rose); }
+.scene-card.gold { border-color: rgba(251,191,36,0.45); box-shadow: 0 0 24px rgba(251,191,36,0.30); }
+.scene-card.gold .hex { color: var(--gold); }
+.scene-card h3 { font-size: 1.2rem; color: var(--ink); margin: 0; }
+.scene-card p { font-size: 1rem; color: var(--ink-mute); margin: 0; line-height: 1.45; }
+.scene-card .tag-mini {
+  display: inline-block; align-self: flex-start;
+  font-size: 1rem; font-weight: 700; letter-spacing: 0.10em;
+  color: var(--primary-soft);
+}
+.scene-card.warm .tag-mini { color: var(--accent-soft); }
+.scene-card.violet .tag-mini { color: var(--violet); }
+.scene-card.teal .tag-mini { color: var(--teal); }
+.scene-card.rose .tag-mini { color: var(--rose); }
+.scene-card.gold .tag-mini { color: var(--gold); }
+
+/* === P6 三層堆疊（線/單） === */
+.s6-stack { /* decorative */ }
+.stack-layout { display: flex; gap: 28px; margin-top: 16px; flex: 1; }
+.stack-timeline { position: relative; display: flex; flex-direction: column; gap: 18px; width: 180px; flex-shrink: 0; padding-left: 22px; }
+.stack-timeline::before { content: ''; position: absolute; left: 8px; top: 12px; bottom: 12px; width: 3px; background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 50%, var(--violet) 100%); border-radius: 2px; }
+.stack-mark { position: relative; display: flex; align-items: center; gap: 12px; }
+.stack-mark::before { content: ''; position: absolute; left: -22px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 12px rgba(20,184,166,0.6); }
+.stack-mark.warm::before { background: var(--accent); box-shadow: 0 0 12px rgba(251,146,60,0.6); }
+.stack-mark.violet::before { background: var(--violet); box-shadow: 0 0 12px rgba(167,139,250,0.6); }
+.stack-mark .yr { font-size: 1.15rem; font-weight: 800; color: var(--primary-soft); letter-spacing: 0.06em; }
+.stack-mark.warm .yr { color: var(--accent-soft); }
+.stack-mark.violet .yr { color: var(--violet); }
+.stack-cards { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.stack-card {
+  display: flex; align-items: center; gap: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 16px;
+  padding: 18px 22px;
+}
+.stack-card.warm { border-color: var(--border-warm); }
+.stack-card.violet { border-color: var(--border-violet); }
+.stack-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; font-weight: 900; color: var(--ink);
+  background: radial-gradient(circle at 30% 30%, var(--primary) 0%, var(--primary-deep) 80%);
+  box-shadow: 0 0 18px rgba(20,184,166,0.5);
+  flex-shrink: 0;
+}
+.stack-card.warm .stack-num { background: radial-gradient(circle at 30% 30%, var(--accent) 0%, var(--accent-deep) 80%); box-shadow: 0 0 18px rgba(251,146,60,0.5); }
+.stack-card.violet .stack-num { background: radial-gradient(circle at 30% 30%, var(--violet) 0%, #6d28d9 80%); box-shadow: 0 0 18px rgba(167,139,250,0.5); }
+.stack-body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.stack-body h3 { font-size: 1.2rem; color: var(--ink); margin: 0; }
+.stack-body p { font-size: 1rem; color: var(--ink-mute); margin: 0; line-height: 1.45; }
+
+/* === P7 5 階段治理（方/網） === */
+.s7-govern { /* decorative */ }
+.gov-pipe { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 18px; align-items: stretch; }
+.gov-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 16px;
+  padding: 22px 16px;
+  display: flex; flex-direction: column; gap: 8px;
+  text-align: center;
+  align-items: center;
+}
+.gov-card.warm { border-color: var(--border-warm); }
+.gov-card.violet { border-color: var(--border-violet); }
+.gov-step { font-size: 1rem; font-weight: 800; letter-spacing: 0.20em; color: var(--primary-soft); }
+.gov-card.warm .gov-step { color: var(--accent-soft); }
+.gov-card.violet .gov-step { color: var(--violet); }
+.gov-num {
+  width: 60px; height: 60px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; font-weight: 900; color: var(--ink);
+  background: radial-gradient(circle at 30% 30%, var(--primary) 0%, var(--primary-deep) 80%);
+  box-shadow: 0 0 18px rgba(20,184,166,0.45);
+}
+.gov-card.warm .gov-num { background: radial-gradient(circle at 30% 30%, var(--accent) 0%, var(--accent-deep) 80%); box-shadow: 0 0 18px rgba(251,146,60,0.45); }
+.gov-card.violet .gov-num { background: radial-gradient(circle at 30% 30%, var(--violet) 0%, #6d28d9 80%); box-shadow: 0 0 18px rgba(167,139,250,0.45); }
+.gov-card h3 { font-size: 1.15rem; color: var(--ink); margin: 0; }
+.gov-card p { font-size: 1rem; color: var(--ink-mute); margin: 0; line-height: 1.4; }
+.gov-arrow {
+  position: absolute; right: -16px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; color: var(--primary-soft);
+}
+
+/* === P8 4 國鏡像（圓/水） === */
+.s8-compare { /* decorative */ }
+.cmp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
+.cmp-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 18px;
+  padding: 22px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  backdrop-filter: blur(6px);
+  box-shadow: var(--glow-cool);
+}
+.cmp-card.warm { border-color: var(--border-warm); box-shadow: var(--glow-warm); }
+.cmp-card.violet { border-color: var(--border-violet); box-shadow: var(--glow-violet); }
+.cmp-card.teal { border-color: rgba(77,208,225,0.45); box-shadow: 0 0 24px rgba(77,208,225,0.30); }
+.cmp-flag {
+  width: 64px; height: 64px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(20,184,166,0.18);
+  border: 1px solid var(--border-cool);
+  align-self: center;
+}
+.cmp-card.warm .cmp-flag { background: rgba(251,146,60,0.18); border-color: var(--border-warm); }
+.cmp-card.violet .cmp-flag { background: rgba(167,139,250,0.18); border-color: var(--border-violet); }
+.cmp-card.teal .cmp-flag { background: rgba(77,208,225,0.18); border-color: rgba(77,208,225,0.45); }
+.cmp-name { font-size: 1.3rem; font-weight: 900; color: var(--ink); text-align: center; margin: 0; }
+.cmp-model { font-size: 1rem; color: var(--primary-soft); text-align: center; font-weight: 700; letter-spacing: 0.06em; }
+.cmp-card.warm .cmp-model { color: var(--accent-soft); }
+.cmp-card.violet .cmp-model { color: var(--violet); }
+.cmp-card.teal .cmp-model { color: var(--teal); }
+.cmp-action { font-size: 1rem; color: var(--ink); font-weight: 600; line-height: 1.4; }
+.cmp-take { font-size: 1rem; color: var(--ink-mute); line-height: 1.45; padding-top: 6px; border-top: 1px dashed rgba(20,184,166,0.25); }
+
+/* === P9 90 天行動（方/垂） === */
+.s9-action { /* decorative */ }
+.act-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.act-row {
+  display: flex; align-items: stretch; gap: 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 16px;
+  padding: 16px 22px;
+}
+.act-row.warm { border-color: var(--border-warm); }
+.act-row.violet { border-color: var(--border-violet); }
+.act-row.gold { border-color: rgba(251,191,36,0.45); }
+.act-phase {
+  width: 130px; flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  padding-right: 16px;
+  border-right: 2px dashed rgba(20,184,166,0.35);
+}
+.act-row.warm .act-phase { border-right-color: rgba(251,146,60,0.40); }
+.act-row.violet .act-phase { border-right-color: rgba(167,139,250,0.40); }
+.act-row.gold .act-phase { border-right-color: rgba(251,191,36,0.40); }
+.act-day { font-size: 1.6rem; font-weight: 900; color: var(--primary-soft); line-height: 1; }
+.act-row.warm .act-day { color: var(--accent-soft); }
+.act-row.violet .act-day { color: var(--violet); }
+.act-row.gold .act-day { color: var(--gold); }
+.act-day-lbl { font-size: 1rem; color: var(--ink-dim); letter-spacing: 0.10em; font-weight: 600; }
+.act-body { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.act-body h3 { font-size: 1.15rem; color: var(--ink); margin: 0; }
+.act-body ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.act-body li { font-size: 1rem; color: var(--ink-mute); padding-left: 18px; position: relative; line-height: 1.4; }
+.act-body li::before { content: ''; position: absolute; left: 0; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--primary-soft); }
+.act-row.warm .act-body li::before { background: var(--accent-soft); }
+.act-row.violet .act-body li::before { background: var(--violet); }
+.act-row.gold .act-body li::before { background: var(--gold); }
+
+/* === P10 結尾 === */
+.s10-end { /* decorative */ }
+.end { align-items: center; justify-content: center; text-align: center; padding: 60px; }
+.end-quote { font-size: 2.6rem; font-weight: 900; color: var(--ink); line-height: 1.25; margin-bottom: 24px; max-width: 920px; }
+.end-quote .accent { color: var(--accent); }
+.end-sub { font-size: 1.3rem; color: var(--ink-mute); margin-bottom: 36px; line-height: 1.55; max-width: 760px; }
+.end-meta { display: flex; gap: 36px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+.end-meta-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.end-meta-lbl { font-size: 1rem; color: var(--ink-dim); letter-spacing: 0.08em; }
+.end-meta-v { font-size: 1.4rem; font-weight: 800; color: var(--primary-soft); }
+</style>
+</head>
+<body>
+<div class="presentation" id="pres">
+  <a class="back-link" href="/slides.htm">← 返回簡報列表</a>
+
+  <!-- ============== P1 封面 ============== -->
+  <div class="slide s1-cover active" id="s1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <div class="cover-layout">
+        <div class="cover-text">
+          <div class="cover-eyebrow">週一｜政府公務 · 2026-08-31</div>
+          <h1 class="cover-title">青銀共治 <span class="accent">2.0</span><br>超高齡台灣的<span class="warm">世代契約</span></h1>
+          <p class="cover-sub">人口結構翻轉不是未來式 · 從長照走向青銀共決 · 2026 公共治理的新起點</p>
+          <div class="cover-meta">
+            <div class="cover-meta-item"><div class="cover-meta-num">18.3%</div><div class="cover-meta-lbl">65 歲以上人口</div></div>
+            <div class="cover-meta-item"><div class="cover-meta-num">35.7</div><div class="cover-meta-lbl">扶老比</div></div>
+            <div class="cover-meta-item"><div class="cover-meta-num">6</div><div class="cover-meta-lbl">落地場景</div></div>
+            <div class="cover-meta-item"><div class="cover-meta-num">90</div><div class="cover-meta-lbl">天行動路線</div></div>
+          </div>
+        </div>
+        <div class="cover-art">
+          <svg class="cover-circle-svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="gA" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#5eead4" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#0f766e" stop-opacity="0.8"/>
+              </radialGradient>
+              <radialGradient id="gB" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#fdba74" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#c2410c" stop-opacity="0.8"/>
+              </radialGradient>
+              <radialGradient id="gC" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.8"/>
+              </radialGradient>
+            </defs>
+            <circle cx="180" cy="180" r="160" fill="none" stroke="#14b8a6" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.45"/>
+            <circle cx="180" cy="180" r="115" fill="none" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.55"/>
+            <circle cx="180" cy="180" r="70" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.65"/>
+            <circle cx="105" cy="180" r="55" fill="url(#gA)"/>
+            <circle cx="180" cy="105" r="45" fill="url(#gB)"/>
+            <circle cx="255" cy="180" r="35" fill="url(#gC)"/>
+            <text x="105" y="184" text-anchor="middle" fill="#08191d" font-size="1.05rem" font-weight="900">青</text>
+            <text x="180" y="109" text-anchor="middle" fill="#08191d" font-size="1.05rem" font-weight="900">銀</text>
+            <text x="255" y="184" text-anchor="middle" fill="#08191d" font-size="1rem" font-weight="900">共</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">1 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P2 TOC ============== -->
+  <div class="slide s2-toc" id="s2">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <span class="tag">AGENDA · 本週議程</span>
+      <h2>六個議題面向:青銀共治的整體地圖</h2>
+      <p class="lead">從人口結構的臨界點,到 4 國鏡像與 90 天行動路線,六塊拼出 2030 治理新貌。</p>
+      <div class="toc-grid">
+        <div class="toc-card">
+          <div class="row">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7"/></svg>
+            </div>
+            <div class="num">01</div>
+          </div>
+          <div class="lbl">為什麼現在?</div>
+          <div class="desc">人口結構的臨界點,2026 是政策起點</div>
+        </div>
+        <div class="toc-card">
+          <div class="row">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+            </div>
+            <div class="num">02</div>
+          </div>
+          <div class="lbl">4 個現實數字</div>
+          <div class="desc">基層現場的壓力指標</div>
+        </div>
+        <div class="toc-card">
+          <div class="row">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c0-7 4-12 9-12s9 5 9 12"/><path d="M12 9V4"/><path d="M9 6l3-2 3 2"/></svg>
+            </div>
+            <div class="num">03</div>
+          </div>
+          <div class="lbl">6 大落地場景</div>
+          <div class="desc">地方政府的試驗場</div>
+        </div>
+        <div class="toc-card">
+          <div class="row">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            </div>
+            <div class="num">04</div>
+          </div>
+          <div class="lbl">三層堆疊</div>
+          <div class="desc">便民 × AI × 治理的路徑</div>
+        </div>
+        <div class="toc-card">
+          <div class="row">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l4-4 4 4-4 4z"/><path d="M13 12l4-4 4 4-4 4z"/><path d="M8 16l4 4 4-4"/></svg>
+            </div>
+            <div class="num">05</div>
+          </div>
+          <div class="lbl">5 階段治理框架</div>
+          <div class="desc">讓世代共決有程序可循</div>
+        </div>
+        <div class="toc-card">
+          <div class="row">
+            <div class="ico">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <div class="num">06</div>
+          </div>
+          <div class="lbl">4 國鏡像 + 90 天</div>
+          <div class="desc">國際借鏡與地方行動路線</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">2 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P3 願景 (圓/水) ============== -->
+  <div class="slide s3-vision" id="s3">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-4"></div>
+    <div class="slide-content">
+      <span class="tag">VISION · 願景</span>
+      <h2>四大目標 × 一條 2030 路徑</h2>
+      <p class="lead">從「長照負擔」翻轉為「世代共治」,四個環節彼此連動、缺一不可。</p>
+      <div class="vision-grid">
+        <div class="vision-card">
+          <div class="vision-badge">1</div>
+          <h3>延緩老化</h3>
+          <div class="kpi">+3 歲</div>
+          <div class="kpi-lbl">健康平均餘命提升</div>
+        </div>
+        <div class="vision-card warm">
+          <div class="vision-badge warm">2</div>
+          <h3>釋放銀髮力</h3>
+          <div class="kpi">45%</div>
+          <div class="kpi-lbl">65 歲再就業率</div>
+        </div>
+        <div class="vision-card violet">
+          <div class="vision-badge violet">3</div>
+          <h3>青銀共決</h3>
+          <div class="kpi">2.0</div>
+          <div class="kpi-lbl">代議民主升級版</div>
+        </div>
+        <div class="vision-card" style="border-color: rgba(251,191,36,0.45); box-shadow: 0 0 24px rgba(251,191,36,0.30);">
+          <div class="vision-badge" style="background: radial-gradient(circle at 30% 30%, #fbbf24 0%, #b45309 80%); box-shadow: 0 0 24px rgba(251,191,36,0.45);">4</div>
+          <h3>永續財政</h3>
+          <div class="kpi" style="color: #fcd34d;">2030</div>
+          <div class="kpi-lbl">長照保險改革到位</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">3 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P4 4 個現實數字 (方/垂) ============== -->
+  <div class="slide s4-now" id="s4">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <span class="tag-warm">REALITY · 現實</span>
+      <h2>基層的 4 個現實數字</h2>
+      <p class="lead">每個數字背後,都是地方政府的真實壓力;不做世代共治,這些數字只會加速。</p>
+      <div class="now-stack">
+        <div class="now-row">
+          <div class="now-num">18.3%</div>
+          <div class="now-body">
+            <div class="now-lbl">65 歲以上人口占比</div>
+            <div class="now-desc">2026 突破超高齡門檻,全國 22 縣市中已有 18 個高於全國平均</div>
+          </div>
+        </div>
+        <div class="now-row warm">
+          <div class="now-num">35.7</div>
+          <div class="now-body">
+            <div class="now-lbl">扶老比(每百名青壯年負擔老人數)</div>
+            <div class="now-desc">較 2010 年增加 14.7,2030 預估突破 50,稅收與長照同步吃緊</div>
+          </div>
+        </div>
+        <div class="now-row violet">
+          <div class="now-num">+42%</div>
+          <div class="now-body">
+            <div class="now-lbl">地方長照預算五年增幅</div>
+            <div class="now-desc">許多縣市長照支出已佔社福預算 6 成以上,排擠其他公共投資</div>
+          </div>
+        </div>
+        <div class="now-row teal">
+          <div class="now-num">6 縣市</div>
+          <div class="now-body">
+            <div class="now-lbl">25–34 歲人口持續淨移出</div>
+            <div class="now-desc">雲林、澎湖、屏東、嘉義縣市、苗栗——青銀比例嚴重失衡</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">4 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P5 6 大場景 (六/網) ============== -->
+  <div class="slide s5-scene" id="s5">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <span class="tag">SCENES · 場景</span>
+      <h2>6 大落地場景:青銀共治做什麼</h2>
+      <p class="lead">從社區、學校、公園到議會,把「共治」拆成可被基層執行的六種情境。</p>
+      <div class="scene-grid">
+        <div class="scene-card">
+          <svg class="hex" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18"/></svg>
+          <div class="tag-mini">社區</div>
+          <h3>銀髮里長</h3>
+          <p>讓 65+ 擔任「共決里長」,與青年副里長共組雙首長制,落實社區共決。</p>
+        </div>
+        <div class="scene-card warm">
+          <svg class="hex" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18"/></svg>
+          <div class="tag-mini">技藝</div>
+          <h3>學徒制 2.0</h3>
+          <p>傳產師傅收青年學徒,搭配勞動部津貼,讓技藝傳承變成青年職涯選項。</p>
+        </div>
+        <div class="scene-card violet">
+          <svg class="hex" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18"/></svg>
+          <div class="tag-mini">數位</div>
+          <h3>數位陪伴</h3>
+          <p>青年陪伴員到府教長輩用 APP、預約掛號、防詐騙,把數位落差變陪伴關係。</p>
+        </div>
+        <div class="scene-card teal">
+          <svg class="hex" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18"/></svg>
+          <div class="tag-mini">空間</div>
+          <h3>共融公園</h3>
+          <p>全齡友善設計:無礙步道、銀髮體健、幼童共玩區,讓公園成為三代交會點。</p>
+        </div>
+        <div class="scene-card rose">
+          <svg class="hex" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18"/></svg>
+          <div class="tag-mini">經濟</div>
+          <h3>時間銀行</h3>
+          <p>1 小時服務換 1 時分,跨代互助存入個人帳戶,老了再提領,落實互助經濟。</p>
+        </div>
+        <div class="scene-card gold">
+          <svg class="hex" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="32,4 56,18 56,46 32,60 8,46 8,18"/></svg>
+          <div class="tag-mini">議政</div>
+          <h3>跨代議政</h3>
+          <p>縣市設「青年諮議會」,25% 席次保留 60+ 公民代表,直接進入預算審查。</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">5 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P6 三層堆疊 (線/單) ============== -->
+  <div class="slide s6-stack" id="s6">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <span class="tag-violet">STACK · 堆疊</span>
+      <h2>三層堆疊:從基層到治理的 2030 路徑</h2>
+      <p class="lead">基層(便民)是地端(AI)的燃料,地端是上層(治理)的證據——三層缺一不可。</p>
+      <div class="stack-layout">
+        <div class="stack-timeline">
+          <div class="stack-mark"><span class="yr">2026 基層</span></div>
+          <div class="stack-mark warm"><span class="yr">2028 地端</span></div>
+          <div class="stack-mark violet"><span class="yr">2030 上層</span></div>
+        </div>
+        <div class="stack-cards">
+          <div class="stack-card">
+            <div class="stack-num">1</div>
+            <div class="stack-body">
+              <h3>基層:便民服務全面到位</h3>
+              <p>臨櫃數位化、單一窗口整合、通譯/陪伴到府,讓長者不必為了證件奔波。</p>
+            </div>
+          </div>
+          <div class="stack-card warm">
+            <div class="stack-num">2</div>
+            <div class="stack-body">
+              <h3>地端:AI × 數位雙軸賦能</h3>
+              <p>長照排班 AI 化、跨代健康數據互通、防詐模型即時派工,讓科技真正落地。</p>
+            </div>
+          </div>
+          <div class="stack-card violet">
+            <div class="stack-num">3</div>
+            <div class="stack-body">
+              <h3>上層:治理 × 法規全面接住</h3>
+              <p>長照保險改革、代議民主 2.0、跨代預算審查,把試辦成果變制度。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">6 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P7 5 階段治理 (方/網) ============== -->
+  <div class="slide s7-govern" id="s7">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-4"></div>
+    <div class="slide-content">
+      <span class="tag">GOVERNANCE · 治理</span>
+      <h2>5 階段治理框架:讓世代共決有程序</h2>
+      <p class="lead">從盤點到推廣,五個階段是閉環:每完成一輪,就回到下一輪的盤點,持續迭代。</p>
+      <div class="gov-pipe">
+        <div class="gov-card">
+          <div class="gov-step">STEP 01</div>
+          <div class="gov-num">1</div>
+          <h3>盤點</h3>
+          <p>人口 × 資源 × 需求三軸普查,輸出可量化基線</p>
+        </div>
+        <div class="gov-card warm">
+          <div class="gov-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="gov-step">STEP 02</div>
+          <div class="gov-num">2</div>
+          <h3>對話</h3>
+          <p>召開世代共識工作坊,共擬議題與價值排序</p>
+        </div>
+        <div class="gov-card">
+          <div class="gov-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="gov-step">STEP 03</div>
+          <div class="gov-num">3</div>
+          <h3>試點</h3>
+          <p>擇 2–3 行政區試辦 6 個月,滾動修正 KPI</p>
+        </div>
+        <div class="gov-card warm">
+          <div class="gov-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="gov-step">STEP 04</div>
+          <div class="gov-num">4</div>
+          <h3>法制</h3>
+          <p>自治條例 + 預算編列,送議會三讀,法制化</p>
+        </div>
+        <div class="gov-card violet">
+          <div class="gov-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+          <div class="gov-step">STEP 05</div>
+          <div class="gov-num">5</div>
+          <h3>推廣</h3>
+          <p>全市複製,跨縣市經驗交流,2030 全面到位</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">7 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P8 4 國鏡像 (圓/水) ============== -->
+  <div class="slide s8-compare" id="s8">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <span class="tag">BENCHMARK · 鏡像</span>
+      <h2>4 國鏡像:超高齡國家的解方</h2>
+      <p class="lead">不複製整個制度,但每一國都提供一項台灣可以借鏡的具體動作。</p>
+      <div class="cmp-grid">
+        <div class="cmp-card">
+          <div class="cmp-flag">
+            <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="32" cy="32" r="22"/>
+              <path d="M16 32h32M32 16v32"/>
+              <circle cx="32" cy="32" r="4" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="cmp-name">日本</div>
+          <div class="cmp-model">在地共決</div>
+          <div class="cmp-action">「地域包括ケア」系統,讓 30 分鐘生活圈整合醫療與長照</div>
+          <div class="cmp-take">借鏡:把長照預算下放到「中學校區」,讓資源看得見</div>
+        </div>
+        <div class="cmp-card teal">
+          <div class="cmp-flag">
+            <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 22h36v20H14z"/>
+              <path d="M22 16v6M32 16v6M42 16v6"/>
+              <path d="M20 32h24"/>
+            </svg>
+          </div>
+          <div class="cmp-name">丹麥</div>
+          <div class="cmp-model">數位民主</div>
+          <div class="cmp-action">公民會議採數位抽選,60+ 與青年配額,決議直接送國會</div>
+          <div class="cmp-take">借鏡:用數位工具做世代配額審議,提升正當性</div>
+        </div>
+        <div class="cmp-card warm">
+          <div class="cmp-flag">
+            <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 42l22-22 22 22"/>
+              <path d="M18 42V22h28v20"/>
+              <circle cx="32" cy="32" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="cmp-name">荷蘭</div>
+          <div class="cmp-model">青銀共居</div>
+          <div class="cmp-action">「Humanitas」青銀共居宅,長者住屋交換青年陪伴時數</div>
+          <div class="cmp-take">借鏡:把「陪伴」變成可交易的社會資本</div>
+        </div>
+        <div class="cmp-card violet">
+          <div class="cmp-flag">
+            <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 20h44v24H10z"/>
+              <path d="M10 28h44M22 44V28M42 44V28"/>
+              <circle cx="32" cy="20" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="cmp-name">台灣</div>
+          <div class="cmp-model">綜合在地實驗</div>
+          <div class="cmp-action">結合里長、學徒、議會三項,打造「青銀共治 2.0」在地版</div>
+          <div class="cmp-take">我們的解方:不是單一旗幟,而是動態組合</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">8 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P9 90 天行動 (方/垂) ============== -->
+  <div class="slide s9-action" id="s9">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="glow-orb glow-orb-4"></div>
+    <div class="slide-content">
+      <span class="tag-warm">ACTION · 行動</span>
+      <h2>4 階段 × 90 天落地行動路線</h2>
+      <p class="lead">從現在起算的 90 天,把「世代共治」從口號變成可驗收的行政節奏。</p>
+      <div class="act-stack">
+        <div class="act-row">
+          <div class="act-phase">
+            <div class="act-day">0–30</div>
+            <div class="act-day-lbl">盤點期</div>
+          </div>
+          <div class="act-body">
+            <h3>基線盤點 + 工作坊籌備</h3>
+            <ul>
+              <li>完成 65+ 人口 × 服務據點 × 預算三軸盤點</li>
+              <li>跨局處工作小組每月雙週會報</li>
+              <li>12 月底前公布「青銀共治 2.0」基線報告</li>
+            </ul>
+          </div>
+        </div>
+        <div class="act-row warm">
+          <div class="act-phase">
+            <div class="act-day">30–60</div>
+            <div class="act-day-lbl">對話期</div>
+          </div>
+          <div class="act-body">
+            <h3>3 場世代共識工作坊</h3>
+            <ul>
+              <li>城/鄉/原民各一場,確保多元聲音</li>
+              <li>青年與 60+ 各佔 50% 與會配額</li>
+              <li>產出 12 項可執行政策提案</li>
+            </ul>
+          </div>
+        </div>
+        <div class="act-row violet">
+          <div class="act-phase">
+            <div class="act-day">60–90</div>
+            <div class="act-day-lbl">試點期</div>
+          </div>
+          <div class="act-body">
+            <h3>2 行政區試辦 × 3 場景</h3>
+            <ul>
+              <li>擇 2 行政區試辦「銀髮里長 × 學徒制 2.0」</li>
+              <li>搭配 1 場青年諮議會試運行</li>
+              <li>第 90 天提交試辦報告與擴散建議</li>
+            </ul>
+          </div>
+        </div>
+        <div class="act-row gold">
+          <div class="act-phase">
+            <div class="act-day">90 天+</div>
+            <div class="act-day-lbl">制度化</div>
+          </div>
+          <div class="act-body">
+            <h3>法制化 × 全面推廣</h3>
+            <ul>
+              <li>將試辦成果轉自治條例草案,送議會</li>
+              <li>2027 Q1 完成跨縣市經驗交流工作坊</li>
+              <li>2030 達成 4 大目標 KPI 驗收</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">9 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P10 結尾 ============== -->
+  <div class="slide s10-end" id="s10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content end">
+      <div class="cover-eyebrow" style="color: var(--accent-soft);">CONCLUSION · 結語</div>
+      <div class="end-quote">把世代差異,<span class="accent">變成共同設計的素材</span></div>
+      <p class="end-sub">不是讓年輕人承擔長輩的選擇,也不是讓長輩退出未來<br>而是讓每一代,都成為下一代的共同設計者</p>
+      <div class="end-meta">
+        <div class="end-meta-item"><div class="end-meta-v">4 大目標</div><div class="end-meta-lbl">延緩老化 × 銀髮力 × 共決 × 財政</div></div>
+        <div class="end-meta-item"><div class="end-meta-v">6 場景</div><div class="end-meta-lbl">從社區到議會</div></div>
+        <div class="end-meta-item"><div class="end-meta-v">5 階段</div><div class="end-meta-lbl">盤點 → 推廣</div></div>
+        <div class="end-meta-item"><div class="end-meta-v">90 天</div><div class="end-meta-lbl">第一輪閉環</div></div>
+      </div>
+      <p class="note" style="margin-top: 32px; letter-spacing: 0.18em;">熊熊 · 2026-08-31 · 週一政府公務</p>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">10 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var slides = document.querySelectorAll('.slide');
+var current = 0;
+function show() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current + slides.length) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+function next() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current + 1) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+function prev() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current - 1 + slides.length) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') next();
+  else if (e.key === 'ArrowLeft') prev();
+});
+if (slides[0] && !slides[0].classList.contains('active')) {
+  slides[0].classList.add('active');
+}
+</script>
+</body>
+</html>
