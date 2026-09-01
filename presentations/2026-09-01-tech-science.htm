@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 AI 代理人元年：當 Agentic Workflow 接管軟體開發｜2026-09-01 科技學術</title>
+<style>
+/* ============================================================
+   配色：C1 深紫夜幕（Deep Purple Cosmos）— 科技學術專屬
+   主題：2026 AI 代理人元年 — Agentic Workflow 接管軟體開發
+   ============================================================ */
+:root {
+  --bg-deep:        #0d0820;
+  --bg-mid:         #1a0f3a;
+  --bg-card:        rgba(40, 24, 80, 0.55);
+  --primary:        #8b5cf6;
+  --primary-soft:   #c4b5fd;
+  --primary-deep:   #5b21b6;
+  --accent:         #06d6f9;
+  --accent-soft:    #67e8f9;
+  --accent-deep:    #0e7490;
+  --magenta:        #f472b6;
+  --gold:           #fbbf24;
+  --ink:            #f5f3ff;
+  --ink-soft:       #e9e4ff;
+  --ink-mute:       #c4b5fd;
+  --ink-dim:        #a78bfa;
+  --border-cool:    rgba(139, 92, 246, 0.40);
+  --border-warm:    rgba(6, 214, 249, 0.45);
+  --glow-cool:      0 0 28px rgba(139, 92, 246, 0.35);
+  --glow-warm:      0 0 24px rgba(6, 214, 249, 0.30);
+}
+
+html { font-size: 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0d0820;
+  color: var(--ink-soft);
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 80% 15%, rgba(139, 92, 246, 0.20) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(6, 214, 249, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(244, 114, 182, 0.10) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+  border-radius: 12px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 52px 60px 76px;
+  color: var(--ink);
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+.slide * { line-height: 1.5; }
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 320px; height: 320px; background: rgba(139, 92, 246, 0.25); top: -100px; right: -100px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(6, 214, 249, 0.18); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 220px; height: 220px; background: rgba(244, 114, 182, 0.18); top: 50%; left: 60%; }
+
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.tag {
+  display: inline-block;
+  background: rgba(139, 92, 246, 0.18);
+  color: var(--primary-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-cool);
+}
+.tag-cool {
+  display: inline-block;
+  background: rgba(6, 214, 249, 0.18);
+  color: var(--accent-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-warm);
+}
+
+h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.18; margin: 8px 0 14px; color: #ffffff; }
+h2 { font-size: 1.8rem; font-weight: 700; margin: 4px 0 12px; color: #ffffff; line-height: 1.25; }
+h3 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 6px; color: var(--primary-soft); }
+.lead { font-size: 1.1rem; color: var(--ink-mute); line-height: 1.55; margin: 6px 0 14px; }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--glow-cool);
+}
+.card-cool {
+  background: rgba(6, 214, 249, 0.08);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 18px;
+}
+
+/* === Nav === */
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+  background: rgba(13, 8, 32, 0.85);
+  padding: 6px 12px;
+  border-radius: 24px;
+  border: 1px solid var(--border-cool);
+}
+.nav button {
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid var(--border-cool);
+  color: var(--ink);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav button:hover { background: rgba(139, 92, 246, 0.35); }
+.nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+.nav span { font-size: 1rem; color: var(--ink-mute); min-width: 56px; text-align: center; }
+
+.back-link {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  z-index: 50;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  text-decoration: none;
+  background: rgba(13, 8, 32, 0.7);
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border-cool);
+}
+.back-link:hover { color: var(--primary-soft); }
+
+/* ============================================================
+   P1 封面（圓/單）— 大圓環 + 4 個 ring-stat
+   ============================================================ */
+.s1-cover {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .cover-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.s1-cover h1 {
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.18;
+  margin: 0;
+  z-index: 2;
+}
+.s1-cover h1 .accent { color: var(--accent-soft); }
+.s1-cover h1 .accent2 { color: var(--magenta); }
+.s1-cover .sub {
+  font-size: 1.2rem;
+  color: var(--ink-mute);
+  margin-top: 18px;
+  max-width: 760px;
+  z-index: 2;
+}
+.s1-cover .big-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+.s1-cover .ring-stat {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.s1-cover .ring-stat .num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  line-height: 1;
+}
+.s1-cover .ring-stat .lbl {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.06em;
+  background: rgba(13, 8, 32, 0.85);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-cool);
+}
+.s1-cover .ring-stat.top-l { top: 280px; left: 24px; }
+.s1-cover .ring-stat.top-r { top: 280px; right: 24px; }
+.s1-cover .ring-stat.bot-l { top: 430px; left: 100px; }
+.s1-cover .ring-stat.bot-r { top: 430px; right: 100px; }
+
+/* ============================================================
+   P2 議程（方/網）— 6 格議程卡
+   ============================================================ */
+.s2-toc .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.s2-toc .header .pill {
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--primary-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.s2-toc .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+  align-content: center;
+}
+.s2-toc .toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--glow-cool);
+}
+.s2-toc .toc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+}
+.s2-toc .toc-card .num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  line-height: 1;
+}
+.s2-toc .toc-card .lbl {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 6px;
+}
+.s2-toc .toc-card .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   P3 演進時間軸（線/水）— 5 個節點水平排列
+   ============================================================ */
+.s3-timeline .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.s3-timeline .header .pill {
+  background: rgba(6, 214, 249, 0.15);
+  color: var(--accent-soft);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.s3-timeline .timeline-h {
+  flex: 0.7;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  padding: 8px 0;
+  position: relative;
+}
+.s3-timeline .timeline-desc {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  padding: 12px 0;
+  align-content: start;
+}
+.s3-timeline .timeline-desc .desc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.s3-timeline .timeline-desc .desc-card.peak {
+  border-color: var(--border-warm);
+  background: rgba(6, 214, 249, 0.08);
+}
+.s3-timeline .timeline-desc .lbl {
+  font-size: 1rem;
+  color: var(--accent-soft);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+.s3-timeline .timeline-desc .txt {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+.s3-timeline .tl-step {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.s3-timeline .tl-step .yr {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  letter-spacing: 0.05em;
+}
+.s3-timeline .tl-step .ev {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+}
+.s3-timeline .tl-step .stat {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+  margin-top: 4px;
+}
+.s3-timeline .tl-step.peak {
+  background: rgba(6, 214, 249, 0.12);
+  border-color: var(--border-warm);
+  box-shadow: var(--glow-warm);
+}
+.s3-timeline .tl-step.peak .yr { color: var(--magenta); }
+.s3-timeline .tl-dot {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.7);
+  border: 3px solid var(--bg-deep);
+}
+.s3-timeline .tl-step.peak .tl-dot { background: var(--accent); box-shadow: 0 0 12px rgba(6, 214, 249, 0.7); }
+
+/* ============================================================
+   P4 蜂巢叢集（六/散）— 6 大核心能力
+   ============================================================ */
+.s4-capabilities .header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.s4-capabilities .header .sub {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  margin-top: 6px;
+}
+.s4-capabilities .hex-scatter {
+  flex: 1;
+  position: relative;
+}
+.s4-capabilities .hex {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--bg-card);
+  border: 2px solid var(--border-cool);
+  box-shadow: var(--glow-cool);
+}
+.s4-capabilities .hex.cool {
+  border-color: var(--border-warm);
+  box-shadow: var(--glow-warm);
+  background: rgba(6, 214, 249, 0.10);
+}
+.s4-capabilities .hex.warm {
+  border-color: var(--magenta);
+  background: rgba(244, 114, 182, 0.10);
+  box-shadow: 0 0 24px rgba(244, 114, 182, 0.30);
+}
+.s4-capabilities .hex .name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+}
+.s4-capabilities .hex .en {
+  font-size: 1rem;
+  color: var(--accent-soft);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+.s4-capabilities .hex.cool .en { color: var(--magenta); }
+.s4-capabilities .hex.warm .en { color: var(--gold); }
+
+/* ============================================================
+   P5 三階段（特/垂）— Chat → Copilot → Agent
+   ============================================================ */
+.s5-stages .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.s5-stages .header .pill {
+  background: rgba(244, 114, 182, 0.15);
+  color: var(--magenta);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.s5-stages .stages-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px 0;
+}
+.s5-stages .stage-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  position: relative;
+}
+.s5-stages .stage-row.peak {
+  border-color: var(--magenta);
+  background: rgba(244, 114, 182, 0.10);
+  box-shadow: 0 0 24px rgba(244, 114, 182, 0.30);
+}
+.s5-stages .stage-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.20);
+  border: 2px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.s5-stages .stage-row.peak .stage-icon {
+  background: rgba(244, 114, 182, 0.25);
+  border-color: var(--magenta);
+  box-shadow: 0 0 16px rgba(244, 114, 182, 0.5);
+}
+.s5-stages .stage-row .step {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  letter-spacing: 0.08em;
+  min-width: 80px;
+}
+.s5-stages .stage-row.peak .step { color: var(--magenta); }
+.s5-stages .stage-row .name {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #ffffff;
+  min-width: 130px;
+}
+.s5-stages .stage-row .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+  flex: 1;
+}
+.s5-stages .arrow-down {
+  align-self: center;
+  color: var(--primary);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* ============================================================
+   P6 甜甜圈數據（圓/網）— 3 個 donut + 統計面板
+   ============================================================ */
+.s6-stats .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.s6-stats .header .sub {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  margin-top: 4px;
+}
+.s6-stats .donuts-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 8px 0;
+}
+.s6-stats .donut-card {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.s6-stats .donut-card.peak {
+  border-color: var(--border-warm);
+  box-shadow: var(--glow-warm);
+  background: rgba(6, 214, 249, 0.08);
+}
+.s6-stats .donut-card.warm {
+  border-color: var(--magenta);
+  background: rgba(244, 114, 182, 0.10);
+}
+.s6-stats .donut-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+.s6-stats .donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.s6-stats .donut-center .v {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  line-height: 1;
+}
+.s6-stats .donut-card.peak .donut-center .v { color: var(--accent-soft); }
+.s6-stats .donut-card.warm .donut-center .v { color: var(--magenta); }
+.s6-stats .donut-card .lbl {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.3;
+}
+.s6-stats .donut-card .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P7 五大產業衝擊（方/水）— 5 個水平卡片
+   ============================================================ */
+.s7-industries .header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.s7-industries .header .pill {
+  background: rgba(251, 191, 36, 0.15);
+  color: var(--gold);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.s7-industries .header .sub {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  margin-top: 4px;
+}
+.s7-industries .industries-row {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  align-content: stretch;
+  padding: 16px 0;
+}
+.s7-industries .ind-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.s7-industries .ind-card.peak {
+  border-color: var(--border-warm);
+  background: rgba(6, 214, 249, 0.08);
+}
+.s7-industries .ind-card.warm {
+  border-color: var(--magenta);
+  background: rgba(244, 114, 182, 0.08);
+}
+.s7-industries .ind-card .role {
+  font-size: 1rem;
+  color: var(--accent-soft);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.s7-industries .ind-card .name {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.2;
+}
+.s7-industries .ind-card .big {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--magenta);
+  line-height: 1;
+  margin-top: 4px;
+}
+.s7-industries .ind-card.peak .big { color: var(--accent-soft); }
+.s7-industries .ind-card .unit {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink-dim);
+  margin-left: 2px;
+}
+.s7-industries .ind-card .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+  margin-top: 4px;
+}
+.s7-industries .ind-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+/* ============================================================
+   P8 5 層技術堆疊（線/垂）— 垂直節點 + 連線
+   ============================================================ */
+.s8-stack .header { margin-bottom: 18px; }
+.s8-stack .header .sub {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  margin-top: 4px;
+}
+.s8-stack .stack-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  padding: 4px 0 4px 56px;
+  margin-top: 4px;
+}
+.s8-stack .stack-stage::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 6px; bottom: 6px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: 2px;
+}
+.s8-stack .layer-item {
+  position: relative;
+  padding: 10px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.s8-stack .layer-item::before {
+  content: '';
+  position: absolute;
+  left: -42px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+  border: 3px solid var(--bg-deep);
+}
+.s8-stack .layer-item.peak::before {
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(6, 214, 249, 0.6);
+}
+.s8-stack .layer-item .layer {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  letter-spacing: 0.08em;
+  min-width: 70px;
+}
+.s8-stack .layer-item.peak .layer { color: var(--magenta); }
+.s8-stack .layer-item .name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  flex: 0 0 180px;
+}
+.s8-stack .layer-item .desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* ============================================================
+   P9 7 大風險與緩解（六/散）— 雙層 hex cell
+   ============================================================ */
+.s9-risks .header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.s9-risks .header .sub {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  margin-top: 6px;
+}
+.s9-risks .risk-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.s9-risks .risk-label {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--ink-dim);
+  letter-spacing: 0.15em;
+  padding-left: 4px;
+}
+.s9-risks .risk-label.warm { color: var(--magenta); }
+.s9-risks .risk-label.cool { color: var(--accent-soft); }
+.s9-risks .hex-scatter {
+  flex: 1;
+  position: relative;
+}
+.s9-risks .hex-row {
+  position: absolute;
+  display: flex;
+  gap: 10px;
+}
+.s9-risks .hex {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--bg-card);
+  border: 2px solid var(--border-cool);
+  box-shadow: var(--glow-cool);
+}
+.s9-risks .hex.warm {
+  border-color: var(--magenta);
+  background: rgba(244, 114, 182, 0.10);
+  box-shadow: 0 0 20px rgba(244, 114, 182, 0.25);
+}
+.s9-risks .hex.cool {
+  border-color: var(--border-warm);
+  box-shadow: var(--glow-warm);
+  background: rgba(6, 214, 249, 0.10);
+}
+.s9-risks .hex .name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+}
+.s9-risks .hex.warm .name { color: #ffe4f0; }
+.s9-risks .hex.cool .name { color: var(--accent-soft); }
+
+/* ============================================================
+   P10 結尾（無/單）— 從對話到代理 + CTA
+   ============================================================ */
+.s10-end {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.s10-end h2 {
+  font-size: clamp(2.0rem, 4vw, 3.0rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.25;
+  z-index: 2;
+}
+.s10-end h2 .accent { color: var(--accent-soft); }
+.s10-end h2 .accent2 { color: var(--magenta); }
+.s10-end .end-body {
+  font-size: 1.2rem;
+  color: var(--ink-mute);
+  margin-top: 18px;
+  max-width: 720px;
+  z-index: 2;
+}
+.s10-end .end-audience {
+  font-size: 1.1rem;
+  color: var(--primary-soft);
+  margin-top: 10px;
+  letter-spacing: 0.05em;
+  z-index: 2;
+}
+.s10-end .ring-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+.s10-end .cta {
+  margin-top: 28px;
+  display: flex;
+  gap: 14px;
+  z-index: 2;
+}
+.s10-end .cta-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+  box-shadow: var(--glow-cool);
+  cursor: pointer;
+}
+.s10-end .cta-btn.alt {
+  background: transparent;
+  border: 2px solid var(--border-cool);
+  box-shadow: none;
+}
+.s10-end .end-stat {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.s10-end .end-stat .num {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--magenta);
+  line-height: 1;
+}
+.s10-end .end-stat .lbl {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.05em;
+  background: rgba(13, 8, 32, 0.85);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-cool);
+}
+.s10-end .end-stat.top-l { bottom: 90px; left: 30px; }
+.s10-end .end-stat.top-r { bottom: 90px; right: 30px; }
+</style>
+</head>
+<body>
+
+<div class="presentation">
+
+<a class="back-link" href="/slides.htm">← 回到列表</a>
+
+<!-- ============== P1 封面（圓/單） ============== -->
+<section id="slide-1" class="slide s1-cover active">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="cover-eyebrow">2026 · AI 代理人元年 · 科技學術專題</div>
+    <h1>2026 <span class="accent">AI 代理人</span>元年——<br>當 <span class="accent2">Agentic Workflow</span> 接管軟體開發</h1>
+    <p class="sub">從「對話式 AI」轉向「代理人式 AI」——2026 年開發者的工作流將被徹底重塑的關鍵轉折</p>
+
+    <svg class="big-ring" width="520" height="520" viewBox="0 0 520 520">
+      <circle cx="260" cy="260" r="240" fill="none" stroke="#8b5cf6" stroke-width="1.5" opacity="0.35"/>
+      <circle cx="260" cy="260" r="200" fill="none" stroke="#06d6f9" stroke-width="1.5" opacity="0.30" stroke-dasharray="8,6"/>
+      <circle cx="260" cy="260" r="160" fill="none" stroke="#f472b6" stroke-width="1.5" opacity="0.25"/>
+      <circle cx="260" cy="260" r="120" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.5"/>
+    </svg>
+
+    <div class="ring-stat top-l">
+      <span class="num">80%</span>
+      <span class="lbl">開發者每日使用 AI Agent</span>
+    </div>
+    <div class="ring-stat top-r">
+      <span class="num">5.5 hr</span>
+      <span class="lbl">每週節省時間</span>
+    </div>
+    <div class="ring-stat bot-l">
+      <span class="num">12×</span>
+      <span class="lbl">生產力提升</span>
+    </div>
+    <div class="ring-stat bot-r">
+      <span class="num">2026</span>
+      <span class="lbl">代理人轉折元年</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P2 議程（方/網） ============== -->
+<section id="slide-2" class="slide s2-toc">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>議程大綱</h2>
+      <span class="pill">從演進史到七大風險 · 八大主題</span>
+    </div>
+    <div class="grid">
+      <div class="toc-card">
+        <div class="num">01</div>
+        <div class="lbl">演進史：從 LLM 到 Agent</div>
+        <div class="desc">2025 Q4 推理模型 → 2026 Q4 Agent Marketplace 的關鍵 12 個月</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">02</div>
+        <div class="lbl">核心能力：六大支柱</div>
+        <div class="desc">規劃 / 工具使用 / 記憶 / 反思 / 多步推理 / 協作</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">03</div>
+        <div class="lbl">三階段：Chat → Copilot → Agent</div>
+        <div class="desc">從被動對話到自主執行的三級跳躍</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">04</div>
+        <div class="lbl">數據：生產力實證</div>
+        <div class="desc">80% 使用率、5.5 小時省下、12× 加速的真實調查</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">05</div>
+        <div class="lbl">衝擊：五大產業</div>
+        <div class="desc">軟體開發 / 客服 / 數據 / 內容 / 商業決策</div>
+      </div>
+      <div class="toc-card">
+        <div class="num">06</div>
+        <div class="lbl">堆疊 / 風險 / 展望</div>
+        <div class="desc">技術五大層、七大挑戰、下一步行動</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P3 演進時間軸（線/水） ============== -->
+<section id="slide-3" class="slide s3-timeline">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>2026 Agentic AI 演進史</h2>
+      <span class="pill">從推理模型到 Agent Marketplace</span>
+    </div>
+    <div class="timeline-h">
+      <div class="tl-step">
+        <span class="tl-dot"></span>
+        <div class="yr">2025 Q4</div>
+        <div class="ev">推理模型成熟</div>
+        <div class="stat">Claude 3.5 / o1</div>
+      </div>
+      <div class="tl-step">
+        <span class="tl-dot"></span>
+        <div class="yr">2026 Q1</div>
+        <div class="ev">Operator 問世</div>
+        <div class="stat">OpenAI Computer-Use</div>
+      </div>
+      <div class="tl-step">
+        <span class="tl-dot"></span>
+        <div class="yr">2026 Q2</div>
+        <div class="ev">Agent SDK 普及</div>
+        <div class="stat">LangGraph / CrewAI</div>
+      </div>
+      <div class="tl-step peak">
+        <span class="tl-dot"></span>
+        <div class="yr">2026 Q3</div>
+        <div class="ev">企業內部 Agent</div>
+        <div class="stat">私有部署元年</div>
+      </div>
+      <div class="tl-step">
+        <span class="tl-dot"></span>
+        <div class="yr">2026 Q4</div>
+        <div class="ev">Marketplace 啟動</div>
+        <div class="stat">Agent 變商品</div>
+      </div>
+    </div>
+    <div class="timeline-desc">
+      <div class="desc-card">
+        <div class="lbl">代表事件</div>
+        <div class="txt">長鏈推理 + 工具呼叫原型驗證</div>
+      </div>
+      <div class="desc-card">
+        <div class="lbl">代表事件</div>
+        <div class="txt">瀏覽器自主操作代理進入 GA</div>
+      </div>
+      <div class="desc-card">
+        <div class="lbl">代表事件</div>
+        <div class="txt">多代理編排框架標準化</div>
+      </div>
+      <div class="desc-card peak">
+        <div class="lbl">代表事件</div>
+        <div class="txt">企業 CRM / ERP 內建 Agent</div>
+      </div>
+      <div class="desc-card">
+        <div class="lbl">代表事件</div>
+        <div class="txt">Salesforce / Microsoft Agent Store 上線</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P4 蜂巢 6 能力（六/散） ============== -->
+<section id="slide-4" class="slide s4-capabilities">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>Agentic Workflow 六大核心能力</h2>
+      <div class="sub">從「被動生成文字」到「自主完成任務」的技術支柱</div>
+    </div>
+    <div class="hex-scatter">
+      <div class="hex" style="width:130px;height:150px;top:15px;left:60px;">
+        <div class="name">規劃</div>
+        <div class="en">Planning</div>
+      </div>
+      <div class="hex cool" style="width:130px;height:150px;top:15px;left:230px;">
+        <div class="name">工具使用</div>
+        <div class="en">Tool Use</div>
+      </div>
+      <div class="hex warm" style="width:130px;height:150px;top:15px;left:400px;">
+        <div class="name">記憶</div>
+        <div class="en">Memory</div>
+      </div>
+      <div class="hex" style="width:130px;height:150px;top:15px;left:570px;">
+        <div class="name">反思</div>
+        <div class="en">Reflection</div>
+      </div>
+      <div class="hex warm" style="width:130px;height:150px;top:185px;left:145px;">
+        <div class="name">多步推理</div>
+        <div class="en">Multi-step</div>
+      </div>
+      <div class="hex cool" style="width:130px;height:150px;top:185px;left:315px;">
+        <div class="name">協作</div>
+        <div class="en">Multi-Agent</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P5 三階段（特/垂） ============== -->
+<section id="slide-5" class="slide s5-stages">
+  <span class="glow-orb glow-orb-3"></span>
+  <span class="glow-orb glow-orb-1"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>三個階段：從對話到代理</h2>
+      <span class="pill">Chat → Copilot → Agent</span>
+    </div>
+    <div class="stages-stage">
+      <div class="stage-row">
+        <div class="stage-icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#c4b5fd" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <span class="step">STAGE 01</span>
+        <span class="name">Chat</span>
+        <span class="desc">對話式問答，無外部動作——單輪文字回應，使用者完全控制輸出</span>
+      </div>
+      <div class="arrow-down">▼</div>
+      <div class="stage-row">
+        <div class="stage-icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#c4b5fd" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <span class="step">STAGE 02</span>
+        <span class="name">Copilot</span>
+        <span class="desc">建議 + 確認，需人類批准——IDE 內自動補全、程式碼生成，使用者一鍵接受</span>
+      </div>
+      <div class="arrow-down">▼</div>
+      <div class="stage-row peak">
+        <div class="stage-icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#f472b6" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
+          </svg>
+        </div>
+        <span class="step">STAGE 03</span>
+        <span class="name">Agent</span>
+        <span class="desc">自主規劃執行，可呼叫工具——拆解任務、執行 API、修正錯誤，多步驟完成目標</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P6 甜甜圈數據（圓/網） ============== -->
+<section id="slide-6" class="slide s6-stats">
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>2026 全球開發者 Agent 使用率調查</h2>
+      <div class="sub">4 組關鍵數據：從採用率到企業試點的真實圖譜</div>
+    </div>
+    <div class="donuts-row">
+      <div class="donut-card peak">
+        <div class="donut-wrap">
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <circle cx="80" cy="80" r="68" fill="none" stroke="#1a0f3a" stroke-width="16"/>
+            <circle cx="80" cy="80" r="68" fill="none" stroke="#06d6f9" stroke-width="16"
+                    stroke-dasharray="427" stroke-dashoffset="85"
+                    transform="rotate(-90 80 80)" stroke-linecap="round"/>
+          </svg>
+          <div class="donut-center">
+            <div class="v">80%</div>
+          </div>
+        </div>
+        <div class="lbl">開發者每日使用 AI Agent</div>
+        <div class="desc">2026 預測：從 2024 年 35% 翻倍成長</div>
+      </div>
+      <div class="donut-card warm">
+        <div class="donut-wrap">
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <circle cx="80" cy="80" r="68" fill="none" stroke="#1a0f3a" stroke-width="16"/>
+            <circle cx="80" cy="80" r="68" fill="none" stroke="#f472b6" stroke-width="16"
+                    stroke-dasharray="427" stroke-dashoffset="170"
+                    transform="rotate(-90 80 80)" stroke-linecap="round"/>
+          </svg>
+          <div class="donut-center">
+            <div class="v">5.5h</div>
+          </div>
+        </div>
+        <div class="lbl">每週節省時間</div>
+        <div class="desc">相當於每月多出 22 小時開發時間</div>
+      </div>
+      <div class="donut-card">
+        <div class="donut-wrap">
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <circle cx="80" cy="80" r="68" fill="none" stroke="#1a0f3a" stroke-width="16"/>
+            <circle cx="80" cy="80" r="68" fill="none" stroke="#8b5cf6" stroke-width="16"
+                    stroke-dasharray="427" stroke-dashoffset="40"
+                    transform="rotate(-90 80 80)" stroke-linecap="round"/>
+          </svg>
+          <div class="donut-center">
+            <div class="v">12×</div>
+          </div>
+        </div>
+        <div class="lbl">生產力提升倍數</div>
+        <div class="desc">重複任務自動化加速效果</div>
+      </div>
+      <div class="donut-card peak">
+        <div class="donut-wrap">
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <circle cx="80" cy="80" r="68" fill="none" stroke="#1a0f3a" stroke-width="16"/>
+            <circle cx="80" cy="80" r="68" fill="none" stroke="#06d6f9" stroke-width="16"
+                    stroke-dasharray="427" stroke-dashoffset="225"
+                    transform="rotate(-90 80 80)" stroke-linecap="round"/>
+          </svg>
+          <div class="donut-center">
+            <div class="v">47%</div>
+          </div>
+        </div>
+        <div class="lbl">企業已試點 Agent</div>
+        <div class="desc">500 強企業導入調查，2025→2026 翻倍</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P7 五大產業衝擊（方/水） ============== -->
+<section id="slide-7" class="slide s7-industries">
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>2026 五大產業衝擊</h2>
+      <span class="pill">從工程到決策 · AI Agent 全面接管</span>
+      <div class="sub">每一個行業都在被 Agent 重塑工作流</div>
+    </div>
+    <div class="industries-row">
+      <div class="ind-card peak">
+        <div class="role">DEVELOPMENT</div>
+        <div class="name">軟體開發</div>
+        <div class="big">12×<span class="unit">加速</span></div>
+        <div class="desc">自動 PR 審查、測試生成、CI 修復，整個 SDLC 被代理接管</div>
+      </div>
+      <div class="ind-card">
+        <div class="role">SUPPORT</div>
+        <div class="name">客戶服務</div>
+        <div class="big">70%<span class="unit">自動</span></div>
+        <div class="desc">多輪對話 + 工單升級 + 退款審批，無需人類介入</div>
+      </div>
+      <div class="ind-card warm">
+        <div class="role">ANALYTICS</div>
+        <div class="name">數據分析</div>
+        <div class="big">5×<span class="unit">產出</span></div>
+        <div class="desc">SQL 自動生成 + 異常偵測 + 報告敘事化，端到端閉環</div>
+      </div>
+      <div class="ind-card">
+        <div class="role">CONTENT</div>
+        <div class="name">內容創作</div>
+        <div class="big">8×<span class="unit">產量</span></div>
+        <div class="desc">從腳本到多平台發布，創意代理人接管重複內容生產</div>
+      </div>
+      <div class="ind-card peak">
+        <div class="role">DECISION</div>
+        <div class="name">商業決策</div>
+        <div class="big">3×<span class="unit">速度</span></div>
+        <div class="desc">市場掃描 + 情境模擬 + 報告建議，高管決策加速器</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P8 5 層技術堆疊（線/垂） ============== -->
+<section id="slide-8" class="slide s8-stack">
+  <span class="glow-orb glow-orb-3"></span>
+  <span class="glow-orb glow-orb-1"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>Agentic 五大技術堆疊</h2>
+      <div class="sub">從基礎模型到反思監控，每一層都決定 Agent 的能力上限</div>
+    </div>
+    <div class="stack-stage">
+      <div class="layer-item">
+        <span class="layer">L1 基礎</span>
+        <span class="name">基礎模型</span>
+        <span class="desc">GPT-4 / Claude / Gemini — 大語言模型的推理與生成能力是 Agent 的大腦</span>
+      </div>
+      <div class="layer-item">
+        <span class="layer">L2 規劃</span>
+        <span class="name">規劃引擎</span>
+        <span class="desc">ReAct / Chain-of-Thought — 拆解任務、步驟規劃、自我修正的思考鏈</span>
+      </div>
+      <div class="layer-item">
+        <span class="layer">L3 工具</span>
+        <span class="name">工具層</span>
+        <span class="desc">API / MCP / Browser — 連接外部世界的橋樑，讓 Agent 能讀寫真實系統</span>
+      </div>
+      <div class="layer-item peak">
+        <span class="layer">L4 記憶</span>
+        <span class="name">記憶層</span>
+        <span class="desc">Vector DB / Session / Episodic — 跨對話保留上下文，從單輪到長任務的關鍵</span>
+      </div>
+      <div class="layer-item">
+        <span class="layer">L5 反思</span>
+        <span class="name">反思與監控</span>
+        <span class="desc">Evaluator / Critic / Trace — 監督 Agent 行為、評估輸出、防止失控的最後防線</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P9 7 大風險與緩解（六/散） ============== -->
+<section id="slide-9" class="slide s9-risks">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <div class="slide-content">
+    <div class="header">
+      <h2>七大風險與緩解對策</h2>
+      <div class="sub">Agent 越強大，治理越關鍵——雙層防護網</div>
+    </div>
+    <div class="risk-block">
+      <div class="risk-label warm">⬢ 上半場：七大風險</div>
+      <div class="hex-scatter">
+        <div class="hex warm" style="width:120px;height:130px;top:0px;left:20px;">
+          <div class="name">幻覺</div>
+        </div>
+        <div class="hex warm" style="width:120px;height:130px;top:0px;left:160px;">
+          <div class="name">成本失控</div>
+        </div>
+        <div class="hex warm" style="width:120px;height:130px;top:0px;left:300px;">
+          <div class="name">權限外洩</div>
+        </div>
+        <div class="hex warm" style="width:120px;height:130px;top:0px;left:440px;">
+          <div class="name">任務偏離</div>
+        </div>
+        <div class="hex warm" style="width:120px;height:130px;top:0px;left:580px;">
+          <div class="name">多代理衝突</div>
+        </div>
+        <div class="hex warm" style="width:120px;height:130px;top:0px;left:720px;">
+          <div class="name">難以審計</div>
+        </div>
+        <div class="hex warm" style="width:120px;height:130px;top:0px;left:860px;">
+          <div class="name">法律責任</div>
+        </div>
+      </div>
+      <div class="risk-label cool">⬢ 下半場：七項對策</div>
+      <div class="hex-scatter">
+        <div class="hex cool" style="width:120px;height:130px;top:0px;left:20px;">
+          <div class="name">人類審批閘門</div>
+        </div>
+        <div class="hex cool" style="width:120px;height:130px;top:0px;left:160px;">
+          <div class="name">預算上限</div>
+        </div>
+        <div class="hex cool" style="width:120px;height:130px;top:0px;left:300px;">
+          <div class="name">最小權限</div>
+        </div>
+        <div class="hex cool" style="width:120px;height:130px;top:0px;left:440px;">
+          <div class="name">目標校驗</div>
+        </div>
+        <div class="hex cool" style="width:120px;height:130px;top:0px;left:580px;">
+          <div class="name">訊息仲裁</div>
+        </div>
+        <div class="hex cool" style="width:120px;height:130px;top:0px;left:720px;">
+          <div class="name">全鏈路日誌</div>
+        </div>
+        <div class="hex cool" style="width:120px;height:130px;top:0px;left:860px;">
+          <div class="name">合規框架</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== P10 結尾（無/單） ============== -->
+<section id="slide-10" class="slide s10-end">
+  <span class="glow-orb glow-orb-1"></span>
+  <span class="glow-orb glow-orb-2"></span>
+  <span class="glow-orb glow-orb-3"></span>
+  <div class="slide-content">
+    <div class="end-eyebrow">2026 · 從對話到代理 · 立即行動</div>
+    <h2>下一步：<br>從<span class="accent">對話</span>走向<span class="accent2">代理</span></h2>
+    <p class="end-body">每一個開發者、每一個組織、每一個產品——都必須重新思考「人 + Agent」的協作模式</p>
+    <p class="end-audience">不只是工具升級，而是工作流的根本重構</p>
+
+    <svg class="ring-bg" width="600" height="600" viewBox="0 0 600 600">
+      <circle cx="300" cy="300" r="280" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.35"/>
+      <circle cx="300" cy="300" r="240" fill="none" stroke="#06d6f9" stroke-width="2" opacity="0.30" stroke-dasharray="10,6"/>
+      <circle cx="300" cy="300" r="200" fill="none" stroke="#f472b6" stroke-width="2" opacity="0.30"/>
+      <circle cx="300" cy="300" r="160" fill="none" stroke="#06d6f9" stroke-width="2" opacity="0.40" stroke-dasharray="4,4"/>
+    </svg>
+
+    <div class="end-stat top-l">
+      <span class="num">2026</span>
+      <span class="lbl">代理人元年</span>
+    </div>
+    <div class="end-stat top-r">
+      <span class="num">Q4</span>
+      <span class="lbl">Marketplace 上線</span>
+    </div>
+
+    <div class="cta">
+      <button class="cta-btn">試用 Agent SDK</button>
+      <button class="cta-btn alt">評估企業試點</button>
+      <button class="cta-btn alt">設計 Agent 系統</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============== Nav ============== -->
+<div class="nav">
+  <button id="prev-btn" onclick="prev()" aria-label="上一頁">◀</button>
+  <span id="nav-text">1 / 10</span>
+  <button id="next-btn" onclick="next()" aria-label="下一頁">▶</button>
+</div>
+
+</div>
+
+<script>
+let current = 0;
+const total = 10;
+let slides = [];
+
+function show() {
+  if (slides[current]) {
+    slides[current].classList.remove('active');
+  }
+  current = Math.max(0, Math.min(total - 1, current));
+  if (slides[current]) {
+    slides[current].classList.add('active');
+  }
+  var navText = document.getElementById('nav-text');
+  if (navText) navText.textContent = (current + 1) + ' / ' + total;
+  var prevBtn = document.getElementById('prev-btn');
+  var nextBtn = document.getElementById('next-btn');
+  if (prevBtn) prevBtn.disabled = current === 0;
+  if (nextBtn) nextBtn.disabled = current === total - 1;
+}
+
+function next() {
+  if (current < total - 1) {
+    if (slides[current]) slides[current].classList.remove('active');
+    current++;
+    if (slides[current]) slides[current].classList.add('active');
+    var navText = document.getElementById('nav-text');
+    if (navText) navText.textContent = (current + 1) + ' / ' + total;
+    var prevBtn = document.getElementById('prev-btn');
+    var nextBtn = document.getElementById('next-btn');
+    if (prevBtn) prevBtn.disabled = current === 0;
+    if (nextBtn) nextBtn.disabled = current === total - 1;
+  }
+}
+
+function prev() {
+  if (current > 0) {
+    if (slides[current]) slides[current].classList.remove('active');
+    current--;
+    if (slides[current]) slides[current].classList.add('active');
+    var navText = document.getElementById('nav-text');
+    if (navText) navText.textContent = (current + 1) + ' / ' + total;
+    var prevBtn = document.getElementById('prev-btn');
+    var nextBtn = document.getElementById('next-btn');
+    if (prevBtn) prevBtn.disabled = current === 0;
+    if (nextBtn) nextBtn.disabled = current === total - 1;
+  }
+}
+
+// 鍵盤導航
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') next();
+  if (e.key === 'ArrowLeft') prev();
+});
+
+function init() {
+  slides = document.querySelectorAll('.slide');
+  // 確保第一個 slide 一定有 active
+  if (slides[0] && !slides[0].classList.contains('active')) {
+    slides[0].classList.add('active');
+  }
+  show();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+
+</body>
+</html>
