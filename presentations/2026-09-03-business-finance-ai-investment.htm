@@ -57,6 +57,17 @@ body {
   padding: 48px 56px 96px;
   overflow: hidden;
 }
+/* 內容超長的 slide（如 P4 時間軸）允許內部滾動 */
+.slide-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 .slide.active { display: block; }
 
 /* =====================
@@ -72,15 +83,6 @@ body {
 .glow-orb-1 { width: 360px; height: 360px; background: rgba(0, 229, 255, 0.30); top: -120px; right: -120px; }
 .glow-orb-2 { width: 280px; height: 280px; background: rgba(21, 101, 192, 0.40); bottom: -80px; left: -80px; }
 .glow-orb-3 { width: 220px; height: 220px; background: rgba(255, 184, 0, 0.20); top: 40%; left: 60%; }
-
-.slide-inner {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
 
 /* 標題系統 */
 .eyebrow {
@@ -371,6 +373,7 @@ body {
   position: relative;
   margin-top: 1.4rem;
   padding-left: 64px;
+  padding-bottom: 100px;
 }
 .s4-timeline .tl-vertical::before {
   content: '';
@@ -382,10 +385,12 @@ body {
   background: linear-gradient(180deg, #00e5ff 0%, #1565c0 60%, #ffb800 100%);
   box-shadow: 0 0 18px rgba(0, 229, 255, 0.5);
 }
+.s4-timeline .tl-item { margin-bottom: 14px; }
+.s4-timeline .tl-item:last-child { margin-bottom: 0; }
 .tl-v-item {
   position: relative;
-  padding: 0.8rem 1rem;
-  margin-bottom: 0.9rem;
+  padding: 0.45rem 0.85rem;
+  margin-bottom: 0.5rem;
   background: #0d1f3c;
   border: 3px solid #00e5ff;
   box-shadow: 5px 5px 0 #1565c0;
@@ -397,30 +402,30 @@ body {
   left: -48px;
   top: 50%;
   transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: #ffb800;
   border: 4px solid #0a1628;
   box-shadow: 0 0 14px rgba(255, 184, 0, 0.7);
 }
 .tl-v-item .tl-date {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 900;
   color: #ffb800;
   letter-spacing: 0.08em;
 }
 .tl-v-item .tl-event {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: #ffffff;
   font-weight: 700;
-  margin-top: 0.2rem;
+  margin-top: 0.1rem;
 }
 .tl-v-item .tl-desc {
   font-size: 1rem;
   color: #90caf9;
-  margin-top: 0.2rem;
-  line-height: 1.4;
+  margin-top: 0.1rem;
+  line-height: 1.3;
 }
 
 /* ============================
@@ -486,6 +491,9 @@ body {
   align-items: center;
   text-align: center;
   padding: 1.4rem;
+  aspect-ratio: 1.15 / 1;
+  min-height: 320px;
+  max-height: 400px;
   clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 92% 100%, 8% 100%, 0% 50%);
 }
 .center-hex .center-amount {
@@ -983,7 +991,7 @@ body {
             <circle cx="100" cy="100" r="80" fill="none" stroke="#90caf9" stroke-width="36"
               stroke-dasharray="100.53 502.65" stroke-dashoffset="-402.12" transform="rotate(-90 100 100)"/>
             <text x="100" y="98" font-size="20" font-weight="900" fill="#ffffff" text-anchor="middle">NTD</text>
-            <text x="100" y="120" font-size="14" fill="#00e5ff" text-anchor="middle" font-weight="700">上半年</text>
+            <text x="100" y="120" font-size="20" fill="#00e5ff" text-anchor="middle" font-weight="700">上半年</text>
           </svg>
           <div class="donut-legend">
             <div class="legend-row"><span class="dot" style="background:#00e5ff"></span><span>VC 風投 40%</span></div>
@@ -1421,6 +1429,10 @@ body {
     }
     function current() {
       return slides.find(s => s.classList.contains('active'));
+    }
+    // 初始化：若無任何 active，預設顯示第一頁
+    if (slides.length > 0 && !slides.some(s => s.classList.contains('active'))) {
+      slides[0].classList.add('active');
     }
     document.querySelectorAll('.nav button[data-target]').forEach(btn => {
       btn.addEventListener('click', () => {
