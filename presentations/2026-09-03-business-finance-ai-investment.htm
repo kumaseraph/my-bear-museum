@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 台灣 AI 投資狂潮：上半年的黃金，下半年的十字路口｜2026-09-03 商業財經｜熊熊博物館</title>
+
+<!-- ============================
+     配色 C5 企業深藍
+     模板 VH1 發光粗野主義
+     主題：2026 台灣 AI 投資狂潮
+     ============================ -->
+
+<!-- C5 企業深藍 配色 -->
+<link rel="stylesheet" href="/studio/design/visual-templates/colors/colors-C5-corporate-navy.css">
+<!-- VH1 發光粗野 模板 -->
+<link rel="stylesheet" href="/studio/design/visual-templates/structures/vh1-glow-brutalist-structure.css">
+
+<style>
+/* =====================
+   0. 基盤（最高優先）
+   ===================== */
+html { font-size: 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, -apple-system, sans-serif;
+  background: #0a1628;
+  color: var(--text, #e3f2fd);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 16:9 容器 */
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #0a1628 0%, #0d1f3c 50%, #1565c0 100%);
+  border-radius: 14px;
+  box-shadow: 0 0 0 4px #1565c0, 0 0 80px rgba(21, 101, 192, 0.45);
+}
+
+/* 換頁機制 */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  padding: 48px 56px 96px;
+  overflow: hidden;
+}
+.slide.active { display: block; }
+
+/* =====================
+   1. 共用元件
+   ===================== */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 360px; height: 360px; background: rgba(0, 229, 255, 0.30); top: -120px; right: -120px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(21, 101, 192, 0.40); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 220px; height: 220px; background: rgba(255, 184, 0, 0.20); top: 40%; left: 60%; }
+
+.slide-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 標題系統 */
+.eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: #00e5ff;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.section-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-top: 0.6rem;
+  line-height: 1.1;
+}
+.section-sub {
+  font-size: 1.05rem;
+  color: #90caf9;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+/* 導航列（共用，靠底部） */
+.nav {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  padding: 8px 18px;
+  border-radius: 24px;
+  z-index: 10;
+  backdrop-filter: blur(12px);
+}
+.nav button {
+  background: transparent;
+  color: #00e5ff;
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+.nav button:hover { background: rgba(0, 229, 255, 0.18); }
+.nav .page-num {
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  min-width: 64px;
+  text-align: center;
+}
+.nav a {
+  color: #00e5ff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  border-radius: 8px;
+}
+
+/* 通用粗野卡片（VH1 風格：粗黑邊 + offset shadow + 鮮色） */
+.brut-card {
+  background: #0d1f3c;
+  border: 4px solid #00e5ff;
+  box-shadow: 8px 8px 0 #ffb800;
+  border-radius: 0;
+  padding: 1.4rem 1.2rem;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.brut-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 #ffb800, 0 0 28px rgba(0, 229, 255, 0.45);
+}
+
+/* ============================
+   P1 封面（無/單，3 區塊）
+   ============================ */
+.s1-cover .cover-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: #00e5ff;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.s1-cover h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #ffffff 0%, #00e5ff 60%, #ffb800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  max-width: 950px;
+  margin-bottom: 0.8rem;
+}
+.s1-cover .cover-sub {
+  font-size: 1.4rem;
+  color: #e3f2fd;
+  font-weight: 500;
+  max-width: 800px;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+.s1-cover .meta-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.s1-cover .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  color: #90caf9;
+  font-weight: 500;
+}
+.s1-cover .meta-item svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.s1-cover .hero-icon {
+  position: absolute;
+  right: 60px;
+  top: 26%;
+  width: 320px;
+  height: 320px;
+  opacity: 0.95;
+}
+.s1-cover .quick-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.4rem;
+  flex-wrap: wrap;
+}
+.s1-cover .qs-card {
+  background: #0d1f3c;
+  border: 3px solid #00e5ff;
+  box-shadow: 5px 5px 0 #ffb800;
+  padding: 0.9rem 1.2rem;
+}
+.s1-cover .qs-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ffb800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.s1-cover .qs-num .qs-pct { font-size: 1rem; color: #00e5ff; margin-left: 4px; }
+.s1-cover .qs-label {
+  font-size: 1rem;
+  color: #90caf9;
+  font-weight: 500;
+  margin-top: 0.3rem;
+}
+
+/* ============================
+   P2 目錄（方/網，6 區塊）
+   ============================ */
+.s2-agenda .agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 1.6rem;
+  flex: 1;
+}
+.agenda-card {
+  background: #0d1f3c;
+  border: 3px solid #00e5ff;
+  box-shadow: 6px 6px 0 #1565c0;
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: transform 0.2s;
+}
+.agenda-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 #1565c0, 0 0 16px rgba(0, 229, 255, 0.4);
+}
+.agenda-card .agenda-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffb800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.agenda-card .agenda-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 0.2rem;
+}
+.agenda-card .agenda-desc {
+  font-size: 1rem;
+  color: #90caf9;
+  line-height: 1.4;
+  margin-top: 0.3rem;
+}
+
+/* ============================
+   P3 投資規模（圓/水，3 區塊）
+   ============================ */
+.s3-scale .scale-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  flex: 1;
+  margin-top: 1rem;
+}
+.s3-scale .bignum-card {
+  flex: 1.1;
+  background: #0d1f3c;
+  border: 4px solid #00e5ff;
+  box-shadow: 8px 8px 0 #ffb800;
+  padding: 1.6rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.s3-scale .bignum {
+  font-size: 5rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.s3-scale .bignum-meta {
+  font-size: 1.1rem;
+  color: #90caf9;
+  font-weight: 500;
+}
+.s3-scale .bignum-foot {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffb800;
+  margin-top: 0.4rem;
+}
+
+.donut-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.donut-wrap svg { max-width: 380px; max-height: 380px; width: 100%; height: auto; }
+.donut-legend {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.donut-legend .legend-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #ffffff;
+}
+.donut-legend .legend-row .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ============================
+   P4 時間軸（線/垂，5 區塊）
+   ============================ */
+.s4-timeline .tl-vertical {
+  position: relative;
+  margin-top: 1.4rem;
+  padding-left: 64px;
+}
+.s4-timeline .tl-vertical::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 28px;
+  width: 4px;
+  background: linear-gradient(180deg, #00e5ff 0%, #1565c0 60%, #ffb800 100%);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.5);
+}
+.tl-v-item {
+  position: relative;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.9rem;
+  background: #0d1f3c;
+  border: 3px solid #00e5ff;
+  box-shadow: 5px 5px 0 #1565c0;
+}
+.tl-v-item:last-child { margin-bottom: 0; }
+.tl-v-item::before {
+  content: '';
+  position: absolute;
+  left: -48px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffb800;
+  border: 4px solid #0a1628;
+  box-shadow: 0 0 14px rgba(255, 184, 0, 0.7);
+}
+.tl-v-item .tl-date {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #ffb800;
+  letter-spacing: 0.08em;
+}
+.tl-v-item .tl-event {
+  font-size: 1.1rem;
+  color: #ffffff;
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+.tl-v-item .tl-desc {
+  font-size: 1rem;
+  color: #90caf9;
+  margin-top: 0.2rem;
+  line-height: 1.4;
+}
+
+/* ============================
+   P5 六大領域（六/散，7 區塊）— 改用 grid 包裹式
+   ============================ */
+.s5-honeycomb .hex-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 1fr;
+  gap: 20px;
+  margin-top: 1rem;
+  align-items: stretch;
+}
+.s5-honeycomb .hex-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+.hex-cell {
+  background: #0d1f3c;
+  border: 3px solid #00e5ff;
+  filter: drop-shadow(4px 4px 0 #ffb800);
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: filter 0.2s;
+  clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 92% 100%, 8% 100%, 0% 50%);
+}
+.hex-cell:hover { filter: drop-shadow(6px 6px 0 #ffb800) drop-shadow(0 0 14px rgba(0, 229, 255, 0.55)); }
+.hex-cell .hx-name {
+  font-size: 1.2rem;
+  color: #ffffff;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+}
+.hex-cell .hx-amount {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: #ffb800;
+  margin-top: 0.4rem;
+  letter-spacing: -0.02em;
+}
+.hex-cell .hx-unit {
+  font-size: 1rem;
+  color: #90caf9;
+  font-weight: 500;
+  margin-top: 0.1rem;
+}
+
+.center-hex {
+  background: linear-gradient(135deg, #1565c0 0%, #00e5ff 100%);
+  border: 4px solid #ffb800;
+  filter: drop-shadow(6px 6px 0 #00e5ff);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.4rem;
+  clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 92% 100%, 8% 100%, 0% 50%);
+}
+.center-hex .center-amount {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.center-hex .center-label {
+  font-size: 1rem;
+  color: #0a1628;
+  font-weight: 800;
+  margin-top: 0.3rem;
+  letter-spacing: 0.1em;
+}
+.center-hex .center-sub {
+  font-size: 1rem;
+  color: #ffffff;
+  font-weight: 700;
+  margin-top: 0.6rem;
+}
+
+/* ============================
+   P6 三大風險（特/網，3 區塊）
+   ============================ */
+.s6-risk .risk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 1.4rem;
+  flex: 1;
+}
+.risk-card {
+  background: #1f0a0a;
+  border: 4px solid #ef4444;
+  box-shadow: 6px 6px 0 #ffb800;
+  padding: 1.4rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.risk-card .warn-triangle {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 0.6rem;
+}
+.risk-card .risk-num {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #ef4444;
+  letter-spacing: 0.1em;
+}
+.risk-card .risk-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-top: 0.4rem;
+  line-height: 1.15;
+}
+.risk-card .risk-desc {
+  font-size: 1rem;
+  color: #fecaca;
+  margin-top: 0.6rem;
+  line-height: 1.45;
+}
+.risk-card .risk-level {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.8rem;
+}
+.risk-card .level-badge {
+  background: #ef4444;
+  color: #ffffff;
+  padding: 4px 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+/* ============================
+   P7 標竿企業（方/垂，4 區塊）
+   ============================ */
+.s7-company .company-cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 1.2rem;
+  flex: 1;
+}
+.company-card {
+  background: #0d1f3c;
+  border: 3px solid #00e5ff;
+  box-shadow: 5px 5px 0 #1565c0;
+  padding: 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+.company-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: #ffb800;
+}
+.company-card .co-tag {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #00e5ff;
+  letter-spacing: 0.15em;
+  margin-top: 0.4rem;
+}
+.company-card .co-name {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+}
+.company-card .co-theme {
+  font-size: 1rem;
+  color: #ffb800;
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+.company-card .co-highlight {
+  font-size: 1rem;
+  color: #90caf9;
+  line-height: 1.45;
+  margin-top: 0.4rem;
+}
+.company-card .co-app {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 0.6rem;
+  font-size: 1rem;
+  color: #90caf9;
+  font-weight: 600;
+}
+.company-card .co-app svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+/* ============================
+   P8 三年趨勢（圓/水，5 區塊）
+   ============================ */
+.s8-trend .trend-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0;
+  margin-top: 1.4rem;
+  position: relative;
+}
+.s8-trend .trend-row::before {
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: 4%;
+  right: 4%;
+  height: 4px;
+  background: linear-gradient(90deg, #00e5ff 0%, #1565c0 50%, #ffb800 100%);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.5);
+  border-radius: 2px;
+  z-index: 0;
+}
+.trend-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  padding: 0 8px;
+}
+.trend-item .tr-year {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #ffb800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.trend-item .tr-orb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #00e5ff;
+  border: 4px solid #0a1628;
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.65);
+  margin-bottom: 0.6rem;
+}
+.trend-item .tr-card {
+  background: #0d1f3c;
+  border: 3px solid #00e5ff;
+  box-shadow: 4px 4px 0 #ffb800;
+  padding: 0.8rem 0.6rem;
+  text-align: center;
+  width: 100%;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.trend-item .tr-title {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.25;
+}
+.trend-item .tr-desc {
+  font-size: 1rem;
+  color: #90caf9;
+  margin-top: 0.4rem;
+  line-height: 1.4;
+}
+
+/* ============================
+   P9 行動方案（線/垂，4 區塊）
+   ============================ */
+.s9-action .action-cols {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 14px;
+  margin-top: 1.2rem;
+  flex: 1;
+}
+.action-card {
+  background: #0d1f3c;
+  border: 3px solid #00e5ff;
+  box-shadow: 5px 5px 0 #1565c0;
+  padding: 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  position: relative;
+}
+.action-card.action-summary {
+  background: linear-gradient(135deg, #1565c0 0%, #00e5ff 100%);
+  box-shadow: 5px 5px 0 #ffb800;
+}
+.action-card .ac-icon {
+  width: 36px;
+  height: 36px;
+}
+.action-card .ac-role {
+  font-size: 1rem;
+  color: #90caf9;
+  letter-spacing: 0.15em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.action-card.action-summary .ac-role { color: rgba(10, 22, 40, 0.75); }
+.action-card .ac-title {
+  font-size: 1.2rem;
+  color: #ffffff;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-top: 0.2rem;
+}
+.action-card.action-summary .ac-title { color: #0a1628; }
+.action-card .ac-desc {
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #90caf9;
+  margin-top: 0.4rem;
+}
+.action-card.action-summary .ac-desc { color: #0a1628; font-weight: 600; }
+
+/* ============================
+   P10 結尾（無/單，3 區塊）
+   ============================ */
+.s10-end .end-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: #00e5ff;
+  font-weight: 700;
+}
+.s10-end .end-thanks {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ffffff 0%, #00e5ff 60%, #ffb800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.s10-end .end-contact {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #0d1f3c;
+  border: 3px solid #00e5ff;
+  box-shadow: 5px 5px 0 #ffb800;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+}
+.s10-end .end-contact svg { width: 32px; height: 32px; }
+.s10-end .end-contact-text {
+  font-size: 1.1rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+.s10-end .bear-mark {
+  width: 80px;
+  height: 80px;
+  margin-top: 0.6rem;
+}
+
+</style>
+</head>
+
+<body class="vh1-glow-brutalist">
+
+<div class="presentation">
+
+  <!-- ============================ P1 封面 ============================ -->
+  <section class="slide s1-cover active" id="s1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="slide-inner">
+      <div class="cover-eyebrow">BUSINESS · FINANCE · AI · 2026</div>
+      <h1>2026 台灣 AI<br/>投資狂潮</h1>
+      <p class="cover-sub">上半年 1.2 兆新台幣湧入，<br/>十字路口的三大訊號</p>
+
+      <div class="meta-row">
+        <div class="meta-item">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="14" width="48" height="44" rx="4"/>
+            <path d="M8 26h48M20 8v12M44 8v12M20 38h6M34 38h6M20 48h6M34 48h6"/>
+          </svg>
+          <span>2026.09.03（週四）</span>
+        </div>
+        <div class="meta-item">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 6 L48 22 L48 46 L16 46 L16 22 Z"/>
+            <path d="M24 34 L30 40 L42 28"/>
+          </svg>
+          <span>商業財經主題</span>
+        </div>
+        <div class="meta-item">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#ffb800" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="22"/>
+            <path d="M32 18v28M24 26h16M24 38h16"/>
+          </svg>
+          <span>配色 C5 · 模板 VH1</span>
+        </div>
+        <div class="meta-item">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 48h44M14 40l10-14 8 10 8-18 10 22"/>
+          </svg>
+          <span>熊熊博物館 · kumaweb</span>
+        </div>
+      </div>
+    <div class="quick-stats">
+        <div class="qs-card">
+          <div class="qs-num">+87<span class="qs-pct">% YoY</span></div>
+          <div class="qs-label">2026 上半年年增</div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-num">6<span class="qs-pct">領域</span></div>
+          <div class="qs-label">半導體 / 軟體 / 雲端 / 醫療 / 金融 / 機器人</div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-num">3<span class="qs-pct">警訊</span></div>
+          <div class="qs-label">估值泡沫 / 晶片管制 / 國際競爭</div>
+        </div>
+      </div>
+    </div>
+
+    <svg class="hero-icon" viewBox="0 0 240 240" fill="none">
+      <defs>
+        <linearGradient id="ai-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#00e5ff"/>
+          <stop offset="100%" stop-color="#ffb800"/>
+        </linearGradient>
+      </defs>
+      <circle cx="120" cy="120" r="100" stroke="url(#ai-grad)" stroke-width="6" fill="none" opacity="0.3"/>
+      <circle cx="120" cy="120" r="70" stroke="#00e5ff" stroke-width="4" fill="none"/>
+      <text x="120" y="118" font-size="56" font-weight="900" fill="#00e5ff" text-anchor="middle" letter-spacing="-0.04em">1.2</text>
+      <text x="120" y="160" font-size="20" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="0.15em">兆 NTD</text>
+      <path d="M30 50 L60 30" stroke="#ffb800" stroke-width="3" stroke-linecap="round"/>
+      <path d="M210 50 L180 30" stroke="#ffb800" stroke-width="3" stroke-linecap="round"/>
+      <text x="46" y="22" font-size="22" font-weight="900" fill="#ffb800">AI</text>
+      <text x="180" y="22" font-size="22" font-weight="900" fill="#ffb800">$</text>
+    </svg>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <span class="page-num">01 / 10</span>
+      <button data-target="s2">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P2 目錄 ============================ -->
+  <section class="slide s2-agenda" id="s2">
+    <div class="glow-orb glow-orb-2"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">目錄 · AGENDA</div>
+      <h2 class="section-title">六大主題，看懂 2026 AI 投資地圖</h2>
+      <p class="section-sub">從規模到風險、從案例到行動，依序拆解這場資本盛宴</p>
+
+      <div class="agenda-grid">
+        <div class="agenda-card">
+          <div class="agenda-num">01</div>
+          <div class="agenda-title">投資規模</div>
+          <div class="agenda-desc">上半年 1.2 兆的資金結構與 YoY 變化</div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">02</div>
+          <div class="agenda-title">時間軸</div>
+          <div class="agenda-desc">2024 ChatGPT 時刻到 2026 上半年轉折</div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">03</div>
+          <div class="agenda-title">領域分佈</div>
+          <div class="agenda-desc">半導體、軟體、雲端、醫療、金融、機器人</div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">04</div>
+          <div class="agenda-title">風險警示</div>
+          <div class="agenda-desc">估值泡沫、晶片管制、國際競爭三警訊</div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">05</div>
+          <div class="agenda-title">標竿案例</div>
+          <div class="agenda-desc">台積電、聯發科、台塑網、台灣 AI Labs</div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">06</div>
+          <div class="agenda-title">未來展望</div>
+          <div class="agenda-desc">未來三年五大趨勢與三方行動方案</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s1">◀ 上一頁</button>
+      <span class="page-num">02 / 10</span>
+      <button data-target="s3">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P3 投資規模（環形圖） ============================ -->
+  <section class="slide s3-scale" id="s3">
+    <div class="glow-orb glow-orb-1"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">01 · 投資規模</div>
+      <h2 class="section-title">2026 上半年 AI 投資規模</h2>
+      <p class="section-sub">1.2 兆新台幣湧入，較 2025 上半年成長 87%</p>
+
+      <div class="scale-layout">
+        <div class="bignum-card">
+          <div class="bignum">1.2 兆</div>
+          <div class="bignum-meta">2026 H1 · 新台幣總投資</div>
+          <div class="bignum-foot">+87% YoY</div>
+          <div class="bignum-meta" style="margin-top: 0.6rem;">
+            對比 2025 上半年 6,400 億，年增 87% 創歷史新高
+          </div>
+        </div>
+
+        <div class="donut-wrap">
+          <svg viewBox="0 0 200 200" aria-label="2026 H1 AI 投資分佈">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#0d1f3c" stroke-width="36"/>
+            <!-- 100% circle circumference = 2*pi*80 = 502.65 -->
+            <!-- 40% VC, 25% PE, 15% gov, 20% corp -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#00e5ff" stroke-width="36"
+              stroke-dasharray="201.06 502.65" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#1565c0" stroke-width="36"
+              stroke-dasharray="125.66 502.65" stroke-dashoffset="-201.06" transform="rotate(-90 100 100)"/>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#ffb800" stroke-width="36"
+              stroke-dasharray="75.40 502.65" stroke-dashoffset="-326.72" transform="rotate(-90 100 100)"/>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#90caf9" stroke-width="36"
+              stroke-dasharray="100.53 502.65" stroke-dashoffset="-402.12" transform="rotate(-90 100 100)"/>
+            <text x="100" y="98" font-size="20" font-weight="900" fill="#ffffff" text-anchor="middle">NTD</text>
+            <text x="100" y="120" font-size="14" fill="#00e5ff" text-anchor="middle" font-weight="700">上半年</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="legend-row"><span class="dot" style="background:#00e5ff"></span><span>VC 風投 40%</span></div>
+            <div class="legend-row"><span class="dot" style="background:#1565c0"></span><span>PE 私募 25%</span></div>
+            <div class="legend-row"><span class="dot" style="background:#ffb800"></span><span>企業投資 20%</span></div>
+            <div class="legend-row"><span class="dot" style="background:#90caf9"></span><span>政府基金 15%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s2">◀ 上一頁</button>
+      <span class="page-num">03 / 10</span>
+      <button data-target="s4">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P4 時間軸 ============================ -->
+  <section class="slide s4-timeline" id="s4">
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">02 · 時間軸</div>
+      <h2 class="section-title">AI 投資狂潮的關鍵節點</h2>
+      <p class="section-sub">從 2024 ChatGPT 時刻到 2026 上半年轉折的五大里程碑</p>
+
+      <div class="tl-vertical">
+        <div class="tl-v-item">
+          <div class="tl-date">2024.06</div>
+          <div class="tl-event">ChatGPT 時刻 · AI 投資覺醒</div>
+          <div class="tl-desc">生成式 AI 商業化引爆，創投單季募資創 5 年新高</div>
+        </div>
+        <div class="tl-v-item">
+          <div class="tl-date">2024.12</div>
+          <div class="tl-event">輝達市值破 3 兆美元 · 半導體狂潮</div>
+          <div class="tl-desc">AI 晶片需求外溢台股，台積電、聯發科領漲 62%</div>
+        </div>
+        <div class="tl-v-item">
+          <div class="tl-date">2025.06</div>
+          <div class="tl-event">台灣 AI Labs 成立 · 本土 LLM 起點</div>
+          <div class="tl-desc">繁體中文模型開源，引發產學研三方串連</div>
+        </div>
+        <div class="tl-v-item">
+          <div class="tl-date">2025.12</div>
+          <div class="tl-event">台積電 3nm 滿載 · 先進製程進入超級週期</div>
+          <div class="tl-desc">CoWoS 產能擴張 2 倍，毛利率站穩 60% 大關</div>
+        </div>
+        <div class="tl-v-item">
+          <div class="tl-date">2026.06</div>
+          <div class="tl-event">上半年投資 1.2 兆 · 創歷史新高</div>
+          <div class="tl-desc">YoY +87%，AI 進入「資本盛宴 + 估值泡沫」雙面時代</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s3">◀ 上一頁</button>
+      <span class="page-num">04 / 10</span>
+      <button data-target="s5">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P5 六大領域（蜂巢） ============================ -->
+  <section class="slide s5-honeycomb" id="s5">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">03 · 領域分佈</div>
+      <h2 class="section-title">六大領域投資分佈</h2>
+      <p class="section-sub">半導體領跑、軟體與雲端緊隨，機器人與金融科技破百億</p>
+
+      <div class="hex-layout">
+        <div class="hex-side">
+          <div class="hex-cell">
+            <div class="hx-name">軟體</div>
+            <div class="hx-amount">280 億</div>
+            <div class="hx-unit">SaaS / LLM</div>
+          </div>
+          <div class="hex-cell">
+            <div class="hx-name">醫療 AI</div>
+            <div class="hx-amount">140 億</div>
+            <div class="hx-unit">診斷＋製藥</div>
+          </div>
+          <div class="hex-cell">
+            <div class="hx-name">機器人</div>
+            <div class="hx-amount">80 億</div>
+            <div class="hx-unit">製造＋協作</div>
+          </div>
+        </div>
+
+        <div class="center-hex">
+          <div class="center-amount">1,200 億</div>
+          <div class="center-label">上半年合計 NTD</div>
+          <div class="center-sub">六大領域合計</div>
+        </div>
+
+        <div class="hex-side">
+          <div class="hex-cell">
+            <div class="hx-name">半導體</div>
+            <div class="hx-amount">420 億</div>
+            <div class="hx-unit">代工＋IC 設計</div>
+          </div>
+          <div class="hex-cell">
+            <div class="hx-name">雲端</div>
+            <div class="hx-amount">180 億</div>
+            <div class="hx-unit">資料中心</div>
+          </div>
+          <div class="hex-cell">
+            <div class="hx-name">金融科技</div>
+            <div class="hx-amount">100 億</div>
+            <div class="hx-unit">風控＋支付</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s4">◀ 上一頁</button>
+      <span class="page-num">05 / 10</span>
+      <button data-target="s6">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P6 風險警示 ============================ -->
+  <section class="slide s6-risk" id="s6">
+    <div class="glow-orb glow-orb-2"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow" style="color:#ef4444;">04 · 風險警示 · RISK</div>
+      <h2 class="section-title">下半年的三大警訊</h2>
+      <p class="section-sub">狂潮之下不可忽視的三個結構性風險</p>
+
+      <div class="risk-grid">
+        <div class="risk-card">
+          <svg class="warn-triangle" viewBox="0 0 64 64" fill="none">
+            <path d="M32 8 L58 54 L6 54 Z" fill="#ef4444" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+            <text x="32" y="44" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">!</text>
+          </svg>
+          <div class="risk-num">風險 01</div>
+          <div class="risk-title">估值泡沫<br/>(Valuation Bubble)</div>
+          <div class="risk-desc">P/E 比率攀升至 80x，前 20 大 AI 股本益比中位數過高，散戶追高風險升高。</div>
+          <div class="risk-level">
+            <span class="level-badge">HIGH</span>
+            <span style="font-size:1rem;color:#fecaca;">高風險</span>
+          </div>
+        </div>
+
+        <div class="risk-card">
+          <svg class="warn-triangle" viewBox="0 0 64 64" fill="none">
+            <path d="M32 8 L58 54 L6 54 Z" fill="#ef4444" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+            <text x="32" y="44" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">!</text>
+          </svg>
+          <div class="risk-num">風險 02</div>
+          <div class="risk-title">晶片出口管制<br/>(Chip Export Control)</div>
+          <div class="risk-desc">美中科技戰升溫，先進製程與 H100/A100 出口受限，影響供應鏈上下游營收。</div>
+          <div class="risk-level">
+            <span class="level-badge" style="background:#ffb800;color:#1f0a0a;">MID</span>
+            <span style="font-size:1rem;color:#fecaca;">中風險</span>
+          </div>
+        </div>
+
+        <div class="risk-card">
+          <svg class="warn-triangle" viewBox="0 0 64 64" fill="none">
+            <path d="M32 8 L58 54 L6 54 Z" fill="#ef4444" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+            <text x="32" y="44" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">!</text>
+          </svg>
+          <div class="risk-num">風險 03</div>
+          <div class="risk-title">國際競爭<br/>(Global AI Race)</div>
+          <div class="risk-desc">中美 AI 差距擴大，開源模型競賽白熱化，台灣必須找到差異化定位。</div>
+          <div class="risk-level">
+            <span class="level-badge">HIGH</span>
+            <span style="font-size:1rem;color:#fecaca;">高風險</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s5">◀ 上一頁</button>
+      <span class="page-num">06 / 10</span>
+      <button data-target="s7">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P7 標竿企業 ============================ -->
+  <section class="slide s7-company" id="s7">
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">05 · 標竿案例</div>
+      <h2 class="section-title">四家領頭羊：台灣 AI 國家隊</h2>
+      <p class="section-sub">從晶圓代工到中文 LLM，四種截然不同的 AI 切入點</p>
+
+      <div class="company-cols">
+        <div class="company-card">
+          <div class="co-tag">CASE 01</div>
+          <div class="co-name">台積電</div>
+          <div class="co-theme">AI 晶片代工龍頭</div>
+          <div class="co-highlight">3nm 製程滿載，CoWoS 產能擴張 2 倍，毛利率站穩 60%，握有全球 92% 7nm 以下 AI 訂單。</div>
+          <div class="co-app">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="14" width="36" height="36"/><circle cx="32" cy="32" r="6"/></svg>
+            <span>AI 應用：高階製程</span>
+          </div>
+        </div>
+
+        <div class="company-card">
+          <div class="co-tag">CASE 02</div>
+          <div class="co-name">聯發科</div>
+          <div class="co-theme">天璣 9400 AI 處理器</div>
+          <div class="co-highlight">端到端生成式 AI 手機晶片，於亞洲中高階機型市占 38%，晶片＋演算法自有化。</div>
+          <div class="co-app">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="8" width="20" height="44" rx="3"/><circle cx="32" cy="46" r="2"/></svg>
+            <span>AI 應用：邊緣裝置</span>
+          </div>
+        </div>
+
+        <div class="company-card">
+          <div class="co-tag">CASE 03</div>
+          <div class="co-name">台塑網</div>
+          <div class="co-theme">工業 AI 解決方案</div>
+          <div class="co-highlight">石化製程導入 AI 優化，年省 12 億能源成本；2026 跨足半導體供應鏈 AI 品管。</div>
+          <div class="co-app">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 50h36M20 40v10M32 30v20M44 20v30"/></svg>
+            <span>AI 應用：智慧製造</span>
+          </div>
+        </div>
+
+        <div class="company-card">
+          <div class="co-tag">CASE 04</div>
+          <div class="co-name">台灣 AI Labs</div>
+          <div class="co-theme">繁體中文 LLM 領頭羊</div>
+          <div class="co-highlight">開源 TAi 13B 模型，公部門＋教育＋醫療垂直應用，已部署 14 個產業落地場景。</div>
+          <div class="co-app">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16h32v24H32l-8 8v-8H16Z"/><path d="M24 24h16M24 32h12"/></svg>
+            <span>AI 應用：中文模型</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s6">◀ 上一頁</button>
+      <span class="page-num">07 / 10</span>
+      <button data-target="s8">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P8 趨勢預測 ============================ -->
+  <section class="slide s8-trend" id="s8">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">06 · 未來展望 · TREND</div>
+      <h2 class="section-title">未來三年五大趨勢</h2>
+      <p class="section-sub">從 AI Agent 到 AGI 曙光，台灣不能錯過的時間軸</p>
+
+      <div class="trend-row">
+        <div class="trend-item">
+          <div class="tr-year">2026 H2</div>
+          <div class="tr-orb"></div>
+          <div class="tr-card">
+            <div class="tr-title">AI Agent 商業化元年</div>
+            <div class="tr-desc">企業導入率突破 50%，軟體訂閱模式開始讓位給任務付費。</div>
+          </div>
+        </div>
+        <div class="trend-item">
+          <div class="tr-year">2027</div>
+          <div class="tr-orb"></div>
+          <div class="tr-card">
+            <div class="tr-title">邊緣 AI 普及</div>
+            <div class="tr-desc">裝置端推論成為標配，雲端依賴下降 30%。</div>
+          </div>
+        </div>
+        <div class="trend-item">
+          <div class="tr-year">2028</div>
+          <div class="tr-orb"></div>
+          <div class="tr-card">
+            <div class="tr-title">AI 監管法規成熟</div>
+            <div class="tr-desc">台灣 AI 基本法上路，可信賴 AI 評鑑成為標案必備。</div>
+          </div>
+        </div>
+        <div class="trend-item">
+          <div class="tr-year">2028</div>
+          <div class="tr-orb" style="background:#ffb800;"></div>
+          <div class="tr-card">
+            <div class="tr-title">量子 AI 突破</div>
+            <div class="tr-desc">量子－經典混合模型投入藥物研發與新材料設計。</div>
+          </div>
+        </div>
+        <div class="trend-item">
+          <div class="tr-year">2029</div>
+          <div class="tr-orb"></div>
+          <div class="tr-card">
+            <div class="tr-title">AGI 曙光初現</div>
+            <div class="tr-desc">通用推理基準突破人類中位數，新職業大量湧現。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s7">◀ 上一頁</button>
+      <span class="page-num">08 / 10</span>
+      <button data-target="s9">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P9 行動方案 ============================ -->
+  <section class="slide s9-action" id="s9">
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">06 · 行動方案 · ACTION</div>
+      <h2 class="section-title">三方行動 · 黃金十年</h2>
+      <p class="section-sub">投資人、企業、政府如何回應這場資本盛宴</p>
+
+      <div class="action-cols">
+        <div class="action-card">
+          <svg class="ac-icon" viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="22" r="10"/>
+            <path d="M14 54c0-10 8-16 18-16s18 6 18 16"/>
+          </svg>
+          <div class="ac-role">投資人</div>
+          <div class="ac-title">分散標的，避開泡沫股</div>
+          <div class="ac-desc">核心持倉比例 ≤ 40%，搭配防禦型與高息 ETF；避免重押估值 > 60x 的中小型 AI 股。</div>
+        </div>
+
+        <div class="action-card">
+          <svg class="ac-icon" viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="14" width="44" height="36" rx="3"/>
+            <path d="M10 24h44M22 38h20M22 44h14"/>
+          </svg>
+          <div class="ac-role">企業</div>
+          <div class="ac-title">擁抱 AI Agent</div>
+          <div class="ac-desc">建立內部 AI Agent 平台，把內部流程 50% 自動化，釋出中高階人力投入創新專案。</div>
+        </div>
+
+        <div class="action-card">
+          <svg class="ac-icon" viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 56h48M12 46h40M16 36h32M20 26h24M24 16h16"/>
+            <path d="M32 8v6M28 8h8"/>
+          </svg>
+          <div class="ac-role">政府</div>
+          <div class="ac-title">完善監管、扶植 LLM</div>
+          <div class="ac-desc">3 年內完成《AI 基本法》立法 + 200 億規模的本土 LLM 與資料治理專案。</div>
+        </div>
+
+        <div class="action-card action-summary">
+          <svg class="ac-icon" viewBox="0 0 64 64" fill="none" stroke="#0a1628" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8l8 18 20 2-14 14 4 20-18-10-18 10 4-20-14-14 20-2z"/>
+          </svg>
+          <div class="ac-role">結語</div>
+          <div class="ac-title">台灣 AI 的黃金十年</div>
+          <div class="ac-desc">資本 × 技術 × 監管三方齊到位，台灣才有機會從代工島蛻變為 AI 智慧島。</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s8">◀ 上一頁</button>
+      <span class="page-num">09 / 10</span>
+      <button data-target="s10">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P10 結尾 ============================ -->
+  <section class="slide s10-end" id="s10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="slide-inner end-wrap">
+      <div class="end-eyebrow">THANK YOU · 完</div>
+      <h1 class="end-thanks">感謝您的聆聽</h1>
+
+      <div class="end-contact">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="32" r="24"/>
+          <path d="M32 16c-8 0-14 5-14 11s6 11 14 11 14-5 14-11"/>
+          <circle cx="24" cy="28" r="2"/>
+          <circle cx="40" cy="28" r="2"/>
+          <path d="M24 40c4 4 12 4 16 0"/>
+        </svg>
+        <div class="end-contact-text">
+          熊熊博物館 · kumaweb.pages.dev
+        </div>
+      </div>
+
+      <svg class="bear-mark" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="46" fill="#0d1f3c" stroke="#00e5ff" stroke-width="4"/>
+        <circle cx="50" cy="56" r="26" fill="#ffb800"/>
+        <circle cx="40" cy="50" r="4" fill="#0a1628"/>
+        <circle cx="60" cy="50" r="4" fill="#0a1628"/>
+        <ellipse cx="50" cy="62" rx="6" ry="4" fill="#0a1628"/>
+        <circle cx="30" cy="32" r="9" fill="#ffb800"/>
+        <circle cx="70" cy="32" r="9" fill="#ffb800"/>
+        <circle cx="30" cy="32" r="5" fill="#0d1f3c"/>
+        <circle cx="70" cy="32" r="5" fill="#0d1f3c"/>
+      </svg>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s9">◀ 上一頁</button>
+      <span class="page-num">10 / 10</span>
+      <button disabled style="opacity:0.4;cursor:not-allowed;">下一頁 ▶</button>
+    </nav>
+  </section>
+
+</div>
+
+<script>
+  // 換頁控制
+  (function () {
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    function show(id) {
+      slides.forEach(s => s.classList.toggle('active', s.id === id));
+    }
+    function current() {
+      return slides.find(s => s.classList.contains('active'));
+    }
+    document.querySelectorAll('.nav button[data-target]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target');
+        if (target && document.getElementById(target)) show(target);
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      const idx = slides.indexOf(current());
+      if (e.key === 'ArrowRight' && idx < slides.length - 1) show(slides[idx + 1].id);
+      if (e.key === 'ArrowLeft' && idx > 0) show(slides[idx - 1].id);
+    });
+  })();
+</script>
+
+</body>
+</html>
