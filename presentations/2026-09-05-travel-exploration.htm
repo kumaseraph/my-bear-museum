@@ -1462,10 +1462,14 @@ body {
   var total = slides.length;
 
   function show() {
-    if (slides[current]) {
-      slides[current].classList.remove('active');
+    // 先清除所有 slide 的 active（避免疊加）
+    for (var i = 0; i < slides.length; i++) {
+      slides[i].classList.remove('active');
     }
-    slides[current].classList.add('active');
+    // 設定當前 slide 為 active
+    if (slides[current]) {
+      slides[current].classList.add('active');
+    }
     var status = document.getElementById('nav-status');
     if (status) {
       status.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
