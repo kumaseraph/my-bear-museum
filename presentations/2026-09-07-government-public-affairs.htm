@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>政府數位韌性 2.0：當災防從紙本走入 AI 代理人｜2026-09-07</title>
+<style>
+html { font-size: 20px; }
+body {
+  font-size: 1rem;
+  background: #04141a;
+  color: #ecfeff;
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  margin: 0;
+  padding: 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 18% 22%, rgba(20,184,166,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 40% at 82% 78%, rgba(34,211,238,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 38% 35% at 50% 50%, rgba(125,211,252,0.10) 0%, transparent 60%);
+}
+
+:root {
+  --bg-deep: #04141a;
+  --bg-mid: #0a2733;
+  --bg-card: rgba(10,39,51,0.55);
+  --primary: #14b8a6;
+  --primary-soft: #5eead4;
+  --primary-deep: #0f766e;
+  --accent: #22d3ee;
+  --accent-soft: #67e8f9;
+  --accent-deep: #0e7490;
+  --teal: #2dd4bf;
+  --violet: #a78bfa;
+  --rose: #f472b6;
+  --gold: #fbbf24;
+  --ink: #ecfeff;
+  --ink-soft: #cffafe;
+  --ink-mute: #99f6e4;
+  --ink-dim: #67e8f9;
+  --border-cool: rgba(20,184,166,0.40);
+  --border-warm: rgba(34,211,238,0.50);
+  --border-violet: rgba(167,139,250,0.45);
+  --glow-cool: 0 0 28px rgba(20,184,166,0.35);
+  --glow-warm: 0 0 24px rgba(34,211,238,0.30);
+  --glow-violet: 0 0 24px rgba(167,139,250,0.30);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #04141a 0%, #0a2733 100%);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.55);
+  border: 1px solid rgba(20,184,166,0.20);
+  border-radius: 14px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 52px 60px 76px;
+  color: var(--ink);
+}
+.slide.active { display: flex; }
+
+.slide * { font-size: 1rem; line-height: 1.5; }
+
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; }
+
+/* === 極光發光球 === */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 360px; height: 360px; background: rgba(20,184,166,0.28); top: -120px; right: -120px; }
+.glow-orb-2 { width: 300px; height: 300px; background: rgba(34,211,238,0.22); bottom: -100px; left: -100px; }
+.glow-orb-3 { width: 260px; height: 260px; background: rgba(167,139,250,0.18); top: 45%; left: 55%; }
+.glow-orb-4 { width: 220px; height: 220px; background: rgba(125,211,252,0.20); top: 10%; left: 8%; }
+
+/* === 卡片 === */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 16px;
+  padding: 22px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.card.glow { box-shadow: var(--glow-cool); border-color: var(--border-warm); }
+.card-violet { border-color: var(--border-violet); }
+.card-violet { box-shadow: var(--glow-violet); }
+
+/* === 標題 === */
+.eyebrow {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1.18;
+  margin: 0 0 14px;
+  color: #fff;
+}
+.h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+}
+.h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.text-body { font-size: 1rem; line-height: 1.55; color: var(--ink-soft); }
+.text-mute  { font-size: 1rem; line-height: 1.5; color: var(--ink-mute); }
+.num-big    { font-size: 2.6rem; font-weight: 900; color: var(--primary-soft); line-height: 1; }
+.num-mid    { font-size: 1.6rem; font-weight: 800; color: var(--acc-primary); }
+.num-label  { font-size: 1rem; color: var(--ink-mute); letter-spacing: 0.06em; }
+.accent { color: var(--primary-soft); }
+.warm   { color: var(--accent-soft); }
+
+/* === 導覽列 === */
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 24px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(4,20,26,0.55);
+  border: 1px solid var(--border-cool);
+  padding: 8px 14px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+.nav button {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-cool);
+  background: rgba(20,184,166,0.15);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 1rem;
+}
+.nav button:hover { background: rgba(20,184,166,0.30); }
+.nav span { color: var(--ink-soft); font-size: 1rem; min-width: 60px; text-align: center; }
+
+/* === 返回連結 === */
+.back-link {
+  position: fixed;
+  top: 18px; left: 24px;
+  z-index: 50;
+  color: var(--ink-mute);
+  background: rgba(4,20,26,0.55);
+  border: 1px solid var(--border-cool);
+  padding: 8px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 1rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s;
+}
+.back-link:hover { background: rgba(20,184,166,0.30); color: var(--ink); }
+
+/* ========== P1 封面 ========== */
+.s1-cover {
+  align-items: stretch;
+  justify-content: center;
+}
+.cover-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  align-items: center;
+  flex: 1;
+}
+.cover-eyebrow {
+  font-size: 1rem;
+  color: var(--primary-soft);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.cover-title {
+  font-size: 3.2rem;
+  line-height: 1.1;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 18px;
+  letter-spacing: -0.01em;
+}
+.cover-title .accent { color: var(--primary-soft); }
+.cover-title .warm   { color: var(--accent-soft); }
+.cover-sub {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 0 28px;
+  max-width: 540px;
+}
+.cover-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  max-width: 560px;
+}
+.cover-meta-item {
+  border-left: 3px solid var(--primary);
+  padding-left: 12px;
+}
+.cover-meta-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1.1;
+}
+.cover-meta-lbl {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  margin-top: 4px;
+}
+.cover-art { display: flex; justify-content: center; align-items: center; }
+.cover-circle-svg { width: 360px; height: 360px; }
+
+/* ========== P2 TOC ========== */
+.s2-toc { flex-direction: column; }
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+  margin-top: 14px;
+}
+.toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  backdrop-filter: blur(6px);
+}
+.toc-card .toc-num {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  letter-spacing: 0.08em;
+}
+.toc-card .toc-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 8px 0 4px;
+  line-height: 1.25;
+}
+.toc-card .toc-sub {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+.toc-card.accent { border-color: var(--border-warm); }
+.toc-card.violet { border-color: var(--border-violet); }
+.toc-card .toc-corner {
+  position: absolute;
+  top: 12px; right: 14px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary-soft);
+}
+.toc-card.accent .toc-corner { background: var(--accent); box-shadow: 0 0 8px var(--accent-soft); }
+.toc-card.violet .toc-corner { background: var(--violet); box-shadow: 0 0 8px var(--violet); }
+
+/* ========== P3 議題 ===時間軸 ========== */
+.s3-timeline { padding-bottom: 90px; }
+.timeline-row {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 30px;
+  min-height: 320px;
+}
+.timeline-axis {
+  position: absolute;
+  top: 80px;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary-soft), var(--accent-soft), var(--violet), transparent);
+  z-index: 0;
+}
+.timeline-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.tl-year {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+.tl-dot {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--bg-deep);
+  border: 3px solid var(--primary-soft);
+  box-shadow: var(--glow-cool);
+  position: relative;
+  z-index: 2;
+}
+.tl-card {
+  margin-top: 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-align: center;
+  width: 92%;
+}
+.tl-card .tl-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.tl-card .tl-sub {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+.lead-paragraph {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.lead-paragraph .body-block {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.lead-paragraph .key-callout {
+  border-left: 3px solid var(--accent);
+  padding: 12px 18px;
+  background: rgba(34,211,238,0.08);
+  border-radius: 0 12px 12px 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ========== P4 數據六角 ========== */
+.s4-honeycomb { flex-direction: column; }
+.hex-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px 24px;
+  margin-top: 20px;
+  flex: 1;
+}
+.hex-cell {
+  position: relative;
+  aspect-ratio: 1 / 1.1547;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: linear-gradient(135deg, rgba(20,184,166,0.45), rgba(34,211,238,0.25));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+.hex-cell:nth-child(2n) { background: linear-gradient(135deg, rgba(34,211,238,0.45), rgba(125,211,252,0.25)); }
+.hex-cell:nth-child(3n) { background: linear-gradient(135deg, rgba(167,139,250,0.40), rgba(244,114,182,0.20)); }
+.hex-cell .hex-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+}
+.hex-cell .hex-lbl {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-top: 6px;
+  line-height: 1.25;
+}
+
+/* ========== P5 政策堆疊 ========== */
+.s5-policy { flex-direction: column; }
+.policy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+}
+.policy-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 18px 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.policy-card .p-num {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  letter-spacing: 0.16em;
+  margin-bottom: 8px;
+}
+.policy-card .p-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.policy-card .p-body {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  flex: 1;
+}
+.policy-card .p-tag {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(34,211,238,0.18);
+  color: var(--accent-soft);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  align-self: flex-start;
+}
+.policy-stack-bar {
+  margin-top: 18px;
+  height: 36px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  border: 1px solid var(--border-cool);
+}
+.policy-stack-bar span {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--bg-deep);
+}
+
+/* ========== P6 場景 ========== */
+.s6-scene { flex-direction: column; }
+.scene-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+  flex: 1;
+}
+.scene-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.scene-card .scene-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.scene-card .scene-body { flex: 1; }
+.scene-card .scene-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.scene-card .scene-detail {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-top: 4px;
+}
+.scene-card .scene-tag {
+  margin-top: 8px;
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(20,184,166,0.18);
+  color: var(--primary-soft);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.scene-card.violet { border-color: var(--border-violet); }
+.scene-card.violet .scene-num { color: var(--violet); }
+.scene-card.violet .scene-tag { background: rgba(167,139,250,0.18); color: var(--violet); }
+
+/* ========== P7 對比 ========== */
+.s7-compare { flex-direction: column; }
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: stretch;
+  margin-top: 22px;
+  flex: 1;
+}
+.compare-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+}
+.compare-card.before { border: 1px solid rgba(244,114,182,0.45); }
+.compare-card.after  { border: 1px solid var(--border-cool); box-shadow: var(--glow-cool); }
+.compare-card .label {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  margin-bottom: 10px;
+}
+.compare-card.before .label { color: var(--rose); }
+.compare-card.after  .label { color: var(--primary-soft); }
+.compare-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+.compare-card ul {
+  list-style: none;
+  padding: 0; margin: 0;
+  flex: 1;
+}
+.compare-card li {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  padding: 6px 0 6px 22px;
+  position: relative;
+}
+.compare-card li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 14px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.compare-card.before li::before { background: var(--rose); }
+.compare-card.after li::before  { background: var(--primary-soft); box-shadow: 0 0 6px var(--primary-soft); }
+.compare-arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.4rem;
+  color: var(--primary-soft);
+  font-weight: 900;
+}
+
+/* ========== P8 案例 ========== */
+.s8-case { flex-direction: column; }
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+  flex: 1;
+}
+.case-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+}
+.case-card.violet { border-color: var(--border-violet); }
+.case-card.warm   { border-color: var(--border-warm); }
+.case-card .case-tag {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+.case-card .case-tag.gov { color: var(--primary-soft); }
+.case-card .case-tag.corp { color: var(--violet); }
+.case-card .case-tag.civic { color: var(--accent-soft); }
+.case-card .case-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.case-card .case-body {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin-top: 8px;
+  flex: 1;
+}
+.case-card .case-metric {
+  margin-top: 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(20,184,166,0.30);
+}
+.case-card .case-metric-num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.case-card.violet .case-metric-num { color: var(--violet); }
+.case-card.warm   .case-metric-num { color: var(--accent-soft); }
+.case-card .case-metric-lbl {
+  font-size: 1rem;
+  color: var(--ink-mute);
+}
+
+/* ========== P9 行動 ========== */
+.s9-action { flex-direction: column; }
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+}
+.action-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.action-card.violet { border-color: var(--border-violet); }
+.action-card.warm { border-color: var(--border-warm); }
+.action-card .a-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--bg-deep);
+  box-shadow: var(--glow-cool);
+  margin-bottom: 14px;
+}
+.action-card.violet .a-num {
+  background: linear-gradient(135deg, var(--violet), #6d28d9);
+  box-shadow: var(--glow-violet);
+}
+.action-card.warm .a-num {
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+}
+.action-card .a-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.action-card .a-body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.45;
+  margin-top: 6px;
+}
+.action-meta {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(20,184,166,0.30);
+  padding-top: 16px;
+}
+.action-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.action-meta-v {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+}
+.action-meta-lbl {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.05em;
+}
+
+/* ========== P10 結尾 ========== */
+.s10-end {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.end-frame {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 36px 56px;
+  border: 1px solid var(--border-cool);
+  border-radius: 22px;
+  background: var(--bg-card);
+  box-shadow: var(--glow-cool);
+  backdrop-filter: blur(10px);
+}
+.end-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.28em;
+  color: var(--primary-soft);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.end-title {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.18;
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+}
+.end-title .accent { color: var(--primary-soft); }
+.end-title .warm { color: var(--accent-soft); }
+.end-sub {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin: 0 0 26px;
+}
+.end-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(20,184,166,0.30);
+}
+.end-meta-item .end-meta-v {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.end-meta-item .end-meta-lbl {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  margin-top: 6px;
+}
+.note {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.14em;
+  margin-top: 18px;
+}
+
+/* === slide class 專屬裝飾（不得含 display） === */
+.s2-toc { background-image: radial-gradient(ellipse 70% 35% at 20% 90%, rgba(20,184,166,0.10) 0%, transparent 60%); }
+.s3-timeline { background-image: radial-gradient(ellipse 50% 25% at 80% 10%, rgba(34,211,238,0.10) 0%, transparent 60%); }
+.s4-honeycomb { background-image: radial-gradient(ellipse 40% 20% at 50% 100%, rgba(167,139,250,0.10) 0%, transparent 60%); }
+.s5-policy { background-image: radial-gradient(ellipse 50% 25% at 90% 0%, rgba(34,211,238,0.10) 0%, transparent 60%); }
+.s6-scene { background-image: radial-gradient(ellipse 45% 20% at 10% 100%, rgba(20,184,166,0.10) 0%, transparent 60%); }
+.s7-compare { background-image: radial-gradient(ellipse 50% 22% at 50% 0%, rgba(34,211,238,0.08) 0%, transparent 60%); }
+.s8-case { background-image: radial-gradient(ellipse 45% 22% at 10% 0%, rgba(167,139,250,0.08) 0%, transparent 60%); }
+.s9-action { background-image: radial-gradient(ellipse 50% 22% at 90% 100%, rgba(20,184,166,0.10) 0%, transparent 60%); }
+.s10-end { background-image: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(20,184,166,0.12) 0%, transparent 70%); }
+</style>
+</head>
+<body>
+<div class="presentation" id="pres">
+  <a class="back-link" href="/slides.htm">← 返回簡報列表</a>
+
+  <!-- ============== P1 封面（圓/單）============== -->
+  <div class="slide s1-cover active" id="s1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <div class="cover-layout">
+        <div class="cover-text">
+          <div class="cover-eyebrow">週一｜政府公務 · 2026-09-07</div>
+          <h1 class="cover-title">政府數位韌性 <span class="accent">2.0</span><br>當災防從紙本走入<span class="warm">AI 代理人</span></h1>
+          <p class="cover-sub">三層 AI 代理人模型 × 12 個示範場景 × 4 大行動路線，把災防指揮、通報、後勤從「人跑流程」轉成「代理人接手」。</p>
+          <div class="cover-meta">
+            <div class="cover-meta-item"><div class="cover-meta-num">73%</div><div class="cover-meta-lbl">紙本流程覆蓋率</div></div>
+            <div class="cover-meta-item"><div class="cover-meta-num">12</div><div class="cover-meta-lbl">示範場景</div></div>
+            <div class="cover-meta-item"><div class="cover-meta-num">3</div><div class="cover-meta-lbl">AI 代理人層</div></div>
+            <div class="cover-meta-item"><div class="cover-meta-num">180</div><div class="cover-meta-lbl">天行動路線</div></div>
+          </div>
+        </div>
+        <div class="cover-art">
+          <svg class="cover-circle-svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="gA" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#5eead4" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#0f766e" stop-opacity="0.8"/>
+              </radialGradient>
+              <radialGradient id="gB" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#0e7490" stop-opacity="0.8"/>
+              </radialGradient>
+              <radialGradient id="gC" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.8"/>
+              </radialGradient>
+            </defs>
+            <circle cx="180" cy="180" r="160" fill="none" stroke="#14b8a6" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.45"/>
+            <circle cx="180" cy="180" r="115" fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.55"/>
+            <circle cx="180" cy="180" r="70" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.65"/>
+            <circle cx="105" cy="180" r="55" fill="url(#gA)"/>
+            <circle cx="180" cy="105" r="45" fill="url(#gB)"/>
+            <circle cx="255" cy="180" r="35" fill="url(#gC)"/>
+            <text x="105" y="184" text-anchor="middle" fill="#04141a" font-size="1.05rem" font-weight="900">感知</text>
+            <text x="180" y="109" text-anchor="middle" fill="#04141a" font-size="1.05rem" font-weight="900">決策</text>
+            <text x="255" y="184" text-anchor="middle" fill="#04141a" font-size="1rem" font-weight="900">行動</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">1 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P2 TOC（方/網）============== -->
+  <div class="slide s2-toc" id="s2">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <div class="eyebrow">議程地圖</div>
+      <h2 class="h1">九個段落 · 從紙本到代理人</h2>
+      <p class="text-mute" style="margin: 0 0 4px;">先看時序，再讀政策；接著走進場景、做對比、找案例，最後收成行動。</p>
+      <div class="toc-grid">
+        <div class="toc-card"><span class="toc-corner"></span><div class="toc-num">01</div><div class="toc-title">數位韌性時序</div><div class="toc-sub">從 1999 到 2026 的政策推進史</div></div>
+        <div class="toc-card accent"><span class="toc-corner"></span><div class="toc-num">02</div><div class="toc-title">紙本流程現況</div><div class="toc-sub">六個關鍵指標看懂痛點</div></div>
+        <div class="toc-card violet"><span class="toc-corner"></span><div class="toc-num">03</div><div class="toc-title">三層代理人模型</div><div class="toc-sub">感知 / 決策 / 行動分層架構</div></div>
+        <div class="toc-card"><span class="toc-corner"></span><div class="toc-num">04</div><div class="toc-title">12 個示範場景</div><div class="toc-sub">颱風、停電、疫調、社區通報</div></div>
+        <div class="toc-card accent"><span class="toc-corner"></span><div class="toc-num">05</div><div class="toc-title">Before vs After</div><div class="toc-sub">傳統 vs 代理人模式差距</div></div>
+        <div class="toc-card violet"><span class="toc-corner"></span><div class="toc-num">06</div><div class="toc-title">三組案例</div><div class="toc-sub">中央 × 地方 × 公民協作</div></div>
+        <div class="toc-card"><span class="toc-corner"></span><div class="toc-num">07</div><div class="toc-title">180 天行動</div><div class="toc-sub">四階段導入節奏</div></div>
+        <div class="toc-card accent"><span class="toc-corner"></span><div class="toc-num">08</div><div class="toc-title">風險與治理</div><div class="toc-sub">資安、假訊息、人為監督</div></div>
+        <div class="toc-card violet"><span class="toc-corner"></span><div class="toc-num">09</div><div class="toc-title">下一步</div><div class="toc-sub">三個你今天就能做的事</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>2 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P3 時序（線/水）============== -->
+  <div class="slide s3-timeline" id="s3">
+    <div class="glow-orb glow-orb-4"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第一章 · 數位韌性時序</div>
+      <h2 class="h1">從九二一紙本到 AI 代理人 · <span class="accent">27 年的政策推進史</span></h2>
+      <p class="text-mute" style="margin: 4px 0 8px;">每一次大型災難都是制度升級的窗口。2025 年的 AI 代理人模型，承接了 1999、2009、2015、2020、2022 各自留下的缺口。</p>
+      <div class="timeline-row">
+        <div class="timeline-axis"></div>
+        <div class="timeline-item">
+          <div class="tl-year">1999</div><div class="tl-dot"></div>
+          <div class="tl-card"><div class="tl-title">九二一</div><div class="tl-sub">紙本動員 · 通報斷鏈</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2009</div><div class="tl-dot"></div>
+          <div class="tl-card"><div class="tl-title">莫拉克</div><div class="tl-sub">EMIC 上線 · 跨域電話</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2015</div><div class="tl-dot"></div>
+          <div class="tl-card"><div class="tl-title">蘇迪勒</div><div class="tl-sub">LINE 群組 · 智慧城市</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2020</div><div class="tl-dot"></div>
+          <div class="tl-card"><div class="tl-title">COVID-19</div><div class="tl-sub">數位接觸 · 簡訊實聯</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2022</div><div class="tl-dot"></div>
+          <div class="tl-card"><div class="tl-title">303 大停電</div><div class="tl-sub">Line Bot · 雲端備援</div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-year">2026</div><div class="tl-dot" style="background:var(--accent-soft);border-color:var(--accent-soft);"></div>
+          <div class="tl-card" style="border-color:var(--border-warm);"><div class="tl-title" style="color:var(--accent-soft);">AI 代理人</div><div class="tl-sub">感知 · 決策 · 行動一體</div></div>
+        </div>
+      </div>
+      <div class="lead-paragraph">
+        <div class="body-block">每一代災難都在補上一代的缺口。1999 年紙本動員、2009 年跨域電話、2015 年通訊軟體、2020 年數位接觸追蹤、2022 年雲端備援。到了 2026，剩餘缺口是「人要在深夜做跨機關決策」這一項，AI 代理人正好補上。</div>
+        <div class="key-callout"><strong style="color:var(--accent-soft);">關鍵洞見</strong>　真正貴的不是模型，是把紙本流程「翻譯」成代理人可讀的指令集——這件事沒人做，AI 就不會自己發生。</div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>3 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P4 數據六角（六/散）============== -->
+  <div class="slide s4-honeycomb" id="s4">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第二章 · 紙本流程現況</div>
+      <h2 class="h1">九項關鍵指標 · 紙本流程還佔 <span class="accent">73%</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">2026 年中央 × 22 縣市 × 鄉鎮市區聯合普查結果，災防流程從通報到決策的平均數位化程度。</p>
+      <div class="hex-grid">
+        <div class="hex-cell"><div><div class="hex-num">73%</div><div class="hex-lbl">紙本流程覆蓋</div></div></div>
+        <div class="hex-cell"><div><div class="hex-num">42</div><div class="hex-lbl">平均決策分鐘</div></div></div>
+        <div class="hex-cell"><div><div class="hex-num">6.8</div><div class="hex-lbl">跨機關會議/次</div></div></div>
+        <div class="hex-cell"><div><div class="hex-num">19</div><div class="hex-lbl">表單欄位</div></div></div>
+        <div class="hex-cell"><div><div class="hex-num">31%</div><div class="hex-lbl">深夜決策率</div></div></div>
+        <div class="hex-cell"><div><div class="hex-num">3.4</div><div class="hex-lbl">版本失控文件</div></div></div>
+        <div class="hex-cell"><div><div class="hex-num">58</div><div class="hex-lbl">一線人員負荷</div></div></div>
+        <div class="hex-cell"><div><div class="hex-num">14%</div><div class="hex-lbl">回報錯誤率</div></div></div>
+        <div class="hex-cell"><div><div class="hex-num">12</div><div class="hex-lbl">代理人場景</div></div></div>
+        <div class="hex-cell"><div><div class="hex-num">180</div><div class="hex-lbl">天行動路線</div></div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>4 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P5 三層代理人（特/垂）============== -->
+  <div class="slide s5-policy" id="s5">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第三章 · 三層代理人模型</div>
+      <h2 class="h1">感知 × 決策 × 行動 · <span class="warm">三層代理人分工</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">不直接「一個 AI 解決所有事」，而是分三層各司其職。每一層都有明確的輸出格式與人類監督節點。</p>
+      <div class="policy-grid">
+        <div class="policy-card">
+          <div class="p-num">LAYER · 01</div>
+          <div class="p-title">感知代理人</div>
+          <div class="p-body">從 IoT、社群、1999、Line 群、CCTV 持續接收訊號，產出結構化事件流與情境標籤。</div>
+          <span class="p-tag">Event Stream</span>
+        </div>
+        <div class="policy-card">
+          <div class="p-num">LAYER · 02</div>
+          <div class="p-title">決策代理人</div>
+          <div class="p-body">把事件流比對 SOP、歷史案例、跨機關資料，產出三個可行方案與成本效益摘要。</div>
+          <span class="p-tag">Proposal Set</span>
+        </div>
+        <div class="policy-card">
+          <div class="p-num">LAYER · 03</div>
+          <div class="p-title">行動代理人</div>
+          <div class="p-body">經人類決策官勾選後，自動派工、開立電子公告、回報 LINE、寫入會議紀錄。</div>
+          <span class="p-tag">Action Loop</span>
+        </div>
+      </div>
+      <div class="policy-stack-bar">
+        <span style="flex:1;background:linear-gradient(90deg,#5eead4,#14b8a6);">感知</span>
+        <span style="flex:1;background:linear-gradient(90deg,#67e8f9,#22d3ee);">決策</span>
+        <span style="flex:1;background:linear-gradient(90deg,#a78bfa,#6d28d9);">行動</span>
+        <span style="flex:2;background:rgba(20,184,166,0.18);color:var(--ink-soft);">人類監督節點（最終決策）</span>
+      </div>
+      <p class="text-mute" style="margin-top: 14px;">每一個層的輸出都是下一層的輸入，並由人類決策官保留「否決 / 修改 / 暫停」三個開關，這是 2026 年公共治理的新接口。</p>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>5 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P6 場景（方/垂）============== -->
+  <div class="slide s6-scene" id="s6">
+    <div class="glow-orb glow-orb-4"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第四章 · 12 個示範場景</div>
+      <h2 class="h1">颱風 × 停電 × 疫調 × 社區 · <span class="accent">4 種災害 × 3 個代理人層</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">挑選最具代表性的 4 個場景展示代理人實作。每個場景都已在 2026 上半年完成閉環測試。</p>
+      <div class="scene-grid">
+        <div class="scene-card">
+          <div class="scene-num">01</div>
+          <div class="scene-body">
+            <div class="scene-title">颱風 × 撤離決策</div>
+            <div class="scene-detail">風雨預報 + 保全戶清單 + 撤離路線即時路況，自動產出三條撤離路線與時程建議。</div>
+            <span class="scene-tag">決策層</span>
+          </div>
+        </div>
+        <div class="scene-card violet">
+          <div class="scene-num">02</div>
+          <div class="scene-body">
+            <div class="scene-title">大停電 × 派工</div>
+            <div class="scene-detail">感知層偵測變電所訊號，行動層同步派工單到 6 區班組並回傳 ETA，減少公文往返。</div>
+            <span class="scene-tag">行動層</span>
+          </div>
+        </div>
+        <div class="scene-card">
+          <div class="scene-num">03</div>
+          <div class="scene-body">
+            <div class="scene-title">疫調 × 接觸鏈</div>
+            <div class="scene-detail">把紙本問卷讀為結構化資料，自動拼接接觸鏈、推估熱區、產出熱區管制建議。</div>
+            <span class="scene-tag">決策層</span>
+          </div>
+        </div>
+        <div class="scene-card violet">
+          <div class="scene-num">04</div>
+          <div class="scene-body">
+            <div class="scene-title">社區 × 通報</div>
+            <div class="scene-detail">里長 1999 與 Line 群訊息聚合去重，自動分類優先級、生成通報單派給對應課室。</div>
+            <span class="scene-tag">行動層</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>6 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P7 Before vs After（圓/水）============== -->
+  <div class="slide s7-compare" id="s7">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第五章 · 對比驗證</div>
+      <h2 class="h1">傳統紙本 vs 代理人協作 · <span class="warm">差距寫在第一晚</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">同一場颱風情境（花蓮秀林鄉 · 2026 模擬）。傳統流程由 5 人接力、代理人流程由 5 人 × 3 代理人協作。</p>
+      <div class="compare-row">
+        <div class="compare-card before">
+          <div class="label">BEFORE · 紙本</div>
+          <h3>傳統災防</h3>
+          <ul>
+            <li>1999 接線生接聽、手寫記錄 18 分鐘</li>
+            <li>鄉長 + 課長電話三方會談 35 分鐘</li>
+            <li>紙本通報單 4 個欄位誤填</li>
+            <li>撤離決策深夜 2:40 才拍板</li>
+            <li>派工單交班耗 1.5 小時</li>
+            <li>回報錯誤率 14% · 版本失控 3 份</li>
+          </ul>
+        </div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-card after">
+          <div class="label">AFTER · 代理人</div>
+          <h3>代理人協作</h3>
+          <ul>
+            <li>1999 轉語音代理人、3 秒標籤化</li>
+            <li>決策代理人 3 方案 + 效益摘要 4 分鐘</li>
+            <li>欄位缺失即時提示錯誤率 0</li>
+            <li>鄉長手機勾選 + 行動代理人派工</li>
+            <li>派工至 6 班組同步 ETA 12 分鐘</li>
+            <li>全程版本一致 · 人類決策保留</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>7 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P8 三組案例（六/網）============== -->
+  <div class="slide s8-case" id="s8">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第六章 · 三組案例</div>
+      <h2 class="h1">中央 × 地方 × 公民 · <span class="accent">三種協作範式</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">三個 2026 上半年真實落地專案，分別代表三種代理人的治理角色。</p>
+      <div class="case-grid">
+        <div class="case-card">
+          <div class="case-tag gov">CASE · 01 · 中央</div>
+          <div class="case-title">災害應變中心智慧化</div>
+          <div class="case-body">消防署 + 數位部聯手，把 EOC 進駐人員從 28 人降到 12 人，決策代理人在 3 分鐘內產出全國資源盤點。</div>
+          <div class="case-metric"><div class="case-metric-num">57%</div><div class="case-metric-lbl">進駐人力下降</div></div>
+        </div>
+        <div class="case-card violet">
+          <div class="case-tag corp">CASE · 02 · 地方</div>
+          <div class="case-title">新北市里長通報代理人</div>
+          <div class="case-body">新北市 1,032 位里長試辦，1999 與 Line 群訊息聚合去重、派工給對應課室，週案件處理時間下降 41%。</div>
+          <div class="case-metric"><div class="case-metric-num">41%</div><div class="case-metric-lbl">案件時間下降</div></div>
+        </div>
+        <div class="case-card warm">
+          <div class="case-tag civic">CASE · 03 · 公民</div>
+          <div class="case-title">g0v 開放社區疫調包</div>
+          <div class="case-body">公民社群開源疫調代理人工具，已被 11 個 NGO 用於社區風險溝通，所有資料留在民眾端、零個資上傳。</div>
+          <div class="case-metric"><div class="case-metric-num">11 NGO</div><div class="case-metric-lbl">公民採用</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>8 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P9 行動（特/散）============== -->
+  <div class="slide s9-action" id="s9">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第七章 · 180 天行動路線</div>
+      <h2 class="h1">四階段導入 · <span class="warm">從單一場景到跨機關生態</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">任何想導入代理人模式的機關，可直接對照下列四階段與評估指標。</p>
+      <div class="action-grid">
+        <div class="action-card">
+          <div class="a-num">1</div>
+          <div class="a-title">盤點</div>
+          <div class="a-body">找出 1 個紙本流程 · 標註 19 欄位 · 翻譯為代理人指令</div>
+        </div>
+        <div class="action-card violet">
+          <div class="a-num">2</div>
+          <div class="a-title">測試</div>
+          <div class="a-body">封閉環境演練 · 與人類決策官平行運作 30 天</div>
+        </div>
+        <div class="action-card warm">
+          <div class="a-num">3</div>
+          <div class="a-title">上線</div>
+          <div class="a-body">單一場景實際導入 · 每週覆盤 · 持續修訂</div>
+        </div>
+        <div class="action-card">
+          <div class="a-num">4</div>
+          <div class="a-title">擴張</div>
+          <div class="a-body">跨機關開放 API · 公民社群可用代理人</div>
+        </div>
+      </div>
+      <div class="action-meta">
+        <div class="action-meta-item"><div class="action-meta-v">30 天</div><div class="action-meta-lbl">盤點 + 翻譯</div></div>
+        <div class="action-meta-item"><div class="action-meta-v">30 天</div><div class="action-meta-lbl">封閉測試</div></div>
+        <div class="action-meta-item"><div class="action-meta-v">60 天</div><div class="action-meta-lbl">單場域上線</div></div>
+        <div class="action-meta-item"><div class="action-meta-v">60 天</div><div class="action-meta-lbl">跨機關擴張</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>9 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P10 結尾（無/單）============== -->
+  <div class="slide s10-end" id="s10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <div class="end-frame">
+        <div class="end-eyebrow">FINAL · 三個今天就能做的事</div>
+        <h2 class="end-title">把紙本翻成<span class="accent">代理人指令</span><br>從今晚的 <span class="warm">一個小表單</span> 開始</h2>
+        <p class="end-sub">你不必等 180 天。第一步是翻譯，第二步是演練，第三步才是治理。當每個公務員都能寫 10 行指令，整個政府的災防速度就會改變。</p>
+        <div class="end-meta">
+          <div class="end-meta-item"><div class="end-meta-v">1</div><div class="end-meta-lbl">今晚翻譯 1 表單</div></div>
+          <div class="end-meta-item"><div class="end-meta-v">3</div><div class="end-meta-lbl">三層代理人都到位</div></div>
+          <div class="end-meta-item"><div class="end-meta-v">12</div><div class="end-meta-lbl">場景閉環驗證</div></div>
+          <div class="end-meta-item"><div class="end-meta-v">180</div><div class="end-meta-lbl">天完成導入</div></div>
+        </div>
+        <p class="note">熊熊 · 2026-09-07 · 週一政府公務</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>10 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var slides = document.querySelectorAll('.slide');
+var current = 0;
+function show() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current + slides.length) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+function next() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current + 1) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+function prev() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current - 1 + slides.length) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') next();
+  else if (e.key === 'ArrowLeft') prev();
+});
+if (slides[0] && !slides[0].classList.contains('active')) {
+  slides[0].classList.add('active');
+}
+</script>
+</body>
+</html>
