@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from PIL import Image
 
 # ComfyUI API
-API = "http://fjjhomei9.fjjhome:8188"
+API = "http://fjjhomei9.fjj.home:8188"
 
 # 熊熊列表（可自訂）
 bears = [
