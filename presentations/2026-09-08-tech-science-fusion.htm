@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>可控核融合的臨界點：當 ITER 點火，能源敘事如何被改寫｜2026-09-08 科技學術</title>
+<style>
+/* ============================================================
+   配色：C1 深紫夜幕（Deep Purple Cosmos）— 科技學術專屬
+   主題：可控核融合的臨界點 — ITER 點火重寫能源敘事
+   ============================================================ */
+:root {
+  --bg-deep:        #0a0620;
+  --bg-mid:         #16093a;
+  --bg-card:        rgba(40, 24, 80, 0.55);
+  --primary:        #a78bfa;
+  --primary-soft:   #c4b5fd;
+  --primary-deep:   #5b21b6;
+  --accent:         #06d6f9;
+  --accent-soft:    #67e8f9;
+  --accent-deep:    #0e7490;
+  --magenta:        #f472b6;
+  --gold:           #fbbf24;
+  --ember:          #fb923c;
+  --ink:            #f5f3ff;
+  --ink-soft:       #e9e4ff;
+  --ink-mute:       #c4b5fd;
+  --ink-dim:        #a78bfa;
+  --border-cool:    rgba(167, 139, 250, 0.40);
+  --border-warm:    rgba(6, 214, 249, 0.45);
+  --border-ember:   rgba(251, 146, 60, 0.45);
+  --glow-cool:      0 0 28px rgba(167, 139, 250, 0.35);
+  --glow-warm:      0 0 24px rgba(6, 214, 249, 0.30);
+  --glow-ember:     0 0 24px rgba(251, 146, 60, 0.40);
+}
+
+html { font-size: 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0620;
+  color: var(--ink-soft);
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 80% 15%, rgba(167, 139, 250, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(6, 214, 249, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(251, 146, 60, 0.10) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+  border-radius: 12px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 52px 60px 76px;
+  color: var(--ink);
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+.slide * { line-height: 1.5; }
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 320px; height: 320px; background: rgba(167, 139, 250, 0.25); top: -100px; right: -100px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(6, 214, 249, 0.18); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 220px; height: 220px; background: rgba(251, 146, 60, 0.20); top: 50%; left: 60%; }
+
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.tag {
+  display: inline-block;
+  background: rgba(167, 139, 250, 0.18);
+  color: var(--primary-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-cool);
+}
+.tag-cool {
+  display: inline-block;
+  background: rgba(6, 214, 249, 0.18);
+  color: var(--accent-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-warm);
+}
+.tag-ember {
+  display: inline-block;
+  background: rgba(251, 146, 60, 0.20);
+  color: var(--ember);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-ember);
+}
+
+h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.18; margin: 8px 0 14px; color: #ffffff; }
+h2 { font-size: 1.8rem; font-weight: 700; margin: 4px 0 12px; color: #ffffff; line-height: 1.25; }
+h3 { font-size: 1.2rem; font-weight: 700; margin: 6px 0 6px; color: var(--primary-soft); }
+.lead { font-size: 1.1rem; color: var(--ink-mute); line-height: 1.55; margin: 6px 0 14px; }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--glow-cool);
+}
+.card-cool {
+  background: rgba(6, 214, 249, 0.08);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--glow-warm);
+}
+.card-ember {
+  background: rgba(251, 146, 60, 0.08);
+  border: 1px solid var(--border-ember);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--glow-ember);
+}
+
+/* === Nav === */
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+  background: rgba(10, 6, 32, 0.85);
+  padding: 6px 12px;
+  border-radius: 24px;
+  border: 1px solid var(--border-cool);
+}
+.nav button {
+  background: rgba(167, 139, 250, 0.15);
+  border: 1px solid var(--border-cool);
+  color: var(--ink);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav button:hover { background: rgba(167, 139, 250, 0.35); }
+.nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+.nav span { font-size: 1rem; color: var(--ink-mute); min-width: 56px; text-align: center; }
+
+.back-link {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  z-index: 50;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  text-decoration: none;
+  background: rgba(10, 6, 32, 0.7);
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border-cool);
+}
+.back-link:hover { color: var(--primary-soft); }
+
+/* ============================================================
+   P1 封面（特/單）— 大圓環 + 核心溫度
+   ============================================================ */
+.s1-cover {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .cover-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 16px;
+  z-index: 2;
+}
+.s1-cover h1 {
+  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.18;
+  margin: 6px 0 18px;
+  z-index: 2;
+}
+.s1-cover .cover-sub {
+  font-size: 1.1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.08em;
+  margin-bottom: 30px;
+  z-index: 2;
+}
+.s1-cover .cover-stats {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  z-index: 2;
+  margin-top: 8px;
+}
+.s1-cover .cover-stats .stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(167, 139, 250, 0.10);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 12px 20px;
+  min-width: 130px;
+}
+.s1-cover .cover-stats .stat .num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  line-height: 1;
+}
+.s1-cover .cover-stats .stat .label {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  margin-top: 6px;
+  letter-spacing: 0.04em;
+}
+.core-ring {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  position: relative;
+  margin: 12px auto 24px;
+  z-index: 2;
+}
+.core-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(251, 146, 60, 0.95) 0%, rgba(251, 146, 60, 0.55) 25%, rgba(167, 139, 250, 0.35) 55%, transparent 80%);
+  box-shadow: 0 0 60px rgba(251, 146, 60, 0.65), inset 0 0 40px rgba(255, 200, 100, 0.4);
+  animation: pulse 3.6s ease-in-out infinite;
+}
+.core-ring::after {
+  content: '1.5 億 °C';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 14px rgba(255, 200, 100, 0.85);
+  letter-spacing: 0.04em;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.9; }
+}
+
+/* ============================================================
+   P2 目錄（方/網）— 2x3 卡片
+   ============================================================ */
+.s2-toc { padding: 48px 60px 76px; }
+.s2-toc .toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
+.s2-toc .toc-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.s2-toc .toc-item .toc-num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+.s2-toc .toc-item .toc-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 4px;
+}
+.s2-toc .toc-item .toc-desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.5;
+}
+.s2-toc .toc-item::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 60px; height: 60px;
+  background: radial-gradient(circle at 100% 0%, rgba(167, 139, 250, 0.25) 0%, transparent 70%);
+}
+
+/* ============================================================
+   P3 時間軸（線/水）— 核融合研究里程碑
+   ============================================================ */
+.s3-timeline { padding: 52px 60px 90px; }
+.s3-timeline .timeline-h {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin-top: 26px;
+  position: relative;
+}
+.s3-timeline .timeline-h::before {
+  content: '';
+  position: absolute;
+  top: 64px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(167, 139, 250, 0.6) 0%,
+    rgba(6, 214, 249, 0.6) 50%,
+    rgba(251, 146, 60, 0.8) 100%);
+  z-index: 0;
+}
+.s3-timeline .t-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.s3-timeline .t-year {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--accent-soft);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.s3-timeline .t-node {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 3px solid #fff;
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.7);
+  margin-bottom: 14px;
+}
+.s3-timeline .t-node.hot {
+  background: var(--ember);
+  box-shadow: 0 0 16px rgba(251, 146, 60, 0.8);
+  width: 22px; height: 22px;
+}
+.s3-timeline .t-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+  padding: 10px 12px;
+  text-align: center;
+  width: 92%;
+  backdrop-filter: blur(6px);
+}
+.s3-timeline .t-card .t-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.s3-timeline .t-card .t-body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+.s3-timeline .legend {
+  display: flex;
+  gap: 18px;
+  margin-top: 16px;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  justify-content: center;
+}
+.s3-timeline .legend .dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   P4 國家比較（圓/水）— 4 個同心圓代表四國進度
+   ============================================================ */
+.s4-nations { padding: 52px 60px 90px; }
+.s4-nations .n-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+.s4-nations .n-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.s4-nations .n-flag {
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+}
+.s4-nations .n-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.s4-nations .n-prog-wrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 8px auto;
+}
+.s4-nations .n-prog-bg {
+  fill: none;
+  stroke: rgba(167, 139, 250, 0.20);
+  stroke-width: 8;
+}
+.s4-nations .n-prog-fg {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+.s4-nations .n-prog-pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+.s4-nations .n-proj {
+  font-size: 1rem;
+  color: var(--accent-soft);
+  font-weight: 700;
+  margin-top: 4px;
+}
+.s4-nations .n-note {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P5 應用場景（六/垂）— 4 個六邊形應用領域
+   ============================================================ */
+.s5-apps { padding: 52px 60px 90px; }
+.s5-apps .hex-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 22px;
+  align-items: center;
+}
+.s5-apps .hex-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+}
+.s5-apps .hex {
+  clip-path: polygon(8% 0%, 92% 0%, 100% 50%, 92% 100%, 8% 100%, 0% 50%);
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100px;
+  flex: 1;
+  position: relative;
+}
+.s5-apps .hex.h1 { background: linear-gradient(135deg, rgba(167, 139, 250, 0.40) 0%, rgba(167, 139, 250, 0.15) 100%); border: 1px solid var(--border-cool); }
+.s5-apps .hex.h2 { background: linear-gradient(135deg, rgba(6, 214, 249, 0.40) 0%, rgba(6, 214, 249, 0.15) 100%); border: 1px solid var(--border-warm); }
+.s5-apps .hex.h3 { background: linear-gradient(135deg, rgba(251, 146, 60, 0.40) 0%, rgba(251, 146, 60, 0.15) 100%); border: 1px solid var(--border-ember); }
+.s5-apps .hex.h4 { background: linear-gradient(135deg, rgba(244, 114, 182, 0.40) 0%, rgba(244, 114, 182, 0.15) 100%); border: 1px solid rgba(244, 114, 182, 0.45); }
+.s5-apps .hex .hex-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+.s5-apps .hex .hex-body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+.s5-apps .hex .hex-stat {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--accent-soft);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   P6 三大障礙（特/垂）— 垂直放射結構
+   ============================================================ */
+.s6-barriers { padding: 52px 60px 90px; }
+.s6-barriers .b-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 22px;
+}
+.s6-barriers .b-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 200px;
+  gap: 16px;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 14px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.s6-barriers .b-row::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 4px;
+  background: var(--ember);
+}
+.s6-barriers .b-row.b2::before { background: var(--accent); }
+.s6-barriers .b-row.b3::before { background: var(--magenta); }
+.s6-barriers .b-num {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--ember);
+  text-align: center;
+  line-height: 1;
+}
+.s6-barriers .b-row.b2 .b-num { color: var(--accent-soft); }
+.s6-barriers .b-row.b3 .b-num { color: var(--magenta); }
+.s6-barriers .b-body .b-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.s6-barriers .b-body .b-desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+.s6-barriers .b-meta {
+  text-align: right;
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+.s6-barriers .b-meta .meta-key {
+  display: block;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+.s6-barriers .b-meta .meta-val {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+/* ============================================================
+   P7 投資（方/散）— 不規則卡片散布
+   ============================================================ */
+.s7-invest { padding: 52px 60px 90px; }
+.s7-invest .inv-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 100px;
+  gap: 12px;
+  margin-top: 22px;
+}
+.s7-invest .inv-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.s7-invest .inv-card.size-l { grid-column: span 3; grid-row: span 2; padding: 22px; border-color: var(--border-warm); }
+.s7-invest .inv-card.size-m { grid-column: span 2; grid-row: span 2; }
+.s7-invest .inv-card.size-s { grid-column: span 1; grid-row: span 1; padding: 10px; align-items: center; text-align: center; }
+.s7-invest .inv-card .inv-key {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.s7-invest .inv-card .inv-val {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+}
+.s7-invest .inv-card.size-l .inv-val { font-size: 2.6rem; }
+.s7-invest .inv-card .inv-desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+  margin-top: 4px;
+}
+.s7-invest .inv-card.size-s .inv-val { font-size: 1.2rem; }
+.s7-invest .inv-card.size-s .inv-key { font-size: 1rem; }
+
+/* ============================================================
+   P8 流程（線/網）— 3x2 流程節點
+   ============================================================ */
+.s8-flow { padding: 48px 60px 88px; }
+.s8-flow .slide-content { padding-bottom: 8px; }
+.s8-flow .lead { font-size: 1rem; margin: 4px 0 8px; }
+.s8-flow .flow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+.s8-flow .f-step {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 12px 16px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.s8-flow .f-step .f-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  box-shadow: 0 0 14px rgba(167, 139, 250, 0.5);
+}
+.s8-flow .f-step .f-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+}
+.s8-flow .f-step .f-body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+.s8-flow .f-step .f-output {
+  font-size: 1rem;
+  color: var(--accent-soft);
+  font-weight: 700;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+.s8-flow .flow-arrow {
+  position: absolute;
+  color: var(--primary-soft);
+  font-size: 1.4rem;
+  font-weight: 900;
+  z-index: 2;
+}
+
+/* ============================================================
+   P9 總結（無/單）— 居中三條核心訊息
+   ============================================================ */
+.s9-summary { align-items: center; justify-content: center; text-align: center; padding: 64px 80px 90px; }
+.s9-summary .summary-head {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 18px;
+}
+.s9-summary h1 {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 28px;
+}
+.s9-summary .summary-points {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 880px;
+  width: 100%;
+}
+.s9-summary .summary-points .pt {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 20px;
+  align-items: center;
+  text-align: left;
+  background: rgba(167, 139, 250, 0.08);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 14px 22px;
+}
+.s9-summary .summary-points .pt .pt-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--ember);
+  line-height: 1;
+  text-align: center;
+}
+.s9-summary .summary-points .pt.pt2 .pt-num { color: var(--accent-soft); }
+.s9-summary .summary-points .pt.pt3 .pt-num { color: var(--magenta); }
+.s9-summary .summary-points .pt .pt-text {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* ============================================================
+   P10 結尾（特/單）— 單一 CTA
+   ============================================================ */
+.s10-end {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 60px 80px;
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.3em;
+  margin-bottom: 24px;
+}
+.s10-end .end-orb {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(251, 146, 60, 0.85) 0%, rgba(167, 139, 250, 0.50) 50%, transparent 80%);
+  box-shadow: 0 0 70px rgba(251, 146, 60, 0.55);
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 3.6s ease-in-out infinite;
+}
+.s10-end .end-orb .end-mark {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.s10-end h2 {
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.18;
+  margin-bottom: 16px;
+}
+.s10-end .end-sub {
+  font-size: 1.1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
+}
+.s10-end .end-cta {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 12px 36px;
+  border-radius: 30px;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  box-shadow: 0 0 28px rgba(167, 139, 250, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.s10-end .end-cta:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(167, 139, 250, 0.7); }
+.s10-end .end-foot {
+  margin-top: 28px;
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.08em;
+}
+
+</style>
+</head>
+<body>
+
+<a class="back-link" href="/slides.htm">← 返回簡報列表</a>
+
+<div class="presentation">
+
+  <!-- 背景發光球 -->
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+  <div class="glow-orb glow-orb-3"></div>
+
+  <!-- ============================================================
+       P1 封面（特/單）
+       ============================================================ -->
+  <div class="slide s1-cover active" id="slide-1">
+    <div class="slide-content" style="align-items: center; justify-content: center; text-align: center;">
+      <div class="cover-eyebrow">2026 · 科技學術專題 · 第 037 期</div>
+      <div class="core-ring"></div>
+      <h1>可控核融合的臨界點</h1>
+      <div class="cover-sub">當 ITER 點火，能源敘事如何被改寫</div>
+      <div class="cover-stats">
+        <div class="stat">
+          <div class="num">1.5億°C</div>
+          <div class="label">核心溫度</div>
+        </div>
+        <div class="stat">
+          <div class="num">Q=10</div>
+          <div class="label">能量增益目標</div>
+        </div>
+        <div class="stat">
+          <div class="num">35國</div>
+          <div class="label">合作規模</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">1 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P2 目錄（方/網）
+       ============================================================ -->
+  <div class="slide s2-toc" id="slide-2">
+    <div class="slide-content">
+      <div class="tag-cool">CONTENTS</div>
+      <h2>簡報目錄</h2>
+      <div class="lead">從科學原理到全球賽局——六個關鍵章節，掌握融合的臨界時刻</div>
+      <div class="toc-grid">
+        <div class="toc-item">
+          <div class="toc-num">01</div>
+          <div class="toc-title">研究脈絡</div>
+          <div class="toc-desc">70 年融合研究 → 今日的 ITER 與 NIF 雙引擎</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-num">02</div>
+          <div class="toc-title">全球進度</div>
+          <div class="toc-desc">美中歐日四國示範電廠的時程與投資對照</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-num">03</div>
+          <div class="toc-title">應用場景</div>
+          <div class="toc-desc">基載電力、製氫、海水淡化、太空推進</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-num">04</div>
+          <div class="toc-title">三大障礙</div>
+          <div class="toc-desc">溫度、材料、成本的臨界門檻</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-num">05</div>
+          <div class="toc-title">投資熱度</div>
+          <div class="toc-desc">公私部門 2026 年 7.8 兆投注的分佈</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-num">06</div>
+          <div class="toc-title">行動路線</div>
+          <div class="toc-desc">給政策、產業、研究者的三條時間線</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">2 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P3 時間軸（線/水）
+       ============================================================ -->
+  <div class="slide s3-timeline" id="slide-3">
+    <div class="slide-content">
+      <div class="tag">研究脈絡</div>
+      <h2>70 年融合研究：三個時代的關鍵節點</h2>
+      <div class="lead">從蘇聯托卡馬克到 ITER 點火，人類用 70 年把「太陽」搬進了實驗室</div>
+      <div class="timeline-h">
+        <div class="t-item">
+          <div class="t-year">1968</div>
+          <div class="t-node"></div>
+          <div class="t-card">
+            <div class="t-title">托卡馬克崛起</div>
+            <div class="t-body">蘇聯 T-3 突破 1,000 萬 °C</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">1991</div>
+          <div class="t-node"></div>
+          <div class="t-card">
+            <div class="t-title">JET 歐洲首發</div>
+            <div class="t-body">歐盟 JET 產生 1.7 MW 融合功率</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">2022</div>
+          <div class="t-node"></div>
+          <div class="t-card">
+            <div class="t-title">NIF 點火</div>
+            <div class="t-body">美國 NIF 達成 Q&gt;1 能量淨增益</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">2026</div>
+          <div class="t-node"></div>
+          <div class="t-card">
+            <div class="t-title">ITER 組裝</div>
+            <div class="t-body">法國場址低溫恆溫器完工</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">2034+</div>
+          <div class="t-node hot"></div>
+          <div class="t-card">
+            <div class="t-title">首度點火</div>
+            <div class="t-body">ITER 目標 Q=10 全功率融合</div>
+          </div>
+        </div>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background: var(--primary);"></span>研究里程碑</span>
+        <span><span class="dot" style="background: var(--ember);"></span>未來預定</span>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">3 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P4 國家比較（圓/水）
+       ============================================================ -->
+  <div class="slide s4-nations" id="slide-4">
+    <div class="slide-content">
+      <div class="tag-cool">全球進度</div>
+      <h2>四國示範電廠進度對照</h2>
+      <div class="lead">當前距「首次併網發電」最近的 4 個國家級計畫——但路線分歧已經浮現</div>
+      <div class="n-grid">
+        <div class="n-card">
+          <div class="n-flag">🇪🇺</div>
+          <div class="n-name">歐盟 ITER</div>
+          <div class="n-prog-wrap">
+            <svg viewBox="0 0 110 110" style="width:110px;height:110px;">
+              <circle class="n-prog-bg" cx="55" cy="55" r="46"/>
+              <circle class="n-prog-fg" cx="55" cy="55" r="46" stroke="#a78bfa"
+                stroke-dasharray="289.03" stroke-dashoffset="86.71"/>
+            </svg>
+            <div class="n-prog-pct">70%</div>
+          </div>
+          <div class="n-proj">2024 → 2034 點火</div>
+          <div class="n-note">法國卡達拉舍</div>
+        </div>
+        <div class="n-card">
+          <div class="n-flag">🇺🇸</div>
+          <div class="n-name">美國示範電廠</div>
+          <div class="n-prog-wrap">
+            <svg viewBox="0 0 110 110" style="width:110px;height:110px;">
+              <circle class="n-prog-bg" cx="55" cy="55" r="46"/>
+              <circle class="n-prog-fg" cx="55" cy="55" r="46" stroke="#67e8f9"
+                stroke-dasharray="289.03" stroke-dashoffset="115.61"/>
+            </svg>
+            <div class="n-prog-pct">60%</div>
+          </div>
+          <div class="n-proj">2028 → 2032 併網</div>
+          <div class="n-note">Commonwealth Fusion</div>
+        </div>
+        <div class="n-card">
+          <div class="n-flag">🇨🇳</div>
+          <div class="n-name">中國 CFETR</div>
+          <div class="n-prog-wrap">
+            <svg viewBox="0 0 110 110" style="width:110px;height:110px;">
+              <circle class="n-prog-bg" cx="55" cy="55" r="46"/>
+              <circle class="n-prog-fg" cx="55" cy="55" r="46" stroke="#f472b6"
+                stroke-dasharray="289.03" stroke-dashoffset="144.52"/>
+            </svg>
+            <div class="n-prog-pct">50%</div>
+          </div>
+          <div class="n-proj">2027 實驗、2035 示範</div>
+          <div class="n-note">合肥科學島</div>
+        </div>
+        <div class="n-card">
+          <div class="n-flag">🇯🇵</div>
+          <div class="n-name">日本 JT-60SA</div>
+          <div class="n-prog-wrap">
+            <svg viewBox="0 0 110 110" style="width:110px;height:110px;">
+              <circle class="n-prog-bg" cx="55" cy="55" r="46"/>
+              <circle class="n-prog-fg" cx="55" cy="55" r="46" stroke="#fbbf24"
+                stroke-dasharray="289.03" stroke-dashoffset="202.32"/>
+            </svg>
+            <div class="n-prog-pct">30%</div>
+          </div>
+          <div class="n-proj">2023 啟用、2030 升級</div>
+          <div class="n-note">茨城那珂市</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">4 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P5 應用（六/垂）— 4 個六邊形
+       ============================================================ -->
+  <div class="slide s5-apps" id="slide-5">
+    <div class="slide-content">
+      <div class="tag-ember">應用場景</div>
+      <h2>融合不只是電：四條高價值應用路線</h2>
+      <div class="lead">當融合電廠商業化，影響的不只是電網——製氫、海水淡化、太空推進都將被重寫</div>
+      <div class="hex-stack">
+        <div class="hex-row">
+          <div class="hex h1">
+            <div class="hex-title">基載電力</div>
+            <div class="hex-body">24/7 全天候供電，無風無光亦穩定</div>
+            <div class="hex-stat">≈ 0.04 元/kWh 目標成本</div>
+          </div>
+          <div class="hex h2">
+            <div class="hex-title">綠氫製造</div>
+            <div class="hex-body">高溫熱化學循環，效率比電解高 3 倍</div>
+            <div class="hex-stat">2050 市場 1.2 兆 USD</div>
+          </div>
+        </div>
+        <div class="hex-row">
+          <div class="hex h3">
+            <div class="hex-title">海水淡化</div>
+            <div class="hex-body">淡化廠用電成本下降 60%</div>
+            <div class="hex-stat">解決 25 億人水資源</div>
+          </div>
+          <div class="hex h4">
+            <div class="hex-title">太空推進</div>
+            <div class="hex-body">融合火箭 → 火星 90 天航程</div>
+            <div class="hex-stat">NASA 2028 試驗原型</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">5 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P6 三大障礙（特/垂）
+       ============================================================ -->
+  <div class="slide s6-barriers" id="slide-6">
+    <div class="slide-content">
+      <div class="tag-cool">三大障礙</div>
+      <h2>點火之後的臨界門檻</h2>
+      <div class="lead">從 Q&gt;1 到商業化，中間隔著三道高牆——每道都需要至少 10 年突破</div>
+      <div class="b-list">
+        <div class="b-row b1">
+          <div class="b-num">01</div>
+          <div class="b-body">
+            <div class="b-title">材料耐溫極限</div>
+            <div class="b-desc">中子輻射導致第一壁每年劣化 5 dpa，現有合金只能撐 2 年</div>
+          </div>
+          <div class="b-meta">
+            <span class="meta-key">需突破</span>
+            <span class="meta-val">RAFMS 鋼 + W 合金</span>
+          </div>
+        </div>
+        <div class="b-row b2">
+          <div class="b-num">02</div>
+          <div class="b-body">
+            <div class="b-title">氚自持循環</div>
+            <div class="b-desc">氚增殖率 TBR &gt; 1.05 才能自給，目前最佳實驗值 1.15 但壽命不穩</div>
+          </div>
+          <div class="b-meta">
+            <span class="meta-key">需突破</span>
+            <span class="meta-val">鋰陶瓷增殖毯</span>
+          </div>
+        </div>
+        <div class="b-row b3">
+          <div class="b-num">03</div>
+          <div class="b-body">
+            <div class="b-title">電廠造價成本</div>
+            <div class="b-desc">ITER 已花 220 億 USD，要讓每 kW 建造成本降到 4,000 USD 以下</div>
+          </div>
+          <div class="b-meta">
+            <span class="meta-key">需突破</span>
+            <span class="meta-val">模組化 + 規模化</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">6 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P7 投資（方/散）— 不規則卡片
+       ============================================================ -->
+  <div class="slide s7-invest" id="slide-7">
+    <div class="slide-content">
+      <div class="tag">投資熱度</div>
+      <h2>2026 年全球融合資金 7.8 兆：誰在買單？</h2>
+      <div class="lead">公私部門資金 5 年成長 4.2 倍，私部門占比首次突破 38%</div>
+      <div class="inv-grid">
+        <div class="inv-card size-l">
+          <div class="inv-key">公私總投資 / 2026</div>
+          <div class="inv-val">7.8 兆 NTD</div>
+          <div class="inv-desc">約 2,400 億 USD，較 2021 成長 4.2 倍。其中私部門占 38%、公部門 62%。</div>
+        </div>
+        <div class="inv-card size-m">
+          <div class="inv-key">私部門領頭者</div>
+          <div class="inv-val">CFS · TAE · Helion</div>
+          <div class="inv-desc">比爾蓋茲、Sam Altman、軟銀已投入合計 38 億 USD。</div>
+        </div>
+        <div class="inv-card size-m">
+          <div class="inv-key">政府計畫規模</div>
+          <div class="inv-val">中 1.8 / 美 1.2 / 歐 0.9 兆</div>
+          <div class="inv-desc">中國 CFETR 五期計畫領跑，美國 INFUSE 法案加碼 2 倍。</div>
+        </div>
+        <div class="inv-card size-s">
+          <div class="inv-key">VC 投資</div>
+          <div class="inv-val">62 億</div>
+        </div>
+        <div class="inv-card size-s">
+          <div class="inv-key">國防科研</div>
+          <div class="inv-val">48 億</div>
+        </div>
+        <div class="inv-card size-s">
+          <div class="inv-key">主權基金</div>
+          <div class="inv-val">35 億</div>
+        </div>
+        <div class="inv-card size-s">
+          <div class="inv-key">綠色債券</div>
+          <div class="inv-val">28 億</div>
+        </div>
+        <div class="inv-card size-s">
+          <div class="inv-key">產學合作</div>
+          <div class="inv-val">21 億</div>
+        </div>
+        <div class="inv-card size-s">
+          <div class="inv-key">碳權預購</div>
+          <div class="inv-val">12 億</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">7 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P8 流程（線/網）— 3x2 步驟
+       ============================================================ -->
+  <div class="slide s8-flow" id="slide-8">
+    <div class="slide-content">
+      <div class="tag-ember">行動路線</div>
+      <h2>三個角色 × 兩條時間線：誰該在何時進場？</h2>
+      <div class="lead">融合不是「未來才需要關心」——現在是政策、產業、研究者卡位的關鍵 24 個月</div>
+      <div class="flow-grid">
+        <div class="f-step">
+          <div class="f-num">1</div>
+          <div class="f-title">政策制定者</div>
+          <div class="f-body">2026-2028 完成示範電廠選址與融資框架</div>
+          <div class="f-output">產出 → 國家級路線圖</div>
+        </div>
+        <div class="f-step">
+          <div class="f-num">2</div>
+          <div class="f-title">產業進場</div>
+          <div class="f-body">2027-2030 培養超導磁體、低溫幫浦供應鏈</div>
+          <div class="f-output">產出 → 模組化零件鏈</div>
+        </div>
+        <div class="f-step">
+          <div class="f-num">3</div>
+          <div class="f-title">研究者聚焦</div>
+          <div class="f-body">2026-2032 攻關 RAFMS 鋼與鋰陶瓷雙瓶頸</div>
+          <div class="f-output">產出 → 2 個關鍵專利族</div>
+        </div>
+        <div class="f-step">
+          <div class="f-num">4</div>
+          <div class="f-title">公私混合融資</div>
+          <div class="f-body">2027 推出「綠色融合債」分流私部門風險</div>
+          <div class="f-output">產出 → 5,000 億 USD 級</div>
+        </div>
+        <div class="f-step">
+          <div class="f-num">5</div>
+          <div class="f-title">人才培育</div>
+          <div class="f-body">2026-2030 全球新增 50 個融合工程學位</div>
+          <div class="f-output">產出 → 12 萬新工程師</div>
+        </div>
+        <div class="f-step">
+          <div class="f-num">6</div>
+          <div class="f-title">公眾溝通</div>
+          <div class="f-body">2026-2028 化解「融合 vs 再生能源」零和敘事</div>
+          <div class="f-output">產出 → 社會接受度 ≥ 65%</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">8 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P9 總結（無/單）
+       ============================================================ -->
+  <div class="slide s9-summary" id="slide-9">
+    <div class="slide-content" style="align-items: center; justify-content: center; text-align: center;">
+      <div class="summary-head">KEY TAKEAWAYS</div>
+      <h1>三個記住的訊息</h1>
+      <div class="summary-points">
+        <div class="pt pt1">
+          <div class="pt-num">01</div>
+          <div class="pt-text">融合已從「物理實驗」進入「工程賽局」—— Q&gt;1 在 2022 已實現，下一戰是成本與材料。</div>
+        </div>
+        <div class="pt pt2">
+          <div class="pt-num">02</div>
+          <div class="pt-text">2026-2030 是政策與供應鏈的卡位窗口，錯過這 4 年，2035 後只能當買方。</div>
+        </div>
+        <div class="pt pt3">
+          <div class="pt-num">03</div>
+          <div class="pt-text">融合與再生能源互補而非競爭——一個解決基載、一個解決變動，缺一不可。</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">9 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P10 結尾（特/單）
+       ============================================================ -->
+  <div class="slide s10-end" id="slide-10">
+    <div class="slide-content" style="align-items: center; justify-content: center; text-align: center;">
+      <div class="end-eyebrow">FROM THE BEAR MUSEUM · 2026</div>
+      <div class="end-orb"><div class="end-mark">1.5 億 °C</div></div>
+      <h2>下一個 70 年，<br/>從實驗室走向電網</h2>
+      <div class="end-sub">每天一篇簡報，陪你掌握科技學術的關鍵轉折</div>
+      <a class="end-cta" href="/slides.htm">回到簡報列表</a>
+      <div class="end-foot">© 2026 熊熊博物館 · Bear Creative Studio</div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">10 / 10</span>
+      <button onclick="next()" aria-label="下一頁" disabled>▶</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ============================================================
+  // 簡報切換核心邏輯（含 show() 初始化防禦性檢查）
+  // ============================================================
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  // 顯示指定頁面（含防禦性檢查）
+  function show() {
+    if (typeof current !== 'number' || current < 0 || current >= slides.length) return;
+    // 移除所有 slide 的 active
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove('active');
+    }
+    // 設定當前 slide 為 active
+    slides[current].classList.add('active');
+  }
+
+  function next() {
+    if (current < total - 1) {
+      current++;
+      show();
+    }
+  }
+
+  function prev() {
+    if (current > 0) {
+      current--;
+      show();
+    }
+  }
+
+  // 鍵盤左右鍵
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
+  });
+
+  // 初始化：確保第一頁是 active
+  slides.forEach((s, i) => {
+    if (i === 0) s.classList.add('active');
+    else s.classList.remove('active');
+  });
+</script>
+
+</body>
+</html>
