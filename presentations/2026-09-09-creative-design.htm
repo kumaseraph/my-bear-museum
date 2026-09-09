@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>設計的化學反應：當 AI 變成共同創作者｜2026-09-09 創意設計</title>
+<style>
+/* ============================================================
+   配色：C4 暮光紫羅蘭（Twilight Violet）— 創意設計專屬
+   主題：設計的化學反應 — AI × 人類的共同創作時代
+   ============================================================ */
+:root {
+  --bg-deep:        #14091f;
+  --bg-mid:         #1f1235;
+  --bg-card:        rgba(58, 32, 102, 0.55);
+  --primary:        #a78bfa;
+  --primary-soft:   #c4b5fd;
+  --primary-deep:   #6d28d9;
+  --accent:         #f472b6;
+  --accent-soft:    #f9a8d4;
+  --accent-deep:    #be185d;
+  --gold:           #fbbf24;
+  --gold-soft:      #fde68a;
+  --teal:           #2dd4bf;
+  --teal-soft:      #5eead4;
+  --ink:            #faf5ff;
+  --ink-soft:       #f3e8ff;
+  --ink-mute:       #c4b5fd;
+  --ink-dim:        #a78bfa;
+  --border-cool:    rgba(167, 139, 250, 0.40);
+  --border-warm:    rgba(244, 114, 182, 0.45);
+  --border-gold:    rgba(251, 191, 36, 0.45);
+  --border-teal:    rgba(45, 212, 191, 0.40);
+  --glow-cool:      0 0 28px rgba(167, 139, 250, 0.35);
+  --glow-warm:      0 0 24px rgba(244, 114, 182, 0.30);
+  --glow-gold:      0 0 24px rgba(251, 191, 36, 0.40);
+  --glow-teal:      0 0 24px rgba(45, 212, 191, 0.35);
+}
+
+html { font-size: 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #14091f;
+  color: var(--ink-soft);
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 80% 15%, rgba(167, 139, 250, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(244, 114, 182, 0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(45, 212, 191, 0.10) 0%, transparent 50%);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+  border-radius: 12px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 52px 60px 76px;
+  color: var(--ink);
+  overflow: hidden;
+}
+.slide.active { display: flex; }
+.slide * { line-height: 1.5; }
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 320px; height: 320px; background: rgba(167, 139, 250, 0.25); top: -100px; right: -100px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(244, 114, 182, 0.18); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 220px; height: 220px; background: rgba(45, 212, 191, 0.20); top: 50%; left: 60%; }
+
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+
+.tag {
+  display: inline-block;
+  background: rgba(167, 139, 250, 0.18);
+  color: var(--primary-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-cool);
+}
+.tag-warm {
+  display: inline-block;
+  background: rgba(244, 114, 182, 0.18);
+  color: var(--accent-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-warm);
+}
+.tag-gold {
+  display: inline-block;
+  background: rgba(251, 191, 36, 0.18);
+  color: var(--gold-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-gold);
+}
+.tag-teal {
+  display: inline-block;
+  background: rgba(45, 212, 191, 0.18);
+  color: var(--teal-soft);
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  border: 1px solid var(--border-teal);
+}
+
+h1, h2 {
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.18;
+}
+h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); margin-bottom: 12px; }
+h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 10px; }
+
+.lead {
+  font-size: 1.05rem;
+  color: var(--ink-mute);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  max-width: 980px;
+}
+
+/* === 導航列 === */
+.nav {
+  position: absolute;
+  bottom: 20px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(20, 9, 31, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-cool);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 1rem;
+  z-index: 10;
+}
+.nav button {
+  background: transparent;
+  color: var(--primary-soft);
+  border: none;
+  font-size: 1.05rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-family: inherit;
+}
+.nav button:hover { color: #fff; }
+.nav button:disabled { color: var(--ink-dim); cursor: default; }
+.nav span { color: var(--ink-soft); font-weight: 700; min-width: 48px; text-align: center; }
+
+/* === 返回列表 === */
+.back-link {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 100;
+  background: rgba(20, 9, 31, 0.7);
+  backdrop-filter: blur(8px);
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-cool);
+  font-size: 1rem;
+}
+.back-link:hover { color: #fff; border-color: var(--primary); }
+
+/* ============================================================
+   P1 封面（特/單）— 漸層封面 + 大數字
+   ============================================================ */
+.s1-cover { padding: 64px 60px 90px; }
+.s1-cover .slide-content {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.s1-cover .cover-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.3em;
+  margin-bottom: 18px;
+}
+.s1-cover h1 {
+  background: linear-gradient(135deg, var(--primary-soft) 0%, var(--accent-soft) 50%, var(--gold-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 18px;
+}
+.s1-cover .cover-sub {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--ink-soft);
+  letter-spacing: 0.06em;
+  margin-bottom: 36px;
+  max-width: 760px;
+}
+.s1-cover .cover-stats {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+.s1-cover .stat {
+  background: rgba(167, 139, 250, 0.10);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px 22px;
+  min-width: 140px;
+}
+.s1-cover .stat .num {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--primary-soft), var(--accent-soft));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 4px;
+}
+.s1-cover .stat .label {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.08em;
+}
+
+/* ============================================================
+   P2 目錄（方/網）— 6 卡片目錄
+   ============================================================ */
+.s2-toc { padding: 48px 60px 88px; }
+.s2-toc .toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 12px;
+  flex: 1;
+  min-height: 0;
+}
+.s2-toc .toc-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.s2-toc .toc-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%);
+}
+.s2-toc .toc-item:nth-child(2)::before { background: linear-gradient(180deg, var(--accent) 0%, var(--gold) 100%); }
+.s2-toc .toc-item:nth-child(3)::before { background: linear-gradient(180deg, var(--gold) 0%, var(--teal) 100%); }
+.s2-toc .toc-item:nth-child(4)::before { background: linear-gradient(180deg, var(--teal) 0%, var(--primary) 100%); }
+.s2-toc .toc-item:nth-child(5)::before { background: linear-gradient(180deg, var(--primary) 0%, var(--accent) 100%); }
+.s2-toc .toc-item:nth-child(6)::before { background: linear-gradient(180deg, var(--accent) 0%, var(--gold) 100%); }
+.s2-toc .toc-num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.s2-toc .toc-item:nth-child(2) .toc-num { color: var(--accent-soft); }
+.s2-toc .toc-item:nth-child(3) .toc-num { color: var(--gold-soft); }
+.s2-toc .toc-item:nth-child(4) .toc-num { color: var(--teal-soft); }
+.s2-toc .toc-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 8px 0 4px;
+}
+.s2-toc .toc-desc {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P3 時間軸（線/水）— 5 個關鍵節點
+   ============================================================ */
+.s3-timeline { padding: 52px 60px 96px; }
+.s3-timeline .timeline-h {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  align-items: stretch;
+}
+.s3-timeline .timeline-h::before {
+  content: '';
+  position: absolute;
+  top: 60px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--primary) 0%,
+    var(--accent) 35%,
+    var(--gold) 70%,
+    var(--teal) 100%);
+  z-index: 0;
+}
+.s3-timeline .t-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+.s3-timeline .t-year {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--gold-soft);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+.s3-timeline .t-node {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  border: 3px solid var(--bg-deep);
+  box-shadow: 0 0 14px rgba(167, 139, 250, 0.6);
+  margin-bottom: 14px;
+}
+.s3-timeline .t-item:nth-child(2) .t-node { background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%); }
+.s3-timeline .t-item:nth-child(3) .t-node { background: linear-gradient(135deg, var(--gold) 0%, var(--teal) 100%); }
+.s3-timeline .t-item:nth-child(4) .t-node { background: linear-gradient(135deg, var(--teal) 0%, var(--primary) 100%); }
+.s3-timeline .t-item:nth-child(5) .t-node { background: radial-gradient(circle, var(--accent-soft) 0%, var(--accent) 100%); }
+.s3-timeline .t-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 0;
+}
+.s3-timeline .t-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.s3-timeline .t-body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P4 概念（六/散）— 4 個六邊形
+   ============================================================ */
+.s4-concepts { padding: 52px 60px 90px; }
+.s4-concepts .hex-stack {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px 32px;
+  margin-top: 16px;
+  flex: 1;
+  min-height: 0;
+  align-content: center;
+}
+.s4-concepts .hex {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 18px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.s4-concepts .hex::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 18px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.s4-concepts .hex:nth-child(2)::before { background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%); }
+.s4-concepts .hex:nth-child(3)::before { background: linear-gradient(135deg, var(--gold) 0%, var(--teal) 100%); }
+.s4-concepts .hex:nth-child(4)::before { background: linear-gradient(135deg, var(--teal) 0%, var(--primary) 100%); }
+.s4-concepts .hex-tag {
+  display: inline-block;
+  width: fit-content;
+  background: rgba(167, 139, 250, 0.18);
+  color: var(--primary-soft);
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.s4-concepts .hex:nth-child(2) .hex-tag { background: rgba(244, 114, 182, 0.18); color: var(--accent-soft); }
+.s4-concepts .hex:nth-child(3) .hex-tag { background: rgba(251, 191, 36, 0.18); color: var(--gold-soft); }
+.s4-concepts .hex:nth-child(4) .hex-tag { background: rgba(45, 212, 191, 0.18); color: var(--teal-soft); }
+.s4-concepts .hex-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.s4-concepts .hex-body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.s4-concepts .hex-stat {
+  font-size: 1.1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-soft), var(--accent-soft));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: auto;
+}
+.s4-concepts .hex:nth-child(2) .hex-stat { background: linear-gradient(135deg, var(--accent-soft), var(--gold-soft)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.s4-concepts .hex:nth-child(3) .hex-stat { background: linear-gradient(135deg, var(--gold-soft), var(--teal-soft)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.s4-concepts .hex:nth-child(4) .hex-stat { background: linear-gradient(135deg, var(--teal-soft), var(--primary-soft)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* ============================================================
+   P5 流程（圓/水）— 6 個圓圈階段
+   ============================================================ */
+.s5-stages { padding: 52px 60px 90px; }
+.s5-stages .stages-wrap {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+  flex: 1;
+  min-height: 0;
+  align-content: center;
+}
+.s5-stages .stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  padding: 8px;
+}
+.s5-stages .stage:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -10px;
+  top: 38px;
+  color: var(--primary-soft);
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+.s5-stages .stage-circle {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 12px;
+  box-shadow: var(--glow-cool);
+}
+.s5-stages .stage:nth-child(2) .stage-circle { background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%); box-shadow: var(--glow-warm); }
+.s5-stages .stage:nth-child(3) .stage-circle { background: linear-gradient(135deg, var(--gold) 0%, var(--teal) 100%); box-shadow: var(--glow-gold); }
+.s5-stages .stage:nth-child(4) .stage-circle { background: linear-gradient(135deg, var(--teal) 0%, var(--primary) 100%); box-shadow: var(--glow-teal); }
+.s5-stages .stage:nth-child(5) .stage-circle { background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); box-shadow: var(--glow-cool); }
+.s5-stages .stage:nth-child(6) .stage-circle { background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%); box-shadow: var(--glow-warm); }
+.s5-stages .stage-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.s5-stages .stage-body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   P6 比較（方/垂）— 左右對比卡片 + 細節區塊
+   ============================================================ */
+.s6-compare { padding: 52px 60px 90px; }
+.s6-compare .cmp-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 18px;
+  margin-top: 18px;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+.s6-compare .cmp-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.s6-compare .cmp-card.cmp-ai {
+  border: 1px solid var(--border-warm);
+}
+.s6-compare .cmp-card.cmp-human {
+  border: 1px solid var(--border-cool);
+}
+.s6-compare .cmp-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--gold-soft);
+  width: 36px;
+}
+.s6-compare .cmp-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border-cool);
+}
+.s6-compare .cmp-head .cmp-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #fff;
+}
+.s6-compare .cmp-ai .cmp-mark { background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%); }
+.s6-compare .cmp-human .cmp-mark { background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%); }
+.s6-compare .cmp-title {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #fff;
+}
+.s6-compare .cmp-sub {
+  font-size: 1rem;
+  color: var(--ink-mute);
+}
+.s6-compare .cmp-row {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 8px 0;
+}
+.s6-compare .cmp-row .cmp-key {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.04em;
+}
+.s6-compare .cmp-row .cmp-val {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.s6-compare .cmp-foot {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-cool);
+  font-size: 1rem;
+  color: var(--gold-soft);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   P7 細節（特/網）— 9 格細節網格
+   ============================================================ */
+.s7-detail { padding: 48px 60px 88px; }
+.s7-detail .d-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+  flex: 1;
+  min-height: 0;
+}
+.s7-detail .d-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.s7-detail .d-cell.c1 { border-color: var(--border-cool); }
+.s7-detail .d-cell.c2 { border-color: var(--border-warm); }
+.s7-detail .d-cell.c3 { border-color: var(--border-gold); }
+.s7-detail .d-cell.c4 { border-color: var(--border-teal); }
+.s7-detail .d-cell.c5 { border-color: var(--border-cool); }
+.s7-detail .d-cell.c6 { border-color: var(--border-warm); }
+.s7-detail .d-cell.c7 { border-color: var(--border-gold); }
+.s7-detail .d-cell.c8 { border-color: var(--border-teal); }
+.s7-detail .d-cell.c9 { border-color: var(--border-cool); }
+.s7-detail .d-cell .d-num {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.s7-detail .d-cell .d-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.s7-detail .d-cell .d-body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+  flex: 1;
+}
+.s7-detail .d-cell .d-mark {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.s7-detail .d-cell.c1 .d-mark { background: var(--primary); box-shadow: 0 0 8px var(--primary); }
+.s7-detail .d-cell.c2 .d-mark { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.s7-detail .d-cell.c3 .d-mark { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+.s7-detail .d-cell.c4 .d-mark { background: var(--teal); box-shadow: 0 0 8px var(--teal); }
+.s7-detail .d-cell.c5 .d-mark { background: var(--primary); box-shadow: 0 0 8px var(--primary); }
+.s7-detail .d-cell.c6 .d-mark { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.s7-detail .d-cell.c7 .d-mark { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+.s7-detail .d-cell.c8 .d-mark { background: var(--teal); box-shadow: 0 0 8px var(--teal); }
+.s7-detail .d-cell.c9 .d-mark { background: var(--primary); box-shadow: 0 0 8px var(--primary); }
+
+/* ============================================================
+   P8 工具（線/網）— 3x2 工具流程
+   ============================================================ */
+.s8-tools { padding: 48px 60px 88px; }
+.s8-tools .tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+.s8-tools .tool {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+.s8-tools .tool::after {
+  content: '→';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-soft);
+  font-size: 1.2rem;
+  font-weight: 900;
+  z-index: 2;
+}
+.s8-tools .tool:nth-child(3)::after,
+.s8-tools .tool:last-child::after { content: ''; }
+.s8-tools .tool-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  margin-bottom: 4px;
+}
+.s8-tools .tool:nth-child(2) .tool-icon { background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%); }
+.s8-tools .tool:nth-child(3) .tool-icon { background: linear-gradient(135deg, var(--gold) 0%, var(--teal) 100%); }
+.s8-tools .tool:nth-child(4) .tool-icon { background: linear-gradient(135deg, var(--teal) 0%, var(--primary) 100%); }
+.s8-tools .tool:nth-child(5) .tool-icon { background: linear-gradient(135deg, var(--primary) 0%, var(--gold) 100%); }
+.s8-tools .tool:nth-child(6) .tool-icon { background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%); }
+.s8-tools .tool-icon svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.s8-tools .tool-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+}
+.s8-tools .tool-body {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+}
+.s8-tools .tool-tag {
+  display: inline-block;
+  margin-top: auto;
+  font-size: 1rem;
+  color: var(--gold-soft);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   P9 總結（無/單）— 3 條核心訊息
+   ============================================================ */
+.s9-summary { padding: 64px 80px 90px; align-items: center; justify-content: center; text-align: center; }
+.s9-summary .slide-content { align-items: center; justify-content: center; text-align: center; }
+.s9-summary .summary-head {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.25em;
+  margin-bottom: 14px;
+}
+.s9-summary h1 {
+  background: linear-gradient(135deg, var(--primary-soft) 0%, var(--accent-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 28px;
+}
+.s9-summary .summary-points {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 880px;
+  width: 100%;
+}
+.s9-summary .summary-points .pt {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 20px;
+  align-items: center;
+  text-align: left;
+  background: rgba(167, 139, 250, 0.08);
+  border: 1px solid var(--border-cool);
+  border-radius: 12px;
+  padding: 14px 22px;
+}
+.s9-summary .summary-points .pt .pt-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--gold-soft);
+  line-height: 1;
+  text-align: center;
+}
+.s9-summary .summary-points .pt.pt2 .pt-num { color: var(--accent-soft); }
+.s9-summary .summary-points .pt.pt3 .pt-num { color: var(--teal-soft); }
+.s9-summary .summary-points .pt .pt-text {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* ============================================================
+   P10 結尾（特/單）— CTA 結尾
+   ============================================================ */
+.s10-end {
+  padding: 60px 60px 80px;
+}
+.s10-end .slide-content { align-items: center; justify-content: center; text-align: center; }
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.3em;
+  margin-bottom: 24px;
+}
+.s10-end .end-orb {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(244, 114, 182, 0.85) 0%, rgba(167, 139, 250, 0.50) 50%, transparent 80%);
+  box-shadow: 0 0 70px rgba(244, 114, 182, 0.55);
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 3.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.92; }
+}
+.s10-end .end-orb .end-mark {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.s10-end h2 {
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.18;
+  margin-bottom: 16px;
+}
+.s10-end .end-sub {
+  font-size: 1.1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
+}
+.s10-end .end-cta {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 12px 36px;
+  border-radius: 30px;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  box-shadow: 0 0 28px rgba(167, 139, 250, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.s10-end .end-cta:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(244, 114, 182, 0.7); }
+.s10-end .end-foot {
+  margin-top: 28px;
+  font-size: 1rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.08em;
+}
+
+</style>
+</head>
+<body>
+
+<a class="back-link" href="/slides.htm">← 返回簡報列表</a>
+
+<div class="presentation">
+
+  <!-- 背景發光球 -->
+  <div class="glow-orb glow-orb-1"></div>
+  <div class="glow-orb glow-orb-2"></div>
+  <div class="glow-orb glow-orb-3"></div>
+
+  <!-- ============================================================
+       P1 封面（特/單）
+       ============================================================ -->
+  <div class="slide s1-cover active" id="slide-1">
+    <div class="slide-content">
+      <div class="cover-eyebrow">2026 · 創意設計專題 · 第 038 期</div>
+      <h1>設計的化學反應</h1>
+      <div class="cover-sub">當 AI 變成共同創作者——人類 × 機器的下一場共構實驗</div>
+      <div class="cover-stats">
+        <div class="stat">
+          <div class="num">73%</div>
+          <div class="label">設計師已用 AI 工具</div>
+        </div>
+        <div class="stat">
+          <div class="num">5.2×</div>
+          <div class="label">產出速度提升</div>
+        </div>
+        <div class="stat">
+          <div class="num">42%</div>
+          <div class="label">決策仍由人下</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">1 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P2 目錄（方/網）
+       ============================================================ -->
+  <div class="slide s2-toc" id="slide-2">
+    <div class="slide-content">
+      <div class="tag-warm">CONTENTS</div>
+      <h2>簡報目錄</h2>
+      <div class="lead">六個關鍵章節——從工具到哲學，看 AI 如何重寫設計的每一個環節</div>
+      <div class="toc-grid">
+        <div class="toc-item">
+          <div class="toc-num">01</div>
+          <div class="toc-title">協作進化史</div>
+          <div class="toc-desc">從 Photoshop 到 Midjourney 的五個時代</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-num">02</div>
+          <div class="toc-title">四種共構</div>
+          <div class="toc-desc">AI × 設計師的四種工作模式光譜</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-num">03</div>
+          <div class="toc-title">六階段流程</div>
+          <div class="toc-desc">從發想到交付的完整 AI 協作鏈</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-num">04</div>
+          <div class="toc-title">人機分工</div>
+          <div class="toc-desc">AI 擅長什麼、人類該守住什麼</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-num">05</div>
+          <div class="toc-title">九個細節</div>
+          <div class="toc-desc">AI 時代設計師必須內化的關鍵素養</div>
+        </div>
+        <div class="toc-item">
+          <div class="toc-num">06</div>
+          <div class="toc-title">工具箱</div>
+          <div class="toc-desc">六款主流 AI 設計工具的位置與角色</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">2 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P3 時間軸（線/水）
+       ============================================================ -->
+  <div class="slide s3-timeline" id="slide-3">
+    <div class="slide-content">
+      <div class="tag">協作進化史</div>
+      <h2>設計 × 工具的五個時代</h2>
+      <div class="lead">從紙筆到生成式 AI，每一次工具革命都重新定義「誰是設計師」</div>
+      <div class="timeline-h">
+        <div class="t-item">
+          <div class="t-year">1990</div>
+          <div class="t-node"></div>
+          <div class="t-card">
+            <div class="t-title">數位手繪</div>
+            <div class="t-body">Photoshop 1.0 上市，設計進入像素時代</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">2007</div>
+          <div class="t-node"></div>
+          <div class="t-card">
+            <div class="t-title">雲端協作</div>
+            <div class="t-body">Figma 開啟多人即時共編工作流</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">2018</div>
+          <div class="t-node"></div>
+          <div class="t-card">
+            <div class="t-title">生成式起點</div>
+            <div class="t-body">DALL·E 與 Midjourney 開啟文字生圖</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">2024</div>
+          <div class="t-node"></div>
+          <div class="t-card">
+            <div class="t-title">多模態成熟</div>
+            <div class="t-body">GPT-4V 讓 AI 同時讀懂圖文並回應</div>
+          </div>
+        </div>
+        <div class="t-item">
+          <div class="t-year">2026+</div>
+          <div class="t-node"></div>
+          <div class="t-card">
+            <div class="t-title">共同創作者</div>
+            <div class="t-body">Agentic AI 主動提案並迭代設計</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">3 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P4 概念（六/散）
+       ============================================================ -->
+  <div class="slide s4-concepts" id="slide-4">
+    <div class="slide-content">
+      <div class="tag-gold">四種共構</div>
+      <h2>AI × 設計師的四種工作模式光譜</h2>
+      <div class="lead">從「AI 只是工具」到「AI 是共同作者」——四種模式各有最佳場景</div>
+      <div class="hex-stack">
+        <div class="hex">
+          <div class="hex-tag">ASSIST</div>
+          <div class="hex-title">助手型</div>
+          <div class="hex-body">AI 處理雜務（去背、上色、修圖），人類專注構圖與決策。最普及的起點。</div>
+          <div class="hex-stat">73% 設計師使用此模式</div>
+        </div>
+        <div class="hex">
+          <div class="hex-tag">BRAINSTORM</div>
+          <div class="hex-title">激盪型</div>
+          <div class="hex-body">AI 提出大量變體，人類篩選並深化。適合風格探索初期。</div>
+          <div class="hex-stat">產出速度提升 5.2×</div>
+        </div>
+        <div class="hex">
+          <div class="hex-tag">CO-AUTHOR</div>
+          <div class="hex-title">共筆型</div>
+          <div class="hex-body">AI 起草、人類編輯，雙方反覆迭代。文字、海報、品牌識別最有效。</div>
+          <div class="hex-stat">客戶滿意度 +38%</div>
+        </div>
+        <div class="hex">
+          <div class="hex-tag">AUTONOMOUS</div>
+          <div class="hex-title">自主型</div>
+          <div class="hex-body">Agentic AI 自主提案、產出、A/B 測試，人類僅設目標與把關。</div>
+          <div class="hex-stat">2027 預估 28% 專案採用</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">4 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P5 流程（圓/水）
+       ============================================================ -->
+  <div class="slide s5-stages" id="slide-5">
+    <div class="slide-content">
+      <div class="tag-teal">六階段流程</div>
+      <h2>從發想到交付的完整 AI 協作鏈</h2>
+      <div class="lead">每個階段 AI 與人類的角色分配不同——這張圖告訴你什麼時候放手、什麼時候接手</div>
+      <div class="stages-wrap">
+        <div class="stage">
+          <div class="stage-circle">1</div>
+          <div class="stage-title">發想</div>
+          <div class="stage-body">AI 產生<br/>100 變體</div>
+        </div>
+        <div class="stage">
+          <div class="stage-circle">2</div>
+          <div class="stage-title">篩選</div>
+          <div class="stage-body">人類挑選<br/>10 方向</div>
+        </div>
+        <div class="stage">
+          <div class="stage-circle">3</div>
+          <div class="stage-title">深化</div>
+          <div class="stage-body">AI 細化<br/>細節調整</div>
+        </div>
+        <div class="stage">
+          <div class="stage-circle">4</div>
+          <div class="stage-title">組合</div>
+          <div class="stage-body">人類決定<br/>最終構圖</div>
+        </div>
+        <div class="stage">
+          <div class="stage-circle">5</div>
+          <div class="stage-title">優化</div>
+          <div class="stage-body">AI 批量<br/>尺寸規格</div>
+        </div>
+        <div class="stage">
+          <div class="stage-circle">6</div>
+          <div class="stage-title">把關</div>
+          <div class="stage-body">人類做最後<br/>品牌審核</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">5 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P6 比較（方/垂）
+       ============================================================ -->
+  <div class="slide s6-compare" id="slide-6">
+    <div class="slide-content">
+      <div class="tag-warm">人機分工</div>
+      <h2>AI 擅長什麼、人類該守住什麼</h2>
+      <div class="lead">把對的工作交給對的執行者——不是取代，是互補</div>
+      <div class="cmp-grid">
+        <div class="cmp-card cmp-ai">
+          <div class="cmp-head">
+            <div class="cmp-mark">AI</div>
+            <div>
+              <div class="cmp-title">機器的強項</div>
+              <div class="cmp-sub">計算 × 重複 × 變體</div>
+            </div>
+          </div>
+          <div class="cmp-row"><span class="cmp-key">速度</span><span class="cmp-val">毫秒級批量生成</span></div>
+          <div class="cmp-row"><span class="cmp-key">變體</span><span class="cmp-val">單次 100+ 風格</span></div>
+          <div class="cmp-row"><span class="cmp-key">規格</span><span class="cmp-val">多尺寸自動轉檔</span></div>
+          <div class="cmp-row"><span class="cmp-key">一致</span><span class="cmp-val">色票字級零誤差</span></div>
+          <div class="cmp-foot">⚡ 適合處理「量」的工作</div>
+        </div>
+        <div class="cmp-divider">⇄</div>
+        <div class="cmp-card cmp-human">
+          <div class="cmp-head">
+            <div class="cmp-mark">人</div>
+            <div>
+              <div class="cmp-title">人類的強項</div>
+              <div class="cmp-sub">判斷 × 情感 × 故事</div>
+            </div>
+          </div>
+          <div class="cmp-row"><span class="cmp-key">品味</span><span class="cmp-val">什麼是好設計</span></div>
+          <div class="cmp-row"><span class="cmp-key">語境</span><span class="cmp-val">文化與受眾解讀</span></div>
+          <div class="cmp-row"><span class="cmp-key">倫理</span><span class="cmp-val">界線與價值取捨</span></div>
+          <div class="cmp-row"><span class="cmp-key">敘事</span><span class="cmp-val">說故事的能力</span></div>
+          <div class="cmp-foot">🎯 適合處理「質」的決策</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">6 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P7 細節（特/網）
+       ============================================================ -->
+  <div class="slide s7-detail" id="slide-7">
+    <div class="slide-content">
+      <div class="tag-gold">九個細節</div>
+      <h2>AI 時代設計師的九個關鍵素養</h2>
+      <div class="lead">當機器接手執行，人類必須升級品味、判斷、整合——這九項是必修學分</div>
+      <div class="d-grid">
+        <div class="d-cell c1">
+          <div class="d-mark"></div>
+          <div class="d-num">01</div>
+          <div class="d-title">提示工程</div>
+          <div class="d-body">把模糊意念化為精準指令的能力</div>
+        </div>
+        <div class="d-cell c2">
+          <div class="d-mark"></div>
+          <div class="d-num">02</div>
+          <div class="d-title">審美判斷</div>
+          <div class="d-body">在 100 個 AI 變體中看見最好的一個</div>
+        </div>
+        <div class="d-cell c3">
+          <div class="d-mark"></div>
+          <div class="d-num">03</div>
+          <div class="d-title">品牌語彙</div>
+          <div class="d-body">把 AI 產物校正回品牌一致性</div>
+        </div>
+        <div class="d-cell c4">
+          <div class="d-mark"></div>
+          <div class="d-num">04</div>
+          <div class="d-title">版權意識</div>
+          <div class="d-body">理解訓練資料與授權的灰色地帶</div>
+        </div>
+        <div class="d-cell c5">
+          <div class="d-mark"></div>
+          <div class="d-num">05</div>
+          <div class="d-title">資料素養</div>
+          <div class="d-body">看懂模型偏誤與資料限制</div>
+        </div>
+        <div class="d-cell c6">
+          <div class="d-mark"></div>
+          <div class="d-num">06</div>
+          <div class="d-title">協作流程</div>
+          <div class="d-body">設計人機交替的工作節奏</div>
+        </div>
+        <div class="d-cell c7">
+          <div class="d-mark"></div>
+          <div class="d-num">07</div>
+          <div class="d-title">原創定位</div>
+          <div class="d-body">找到機器無法複製的個人視角</div>
+        </div>
+        <div class="d-cell c8">
+          <div class="d-mark"></div>
+          <div class="d-num">08</div>
+          <div class="d-title">迭代速度</div>
+          <div class="d-body">快速產出快速失敗的勇氣</div>
+        </div>
+        <div class="d-cell c9">
+          <div class="d-mark"></div>
+          <div class="d-num">09</div>
+          <div class="d-title">人文底蘊</div>
+          <div class="d-body">文學、哲學、史學是終極護城河</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">7 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P8 工具（線/網）
+       ============================================================ -->
+  <div class="slide s8-tools" id="slide-8">
+    <div class="slide-content">
+      <div class="tag-teal">工具箱</div>
+      <h2>六款主流 AI 設計工具的位置與角色</h2>
+      <div class="lead">沒有最好，只有最合適——認識每個工具的強項，讓它們在流程中各司其職</div>
+      <div class="tool-grid">
+        <div class="tool">
+          <div class="tool-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+          <div class="tool-title">Midjourney</div>
+          <div class="tool-body">風格化圖像生成，藝術感最強，適合前期視覺探索</div>
+          <div class="tool-tag">風格探索 → 概念圖</div>
+        </div>
+        <div class="tool">
+          <div class="tool-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div class="tool-title">Figma AI</div>
+          <div class="tool-body">介面設計原生助手，自動生成元件與變體</div>
+          <div class="tool-tag">UI 設計 → 元件生成</div>
+        </div>
+        <div class="tool">
+          <div class="tool-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z M4 12h16 M12 4v16"/></svg></div>
+          <div class="tool-title">Adobe Firefly</div>
+          <div class="tool-body">與 Photoshop / Illustrator 深度整合，商用授權最完整</div>
+          <div class="tool-tag">商業授權 → 安全產出</div>
+        </div>
+        <div class="tool">
+          <div class="tool-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18 M7 14l3-3 4 4 6-6"/></svg></div>
+          <div class="tool-title">Galileo AI</div>
+          <div class="tool-body">文字轉 UI，自動產生完整介面稿與設計系統</div>
+          <div class="tool-tag">文字生 UI → 快速原型</div>
+        </div>
+        <div class="tool">
+          <div class="tool-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg></div>
+          <div class="tool-title">Runway Gen-4</div>
+          <div class="tool-body">影片生成與編輯，把靜態設計動起來的利器</div>
+          <div class="tool-tag">動態設計 → 影片產出</div>
+        </div>
+        <div class="tool">
+          <div class="tool-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5"/></svg></div>
+          <div class="tool-title">Claude/GPT</div>
+          <div class="tool-body">文字策略夥伴，協助文案、SOP、品牌語彙發展</div>
+          <div class="tool-tag">策略文案 → 品牌對話</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">8 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P9 總結（無/單）
+       ============================================================ -->
+  <div class="slide s9-summary" id="slide-9">
+    <div class="slide-content">
+      <div class="summary-head">KEY TAKEAWAYS</div>
+      <h1>三個記住的訊息</h1>
+      <div class="summary-points">
+        <div class="pt pt1">
+          <div class="pt-num">01</div>
+          <div class="pt-text">AI 不是來搶走設計師的工作，是來重新定義「設計師是誰」——品味、判斷、敘事能力變得更值錢。</div>
+        </div>
+        <div class="pt pt2">
+          <div class="pt-num">02</div>
+          <div class="pt-text">未來的設計流程是「人機交替」而非「人 vs 機」——知道什麼時候放手、什麼時候接手是核心競爭力。</div>
+        </div>
+        <div class="pt pt3">
+          <div class="pt-num">03</div>
+          <div class="pt-text">最危險的不是 AI 太強，是設計師停止學習人文——文學、哲學、史學是機器無法複製的終極護城河。</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">9 / 10</span>
+      <button onclick="next()" aria-label="下一頁">▶</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P10 結尾（特/單）
+       ============================================================ -->
+  <div class="slide s10-end" id="slide-10">
+    <div class="slide-content">
+      <div class="end-eyebrow">FROM THE BEAR MUSEUM · 2026</div>
+      <div class="end-orb"><div class="end-mark">5.2×</div></div>
+      <h2>讓 AI 處理雜務，<br/>讓人類專注於意義</h2>
+      <div class="end-sub">每天一篇簡報，陪你掌握創意設計的關鍵轉折</div>
+      <a class="end-cta" href="/slides.htm">回到簡報列表</a>
+      <div class="end-foot">© 2026 熊熊博物館 · Bear Creative Studio</div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" aria-label="上一頁">◀</button>
+      <span id="nav-text">10 / 10</span>
+      <button onclick="next()" aria-label="下一頁" disabled>▶</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ============================================================
+  // 簡報切換核心邏輯（含 show() 初始化防禦性檢查）
+  // ============================================================
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  // 顯示指定頁面（含防禦性檢查）
+  function show() {
+    if (typeof current !== 'number' || current < 0 || current >= slides.length) return;
+    // 移除所有 slide 的 active
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove('active');
+    }
+    // 設定當前 slide 為 active
+    if (slides[current]) {
+      slides[current].classList.add('active');
+    }
+  }
+
+  function next() {
+    if (current < total - 1) {
+      current++;
+      show();
+    }
+  }
+
+  function prev() {
+    if (current > 0) {
+      current--;
+      show();
+    }
+  }
+
+  // 鍵盤左右鍵
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
+  });
+
+  // 初始化：確保第一頁是 active
+  slides.forEach((s, i) => {
+    if (i === 0) s.classList.add('active');
+    else s.classList.remove('active');
+  });
+</script>
+
+</body>
+</html>
