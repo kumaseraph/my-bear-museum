@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Q4 台灣經濟展望：通膨降溫後的投資新局｜2026-09-10 商業財經｜熊熊博物館</title>
+
+<!-- ============================
+     配色 C5 企業深藍
+     模板 V11 霓虹都會 (Neon Noir)
+     主題：2026 Q4 台灣經濟展望
+     ============================ -->
+
+<!-- C5 企業深藍 配色 -->
+<link rel="stylesheet" href="/studio/design/visual-templates/colors/colors-C5-corporate-navy.css">
+<!-- V11 霓虹都會 模板 -->
+<link rel="stylesheet" href="/studio/design/visual-templates/structures/v11-neon-noir-structure.css">
+
+<style>
+/* =====================
+   0. 基盤（最高優先）
+   ===================== */
+html { font-size: 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(160deg, #0a1628 0%, #0d1f3c 60%, #1a2a4a 100%);
+  color: var(--text, #e3f2fd);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 16:9 容器 */
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse 60% 40% at 20% 10%, rgba(255, 45, 120, 0.10) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 30% at 80% 90%, rgba(0, 212, 255, 0.12) 0%, transparent 60%),
+              linear-gradient(180deg, #0a1628 0%, #0d1f3c 100%);
+  border-radius: 14px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.5), 0 0 0 1px rgba(0, 212, 255, 0.18), 0 0 80px rgba(255, 45, 120, 0.10);
+}
+
+/* 換頁機制 */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  padding: 48px 56px 96px;
+  overflow: hidden;
+}
+.slide-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.slide.active { display: block; }
+
+/* =====================
+   1. 共用元件
+   ===================== */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 360px; height: 360px; background: rgba(255, 45, 120, 0.30); top: -120px; right: -120px; }
+.glow-orb-2 { width: 280px; height: 280px; background: rgba(0, 212, 255, 0.25); bottom: -80px; left: -80px; }
+.glow-orb-3 { width: 220px; height: 220px; background: rgba(21, 101, 192, 0.35); top: 40%; left: 60%; }
+
+/* 標題系統 */
+.eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: #00d4ff;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+.section-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-top: 0.6rem;
+  line-height: 1.1;
+}
+.section-sub {
+  font-size: 1.05rem;
+  color: #90caf9;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+/* 導航列 */
+.nav {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(10, 22, 40, 0.85);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  padding: 8px 18px;
+  border-radius: 24px;
+  z-index: 10;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+}
+.nav button {
+  background: transparent;
+  color: #00d4ff;
+  border: 1px solid rgba(0, 212, 255, 0.5);
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.nav button:hover {
+  background: rgba(0, 212, 255, 0.18);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+}
+.nav .page-num {
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  min-width: 64px;
+  text-align: center;
+}
+.nav a {
+  color: #00d4ff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 212, 255, 0.5);
+  border-radius: 8px;
+}
+
+/* 通用霓虹卡片 */
+.neon-card {
+  background: rgba(13, 31, 60, 0.7);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 10px;
+  padding: 1.2rem;
+  position: relative;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.10), inset 0 0 20px rgba(0, 212, 255, 0.04);
+  transition: all 0.3s ease;
+}
+.neon-card:hover {
+  border-color: rgba(255, 45, 120, 0.6);
+  box-shadow: 0 0 24px rgba(255, 45, 120, 0.25), inset 0 0 24px rgba(255, 45, 120, 0.06);
+}
+.neon-card.pink {
+  border-color: rgba(255, 45, 120, 0.4);
+  box-shadow: 0 0 20px rgba(255, 45, 120, 0.10);
+}
+.neon-card.pink:hover {
+  border-color: rgba(255, 45, 120, 0.7);
+  box-shadow: 0 0 28px rgba(255, 45, 120, 0.35);
+}
+
+/* ============================
+   P1 封面（特/單，3 區塊）— 霓虹光暈大圓 + 大標題 + 統計列
+   ============================ */
+.s1-cover .cover-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: #ff2d78;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 45, 120, 0.5);
+}
+.s1-cover h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #ffffff 0%, #00d4ff 60%, #ff2d78 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  max-width: 950px;
+  margin-bottom: 0.8rem;
+}
+.s1-cover .cover-sub {
+  font-size: 1.4rem;
+  color: #e3f2fd;
+  font-weight: 500;
+  max-width: 800px;
+  line-height: 1.5;
+  margin-bottom: 1.6rem;
+}
+.s1-cover .meta-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.s1-cover .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  color: #90caf9;
+  font-weight: 500;
+}
+.s1-cover .meta-item svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.s1-cover .hero-icon {
+  position: absolute;
+  right: 60px;
+  top: 18%;
+  width: 340px;
+  height: 340px;
+  opacity: 0.95;
+}
+.s1-cover .quick-stats {
+  display: flex;
+  gap: 1.6rem;
+  margin-top: 1.4rem;
+  flex-wrap: wrap;
+}
+.s1-cover .qs-card {
+  background: rgba(13, 31, 60, 0.7);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 18px rgba(0, 212, 255, 0.18);
+  padding: 0.9rem 1.4rem;
+  backdrop-filter: blur(8px);
+}
+.s1-cover .qs-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ff2d78;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 10px rgba(255, 45, 120, 0.5);
+}
+.s1-cover .qs-num .qs-pct { font-size: 1rem; color: #00d4ff; margin-left: 4px; text-shadow: 0 0 8px rgba(0, 212, 255, 0.5); }
+.s1-cover .qs-label {
+  font-size: 1rem;
+  color: #90caf9;
+  font-weight: 500;
+  margin-top: 0.3rem;
+}
+
+/* ============================
+   P2 目錄（方/網，6 區塊）
+   ============================ */
+.s2-agenda .agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 1.6rem;
+  flex: 1;
+}
+.agenda-card {
+  background: rgba(13, 31, 60, 0.65);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  padding: 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  position: relative;
+  backdrop-filter: blur(8px);
+  transition: all 0.25s;
+}
+.agenda-card:hover {
+  border-color: rgba(255, 45, 120, 0.6);
+  box-shadow: 0 0 24px rgba(255, 45, 120, 0.25);
+  transform: translateY(-2px);
+}
+.agenda-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, #00d4ff, #ff2d78);
+}
+.agenda-card .agenda-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ff2d78;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-shadow: 0 0 8px rgba(255, 45, 120, 0.4);
+}
+.agenda-card .agenda-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 0.2rem;
+}
+.agenda-card .agenda-desc {
+  font-size: 1rem;
+  color: #90caf9;
+  line-height: 1.4;
+  margin-top: 0.3rem;
+}
+
+/* ============================
+   P3 三軌圖（線/垂，4 區塊）
+   ============================ */
+.s3-tracks .tracks-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 1.2rem;
+  flex: 1;
+}
+.track-row {
+  display: flex;
+  align-items: center;
+  background: rgba(13, 31, 60, 0.65);
+  border: 1px solid rgba(0, 212, 255, 0.30);
+  border-radius: 10px;
+  padding: 1rem 1.4rem;
+  gap: 1.4rem;
+  position: relative;
+  backdrop-filter: blur(6px);
+}
+.track-row.pink {
+  border-color: rgba(255, 45, 120, 0.40);
+}
+.track-row .trk-icon {
+  width: 56px; height: 56px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(0, 212, 255, 0.10);
+  border: 1px solid rgba(0, 212, 255, 0.5);
+  display: flex; align-items: center; justify-content: center;
+}
+.track-row.pink .trk-icon {
+  background: rgba(255, 45, 120, 0.10);
+  border-color: rgba(255, 45, 120, 0.5);
+}
+.track-row .trk-icon svg { width: 32px; height: 32px; }
+.track-row .trk-body { flex: 1; }
+.track-row .trk-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.track-row .trk-desc {
+  font-size: 1rem;
+  color: #90caf9;
+  margin-top: 0.2rem;
+  line-height: 1.4;
+}
+.track-row .trk-bignum {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #00d4ff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+  min-width: 130px;
+  text-align: right;
+}
+.track-row.pink .trk-bignum {
+  color: #ff2d78;
+  text-shadow: 0 0 10px rgba(255, 45, 120, 0.5);
+}
+.track-row .trk-trend {
+  font-size: 1rem;
+  color: #90caf9;
+  margin-top: 0.4rem;
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
+/* ============================
+   P4 六大板塊（六/散，7 區塊）— 蜂巢散落
+   ============================ */
+.s4-sectors .sectors-layout {
+  flex: 1;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px;
+}
+.hex-tile {
+  background: rgba(13, 31, 60, 0.65);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  position: relative;
+  backdrop-filter: blur(8px);
+  clip-path: polygon(6% 0%, 94% 0%, 100% 50%, 94% 100%, 6% 100%, 0% 50%);
+  transition: all 0.25s;
+}
+.hex-tile:hover {
+  border-color: rgba(255, 45, 120, 0.7);
+  box-shadow: 0 0 24px rgba(255, 45, 120, 0.3);
+}
+.hex-tile.pink {
+  border-color: rgba(255, 45, 120, 0.5);
+}
+.hex-tile.pink:hover {
+  box-shadow: 0 0 28px rgba(255, 45, 120, 0.4);
+}
+.hex-tile .hx-name {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+}
+.hex-tile .hx-amount {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #00d4ff;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+  letter-spacing: -0.02em;
+}
+.hex-tile.pink .hx-amount {
+  color: #ff2d78;
+  text-shadow: 0 0 8px rgba(255, 45, 120, 0.5);
+}
+.hex-tile .hx-unit {
+  font-size: 1rem;
+  color: #90caf9;
+  font-weight: 500;
+}
+
+/* ============================
+   P5 投資組合（圓/水，4 區塊）— 三圓堆疊 + 摘要
+   ============================ */
+.s5-portfolio .pf-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex: 1;
+  margin-top: 1rem;
+}
+.pf-donut-wrap {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pf-donut-wrap svg {
+  max-width: 360px;
+  max-height: 360px;
+  width: 100%; height: auto;
+}
+.pf-summary {
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pf-card {
+  background: rgba(13, 31, 60, 0.65);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 10px;
+  padding: 1rem 1.3rem;
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.25s;
+}
+.pf-card:hover {
+  border-color: rgba(255, 45, 120, 0.6);
+  box-shadow: 0 0 20px rgba(255, 45, 120, 0.25);
+}
+.pf-card.pink { border-color: rgba(255, 45, 120, 0.5); }
+.pf-card .pf-dot {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px currentColor;
+}
+.pf-card .pf-body { flex: 1; }
+.pf-card .pf-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.pf-card .pf-desc {
+  font-size: 1rem;
+  color: #90caf9;
+  margin-top: 0.2rem;
+}
+.pf-card .pf-pct {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #00d4ff;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+.pf-card.pink .pf-pct {
+  color: #ff2d78;
+  text-shadow: 0 0 8px rgba(255, 45, 120, 0.5);
+}
+
+/* ============================
+   P6 三大風險（特/網，4 區塊）— 4 卡片含總結
+   ============================ */
+.s6-risk .risk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 1.4rem;
+  flex: 1;
+}
+.risk-card {
+  background: rgba(13, 31, 60, 0.7);
+  border: 1px solid rgba(255, 45, 120, 0.45);
+  border-radius: 10px;
+  padding: 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 18px rgba(255, 45, 120, 0.12);
+  overflow: hidden;
+}
+.risk-card .warn-icon {
+  width: 48px; height: 48px;
+  margin-bottom: 0.4rem;
+}
+.risk-card .risk-num {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #ff2d78;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 8px rgba(255, 45, 120, 0.4);
+}
+.risk-card .risk-title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-top: 0.3rem;
+  line-height: 1.2;
+}
+.risk-card .risk-desc {
+  font-size: 1rem;
+  color: #90caf9;
+  margin-top: 0.5rem;
+  line-height: 1.45;
+  flex: 1;
+}
+.risk-card .risk-level {
+  margin-top: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(255, 45, 120, 0.20);
+}
+.risk-card .level-badge {
+  background: rgba(255, 45, 120, 0.20);
+  color: #ff2d78;
+  padding: 3px 10px;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(255, 45, 120, 0.5);
+}
+
+/* ============================
+   P7 ETF × 主動基金（方/水，5 區塊）— 水平 5 卡片
+   ============================ */
+.s7-fund .fund-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 1.4rem;
+  flex: 1;
+}
+.fund-card {
+  flex: 1;
+  background: rgba(13, 31, 60, 0.7);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 10px;
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.10);
+}
+.fund-card.headline {
+  border-color: rgba(255, 45, 120, 0.55);
+  background: linear-gradient(160deg, rgba(255, 45, 120, 0.10) 0%, rgba(13, 31, 60, 0.7) 100%);
+  box-shadow: 0 0 20px rgba(255, 45, 120, 0.18);
+}
+.fund-card .fc-icon {
+  width: 40px; height: 40px;
+}
+.fund-card .fc-tag {
+  font-size: 1rem;
+  color: #00d4ff;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+.fund-card.headline .fc-tag { color: #ff2d78; }
+.fund-card .fc-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.25;
+}
+.fund-card .fc-stat {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: #00d4ff;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+  letter-spacing: -0.02em;
+}
+.fund-card.headline .fc-stat { color: #ff2d78; text-shadow: 0 0 8px rgba(255, 45, 120, 0.5); }
+.fund-card .fc-desc {
+  font-size: 1rem;
+  color: #90caf9;
+  line-height: 1.4;
+  margin-top: auto;
+}
+
+/* ============================
+   P8 新興科技 × 傳產（線/散，5 區塊）— 雙軌佈局
+   ============================ */
+.s8-tracks2 .trk2-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 1.4rem;
+  flex: 1;
+}
+.trk2-col {
+  background: rgba(13, 31, 60, 0.65);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 12px;
+  padding: 1.2rem 1.3rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 18px rgba(0, 212, 255, 0.10);
+  position: relative;
+}
+.trk2-col.traditional {
+  border-color: rgba(255, 45, 120, 0.5);
+  box-shadow: 0 0 18px rgba(255, 45, 120, 0.10);
+}
+.trk2-col .trk2-head {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+}
+.trk2-col.traditional .trk2-head { border-bottom-color: rgba(255, 45, 120, 0.25); }
+.trk2-col .trk2-head-icon { width: 44px; height: 44px; flex-shrink: 0; }
+.trk2-col .trk2-head-title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+.trk2-col .trk2-head-stat {
+  font-size: 1rem;
+  color: #90caf9;
+  margin-top: 0.2rem;
+  letter-spacing: 0.04em;
+}
+.trk2-col .trk2-head-stat strong { color: #00d4ff; font-weight: 900; }
+.trk2-col.traditional .trk2-head-stat strong { color: #ff2d78; }
+.trk2-col .trk2-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.trk2-col .trk2-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.4rem 0;
+}
+.trk2-col .trk2-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #00d4ff;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+  flex-shrink: 0;
+}
+.trk2-col.traditional .trk2-dot {
+  background: #ff2d78;
+  box-shadow: 0 0 8px rgba(255, 45, 120, 0.6);
+}
+.trk2-col .trk2-item-text {
+  font-size: 1.05rem;
+  color: #e3f2fd;
+  font-weight: 600;
+}
+.trk2-col .trk2-item-meta {
+  font-size: 1rem;
+  color: #90caf9;
+  margin-left: auto;
+  font-weight: 700;
+}
+
+/* ============================
+   P9 行動清單（圓/網，6 區塊）— 2x3 grid
+   ============================ */
+.s9-action .action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 1.4rem;
+  flex: 1;
+}
+.action-card {
+  background: rgba(13, 31, 60, 0.7);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.08);
+  position: relative;
+  transition: all 0.25s;
+}
+.action-card:hover {
+  border-color: rgba(255, 45, 120, 0.55);
+  box-shadow: 0 0 22px rgba(255, 45, 120, 0.20);
+}
+.action-card .ac-num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #ff2d78;
+  text-shadow: 0 0 8px rgba(255, 45, 120, 0.5);
+  line-height: 1;
+  min-width: 38px;
+}
+.action-card .ac-body { flex: 1; }
+.action-card .ac-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.2;
+}
+.action-card .ac-desc {
+  font-size: 1rem;
+  color: #90caf9;
+  margin-top: 0.3rem;
+  line-height: 1.4;
+}
+
+/* ============================
+   P10 結尾（無/單，3 區塊）
+   ============================ */
+.s10-end .end-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+}
+.s10-end .end-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.4em;
+  color: #00d4ff;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+.s10-end .end-thanks {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ffffff 0%, #00d4ff 60%, #ff2d78 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.s10-end .end-contact {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(13, 31, 60, 0.7);
+  border: 1px solid rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+}
+.s10-end .end-contact svg { width: 32px; height: 32px; }
+.s10-end .end-contact-text {
+  font-size: 1.1rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+.s10-end .bear-mark {
+  width: 80px;
+  height: 80px;
+  margin-top: 0.6rem;
+}
+
+</style>
+</head>
+
+<body class="v11-neon-noir">
+
+<div class="presentation">
+
+  <!-- ============================ P1 封面 ============================ -->
+  <section class="slide s1-cover active" id="s1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="slide-inner">
+      <div class="cover-eyebrow">BUSINESS · FINANCE · Q4 · 2026</div>
+      <h1>2026 Q4 台灣<br/>經濟展望</h1>
+      <p class="cover-sub">通膨降溫後的投資新局<br/>— 從降息預期到板塊輪動</p>
+
+      <div class="meta-row">
+        <div class="meta-item">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="14" width="48" height="44" rx="4"/>
+            <path d="M8 26h48M20 8v12M44 8v12M20 38h6M34 38h6M20 48h6M34 48h6"/>
+          </svg>
+          <span>2026.09.10（週四）</span>
+        </div>
+        <div class="meta-item">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 6 L48 22 L48 46 L16 46 L16 22 Z"/>
+            <path d="M24 34 L30 40 L42 28"/>
+          </svg>
+          <span>商業財經主題</span>
+        </div>
+        <div class="meta-item">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#ff2d78" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="22"/>
+            <path d="M32 18v28M24 26h16M24 38h16"/>
+          </svg>
+          <span>配色 C5 · 模板 V11</span>
+        </div>
+        <div class="meta-item">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 48h44M14 40l10-14 8 10 8-18 10 22"/>
+          </svg>
+          <span>熊熊博物館 · kumaweb</span>
+        </div>
+      </div>
+
+      <div class="quick-stats">
+        <div class="qs-card">
+          <div class="qs-num">2.1<span class="qs-pct">% CPI</span></div>
+          <div class="qs-label">2026 Q4 通膨預估（近 3 年低點）</div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-num">1.625<span class="qs-pct">% 利率</span></div>
+          <div class="qs-label">央行 Q4 政策利率（降息 1 碼）</div>
+        </div>
+        <div class="qs-card">
+          <div class="qs-num">6<span class="qs-pct">板塊</span></div>
+          <div class="qs-label">半導體 / AI 伺服器 / 重電 / 綠能 / 航運 / 金融</div>
+        </div>
+      </div>
+    </div>
+
+    <svg class="hero-icon" viewBox="0 0 240 240" fill="none">
+      <defs>
+        <radialGradient id="cover-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ff2d78" stop-opacity="0.9"/>
+          <stop offset="60%" stop-color="#00d4ff" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="120" cy="120" r="110" fill="url(#cover-glow)"/>
+      <circle cx="120" cy="120" r="80" stroke="#ff2d78" stroke-width="2" fill="none" opacity="0.6"/>
+      <circle cx="120" cy="120" r="56" stroke="#00d4ff" stroke-width="3" fill="none"/>
+      <text x="120" y="118" font-size="42" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-0.02em">Q4</text>
+      <text x="120" y="146" font-size="16" font-weight="800" fill="#00d4ff" text-anchor="middle" letter-spacing="0.12em">2026</text>
+      <path d="M30 50 L60 30" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <path d="M210 50 L180 30" stroke="#ff2d78" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <path d="M30 190 L60 210" stroke="#ff2d78" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <path d="M210 190 L180 210" stroke="#00d4ff" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+    </svg>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <span class="page-num">01 / 10</span>
+      <button data-target="s2">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P2 目錄 ============================ -->
+  <section class="slide s2-agenda" id="s2">
+    <div class="glow-orb glow-orb-2"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">目錄 · AGENDA</div>
+      <h2 class="section-title">七大主題，看懂 2026 Q4 投資新局</h2>
+      <p class="section-sub">從全球訊號到板塊輪動，從風險地雷到行動清單</p>
+
+      <div class="agenda-grid">
+        <div class="agenda-card">
+          <div class="agenda-num">01</div>
+          <div class="agenda-title">全球訊號</div>
+          <div class="agenda-desc">Fed 降息預期、美元指數、油價、AI 投資</div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">02</div>
+          <div class="agenda-title">三軌分析</div>
+          <div class="agenda-desc">台灣 GDP × 通膨 × 利率的政策方向</div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">03</div>
+          <div class="agenda-title">六大板塊</div>
+          <div class="agenda-desc">半導體、AI 伺服器、重電、綠能、航運、金融</div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">04</div>
+          <div class="agenda-title">組合再平衡</div>
+          <div class="agenda-desc">股 60 / 債 30 / 現 10 與其他情境</div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">05</div>
+          <div class="agenda-title">風險地雷</div>
+          <div class="agenda-desc">地緣政治、匯率波動、AI 估值修正</div>
+        </div>
+        <div class="agenda-card">
+          <div class="agenda-num">06</div>
+          <div class="agenda-title">雙軌佈局</div>
+          <div class="agenda-desc">新興科技 × 傳產的 Q4 配置策略</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s1">◀ 上一頁</button>
+      <span class="page-num">02 / 10</span>
+      <button data-target="s3">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P3 全球四大訊號（線/垂） -->
+  <section class="slide s3-tracks" id="s3">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">01 · 全球總體訊號</div>
+      <h2 class="section-title">2026 Q4 全球四大總體訊號</h2>
+      <p class="section-sub">Fed 降息週期啟動 × 美元走弱 × 油價回穩 × AI 投資續熱</p>
+
+      <div class="tracks-layout">
+        <div class="track-row">
+          <div class="trk-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="14" width="48" height="36" rx="3"/>
+              <path d="M8 26h48M16 14V8M48 14V8"/>
+              <path d="M16 36l8-8 6 6 10-12"/>
+            </svg>
+          </div>
+          <div class="trk-body">
+            <div class="trk-title">Fed 降息預期</div>
+            <div class="trk-desc">市場預期 9 月起再降 2 碼，年底聯邦利率降至 3.75–4.00%</div>
+          </div>
+          <div>
+            <div class="trk-bignum">3.875<span style="font-size: 1rem; color: #90caf9;"> %</span></div>
+            <div class="trk-trend">Q4 預估</div>
+          </div>
+        </div>
+
+        <div class="track-row">
+          <div class="trk-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 48 L24 32 L36 38 L52 16"/>
+              <path d="M52 16h-10M52 16v10"/>
+            </svg>
+          </div>
+          <div class="trk-body">
+            <div class="trk-title">美元指數（DXY）走弱</div>
+            <div class="trk-desc">DXY 自 106 高點回落，新興市場資金回流加速</div>
+          </div>
+          <div>
+            <div class="trk-bignum">100.2</div>
+            <div class="trk-trend">−5.2 自高點</div>
+          </div>
+        </div>
+
+        <div class="track-row pink">
+          <div class="trk-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#ff2d78" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M32 8 L40 24 L56 26 L44 38 L48 54 L32 46 L16 54 L20 38 L8 26 L24 24 Z"/>
+            </svg>
+          </div>
+          <div class="trk-body">
+            <div class="trk-title">布蘭特原油回穩</div>
+            <div class="trk-desc">中東局勢降溫 + 美國產量回升，油價穩於 72–78 美元區間</div>
+          </div>
+          <div>
+            <div class="trk-bignum">$75<span style="font-size: 1rem; color: #90caf9;"> /bbl</span></div>
+            <div class="trk-trend">中位預估</div>
+          </div>
+        </div>
+
+        <div class="track-row pink">
+          <div class="trk-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#ff2d78" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="32" cy="32" r="6"/>
+              <circle cx="14" cy="20" r="4"/>
+              <circle cx="50" cy="20" r="4"/>
+              <circle cx="14" cy="44" r="4"/>
+              <circle cx="50" cy="44" r="4"/>
+              <path d="M32 32 L14 20M32 32 L50 20M32 32 L14 44M32 32 L50 44"/>
+            </svg>
+          </div>
+          <div class="trk-body">
+            <div class="trk-title">全球 AI 投資熱度不減</div>
+            <div class="trk-desc">H2 AI 資本支出年增 64%，CSP 三大廠合計 2,800 億美元</div>
+          </div>
+          <div>
+            <div class="trk-bignum">$280B</div>
+            <div class="trk-trend">H2 CSP 投資</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s2">◀ 上一頁</button>
+      <span class="page-num">03 / 10</span>
+      <button data-target="s4">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P4 六大板塊（六/散） -->
+  <section class="slide s4-sectors" id="s4">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">02 · 六大受惠板塊</div>
+      <h2 class="section-title">Q4 受惠的六大產業板塊</h2>
+      <p class="section-sub">半導體 × AI 伺服器 × 重電綠能 × 航運 × 金融 × 觀光</p>
+
+      <div class="sectors-layout">
+        <div class="hex-tile">
+          <div class="hx-name">半導體先進製程</div>
+          <div class="hx-amount">+18.2<span style="font-size: 1rem;"> %</span></div>
+          <div class="hx-unit">3 奈米以下產能滿載</div>
+        </div>
+        <div class="hex-tile pink">
+          <div class="hx-name">AI 伺服器 ODM</div>
+          <div class="hx-amount">+34.7<span style="font-size: 1rem;"> %</span></div>
+          <div class="hx-unit">GB200 進入量產</div>
+        </div>
+        <div class="hex-tile">
+          <div class="hx-name">重電綠能</div>
+          <div class="hx-amount">+22.4<span style="font-size: 1rem;"> %</span></div>
+          <div class="hx-unit">變壓器外銷歐洲</div>
+        </div>
+        <div class="hex-tile pink">
+          <div class="hx-name">航運觀光</div>
+          <div class="hx-amount">+12.8<span style="font-size: 1rem;"> %</span></div>
+          <div class="hx-unit">Q4 貨櫃運價指數反彈</div>
+        </div>
+        <div class="hex-tile">
+          <div class="hx-name">金融保險</div>
+          <div class="hx-amount">+9.3<span style="font-size: 1rem;"> %</span></div>
+          <div class="hx-unit">升息紅利 × 降息預期</div>
+        </div>
+        <div class="hex-tile pink">
+          <div class="hx-name">電商物流</div>
+          <div class="hx-amount">+14.5<span style="font-size: 1rem;"> %</span></div>
+          <div class="hx-unit">雙 11 × 黑五旺季</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s3">◀ 上一頁</button>
+      <span class="page-num">04 / 10</span>
+      <button data-target="s5">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P5 投資組合再平衡（圓/水） -->
+  <section class="slide s5-portfolio" id="s5">
+    <div class="glow-orb glow-orb-1"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">03 · 投資組合再平衡</div>
+      <h2 class="section-title">降息環境下的資產配置</h2>
+      <p class="section-sub">股 60% / 債 30% / 現 10% — 標準平衡型 Q4 配置</p>
+
+      <div class="pf-layout">
+        <div class="pf-donut-wrap">
+          <svg viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(0, 212, 255, 0.15)" stroke-width="22"/>
+            <!-- 股票 60% (216°) -->
+            <circle cx="100" cy="100" r="78" fill="none" stroke="#00d4ff" stroke-width="22"
+              stroke-dasharray="294.5 490.1" stroke-dashoffset="0"
+              transform="rotate(-90 100 100)" filter="drop-shadow(0 0 6px rgba(0, 212, 255, 0.6))"/>
+            <!-- 債券 30% (108°) -->
+            <circle cx="100" cy="100" r="78" fill="none" stroke="#42a5f5" stroke-width="22"
+              stroke-dasharray="147.0 490.1" stroke-dashoffset="-294.5"
+              transform="rotate(-90 100 100)" filter="drop-shadow(0 0 6px rgba(66, 165, 245, 0.5))"/>
+            <!-- 現金 10% (36°) -->
+            <circle cx="100" cy="100" r="78" fill="none" stroke="#ff2d78" stroke-width="22"
+              stroke-dasharray="49.0 490.1" stroke-dashoffset="-441.5"
+              transform="rotate(-90 100 100)" filter="drop-shadow(0 0 6px rgba(255, 45, 120, 0.6))"/>
+            <text x="100" y="96" font-size="36" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-0.02em">60/30/10</text>
+            <text x="100" y="118" font-size="14" font-weight="700" fill="#00d4ff" text-anchor="middle" letter-spacing="0.12em">標準配置</text>
+          </svg>
+        </div>
+
+        <div class="pf-summary">
+          <div class="pf-card">
+            <div class="pf-dot" style="background: #00d4ff; color: #00d4ff;"></div>
+            <div class="pf-body">
+              <div class="pf-name">股票</div>
+              <div class="pf-desc">台股 + 美股 + 全球型 ETF</div>
+            </div>
+            <div class="pf-pct">60%</div>
+          </div>
+          <div class="pf-card">
+            <div class="pf-dot" style="background: #42a5f5; color: #42a5f5;"></div>
+            <div class="pf-body">
+              <div class="pf-name">債券</div>
+              <div class="pf-desc">投資等級公司債 + 美債 7–10 年期</div>
+            </div>
+            <div class="pf-pct">30%</div>
+          </div>
+          <div class="pf-card pink">
+            <div class="pf-dot" style="background: #ff2d78; color: #ff2d78;"></div>
+            <div class="pf-body">
+              <div class="pf-name">現金</div>
+              <div class="pf-desc">保留靈活進場子彈</div>
+            </div>
+            <div class="pf-pct">10%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s4">◀ 上一頁</button>
+      <span class="page-num">05 / 10</span>
+      <button data-target="s6">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P6 三大風險（特/網） -->
+  <section class="slide s6-risk" id="s6">
+    <div class="glow-orb glow-orb-1"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">04 · 風險地雷</div>
+      <h2 class="section-title">Q4 三大投資風險地雷</h2>
+      <p class="section-sub">別被降息題材沖昏頭 — 留意這三條紅線</p>
+
+      <div class="risk-grid">
+        <div class="risk-card">
+          <svg class="warn-icon" viewBox="0 0 64 64" fill="none" stroke="#ff2d78" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 L58 54 L6 54 Z"/>
+            <path d="M32 26v14M32 46v2"/>
+          </svg>
+          <div class="risk-num">RISK · 01</div>
+          <div class="risk-title">地緣政治升溫</div>
+          <div class="risk-desc">中東衝突 + 俄烏局勢未歇 + 美中晶片管制升級。避險情緒升溫將推升油價與黃金。</div>
+          <div class="risk-level">
+            <span class="level-badge">HIGH</span>
+            <span style="color: #90caf9; font-size: 1rem;">Q4 持續監控</span>
+          </div>
+        </div>
+
+        <div class="risk-card">
+          <svg class="warn-icon" viewBox="0 0 64 64" fill="none" stroke="#ff2d78" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 L58 54 L6 54 Z"/>
+            <path d="M32 26v14M32 46v2"/>
+          </svg>
+          <div class="risk-num">RISK · 02</div>
+          <div class="risk-title">匯率波動加劇</div>
+          <div class="risk-desc">Fed 降息節奏若不如預期，美元反彈將使新台幣承壓。台股出口股毛利受衝擊。</div>
+          <div class="risk-level">
+            <span class="level-badge">MEDIUM</span>
+            <span style="color: #90caf9; font-size: 1rem;">留意 32 關卡</span>
+          </div>
+        </div>
+
+        <div class="risk-card">
+          <svg class="warn-icon" viewBox="0 0 64 64" fill="none" stroke="#ff2d78" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 L58 54 L6 54 Z"/>
+            <path d="M32 26v14M32 46v2"/>
+          </svg>
+          <div class="risk-num">RISK · 03</div>
+          <div class="risk-title">AI 估值修正</div>
+          <div class="risk-desc">AI 概念股 PE 達 38 倍歷史高位，若 Q3 財報不如預期恐現 15–20% 修正。</div>
+          <div class="risk-level">
+            <span class="level-badge">HIGH</span>
+            <span style="color: #90caf9; font-size: 1rem;">11 月財報季</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s5">◀ 上一頁</button>
+      <span class="page-num">06 / 10</span>
+      <button data-target="s7">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P7 ETF × 主動基金（方/水） -->
+  <section class="slide s7-fund" id="s7">
+    <div class="glow-orb glow-orb-2"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">05 · 投資工具</div>
+      <h2 class="section-title">ETF 退燒 × 主動型基金回歸</h2>
+      <p class="section-sub">被動投資降溫，主動選股時代來臨 — 五大數據看懂</p>
+
+      <div class="fund-row">
+        <div class="fund-card headline">
+          <svg class="fc-icon" viewBox="0 0 64 64" fill="none" stroke="#ff2d78" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="22"/>
+            <path d="M32 18 L32 32 L42 38"/>
+          </svg>
+          <div class="fc-tag">主動型</div>
+          <div class="fc-title">主動型基金規模</div>
+          <div class="fc-stat">+24.6%</div>
+          <div class="fc-desc">2026 H1 流入創 5 年新高，投資人轉向選股策略</div>
+        </div>
+
+        <div class="fund-card">
+          <svg class="fc-icon" viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="14" width="44" height="36" rx="3"/>
+            <path d="M10 24h44M20 36l8-8 6 6 10-12"/>
+          </svg>
+          <div class="fc-tag">被動型</div>
+          <div class="fc-title">ETF 規模增速</div>
+          <div class="fc-stat">+6.2%</div>
+          <div class="fc-desc">較 2024 年的 +18% 明顯降溫</div>
+        </div>
+
+        <div class="fund-card">
+          <svg class="fc-icon" viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 L40 24 L56 26 L44 38 L48 54 L32 46 L16 54 L20 38 L8 26 L24 24 Z"/>
+          </svg>
+          <div class="fc-tag">主動勝率</div>
+          <div class="fc-title">跑贏大盤比例</div>
+          <div class="fc-stat">58%</div>
+          <div class="fc-desc">2026 H1 主動基金勝率回升至 58%</div>
+        </div>
+
+        <div class="fund-card">
+          <svg class="fc-icon" viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="22"/>
+            <path d="M22 32h20M32 22v20"/>
+          </svg>
+          <div class="fc-tag">台股 ETF</div>
+          <div class="fc-title">台股 ETF 總規模</div>
+          <div class="fc-stat">2.4 兆</div>
+          <div class="fc-desc">逼近主動型股票基金 2.8 兆</div>
+        </div>
+
+        <div class="fund-card">
+          <svg class="fc-icon" viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 48 L24 32 L36 38 L56 16"/>
+            <path d="M44 16h12v12"/>
+          </svg>
+          <div class="fc-tag">主動策略</div>
+          <div class="fc-title">熱門主題</div>
+          <div class="fc-stat">5 大</div>
+          <div class="fc-desc">半導體 / 高股息 / ESG / 全球 AI / 邊境市場</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s6">◀ 上一頁</button>
+      <span class="page-num">07 / 10</span>
+      <button data-target="s8">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P8 雙軌佈局（線/散） -->
+  <section class="slide s8-tracks2" id="s8">
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">06 · 雙軌佈局</div>
+      <h2 class="section-title">新興科技 × 傳產的 Q4 配置</h2>
+      <p class="section-sub">兩條軌道並行 — 左攻成長，右守現金流</p>
+
+      <div class="trk2-layout">
+        <div class="trk2-col">
+          <div class="trk2-head">
+            <svg class="trk2-head-icon" viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="12" y="12" width="40" height="40" rx="4"/>
+              <path d="M22 32 L30 40 L44 24"/>
+            </svg>
+            <div>
+              <div class="trk2-head-title">新興科技軌道</div>
+              <div class="trk2-head-stat">建議權重 <strong>40%</strong></div>
+            </div>
+          </div>
+          <div class="trk2-list">
+            <div class="trk2-item">
+              <div class="trk2-dot"></div>
+              <span class="trk2-item-text">AI 伺服器 ODM</span>
+              <span class="trk2-item-meta">+34.7%</span>
+            </div>
+            <div class="trk2-item">
+              <div class="trk2-dot"></div>
+              <span class="trk2-item-text">先進製程半導體</span>
+              <span class="trk2-item-meta">+18.2%</span>
+            </div>
+            <div class="trk2-item">
+              <div class="trk2-dot"></div>
+              <span class="trk2-item-text">矽光子 / CoWoS</span>
+              <span class="trk2-item-meta">+42.0%</span>
+            </div>
+            <div class="trk2-item">
+              <div class="trk2-dot"></div>
+              <span class="trk2-item-text">資料中心 REIT</span>
+              <span class="trk2-item-meta">+15.6%</span>
+            </div>
+            <div class="trk2-item">
+              <div class="trk2-dot"></div>
+              <span class="trk2-item-text">AI 軟體 SaaS</span>
+              <span class="trk2-item-meta">+22.3%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="trk2-col traditional">
+          <div class="trk2-head">
+            <svg class="trk2-head-icon" viewBox="0 0 64 64" fill="none" stroke="#ff2d78" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 52 L12 20 L32 8 L52 20 L52 52 Z"/>
+              <path d="M24 52 L24 36 L40 36 L40 52"/>
+            </svg>
+            <div>
+              <div class="trk2-head-title">傳產高息軌道</div>
+              <div class="trk2-head-stat">建議權重 <strong>35%</strong></div>
+            </div>
+          </div>
+          <div class="trk2-list">
+            <div class="trk2-item">
+              <div class="trk2-dot"></div>
+              <span class="trk2-item-text">金融保險</span>
+              <span class="trk2-item-meta">+9.3%</span>
+            </div>
+            <div class="trk2-item">
+              <div class="trk2-dot"></div>
+              <span class="trk2-item-text">重電綠能</span>
+              <span class="trk2-item-meta">+22.4%</span>
+            </div>
+            <div class="trk2-item">
+              <div class="trk2-dot"></div>
+              <span class="trk2-item-text">高股息 ETF</span>
+              <span class="trk2-item-meta">+11.8%</span>
+            </div>
+            <div class="trk2-item">
+              <div class="trk2-dot"></div>
+              <span class="trk2-item-text">航運觀光</span>
+              <span class="trk2-item-meta">+12.8%</span>
+            </div>
+            <div class="trk2-item">
+              <div class="trk2-dot"></div>
+              <span class="trk2-item-text">民生消費</span>
+              <span class="trk2-item-meta">+6.4%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s7">◀ 上一頁</button>
+      <span class="page-num">08 / 10</span>
+      <button data-target="s9">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P9 行動清單（圓/網） -->
+  <section class="slide s9-action" id="s9">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <div class="slide-inner">
+      <div class="eyebrow">07 · Q4 行動清單</div>
+      <h2 class="section-title">投資人該做的 6 件事</h2>
+      <p class="section-sub">從再平衡到避險 — 把策略轉成具體動作</p>
+
+      <div class="action-grid">
+        <div class="action-card">
+          <div class="ac-num">01</div>
+          <div class="ac-body">
+            <div class="ac-title">執行資產再平衡</div>
+            <div class="ac-desc">把偏高的股票部位降至 60%，債券加碼至 30%</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="ac-num">02</div>
+          <div class="ac-body">
+            <div class="ac-title">鎖定債券殖利率</div>
+            <div class="ac-desc">利用 7–10 年期美債 4.2% 殖利率鎖利</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="ac-num">03</div>
+          <div class="ac-body">
+            <div class="ac-title">加碼半導體上游</div>
+            <div class="ac-desc">晶圓代工 / 封測 / 設備股，避開 PE 過高 AI 軟體</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="ac-num">04</div>
+          <div class="ac-body">
+            <div class="ac-title">保留現金進場子彈</div>
+            <div class="ac-desc">Q4 若現回檔 8–10%，分批進場承接優質股</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="ac-num">05</div>
+          <div class="ac-body">
+            <div class="ac-title">避險外幣曝險</div>
+            <div class="ac-desc">用選擇權或 ETF 對沖台幣升值風險</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="ac-num">06</div>
+          <div class="ac-body">
+            <div class="ac-title">嚴守停損紀律</div>
+            <div class="ac-desc">個股 −15% 啟動檢視，組合 −10% 啟動再平衡</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s8">◀ 上一頁</button>
+      <span class="page-num">09 / 10</span>
+      <button data-target="s10">下一頁 ▶</button>
+    </nav>
+  </section>
+
+
+  <!-- ============================ P10 結尾 ============================ -->
+  <section class="slide s10-end" id="s10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <div class="slide-inner">
+      <div class="end-wrap">
+        <div class="end-eyebrow">END · 2026.09.10</div>
+        <div class="end-thanks">謝謝觀看</div>
+        <div class="end-contact">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 C20 8 12 18 12 30 C12 42 32 56 32 56 C32 56 52 42 52 30 C52 18 44 8 32 8 Z"/>
+            <circle cx="32" cy="28" r="6"/>
+          </svg>
+          <span class="end-contact-text">熊熊博物館 · kumaweb.pages.dev</span>
+        </div>
+        <svg class="bear-mark" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="44" r="28" fill="#1a2a4a" stroke="#00d4ff" stroke-width="2.5"/>
+          <circle cx="22" cy="22" r="8" fill="#1a2a4a" stroke="#00d4ff" stroke-width="2.5"/>
+          <circle cx="58" cy="22" r="8" fill="#1a2a4a" stroke="#00d4ff" stroke-width="2.5"/>
+          <circle cx="22" cy="22" r="4" fill="#00d4ff"/>
+          <circle cx="58" cy="22" r="4" fill="#00d4ff"/>
+          <circle cx="32" cy="42" r="2.5" fill="#ffffff"/>
+          <circle cx="48" cy="42" r="2.5" fill="#ffffff"/>
+          <ellipse cx="40" cy="50" rx="4" ry="3" fill="#ff2d78"/>
+          <path d="M32 56 Q40 62 48 56" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="/slides.htm">首頁</a>
+      <button data-target="s9">◀ 上一頁</button>
+      <span class="page-num">10 / 10</span>
+    </nav>
+  </section>
+
+</div>
+
+<script>
+// 換頁機制
+var current = 0;
+var slides = document.querySelectorAll('.slide');
+
+function show() {
+  if (slides[current]) {
+    slides[current].classList.remove('active');
+  }
+}
+
+function go(target) {
+  show();
+  var el = document.getElementById(target);
+  if (el) {
+    el.classList.add('active');
+    current = parseInt(target.replace('s', '')) - 1;
+  }
+}
+
+document.querySelectorAll('.nav button[data-target]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    go(btn.getAttribute('data-target'));
+  });
+});
+
+// 鍵盤控制
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' && current < slides.length - 1) {
+    go('s' + (current + 2));
+  } else if (e.key === 'ArrowLeft' && current > 0) {
+    go('s' + current);
+  }
+});
+</script>
+
+</body>
+</html>
