@@ -42,6 +42,7 @@ VOCABULARY = VOCAB_DIR / "vocabulary.json"
 BEAR_FRIENDS = VOCAB_DIR / "bear-friends.json"
 BEAR_CONDITIONS = VOCAB_DIR / "bear-conditions.json"
 BEAR_TEXTURES = VOCAB_DIR / "bear-textures.json"
+BEAR_BACKGROUNDS_PATH = VOCAB_DIR / "bear-backgrounds.json"
 
 COMFYUI_URL = "http://fjjhomei9.fjj.home:8188"
 COMFY_WORKFLOW = Path("/home/fjj04/comfyui/Flux.2-Klein-文生图_API.json")
@@ -70,6 +71,10 @@ Rules:
 - Do NOT include Chinese characters or the raw Chinese bear name
 - Do NOT include quality tags like "16:9", "kawaii style", or "detailed fur texture" (added separately)
 - Output ONLY the prompt text, no quotes, no explanation, no markdown, no thinking
+- Vary composition: close-up portrait, mid-shot, full body, environmental wide shot
+- Vary foreground/background elements: avoid repetitive elements (e.g. always having two trees on both sides)
+- Rotate between different scene types: indoor (cozy attic, library, kitchen, cafe, treehouse, art studio), outdoor (city rooftop, harbor, mountain summit, forest path, beach cliff, train window, autumn park), abstract (floating cloud island, inside music box, on giant book page, candy kingdom, between stars, inside snow globe, giant teacup)
+- Use provided background and composition metadata to create unique scenes
 - The bear MUST have exactly FOUR legs (two front paws + two hind legs) — never five legs, never three legs
 - The bear must look like a bear: round bear ears, round teddy bear face, fluffy bear paws — not a rabbit, cat, fox, or other animal
 - 50% of the time, add a texture layer (glass, metal, wood, stone, plush, cotton, silk, wool, clay, gold leaf, etc.) provided in the metadata
@@ -151,6 +156,20 @@ def load_json(path):
 def save_json(path, data):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def load_bear_backgrounds():
+    """載入 bear-backgrounds.json，提供背景池與構圖/背景機率表。
+
+    缺少檔案或欄位時回傳安全預設值，避免影響生圖流程。
+    """
+    if BEAR_BACKGROUNDS_PATH.exists():
+        with open(BEAR_BACKGROUNDS_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {"backgrounds": {}, "composition_probability": {}, "background_probability": {}}
+
+
+BEAR_BACKGROUNDS = load_bear_backgrounds()
 
 
 def check_comfyui(config):
@@ -414,6 +433,25 @@ def prepare_bear_metadata(name, style):
     if active_conditions:
         metadata["conditions"] = active_conditions
 
+    # 加入背景與構圖（依 bear-backgrounds.json 機率表加權抽選）
+    bg_categories = list(BEAR_BACKGROUNDS.get("backgrounds", {}).keys())
+    if bg_categories:
+        bg_probs = BEAR_BACKGROUNDS.get("background_probability", {})
+        bg_weights = [bg_probs.get(cat, 1.0 / len(bg_categories)) for cat in bg_categories]
+        bg_cat = random.choices(bg_categories, weights=bg_weights, k=1)[0]
+        background_scene = random.choice(BEAR_BACKGROUNDS["backgrounds"][bg_cat])
+        metadata["background_category"] = bg_cat
+
+        comp_options = list(BEAR_BACKGROUNDS.get("composition_probability", {}).keys())
+        if comp_options:
+            comp_weights = [BEAR_BACKGROUNDS["composition_probability"][c] for c in comp_options]
+            composition = random.choices(comp_options, weights=comp_weights, k=1)[0]
+        else:
+            composition = "mid-shot"
+
+        metadata["background_scene"] = background_scene
+        metadata["composition"] = composition
+
     return metadata
 
 
@@ -473,7 +511,7 @@ def clean_minimax_text(content):
     return content.strip().strip("\"'")
 
 
-def build_prompt_fallback(name, style, series, personality, title, friend_info=None, conditions=None, texture=None):
+def build_prompt_fallback(name, style, series, personality, title, friend_info=None, conditions=None, texture=None, background_scene=None, composition=None):
     """MiniMax 失敗時的本地 fallback prompt。"""
     # 支援 style 為 dict 或字串
     if isinstance(style, dict):
@@ -513,6 +551,12 @@ def build_prompt_fallback(name, style, series, personality, title, friend_info=N
         cond_descs = [cond["en"] for cond in conditions.values() if cond]
         if cond_descs:
             prompt += ", " + ", ".join(cond_descs)
+
+    # 加入背景與構圖（依 bear-backgrounds.json 抽選結果）
+    if background_scene:
+        prompt += f", set in {background_scene}"
+    if composition:
+        prompt += f", {composition} composition"
 
     prompt += f", {PROMPT_QUALITY_SUFFIX}"
     return prompt
@@ -589,7 +633,7 @@ def _call_minimax_prompt(user_content, max_tokens=1024):
     return content, choice.get("finish_reason", "")
 
 
-def generate_prompt_via_minimax(name, style, series, personality, title, friend_info=None, conditions=None, texture=None):
+def generate_prompt_via_minimax(name, style, series, personality, title, friend_info=None, conditions=None, texture=None, background_scene=None, composition=None):
     """用 MiniMax Chat API 依 metadata 產生英文生圖 prompt。"""
     # 支援 style 為 dict 或字串
     if isinstance(style, dict):
@@ -625,6 +669,11 @@ def generate_prompt_via_minimax(name, style, series, personality, title, friend_
                 cond_lines.append(f"- {key}: {cond['zh']} ({cond['en']})")
         if cond_lines:
             user_content += "\nOptional conditions:\n" + "\n".join(cond_lines)
+    # 背景與構圖（讓 MiniMax 把它們自然寫進場景描述）
+    if background_scene:
+        user_content += f"\nBackground scene: {background_scene}"
+    if composition:
+        user_content += f"\nComposition: {composition}"
     log(f"  MiniMax 產生 prompt: {name}")
 
     try:
@@ -648,7 +697,11 @@ def generate_prompt_via_minimax(name, style, series, personality, title, friend_
         return content
     except Exception as e:
         log(f"  MiniMax prompt 生成失敗: {e}，使用 fallback")
-        fallback = build_prompt_fallback(name, style, series, personality, title, friend_info, conditions, texture)
+        fallback = build_prompt_fallback(
+            name, style, series, personality, title,
+            friend_info, conditions, texture,
+            background_scene, composition,
+        )
         log(f"  prompt (fallback): {fallback}")
         return fallback
 
@@ -831,7 +884,9 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
         log(
             f"  No.{collection_no} metadata: title={metadata['title']}, series={metadata['series']}, "
             f"personality={metadata['personality']}, texture={metadata.get('texture')}, "
-            f"conditions={metadata.get('conditions')}"
+            f"conditions={metadata.get('conditions')}, "
+            f"background_scene={metadata.get('background_scene')}, "
+            f"composition={metadata.get('composition')}"
         )
         prompt = generate_prompt_via_minimax(
             metadata["name"],
@@ -842,6 +897,8 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             metadata.get("friend_info"),
             metadata.get("conditions"),
             metadata.get("texture"),
+            metadata.get("background_scene"),
+            metadata.get("composition"),
         )
         output = today_dir / filename
 
@@ -874,7 +931,9 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
         log(
             f"  No.{collection_no} metadata: title={metadata['title']}, series={metadata['series']}, "
             f"personality={metadata['personality']}, texture={metadata.get('texture')}, "
-            f"conditions={metadata.get('conditions')}"
+            f"conditions={metadata.get('conditions')}, "
+            f"background_scene={metadata.get('background_scene')}, "
+            f"composition={metadata.get('composition')}"
         )
         prompt = generate_prompt_via_minimax(
             metadata["name"],
@@ -885,6 +944,8 @@ def step_generate_images(bear_names, styles, today, config, comfyui_online):
             metadata.get("friend_info"),
             metadata.get("conditions"),
             metadata.get("texture"),
+            metadata.get("background_scene"),
+            metadata.get("composition"),
         )
         output = today_dir / filename
         if generate_minimax_image(prompt, name, style, output, slot, config):
