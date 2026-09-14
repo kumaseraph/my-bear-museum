@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="zh-TW" style="font-size: 20px;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>城市數位基礎建設 3.0｜從光纖到邊緣 AI｜2026-09-14</title>
+<style>
+html { font-size: 20px; }
+body {
+  font-size: 1rem;
+  background: #04141a;
+  color: #ecfeff;
+  font-family: 'Noto Sans TC', 'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  margin: 0;
+  padding: 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image:
+    radial-gradient(ellipse 60% 50% at 18% 22%, rgba(20,184,166,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 40% at 82% 78%, rgba(34,211,238,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 38% 35% at 50% 50%, rgba(125,211,252,0.10) 0%, transparent 60%);
+}
+
+:root {
+  --bg-deep: #04141a;
+  --bg-mid: #0a2733;
+  --bg-card: rgba(10,39,51,0.55);
+  --primary: #14b8a6;
+  --primary-soft: #5eead4;
+  --primary-deep: #0f766e;
+  --accent: #22d3ee;
+  --accent-soft: #67e8f9;
+  --accent-deep: #0e7490;
+  --teal: #2dd4bf;
+  --gold: #fbbf24;
+  --rose: #f472b6;
+  --ink: #ecfeff;
+  --ink-soft: #cffafe;
+  --ink-mute: #99f6e4;
+  --ink-dim: #67e8f9;
+  --border-cool: rgba(20,184,166,0.40);
+  --border-warm: rgba(34,211,238,0.50);
+  --border-gold: rgba(251,191,36,0.45);
+  --glow-cool: 0 0 28px rgba(20,184,166,0.35);
+  --glow-warm: 0 0 24px rgba(34,211,238,0.30);
+  --glow-gold: 0 0 24px rgba(251,191,36,0.28);
+}
+
+.presentation {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #04141a 0%, #0a2733 100%);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.55);
+  border: 1px solid rgba(20,184,166,0.20);
+  border-radius: 14px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: 52px 60px 76px;
+  color: var(--ink);
+}
+.slide.active { display: flex; }
+.slide * { font-size: 1rem; line-height: 1.5; }
+.slide-content { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; padding-bottom: 16px; }
+
+/* === 極光發光球 === */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb-1 { width: 360px; height: 360px; background: rgba(20,184,166,0.28); top: -120px; right: -120px; }
+.glow-orb-2 { width: 300px; height: 300px; background: rgba(34,211,238,0.22); bottom: -100px; left: -100px; }
+.glow-orb-3 { width: 260px; height: 260px; background: rgba(251,191,36,0.18); top: 45%; left: 55%; }
+.glow-orb-4 { width: 220px; height: 220px; background: rgba(125,211,252,0.20); top: 10%; left: 8%; }
+
+/* === 卡片 === */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 16px;
+  padding: 22px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* === 標題 === */
+.eyebrow {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.h1 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1.18;
+  margin: 0 0 14px;
+  color: #fff;
+}
+.h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+}
+.h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.text-body { font-size: 1rem; line-height: 1.55; color: var(--ink-soft); }
+.text-mute  { font-size: 1rem; line-height: 1.5; color: var(--ink-mute); }
+.accent { color: var(--primary-soft); }
+.warm   { color: var(--accent-soft); }
+.gold   { color: var(--gold); }
+
+/* === 導覽列 === */
+.nav {
+  position: absolute;
+  bottom: 18px;
+  right: 24px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(4,20,26,0.55);
+  border: 1px solid var(--border-cool);
+  padding: 8px 14px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+.nav button {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-cool);
+  background: rgba(20,184,166,0.15);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 1rem;
+}
+.nav button:hover { background: rgba(20,184,166,0.30); }
+.nav span { color: var(--ink-soft); font-size: 1rem; min-width: 60px; text-align: center; }
+
+/* === 返回連結 === */
+.back-link {
+  position: fixed;
+  top: 18px; left: 24px;
+  z-index: 50;
+  color: var(--ink-mute);
+  background: rgba(4,20,26,0.55);
+  border: 1px solid var(--border-cool);
+  padding: 8px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 1rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s;
+}
+.back-link:hover { background: rgba(20,184,166,0.30); color: var(--ink); }
+
+/* ========== P1 封面（特/單：放射 + 中心） ========== */
+.s1-cover {
+  align-items: stretch;
+  justify-content: center;
+}
+.cover-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 36px;
+  align-items: center;
+  flex: 1;
+}
+.cover-eyebrow {
+  font-size: 1rem;
+  color: var(--primary-soft);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.cover-title {
+  font-size: 3rem;
+  line-height: 1.12;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 18px;
+  letter-spacing: -0.01em;
+}
+.cover-title .accent { color: var(--primary-soft); }
+.cover-title .gold   { color: var(--gold); }
+.cover-sub {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 0 26px;
+  max-width: 520px;
+}
+.cover-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  max-width: 540px;
+}
+.cover-meta-item {
+  border-left: 3px solid var(--primary);
+  padding-left: 12px;
+}
+.cover-meta-num {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1.1;
+}
+.cover-meta-lbl {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  margin-top: 4px;
+}
+.cover-art { display: flex; justify-content: center; align-items: center; }
+.cover-circle-svg { width: 360px; height: 360px; }
+
+/* ========== P2 TOC（方/網） ========== */
+.s2-toc { flex-direction: column; }
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 12px;
+  flex: 1;
+  margin-top: 8px;
+}
+.toc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  backdrop-filter: blur(6px);
+}
+.toc-card .toc-num {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  letter-spacing: 0.04em;
+}
+.toc-card .toc-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 4px;
+}
+.toc-card .toc-sub {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.4;
+  margin-top: 4px;
+}
+.toc-card.gold { border-color: var(--border-gold); }
+.toc-card.gold .toc-num { color: var(--gold); }
+
+/* ========== P3 時序（六/垂） ========== */
+.s3-timeline { flex-direction: column; }
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  position: relative;
+  margin: 14px 0 8px;
+}
+.timeline-grid::before {
+  content: '';
+  position: absolute;
+  top: 38px;
+  left: 4%;
+  right: 4%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 50%, var(--gold) 100%);
+  box-shadow: var(--glow-cool);
+}
+.tl-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.tl-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px 20px;
+  backdrop-filter: blur(6px);
+}
+.tl-stat-card:nth-child(2) { border-color: var(--border-warm); }
+.tl-stat-card:nth-child(3) { border-color: var(--border-gold); }
+.tl-stat-card .stat-label {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.tl-stat-card .stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.tl-stat-card .stat-num {
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.tl-stat-card:nth-child(2) .stat-num { color: var(--accent-soft); }
+.tl-stat-card:nth-child(3) .stat-num { color: var(--gold); }
+.tl-stat-card .stat-unit {
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+.tl-stat-card .stat-desc {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  margin-top: 4px;
+}
+.tl-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.tl-year {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+.tl-hex {
+  width: 50px; height: 50px;
+  background: var(--bg-mid);
+  border: 2px solid var(--primary);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+}
+.tl-col:nth-child(3) .tl-hex { border-color: var(--accent); color: var(--accent-soft); }
+.tl-col:nth-child(5) .tl-hex { border-color: var(--gold); color: var(--gold); }
+.tl-col:nth-child(6) .tl-hex { border-color: var(--gold); background: linear-gradient(135deg, rgba(251,191,36,0.30), rgba(20,184,166,0.30)); }
+.tl-label {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.3;
+  font-weight: 600;
+}
+.tl-detail {
+  margin-top: 4px;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--ink-mute);
+  line-height: 1.3;
+  padding: 0 6px;
+}
+
+/* ========== P4 現況（圓/水） ========== */
+.s4-current { flex-direction: column; }
+
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 16px 0;
+}
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  position: relative;
+}
+.donut-svg { width: 130px; height: 130px; }
+.metric-card .num-big {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  margin-top: 8px;
+  line-height: 1;
+}
+.metric-card .num-lbl {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  margin-top: 6px;
+  text-align: center;
+}
+.cities-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+.city-cell {
+  background: rgba(20,184,166,0.10);
+  border: 1px solid var(--border-cool);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+}
+.city-name { font-size: 1rem; font-weight: 700; color: #fff; }
+.city-pct  { font-size: 1.05rem; font-weight: 900; color: var(--primary-soft); margin-top: 4px; }
+
+/* ========== P5 技術堆疊（線/散） ========== */
+.s5-stack { flex-direction: column; }
+.stack-canvas {
+  position: relative;
+  height: 200px;
+  margin: 8px 0;
+}
+.stack-canvas svg { width: 100%; height: 100%; }
+.stack-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+.stack-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 14px 18px;
+  backdrop-filter: blur(6px);
+}
+.stack-card.cloud { border-left: 4px solid var(--accent); }
+.stack-card.edge  { border-left: 4px solid var(--primary); }
+.stack-card.end   { border-left: 4px solid var(--gold); }
+.stack-card .lbl   { font-size: 1rem; color: var(--ink-mute); letter-spacing: 0.1em; text-transform: uppercase; }
+.stack-card .ttl   { font-size: 1.15rem; font-weight: 800; color: #fff; margin-top: 4px; }
+.stack-card .desc  { font-size: 1rem; color: var(--ink-soft); line-height: 1.45; margin-top: 6px; }
+.stack-card .meta  { font-size: 1rem; color: var(--ink-mute); margin-top: 8px; }
+
+/* ========== P6 場景（特/網） ========== */
+.s6-scene { flex-direction: column; }
+.scene-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  flex: 1;
+  margin-top: 14px;
+}
+.scene-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 16px;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  position: relative;
+  overflow: hidden;
+}
+.scene-card.gold { border-color: var(--border-gold); }
+.scene-num-box {
+  width: 64px; height: 64px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(20,184,166,0.4), rgba(34,211,238,0.4));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; font-weight: 900; color: #fff;
+  border: 1px solid var(--primary);
+}
+.scene-card.gold .scene-num-box {
+  background: linear-gradient(135deg, rgba(251,191,36,0.4), rgba(244,114,182,0.3));
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.scene-title {
+  font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 4px;
+}
+.scene-detail {
+  font-size: 1rem; color: var(--ink-soft); line-height: 1.45;
+}
+.scene-tag {
+  display: inline-block;
+  font-size: 1rem;
+  color: var(--primary-soft);
+  border: 1px solid var(--border-cool);
+  padding: 2px 10px;
+  border-radius: 999px;
+  margin-top: 6px;
+}
+.scene-card.gold .scene-tag { color: var(--gold); border-color: var(--border-gold); }
+
+/* ========== P7 對比（方/垂） ========== */
+.s7-compare { flex-direction: column; }
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 0;
+  align-items: stretch;
+  flex: 1;
+  margin-top: 12px;
+}
+.compare-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 16px;
+  padding: 22px 24px;
+  backdrop-filter: blur(6px);
+}
+.compare-card.before { border-color: rgba(244,114,182,0.45); }
+.compare-card.after  { border-color: var(--border-gold); }
+.compare-card .label {
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 8px;
+}
+.compare-card.before .label { color: #f9a8d4; }
+.compare-card.after  .label { color: var(--gold); }
+.compare-card h3 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 0 0 12px;
+  color: #fff;
+}
+.compare-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.compare-card li {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  padding: 6px 0 6px 18px;
+  position: relative;
+  line-height: 1.45;
+}
+.compare-card li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 14px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+.compare-card.before li::before { background: #f472b6; }
+.compare-card.after li::before  { background: var(--gold); }
+.compare-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--primary-soft);
+  font-weight: 900;
+}
+
+/* ========== P8 案例（線/水） ========== */
+.s8-case { flex-direction: column; }
+.timeline-water {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  flex: 1;
+  margin-top: 14px;
+  position: relative;
+}
+.timeline-water::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 6%;
+  right: 6%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--gold));
+  border-radius: 2px;
+}
+.case-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 16px;
+  padding: 18px 20px;
+  position: relative;
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+}
+.case-card.gold { border-color: var(--border-gold); }
+.case-node {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--bg-mid);
+  border: 3px solid var(--primary);
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.case-card:nth-child(2) .case-node { border-color: var(--accent); }
+.case-card.gold .case-node { border-color: var(--gold); background: rgba(251,191,36,0.20); }
+.case-tag {
+  font-size: 1rem;
+  color: var(--ink-mute);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-top: 36px;
+}
+.case-card.gold .case-tag { color: var(--gold); }
+.case-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: #fff;
+  margin-top: 8px;
+}
+.case-body {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-top: 8px;
+  flex: 1;
+}
+.case-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 12px;
+}
+.case-metric-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary-soft);
+  line-height: 1;
+}
+.case-card:nth-child(2) .case-metric-num { color: var(--accent-soft); }
+.case-card.gold .case-metric-num { color: var(--gold); }
+.case-metric-lbl { font-size: 1rem; color: var(--ink-mute); }
+
+/* ========== P9 行動（六/散） ========== */
+.s9-action { flex-direction: column; }
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 14px 0 16px;
+}
+.action-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-cool);
+  border-radius: 14px;
+  padding: 16px 18px;
+  position: relative;
+  backdrop-filter: blur(6px);
+}
+.action-card.hex::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 14px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--primary), var(--accent), var(--gold));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+.action-card .a-step {
+  font-size: 1rem;
+  color: var(--primary-soft);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.action-card .a-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 4px 0 8px;
+}
+.action-card .a-body {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.action-card .a-meta {
+  font-size: 1rem;
+  color: var(--gold);
+  margin-top: 10px;
+  font-weight: 700;
+}
+.action-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.action-meta-item {
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+}
+.action-meta-v { font-size: 1.45rem; font-weight: 900; color: var(--accent-soft); line-height: 1.1; }
+.action-meta-lbl { font-size: 1rem; color: var(--ink-mute); margin-top: 4px; }
+
+/* ========== P10 結尾（無/單） ========== */
+.s10-end {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.end-frame {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+.end-eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--primary-soft);
+  margin-bottom: 16px;
+}
+.end-title {
+  font-size: 3rem;
+  line-height: 1.18;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 18px;
+  letter-spacing: -0.01em;
+}
+.end-title .accent { color: var(--primary-soft); }
+.end-title .gold   { color: var(--gold); }
+.end-sub {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 0 24px;
+}
+.end-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 auto 20px;
+  max-width: 640px;
+}
+.end-meta-item {
+  border-left: 3px solid var(--primary);
+  padding-left: 12px;
+  text-align: left;
+}
+.end-meta-v { font-size: 1.6rem; font-weight: 900; color: var(--primary-soft); line-height: 1.1; }
+.end-meta-lbl { font-size: 1rem; color: var(--ink-mute); margin-top: 4px; }
+.note { font-size: 1rem; color: var(--ink-mute); margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="presentation" id="pres">
+  <a class="back-link" href="/slides.htm">← 返回簡報列表</a>
+
+  <!-- ============== P1 封面（特/單）============== -->
+  <div class="slide s1-cover active" id="s1">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <div class="cover-layout">
+        <div class="cover-text">
+          <div class="cover-eyebrow">週一｜政府公務 · 2026-09-14</div>
+          <h1 class="cover-title">城市數位基礎建設 <span class="accent">3.0</span><br>從光纖到 <span class="gold">邊緣 AI</span></h1>
+          <p class="cover-sub">三層節點 × 四種公共服務 × 六都覆蓋率，把市政運算從「集中機房」搬到「市民身邊 5 公里」。</p>
+          <div class="cover-meta">
+            <div class="cover-meta-item"><div class="cover-meta-num">93%</div><div class="cover-meta-lbl">六都光纖到戶</div></div>
+            <div class="cover-meta-item"><div class="cover-meta-num">312</div><div class="cover-meta-lbl">邊緣節點</div></div>
+            <div class="cover-meta-item"><div class="cover-meta-num">4</div><div class="cover-meta-lbl">公共服務場景</div></div>
+            <div class="cover-meta-item"><div class="cover-meta-num">180</div><div class="cover-meta-lbl">天行動路線</div></div>
+          </div>
+        </div>
+        <div class="cover-art">
+          <svg class="cover-circle-svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="gA" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#5eead4" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#0f766e" stop-opacity="0.85"/>
+              </radialGradient>
+              <radialGradient id="gB" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#0e7490" stop-opacity="0.85"/>
+              </radialGradient>
+              <radialGradient id="gC" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#a16207" stop-opacity="0.85"/>
+              </radialGradient>
+            </defs>
+            <!-- 放射狀光纖連線（特殊構圖） -->
+            <g stroke="#5eead4" stroke-width="1.5" opacity="0.55" fill="none">
+              <line x1="180" y1="180" x2="60"  y2="60"/>
+              <line x1="180" y1="180" x2="300" y2="60"/>
+              <line x1="180" y1="180" x2="60"  y2="300"/>
+              <line x1="180" y1="180" x2="300" y2="300"/>
+              <line x1="180" y1="180" x2="180" y2="40"/>
+              <line x1="180" y1="180" x2="180" y2="320"/>
+              <line x1="180" y1="180" x2="40"  y2="180"/>
+              <line x1="180" y1="180" x2="320" y2="180"/>
+            </g>
+            <g stroke="#22d3ee" stroke-width="1" opacity="0.45" fill="none" stroke-dasharray="3 4">
+              <line x1="180" y1="180" x2="120" y2="40"/>
+              <line x1="180" y1="180" x2="240" y2="40"/>
+              <line x1="180" y1="180" x2="120" y2="320"/>
+              <line x1="180" y1="180" x2="240" y2="320"/>
+            </g>
+            <!-- 中心三層節點 -->
+            <circle cx="180" cy="180" r="78" fill="none" stroke="#14b8a6" stroke-width="1.5" stroke-dasharray="2 5" opacity="0.65"/>
+            <circle cx="180" cy="180" r="48" fill="url(#gA)"/>
+            <text x="180" y="178" text-anchor="middle" fill="#04141a" font-size="1.05rem" font-weight="900">邊緣</text>
+            <text x="180" y="194" text-anchor="middle" fill="#04141a" font-size="1rem" font-weight="900">AI 核心</text>
+            <!-- 三個衛星節點 -->
+            <circle cx="100" cy="80"  r="36" fill="url(#gB)"/>
+            <text x="100" y="84" text-anchor="middle" fill="#04141a" font-size="1rem" font-weight="900">雲</text>
+            <circle cx="270" cy="100" r="30" fill="url(#gC)"/>
+            <text x="270" y="104" text-anchor="middle" fill="#04141a" font-size="0.95rem" font-weight="900">端</text>
+            <circle cx="240" cy="280" r="32" fill="url(#gB)"/>
+            <text x="240" y="284" text-anchor="middle" fill="#04141a" font-size="0.95rem" font-weight="900">網</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()" id="btn-prev">◀</button>
+      <span id="page-info">1 / 10</span>
+      <button onclick="next()" id="btn-next">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P2 TOC（方/網）============== -->
+  <div class="slide s2-toc" id="s2">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <div class="eyebrow">議程地圖</div>
+      <h2 class="h1">九個段落 · 從光纖到邊緣 AI</h2>
+      <p class="text-mute" style="margin: 0 0 6px;">先看時序，再讀現況；接著走進技術、場景、對比、案例，最後收成行動。</p>
+      <div class="toc-grid">
+        <div class="toc-card"><div class="toc-num">01</div><div class="toc-title">27 年時序</div><div class="toc-sub">1999 數位台灣 → 2026 邊緣 AI</div></div>
+        <div class="toc-card gold"><div class="toc-num">02</div><div class="toc-title">六都現況</div><div class="toc-sub">光纖 + 邊緣節點覆蓋率</div></div>
+        <div class="toc-card"><div class="toc-num">03</div><div class="toc-title">技術堆疊</div><div class="toc-sub">雲 — 邊 — 端三層架構</div></div>
+        <div class="toc-card gold"><div class="toc-num">04</div><div class="toc-title">四個場景</div><div class="toc-sub">交通 / 醫療 / 教育 / 防災</div></div>
+        <div class="toc-card"><div class="toc-num">05</div><div class="toc-title">對比驗證</div><div class="toc-sub">集中式 vs 邊緣式差距</div></div>
+        <div class="toc-card gold"><div class="toc-num">06</div><div class="toc-title">三組案例</div><div class="toc-sub">北市 / 中市 / 嘉義縣</div></div>
+        <div class="toc-card"><div class="toc-num">07</div><div class="toc-title">180 天行動</div><div class="toc-sub">盤點 / 測試 / 上線 / 擴張</div></div>
+        <div class="toc-card gold"><div class="toc-num">08</div><div class="toc-title">風險治理</div><div class="toc-sub">資安 / 隱私 / 數位落差</div></div>
+        <div class="toc-card"><div class="toc-num">09</div><div class="toc-title">下一步</div><div class="toc-sub">你今天就能開始的三件事</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>2 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P3 時序（六/垂）============== -->
+  <div class="slide s3-timeline" id="s3">
+    <div class="glow-orb glow-orb-4"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第一章 · 數位基礎建設時序</div>
+      <h2 class="h1">從撥接上網到邊緣 AI · <span class="accent">27 年的公共基礎建設史</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">每一次頻寬升級，都是新公共服務的鋪墊。2026 年的邊緣節點，承接了 1999、2008、2014、2018、2022 各自的承諾。</p>
+      <div class="timeline-grid">
+        <div class="tl-col">
+          <div class="tl-year">1999</div>
+          <div class="tl-hex">1</div>
+          <div class="tl-label">數位台灣</div>
+          <div class="tl-detail">56K 撥接 · 政府入口網</div>
+        </div>
+        <div class="tl-col">
+          <div class="tl-year">2008</div>
+          <div class="tl-hex">2</div>
+          <div class="tl-label">光纖啟動</div>
+          <div class="tl-detail">12M FTTx · 雲端機房</div>
+        </div>
+        <div class="tl-col">
+          <div class="tl-year">2014</div>
+          <div class="tl-hex">3</div>
+          <div class="tl-label">4G 行動</div>
+          <div class="tl-detail">100M 行動網 · 物聯網</div>
+        </div>
+        <div class="tl-col">
+          <div class="tl-year">2018</div>
+          <div class="tl-hex">4</div>
+          <div class="tl-label">前瞻計畫</div>
+          <div class="tl-detail">1G 偏鄉 · 數位機會</div>
+        </div>
+        <div class="tl-col">
+          <div class="tl-year">2022</div>
+          <div class="tl-hex">5</div>
+          <div class="tl-label">5G 專網</div>
+          <div class="tl-detail">邊緣運算 · 智慧城市</div>
+        </div>
+        <div class="tl-col">
+          <div class="tl-year">2026</div>
+          <div class="tl-hex">6</div>
+          <div class="tl-label">邊緣 AI</div>
+          <div class="tl-detail">312 節點 · 市民身邊</div>
+        </div>
+      </div>
+      <div class="tl-stats">
+        <div class="tl-stat-card">
+          <div class="stat-label">基礎建設投資</div>
+          <div class="stat-row"><div class="stat-num">2,840</div><div class="stat-unit">億元（累計）</div></div>
+          <div class="stat-desc">27 年累計公共數位基礎建設投資，光纖、機房、5G 專網合計金額。</div>
+        </div>
+        <div class="tl-stat-card">
+          <div class="stat-label">公共服務覆蓋</div>
+          <div class="stat-row"><div class="stat-num">1,247</div><div class="stat-unit">項服務上線</div></div>
+          <div class="stat-desc">從 eGov 入口網到邊緣推論，市民實際可用的公共數位服務數量。</div>
+        </div>
+        <div class="tl-stat-card">
+          <div class="stat-label">下一個十年</div>
+          <div class="stat-row"><div class="stat-num">6,000+</div><div class="stat-unit">邊緣節點目標</div></div>
+          <div class="stat-desc">2030 願景：把運算搬到所有 22 縣市的市民 5 公里內，達到「零延遲市政」。</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>3 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P4 現況（圓/水）============== -->
+  <div class="slide s4-current" id="s4">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第二章 · 六都現況</div>
+      <h2 class="h1">光纖到戶 + 邊緣節點 · <span class="accent">六都數位基礎建設圖譜</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">2026 Q2 數據：六都光纖到戶平均 93%，邊緣節點合計 312 座，覆蓋 78% 公共服務熱點。</p>
+      <div class="metric-row">
+        <div class="metric-card">
+          <svg class="donut-svg" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(20,184,166,0.18)" stroke-width="12"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#14b8a6" stroke-width="12"
+              stroke-dasharray="301.59" stroke-dashoffset="22.62"
+              stroke-linecap="round" transform="rotate(-90 60 60)"/>
+            <text x="60" y="58" text-anchor="middle" fill="#5eead4" font-size="1.4rem" font-weight="900">93%</text>
+            <text x="60" y="74" text-anchor="middle" fill="#99f6e4" font-size="1rem">光纖到戶</text>
+          </svg>
+          <div class="num-lbl">六都平均覆蓋率</div>
+        </div>
+        <div class="metric-card">
+          <svg class="donut-svg" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(34,211,238,0.18)" stroke-width="12"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#22d3ee" stroke-width="12"
+              stroke-dasharray="301.59" stroke-dashoffset="66.35"
+              stroke-linecap="round" transform="rotate(-90 60 60)"/>
+            <text x="60" y="58" text-anchor="middle" fill="#67e8f9" font-size="1.4rem" font-weight="900">78%</text>
+            <text x="60" y="74" text-anchor="middle" fill="#99f6e4" font-size="1rem">節點覆蓋</text>
+          </svg>
+          <div class="num-lbl">公共服務熱點</div>
+        </div>
+        <div class="metric-card">
+          <svg class="donut-svg" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(251,191,36,0.18)" stroke-width="12"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#fbbf24" stroke-width="12"
+              stroke-dasharray="301.59" stroke-dashoffset="36.19"
+              stroke-linecap="round" transform="rotate(-90 60 60)"/>
+            <text x="60" y="58" text-anchor="middle" fill="#fbbf24" font-size="1.4rem" font-weight="900">88%</text>
+            <text x="60" y="74" text-anchor="middle" fill="#99f6e4" font-size="1rem">5G 訊號</text>
+          </svg>
+          <div class="num-lbl">戶外可用率</div>
+        </div>
+      </div>
+      <div class="cities-strip">
+        <div class="city-cell"><div class="city-name">台北市</div><div class="city-pct">96%</div></div>
+        <div class="city-cell"><div class="city-name">新北市</div><div class="city-pct">94%</div></div>
+        <div class="city-cell"><div class="city-name">桃園市</div><div class="city-pct">91%</div></div>
+        <div class="city-cell"><div class="city-name">台中市</div><div class="city-pct">92%</div></div>
+        <div class="city-cell"><div class="city-name">台南市</div><div class="city-pct">89%</div></div>
+        <div class="city-cell"><div class="city-name">高雄市</div><div class="city-pct">95%</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>4 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P5 技術堆疊（線/散）============== -->
+  <div class="slide s5-stack" id="s5">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第三章 · 技術堆疊</div>
+      <h2 class="h1">雲 — 邊 — 端 · <span class="accent">三層 AI 基礎建設的分工</h2>
+      <p class="text-mute" style="margin: 4px 0 8px;">不是「取代雲」，而是把需要即時反應的工作搬到邊緣，把需要長期分析的工作留在雲端。</p>
+      <div class="stack-canvas">
+        <svg viewBox="0 0 1100 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lg-cloud" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.1"/>
+            </linearGradient>
+            <linearGradient id="lg-edge" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#14b8a6" stop-opacity="0.1"/>
+            </linearGradient>
+            <linearGradient id="lg-end" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#fbbf24" stop-opacity="0.1"/>
+            </linearGradient>
+          </defs>
+          <!-- 雲端層（散布的雲圖示） -->
+          <rect x="40" y="20" width="280" height="50" rx="10" fill="url(#lg-cloud)" stroke="#22d3ee" stroke-width="1"/>
+          <text x="180" y="52" text-anchor="middle" fill="#67e8f9" font-size="1.1rem" font-weight="800">CLOUD · 雲端層</text>
+          <g fill="none" stroke="#22d3ee" stroke-width="1.2" opacity="0.85">
+            <rect x="80" y="100" width="50" height="36" rx="4"/>
+            <rect x="160" y="100" width="50" height="36" rx="4"/>
+            <rect x="240" y="100" width="50" height="36" rx="4"/>
+          </g>
+          <text x="105" y="124" text-anchor="middle" fill="#67e8f9" font-size="1rem" font-weight="700">訓練</text>
+          <text x="185" y="124" text-anchor="middle" fill="#67e8f9" font-size="1rem" font-weight="700">備份</text>
+          <text x="265" y="124" text-anchor="middle" fill="#67e8f9" font-size="1rem" font-weight="700">治理</text>
+
+          <!-- 邊緣層 -->
+          <rect x="380" y="20" width="340" height="50" rx="10" fill="url(#lg-edge)" stroke="#14b8a6" stroke-width="1.5"/>
+          <text x="550" y="52" text-anchor="middle" fill="#5eead4" font-size="1.1rem" font-weight="800">EDGE · 邊緣層（312 節點）</text>
+          <g fill="none" stroke="#14b8a6" stroke-width="1.5" opacity="0.85">
+            <polygon points="420,118 440,106 460,118 460,142 440,154 420,142"/>
+            <polygon points="490,118 510,106 530,118 530,142 510,154 490,142"/>
+            <polygon points="560,118 580,106 600,118 600,142 580,154 560,142"/>
+            <polygon points="630,118 650,106 670,118 670,142 650,154 630,142"/>
+          </g>
+          <text x="440" y="186" text-anchor="middle" fill="#5eead4" font-size="1rem" font-weight="700">推論</text>
+          <text x="510" y="186" text-anchor="middle" fill="#5eead4" font-size="1rem" font-weight="700">快取</text>
+          <text x="580" y="186" text-anchor="middle" fill="#5eead4" font-size="1rem" font-weight="700">聚合</text>
+          <text x="650" y="186" text-anchor="middle" fill="#5eead4" font-size="1rem" font-weight="700">仲裁</text>
+
+          <!-- 端層 -->
+          <rect x="780" y="20" width="280" height="50" rx="10" fill="url(#lg-end)" stroke="#fbbf24" stroke-width="1"/>
+          <text x="920" y="52" text-anchor="middle" fill="#fbbf24" font-size="1.1rem" font-weight="800">END · 終端層</text>
+          <g fill="none" stroke="#fbbf24" stroke-width="1.2" opacity="0.85">
+            <circle cx="830" cy="118" r="16"/>
+            <rect x="876" y="102" width="34" height="34" rx="4"/>
+            <polygon points="950,138 970,138 960,108"/>
+            <rect x="996" y="102" width="34" height="34" rx="4"/>
+          </g>
+          <text x="830" y="170" text-anchor="middle" fill="#fbbf24" font-size="1rem" font-weight="700">手機</text>
+          <text x="893" y="170" text-anchor="middle" fill="#fbbf24" font-size="1rem" font-weight="700">感測</text>
+          <text x="960" y="170" text-anchor="middle" fill="#fbbf24" font-size="1rem" font-weight="700">車機</text>
+          <text x="1013" y="170" text-anchor="middle" fill="#fbbf24" font-size="1rem" font-weight="700">看板</text>
+
+          <!-- 連線散佈 -->
+          <g stroke="#5eead4" stroke-width="1" fill="none" opacity="0.55" stroke-dasharray="3 4">
+            <line x1="180" y1="155" x2="550" y2="100"/>
+            <line x1="180" y1="155" x2="550" y2="155"/>
+            <line x1="180" y1="155" x2="550" y2="200"/>
+            <line x1="550" y1="155" x2="920" y2="100"/>
+            <line x1="550" y1="155" x2="920" y2="155"/>
+            <line x1="550" y1="155" x2="920" y2="200"/>
+          </g>
+          <text x="365" y="100" text-anchor="middle" fill="#5eead4" font-size="1rem" font-weight="700">↕ 模型分發</text>
+          <text x="365" y="240" text-anchor="middle" fill="#5eead4" font-size="1rem" font-weight="700">↕ 數據回傳</text>
+          <text x="735" y="240" text-anchor="middle" fill="#fbbf24" font-size="1rem" font-weight="700">↕ 即時互動</text>
+        </svg>
+      </div>
+      <div class="stack-row">
+        <div class="stack-card cloud">
+          <div class="lbl">雲端 · CLOUD</div>
+          <div class="ttl">長時間分析與治理</div>
+          <div class="desc">模型訓練、跨區資料治理、長期趨勢分析。所有個資脫敏後才進入此層。</div>
+          <div class="meta">反應時間 100ms+ · 容量無上限</div>
+        </div>
+        <div class="stack-card edge">
+          <div class="lbl">邊緣 · EDGE</div>
+          <div class="ttl">即時推論與本地決策</div>
+          <div class="desc">市政感測器、路口車流、醫療影像先在邊緣推論，只把關鍵事件回傳雲端。</div>
+          <div class="meta">反應時間 &lt;20ms · 5 公里內</div>
+        </div>
+        <div class="stack-card end">
+          <div class="lbl">終端 · END</div>
+          <div class="ttl">市民身邊的互動介面</div>
+          <div class="desc">手機、看板、車機、感測器。蒐集第一手訊號並即時顯示公共服務結果。</div>
+          <div class="meta">零延遲 · 隨手可用</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>5 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P6 場景（特/網）============== -->
+  <div class="slide s6-scene" id="s6">
+    <div class="glow-orb glow-orb-4"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第四章 · 四個公共服務場景</div>
+      <h2 class="h1">交通 × 醫療 × 教育 × 防災 · <span class="accent">邊緣 AI 的四種用法</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">挑選最具代表性的 4 個場景展示。每個場景都已在 2026 上半年完成 PoC → Pilot。</p>
+      <div class="scene-grid">
+        <div class="scene-card">
+          <div class="scene-num-box">01</div>
+          <div class="scene-body">
+            <div class="scene-title">交通 × 號誌即時優化</div>
+            <div class="scene-detail">路口攝影機在邊緣節點推論車流，每 5 秒調整一次號誌時相，尖峰時段停等時間下降 27%。</div>
+            <span class="scene-tag">邊緣層 · 推論</span>
+          </div>
+        </div>
+        <div class="scene-card gold">
+          <div class="scene-num-box">02</div>
+          <div class="scene-body">
+            <div class="scene-title">醫療 × 基層影像快判</div>
+            <div class="scene-detail">衛生所 X 光片先在邊緣 AI 標註疑似病灶，再回傳醫學中心複判，平均縮短判讀時間 41%。</div>
+            <span class="scene-tag">邊緣層 · 雙重把關</span>
+          </div>
+        </div>
+        <div class="scene-card">
+          <div class="scene-num-box">03</div>
+          <div class="scene-body">
+            <div class="scene-title">教育 × 偏鄉自適應學習</div>
+            <div class="scene-detail">山上教室的學習機在本地推論學生答題難度，雲端每週同步進度，離線仍可使用 90% 功能。</div>
+            <span class="scene-tag">邊緣 + 雲 · 混合</span>
+          </div>
+        </div>
+        <div class="scene-card gold">
+          <div class="scene-num-box">04</div>
+          <div class="scene-body">
+            <div class="scene-title">防災 × 社區即時預警</div>
+            <div class="scene-detail">里長手機與水尺感測器透過邊緣節點整合，30 秒內推播附近 500 公尺住戶，平均撤離時間下降 38%。</div>
+            <span class="scene-tag">端 → 邊 · 推播</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>6 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P7 對比（方/垂）============== -->
+  <div class="slide s7-compare" id="s7">
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第五章 · 對比驗證</div>
+      <h2 class="h1">集中式 vs 邊緣式 · <span class="gold">差距寫在尖峰時段</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">同一場景：信義區下班尖峰 + 大安文山暴雨同時發生。集中式流程由單一機房扛、邊緣式流程由 23 個節點分流。</p>
+      <div class="compare-row">
+        <div class="compare-card before">
+          <div class="label">BEFORE · 集中式</div>
+          <h3>單一雲端機房</h3>
+          <ul>
+            <li>跨區車流資料全部回傳 1 個機房</li>
+            <li>網路尖峰延遲 380ms · 資料掉包 8%</li>
+            <li>暴雨感測器與車流資料互搶頻寬</li>
+            <li>號誌反應慢 1.5 分鐘 · 路口回堵</li>
+            <li>機房故障全市號誌停擺 22 分鐘</li>
+            <li>個資集中 · 稽核成本高 · 風險高</li>
+          </ul>
+        </div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-card after">
+          <div class="label">AFTER · 邊緣式</div>
+          <h3>312 節點分流</h3>
+          <ul>
+            <li>23 個信義區邊緣節點就近處理車流</li>
+            <li>本地推論延遲 18ms · 零掉包</li>
+            <li>車流與暴雨節點分離互不干擾</li>
+            <li>號誌 5 秒更新 · 尖峰流量順暢</li>
+            <li>單節點故障鄰近節點接手 · 0 中斷</li>
+            <li>個資脫敏後才上雲 · 風險下降 64%</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>7 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P8 案例（線/水）============== -->
+  <div class="slide s8-case" id="s8">
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第六章 · 三組 2026 上半年落地專案</div>
+      <h2 class="h1">台北 × 台中 × 嘉義 · <span class="accent">三種治理規模的實踐</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">三個真實落地專案，從首都到山城，覆蓋都會、衛星城、偏鄉三種治理規模。</p>
+      <div class="timeline-water">
+        <div class="case-card">
+          <div class="case-node"></div>
+          <div class="case-tag">CASE · 01 · 北市</div>
+          <div class="case-title">信義區號誌即時優化</div>
+          <div class="case-body">與台大合作部署 23 個邊緣節點，尖峰時段路口停等時間下降 27%，公車準點率提升 18%。</div>
+          <div class="case-metric"><div class="case-metric-num">27%</div><div class="case-metric-lbl">停等時間下降</div></div>
+        </div>
+        <div class="case-card">
+          <div class="case-node"></div>
+          <div class="case-tag">CASE · 02 · 中市</div>
+          <div class="case-title">衛生所影像快判平台</div>
+          <div class="case-body">30 家衛生所導入 X 光邊緣判讀，平均縮短判讀 41 分鐘，6 個月輔助早期發現 47 例。</div>
+          <div class="case-metric"><div class="case-metric-num">41 min</div><div class="case-metric-lbl">判讀時間縮短</div></div>
+        </div>
+        <div class="case-card gold">
+          <div class="case-node"></div>
+          <div class="case-tag">CASE · 03 · 嘉義縣</div>
+          <div class="case-title">阿里山自適應學習網</div>
+          <div class="case-body">12 所山上國小導入混合邊緣學習機，離線可用率 92%，學期末數學平均進步 14%。</div>
+          <div class="case-metric"><div class="case-metric-num">14%</div><div class="case-metric-lbl">學習成效進步</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>8 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P9 行動（六/散）============== -->
+  <div class="slide s9-action" id="s9">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="slide-content">
+      <div class="eyebrow">第七章 · 180 天行動路線</div>
+      <h2 class="h1">四階段導入 · <span class="accent">從單一場景到跨機關生態</span></h2>
+      <p class="text-mute" style="margin: 4px 0 0;">任何想導入邊緣 AI 的機關，可直接對照下列四階段與評估指標。</p>
+      <div class="action-grid">
+        <div class="action-card">
+          <div class="a-step">STEP · 01</div>
+          <div class="a-title">盤點</div>
+          <div class="a-body">找出 1 個尖峰延遲 &gt;200ms 的服務 · 標註 19 個欄位 · 翻譯為邊緣節點規格</div>
+          <div class="a-meta">→ 30 天完成</div>
+        </div>
+        <div class="action-card hex">
+          <div class="a-step">STEP · 02</div>
+          <div class="a-title">測試</div>
+          <div class="a-body">3 個邊緣節點封閉環境演練 · 與雲端平行運作 · 收集指標</div>
+          <div class="a-meta">→ 30 天 PoC</div>
+        </div>
+        <div class="action-card">
+          <div class="a-step">STEP · 03</div>
+          <div class="a-title">上線</div>
+          <div class="a-body">單一場域實際導入 · 每週覆盤 · 持續修訂節點規格</div>
+          <div class="a-meta">→ 60 天 Pilot</div>
+        </div>
+        <div class="action-card hex">
+          <div class="a-step">STEP · 04</div>
+          <div class="a-title">擴張</div>
+          <div class="a-body">跨機關開放節點 API · 公民社群可用邊緣推論 · 共享基礎建設</div>
+          <div class="a-meta">→ 60 天 擴張</div>
+        </div>
+      </div>
+      <div class="action-meta">
+        <div class="action-meta-item"><div class="action-meta-v">30 天</div><div class="action-meta-lbl">盤點 + 規格</div></div>
+        <div class="action-meta-item"><div class="action-meta-v">30 天</div><div class="action-meta-lbl">封閉 PoC</div></div>
+        <div class="action-meta-item"><div class="action-meta-v">60 天</div><div class="action-meta-lbl">單場域 Pilot</div></div>
+        <div class="action-meta-item"><div class="action-meta-v">60 天</div><div class="action-meta-lbl">跨機關擴張</div></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>9 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+
+  <!-- ============== P10 結尾（無/單）============== -->
+  <div class="slide s10-end" id="s10">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="slide-content">
+      <div class="end-frame">
+        <div class="end-eyebrow">FINAL · 三個今天就能做的事</div>
+        <h2 class="end-title">把基礎建設當 <span class="accent">公共財</span><br>從今晚的 <span class="gold">一個節點</span> 開始</h2>
+        <p class="end-sub">你不必等 312 個節點到位。第一步是盤點一個延遲問題，第二步是把一個節點放在它需要的地方，第三步才是治理。當每個機關都能描述「邊緣 + 雲端」的分工，整個城市的反應速度就會改變。</p>
+        <div class="end-meta">
+          <div class="end-meta-item"><div class="end-meta-v">1</div><div class="end-meta-lbl">今晚盤點 1 服務</div></div>
+          <div class="end-meta-item"><div class="end-meta-v">3</div><div class="end-meta-lbl">三層節點分工</div></div>
+          <div class="end-meta-item"><div class="end-meta-v">4</div><div class="end-meta-lbl">場景閉環驗證</div></div>
+          <div class="end-meta-item"><div class="end-meta-v">180</div><div class="end-meta-lbl">天完成導入</div></div>
+        </div>
+        <p class="note">熊熊 · 2026-09-14 · 週一政府公務</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button onclick="prev()">◀</button>
+      <span>10 / 10</span>
+      <button onclick="next()">▶</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var slides = document.querySelectorAll('.slide');
+var current = 0;
+function show() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current + slides.length) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+function next() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current + 1) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+function prev() {
+  if (slides[current]) slides[current].classList.remove('active');
+  current = (current - 1 + slides.length) % slides.length;
+  if (slides[current]) slides[current].classList.add('active');
+  document.getElementById('page-info').textContent = (current + 1) + ' / ' + slides.length;
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight') next();
+  else if (e.key === 'ArrowLeft') prev();
+});
+</script>
+</body>
+</html>
