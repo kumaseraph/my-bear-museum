@@ -55,7 +55,9 @@ MINIMAX_CHAT_MODEL = "MiniMax-M2.5-highspeed"
 
 PROMPT_QUALITY_SUFFIX = (
     "soft kawaii style, horizontal composition 16:9, "
-    "high quality illustration, detailed fur texture"
+    "high quality illustration, detailed fur texture, "
+    "no text, no letters, no words, no writing, no readable characters, "
+    "no signs with letters, no books with text"
 )
 MIN_PROMPT_LENGTH = 80
 
