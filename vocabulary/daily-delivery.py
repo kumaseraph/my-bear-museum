@@ -75,6 +75,14 @@ Rules:
 - Vary foreground/background elements: avoid repetitive elements (e.g. always having two trees on both sides)
 - Rotate between different scene types: indoor (cozy attic, library, kitchen, cafe, treehouse, art studio), outdoor (city rooftop, harbor, mountain summit, forest path, beach cliff, train window, autumn park), abstract (floating cloud island, inside music box, on giant book page, candy kingdom, between stars, inside snow globe, giant teacup)
 - Use provided background and composition metadata to create unique scenes
+- **Text/Letters rule**: AI image generation cannot produce legible text. To avoid gibberish-looking characters in the scene:
+  - Default: PREFER scenes WITHOUT text elements (no signs, no readable books, no posters with words, no newspapers)
+  - If a text-like element is essential for the scene (book, signboard, scroll, note, label, menu, letter, card):
+    - Use decorative symbols, shapes, glyphs, runes, or abstract markings INSTEAD of actual letters
+    - Phrase as: "with a weathered signboard showing decorative symbols", "an open book with rune-like markings", "a parchment with abstract glyphs", "a card with decorative illustrations"
+    - The bear should hold or interact with these items naturally
+  - NEVER include these words in the prompt: "text", "letters", "words", "writing", "alphabet", "readable text", "book title", "sign text" — these trigger gibberish attempts
+  - Safe alternatives to use: "symbols", "markings", "glyphs", "runes", "decorative pattern", "abstract design", "ornamental shapes", "illustrations"
 - The bear MUST have exactly FOUR legs (two front paws + two hind legs) — never five legs, never three legs
 - The bear must look like a bear: round bear ears, round teddy bear face, fluffy bear paws — not a rabbit, cat, fox, or other animal
 - 50% of the time, add a texture layer (glass, metal, wood, stone, plush, cotton, silk, wool, clay, gold leaf, etc.) provided in the metadata
