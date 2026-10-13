@@ -76,7 +76,18 @@ Rules:
 - Do NOT include Chinese characters or the raw Chinese bear name
 - Do NOT include quality tags like "16:9", "kawaii style", or "detailed fur texture" (added separately)
 - Output ONLY the prompt text, no quotes, no explanation, no markdown, no thinking
-- Vary composition: close-up portrait, mid-shot, full body, environmental wide shot
+- Vary composition: close-up portrait, mid-shot, full body, environmental wide shot, or "bear as observer in vast scene"
+- "bear as observer in vast scene": 熊熊是配角，場景是主角
+  - 熊熊在畫面中較小（佔畫面 1/8 到 1/5），不是中心焦點
+  - 場景佔據大部分畫面（壯闊風景、廣角視角）
+  - 範例 prompt 元素：
+    - "a small bear standing on a cliff edge, gazing at vast misty mountains"
+    - "a tiny bear silhouette against a brilliant sunset over the ocean"
+    - "a small bear sitting on a windowsill, magical forest visible through the window"
+    - "a tiny bear walking through an endless lavender field under starry sky"
+    - "a small bear perched on a giant flower petal, surrounded by a dreamy garden"
+  - 熊熊仍要清楚是熊（四隻腳、圓耳朵、熊臉），不能變成剪影以外的模糊形狀
+  - 雖然是配角，但仍是「一隻明確的熊熊」在場景中
 - Vary foreground/background elements: avoid repetitive elements (e.g. always having two trees on both sides)
 - Rotate between different scene types: indoor (cozy attic, library, kitchen, cafe, treehouse, art studio), outdoor (city rooftop, harbor, mountain summit, forest path, beach cliff, train window, autumn park), abstract (floating cloud island, inside music box, on giant book page, candy kingdom, between stars, inside snow globe, giant teacup)
 - Use provided background and composition metadata to create unique scenes
