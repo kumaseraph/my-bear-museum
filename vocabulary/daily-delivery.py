@@ -579,7 +579,10 @@ def build_prompt_fallback(name, style, series, personality, title, friend_info=N
     # 加入背景與構圖（依 bear-backgrounds.json 抽選結果）
     if background_scene:
         prompt += f", set in {background_scene}"
-    if composition:
+    if composition == "bear as observer in vast scene":
+        # 配角構圖：熊熊在場景中較小，場景佔大部分畫面
+        prompt += ", the bear is a small figure in the vast scene, gazing at or exploring the magnificent surroundings, the landscape dominates the composition with the bear as a tiny but adorable presence within it, wide-angle panoramic view"
+    elif composition:
         prompt += f", {composition} composition"
 
     prompt += f", {PROMPT_QUALITY_SUFFIX}"
