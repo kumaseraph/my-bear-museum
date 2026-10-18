@@ -30,7 +30,7 @@ import random
 # ===== 設定 =====
 PROJECT_DIR = Path("/home/fjj04/my-bear-museum")
 BEARS_JSON = PROJECT_DIR / "bears.json"
-DEFAULT_TEMP_DIR = Path("/home/fjj04/bears")
+DEFAULT_TEMP_DIR = PROJECT_DIR / "bears"
 DEFAULT_DEST_DIR = PROJECT_DIR / "bears"
 VOCAB_DIR = PROJECT_DIR / "vocabulary"
 LOG_DIR = VOCAB_DIR / "logs"
@@ -1003,8 +1003,12 @@ def step_update_museum(generated, today, config):
     for item in generated:
         filename = item["filename"]
         dest = museum_dir / filename
-        shutil.copy2(item["temp_path"], dest)
-        log(f"已複製: {filename} → {dest}")
+        temp_path = Path(item["temp_path"])
+        if temp_path.resolve() != dest.resolve():
+            shutil.copy2(temp_path, dest)
+            log(f"已複製: {filename} → {dest}")
+        else:
+            log(f"已生成: {filename} (temp=dest, 略過複製)")
         
         # 生成縮圖
         try:
