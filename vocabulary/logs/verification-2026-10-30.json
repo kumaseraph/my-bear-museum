@@ -1,0 +1,211 @@
+[
+  {
+    "name": "草莓收藏者",
+    "composition": "close-up portrait",
+    "shape": "優雅修長款",
+    "pose": "喝水",
+    "attempts": 10,
+    "final_legs": 4,
+    "final_occluded": false,
+    "final_pose": "standing",
+    "limbs_correct": true,
+    "face_ok": true,
+    "text_free": true,
+    "history": [
+      {
+        "attempt": 1,
+        "legs": 4,
+        "occluded": false,
+        "pose": "standing",
+        "limbs_correct": true,
+        "face_ok": false,
+        "text_free": false,
+        "regenerated": true
+      },
+      {
+        "attempt": 2,
+        "legs": 4,
+        "occluded": false,
+        "pose": "standing",
+        "limbs_correct": true,
+        "face_ok": true,
+        "text_free": false,
+        "regenerated": false
+      },
+      {
+        "attempt": 3,
+        "legs": 4,
+        "occluded": false,
+        "pose": "standing",
+        "limbs_correct": true,
+        "face_ok": true,
+        "text_free": false,
+        "regenerated": false
+      }
+    ],
+    "manual_regeneration": {
+      "reason": "配送時驗圖判定畫面有可讀文字（燈籠上的漢字），重生 2 次後仍未通過",
+      "root_cause": "daily-delivery.py 的 regen_clause 在重生迴圈外計算一次（僅依第一次驗圖結果選句），導致後續重生沿用錯誤的強化句；且 prompt 內的 'red Chinese lanterns ... decorative symbols' 本身就是漢字生成誘因",
+      "attempts": 7,
+      "final_file_sha256": "5f33b4f614e2ca10e16df35d088f2df18c7427b0c70bee1eb200c963722480cd",
+      "final_verification": {
+        "legs": 4,
+        "occluded": false,
+        "limbs_correct": true,
+        "face_ok": true,
+        "text_free": true,
+        "pose": "standing"
+      },
+      "verified_by": [
+        "daily-delivery.py verify_image() ×2",
+        "獨立視覺引擎讀圖 ×3（含分塊裁切）"
+      ],
+      "commit": "d5aa6b8"
+    }
+  },
+  {
+    "name": "雲端守護神",
+    "composition": "vignette framed portrait",
+    "shape": "圓滾棉花糖款",
+    "pose": "爬樹",
+    "attempts": 3,
+    "final_legs": 4,
+    "final_occluded": false,
+    "final_pose": "sitting",
+    "limbs_correct": true,
+    "face_ok": true,
+    "text_free": true,
+    "history": [
+      {
+        "attempt": 1,
+        "legs": 4,
+        "occluded": false,
+        "pose": "climbing",
+        "limbs_correct": true,
+        "face_ok": true,
+        "text_free": false,
+        "regenerated": true
+      },
+      {
+        "attempt": 2,
+        "legs": 4,
+        "occluded": false,
+        "pose": "climbing",
+        "limbs_correct": true,
+        "face_ok": true,
+        "text_free": false,
+        "regenerated": false
+      },
+      {
+        "attempt": 3,
+        "legs": 4,
+        "occluded": false,
+        "pose": "sitting",
+        "limbs_correct": true,
+        "face_ok": true,
+        "text_free": true,
+        "regenerated": false
+      }
+    ]
+  },
+  {
+    "name": "珍珠尋夢者",
+    "composition": "full body",
+    "shape": "Q版比例款",
+    "pose": "玩球",
+    "attempts": 1,
+    "final_legs": 4,
+    "final_occluded": false,
+    "final_pose": "standing",
+    "limbs_correct": true,
+    "face_ok": true,
+    "text_free": true,
+    "history": [
+      {
+        "attempt": 1,
+        "legs": 4,
+        "occluded": false,
+        "pose": "standing",
+        "limbs_correct": true,
+        "face_ok": true,
+        "text_free": true,
+        "regenerated": false
+      }
+    ]
+  },
+  {
+    "name": "彩虹守護神",
+    "composition": "silhouette against bright light",
+    "shape": "銀灰冷冽款",
+    "pose": "游泳",
+    "attempts": 1,
+    "final_legs": 3,
+    "final_occluded": true,
+    "final_pose": "standing",
+    "limbs_correct": true,
+    "face_ok": true,
+    "text_free": true,
+    "history": [
+      {
+        "attempt": 1,
+        "legs": 3,
+        "occluded": true,
+        "pose": "standing",
+        "limbs_correct": true,
+        "face_ok": true,
+        "text_free": true,
+        "regenerated": false
+      }
+    ]
+  },
+  {
+    "name": "晨霧收藏家",
+    "composition": "environmental wide shot",
+    "shape": "小熊寶寶款",
+    "pose": "跳躍",
+    "attempts": 1,
+    "final_legs": 4,
+    "final_occluded": false,
+    "final_pose": "airborne",
+    "limbs_correct": true,
+    "face_ok": true,
+    "text_free": true,
+    "history": [
+      {
+        "attempt": 1,
+        "legs": 4,
+        "occluded": false,
+        "pose": "airborne",
+        "limbs_correct": true,
+        "face_ok": true,
+        "text_free": true,
+        "regenerated": false
+      }
+    ]
+  },
+  {
+    "name": "海洋拾光者",
+    "composition": "mid-shot",
+    "shape": "絨毛玩偶款",
+    "pose": "打盹",
+    "attempts": 1,
+    "final_legs": 4,
+    "final_occluded": false,
+    "final_pose": "lying",
+    "limbs_correct": true,
+    "face_ok": true,
+    "text_free": true,
+    "history": [
+      {
+        "attempt": 1,
+        "legs": 4,
+        "occluded": false,
+        "pose": "lying",
+        "limbs_correct": true,
+        "face_ok": true,
+        "text_free": true,
+        "regenerated": false
+      }
+    ]
+  }
+]
