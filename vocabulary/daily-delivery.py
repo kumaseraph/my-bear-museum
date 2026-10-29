@@ -18,6 +18,7 @@ import argparse
 import ast
 import base64
 import importlib.util
+import io
 import json
 import re
 import shutil
@@ -49,6 +50,8 @@ BEAR_FRIENDS = VOCAB_DIR / "bear-friends.json"
 BEAR_CONDITIONS = VOCAB_DIR / "bear-conditions.json"
 BEAR_TEXTURES = VOCAB_DIR / "bear-textures.json"
 BEAR_BACKGROUNDS_PATH = VOCAB_DIR / "bear-backgrounds.json"
+BEAR_SHAPES = VOCAB_DIR / "bear-shapes.json"
+BEAR_POSES = VOCAB_DIR / "bear-poses.json"
 
 COMFYUI_URL = "http://fjjhomei9.fjj.home:8188"
 COMFY_WORKFLOW = Path("/home/fjj04/comfyui/Flux.2-Klein-文生图_API.json")
@@ -65,9 +68,10 @@ HERMES_ENV_FILES = [
     Path("/home/fjj04/my-bear-museum/.env"),
 ]
 
-# Discord 通知目標：熊熊博物館 thread（cron deliver 同一個）
+# Discord 通知目標：熊熊系統部 thread（cron deliver 同一個）
+# thread 自身的 channel ID 就是可用的 channel_id，直送路徑 /channels/<thread_id>/messages
 DISCORD_API_BASE = "https://discord.com/api/v10"
-NOTIFY_CHANNEL_ID = "1512439251940151397"
+NOTIFY_CHANNEL_ID = "1560489877093482527"
 
 MINIMAX_IMAGE_URL = "https://api.minimax.io/v1/image_generation"
 
@@ -78,9 +82,24 @@ DOWNWEIGHT_FACTOR = 0.35     # 降權後的權重倍率
 PROMPT_MAX_ATTEMPTS = 2      # 提示詞生成/驗證失敗的重試上限
 PROMPT_RETRY_DELAY = 2       # 重試間隔（秒）
 
-# ===== 品質尾綴（移除 soft kawaii style，其餘保留）=====
+# ===== 造型池選樣參數（與風格選樣同構）=====
+SHAPE_EXCLUDE_DAYS = 3        # 最近 N 天用過的造型 → 不抽
+SHAPE_DOWNWEIGHT_DAYS = 14   # 最近 N 天用過的造型 → 降權
+SHAPE_DOWNWEIGHT_FACTOR = 0.35
+
+# ===== 姿勢池選樣參數（與造型池同構）=====
+POSE_EXCLUDE_DAYS = 3         # 最近 N 天用過的姿勢 → 不抽
+POSE_DOWNWEIGHT_DAYS = 14    # 最近 N 天用過的姿勢 → 降權
+POSE_DOWNWEIGHT_FACTOR = 0.35
+
+# ===== 品質尾綴 =====
+# 移除 `wild animal anatomy`：它會把每一隻熊熊都拉成寫實野生巨熊
+# （2026-10-29 實測 6/6 同質化），造型差異因此被完全抹平。
+# 熊的肢體數量與解剖一致性改由 PROMPT_SYSTEM 的 HARD CONSTRAINTS、
+# ensure_anatomy_clause() 與每筆造型描述共同負責，強度不減。
+# 保留完整 no-text 否定詞串，不可縮短。
 PROMPT_QUALITY_SUFFIX = (
-    "wild animal anatomy, four-legged stance, horizontal composition 16:9, "
+    "correct bear anatomy, horizontal composition 16:9, "
     "high quality illustration, detailed fur texture, "
     "absolutely no text, absolutely no letters, absolutely no words, "
     "absolutely no writing, no readable characters, no alphabet, "
@@ -88,6 +107,20 @@ PROMPT_QUALITY_SUFFIX = (
     "no newspaper, no menu text, no scroll text, no card text, "
     "decorative shapes and symbols only, not actual letters"
 )
+
+# ===== 姿勢池（熊熊可為任何姿勢，不限定四足）=====
+# 姿勢由本池指定；造型只控制體型比例與表面，不改變姿勢。
+# 池內容在 bear-poses.json（與造型池同構的資料檔）。
+
+# ===== 視覺驗圖 =====
+VISION_API_URL = "https://api.minimax.io/v1/chat/completions"
+VISION_MODEL = "MiniMax-M3.1-Flash"
+VISION_TIMEOUT = 120
+# MiniMax-M3.1-Flash 會先輸出 reasoning_content 再給答案，max_tokens 太小時
+# 推理就會吃光額度、導致 content 為 None（實測 200 → 無輸出；3000 → 正常）。
+VISION_MAX_TOKENS = 8000
+VERIFY_REGENERATE_MAX = 2         # 驗圖失敗（熊臉／肢體數量／有文字）時的重生上限；姿勢不觸發重生
+
 
 MIN_PROMPT_WORDS = 150       # 最少英文單字數（非字元數）
 MIN_PROMPT_LENGTH = 80       # 最少字元數（粗略的截斷檢查）
@@ -109,7 +142,7 @@ COMPOSITION_DESCRIPTIONS = {
         "open sky, the clouds and treetops curving away overhead",
     "silhouette against bright light":
         "darkly silhouetted against a brilliant backlight, the outline of a "
-        "four-legged bear clearly readable",
+        "bear clearly readable",
     "split-panel story sequence":
         "arranged as a split-panel story sequence, the same bear appearing in "
         "several separate moments of one continuous adventure",
@@ -127,7 +160,7 @@ COMPOSITION_DESCRIPTIONS = {
         "painted portrait",
 }
 
-PROMPT_SYSTEM = """You are an expert at writing English text-to-image prompts for a museum of characterful wild bears.
+PROMPT_SYSTEM = """You are an expert at writing English text-to-image prompts for a museum of characterful bears shown in many different forms.
 
 Given bear metadata in Traditional Chinese, write ONE detailed English image generation prompt.
 
@@ -137,22 +170,28 @@ Rules:
 - Describe a vivid scene with atmosphere and magical lighting
 - Write as a single flowing English paragraph, at least 150 words, ideally 180-250 words
 - Do NOT include Chinese characters or the raw Chinese bear name
-- Do NOT include quality tags like "16:9", "detailed fur texture" or "wild animal anatomy" (added separately)
-- NEVER use the words "kawaii", "mascot", "chibi", "cute" or "anthropomorphic" anywhere in the prompt - they push the image toward a humanised standing character
+- Do NOT include quality tags like "16:9", "detailed fur texture" or "correct bear anatomy" (added separately)
+- NEVER use the words "kawaii", "mascot", "chibi" or "anthropomorphic" anywhere in the prompt
 - Output ONLY the prompt text, no quotes, no explanation, no markdown, no thinking
 
-HARD CONSTRAINTS - the bear must read as a bear and as a quadruped:
-- The bear MUST have exactly FOUR legs (two front paws + two hind legs) - never five legs, never three legs
+HARD CONSTRAINTS - the bear must read as a bear with correct anatomy:
+- The bear's anatomy must be normal and complete: exactly two front paws and two hind legs, plus a clear head and tail - never an extra limb, never a missing limb, never a twisted or broken joint
 - The bear must look like a bear: round bear ears, round teddy bear face, fluffy bear paws - not a rabbit, cat, fox, or other animal
 - The image must contain NO readable text: no letters, no words, no writing, no readable characters, no alphabet, no signs, no book titles, no posters, no newspaper, no menu text, no scroll text, no card text, no labels. Use decorative shapes, symbols, glyphs, runes, ornamental patterns or abstract designs instead of actual letters
 
-ANTI-ANTHROPOMORPHIC POSE RULES - these matter as much as the four-leg rule:
-- The bear is a QUADRUPED animal. It is always on all four legs - standing, walking, resting or crouching on all fours. Never two legs, never a bipedal mascot pose
-- NEVER describe the bear as standing upright, sitting upright, perching, waving, holding an object in its paws like a human, presenting an object, hugging, clapping, pointing, or carrying something on two legs
-- Do not use the verbs stand, sit, perch, hold, carry, wave, reach, lift, offer, present, hug, clap, point, peer, gaze or crouch for the bear
-- When the bear interacts with a prop, describe it as carried in its mouth, worn on its body, or lying on the ground beside it
-- Use four-legged wording instead: "on all four paws", "on all fours", "walks on all fours", "rests on all fours", "nuzzles the...", "sniffs the...", "paws at the..."
-- The four-legged animal and the bear-face features must be stated together in the same paragraph so the model cannot read one without the other
+BEAR POSE - the metadata includes a "Bear pose" line, and it decides what the bear is doing:
+- The bear may be in ANY natural animal pose: standing, sitting, lying down, lying prone, crouching, running, leaping, airborne, rolling over, curled up asleep, eating or drinking, climbing a tree, swimming, stretching, sniffing the ground, gazing into the distance
+- Describe the pose exactly as it is given, using concrete physical wording ("lying on its side", "sitting upright", "bounding forward", "leaping through the air", "curled up asleep")
+- The pose NEVER changes the number of limbs and NEVER changes the bear's form; a sitting bear still has two front paws and two hind legs
+- Do NOT add any pose of your own and do NOT override the given pose
+- The bear stays an animal: it does not wave, hold an object up like a human, present something, hug, clap or point. A prop is carried in its mouth, worn on its body, or lies on the ground beside it
+- The bear's form features and the bear-face features must be stated together in the same paragraph so the model cannot read one without the other
+
+BEAR FORM - the metadata includes a "Bear form" line, and it decides how the bear's body looks:
+- The bear's body proportions, head-to-body ratio, limb length and fur surface MUST match that form exactly
+- The form changes ONLY proportions and surface - it NEVER changes the number of limbs (still exactly two front paws and two hind legs) and NEVER changes the given pose
+- Different bears have different forms: a chubby rounded bear, a baby cub, a plush-toy-surface bear, a big-headed cartoon-proportioned bear, a lean athletic bear, a slender elegant bear, a massive shaggy bear, a marshmallow-round bear, a low-slung short-legged bear, a silver-grey lean bear
+- Describe the form with concrete physical words (chubby, oversized round head, stubby legs, velvety, shaggy, tapered muzzle) and restate it together with the bear-face features in the same sentence
 
 COMPOSITION - the provided composition describes the camera angle:
 - Close-up portrait: the face and shoulders fill the frame
@@ -163,12 +202,12 @@ COMPOSITION - the provided composition describes the camera angle:
   - the bear occupies roughly one eighth to one fifth of the frame and is not the focal point
   - the scenery takes up most of the image (grand landscape, wide-angle viewpoint)
   - example elements:
-    - "a small bear on all four paws at a cliff edge, vast misty mountains beyond"
+    - "a small bear at a cliff edge, vast misty mountains beyond"
     - "a tiny bear silhouette against a brilliant sunset over the ocean"
-    - "a small bear resting on all fours on a windowsill, magical forest visible through the window"
-    - "a tiny bear walking on all fours through an endless lavender field under starry sky"
-    - "a small bear on all four paws on a giant flower petal, surrounded by a dreamy garden"
-  - the bear must still read clearly as a bear (four legs, round ears, bear face), never as an ambiguous blob
+    - "a small bear resting on a windowsill, magical forest visible through the window"
+    - "a tiny bear moving through an endless lavender field under starry sky"
+    - "a small bear on a giant flower petal, surrounded by a dreamy garden"
+  - the bear must still read clearly as a bear (round ears, bear face, correct limb count), never as an ambiguous blob
   - it is still "one clearly drawn bear" inside a larger scene
 - Top-down bird's eye view: the camera looks straight down from above
 - Worm's eye view looking up: the camera is on the ground looking up at the bear against the sky
@@ -198,7 +237,7 @@ LAYERING:
 - 60% of the time, add 1-3 friends to the scene based on the bear's personality and quote
 - Friends can be: human child, small dog, cat, rabbit, hamster, duckling, teddy bear toy, or small doll
 - Scenarios for friends: adventure (forest, beach, mountain camping, cave, stargazing), play (bubbles, kite, swings, soccer, snowman), outing (picnic, market, train, boat, blossoms, skiing)
-- The bear stays on all four legs beside its friends; the friends may stand or sit, the bear does not
+- The bear keeps its own given pose beside its friends; the friends may stand or sit, and the bear's own pose stays as assigned
 - Describe the friendship and interaction between characters without making the bear human
 - Optional conditions can be added based on probability:
   - Weather: sunny, rainy, snowy, typhoon, rainbow, foggy morning, thunderstorm, sandstorm, drizzle, frost, aurora
@@ -236,6 +275,8 @@ class DeliveryConfig:
         dry_run=False,
         allow_fallback=False,
         notify=True,
+        log_suffix="",
+        compositions="",
     ):
         self.temp_dir = Path(temp_dir)
         self.dest_dir = Path(dest_dir)
@@ -249,6 +290,8 @@ class DeliveryConfig:
         self.dry_run = dry_run
         self.allow_fallback = allow_fallback
         self.notify = notify
+        self.log_suffix = log_suffix
+        self.compositions = compositions
 
     @property
     def total_count(self):
@@ -258,11 +301,14 @@ class DeliveryConfig:
 _log_file = None
 
 
-def init_log_file(today, dry_run=False):
-    """dry-run 使用獨立 log 檔，避免污染正式配送歷史。"""
+def init_log_file(today, dry_run=False, suffix=""):
+    """dry-run 使用獨立 log 檔，避免污染正式配送歷史。
+
+    suffix 會加在檔名 stem 之後（例：-trial → logs/2026-10-29-trial.log）。
+    """
     global _log_file
     LOG_DIR.mkdir(parents=True, exist_ok=True)
-    _log_file = LOG_DIR / (f"dryrun-{today}.log" if dry_run else f"{today}.log")
+    _log_file = LOG_DIR / (f"dryrun-{today}{suffix}.log" if dry_run else f"{today}{suffix}.log")
 
 
 def log(msg):
@@ -469,7 +515,7 @@ def ensure_prompt_suffix(content):
     """補上標準品質尾綴（避免重複附加）。"""
     lower = content.lower()
     if (
-        "wild animal anatomy" in lower
+        "correct bear anatomy" in lower
         and "16:9" in lower
         and "detailed fur texture" in lower
     ):
@@ -477,16 +523,43 @@ def ensure_prompt_suffix(content):
     return f"{content.rstrip('., ')}, {PROMPT_QUALITY_SUFFIX}"
 
 
-def ensure_four_legs_clause(content, composition=None):
-    """四隻腳未命中時，補一句四足描述（特寫/剪影構圖除外）。"""
+def ensure_anatomy_clause(content, composition=None):
+    """補一句肢體數量正確的描述（特寫/剪影構圖除外）。
+
+    只約束「肢體數量正確、不多長不少長不畸形」，不約束姿勢。
+    """
     if composition in FOUR_LEGS_UNVERIFIABLE_COMPOSITIONS:
         return content
     if FOUR_LEGS.search(content):
         return content
     return (
-        f"{content.rstrip('., ')}, the bear is a quadruped on all four legs, "
-        "two front paws and two hind legs"
+        f"{content.rstrip('., ')}, the bear has exactly two front paws and "
+        "two hind legs, with correct normal anatomy and no extra or missing limbs"
     )
+
+
+def ensure_shape_clause(content, shape=None):
+    """把造型描述寫進 prompt（造型決定體型比例與表面，不改變姿勢）。"""
+    if not shape:
+        return content
+    en = (shape.get("en") or "").strip()
+    if not en:
+        return content
+    if en[:40].lower() in content.lower():
+        return content
+    return f"{content.rstrip('., ')}, {en}"
+
+
+def ensure_pose_clause(content, pose=None):
+    """把姿勢描述寫進 prompt（姿勢由姿勢池指定，不限定四足）。"""
+    if not pose:
+        return content
+    en = (pose.get("en") or "").strip()
+    if not en:
+        return content
+    if en[:40].lower() in content.lower():
+        return content
+    return f"{content.rstrip('., ')}, {en}"
 
 
 # ===== 提示詞生成後端（§3.2）=====
@@ -542,7 +615,8 @@ def call_hermes_prompt(system, user, timeout=None):
 
 def build_user_content(name, style, series, personality, title, quote=None,
                        friend_info=None, conditions=None, texture=None,
-                       background_scene=None, composition=None):
+                       background_scene=None, composition=None,
+                       shape=None, pose=None):
     """組裝送給模型的 user content。"""
     if isinstance(style, dict):
         style_zh = style.get("zh", "")
@@ -589,13 +663,25 @@ def build_user_content(name, style, series, personality, title, quote=None,
     if composition:
         lines.append(f"Composition: {composition}")
 
+    if shape:
+        lines.append(
+            f"Bear form (body proportions and surface - the bear must look exactly "
+            f"like this form): {shape.get('zh', '')} ({shape.get('en', '')})"
+        )
+
+    if pose:
+        lines.append(
+            f"Bear pose (the bear is doing exactly this - do not choose another pose): "
+            f"{pose.get('zh', '')} ({pose.get('en', '')})"
+        )
+
     return "\n".join(lines)
 
 
 def generate_prompt_via_model(name, style, series, personality, title, quote=None,
                               friend_info=None, conditions=None, texture=None,
                               background_scene=None, composition=None,
-                              allow_fallback=False):
+                              shape=None, pose=None, allow_fallback=False):
     """用 Hermes API 依 metadata 產生英文生圖 prompt。
 
     回傳 (prompt, info)。info 含 attempts / warnings / fallback_used / elapsed。
@@ -604,6 +690,7 @@ def generate_prompt_via_model(name, style, series, personality, title, quote=Non
     user_content = build_user_content(
         name, style, series, personality, title, quote,
         friend_info, conditions, texture, background_scene, composition,
+        shape, pose,
     )
     log(f"  Hermes 產生 prompt: {name}")
 
@@ -624,11 +711,17 @@ def generate_prompt_via_model(name, style, series, personality, title, quote=Non
             text = clean_model_text(raw)
             ok, reasons, warnings = validate_prompt(text)
             if ok:
-                for warning in warnings:
-                    log(f"    ⚠ 提示詞提醒：{warning}")
-                text = ensure_four_legs_clause(text, composition)
+                text = ensure_shape_clause(text, shape)
+                text = ensure_pose_clause(text, pose)
+                text = ensure_anatomy_clause(text, composition)
                 text = ensure_prompt_suffix(text)
                 text = re.sub(r"\s*\n+\s*", " ", text)
+                # 提醒要在補完之後才有意義：模型原始輸出常常沒寫肢體數量，
+                # 但 ensure_anatomy_clause() 會補上，先前會誤報「未明確寫出四隻腳」。
+                for warning in warnings:
+                    if "四隻腳" in warning and FOUR_LEGS.search(text):
+                        continue
+                    log(f"    ⚠ 提示詞提醒：{warning}")
                 return text, {
                     "attempts": attempt,
                     "warnings": warnings,
@@ -650,11 +743,11 @@ def generate_prompt_via_model(name, style, series, personality, title, quote=Non
     }
 
     if allow_fallback:
-        log("WARNING: 使用模板 C fallback（四隻腳規則不受保證）")
+        log("WARNING: 使用模板 C fallback（肢體數量規則不受保證）")
         fallback = build_prompt_fallback(
             name, style, series, personality, title,
             friend_info, conditions, texture,
-            background_scene, composition,
+            background_scene, composition, shape, pose,
         )
         info["fallback_used"] = True
         info["elapsed"] = time.time() - started
@@ -683,11 +776,11 @@ FALLBACK_SCENE_DETAIL = (
 
 def build_prompt_fallback(name, style, series, personality, title, friend_info=None,
                           conditions=None, texture=None, background_scene=None,
-                          composition=None):
+                          composition=None, shape=None, pose=None):
     """模板 C prompt。
 
     ⚠ 只在明確允許（--allow-fallback）時使用；不得自動呼叫。
-    完全英文、無擬人化動詞、含四隻腳與熊臉規則、長度 ≥ 150 詞。
+    完全英文、含肢體數量與熊臉規則、長度 ≥ 150 詞。
     """
     if isinstance(style, dict):
         style_en = style.get("en", style.get("zh", ""))
@@ -704,7 +797,7 @@ def build_prompt_fallback(name, style, series, personality, title, friend_info=N
 
     parts = [
         "A round teddy bear character with round bear ears, a round teddy bear face and "
-        "fluffy bear paws, on all four paws in a horizontal sixteen-by-nine frame",
+        "fluffy bear paws, in a horizontal sixteen-by-nine frame",
         style_clause,
     ]
 
@@ -714,9 +807,9 @@ def build_prompt_fallback(name, style, series, personality, title, friend_info=N
     if composition:
         if composition == "bear as observer in vast scene":
             parts.append(
-                "the bear is a small figure within the vast scene, on all four paws among the "
+                "the bear is a small figure within the vast scene, among the "
                 "immense landscape, the environment dominating the frame while the animal "
-                "remains a distinct and clearly readable four-legged bear, wide-angle "
+                "remains a distinct and clearly readable bear, wide-angle "
                 "panoramic view"
             )
         else:
@@ -740,14 +833,21 @@ def build_prompt_fallback(name, style, series, personality, title, friend_info=N
         friend_descs = [f["en"] for f in friend_info["friends"]]
         scenario = friend_info["scenario"]
         parts.append(
-            f"on all four paws beside {', '.join(friend_descs)}, {scenario}, "
-            "the friends beside it while the bear stays on all fours"
+            f"beside {', '.join(friend_descs)}, {scenario}, "
+            "the friends beside it while the bear keeps its own pose"
         )
+
+    if shape and shape.get("en"):
+        parts.append(shape["en"])
+
+    if pose and pose.get("en"):
+        parts.append(pose["en"])
 
     parts.append(f"{style_mood} atmosphere")
     parts.append(FALLBACK_SCENE_DETAIL)
     parts.append(
-        "exactly four legs, two front paws and two hind legs, the anatomy of a real wild bear"
+        "exactly two front paws and two hind legs, correct normal anatomy with "
+        "no extra or missing limbs"
     )
 
     prompt = ", ".join(p for p in parts if p)
@@ -756,6 +856,20 @@ def build_prompt_fallback(name, style, series, personality, title, friend_info=N
 
 
 # ===== 失敗紀錄與通知（§3.4 / §3.5）=====
+
+# 本批次失敗收集清單：執行期只記錄，收尾時由 send_failure_summary() 彙總成單一通知
+FAILURE_RECORDS = []
+
+# 最近一次生圖失敗的錯誤訊息（生圖函式無法回傳錯誤，只能透過模組變數往外傳）
+LAST_IMAGE_ERROR: str = ""
+LAST_IMAGE_BACKEND: str = ""
+
+# 同一個 run 只發一次彙總通知
+_FAILURE_SUMMARY_SENT = False
+
+# 疑似金鑰失效／權限不足的錯誤特徵
+_KEY_ERROR_PATTERN = re.compile(r"\b401\b|\b403\b|Unauthorized|Forbidden", re.IGNORECASE)
+
 
 def notify_discord(message, enabled=True):
     """發 Discord 通知。失敗不讓程式崩潰，回傳 True/False。"""
@@ -790,9 +904,49 @@ def notify_discord(message, enabled=True):
         return False
 
 
-def record_prompt_failure(date_str, collection_no, bear_name, attempts, error,
-                          stage="prompt_generation", notify=True):
-    """寫 JSONL 錯誤紀錄 + 通知檔 + 發 Discord + 印醒目 log。"""
+def _error_group_key(error):
+    """把錯誤訊息歸類成可統計的原因標籤（例：401 Unauthorized）。"""
+    err = str(error)
+    # 只在明確的 HTTP 狀態語境抓碼，避免誤判（例如 URL 或 port 內的數字）
+    code = None
+    for pat in (
+        r"\bHTTP (\d{3})\b",
+        r"\bClient Error: (\d{3})\b",
+        r"\bstatus_code\D{0,3}(\d{3})\b",
+        r"\bStatus Code: (\d{3})\b",
+    ):
+        m = re.search(pat, err)
+        if m:
+            code = m.group(1)
+            break
+    if code:
+        if "Unauthorized" in err or code == "401":
+            return f"{code} Unauthorized"
+        if "Forbidden" in err or code == "403":
+            return f"{code} Forbidden"
+        if "Too Many Requests" in err or code == "429":
+            return f"{code} Too Many Requests"
+        return f"HTTP {code}"
+    m = re.match(r"([A-Za-z_][A-Za-z0-9_]*Error)\b", err)
+    if m:
+        return m.group(1)
+    return err[:60] or "未知錯誤"
+
+
+def _looks_like_key_failure(error):
+    """錯誤訊息是否疑似金鑰失效或權限不足。"""
+    err = str(error)
+    if re.search(r"\bUnauthorized\b|\bForbidden\b", err, re.IGNORECASE):
+        return True
+    return bool(_KEY_ERROR_PATTERN.search(err))
+
+
+def record_failure(date_str, collection_no, bear_name, attempts, error,
+                   stage="prompt_generation", backend="hermes-api"):
+    """寫 JSONL 錯誤紀錄 + 通知檔 + NOTIFICATIONS.md + 印醒目 log。
+
+    執行期只記錄，不發 Discord；Discord 由收尾時的 send_failure_summary() 彙總發送。
+    """
     ts = datetime.now()
     ERROR_LOG_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -800,7 +954,7 @@ def record_prompt_failure(date_str, collection_no, bear_name, attempts, error,
     record = {
         "timestamp": ts.isoformat(timespec="seconds"),
         "stage": stage,
-        "backend": "hermes-api",
+        "backend": backend,
         "date": date_str,
         "collection_no": collection_no,
         "bear_name": bear_name,
@@ -815,40 +969,148 @@ def record_prompt_failure(date_str, collection_no, bear_name, attempts, error,
         f"時間：{ts.strftime('%Y-%m-%d %H:%M:%S')}\n"
         f"熊熊：No.{collection_no} {bear_name}（{date_str}）\n"
         f"階段：{stage}\n"
-        f"後端：hermes-api\n"
+        f"後端：{backend}\n"
         f"嘗試次數：{attempts}\n"
         f"錯誤摘要：{str(error)[:300]}\n"
         f"錯誤紀錄檔：{err_path}\n"
         f"處理：本隻未產圖，未使用模板 C 補位。"
     )
 
+    title = "🚨 熊熊提示詞生成失敗" if stage == "prompt_generation" else "🚨 熊熊生圖失敗"
     npath = ERROR_LOG_DIR / f"notification-{ts.strftime('%Y%m%d-%H%M%S')}-{collection_no}.md"
-    npath.write_text(f"🚨 熊熊提示詞生成失敗\n{summary}\n", encoding="utf-8")
+    npath.write_text(f"{title}\n{summary}\n", encoding="utf-8")
 
     with open(ERROR_LOG_DIR / "NOTIFICATIONS.md", "a", encoding="utf-8") as f:
         f.write(f"## {ts.strftime('%Y-%m-%d %H:%M:%S')} — No.{collection_no} {bear_name}\n\n")
-        f.write(f"- 階段：{stage}\n- 後端：hermes-api\n- 嘗試次數：{attempts}\n")
+        f.write(f"- 階段：{stage}\n- 後端：{backend}\n- 嘗試次數：{attempts}\n")
         f.write(f"- 錯誤：`{str(error)[:300]}`\n")
         f.write(f"- 後備行為：**無**（未退回模板 C，`fallback_used: false`）\n")
         f.write(f"- 錯誤紀錄：`{err_path.name}`\n- 通知檔：`{npath.name}`\n\n")
 
-    log_block("PROMPT GENERATION FAILED", summary)
+    log_block("DELIVERY FAILURE" if stage != "prompt_generation" else "PROMPT GENERATION FAILED",
+              summary)
 
-    if not notify:
-        log("  （--no-notify）略過 Discord 通知")
-        return err_path, npath
-
-    discord_ok = notify_discord(f"🚨 熊熊提示詞生成失敗\n{summary}", enabled=True)
-    if not discord_ok:
-        with open(err_path, "a", encoding="utf-8") as f:
-            f.write(json.dumps(
-                {"timestamp": ts.isoformat(timespec="seconds"), "stage": "discord_notification",
-                 "backend": "discord-bot", "date": date_str, "collection_no": collection_no,
-                 "bear_name": bear_name, "attempts": attempts,
-                 "error": "Discord 通知發送失敗（詳見 stderr）", "fallback_used": False},
-                ensure_ascii=False) + "\n")
+    FAILURE_RECORDS.append({
+        "collection_no": collection_no,
+        "bear_name": bear_name,
+        "stage": stage,
+        "backend": backend,
+        "attempts": attempts,
+        "error": str(error),
+        "error_path": str(err_path),
+        "timestamp": ts.isoformat(timespec="seconds"),
+    })
 
     return err_path, npath
+
+
+def record_prompt_failure(date_str, collection_no, bear_name, attempts, error,
+                          stage="prompt_generation", notify=True):
+    """記錄提示詞生成失敗（不再立即發 Discord，改由批次彙總統一發送）。"""
+    return record_failure(date_str, collection_no, bear_name, attempts, error,
+                          stage=stage, backend="hermes-api")
+
+
+def _build_failure_summary(today, total_count, records, error_limit=200):
+    """組出批次失敗彙總訊息。error_limit 為每隻錯誤摘要的字元上限。"""
+    groups = {}
+    for r in records:
+        key = _error_group_key(r["error"])
+        groups.setdefault(key, []).append(r)
+
+    stages = {}
+    for r in records:
+        stages.setdefault(r["stage"], []).append(r)
+
+    lines = ["🚨 熊熊配送失敗彙報"]
+    if any(_looks_like_key_failure(r["error"]) for r in records):
+        lines.append(
+            "⚠️ 疑似 API 金鑰失效或額度用盡，"
+            "請檢查 /home/fjj04/.hermes/.env 的 MINIMAX_API_KEY"
+        )
+    lines.append(f"日期：{today}")
+    lines.append(f"共 {total_count} 隻中 {len(records)} 隻失敗")
+    lines.append("")
+    lines.append("依原因分組：")
+    for key, items in sorted(groups.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+        lines.append(f"- {key}: {len(items)} 隻")
+    lines.append("")
+    lines.append("依階段分組：")
+    for stage, items in stages.items():
+        lines.append(f"- {stage}: {len(items)} 隻")
+    lines.append("")
+    lines.append("失敗明細：")
+    for i, r in enumerate(records, start=1):
+        err = r["error"].replace("\n", " ").strip()
+        if len(err) > error_limit:
+            err = err[:error_limit] + "…"
+        lines.append(
+            f"{i}. No.{r['collection_no']} {r['bear_name']}"
+            f"（{r['stage']}／{r['backend']}）— {err}"
+        )
+    lines.append("")
+    lines.append("模板 C 補位：否（未退回簡單句型）")
+    lines.append(f"錯誤紀錄：{records[0]['error_path']}")
+    return "\n".join(lines)
+
+
+def _fallback_used_in_batch(prompt_results):
+    """本批次是否有任何一隻使用了模板 C 補位。"""
+    return any(
+        r.get("info", {}).get("fallback_used")
+        for r in (prompt_results or [])
+        if isinstance(r, dict)
+    )
+
+
+def send_failure_summary(today, total_count, enabled=True, prompt_results=None):
+    """收尾時送出本批次的單一失敗彙總通知。沒有失敗就不發。"""
+    global _FAILURE_SUMMARY_SENT
+
+    if not FAILURE_RECORDS:
+        return False
+    if _FAILURE_SUMMARY_SENT:
+        log("  （彙總通知已發過，本次不重複發送）")
+        return False
+
+    _FAILURE_SUMMARY_SENT = True
+
+    # Discord 單則上限 2000 字；逐級縮短錯誤摘要直到塞得下
+    summary = _build_failure_summary(today, total_count, FAILURE_RECORDS)
+    for err_limit in (160, 120, 80, 40):
+        if len(summary) <= 2000:
+            break
+        summary = _build_failure_summary(today, total_count, FAILURE_RECORDS,
+                                         error_limit=err_limit)
+
+    if _fallback_used_in_batch(prompt_results):
+        summary = summary.replace(
+            "模板 C 補位：否（未退回簡單句型）",
+            "模板 C 補位：有（部分熊熊已退回簡單句型）",
+        )
+
+    log_block("DELIVERY FAILURE SUMMARY", summary)
+
+    if not enabled:
+        log("  （--no-notify）略過 Discord 彙總通知")
+        return False
+
+    discord_ok = notify_discord(summary, enabled=True)
+    if not discord_ok:
+        err_path = FAILURE_RECORDS[0].get("error_path")
+        if err_path:
+            try:
+                with open(err_path, "a", encoding="utf-8") as f:
+                    f.write(json.dumps(
+                        {"timestamp": datetime.now().isoformat(timespec="seconds"),
+                         "stage": "discord_notification", "backend": "discord-bot",
+                         "date": today, "collection_no": None, "bear_name": None,
+                         "attempts": 0, "error": "Discord 彙總通知發送失敗（詳見 stderr）",
+                         "fallback_used": False},
+                        ensure_ascii=False) + "\n")
+            except OSError:
+                pass
+    return discord_ok
 
 
 # ===== 風格與場景選樣（§7）=====
@@ -868,7 +1130,7 @@ def load_style_history():
             txt = f.read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
-        m = re.search(r"風格: (\[.*?\])", txt)
+        m = re.search(r"^\[\d{2}:\d{2}:\d{2}\] 風格: (\[.*?\])$", txt, re.M)
         if not m:
             continue
         try:
@@ -939,6 +1201,134 @@ def select_styles(n, target_date, history=None, extra_exclude=None, rng=None):
         pool = list(styles)
 
     return _weighted_pick(pool, weights, n, rng)
+
+
+def load_bear_shapes():
+    """載入 bear-shapes.json 的造型池。"""
+    data = load_json(BEAR_SHAPES)
+    return data.get("shapes", [])
+
+
+def load_bear_poses():
+    """載入 bear-poses.json 的姿勢池。"""
+    data = load_json(BEAR_POSES)
+    return data.get("poses", [])
+
+
+def load_pose_pool():
+    """載入姿勢池（bear-poses.json）。"""
+    return load_bear_poses()
+
+
+def _load_log_history(pattern, flags=0):
+    """從 logs/*.log 的指定行取得每日清單歷史，回傳 dict[str, list[str]]。
+
+    與 load_style_history() 同構：只解析 stem 為 ISO 日期的 log 檔
+    （dry-run / trial 的 log stem 不是日期，會自然被排除）。
+    """
+    history = {}
+    if not LOG_DIR.exists():
+        return history
+
+    for f in sorted(LOG_DIR.glob("*.log")):
+        try:
+            date.fromisoformat(f.stem)
+        except ValueError:
+            continue
+        try:
+            txt = f.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        m = re.search(pattern, txt, flags)
+        if not m:
+            continue
+        try:
+            history[f.stem] = list(ast.literal_eval(m.group(1)))
+        except Exception:
+            try:
+                history[f.stem] = list(json.loads(m.group(1).replace("'", '"')))
+            except Exception:
+                continue
+    return history
+
+
+def load_shape_history():
+    """從 logs/*.log 的「造型: [...]」行取得每日造型歷史。"""
+    # 錨定開頭的行標記，避免誤抓「造型(預覽): [...]」這類預覽紀錄
+    return _load_log_history(r"^\[\d{2}:\d{2}:\d{2}\] 造型: (\[.*?\])$", re.M)
+
+
+def load_pose_history():
+    """從 logs/*.log 的「姿勢: [...]」行取得每日姿勢歷史。"""
+    return _load_log_history(r"^\[\d{2}:\d{2}:\d{2}\] 姿勢: (\[.*?\])$", re.M)
+
+
+def _pool_weights(pool, exclude, downweight, downweight_factor):
+    weights = {}
+    for item in pool:
+        zh = item["zh"]
+        if zh in exclude:
+            weights[zh] = 0.0
+        elif zh in downweight:
+            weights[zh] = downweight_factor
+        else:
+            weights[zh] = 1.0
+    return weights
+
+
+def _select_from_pool(pool, n, target_date, history, exclude_days,
+                      downweight_days, downweight_factor, rng):
+    """通用的「最近 N 天不抽 / 降權 / 同日不重複」選樣。
+
+    退讓順序與 select_styles() 相同：先放寬降權、再放寬禁抽。
+    """
+    rng = rng or random
+    if not pool or n <= 0:
+        return []
+
+    d = date.fromisoformat(target_date)
+    exclude, downweight = set(), set()
+    for offset in range(1, exclude_days + 1):
+        exclude.update(history.get((d - timedelta(days=offset)).isoformat(), []))
+    for offset in range(exclude_days + 1, downweight_days + 1):
+        downweight.update(history.get((d - timedelta(days=offset)).isoformat(), []))
+
+    weights = _pool_weights(pool, exclude, downweight, downweight_factor)
+    avail = [s for s in pool if weights[s["zh"]] > 0]
+
+    if len(avail) < n:
+        # 退讓 1：放寬降權（仍不放寬禁抽）
+        weights = _pool_weights(pool, exclude, set(), downweight_factor)
+        avail = [s for s in pool if weights[s["zh"]] > 0]
+
+    if len(avail) < n:
+        # 退讓 2：放寬禁抽（最後手段）
+        weights = {s["zh"]: 1.0 for s in pool}
+        avail = list(pool)
+
+    return _weighted_pick(avail, weights, n, rng)
+
+
+def select_shapes(n, target_date, history=None, rng=None):
+    """套用「最近 3 天不抽 / 14 天降權 / 同日不重複」規則選出 n 個造型。"""
+    pool = load_bear_shapes()
+    if history is None:
+        history = load_shape_history()
+    return _select_from_pool(
+        pool, n, target_date, history,
+        SHAPE_EXCLUDE_DAYS, SHAPE_DOWNWEIGHT_DAYS, SHAPE_DOWNWEIGHT_FACTOR, rng,
+    )
+
+
+def select_poses(n, target_date, history=None, rng=None):
+    """套用「最近 3 天不抽 / 14 天降權 / 同日不重複」規則選出 n 個姿勢。"""
+    pool = load_pose_pool()
+    if history is None:
+        history = load_pose_history()
+    return _select_from_pool(
+        pool, n, target_date, history,
+        POSE_EXCLUDE_DAYS, POSE_DOWNWEIGHT_DAYS, POSE_DOWNWEIGHT_FACTOR, rng,
+    )
 
 
 def select_day_scenes(n, rng=None):
@@ -1184,13 +1574,15 @@ def select_conditions(conditions_data=None):
     return selected
 
 
-def prepare_bear_metadata(name, style, scene=None):
+def prepare_bear_metadata(name, style, scene=None, shape=None, pose=None):
     """生圖前先產生熊熊 metadata，供 prompt 與 bears.json 共用。
 
     Args:
         name: 熊熊中文名字
         style: 風格 dict {"zh": ..., "en": ..., "mood": ...} 或字串（向後相容）
         scene: 當天抽好的 {"background_category", "background_scene", "composition"}
+        shape: 造型 dict {"zh": ..., "en": ...}（體型比例與表面，不改變姿勢）
+        pose: 姿勢 dict {"zh": ..., "en": ...}（姿勢由姿勢池指定）
     """
     if isinstance(style, str):
         style_obj = {"zh": style, "en": style}
@@ -1206,6 +1598,11 @@ def prepare_bear_metadata(name, style, scene=None):
         "quote": get_random_quote(),
         "title": derive_title(name),
     }
+
+    if shape:
+        metadata["shape"] = shape
+    if pose:
+        metadata["pose"] = pose
 
     friend_info = get_friend_info()
     if friend_info:
@@ -1266,6 +1663,10 @@ def make_bear_record(metadata, today, collection_no, daily_index, config):
         record["style"] = metadata["style_zh"]
     if "style" in metadata and isinstance(metadata["style"], dict):
         record["style_en"] = metadata["style"].get("en", "")
+    if metadata.get("shape"):
+        record["shape"] = metadata["shape"].get("zh", "")
+    if metadata.get("pose"):
+        record["pose"] = metadata["pose"].get("zh", "")
     if metadata.get("texture"):
         tex = metadata["texture"]
         if isinstance(tex, dict):
@@ -1288,6 +1689,13 @@ def save_minimax_image(data, output_path):
     raise ValueError("回應無圖片資料")
 
 
+def _set_image_error(message, backend):
+    """記錄最近一次生圖失敗的錯誤訊息（生圖函式只回傳 bool，錯誤靠這裡往外傳）。"""
+    global LAST_IMAGE_ERROR, LAST_IMAGE_BACKEND
+    LAST_IMAGE_ERROR = str(message)
+    LAST_IMAGE_BACKEND = backend
+
+
 def generate_minimax_image(prompt, bear_name, style, output_path, idx, config):
     style_zh = style.get("zh", str(style)) if isinstance(style, dict) else style
     log(f"MiniMax #{idx+1}: {bear_name} ({style_zh}) [{config.minimax_size}]")
@@ -1295,6 +1703,8 @@ def generate_minimax_image(prompt, bear_name, style, output_path, idx, config):
     api_key = get_secret("MINIMAX_API_KEY")
     if not api_key:
         log("  ERROR: 找不到 MINIMAX_API_KEY")
+        _set_image_error("ERROR: 找不到 MINIMAX_API_KEY（檢查 /home/fjj04/.hermes/.env）",
+                         "minimax-api")
         return False
 
     try:
@@ -1324,6 +1734,7 @@ def generate_minimax_image(prompt, bear_name, style, output_path, idx, config):
         return True
     except Exception as e:
         log(f"  MiniMax 生成失敗: {e}")
+        _set_image_error(f"{type(e).__name__}: {e}", "minimax-api")
         return False
 
 
@@ -1346,12 +1757,13 @@ def _load_comfy_helpers():
     )
 
 
-def generate_comfyui_image(prompt, bear_name, style, output_path, idx, config):
+def generate_comfyui_image(prompt, bear_name, style, output_path, idx, config, seed=None):
     style_zh = style.get("zh", str(style)) if isinstance(style, dict) else style
     log(f"ComfyUI #{idx+1}: {bear_name} ({style_zh}) [{config.comfy_width}x{config.comfy_height}]")
 
     if not COMFY_WORKFLOW.exists():
         log("  ComfyUI workflow 不存在，跳過")
+        _set_image_error("ERROR: ComfyUI workflow 不存在", "comfyui")
         return False
 
     try:
@@ -1359,22 +1771,25 @@ def generate_comfyui_image(prompt, bear_name, style, output_path, idx, config):
         wf = load_workflow(str(COMFY_WORKFLOW))
         client_id = str(uuid.uuid4())
         patched, _seed = patch_workflow(
-            wf, prompt, width=config.comfy_width, height=config.comfy_height
+            wf, prompt, width=config.comfy_width, height=config.comfy_height, seed=seed
         )
         result = submit_workflow(config.comfyui_url, patched, client_id)
         prompt_id = result.get("prompt_id")
         if not prompt_id:
             log(f"  ComfyUI 無 prompt_id: {result}")
+            _set_image_error(f"ComfyUI 無 prompt_id: {str(result)[:200]}", "comfyui")
             return False
 
         status = poll_status(config.comfyui_url, prompt_id)
         if status.get("status", {}).get("status_str") != "success":
             log("  ComfyUI 生成未成功")
+            _set_image_error("ComfyUI 生成未成功", "comfyui")
             return False
 
         images = get_output_images(config.comfyui_url, status)
         if not images:
             log("  ComfyUI 無輸出圖片")
+            _set_image_error("ComfyUI 無輸出圖片", "comfyui")
             return False
 
         download_image(images[0]["url"], str(output_path))
@@ -1382,6 +1797,7 @@ def generate_comfyui_image(prompt, bear_name, style, output_path, idx, config):
         return True
     except Exception as e:
         log(f"  ComfyUI 生成失敗: {e}")
+        _set_image_error(f"{type(e).__name__}: {e}", "comfyui")
         return False
 
 
@@ -1432,6 +1848,197 @@ def add_bears_to_json(new_bears):
     log("已更新 bears.json")
 
 
+# ===== 視覺驗圖（熊臉 / 肢體數量 / 無文字）=====
+# ⚠ 驗圖判定只有三項（依 2026-10-29 補充 S4）：熊臉正確、肢體數量正確、無文字。
+# ⚠ 姿勢不限四足；坐姿不是違規，也不觸發重生（S3：禁止「坐姿→重生」邏輯）。
+# 重生的唯一觸發條件是「肢體數量錯誤」（多長／少長／畸形）。
+
+VISION_PROMPT = """Look at the bear in this image. Answer with exactly six lines and nothing else:
+LEGS=<the number of bear limbs you can actually SEE>
+OCCLUDED=<yes if any limb is hidden behind the bear's own body or off-frame, so that you simply cannot count it; no if every limb is clearly visible>
+LIMBS=<correct if the bear has exactly two front paws and two hind legs with nothing extra, missing, twisted or broken; wrong only if you can SEE an extra limb, a visibly missing limb, or a twisted or broken joint>
+FACE=<correct if it reads as a bear with round ears, a round bear face and bear paws; wrong if it reads as a rabbit, cat, fox or another animal>
+TEXT=<none if there is no readable text, letters, words, sign, book title or label in the image; some otherwise>
+POSE=<one of: standing, sitting, lying, prone, crouching, running, leaping, airborne, rolling, curled_up, eating, climbing, swimming, other>
+Important: a limb that is merely hidden behind the bear's body is NOT a missing limb, so if OCCLUDED=yes then LIMBS=correct unless you can actually see a wrong number of limbs or a deformed joint."""
+
+# 肢體數量錯誤／出現文字時的重生強化句
+LIMB_REGENERATE_CLAUSE = (
+    "the bear has exactly two front paws and two hind legs and nothing more, "
+    "all four limbs clearly separated and readable, no extra limb, no missing limb, "
+    "no twisted or broken joint"
+)
+
+# 出現可讀文字時的重生強化句
+TEXT_REGENERATE_CLAUSE = (
+    "no readable text anywhere in the image, no letters, no words, no writing, "
+    "no characters on any surface, any jar, book, sign or label carries only "
+    "decorative symbols and abstract patterns, never actual letters"
+)
+
+# 熊臉不正確時的重生強化句（S4 三項失敗條件之一）
+FACE_REGENERATE_CLAUSE = (
+    "the animal is unmistakably a bear, with round bear ears on top of a round "
+    "teddy-bear face, a short broad bear muzzle, dark round eyes and a small "
+    "black nose, and fluffy bear paws, never a rabbit, cat, fox or any other species"
+)
+
+
+def _image_to_base64_jpeg(image_path, max_width=768):
+    """縮圖到指定寬度、轉 RGB JPEG、base64 編碼（不落地寫檔）。"""
+    Image = _load_pil_image()
+    with Image.open(image_path) as img:
+        img = img.convert("RGB")
+        if img.width > max_width:
+            ratio = max_width / img.width
+            img = img.resize((max_width, max(1, int(img.height * ratio))), Image.LANCZOS)
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=88)
+        return base64.b64encode(buf.getvalue()).decode("ascii")
+
+
+def verify_pose_via_vision(image_path, retries=1):
+    """用視覺模型檢查圖中熊熊的熊臉、肢體數量與有無文字。
+
+    回傳 dict：
+      {"ok": bool, "legs": int|None, "occluded": bool|None,
+       "limbs_correct": bool|None, "face_ok": bool|None, "text_free": bool|None,
+       "pose": str, "raw": str, "error": str}
+
+    ok=False 表示無法判定（呼叫失敗）→ 呼叫端不得因此重生。
+    任何例外都不得向上拋出，配送流程不可中斷。
+    """
+    result = {
+        "ok": False,
+        "legs": None,
+        "occluded": None,
+        "limbs_correct": None,
+        "face_ok": None,
+        "text_free": None,
+        "pose": "unclear",
+        "raw": "",
+        "error": "",
+    }
+
+    try:
+        api_key = get_secret("MINIMAX_API_KEY")
+        if not api_key:
+            result["error"] = "找不到 MINIMAX_API_KEY"
+            return result
+
+        image_b64 = _image_to_base64_jpeg(image_path)
+
+        payload = json.dumps({
+            "model": VISION_MODEL,
+            "messages": [{
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": VISION_PROMPT},
+                    {"type": "image_url", "image_url": {
+                        "url": f"data:image/jpeg;base64,{image_b64}"}},
+                ],
+            }],
+            "temperature": 0.1,
+            "max_tokens": VISION_MAX_TOKENS,
+        }).encode("utf-8")
+
+        request = urllib.request.Request(
+            VISION_API_URL,
+            data=payload,
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+        )
+        with urllib.request.urlopen(request, timeout=VISION_TIMEOUT) as response:
+            body = json.loads(response.read().decode("utf-8"))
+        message = body["choices"][0]["message"]
+        raw = message.get("content") or ""
+        if not raw.strip():
+            # 推理吃光額度時 content 為 None；不解析 reasoning_content（內含
+            # 推理散文，欄位不可靠），交由呼叫端重試。
+            result["error"] = "content 為空（推理用盡額度）"
+            return result
+    except Exception as e:
+        result["error"] = f"{type(e).__name__}: {e}"
+        return result
+
+    result["raw"] = raw
+
+    m_legs = re.search(r"LEGS\s*=\s*(\d+)", raw, re.I)
+    if m_legs:
+        result["legs"] = int(m_legs.group(1))
+
+    m_limbs = re.search(r"LIMBS\s*=\s*(\w+)", raw, re.I)
+    if m_limbs:
+        result["limbs_correct"] = m_limbs.group(1).lower() == "correct"
+
+    m_occ = re.search(r"OCCLUDED\s*=\s*(\w+)", raw, re.I)
+    if m_occ:
+        result["occluded"] = m_occ.group(1).lower() == "yes"
+
+    m_face = re.search(r"FACE\s*=\s*(\w+)", raw, re.I)
+    if m_face:
+        result["face_ok"] = m_face.group(1).lower() == "correct"
+
+    m_text = re.search(r"TEXT\s*=\s*(\w+)", raw, re.I)
+    if m_text:
+        result["text_free"] = m_text.group(1).lower() == "none"
+
+    m_pose = re.search(r"POSE\s*=\s*([^\n]+)", raw, re.I)
+    if m_pose:
+        result["pose"] = m_pose.group(1).strip().lower().replace(" ", "_")
+
+    if result["limbs_correct"] is None:
+        result["error"] = "無法解析 LIMBS= 欄位"
+        return result
+
+    # 機械一致性：可見腳數與 LIMBS= 互相矛盾時，以腳數為準。
+    # 正常解剖最多 4 肢；>4 即多長。<4 且未被遮住即少長。
+    legs = result["legs"]
+    if legs is not None:
+        if legs > 4:
+            result["limbs_correct"] = False
+        elif legs < 4 and result["occluded"] is False:
+            result["limbs_correct"] = False
+
+    result["ok"] = True
+    return result
+
+
+def verify_image(image_path):
+    """驗圖（含一次重試）。
+
+    第一次解析不完整時再試一次，並合併兩次的欄位（任一次解析到就採用），
+    避免第二次回應缺欄位時把第一次已解析到的資訊丟掉。
+    """
+    first = verify_pose_via_vision(image_path)
+    if first["ok"] and first["face_ok"] is not None and first["text_free"] is not None:
+        return first
+
+    log(f"    驗圖未解析完整，重試一次：{first['error'] or '缺少欄位'}")
+    second = verify_pose_via_vision(image_path)
+
+    merged = dict(second)
+    for key in ("legs", "occluded", "limbs_correct", "face_ok", "text_free"):
+        if merged.get(key) is None and first.get(key) is not None:
+            merged[key] = first[key]
+    if merged.get("pose", "unclear") == "unclear" and first.get("pose") not in (None, "unclear"):
+        merged["pose"] = first["pose"]
+    if not merged.get("ok"):
+        return second
+    return merged
+
+
+def save_pose_verification(records, today):
+    """寫入當日視覺驗圖結果 JSON（覆寫，不累積歷史）。"""
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    path = LOG_DIR / f"verification-{today}.json"
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(records, f, ensure_ascii=False, indent=2)
+    return path
+
+
 # ===== 配送步驟 =====
 
 def step_generate_prompts(metadata_list, today, collection_no_start, config):
@@ -1458,6 +2065,8 @@ def step_generate_prompts(metadata_list, today, collection_no_start, config):
                 metadata.get("texture"),
                 metadata.get("background_scene"),
                 metadata.get("composition"),
+                shape=metadata.get("shape"),
+                pose=metadata.get("pose"),
                 allow_fallback=config.allow_fallback,
             )
         except PromptGenerationError as e:
@@ -1472,6 +2081,8 @@ def step_generate_prompts(metadata_list, today, collection_no_start, config):
                 "prompt": None,
                 "failed": True,
             })
+            # 失敗的熊熊也占用一個館藏編號，避免後續成功者與前一支重號
+            collection_no += 1
             continue
 
         log(f"  prompt: {prompt}")
@@ -1487,11 +2098,44 @@ def step_generate_prompts(metadata_list, today, collection_no_start, config):
     return results, failed
 
 
+def _generate_one_image(prompt, name, style, output, slot, config, comfyui_online, seed=None):
+    """生一張圖（ComfyUI 優先，失敗改 MiniMax）。
+
+    失敗時錯誤訊息寫在 LAST_IMAGE_ERROR，由呼叫端讀取。
+    """
+    global LAST_IMAGE_ERROR, LAST_IMAGE_BACKEND
+    LAST_IMAGE_ERROR = ""
+    LAST_IMAGE_BACKEND = ""
+
+    errors = []
+    ok = False
+    if comfyui_online:
+        ok = generate_comfyui_image(prompt, name, style, output, slot, config, seed=seed)
+        if not ok:
+            errors.append(f"comfyui: {LAST_IMAGE_ERROR or '未知錯誤'}")
+    if not ok:
+        if comfyui_online:
+            log(f"  ComfyUI 無效，改用 MiniMax: {name}")
+        ok = generate_minimax_image(prompt, name, style, output, slot, config)
+        if not ok:
+            errors.append(f"minimax: {LAST_IMAGE_ERROR or '未知錯誤'}")
+
+    if not ok:
+        LAST_IMAGE_ERROR = "；".join(errors) or "生圖失敗（無詳細錯誤訊息）"
+        LAST_IMAGE_BACKEND = "comfyui+minimax" if len(errors) > 1 else (
+            "comfyui" if errors and errors[0].startswith("comfyui") else "minimax-api"
+        )
+    return ok
+
+
 def step_generate_images(prompt_results, today, config, comfyui_online):
-    """步驟 4：依已產生的 prompt 生圖到暫存目錄。
+    """步驟 4：依已產生的 prompt 生圖到暫存目錄，並做視覺驗圖。
 
     回傳 (generated, failed_count)。failed 的熊熊已在上一步被標記，
     此處直接略過（不使用模板 C 補位）。
+
+    驗圖重生的唯一觸發條件是「肢體數量錯誤」（多長／少長／畸形）。
+    姿勢（坐／站／躺／跳…）一律不觸發重生（2026-10-29 補充 S3/S4）。
     """
     today_dir = config.temp_dir / today
     today_dir.mkdir(parents=True, exist_ok=True)
@@ -1504,6 +2148,8 @@ def step_generate_images(prompt_results, today, config, comfyui_online):
     generated = []
     failed = 0
     slot = 0
+    verification_records = []
+
     for entry in prompt_results:
         if entry["failed"]:
             failed += 1
@@ -1516,14 +2162,143 @@ def step_generate_images(prompt_results, today, config, comfyui_online):
         prompt = entry["prompt"]
         filename = bear_filename(collection_no, name)
         output = today_dir / filename
+        composition = metadata.get("composition", "")
 
-        ok = False
-        if comfyui_online:
-            ok = generate_comfyui_image(prompt, name, style, output, slot, config)
+        ok = _generate_one_image(prompt, name, style, output, slot, config, comfyui_online)
+
+        # 生圖失敗也要記錄（階段 image_generation），否則生圖端金鑰失效會完全靜默
         if not ok:
-            if comfyui_online:
-                log(f"  ComfyUI 無效，改用 MiniMax: {name}")
-            ok = generate_minimax_image(prompt, name, style, output, slot, config)
+            failed += 1
+            err_msg = LAST_IMAGE_ERROR or "生圖失敗（無詳細錯誤訊息）"
+            backend = LAST_IMAGE_BACKEND or "image-api"
+            record_failure(
+                today, collection_no, name, 1, err_msg,
+                stage="image_generation", backend=backend,
+            )
+
+        # ---- 視覺驗圖 ----
+        history = []
+        attempt = 1
+        verification = None
+        if ok:
+            log(f"  視覺驗圖: {name}（構圖：{composition or '未指定'}）")
+            verification = verify_image(output)
+            if not verification["ok"]:
+                log(f"    視覺驗圖無法判定（{verification['error']}），保留原圖不重生")
+                history.append({
+                    "attempt": attempt,
+                    "legs": verification["legs"],
+                    "occluded": verification["occluded"],
+                    "pose": verification["pose"],
+                    "limbs_correct": None,
+                    "face_ok": None,
+                    "text_free": None,
+                    "regenerated": False,
+                })
+            else:
+                history.append({
+                    "attempt": attempt,
+                    "legs": verification["legs"],
+                    "occluded": verification["occluded"],
+                    "pose": verification["pose"],
+                    "limbs_correct": verification["limbs_correct"],
+                    "face_ok": verification["face_ok"],
+                    "text_free": verification["text_free"],
+                    "regenerated": False,
+                })
+                log(
+                    f"    驗圖結果：看得見 {verification['legs']} 隻腳 / "
+                    f"被身體遮住 {'Y' if verification['occluded'] else 'N'} / "
+                    f"姿勢 {verification['pose']} / "
+                    f"肢體正確 {'Y' if verification['limbs_correct'] else 'N'} / "
+                    f"熊臉正確 {'Y' if verification['face_ok'] else 'N'} / "
+                    f"無文字 {'Y' if verification['text_free'] else 'N'}"
+                )
+
+                # 重生觸發：S4 的三項失敗條件 —— 熊臉不對 / 肢體數量錯誤 / 出現可讀文字。
+                # 姿勢（坐／站／躺／跳…）一律不觸發重生（S3）。
+                regen_clause = ""
+                if verification["face_ok"] is False:
+                    regen_clause = FACE_REGENERATE_CLAUSE
+                    reason = "熊臉不正確"
+                elif verification["limbs_correct"] is False:
+                    regen_clause = LIMB_REGENERATE_CLAUSE
+                    reason = "肢體數量錯誤"
+                elif verification["text_free"] is False:
+                    regen_clause = TEXT_REGENERATE_CLAUSE
+                    reason = "畫面出現可讀文字"
+
+                if regen_clause:
+                    history[-1]["regenerated"] = True
+                    regen_prompt = f"{prompt.rstrip('., ')}, {regen_clause}"
+                    for regen in range(1, VERIFY_REGENERATE_MAX + 1):
+                        log(f"    {reason} → 重生第 {regen}/{VERIFY_REGENERATE_MAX} 次")
+                        seed = int(time.time() * 1000) % (2**32) + regen
+                        regen_ok = _generate_one_image(
+                            regen_prompt, name, style, output, slot, config,
+                            comfyui_online, seed=seed,
+                        )
+                        if not regen_ok:
+                            log("    重生失敗，保留原圖")
+                            break
+                        attempt += 1
+                        verification = verify_image(output)
+                        if not verification["ok"]:
+                            log(f"    重生後視覺驗圖無法判定（{verification['error']}），保留最後一張")
+                            history.append({
+                                "attempt": attempt,
+                                "legs": None,
+                                "occluded": None,
+                                "pose": "unclear",
+                                "limbs_correct": None,
+                                "face_ok": None,
+                                "text_free": None,
+                                "regenerated": False,
+                            })
+                            break
+                        history.append({
+                            "attempt": attempt,
+                            "legs": verification["legs"],
+                            "occluded": verification["occluded"],
+                            "pose": verification["pose"],
+                            "limbs_correct": verification["limbs_correct"],
+                            "face_ok": verification["face_ok"],
+                            "text_free": verification["text_free"],
+                            "regenerated": False,
+                        })
+                        log(
+                            f"    重生後驗圖：看得見 {verification['legs']} 隻腳 / "
+                            f"被身體遮住 {'Y' if verification['occluded'] else 'N'} / "
+                            f"姿勢 {verification['pose']} / "
+                            f"肢體正確 {'Y' if verification['limbs_correct'] else 'N'} / "
+                            f"熊臉正確 {'Y' if verification['face_ok'] else 'N'} / "
+                            f"無文字 {'Y' if verification['text_free'] else 'N'}"
+                        )
+                        still_bad = (
+                            verification["face_ok"] is False
+                            or verification["limbs_correct"] is False
+                            or verification["text_free"] is False
+                        )
+                        if not still_bad:
+                            break
+                    else:
+                        log(f"    重生 {VERIFY_REGENERATE_MAX} 次後仍未通過，保留最後一張")
+
+        if verification is not None:
+            verification_records.append({
+                "name": name,
+                "composition": composition,
+                "shape": metadata.get("shape", {}).get("zh", ""),
+                "pose": metadata.get("pose", {}).get("zh", ""),
+                "attempts": attempt,
+                "final_legs": verification["legs"],
+                "final_occluded": verification["occluded"],
+                "final_pose": verification["pose"],
+                "limbs_correct": verification["limbs_correct"],
+                "face_ok": verification["face_ok"],
+                "text_free": verification["text_free"],
+                "history": history,
+            })
 
         if ok:
             generated.append({
@@ -1537,6 +2312,10 @@ def step_generate_images(prompt_results, today, config, comfyui_online):
                 "prompt": prompt,
             })
             slot += 1
+
+    if verification_records:
+        path = save_pose_verification(verification_records, today)
+        log(f"視覺驗圖結果已寫入: {path}")
 
     log(f"共生成 {len(generated)} 張圖片於 {today_dir}")
     return generated, failed
@@ -1606,6 +2385,8 @@ def dump_dryrun_report(metadata_list, prompt_results, today, config):
         lines.append(f"No.{entry['collection_no']} {metadata['name']}")
         lines.append("=" * 78)
         lines.append(f"  風格      : {metadata['style'].get('zh')} ({metadata['style'].get('en')})")
+        lines.append(f"  造型      : {metadata.get('shape', {}).get('zh', '')} ({metadata.get('shape', {}).get('en', '')})")
+        lines.append(f"  姿勢      : {metadata.get('pose', {}).get('zh', '')} ({metadata.get('pose', {}).get('en', '')})")
         lines.append(f"  mood      : {metadata['style'].get('mood', '')}")
         lines.append(f"  稱號      : {metadata['title']}")
         lines.append(f"  語錄      : {metadata['quote']}")
@@ -1638,7 +2419,7 @@ def dump_dryrun_report(metadata_list, prompt_results, today, config):
 
 def main(config):
     today = get_today()
-    init_log_file(today, dry_run=config.dry_run)
+    init_log_file(today, dry_run=config.dry_run, suffix=config.log_suffix)
 
     log("===== 熊熊每日配送計畫 =====")
     if config.mode:
@@ -1666,14 +2447,34 @@ def main(config):
         styles = get_next_styles(num_bears)
     style_zhs = [s.get("zh", str(s)) if isinstance(s, dict) else s for s in styles]
     log(f"熊熊: {bear_names}")
-    log(f"風格: {style_zhs}")
+
+    # 預覽模式（step2）不產出圖，這一筆風格/造型/姿勢並沒有真的被使用；
+    # 若寫成可解析的「風格: [...]」「造型: [...]」「姿勢: [...]」會被歷史
+    # 解析器當成當天的正式紀錄（解析器取第一個匹配，預覽紀錄會蓋掉真正紀錄）。
+    # 因此預覽改用不可解析的標籤。
+    is_preview = config.mode == "step2"
+    style_label = "風格(預覽)" if is_preview else "風格"
+    shape_label = "造型(預覽)" if is_preview else "造型"
+    pose_label = "姿勢(預覽)" if is_preview else "姿勢"
+    log(f"{style_label}: {style_zhs}")
+
+    # 造型池與姿勢池：與風格同構的「最近 3 天不抽 / 14 天降權 / 同日不重複」
+    shapes = select_shapes(num_bears, today, history=load_shape_history())
+    shape_zhs = [s.get("zh", "") for s in shapes]
+    log(f"{shape_label}: {shape_zhs}")
+
+    poses = select_poses(num_bears, today, history=load_pose_history())
+    pose_zhs = [p.get("zh", "") for p in poses]
+    log(f"{pose_label}: {pose_zhs}")
 
     if config.mode == "step2":
         log(f"配送隻數: ComfyUI {config.comfy_count} + MiniMax {config.minimax_count} = {num_bears}")
         for i, (name, style) in enumerate(zip(bear_names, styles), start=1):
             kind = "ComfyUI" if i <= config.comfy_count else "MiniMax"
             style_zh = style.get("zh", str(style)) if isinstance(style, dict) else style
-            log(f"  #{i} [{kind}]: {name} / {style_zh}")
+            shape_zh = shapes[i - 1].get("zh", "") if i <= len(shapes) else ""
+            pose_zh = poses[i - 1].get("zh", "") if i <= len(poses) else ""
+            log(f"  #{i} [{kind}]: {name} / {style_zh} / {shape_zh} / {pose_zh}")
         log("\n[step2] 預覽完成，未生圖、未更新詞彙輪流")
         return 0
 
@@ -1684,8 +2485,21 @@ def main(config):
 
     # 當天不重複的背景與構圖
     scenes = select_day_scenes(num_bears)
+
+    # --compositions：只覆寫每筆 scene 的 composition 欄位（背景不動）
+    if config.compositions:
+        overrides = [c.strip() for c in config.compositions.split(",") if c.strip()]
+        for i, comp in enumerate(overrides):
+            if i < len(scenes):
+                scenes[i]["composition"] = comp
+        log(f"構圖覆寫: {overrides}")
+
     metadata_list = [
-        prepare_bear_metadata(name, style, scene=scenes[i])
+        prepare_bear_metadata(
+            name, style, scene=scenes[i],
+            shape=shapes[i] if i < len(shapes) else None,
+            pose=poses[i] if i < len(poses) else None,
+        )
         for i, (name, style) in enumerate(zip(bear_names, styles))
     ]
 
@@ -1703,22 +2517,20 @@ def main(config):
         log(f"fallback_used: {any(r.get('info', {}).get('fallback_used') for r in prompt_results)}")
         if failed == total:
             log("!!! 全部失敗")
-            notify_discord(
-                f"🚨 熊熊配送失敗：{today} 全部 {total} 隻提示詞生成失敗，未產生任何圖片，未寫入 bears.json。",
-                enabled=config.notify,
-            )
+            send_failure_summary(today, total, enabled=config.notify,
+                               prompt_results=prompt_results)
             return 1
+        send_failure_summary(today, total, enabled=config.notify,
+                               prompt_results=prompt_results)
         log("dry-run 完成：未生圖、未寫 bears.json、未 commit、未 deploy")
         return 0
 
     if failed and failed == len(metadata_list):
         log("")
         log("!!! 全部失敗，中止配送")
-        notify_discord(
-            f"🚨 熊熊配送失敗：{today} 全部 {len(metadata_list)} 隻提示詞生成失敗，"
-            "配送已中止，未寫入 bears.json、未 commit、未 deploy。",
-            enabled=config.notify,
-        )
+        log("配送已中止，未寫入 bears.json、未 commit、未 deploy。")
+        send_failure_summary(today, len(metadata_list), enabled=config.notify,
+                           prompt_results=prompt_results)
         return 1
 
     log("\n--- 步驟 4b: 生成圖片 ---")
@@ -1728,6 +2540,8 @@ def main(config):
 
     if config.mode == "step4":
         log("\n[step4] 生圖完成，圖片保留於暫存目錄，未複製、未更新 bears.json")
+        send_failure_summary(today, len(metadata_list), enabled=config.notify,
+                           prompt_results=prompt_results)
         return 0
 
     log("\n--- 步驟 5: 更新熊熊博物館 ---")
@@ -1735,23 +2549,32 @@ def main(config):
 
     if config.mode == "step5":
         log("\n[step5] 博物館更新完成，未 commit、未部署")
+        send_failure_summary(today, len(metadata_list), enabled=config.notify,
+                           prompt_results=prompt_results)
         return 0
 
     if not new_bears:
         log("\n沒有新增熊熊，跳過 commit 與部署")
+        send_failure_summary(today, len(metadata_list), enabled=config.notify,
+                           prompt_results=prompt_results)
         return 0
 
     if failed:
-        message = (
-            f"⚠️ 熊熊配送部分失敗：{today} 共 {len(metadata_list)} 隻中 {failed} 隻"
-            "提示詞生成失敗（未使用模板 C 補位），已成功產生 "
-            f"{len(new_bears)} 隻。"
+        fallback_note = (
+            "有部分熊熊使用模板 C 補位" if _fallback_used_in_batch(prompt_results)
+            else "未使用模板 C 補位"
         )
-        log(message)
-        notify_discord(message, enabled=config.notify)
+        log(
+            f"⚠️ 熊熊配送部分失敗：{today} 共 {len(metadata_list)} 隻中 {failed} 隻失敗"
+            f"（{fallback_note}），已成功產生 {len(new_bears)} 隻。"
+        )
+
+    # 在 commit/deploy 前先送彙總，避免部署失敗中斷流程時漏發通知
+    send_failure_summary(today, len(metadata_list), enabled=config.notify,
+                           prompt_results=prompt_results)
 
     log("\n--- 步驟 6: Git Commit ---")
-    run_cmd(f"cd {PROJECT_DIR} && git add bears.json bears/ vocabulary/style-rotation.json vocabulary/daily-delivery.py vocabulary/bear-conditions.json vocabulary/bear-textures.json vocabulary/bear-backgrounds.json vocabulary/bear-friends.json")
+    run_cmd(f"cd {PROJECT_DIR} && git add bears.json bears/ vocabulary/style-rotation.json vocabulary/daily-delivery.py vocabulary/bear-conditions.json vocabulary/bear-textures.json vocabulary/bear-backgrounds.json vocabulary/bear-friends.json vocabulary/bear-shapes.json vocabulary/bear-poses.json")
     run_cmd(f'cd {PROJECT_DIR} && git commit -m "新增 {today} 熊熊"')
     run_cmd(f"cd {PROJECT_DIR} && git push")
     log("Git push 完成")
@@ -1790,6 +2613,10 @@ if __name__ == "__main__":
                         help="跳過 Discord 通知（測試用）")
     parser.add_argument("--hermes-api-url", default=HERMES_API_URL,
                         help="覆寫 Hermes 端點（供失敗路徑測試用）")
+    parser.add_argument("--log-suffix", default="",
+                        help="log 檔名後綴（例：-trial → logs/2026-10-29-trial.log；不影響歷史統計）")
+    parser.add_argument("--compositions", default="",
+                        help="以逗號分隔指定當天各隻的構圖，覆寫隨機選樣（例：a,b,c）")
     args = parser.parse_args()
 
     comfy_w, comfy_h = args.comfy_size
@@ -1806,8 +2633,21 @@ if __name__ == "__main__":
         dry_run=args.dry_run,
         allow_fallback=args.allow_fallback,
         notify=not args.no_notify,
+        log_suffix=args.log_suffix,
+        compositions=args.compositions,
     )
 
     globals()["HERMES_API_URL"] = args.hermes_api_url
 
-    sys.exit(main(config))
+    try:
+        sys.exit(main(config))
+    except SystemExit:
+        raise
+    except Exception as e:
+        # 未預期的例外：仍要把已累積的失敗彙總送出去，避免靜默失敗
+        print(f"ERROR: 熊熊配送未預期中止: {type(e).__name__}: {e}", file=sys.stderr, flush=True)
+        try:
+            send_failure_summary(get_today(), config.total_count, enabled=config.notify)
+        except Exception:
+            pass
+        raise
