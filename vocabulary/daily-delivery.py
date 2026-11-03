@@ -105,7 +105,9 @@ PROMPT_QUALITY_SUFFIX = (
     "absolutely no writing, no readable characters, no alphabet, "
     "no labels on jars, no signs, no book titles, no posters, "
     "no newspaper, no menu text, no scroll text, no card text, "
-    "decorative shapes and symbols only, not actual letters"
+    "decorative shapes and symbols only, not actual letters, "
+    "a single bear, exactly one bear, clear bear face, exactly four limbs, "
+    "anatomically correct"
 )
 
 # ===== 姿勢池（熊熊可為任何姿勢，不限定四足）=====
