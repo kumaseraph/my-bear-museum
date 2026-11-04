@@ -107,7 +107,7 @@ PROMPT_QUALITY_SUFFIX = (
     "no newspaper, no menu text, no scroll text, no card text, "
     "decorative shapes and symbols only, not actual letters, "
     "a single bear, exactly one bear, clear bear face, exactly four limbs, "
-    "anatomically correct"
+    "cute, adorable"
 )
 
 # ===== 姿勢池（熊熊可為任何姿勢，不限定四足）=====
@@ -192,7 +192,7 @@ BEAR POSE - the metadata includes a "Bear pose" line, and it decides what the be
 BEAR FORM - the metadata includes a "Bear form" line, and it decides how the bear's body looks:
 - The bear's body proportions, head-to-body ratio, limb length and fur surface MUST match that form exactly
 - The form changes ONLY proportions and surface - it NEVER changes the number of limbs (still exactly two front paws and two hind legs) and NEVER changes the given pose
-- Different bears have different forms: a chubby rounded bear, a baby cub, a plush-toy-surface bear, a big-headed cartoon-proportioned bear, a lean athletic bear, a slender elegant bear, a massive shaggy bear, a marshmallow-round bear, a low-slung short-legged bear, a silver-grey lean bear
+- Different bears have different forms: a chubby rounded bear, a baby cub, a plush-toy-surface bear, a big-headed cartoon-proportioned bear, a fluffy round-cheeked bear, a tiny chibi bear, a marshmallow-round bear, a sleepy soft pudgy bear, a short-legged roly-poly bear
 - Describe the form with concrete physical words (chubby, oversized round head, stubby legs, velvety, shaggy, tapered muzzle) and restate it together with the bear-face features in the same sentence
 
 COMPOSITION - the provided composition describes the camera angle:
