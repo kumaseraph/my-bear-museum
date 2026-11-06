@@ -104,16 +104,41 @@ POSE_DOWNWEIGHT_FACTOR = 0.35
 # 熊的肢體數量與解剖一致性改由 PROMPT_SYSTEM 的 HARD CONSTRAINTS、
 # ensure_anatomy_clause() 與每筆造型描述共同負責，強度不減。
 # 保留完整 no-text 否定詞串，不可縮短。
+#
+# 2026-11-06 可愛度強化（計畫 010）：重排子句順序。
+# 舊順序把 `correct bear anatomy` 放在第 1 位（模型注意力最強處），
+# 可愛關鍵詞卻被擠到第 25-31 位、否定詞放在最尾 —— 導致模型偶爾產出
+# 寫實偏離的熊熊。新順序：
+#   1. 可愛錨點（置頂）
+#   2. 量化比例（head 35~40%）
+#   3. 形體否定（NOT realistic / NOT muscular / NOT adult wild bear / NOT fierce）
+#   4. 結構規則（四隻腳 + 熊臉 + 單一熊）
+#   5. 畫質（16:9 / high quality / soft fur texture）
+#   6. 文字禁令（最後，關鍵詞全數保留）
 PROMPT_QUALITY_SUFFIX = (
-    "correct bear anatomy, horizontal composition 16:9, "
-    "high quality illustration, detailed fur texture, "
+    # 1) 可愛錨點 —— 第 1 位
+    "adorable kawaii chibi baby bear cub, oversized round head, "
+    "big round sparkly eyes, tiny dark brown triangular nose, "
+    "short round cream muzzle, plump round belly, short stubby legs, "
+    "small round paws, soft fluffy velvet fur, "
+    # 2) 量化比例
+    "head about 35 to 40 percent of total height, "
+    "eyes wide-set and low on the face, "
+    # 3) 形體否定（緊貼正面描述）
+    "toy-like rounded proportions, NOT realistic, NOT muscular, "
+    "NOT adult wild bear, NOT fierce, "
+    # 4) 結構規則
+    "exactly two front paws and two hind legs, exactly four limbs, "
+    "correct bear face, clear bear face, a single bear, exactly one bear, "
+    # 5) 畫質
+    "horizontal composition 16:9, high quality illustration, "
+    "soft fur texture, "
+    # 6) 文字禁令（關鍵詞全數保留，不可刪）
     "absolutely no text, absolutely no letters, absolutely no words, "
     "absolutely no writing, no readable characters, no alphabet, "
     "no labels on jars, no signs, no book titles, no posters, "
     "no newspaper, no menu text, no scroll text, no card text, "
-    "decorative shapes and symbols only, not actual letters, "
-    "a single bear, exactly one bear, clear bear face, exactly four limbs, "
-    "cute, adorable"
+    "decorative shapes and symbols only, not actual letters"
 )
 
 # ===== 姿勢池（熊熊可為任何姿勢，不限定四足）=====
@@ -178,8 +203,8 @@ Rules:
 - Describe a vivid scene with atmosphere and magical lighting
 - Write as a single flowing English paragraph, at least 150 words, ideally 180-250 words
 - Do NOT include Chinese characters or the raw Chinese bear name
-- Do NOT include quality tags like "16:9", "detailed fur texture" or "correct bear anatomy" (added separately)
-- NEVER use the words "kawaii", "mascot", "chibi" or "anthropomorphic" anywhere in the prompt
+- Do NOT include quality tags like "16:9", "high quality illustration" or "soft fur texture" (they are added separately), and never write the phrase "correct bear anatomy"
+- NEVER use the words "mascot" or "anthropomorphic" anywhere in the prompt
 - Output ONLY the prompt text, no quotes, no explanation, no markdown, no thinking
 
 HARD CONSTRAINTS - the bear must read as a bear with correct anatomy:
@@ -192,14 +217,26 @@ BEAR POSE - the metadata includes a "Bear pose" line, and it decides what the be
 - Describe the pose exactly as it is given, using concrete physical wording ("lying on its side", "sitting upright", "bounding forward", "leaping through the air", "curled up asleep")
 - The pose NEVER changes the number of limbs and NEVER changes the bear's form; a sitting bear still has two front paws and two hind legs
 - Do NOT add any pose of your own and do NOT override the given pose
-- The bear stays an animal: it does not wave, hold an object up like a human, present something, hug, clap or point. A prop is carried in its mouth, worn on its body, or lies on the ground beside it
+- The bear stays an animal and keeps exactly two front paws and two hind legs: it does not hold an object up like a human, present something, clap or point. Cute bear-like gestures ARE allowed and encouraged: it may raise one front paw in a small wave, make a tiny V-sign, cup its own cheeks with both front paws, nuzzle, tilt its head affectionately, or cuddle a small companion. These gestures NEVER add a limb and NEVER turn the bear into a human. A prop is carried in its mouth, worn on its body, or lies on the ground beside it
 - The bear's form features and the bear-face features must be stated together in the same paragraph so the model cannot read one without the other
 
 BEAR FORM - the metadata includes a "Bear form" line, and it decides how the bear's body looks:
 - The bear's body proportions, head-to-body ratio, limb length and fur surface MUST match that form exactly
 - The form changes ONLY proportions and surface - it NEVER changes the number of limbs (still exactly two front paws and two hind legs) and NEVER changes the given pose
 - Different bears have different forms: a chubby rounded bear, a baby cub, a plush-toy-surface bear, a big-headed cartoon-proportioned bear, a fluffy round-cheeked bear, a tiny chibi bear, a marshmallow-round bear, a sleepy soft pudgy bear, a short-legged roly-poly bear
+- EVERY bear in EVERY art style MUST be cute and kawaii: a baby cub with big head, big eyes, short round body; never a realistic, muscular or massive adult bear
 - Describe the form with concrete physical words (chubby, oversized round head, stubby legs, velvety, shaggy, tapered muzzle) and restate it together with the bear-face features in the same sentence
+
+CUTE BEAR FACE - every bear has the same face structure, only proportions and surface differ:
+- The head is 35 to 40 percent of total height, always oversized and round
+- Eyes: large, round, glossy with a bright white catchlight, set slightly low on the face and a little wide apart
+- Nose: a small dark brown rounded triangular nose, centered, tiny
+- Muzzle: short and round, cream or light tan, soft, never protruding or snout-like
+- Cheeks: full, round, faintly pink
+- Expression: gentle and cheerful - eyes open wide, small soft smile, never bared teeth, never a snarl, never a threatening glare
+- The bear must never look predatory, feral, aggressive, monstrous, scary, creepy, eerie, sinister, grim, menacing, haunted, zombie-like, demonic or wild-animal-realistic
+- NEVER use these words in the prompt: scary, creepy, eerie, ominous, sinister, menacing, feral, predator, snarl, fang, claw, grim, gory, blood, corpse, skull, dead, haunting, dread, threatening, aggressive
+- Large body size must still mean ROUND AND PLUMP (like a big plush toy), never muscular, never powerful, never massive-realistic
 
 COMPOSITION - the provided composition describes the camera angle:
 - Close-up portrait: the face and shoulders fill the frame
@@ -522,10 +559,12 @@ def validate_prompt(text):
 def ensure_prompt_suffix(content):
     """補上標準品質尾綴（避免重複附加）。"""
     lower = content.lower()
+    # 2026-11-06：尾綴首位改為可愛錨點，錨點字串隨之更新；
+    # 仍以「首尾各一個關鍵字」判斷是否已附加過。
     if (
-        "correct bear anatomy" in lower
+        "adorable kawaii chibi baby bear cub" in lower
         and "16:9" in lower
-        and "detailed fur texture" in lower
+        and "soft fur texture" in lower
     ):
         return content
     return f"{content.rstrip('., ')}, {PROMPT_QUALITY_SUFFIX}"
