@@ -75,6 +75,12 @@ NOTIFY_CHANNEL_ID = "1560489877093482527"
 
 MINIMAX_IMAGE_URL = "https://api.minimax.io/v1/image_generation"
 
+# ===== 風格分級（cute / special）=====
+# cute = 溫暖可愛向；special = 冷調/嚴肅向（style-rotation.json 的 "tier" 欄位）
+CUTE_TIER = "cute"
+SPECIAL_TIER = "special"
+CUTE_DAY_RATIO = 0.8   # 每週 4 天走 cute 池、1 天走 special 池
+
 # ===== 選樣參數 =====
 RECENT_EXCLUDE_DAYS = 3      # 最近 N 天用過的風格 → 不抽
 RECENT_DOWNWEIGHT_DAYS = 14  # 最近 N 天用過的風格 → 降權
@@ -1145,6 +1151,18 @@ def load_style_history():
     return history
 
 
+def select_style_tier(target_date):
+    """依日期決定當天使用 cute 或 special 風格池（每週 4 天 cute、1 天 special）。"""
+    d = date.fromisoformat(target_date)
+    # 週一~週四 → cute，週五 → special（weekday() 0=週一）
+    return SPECIAL_TIER if d.weekday() == 4 else CUTE_TIER
+
+
+def _style_tier(style):
+    """取得風格的 tier 欄位；缺欄位者視為 cute（維持可愛優先）。"""
+    return style.get("tier") or CUTE_TIER
+
+
 def _style_weights(styles, exclude, downweight):
     weights = {}
     for s in styles:
@@ -1170,7 +1188,11 @@ def _weighted_pick(pool, weights, n, rng):
 
 
 def select_styles(n, target_date, history=None, extra_exclude=None, rng=None):
-    """套用「最近 3 天不抽 / 14 天降權 / 同日不重複」規則選出 n 個風格。"""
+    """套用「最近 3 天不抽 / 14 天降權 / 同日不重複」規則選出 n 個風格。
+
+    外層先依當日 tier（cute / special）過濾風格池；內層維持既有的三層
+    退讓語意：禁抽+降權 → 放寬降權 → 放寬禁抽 → 最後才退回全池。
+    """
     rng = rng or random
     rotation = load_json(STYLE_ROTATION)
     styles = rotation.get("styles", [])
@@ -1189,16 +1211,27 @@ def select_styles(n, target_date, history=None, extra_exclude=None, rng=None):
     if extra_exclude:
         exclude.update(extra_exclude)
 
-    weights = _style_weights(styles, exclude, downweight)
-    pool = [s for s in styles if weights[s["zh"]] > 0]
+    # 額外一層：依日期決定 cute / special 池（每週 4 天 cute、1 天 special）
+    tier = select_style_tier(target_date)
+    tier_pool = [s for s in styles if _style_tier(s) == tier]
+    if not tier_pool:
+        tier_pool = list(styles)
+
+    weights = _style_weights(tier_pool, exclude, downweight)
+    pool = [s for s in tier_pool if weights[s["zh"]] > 0]
 
     if len(pool) < n:
         # 退讓 1：放寬降權（仍不放寬 3 天禁抽）
-        weights = _style_weights(styles, exclude, set())
-        pool = [s for s in styles if weights[s["zh"]] > 0]
+        weights = _style_weights(tier_pool, exclude, set())
+        pool = [s for s in tier_pool if weights[s["zh"]] > 0]
 
     if len(pool) < n:
-        # 退讓 2：放寬禁抽（最後手段）
+        # 退讓 2：放寬禁抽（仍限於當日 tier 池）
+        weights = {s["zh"]: 1.0 for s in tier_pool}
+        pool = list(tier_pool)
+
+    if len(pool) < n:
+        # 退讓 3：最後手段 —— 退回全池（放棄 tier 分級）
         weights = {s["zh"]: 1.0 for s in styles}
         pool = list(styles)
 
@@ -1265,16 +1298,30 @@ def load_pose_history():
     return _load_log_history(r"^\[\d{2}:\d{2}:\d{2}\] 姿勢: (\[.*?\])$", re.M)
 
 
+def _base_weight(item):
+    """取得池項目的基礎權重；沒有 weight 欄位者為 1.0（向後相容）。"""
+    return item.get("weight", 1.0)
+
+
 def _pool_weights(pool, exclude, downweight, downweight_factor):
+    """計算每個池項目的抽樣權重。
+
+    與既有 exclude / downweight 機制「疊乘」而非取代：
+      base   = item.get("weight", 1.0)
+      禁抽   → 0.0
+      降權   → base * downweight_factor
+      正常   → base
+    """
     weights = {}
     for item in pool:
         zh = item["zh"]
+        base = _base_weight(item)
         if zh in exclude:
             weights[zh] = 0.0
         elif zh in downweight:
-            weights[zh] = downweight_factor
+            weights[zh] = base * downweight_factor
         else:
-            weights[zh] = 1.0
+            weights[zh] = base
     return weights
 
 
@@ -1304,8 +1351,8 @@ def _select_from_pool(pool, n, target_date, history, exclude_days,
         avail = [s for s in pool if weights[s["zh"]] > 0]
 
     if len(avail) < n:
-        # 退讓 2：放寬禁抽（最後手段）
-        weights = {s["zh"]: 1.0 for s in pool}
+        # 退讓 2：放寬禁抽（最後手段）—— 保留各項目的基礎權重
+        weights = {s["zh"]: _base_weight(s) for s in pool}
         avail = list(pool)
 
     return _weighted_pick(avail, weights, n, rng)
