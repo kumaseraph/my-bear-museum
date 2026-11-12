@@ -153,6 +153,8 @@ VISION_TIMEOUT = 120
 # 推理就會吃光額度、導致 content 為 None（實測 200 → 無輸出；3000 → 正常）。
 VISION_MAX_TOKENS = 8000
 VERIFY_REGENERATE_MAX = 2         # 驗圖失敗（熊臉／肢體數量／有文字）時的重生上限；姿勢不觸發重生
+# 同一張圖連續驗幾次（計畫 011）：單次判定＝擲硬幣，四項判定不一致視為不確定 → 重生
+VERIFY_IMAGE_ATTEMPTS = 3
 
 
 MIN_PROMPT_WORDS = 150       # 最少英文單字數（非字元數）
@@ -218,6 +220,9 @@ BEAR POSE - the metadata includes a "Bear pose" line, and it decides what the be
 - The pose NEVER changes the number of limbs and NEVER changes the bear's form; a sitting bear still has two front paws and two hind legs
 - Do NOT add any pose of your own and do NOT override the given pose
 - The bear stays an animal and keeps exactly two front paws and two hind legs: it does not hold an object up like a human, present something, clap or point. Cute bear-like gestures ARE allowed and encouraged: it may raise one front paw in a small wave, make a tiny V-sign, cup its own cheeks with both front paws, nuzzle, tilt its head affectionately, or cuddle a small companion. These gestures NEVER add a limb and NEVER turn the bear into a human. A prop is carried in its mouth, worn on its body, or lies on the ground beside it
+- When a limb is RAISED or LIFTED (waving, reaching, climbing, pawing, holding a pose), describe which specific limb is raised so the model draws exactly one raised limb and keeps the other three grounded and clearly separated
+- A raised limb must be unmistakably attached at the shoulder or hip, with no second paw appearing in the gap between a raised limb and the body
+- Never describe a pose in a way that could be read as four front paws plus two hind legs
 - The bear's form features and the bear-face features must be stated together in the same paragraph so the model cannot read one without the other
 
 BEAR FORM - the metadata includes a "Bear form" line, and it decides how the bear's body looks:
@@ -988,6 +993,18 @@ def _looks_like_key_failure(error):
     return bool(_KEY_ERROR_PATTERN.search(err))
 
 
+def _failure_handling_text(stage):
+    """各階段失敗後的處理說明（寫入錯誤紀錄與通知檔）。"""
+    return {
+        "prompt_generation": "**無**（未退回模板 C，`fallback_used: false`）",
+        "image_generation": "**無**（本隻未產圖，未使用模板 C 補位）",
+        "image_verification": (
+            "**無**（本隻已產圖但驗圖未通過，不寫入 bears.json、"
+            "不計入館藏數量；圖片已從 bears/<日期>/ 移除）"
+        ),
+    }.get(stage, "**無**")
+
+
 def record_failure(date_str, collection_no, bear_name, attempts, error,
                    stage="prompt_generation", backend="hermes-api"):
     """寫 JSONL 錯誤紀錄 + 通知檔 + NOTIFICATIONS.md + 印醒目 log。
@@ -1020,10 +1037,14 @@ def record_failure(date_str, collection_no, bear_name, attempts, error,
         f"嘗試次數：{attempts}\n"
         f"錯誤摘要：{str(error)[:300]}\n"
         f"錯誤紀錄檔：{err_path}\n"
-        f"處理：本隻未產圖，未使用模板 C 補位。"
+        f"處理：{_failure_handling_text(stage)}"
     )
 
-    title = "🚨 熊熊提示詞生成失敗" if stage == "prompt_generation" else "🚨 熊熊生圖失敗"
+    title = {
+        "prompt_generation": "🚨 熊熊提示詞生成失敗",
+        "image_generation": "🚨 熊熊生圖失敗",
+        "image_verification": "🚨 熊熊驗圖未通過（未入館）",
+    }.get(stage, "🚨 熊熊配送失敗")
     npath = ERROR_LOG_DIR / f"notification-{ts.strftime('%Y%m%d-%H%M%S')}-{collection_no}.md"
     npath.write_text(f"{title}\n{summary}\n", encoding="utf-8")
 
@@ -1031,7 +1052,7 @@ def record_failure(date_str, collection_no, bear_name, attempts, error,
         f.write(f"## {ts.strftime('%Y-%m-%d %H:%M:%S')} — No.{collection_no} {bear_name}\n\n")
         f.write(f"- 階段：{stage}\n- 後端：{backend}\n- 嘗試次數：{attempts}\n")
         f.write(f"- 錯誤：`{str(error)[:300]}`\n")
-        f.write(f"- 後備行為：**無**（未退回模板 C，`fallback_used: false`）\n")
+        f.write(f"- 後備行為：{_failure_handling_text(stage)}\n")
         f.write(f"- 錯誤紀錄：`{err_path.name}`\n- 通知檔：`{npath.name}`\n\n")
 
     log_block("DELIVERY FAILURE" if stage != "prompt_generation" else "PROMPT GENERATION FAILED",
@@ -1941,19 +1962,25 @@ def add_bears_to_json(new_bears):
 # ⚠ 姿勢不限四足；坐姿不是違規，也不觸發重生（S3：禁止「坐姿→重生」邏輯）。
 # 重生的唯一觸發條件是「肢體數量錯誤」（多長／少長／畸形）。
 
-VISION_PROMPT = """Look at the bear in this image. Answer with exactly six lines and nothing else:
+VISION_PROMPT = """Look at the bear in this image. Answer with exactly seven lines and nothing else:
 LEGS=<the number of bear limbs you can actually SEE>
-OCCLUDED=<yes if any limb is hidden behind the bear's own body or off-frame, so that you simply cannot count it; no if every limb is clearly visible>
+OCCLUDED=<yes if a limb is genuinely hidden behind the bear's own body or off-frame so that you simply cannot count it; no if every limb is clearly visible. A limb that is RAISED, LIFTED, EXTENDED or bent upward is NOT occluded — a raised leg is fully visible and must be counted>
+EXTRA_LIMB=<yes if you can see any limb, paw or limb-end that does NOT belong to the bear's main four — for example a paw emerging from the chest, belly, back, or the gap between a raised leg and the body, or a duplicate of a paw that is already visible elsewhere; no otherwise>
 LIMBS=<correct if the bear has exactly two front paws and two hind legs with nothing extra, missing, twisted or broken; wrong only if you can SEE an extra limb, a visibly missing limb, or a twisted or broken joint>
 FACE=<correct if it reads as a bear with round ears, a round bear face and bear paws; wrong if it reads as a rabbit, cat, fox or another animal>
 TEXT=<none if there is no readable text, letters, words, sign, book title or label in the image; some otherwise>
 POSE=<one of: standing, sitting, lying, prone, crouching, running, leaping, airborne, rolling, curled_up, eating, climbing, swimming, other>
-Important: a limb that is merely hidden behind the bear's body is NOT a missing limb, so if OCCLUDED=yes then LIMBS=correct unless you can actually see a wrong number of limbs or a deformed joint."""
+Important: count every limb you can actually see, including raised, lifted or extended ones; a limb that is merely hidden behind the bear's own body is NOT an extra limb, but if fewer than four limbs can be seen then LIMBS=wrong. Extra or fifth limbs must be reported in EXTRA_LIMB even when the bear is sitting, lying, waving or holding any pose, and especially when a leg is raised — a paw appearing in the gap beside a raised leg is an extra limb."""
 
 # 肢體數量錯誤／出現文字時的重生強化句
+# 2026-11-12（計畫 011）：針對「第五隻腳」強化 —— 明講多餘的爪長在哪裡、
+# 以及抬起來的腳會不會讓模型在縫隙裡補一隻出來。
 LIMB_REGENERATE_CLAUSE = (
     "the bear has exactly two front paws and two hind legs and nothing more, "
-    "all four limbs clearly separated and readable, no extra limb, no missing limb, "
+    "no extra paw anywhere on the chest, belly, back or between the legs, "
+    "every limb clearly separated and fully readable, "
+    "no limb hidden behind another limb, "
+    "no raised or lifted leg that creates a gap where a fifth limb could appear, "
     "no twisted or broken joint"
 )
 
@@ -1990,6 +2017,7 @@ def verify_pose_via_vision(image_path, retries=1):
 
     回傳 dict：
       {"ok": bool, "legs": int|None, "occluded": bool|None,
+       "extra_limb": bool|None,
        "limbs_correct": bool|None, "face_ok": bool|None, "text_free": bool|None,
        "pose": str, "raw": str, "error": str}
 
@@ -2000,6 +2028,7 @@ def verify_pose_via_vision(image_path, retries=1):
         "ok": False,
         "legs": None,
         "occluded": None,
+        "extra_limb": None,
         "limbs_correct": None,
         "face_ok": None,
         "text_free": None,
@@ -2065,6 +2094,15 @@ def verify_pose_via_vision(image_path, retries=1):
     if m_occ:
         result["occluded"] = m_occ.group(1).lower() == "yes"
 
+    # EXTRA_LIMB=yes/no → True/False；其他值 → None（無法判定）
+    m_extra = re.search(r"EXTRA_LIMB\s*=\s*(\w+)", raw, re.I)
+    if m_extra:
+        val = m_extra.group(1).lower()
+        if val == "yes":
+            result["extra_limb"] = True
+        elif val == "no":
+            result["extra_limb"] = False
+
     m_face = re.search(r"FACE\s*=\s*(\w+)", raw, re.I)
     if m_face:
         result["face_ok"] = m_face.group(1).lower() == "correct"
@@ -2081,41 +2119,109 @@ def verify_pose_via_vision(image_path, retries=1):
         result["error"] = "無法解析 LIMBS= 欄位"
         return result
 
-    # 機械一致性：可見腳數與 LIMBS= 互相矛盾時，以腳數為準。
-    # 正常解剖最多 4 肢；>4 即多長。<4 且未被遮住即少長。
+    # 機械一致性（計畫 011）：
+    #   1. EXTRA_LIMB=yes → 一律判錯（不論可見腳數；多餘肢體長在胸口/腹部/
+    #      腿縫時模型會把它算成「看不見」而不是「多一隻」，所以不能只靠腳數）
+    #   2. 可見腳數 > 4 → 多長
+    #   3. 可見腳數 < 4 → 一律判錯（關閉「occluded=yes 就免驗」的逃生門：
+    #      抬起來的腳會讓遮住的肢體數上升，遮住不等於可以多出肢體）
+    if result["extra_limb"] is True:
+        result["limbs_correct"] = False
+
     legs = result["legs"]
     if legs is not None:
         if legs > 4:
             result["limbs_correct"] = False
-        elif legs < 4 and result["occluded"] is False:
+        elif legs < 4:
             result["limbs_correct"] = False
 
     result["ok"] = True
     return result
 
 
-def verify_image(image_path):
-    """驗圖（含一次重試）。
+def _compact_attempt(result):
+    """把一次驗圖結果壓成精簡 dict（寫入 vision_attempts 用，避免塞入整段 raw）。"""
+    return {
+        "ok": result.get("ok"),
+        "legs": result.get("legs"),
+        "occluded": result.get("occluded"),
+        "extra_limb": result.get("extra_limb"),
+        "limbs_correct": result.get("limbs_correct"),
+        "face_ok": result.get("face_ok"),
+        "text_free": result.get("text_free"),
+        "pose": result.get("pose"),
+        "error": result.get("error", ""),
+    }
 
-    第一次解析不完整時再試一次，並合併兩次的欄位（任一次解析到就採用），
-    避免第二次回應缺欄位時把第一次已解析到的資訊丟掉。
+
+def verify_image(image_path, attempts=VERIFY_IMAGE_ATTEMPTS):
+    """驗圖：同一張圖連續驗 attempts 次（預設 3 次），比對四項關鍵判定。
+
+    比對欄位：legs / limbs_correct / face_ok / text_free。
+      - 四項三次都一致 → 採用該結果，並附 vision_attempts（三次原始判定）
+      - 任一項不一致 → 判定不確定（uncertain=True），且 limbs_correct 視為 False
+        → 呼叫端會因此重生（計畫 011：同一張圖重跑判定會翻盤，單次判定＝擲硬幣）
+      - 三次都呼叫失敗 → ok=False（無法判定），沿用舊語意：保留原圖、不重生
+
+    ok=False 表示無法判定（呼叫失敗）→ 呼叫端不得因此重生。
+    任何例外都不得向上拋出，配送流程不可中斷。
     """
-    first = verify_pose_via_vision(image_path)
-    if first["ok"] and first["face_ok"] is not None and first["text_free"] is not None:
-        return first
+    attempt_results = []
+    for i in range(attempts):
+        r = verify_pose_via_vision(image_path)
+        attempt_results.append(r)
+        if not r.get("ok"):
+            log(f"    驗圖第 {i + 1}/{attempts} 次無法判定：{r.get('error') or '未知錯誤'}")
 
-    log(f"    驗圖未解析完整，重試一次：{first['error'] or '缺少欄位'}")
-    second = verify_pose_via_vision(image_path)
+    usable = [r for r in attempt_results if r.get("ok")]
 
-    merged = dict(second)
+    if not usable:
+        # 全部呼叫失敗 → 無法判定：保留原圖、不重生（舊語意）
+        merged = dict(attempt_results[-1])
+        merged["uncertain"] = False
+        merged["vision_attempts"] = [_compact_attempt(r) for r in attempt_results]
+        return merged
+
+    base = dict(usable[0])
+    # 欄位合併：任一次解析到就採用（避免某次回應缺欄位就丟掉已解析到的資訊）
     for key in ("legs", "occluded", "limbs_correct", "face_ok", "text_free"):
-        if merged.get(key) is None and first.get(key) is not None:
-            merged[key] = first[key]
-    if merged.get("pose", "unclear") == "unclear" and first.get("pose") not in (None, "unclear"):
-        merged["pose"] = first["pose"]
-    if not merged.get("ok"):
-        return second
-    return merged
+        if base.get(key) is None:
+            for r in usable:
+                if r.get(key) is not None:
+                    base[key] = r[key]
+                    break
+    if base.get("pose", "unclear") == "unclear":
+        for r in usable:
+            if r.get("pose") not in (None, "unclear"):
+                base["pose"] = r["pose"]
+                break
+
+    # EXTRA_LIMB 採「任一次看到多餘肢體就算看到」的嚴格合併：
+    # 一次讀到第五隻腳就足以判錯，不能被另一次的「no」洗掉。
+    extra_seen = any(r.get("extra_limb") is True for r in usable)
+    base["extra_limb"] = True if extra_seen else usable[0].get("extra_limb")
+
+    # 一致性比對：四項欄位任一在可用結果之間不同 → 判定不確定
+    inconsistent = []
+    for key in ("legs", "limbs_correct", "face_ok", "text_free"):
+        values = {r.get(key) for r in usable if r.get(key) is not None}
+        if len(values) > 1:
+            inconsistent.append(key)
+
+    # 可用讀數不足 2 筆 → 無法交叉驗證，單一讀數就是「擲硬幣」，視為不確定
+    if len(usable) < 2 and not inconsistent:
+        inconsistent.append("attempts_ok<2")
+
+    base["uncertain"] = bool(inconsistent)
+    base["vision_attempts"] = [_compact_attempt(r) for r in attempt_results]
+    if inconsistent:
+        # 判定不確定 → 視為肢體不合格，觸發重生
+        base["limbs_correct"] = False
+        base["inconsistent_fields"] = inconsistent
+    if extra_seen:
+        # 看到多餘肢體 → 一律判錯（不論可見腳數與其他欄位）
+        base["limbs_correct"] = False
+    return base
 
 
 def save_pose_verification(records, today):
@@ -2216,6 +2322,60 @@ def _generate_one_image(prompt, name, style, output, slot, config, comfyui_onlin
     return ok
 
 
+def _regen_clause_for(verification):
+    """依當輪驗圖結果挑出重生強化句與原因。
+
+    回傳 (clause, reason)；clause 為空字串代表三項全過、不需重生。
+    多項同時不合格時把強化句合併（T85：強化句必須在迴圈內逐輪重算）。
+    """
+    clauses = []
+    reasons = []
+    if verification.get("limbs_correct") is False:
+        clauses.append(LIMB_REGENERATE_CLAUSE)
+        if verification.get("uncertain"):
+            reasons.append("驗圖判定不確定")
+        elif verification.get("extra_limb") is True:
+            reasons.append("多餘肢體（第五隻腳）")
+        else:
+            reasons.append("肢體數量錯誤")
+    if verification.get("face_ok") is False:
+        clauses.append(FACE_REGENERATE_CLAUSE)
+        reasons.append("熊臉不正確")
+    if verification.get("text_free") is False:
+        clauses.append(TEXT_REGENERATE_CLAUSE)
+        reasons.append("畫面出現可讀文字")
+    if not clauses and verification.get("uncertain"):
+        # 判定不確定（連續驗圖不一致）→ 視為肢體不合格
+        clauses.append(LIMB_REGENERATE_CLAUSE)
+        reasons.append("驗圖判定不確定")
+    return ", ".join(clauses), "、".join(reasons)
+
+
+def _discard_unadmitted_image(image_path, config, today):
+    """把未入館的圖片從暫存/目的地目錄移除。
+
+    未入館的圖不能留在 bears/<日期>/ 目錄裡 —— 否則它會被部署出去
+    （T86：部署的是整個工作目錄），也會變成無主孤兒圖佔掉館藏編號（T96）。
+    圖片本身刪除，驗圖紀錄仍保留在 verification-<日期>.json。
+    """
+    path = Path(image_path)
+    try:
+        if path.exists():
+            path.unlink()
+            log(f"    已移除未入館圖片: {path.name}")
+    except OSError as e:
+        log(f"    移除未入館圖片失敗（{e}）")
+
+    # 縮圖若已產生也一併清掉
+    try:
+        thumbs = config.dest_dir / today / "thumbs"
+        if thumbs.exists():
+            for thumb in thumbs.glob(f"{path.stem}*"):
+                thumb.unlink()
+    except OSError:
+        pass
+
+
 def step_generate_images(prompt_results, today, config, comfyui_online):
     """步驟 4：依已產生的 prompt 生圖到暫存目錄，並做視覺驗圖。
 
@@ -2277,10 +2437,12 @@ def step_generate_images(prompt_results, today, config, comfyui_online):
                     "attempt": attempt,
                     "legs": verification["legs"],
                     "occluded": verification["occluded"],
+                    "extra_limb": verification.get("extra_limb"),
                     "pose": verification["pose"],
                     "limbs_correct": None,
                     "face_ok": None,
                     "text_free": None,
+                    "uncertain": False,
                     "regenerated": False,
                 })
             else:
@@ -2288,89 +2450,105 @@ def step_generate_images(prompt_results, today, config, comfyui_online):
                     "attempt": attempt,
                     "legs": verification["legs"],
                     "occluded": verification["occluded"],
+                    "extra_limb": verification.get("extra_limb"),
                     "pose": verification["pose"],
                     "limbs_correct": verification["limbs_correct"],
                     "face_ok": verification["face_ok"],
                     "text_free": verification["text_free"],
+                    "uncertain": verification.get("uncertain", False),
                     "regenerated": False,
                 })
                 log(
                     f"    驗圖結果：看得見 {verification['legs']} 隻腳 / "
                     f"被身體遮住 {'Y' if verification['occluded'] else 'N'} / "
+                    f"多餘肢體 {'Y' if verification.get('extra_limb') else 'N'} / "
                     f"姿勢 {verification['pose']} / "
                     f"肢體正確 {'Y' if verification['limbs_correct'] else 'N'} / "
                     f"熊臉正確 {'Y' if verification['face_ok'] else 'N'} / "
-                    f"無文字 {'Y' if verification['text_free'] else 'N'}"
+                    f"無文字 {'Y' if verification['text_free'] else 'N'} / "
+                    f"判定{'不確定' if verification.get('uncertain') else '一致'}"
                 )
 
                 # 重生觸發：S4 的三項失敗條件 —— 熊臉不對 / 肢體數量錯誤 / 出現可讀文字。
                 # 姿勢（坐／站／躺／跳…）一律不觸發重生（S3）。
-                regen_clause = ""
-                if verification["face_ok"] is False:
-                    regen_clause = FACE_REGENERATE_CLAUSE
-                    reason = "熊臉不正確"
-                elif verification["limbs_correct"] is False:
-                    regen_clause = LIMB_REGENERATE_CLAUSE
-                    reason = "肢體數量錯誤"
-                elif verification["text_free"] is False:
-                    regen_clause = TEXT_REGENERATE_CLAUSE
-                    reason = "畫面出現可讀文字"
-
-                if regen_clause:
+                # 強化句每輪依當輪結果重算並可疊加（T85）。
+                regen_count = 0
+                while regen_count < VERIFY_REGENERATE_MAX:
+                    regen_clause, reason = _regen_clause_for(verification)
+                    if not regen_clause:
+                        break
+                    regen_count += 1
                     history[-1]["regenerated"] = True
                     regen_prompt = f"{prompt.rstrip('., ')}, {regen_clause}"
-                    for regen in range(1, VERIFY_REGENERATE_MAX + 1):
-                        log(f"    {reason} → 重生第 {regen}/{VERIFY_REGENERATE_MAX} 次")
-                        seed = int(time.time() * 1000) % (2**32) + regen
-                        regen_ok = _generate_one_image(
-                            regen_prompt, name, style, output, slot, config,
-                            comfyui_online, seed=seed,
-                        )
-                        if not regen_ok:
-                            log("    重生失敗，保留原圖")
-                            break
-                        attempt += 1
-                        verification = verify_image(output)
-                        if not verification["ok"]:
-                            log(f"    重生後視覺驗圖無法判定（{verification['error']}），保留最後一張")
-                            history.append({
-                                "attempt": attempt,
-                                "legs": None,
-                                "occluded": None,
-                                "pose": "unclear",
-                                "limbs_correct": None,
-                                "face_ok": None,
-                                "text_free": None,
-                                "regenerated": False,
-                            })
-                            break
+                    log(f"    {reason} → 重生第 {regen_count}/{VERIFY_REGENERATE_MAX} 次")
+                    seed = int(time.time() * 1000) % (2**32) + regen_count
+                    regen_ok = _generate_one_image(
+                        regen_prompt, name, style, output, slot, config,
+                        comfyui_online, seed=seed,
+                    )
+                    if not regen_ok:
+                        log("    重生失敗，保留原圖")
+                        break
+                    attempt += 1
+                    verification = verify_image(output)
+                    if not verification["ok"]:
+                        log(f"    重生後視覺驗圖無法判定（{verification['error']}），保留最後一張")
                         history.append({
                             "attempt": attempt,
-                            "legs": verification["legs"],
-                            "occluded": verification["occluded"],
-                            "pose": verification["pose"],
-                            "limbs_correct": verification["limbs_correct"],
-                            "face_ok": verification["face_ok"],
-                            "text_free": verification["text_free"],
+                            "legs": None,
+                            "occluded": None,
+                            "extra_limb": None,
+                            "pose": "unclear",
+                            "limbs_correct": None,
+                            "face_ok": None,
+                            "text_free": None,
+                            "uncertain": False,
                             "regenerated": False,
                         })
-                        log(
-                            f"    重生後驗圖：看得見 {verification['legs']} 隻腳 / "
-                            f"被身體遮住 {'Y' if verification['occluded'] else 'N'} / "
-                            f"姿勢 {verification['pose']} / "
-                            f"肢體正確 {'Y' if verification['limbs_correct'] else 'N'} / "
-                            f"熊臉正確 {'Y' if verification['face_ok'] else 'N'} / "
-                            f"無文字 {'Y' if verification['text_free'] else 'N'}"
-                        )
-                        still_bad = (
-                            verification["face_ok"] is False
-                            or verification["limbs_correct"] is False
-                            or verification["text_free"] is False
-                        )
-                        if not still_bad:
-                            break
-                    else:
-                        log(f"    重生 {VERIFY_REGENERATE_MAX} 次後仍未通過，保留最後一張")
+                        break
+                    history.append({
+                        "attempt": attempt,
+                        "legs": verification["legs"],
+                        "occluded": verification["occluded"],
+                        "extra_limb": verification.get("extra_limb"),
+                        "pose": verification["pose"],
+                        "limbs_correct": verification["limbs_correct"],
+                        "face_ok": verification["face_ok"],
+                        "text_free": verification["text_free"],
+                        "uncertain": verification.get("uncertain", False),
+                        "regenerated": False,
+                    })
+                    log(
+                        f"    重生後驗圖：看得見 {verification['legs']} 隻腳 / "
+                        f"被身體遮住 {'Y' if verification['occluded'] else 'N'} / "
+                        f"多餘肢體 {'Y' if verification.get('extra_limb') else 'N'} / "
+                        f"姿勢 {verification['pose']} / "
+                        f"肢體正確 {'Y' if verification['limbs_correct'] else 'N'} / "
+                        f"熊臉正確 {'Y' if verification['face_ok'] else 'N'} / "
+                        f"無文字 {'Y' if verification['text_free'] else 'N'} / "
+                        f"判定{'不確定' if verification.get('uncertain') else '一致'}"
+                    )
+
+                # 迴圈結束後再確認一次：最後一次重生可能是好的
+                final_clause, final_reason = _regen_clause_for(verification)
+                if final_clause:
+                    log(f"    重生 {regen_count} 次後仍未通過（{final_reason}）")
+
+        # ---- 入館閘門（計畫 011 F）----
+        # 驗圖判定 limbs_correct=False / extra_limb=True / 判定不確定者一律不入館：
+        # 不寫 bears.json、不留在 bears/<日期>/、不計入館藏數量。
+        admitted = True
+        reject_reason = ""
+        if verification is not None:
+            if verification.get("uncertain"):
+                admitted = False
+                reject_reason = "驗圖判定不確定（三次判定不一致）"
+            elif verification.get("extra_limb") is True:
+                admitted = False
+                reject_reason = "多餘肢體（第五隻腳）"
+            elif verification.get("limbs_correct") is False:
+                admitted = False
+                reject_reason = "肢體數量錯誤"
 
         if verification is not None:
             verification_records.append({
@@ -2381,25 +2559,40 @@ def step_generate_images(prompt_results, today, config, comfyui_online):
                 "attempts": attempt,
                 "final_legs": verification["legs"],
                 "final_occluded": verification["occluded"],
+                "final_extra_limb": verification.get("extra_limb"),
                 "final_pose": verification["pose"],
                 "limbs_correct": verification["limbs_correct"],
                 "face_ok": verification["face_ok"],
                 "text_free": verification["text_free"],
+                "uncertain": verification.get("uncertain", False),
+                "admitted": admitted,
+                "reject_reason": reject_reason,
                 "history": history,
             })
 
         if ok:
-            generated.append({
-                "name": name,
-                "style": style,
-                "collection_no": collection_no,
-                "filename": filename,
-                "temp_path": output,
-                "source": "comfy_or_fallback",
-                "metadata": metadata,
-                "prompt": prompt,
-            })
             slot += 1
+            if admitted:
+                generated.append({
+                    "name": name,
+                    "style": style,
+                    "collection_no": collection_no,
+                    "filename": filename,
+                    "temp_path": output,
+                    "source": "comfy_or_fallback",
+                    "metadata": metadata,
+                    "prompt": prompt,
+                })
+            else:
+                # 未入館：缺席必須是「被記錄的失敗」，不是靜默少一隻（T89）
+                failed += 1
+                log(f"  [未入館] {name}：{reject_reason}（不寫入 bears.json、不計入館藏）")
+                record_failure(
+                    today, collection_no, name, attempt,
+                    f"驗圖未通過：{reject_reason}",
+                    stage="image_verification", backend="vision-minimax",
+                )
+                _discard_unadmitted_image(output, config, today)
 
     if verification_records:
         path = save_pose_verification(verification_records, today)
