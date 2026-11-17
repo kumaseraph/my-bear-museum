@@ -17,7 +17,11 @@ set -uo pipefail
 PROJECT_DIR="/home/fjj04/my-bear-museum"
 VENV_PY="/home/fjj04/.hermes/hermes-agent/venv/bin/python"
 LOG_DIR="${PROJECT_DIR}/vocabulary/logs"
-TIMEOUT=1800   # 6 隻實測約 6-8 分鐘；驗圖閘門若升級（T87/T88）可再拉高
+TIMEOUT=3600   # 6 隻實測約 6-8 分鐘；驗圖閘門若升級（T87/T88）可再拉高
+# 2026-11-17（計畫 012）：1800 → 3600。計畫 011 讓驗圖從 1 次變 3 次，
+# 加上 MiniMax 視覺 API timeout，耗時約 3 倍 → 11/17 跑了 28 分 21 秒就被
+# 1800 秒砍掉，5 張圖生成了但沒寫 bears.json、沒部署。計畫 012 再加 1 次
+# zonal 讀取，耗時會再增加，故拉到 3600。
 
 cd "${PROJECT_DIR}" || { echo "❌ 無法進入 ${PROJECT_DIR}"; exit 1; }
 

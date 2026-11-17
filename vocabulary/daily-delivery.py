@@ -327,6 +327,8 @@ class DeliveryConfig:
         notify=True,
         log_suffix="",
         compositions="",
+        redraw_date="",
+        redraw_count=6,
     ):
         self.temp_dir = Path(temp_dir)
         self.dest_dir = Path(dest_dir)
@@ -342,6 +344,8 @@ class DeliveryConfig:
         self.notify = notify
         self.log_suffix = log_suffix
         self.compositions = compositions
+        self.redraw_date = redraw_date
+        self.redraw_count = redraw_count
 
     @property
     def total_count(self):
@@ -1002,6 +1006,10 @@ def _failure_handling_text(stage):
             "**無**（本隻已產圖但驗圖未通過，不寫入 bears.json、"
             "不計入館藏數量；圖片已從 bears/<日期>/ 移除）"
         ),
+        "metadata_recovery": (
+            "**無**（本隻 metadata 無法從 state.db 還原，已跳過，"
+            "未產圖、未計入館藏數量）"
+        ),
     }.get(stage, "**無**")
 
 
@@ -1044,6 +1052,7 @@ def record_failure(date_str, collection_no, bear_name, attempts, error,
         "prompt_generation": "🚨 熊熊提示詞生成失敗",
         "image_generation": "🚨 熊熊生圖失敗",
         "image_verification": "🚨 熊熊驗圖未通過（未入館）",
+        "metadata_recovery": "🚨 熊熊 metadata 還原失敗（已跳過）",
     }.get(stage, "🚨 熊熊配送失敗")
     npath = ERROR_LOG_DIR / f"notification-{ts.strftime('%Y%m%d-%H%M%S')}-{collection_no}.md"
     npath.write_text(f"{title}\n{summary}\n", encoding="utf-8")
@@ -1972,6 +1981,34 @@ TEXT=<none if there is no readable text, letters, words, sign, book title or lab
 POSE=<one of: standing, sitting, lying, prone, crouching, running, leaping, airborne, rolling, curled_up, eating, climbing, swimming, other>
 Important: count every limb you can actually see, including raised, lifted or extended ones; a limb that is merely hidden behind the bear's own body is NOT an extra limb, but if fewer than four limbs can be seen then LIMBS=wrong. Extra or fifth limbs must be reported in EXTRA_LIMB even when the bear is sitting, lying, waving or holding any pose, and especially when a leg is raised — a paw appearing in the gap beside a raised leg is an extra limb."""
 
+# 指定區域追問（計畫 012 / T102）
+# 實測：同一支 MiniMax 視覺模型、同一批圖，泛問在 3 張「真的有第五隻腳」的圖上
+# 全部漏判（回 legs=3 / EXTRA=no），還在乾淨圖上假陽性；指定區域追問則
+# 至少一讀全部命中（5/yes），乾淨圖兩讀穩定 no。
+# 閘門改為「泛問 2 次 + zonal 1 次」聯集：任一讀到 extra_limb=yes 就判錯。
+ZONAL_EXTRA_LIMB_PROMPT = (
+    "Look specifically at the bear's CHEST, BELLY and BACK, and in the gap between "
+    "any raised leg and the body. A fifth limb often hides in exactly those places "
+    "and is easy to miss when you only count the obvious legs. "
+    "If you are not sure whether a small dark shape near the belly is a paw, say yes."
+)
+
+
+def build_vision_prompt(zonal=False):
+    """泛問 prompt；zonal=True 時在「Important: ...」行之後追加指定區域追問。
+
+    解析邏輯兩種問法完全相同（都回七行欄位），只是問法不同。
+    """
+    if not zonal:
+        return VISION_PROMPT
+    lines = VISION_PROMPT.split("\n")
+    for i, line in enumerate(lines):
+        if line.startswith("Important:"):
+            return "\n".join(lines[:i + 1] + [ZONAL_EXTRA_LIMB_PROMPT] + lines[i + 1:])
+    # 沒有 Important 行（prompt 結構被改過）→ 直接附加在最後
+    return VISION_PROMPT + "\n" + ZONAL_EXTRA_LIMB_PROMPT
+
+
 # 肢體數量錯誤／出現文字時的重生強化句
 # 2026-11-12（計畫 011）：針對「第五隻腳」強化 —— 明講多餘的爪長在哪裡、
 # 以及抬起來的腳會不會讓模型在縫隙裡補一隻出來。
@@ -2012,14 +2049,17 @@ def _image_to_base64_jpeg(image_path, max_width=768):
         return base64.b64encode(buf.getvalue()).decode("ascii")
 
 
-def verify_pose_via_vision(image_path, retries=1):
+def verify_pose_via_vision(image_path, retries=1, zonal=False):
     """用視覺模型檢查圖中熊熊的熊臉、肢體數量與有無文字。
+
+    zonal=True 時改用「指定區域追問」（胸口／腹部／腿縫）—— 泛問會系統性
+    漏判長在胸口的第五隻腳（計畫 012 / T102）。解析邏輯兩種問法相同。
 
     回傳 dict：
       {"ok": bool, "legs": int|None, "occluded": bool|None,
        "extra_limb": bool|None,
        "limbs_correct": bool|None, "face_ok": bool|None, "text_free": bool|None,
-       "pose": str, "raw": str, "error": str}
+       "pose": str, "raw": str, "error": str, "zonal": bool}
 
     ok=False 表示無法判定（呼叫失敗）→ 呼叫端不得因此重生。
     任何例外都不得向上拋出，配送流程不可中斷。
@@ -2035,6 +2075,7 @@ def verify_pose_via_vision(image_path, retries=1):
         "pose": "unclear",
         "raw": "",
         "error": "",
+        "zonal": bool(zonal),
     }
 
     try:
@@ -2050,7 +2091,7 @@ def verify_pose_via_vision(image_path, retries=1):
             "messages": [{
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": VISION_PROMPT},
+                    {"type": "text", "text": build_vision_prompt(zonal)},
                     {"type": "image_url", "image_url": {
                         "url": f"data:image/jpeg;base64,{image_b64}"}},
                 ],
@@ -2143,6 +2184,7 @@ def _compact_attempt(result):
     """把一次驗圖結果壓成精簡 dict（寫入 vision_attempts 用，避免塞入整段 raw）。"""
     return {
         "ok": result.get("ok"),
+        "zonal": bool(result.get("zonal")),
         "legs": result.get("legs"),
         "occluded": result.get("occluded"),
         "extra_limb": result.get("extra_limb"),
@@ -2157,7 +2199,17 @@ def _compact_attempt(result):
 def verify_image(image_path, attempts=VERIFY_IMAGE_ATTEMPTS):
     """驗圖：同一張圖連續驗 attempts 次（預設 3 次），比對四項關鍵判定。
 
-    比對欄位：legs / limbs_correct / face_ok / text_free。
+    讀取計畫（計畫 012）：泛問 2 次 + zonal（指定區域追問）1 次。
+    泛問會系統性漏判長在胸口／腹部／腿縫的第五隻腳（實測 3 張真缺陷圖
+    全部漏判），zonal 問法才抓得到 → 兩種問法取「聯集」。
+
+    合併規則：
+      - extra_limb：任一讀回 True 就是 True（zonal 的 yes 不被泛問的 no 洗掉）
+      - limbs_correct：任一讀到 extra_limb=True → False
+      - 一致性比對欄位：legs / limbs_correct / face_ok / text_free
+        （extra_limb 不納入 —— 泛問與 zonal 本來就會分歧，分歧本身就是
+          「這張圖有問題」的訊號，應判錯而非判不確定）
+
       - 四項三次都一致 → 採用該結果，並附 vision_attempts（三次原始判定）
       - 任一項不一致 → 判定不確定（uncertain=True），且 limbs_correct 視為 False
         → 呼叫端會因此重生（計畫 011：同一張圖重跑判定會翻盤，單次判定＝擲硬幣）
@@ -2168,12 +2220,17 @@ def verify_image(image_path, attempts=VERIFY_IMAGE_ATTEMPTS):
     """
     attempt_results = []
     for i in range(attempts):
-        r = verify_pose_via_vision(image_path)
+        # 讀取計畫：泛問 2 次 + zonal 1 次（zonal 放最後一次，
+        # 讓 base 判定優先採用泛問結果，zonal 只做「有沒有第五隻腳」的聯集補強）
+        zonal = (attempts >= 2 and i == attempts - 1)
+        r = verify_pose_via_vision(image_path, zonal=zonal)
         attempt_results.append(r)
         if not r.get("ok"):
             log(f"    驗圖第 {i + 1}/{attempts} 次無法判定：{r.get('error') or '未知錯誤'}")
 
     usable = [r for r in attempt_results if r.get("ok")]
+    generic_usable = [r for r in usable if not r.get("zonal")]
+    zonal_usable = [r for r in usable if r.get("zonal")]
 
     if not usable:
         # 全部呼叫失敗 → 無法判定：保留原圖、不重生（舊語意）
@@ -2182,7 +2239,9 @@ def verify_image(image_path, attempts=VERIFY_IMAGE_ATTEMPTS):
         merged["vision_attempts"] = [_compact_attempt(r) for r in attempt_results]
         return merged
 
-    base = dict(usable[0])
+    # base 優先採用泛問讀的結果（zonal 問法有「不確定就說 yes」的偏向，
+    # 不宜當作基準值），缺欄位時再從任何可用讀補上。
+    base = dict(generic_usable[0] if generic_usable else usable[0])
     # 欄位合併：任一次解析到就採用（避免某次回應缺欄位就丟掉已解析到的資訊）
     for key in ("legs", "occluded", "limbs_correct", "face_ok", "text_free"):
         if base.get(key) is None:
@@ -2196,15 +2255,19 @@ def verify_image(image_path, attempts=VERIFY_IMAGE_ATTEMPTS):
                 base["pose"] = r["pose"]
                 break
 
-    # EXTRA_LIMB 採「任一次看到多餘肢體就算看到」的嚴格合併：
+    # EXTRA_LIMB 採「任一次看到多餘肢體就算看到」的嚴格合併（聯集）：
     # 一次讀到第五隻腳就足以判錯，不能被另一次的「no」洗掉。
+    # 泛問與 zonal 都納入這個聯集 —— zonal 的 yes 必須能翻案。
     extra_seen = any(r.get("extra_limb") is True for r in usable)
     base["extra_limb"] = True if extra_seen else usable[0].get("extra_limb")
 
-    # 一致性比對：四項欄位任一在可用結果之間不同 → 判定不確定
+    # 一致性比對：四項欄位任一在「泛問讀」之間不同 → 判定不確定
+    # ⚠ zonal 讀不納入比對欄位集：泛問與 zonal 問法本來就會分歧，
+    #   分歧本身就是「這張圖有問題」的訊號，應判錯而非判不確定。
+    #   zonal 的作用在上面的 extra_limb 聯集（yes → 判錯）。
     inconsistent = []
     for key in ("legs", "limbs_correct", "face_ok", "text_free"):
-        values = {r.get(key) for r in usable if r.get(key) is not None}
+        values = {r.get(key) for r in generic_usable if r.get(key) is not None}
         if len(values) > 1:
             inconsistent.append(key)
 
@@ -2233,19 +2296,335 @@ def save_pose_verification(records, today):
     return path
 
 
+# ===== 重畫（--redraw-date）=====
+# 半配送復原（計畫 012 / T104）：配送被 timeout 砍掉時，圖已生成但
+# bears.json 沒寫。Hermes API server 會把每次產 prompt 的 user content
+# 完整存進 ~/.hermes/state.db 的 messages 表（欄位是 timestamp，沒有
+# created_at），可從那裡還原 metadata，不必重新抽名稱/風格/造型/姿勢。
+HERMES_STATE_DB = Path("/home/fjj04/.hermes/state.db")
+
+
+def _split_zh_en(value):
+    """把「中文 (english)」拆成 (zh, en)；沒有括號時回傳 (value, "")。"""
+    value = (value or "").strip()
+    m = re.match(r"^(.+?)\s*\((.+)\)\s*$", value)
+    if not m:
+        return value, ""
+    return m.group(1).strip(), m.group(2).strip()
+
+
+def _lookup_style_mood(style_zh):
+    """從 style-rotation.json 找回風格的 mood（只有模板 C 會用到）。"""
+    try:
+        rotation = load_json(STYLE_ROTATION)
+    except Exception:
+        return ""
+    for s in rotation.get("styles", []):
+        if s.get("zh") == style_zh:
+            return s.get("mood", "")
+    return ""
+
+
+def _recover_friend_info(friend_line, scenario):
+    """從「Friend info: a, b, c」還原 friend_info（用 bear-friends.json 反查）。
+
+    以池內的 en 字串在原句中的出現位置排序 → 保留原始順序（順序會影響
+    重新產 prompt 的 user content，必須一致）。池中找不到的成員 → zh 留空
+    （en 照抄，不臆造）。
+    """
+    pool = load_json(BEAR_FRIENDS)
+    types = pool.get("friend_types", [])
+    scenarios = pool.get("scenarios", {})
+
+    hits = []
+    for t in types:
+        en = (t.get("en") or "").strip()
+        if not en:
+            continue
+        pos = friend_line.find(en)
+        if pos >= 0:
+            hits.append((pos, {"zh": t.get("zh", ""), "en": en}))
+    hits.sort(key=lambda x: x[0])
+    friends = [h[1] for h in hits]
+
+    if not friends:
+        for part in friend_line.split(","):
+            en = part.strip()
+            if en:
+                friends.append({"zh": "", "en": en})
+
+    scenario_type = ""
+    for cat, items in scenarios.items():
+        if scenario in items:
+            scenario_type = cat
+            break
+
+    return {
+        "friends": friends,
+        "scenario_type": scenario_type,
+        "scenario": scenario,
+    }
+
+
+def _recover_conditions(condition_lines):
+    """從「- key: 中文 (english)」還原 conditions dict。"""
+    conditions = {}
+    for line in condition_lines:
+        m = re.match(r"^-\s*([A-Za-z_]+):\s*(.+)$", line.strip())
+        if not m:
+            continue
+        key, value = m.group(1), m.group(2).strip()
+        zh, en = _split_zh_en(value)
+        conditions[key] = {"zh": zh, "en": en}
+    return conditions
+
+
+def parse_bear_metadata_from_user_content(content):
+    """把 Hermes API 存的 user content（build_user_content 的輸出）還原成 metadata。
+
+    回傳 metadata dict；格式不符（缺關鍵欄位）時回傳 None — 不可臆造。
+    """
+    if not content:
+        return None
+
+    md = {
+        "name": "",
+        "style": {},
+        "style_zh": "",
+        "series": "",
+        "title": "",
+        "personality": "",
+        "quote": "",
+        "texture": {},
+        "friend_info": None,
+        "conditions": {},
+        "background_scene": "",
+        "composition": "",
+        "shape": {},
+        "pose": {},
+    }
+
+    friend_line = ""
+    scenario = ""
+    condition_lines = []
+    in_conditions = False
+
+    for raw_line in content.split("\n"):
+        line = raw_line.rstrip()
+        if not line.strip():
+            continue
+
+        if line.startswith("Bear name:"):
+            md["name"] = line.split(":", 1)[1].strip()
+            in_conditions = False
+            continue
+        if line.startswith("Art style:"):
+            zh, en = _split_zh_en(line.split(":", 1)[1].strip())
+            md["style"] = {"zh": zh, "en": en}
+            md["style_zh"] = zh
+            in_conditions = False
+            continue
+        if line.startswith("Series:"):
+            md["series"] = line.split(":", 1)[1].strip()
+            in_conditions = False
+            continue
+        if line.startswith("Title:"):
+            md["title"] = line.split(":", 1)[1].strip()
+            in_conditions = False
+            continue
+        if line.startswith("Personality:"):
+            md["personality"] = line.split(":", 1)[1].strip()
+            in_conditions = False
+            continue
+        if line.startswith("Quote ("):
+            m = re.match(r"^Quote \([^)]*\):\s*(.+)$", line)
+            if m:
+                md["quote"] = m.group(1).strip()
+            in_conditions = False
+            continue
+        if line.startswith("Texture:"):
+            zh, en = _split_zh_en(line.split(":", 1)[1].strip())
+            md["texture"] = {"zh": zh, "en": en}
+            in_conditions = False
+            continue
+        if line.startswith("Friend info:"):
+            friend_line = line.split(":", 1)[1].strip()
+            in_conditions = False
+            continue
+        if line.startswith("Scenario:"):
+            scenario = line.split(":", 1)[1].strip()
+            in_conditions = False
+            continue
+        if line.strip() == "Optional conditions:":
+            in_conditions = True
+            continue
+        if in_conditions and line.strip().startswith("- "):
+            condition_lines.append(line.strip())
+            continue
+        if line.startswith("Background scene:"):
+            md["background_scene"] = line.split(":", 1)[1].strip()
+            in_conditions = False
+            continue
+        if line.startswith("Composition:"):
+            md["composition"] = line.split(":", 1)[1].strip()
+            in_conditions = False
+            continue
+        m = re.match(r"^Bear form \([^)]*\):\s*(.+)$", line)
+        if m:
+            zh, en = _split_zh_en(m.group(1).strip())
+            md["shape"] = {"zh": zh, "en": en}
+            in_conditions = False
+            continue
+        m = re.match(r"^Bear pose \([^)]*\):\s*(.+)$", line)
+        if m:
+            zh, en = _split_zh_en(m.group(1).strip())
+            md["pose"] = {"zh": zh, "en": en}
+            in_conditions = False
+            continue
+        in_conditions = False
+
+    # 必要欄位缺一不可（缺 = 還原失敗，不可硬填）
+    if not md["name"] or not md["series"] or not md["title"] or not md["personality"]:
+        return None
+    if not md["style"].get("zh") or not md["shape"].get("zh") or not md["pose"].get("zh"):
+        return None
+
+    md["conditions"] = _recover_conditions(condition_lines)
+    if friend_line:
+        md["friend_info"] = _recover_friend_info(friend_line, scenario)
+    elif scenario:
+        md["friend_info"] = {"friends": [], "scenario_type": "", "scenario": scenario}
+
+    # 風格 mood（模板 C 會用；查不到就留空）
+    mood = _lookup_style_mood(md["style"].get("zh", ""))
+    if mood:
+        md["style"]["mood"] = mood
+
+    # 背景分類（能對到 bear-backgrounds.json 就補上，對不到留空）
+    bg_category = ""
+    backgrounds = BEAR_BACKGROUNDS.get("backgrounds", {})
+    for cat, scenes in backgrounds.items():
+        if md["background_scene"] in scenes:
+            bg_category = cat
+            break
+    md["background_category"] = bg_category
+
+    return md
+
+
+def recover_bear_metadata(date_str):
+    """從 Hermes state.db 還原某一天各隻熊的 metadata。
+
+    回傳 dict：{熊名: metadata}（依 timestamp 排序，重複名稱取最早）。
+    查不到就是查不到 —— 不做任何臆造。
+    """
+    import sqlite3
+
+    if not HERMES_STATE_DB.exists():
+        log(f"❌ 找不到 state.db：{HERMES_STATE_DB}")
+        return {}
+
+    try:
+        day = datetime.strptime(date_str, "%Y-%m-%d").date()
+    except ValueError:
+        log(f"❌ 日期格式錯誤：{date_str}（應為 YYYY-MM-DD）")
+        return {}
+
+    start_ts = datetime.combine(day, datetime.min.time()).timestamp()
+    end_ts = datetime.combine(day + timedelta(days=1), datetime.min.time()).timestamp()
+
+    con = sqlite3.connect(f"file:{HERMES_STATE_DB}?mode=ro", uri=True)
+    try:
+        rows = con.execute(
+            "SELECT id, content, timestamp FROM messages "
+            "WHERE role = 'user' "
+            "  AND content LIKE 'Bear name:%' "
+            "  AND content LIKE '%Art style:%' "
+            "  AND content LIKE '%Personality:%' "
+            "  AND content LIKE '%Bear form (%' "
+            "  AND content LIKE '%Bear pose (%' "
+            "  AND timestamp >= ? AND timestamp < ? "
+            "ORDER BY timestamp ASC, id ASC",
+            (start_ts, end_ts),
+        ).fetchall()
+    finally:
+        con.close()
+
+    recovered = {}
+    for _mid, content, _ts in rows:
+        md = parse_bear_metadata_from_user_content(content)
+        if not md:
+            continue
+        name = md["name"]
+        if name in recovered:
+            continue
+        recovered[name] = md
+    return recovered
+
+
+def load_redraw_target_names(date_str):
+    """讀該日的熊名清單（verification json/log + 當日配送 log）；沒有回傳 None。
+
+    用來篩選哪些要重畫。多個來源取聯集（寧可多畫，不可漏畫）；
+    全部都沒有時回傳 None → 呼叫端改用 state.db 找到的所有當日熊。
+    """
+    names = []
+
+    def _add(items):
+        for n in items or []:
+            if n and n not in names:
+                names.append(n)
+
+    # 1. verification-<date>.json
+    json_path = LOG_DIR / f"verification-{date_str}.json"
+    if json_path.exists():
+        try:
+            records = load_json(json_path)
+        except Exception:
+            records = []
+        if isinstance(records, list):
+            _add([r.get("name") for r in records
+                  if isinstance(r, dict) and r.get("name")])
+
+    # 2. verification-<date>.log / <date>.log 的「熊熊: [...]」行
+    for log_name in (f"verification-{date_str}.log", f"{date_str}.log"):
+        log_path = LOG_DIR / log_name
+        if not log_path.exists():
+            continue
+        try:
+            txt = log_path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        m = re.search(r"熊熊:\s*(\[.*?\])", txt)
+        if not m:
+            continue
+        try:
+            _add(list(ast.literal_eval(m.group(1))))
+        except Exception:
+            pass
+
+    return names or None
+
+
 # ===== 配送步驟 =====
 
-def step_generate_prompts(metadata_list, today, collection_no_start, config):
+def step_generate_prompts(metadata_list, today, collection_no_start, config,
+                          collection_nos=None):
     """為每隻熊熊產生 prompt。
 
     回傳 (results, failed_count)。results 每筆含 metadata / prompt / info。
     失敗的熊熊不產圖，且不使用模板 C 補位。
+
+    collection_nos：可選，指定每隻的館藏編號（重畫時沿用原編號）；
+    未指定則從 collection_no_start 起依序遞增。
     """
     results = []
     failed = 0
     collection_no = collection_no_start
 
-    for metadata in metadata_list:
+    for idx, metadata in enumerate(metadata_list):
+        if collection_nos is not None:
+            collection_no = collection_nos[idx]
         try:
             prompt, info = generate_prompt_via_model(
                 metadata["name"],
@@ -2698,8 +3077,175 @@ def dump_dryrun_report(metadata_list, prompt_results, today, config):
     return out_path
 
 
+def run_redraw(config):
+    """重畫指定日期的熊熊（沿用該日已生成的 metadata）。
+
+    流程（計畫 012）：
+      1. 從 Hermes state.db 還原該日各隻的 metadata（不重新抽名稱/風格/造型/姿勢）
+      2. 用還原的 metadata 走既有 generate_prompt_via_model() → 生圖 → 驗圖流程
+      3. 通過驗圖的才寫 bears.json（date = redraw_date），圖寫到 bears/<redraw_date>/
+      4. 館藏編號從 get_max_collection_no() + 1 起（11/17 沒寫進 bears.json → 從 #915 起重用原編號）
+      5. metadata 還原不到 → 跳過該隻並記錄失敗（不可臆造 metadata）
+    """
+    redraw_date = config.redraw_date
+    init_log_file(redraw_date, dry_run=config.dry_run,
+                  suffix=config.log_suffix or ("-dryrun" if config.dry_run else "-redraw"))
+
+    log("===== 熊熊重畫計畫 =====")
+    log(f"重畫日期: {redraw_date}")
+    log(f"暫存目錄: {config.temp_dir / redraw_date}")
+    log(f"目的目錄: {config.dest_dir / redraw_date}")
+
+    log("\n--- 步驟 1: 檢查系統狀態 ---")
+    comfyui_online = check_comfyui(config)
+    log(f"ComfyUI: {'✓ 在線' if comfyui_online else '✗ 離線'}")
+
+    log("\n--- 步驟 2: 從 state.db 還原當日 metadata ---")
+    recovered = recover_bear_metadata(redraw_date)
+    if not recovered:
+        log(f"❌ 從 state.db 還原不到 {redraw_date} 的任何 metadata（session 可能已清理）")
+        log("重畫中止：沒有 metadata 就不可能重畫（不可臆造）")
+        send_failure_summary(redraw_date, 0, enabled=config.notify)
+        return 1
+    log(f"已還原 {len(recovered)} 隻 metadata: {list(recovered.keys())}")
+
+    # 要重畫哪些：優先用當日驗圖紀錄的熊名；沒有紀錄就用 state.db 找到的全部
+    target_names = load_redraw_target_names(redraw_date)
+    if target_names:
+        log(f"當日熊名清單（驗圖紀錄）: {target_names}")
+        wanted = set(target_names)
+    else:
+        target_names = list(recovered.keys())
+        wanted = set(target_names)
+        log("查不到當日驗圖紀錄 → 改用 state.db 找到的全部當日熊")
+
+    # 清單裡有、但 state.db 還原不到 → 記錄失敗（不可臆造 metadata）
+    for name in target_names:
+        if name not in recovered:
+            record_failure(
+                redraw_date, get_max_collection_no() + 1, name, 1,
+                "metadata 還原失敗：state.db 中查不到該日的 user content",
+                stage="metadata_recovery", backend="state-db",
+            )
+            log(f"  ⚠ 查不到 {name} 的 metadata（state.db）→ 跳過該隻")
+
+    # 依 state.db 的 timestamp 順序（＝原配送順序）走 → 館藏編號能重用原編號
+    metadata_list = []
+    collection_nos = []
+    collection_no_start = get_max_collection_no() + 1
+    next_no = collection_no_start
+
+    for name, md in recovered.items():
+        if name not in wanted:
+            continue
+        if len(metadata_list) >= config.redraw_count:
+            break
+        metadata_list.append(md)
+        collection_nos.append(next_no)
+        next_no += 1
+
+    if not metadata_list:
+        log("❌ 沒有任何可重畫的熊（metadata 全部還原失敗）")
+        send_failure_summary(redraw_date, len(target_names), enabled=config.notify)
+        return 1
+
+    log(f"重畫清單（{len(metadata_list)} 隻，館藏編號 "
+        f"{collection_nos[0]}–{collection_nos[-1]}）:")
+    for md, no in zip(metadata_list, collection_nos):
+        log(f"  #{no} {md['name']} / {md['style'].get('zh', '')} / "
+            f"{md.get('shape', {}).get('zh', '')} / {md.get('pose', {}).get('zh', '')}")
+
+    log("\n--- 步驟 3: 準備目錄 ---")
+    if not config.dry_run:
+        (config.temp_dir / redraw_date).mkdir(parents=True, exist_ok=True)
+        (config.dest_dir / redraw_date).mkdir(parents=True, exist_ok=True)
+
+    log("\n--- 步驟 4: 生成提示詞 ---")
+    prompt_results, failed = step_generate_prompts(
+        metadata_list, redraw_date, collection_no_start, config,
+        collection_nos=collection_nos,
+    )
+
+    if config.dry_run:
+        log("")
+        for entry in prompt_results:
+            if entry["failed"]:
+                log(f"  No.{entry['collection_no']} {entry['metadata']['name']}："
+                    f"提示詞生成失敗")
+            else:
+                log(f"  No.{entry['collection_no']} {entry['metadata']['name']}")
+                log(f"    {entry['prompt']}")
+        log("")
+        log(f"dry-run 統計：共 {len(metadata_list)} 隻，成功 "
+            f"{len(metadata_list) - failed} 隻，失敗 {failed} 隻")
+        log("dry-run 完成：未生圖、未寫 bears.json、未 commit、未 deploy")
+        send_failure_summary(redraw_date, len(metadata_list), enabled=config.notify,
+                              prompt_results=prompt_results)
+        return 0
+
+    if failed and failed == len(metadata_list):
+        log("\n!!! 全部失敗，中止重畫")
+        log("重畫已中止，未寫入 bears.json、未 commit、未 deploy。")
+        send_failure_summary(redraw_date, len(metadata_list), enabled=config.notify,
+                              prompt_results=prompt_results)
+        return 1
+
+    log("\n--- 步驟 5: 生成圖片 ---")
+    if failed:
+        log(f"（{failed} 隻因提示詞生成失敗而跳過，不使用模板 C 補位）")
+    generated, failed = step_generate_images(
+        prompt_results, redraw_date, config, comfyui_online
+    )
+
+    if config.mode == "step4":
+        log("\n[step4] 生圖完成，圖片保留於暫存目錄，未複製、未更新 bears.json")
+        send_failure_summary(redraw_date, len(metadata_list), enabled=config.notify,
+                              prompt_results=prompt_results)
+        return 0
+
+    log("\n--- 步驟 6: 更新熊熊博物館 ---")
+    new_bears = step_update_museum(generated, redraw_date, config)
+
+    if config.mode == "step5":
+        log("\n[step5] 博物館更新完成，未 commit、未部署")
+        send_failure_summary(redraw_date, len(metadata_list), enabled=config.notify,
+                              prompt_results=prompt_results)
+        return 0
+
+    if not new_bears:
+        log("\n沒有新增熊熊，跳過 commit 與部署")
+        send_failure_summary(redraw_date, len(metadata_list), enabled=config.notify,
+                              prompt_results=prompt_results)
+        return 0
+
+    send_failure_summary(redraw_date, len(metadata_list), enabled=config.notify,
+                          prompt_results=prompt_results)
+
+    log("\n--- 步驟 7: Git Commit ---")
+    # 重畫只動 bears.json 與 bears/<日期>/（不碰 style-rotation 等其他池檔案）
+    run_cmd(f"cd {PROJECT_DIR} && git add bears.json bears/{redraw_date}")
+    run_cmd(f'cd {PROJECT_DIR} && git commit -m "重畫 {redraw_date} 熊熊"')
+    run_cmd(f"cd {PROJECT_DIR} && git push")
+    log("Git push 完成")
+
+    log("\n--- 步驟 8: 部署到 Cloudflare Pages ---")
+    run_cmd(
+        f"cd {PROJECT_DIR} && npx wrangler pages deploy . "
+        f"--project-name kumaweb --branch main --no-install-skills --commit-dirty=true"
+    )
+
+    log(f"\n===== 完成（重畫 {len(new_bears)} 隻）=====")
+    log("到 https://kumaweb.pages.dev 觀看結果")
+    return 0
+
+
 def main(config):
     today = get_today()
+
+    # 重畫模式（--redraw-date）：走獨立流程，不抽名稱/風格/造型/姿勢
+    if config.redraw_date:
+        return run_redraw(config)
+
     init_log_file(today, dry_run=config.dry_run, suffix=config.log_suffix)
 
     log("===== 熊熊每日配送計畫 =====")
@@ -2898,6 +3444,10 @@ if __name__ == "__main__":
                         help="log 檔名後綴（例：-trial → logs/2026-10-29-trial.log；不影響歷史統計）")
     parser.add_argument("--compositions", default="",
                         help="以逗號分隔指定當天各隻的構圖，覆寫隨機選樣（例：a,b,c）")
+    parser.add_argument("--redraw-date", default="",
+                        help="重畫指定日期的熊熊（沿用該日已生成的 metadata，不重新抽名稱/風格/造型/姿勢）")
+    parser.add_argument("--redraw-count", type=int, default=6,
+                        help="重畫幾隻（預設 6；實際隻數受當日可還原的 metadata 數量限制）")
     args = parser.parse_args()
 
     comfy_w, comfy_h = args.comfy_size
@@ -2916,6 +3466,8 @@ if __name__ == "__main__":
         notify=not args.no_notify,
         log_suffix=args.log_suffix,
         compositions=args.compositions,
+        redraw_date=args.redraw_date,
+        redraw_count=args.redraw_count,
     )
 
     globals()["HERMES_API_URL"] = args.hermes_api_url
