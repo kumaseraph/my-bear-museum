@@ -153,8 +153,14 @@ VISION_TIMEOUT = 120
 # 推理就會吃光額度、導致 content 為 None（實測 200 → 無輸出；3000 → 正常）。
 VISION_MAX_TOKENS = 8000
 VERIFY_REGENERATE_MAX = 2         # 驗圖失敗（熊臉／肢體數量／有文字）時的重生上限；姿勢不觸發重生
-# 同一張圖連續驗幾次（計畫 011）：單次判定＝擲硬幣，四項判定不一致視為不確定 → 重生
-VERIFY_IMAGE_ATTEMPTS = 3
+# 讀取計畫（計畫 013）：泛問 2 次 + zonal（指定區域追問）3 次 = 5 次。
+# zonal 必須佔多數的理由：zonal 是唯一能抓到「長在胸口／腹部／腿縫的第五隻腳」的
+# 問法（計畫 012 / T102 實測：泛問在 3 張真缺陷圖上全部漏判，zonal 至少一讀全部命中）。
+# 11/17 實測：3 次讀取的聯集只要最後一次讀回 no 就會漏判（#916／#917 被誤放行），
+# 樣本太小覆蓋不了模型的隨機性 → 讀取次數拉高到 5 次。
+GENERIC_READS = 2
+ZONAL_READS = 3
+VERIFY_IMAGE_ATTEMPTS = GENERIC_READS + ZONAL_READS
 
 
 MIN_PROMPT_WORDS = 150       # 最少英文單字數（非字元數）
@@ -1985,7 +1991,7 @@ Important: count every limb you can actually see, including raised, lifted or ex
 # 實測：同一支 MiniMax 視覺模型、同一批圖，泛問在 3 張「真的有第五隻腳」的圖上
 # 全部漏判（回 legs=3 / EXTRA=no），還在乾淨圖上假陽性；指定區域追問則
 # 至少一讀全部命中（5/yes），乾淨圖兩讀穩定 no。
-# 閘門改為「泛問 2 次 + zonal 1 次」聯集：任一讀到 extra_limb=yes 就判錯。
+# 閘門改為「泛問 2 次 + zonal 3 次」聯集（計畫 013）：任一讀到 extra_limb=yes 就判錯。
 ZONAL_EXTRA_LIMB_PROMPT = (
     "Look specifically at the bear's CHEST, BELLY and BACK, and in the gap between "
     "any raised leg and the body. A fifth limb often hides in exactly those places "
@@ -2196,12 +2202,38 @@ def _compact_attempt(result):
     }
 
 
-def verify_image(image_path, attempts=VERIFY_IMAGE_ATTEMPTS):
-    """驗圖：同一張圖連續驗 attempts 次（預設 3 次），比對四項關鍵判定。
+def _build_read_plan(attempts):
+    """回傳每次讀取要用哪種問法的清單（True = zonal，False = 泛問）。
 
-    讀取計畫（計畫 012）：泛問 2 次 + zonal（指定區域追問）1 次。
+    讀取計畫（計畫 013）：泛問 2 次 + zonal 3 次 = 5 次。
+    zonal 佔多數的理由：zonal 是唯一能抓到「長在胸口／腹部／腿縫的第五隻腳」的
+    問法（T102 實測：泛問在 3 張真缺陷圖上全部漏判，zonal 至少一讀全部命中）。
+    3 次讀取時只要最後一次讀回 no 就會漏（11/17 的 #916／#917 即是如此），
+    樣本太小覆蓋不了模型的隨機性 → 讀取次數拉高、且讓 zonal 成為多數。
+
+    計畫不從「最後一次」推導，而是明確排定：泛問 2 次在前、zonal 3 次在後。
+    泛問在前是為了讓 base 判定優先採用泛問讀的結果（zonal 有「不確定就說 yes」
+    的偏向，不宜當基準值）。
+    """
+    if attempts <= 0:
+        return []
+    # 依計畫比例縮放：泛問佔 2/5、zonal 佔 3/5（zonal 佔多數）。
+    plan_total = GENERIC_READS + ZONAL_READS
+    generic = min(GENERIC_READS, int(round(attempts * GENERIC_READS / plan_total)))
+    # attempts >= 2 時至少保留 1 次泛問讀，讓 base 有泛問來源可採用
+    if attempts >= 2:
+        generic = max(1, generic)
+    generic = min(generic, attempts - 1)
+    zonal = attempts - generic
+    return [False] * generic + [True] * zonal
+
+
+def verify_image(image_path, attempts=VERIFY_IMAGE_ATTEMPTS):
+    """驗圖：同一張圖連續驗 attempts 次（預設 5 次 = 泛問 2 + zonal 3）。
+
+    讀取計畫（計畫 013）：泛問 2 次 + zonal（指定區域追問）3 次。
     泛問會系統性漏判長在胸口／腹部／腿縫的第五隻腳（實測 3 張真缺陷圖
-    全部漏判），zonal 問法才抓得到 → 兩種問法取「聯集」。
+    全部漏判），zonal 問法才抓得到 → 兩種問法取「聯集」，且 zonal 佔多數。
 
     合併規則：
       - extra_limb：任一讀回 True 就是 True（zonal 的 yes 不被泛問的 no 洗掉）
@@ -2210,23 +2242,21 @@ def verify_image(image_path, attempts=VERIFY_IMAGE_ATTEMPTS):
         （extra_limb 不納入 —— 泛問與 zonal 本來就會分歧，分歧本身就是
           「這張圖有問題」的訊號，應判錯而非判不確定）
 
-      - 四項三次都一致 → 採用該結果，並附 vision_attempts（三次原始判定）
+      - 四項在泛問讀之間都一致 → 採用該結果，並附 vision_attempts（各次原始判定）
       - 任一項不一致 → 判定不確定（uncertain=True），且 limbs_correct 視為 False
         → 呼叫端會因此重生（計畫 011：同一張圖重跑判定會翻盤，單次判定＝擲硬幣）
-      - 三次都呼叫失敗 → ok=False（無法判定），沿用舊語意：保留原圖、不重生
+      - 全部呼叫失敗 → ok=False（無法判定），沿用舊語意：保留原圖、不重生
 
     ok=False 表示無法判定（呼叫失敗）→ 呼叫端不得因此重生。
     任何例外都不得向上拋出，配送流程不可中斷。
     """
     attempt_results = []
-    for i in range(attempts):
-        # 讀取計畫：泛問 2 次 + zonal 1 次（zonal 放最後一次，
-        # 讓 base 判定優先採用泛問結果，zonal 只做「有沒有第五隻腳」的聯集補強）
-        zonal = (attempts >= 2 and i == attempts - 1)
+    read_plan = _build_read_plan(attempts)
+    for i, zonal in enumerate(read_plan):
         r = verify_pose_via_vision(image_path, zonal=zonal)
         attempt_results.append(r)
         if not r.get("ok"):
-            log(f"    驗圖第 {i + 1}/{attempts} 次無法判定：{r.get('error') or '未知錯誤'}")
+            log(f"    驗圖第 {i + 1}/{len(read_plan)} 次無法判定：{r.get('error') or '未知錯誤'}")
 
     usable = [r for r in attempt_results if r.get("ok")]
     generic_usable = [r for r in usable if not r.get("zonal")]
