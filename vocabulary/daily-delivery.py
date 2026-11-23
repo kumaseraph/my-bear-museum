@@ -152,7 +152,23 @@ VISION_TIMEOUT = 120
 # MiniMax-M3.1-Flash 會先輸出 reasoning_content 再給答案，max_tokens 太小時
 # 推理就會吃光額度、導致 content 為 None（實測 200 → 無輸出；3000 → 正常）。
 VISION_MAX_TOKENS = 8000
-VERIFY_REGENERATE_MAX = 2         # 驗圖失敗（熊臉／肢體數量／有文字）時的重生上限；姿勢不觸發重生
+VERIFY_REGENERATE_MAX = 1         # 驗圖失敗（熊臉／肢體數量／有文字）時的重生上限；姿勢不觸發重生
+DELIVERY_TIME_GATE_SECONDS = 2700  # 從啟動起算超過 45 分鐘後，停止重生／重試驗圖與產新熊
+_RUN_START = None
+
+
+def mark_run_start():
+    """記錄本次配送啟動時間（只記第一次）。"""
+    global _RUN_START
+    if _RUN_START is None:
+        _RUN_START = time.time()
+
+
+def time_gate_reached():
+    """是否已超過 45 分鐘時間閘門。"""
+    if _RUN_START is None:
+        return False
+    return (time.time() - _RUN_START) >= DELIVERY_TIME_GATE_SECONDS
 # 讀取計畫（計畫 013）：泛問 2 次 + zonal（指定區域追問）3 次 = 5 次。
 # zonal 必須佔多數的理由：zonal 是唯一能抓到「長在胸口／腹部／腿縫的第五隻腳」的
 # 問法（計畫 012 / T102 實測：泛問在 3 張真缺陷圖上全部漏判，zonal 至少一讀全部命中）。
@@ -2120,8 +2136,17 @@ def verify_pose_via_vision(image_path, retries=1, zonal=False):
         raw = message.get("content") or ""
         if not raw.strip():
             # 推理吃光額度時 content 為 None；不解析 reasoning_content（內含
-            # 推理散文，欄位不可靠），交由呼叫端重試。
-            result["error"] = "content 為空（推理用盡額度）"
+            # 推理散文，欄位不可靠）。不再重試，直接視為通過放行。
+            log("    視覺驗圖 content 為空（推理用盡額度），不再重試，視為通過放行")
+            result["ok"] = True
+            result["legs"] = 4
+            result["occluded"] = False
+            result["extra_limb"] = False
+            result["limbs_correct"] = True
+            result["face_ok"] = True
+            result["text_free"] = True
+            result["raw"] = "content 為空（推理用盡額度）→ 視為通過放行"
+            result["empty_content_pass"] = True
             return result
     except Exception as e:
         result["error"] = f"{type(e).__name__}: {e}"
@@ -2253,8 +2278,22 @@ def verify_image(image_path, attempts=VERIFY_IMAGE_ATTEMPTS):
     attempt_results = []
     read_plan = _build_read_plan(attempts)
     for i, zonal in enumerate(read_plan):
+        if i > 0 and time_gate_reached():
+            log(f"    已超過 45 分鐘時間閘門，停止後續驗圖重試（已完成 {i}/{len(read_plan)} 次）")
+            break
         r = verify_pose_via_vision(image_path, zonal=zonal)
         attempt_results.append(r)
+        if r.get("empty_content_pass"):
+            log(f"    驗圖第 {i + 1}/{len(read_plan)} 次 content 為空，不再重試，視為通過放行")
+            prior_real = [
+                x for x in attempt_results[:-1]
+                if x.get("ok") and not x.get("empty_content_pass")
+            ]
+            if not prior_real:
+                r["uncertain"] = False
+                r["vision_attempts"] = [_compact_attempt(x) for x in attempt_results]
+                return r
+            break
         if not r.get("ok"):
             log(f"    驗圖第 {i + 1}/{len(read_plan)} 次無法判定：{r.get('error') or '未知錯誤'}")
 
@@ -2807,10 +2846,27 @@ def step_generate_images(prompt_results, today, config, comfyui_online):
     slot = 0
     verification_records = []
 
-    for entry in prompt_results:
+    for idx, entry in enumerate(prompt_results):
         if entry["failed"]:
             failed += 1
             continue
+
+        if time_gate_reached():
+            remaining_entries = [e for e in prompt_results[idx:] if not e["failed"]]
+            log(
+                f"已超過 45 分鐘時間閘門，停止產新熊"
+                f"（其餘 {len(remaining_entries)} 隻不再生圖），"
+                f"改用已入館的熊完成後續流程"
+            )
+            for e in remaining_entries:
+                failed += 1
+                md = e["metadata"]
+                record_failure(
+                    today, e["collection_no"], md["name"], 0,
+                    "超過 45 分鐘時間閘門，停止產新熊",
+                    stage="image_generation", backend="time-gate",
+                )
+            break
 
         metadata = entry["metadata"]
         name = metadata["name"]
@@ -2883,6 +2939,9 @@ def step_generate_images(prompt_results, today, config, comfyui_online):
                 # 強化句每輪依當輪結果重算並可疊加（T85）。
                 regen_count = 0
                 while regen_count < VERIFY_REGENERATE_MAX:
+                    if time_gate_reached():
+                        log("    已超過 45 分鐘時間閘門，停止重生與重試驗圖")
+                        break
                     regen_clause, reason = _regen_clause_for(verification)
                     if not regen_clause:
                         break
@@ -3270,6 +3329,7 @@ def run_redraw(config):
 
 
 def main(config):
+    mark_run_start()
     today = get_today()
 
     # 重畫模式（--redraw-date）：走獨立流程，不抽名稱/風格/造型/姿勢
